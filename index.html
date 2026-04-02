@@ -187,16 +187,21 @@ const pD=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
 const gdow=d=>{const v=d.getDay();return v===0?6:v-1};
 const SK="gym-log-v3",TK="gym-log-theme",LK="gym-log-lang",UK="gym-log-user",FK="gym-log-feedback";
 const eDays=()=>({"0":[],"1":[],"2":[],"3":[],"4":[],"5":[],"6":[]});
-const init=()=>({exercises:[],workouts:{},programs:{},dailyPrograms:{},activeProgram:null,durations:{},measurements:{}});
-const migrateData=(d)=>{if(!d)return d;if(d.exercises){d.exercises=d.exercises.map(e=>{if(e.category&&!e.categories){return{...e,categories:[e.category]}}return e})}if(!d.dailyPrograms)d.dailyPrograms={};if(!d.measurements)d.measurements={};return d};
+const SET_TYPES=["working","warmup","drop","failure"];
+const ST_LABELS_TR={working:"Normal",warmup:"Isınma",drop:"Drop",failure:"Failure"};
+const ST_LABELS_EN={working:"Working",warmup:"Warm-up",drop:"Drop",failure:"Failure"};
+const ST_COLORS={working:"blue",warmup:"orange",drop:"purple",failure:"red"};
+const REST_PRESETS=[30,60,90,120,180,300];
+const init=()=>({exercises:[],workouts:{},programs:{},dailyPrograms:{},activeProgram:null,durations:{},measurements:{},dayNotes:{},exerciseNotes:{}});
+const migrateData=(d)=>{if(!d)return d;if(d.exercises){d.exercises=d.exercises.map(e=>{if(e.category&&!e.categories){return{...e,categories:[e.category]}}return e})}if(!d.dailyPrograms)d.dailyPrograms={};if(!d.measurements)d.measurements={};if(!d.dayNotes)d.dayNotes={};if(!d.exerciseNotes)d.exerciseNotes={};return d};
 const calc1RM=(w,r)=>{if(!w||!r||r<=0)return 0;if(r===1)return w;return Math.round(w*(1+r/30)*10)/10};
 const calcBrzycki=(w,r)=>{if(!w||!r||r<=0)return 0;if(r===1)return w;if(r>=37)return w*2;return Math.round(w*(36/(37-r))*10)/10};
 const calcStreak=(workouts)=>{let streak=0;const t=new Date();t.setHours(0,0,0,0);for(let i=0;i<365;i++){const d=new Date(t);d.setDate(d.getDate()-i);const k=fmt(d);if(workouts[k]&&workouts[k].some(w=>w.sets&&w.sets.length>0)){streak++}else if(i>0)break}return streak};
 const calcWeekFreq=(workouts,exercises)=>{const now=new Date();const freq={};CATS.forEach(c=>freq[c]=0);for(let i=0;i<7;i++){const d=new Date(now);d.setDate(d.getDate()-i);const k=fmt(d);const ws=workouts[k]||[];ws.forEach(w=>{if(w.sets&&w.sets.length>0){const ex=exercises.find(e=>e.id===w.exerciseId);if(ex){(ex.categories||[]).forEach(c=>{freq[c]=(freq[c]||0)+1})}}});}return freq};
 const calcMonthFreq=(workouts,exercises)=>{const now=new Date();const freq={};CATS.forEach(c=>freq[c]=0);for(let i=0;i<30;i++){const d=new Date(now);d.setDate(d.getDate()-i);const k=fmt(d);const ws=workouts[k]||[];ws.forEach(w=>{if(w.sets&&w.sets.length>0){const ex=exercises.find(e=>e.id===w.exerciseId);if(ex){(ex.categories||[]).forEach(c=>{freq[c]=(freq[c]||0)+1})}}});}return freq};
 const getAllPRs=(workouts,exercises)=>{const prs={};exercises.forEach(ex=>{let maxW=0,maxVol=0,max1RM=0;Object.values(workouts).forEach(dayW=>{const f=dayW.find(w=>w.exerciseId===ex.id);if(f)f.sets.forEach(s=>{if(s.weight>maxW)maxW=s.weight;const vol=s.weight*s.reps;if(vol>maxVol)maxVol=vol;const rm=calc1RM(s.weight,s.reps);if(rm>max1RM)max1RM=rm})});if(maxW>0)prs[ex.id]={maxWeight:maxW,maxVolume:maxVol,est1RM:Math.round(max1RM)}});return prs};
-const TR={calendar:"Takvim",exercises:"Hareketler",programs:"Programlar",feedback:"Geri Bildirim",today:"Bugün",month:"Ay",week:"Hafta",addExercise:"Hareket Ekle",newExercise:"Yeni Hareket",exerciseName:"Hareket adı...",searchExercise:"Hareket ara...",noExercises:"Henüz hareket eklenmemiş.",notFound:"Hareket bulunamadı.",save:"Kaydet",saved:"Kaydedildi!",cancel:"İptal",addSet:"+ Set Ekle",set:"SET",kg:"KG",reps:"TEKRAR",rir:"RIR",backToCalendar:"← Takvim",todayLabel:"Bugün",more:"daha",programExercises:"Programdaki Hareketler",newProgram:"Yeni Program",programName:"Program adı...",editProgram:"Programı Düzenle",active:"AKTİF",activate:"Aktif Et",deactivate:"Pasif",activeProgram:"Aktif Program",confirmDeleteEx:"Bu hareketi ve tüm kayıtlarını silmek istiyor musun?",confirmDeletePg:"Silmek istiyor musun?",createProgram:"Haftanın günlerine göre program oluştur.",history:"Geçmiş",pr:"PR",maxKg:"Max",volume:"Hacim",noHistory:"Henüz kayıt yok.",close:"Kapat",login:"Giriş Yap",register:"Kayıt Ol",email:"E-posta",password:"Şifre",fullname:"Ad Soyad",confirmPw:"Şifre Tekrar",noAccount:"Hesabın yok mu?",hasAccount:"Zaten hesabın var mı?",logout:"Çıkış Yap",feedbackTitle:"Geri Bildirim Gönder",feedbackMsg:"Mesajınız...",feedbackBug:"Hata",feedbackFeature:"Özellik İsteği",feedbackGeneral:"Genel",feedbackOther:"Diğer",feedbackCat:"Kategori",feedbackRating:"Puan",feedbackSubmit:"Gönder",feedbackSent:"Geri bildirim gönderildi!",feedbackPrev:"Önceki Geri Bildirimler",feedbackNone:"Henüz geri bildirim yok.",timer:"Kronometre",timerStart:"Başlat",timerStop:"Durdur",timerReset:"Sıfırla",timerSave:"Süreyi Kaydet",timerSaved:"Süre kaydedildi!",timerTotal:"Toplam Antrenman",guestWarn:"Giriş yapmadan verileriniz sadece bu cihazda saklanır. Kaybolmaması için giriş yapın.",guestLogin:"Giriş Yap / Kayıt Ol",guest:"Misafir",days:["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"],daysFull:["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"],months:["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],cats:["Göğüs","Sırt","Omuz","Biceps","Triceps","Bacak","Trapez","Kalça","Kalf","Boyun","Bilek","Karın","Kardiyo","Diğer"],weeklyProgram:"Haftalık Program",dailyProgram:"Günlük Program",dailyPrograms:"Günlük Programlar",addDailyProgram:"Günlük Programı Ekle",selectDailyProgram:"Günlük Program Seç",noDailyPrograms:"Henüz günlük program yok.",programType:"Program Türü",dailyProgramExercises:"Programdaki Hareketler",createDailyProgram:"Hareketlerden oluşan günlük program oluştur.",customExercise:"Kendin Ekle",presetExercises:"Hazır Hareketler",addSelected:"Seçilenleri Ekle",allCategories:"Tümü",alreadyAdded:"Zaten ekli",presetDesc:"Spora yeni başlayanlar için hazır hareket listesi",dashboard:"Panel",dashTotalWorkouts:"Toplam Antrenman",dashTotalSets:"Toplam Set",dashTotalVolume:"Toplam Hacim",dashStreak:"Seri",dashStreakDays:"gün üst üste",dashThisWeek:"Bu Hafta",dashThisMonth:"Bu Ay",dashPRs:"Kişisel Rekorlar",dashNoPRs:"Henüz PR yok. Antrenman yapmaya başla!",dashMuscleFreq:"Kas Grubu Sıklığı",dashWeekly:"Haftalık",dashMonthly:"Aylık",dashProgress:"İlerleme Grafiği",dashSelectEx:"Hareket seç...",dashWeight:"Ağırlık",dashVolPerSet:"Set Başı Hacim",dashEst1RM:"Tahmini 1RM",dashNoData:"Bu hareket için veri yok.",dashBestSet:"En İyi Set",dashAvgWeight:"Ort. Ağırlık",dashSessions:"Seans",dashExProgress:"Hareket İlerlemesi",dashOverview:"Genel Bakış",dashFrequency:"Sıklık",times:"kez",kg:"kg",est1RMLabel:"Tahmini 1RM (Epley)",brzycki1RM:"Brzycki 1RM",weekLabel:"hafta",workoutDays:"Antrenman Günü",noWorkoutsYet:"Henüz antrenman verisi yok. Takvimden bir güne tıklayıp antrenman eklemeye başla!"};
-const EN={calendar:"Calendar",exercises:"Exercises",programs:"Programs",feedback:"Feedback",today:"Today",month:"Month",week:"Week",addExercise:"Add Exercise",newExercise:"New Exercise",exerciseName:"Exercise name...",searchExercise:"Search exercise...",noExercises:"No exercises added yet.",notFound:"Exercise not found.",save:"Save",saved:"Saved!",cancel:"Cancel",addSet:"+ Add Set",set:"SET",kg:"KG",reps:"REPS",rir:"RIR",backToCalendar:"← Calendar",todayLabel:"Today",more:"more",programExercises:"Program Exercises",newProgram:"New Program",programName:"Program name...",editProgram:"Edit Program",active:"ACTIVE",activate:"Activate",deactivate:"Deactivate",activeProgram:"Active Program",confirmDeleteEx:"Delete this exercise and all its records?",confirmDeletePg:"Are you sure you want to delete?",createProgram:"Create a weekly workout program.",history:"History",pr:"PR",maxKg:"Max",volume:"Volume",noHistory:"No records yet.",close:"Close",login:"Login",register:"Register",email:"Email",password:"Password",fullname:"Full Name",confirmPw:"Confirm Password",noAccount:"Don't have an account?",hasAccount:"Already have an account?",logout:"Logout",feedbackTitle:"Send Feedback",feedbackMsg:"Your message...",feedbackBug:"Bug",feedbackFeature:"Feature Request",feedbackGeneral:"General",feedbackOther:"Other",feedbackCat:"Category",feedbackRating:"Rating",feedbackSubmit:"Submit",feedbackSent:"Feedback submitted!",feedbackPrev:"Previous Feedback",feedbackNone:"No feedback yet.",timer:"Timer",timerStart:"Start",timerStop:"Stop",timerReset:"Reset",timerSave:"Save Time",timerSaved:"Time saved!",timerTotal:"Total Workout",guestWarn:"Without signing in, your data is only saved on this device. Sign in to keep it safe.",guestLogin:"Login / Register",guest:"Guest",days:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],daysFull:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],cats:["Chest","Back","Shoulder","Biceps","Triceps","Leg","Traps","Hip","Calf","Neck","Wrist","Core","Cardio","Other"],weeklyProgram:"Weekly Program",dailyProgram:"Daily Program",dailyPrograms:"Daily Programs",addDailyProgram:"Add Daily Program",selectDailyProgram:"Select Daily Program",noDailyPrograms:"No daily programs yet.",programType:"Program Type",dailyProgramExercises:"Program Exercises",createDailyProgram:"Create a daily workout program from exercises.",customExercise:"Custom",presetExercises:"Preset Exercises",addSelected:"Add Selected",allCategories:"All",alreadyAdded:"Already added",presetDesc:"Ready-made exercises for beginners",dashboard:"Dashboard",dashTotalWorkouts:"Total Workouts",dashTotalSets:"Total Sets",dashTotalVolume:"Total Volume",dashStreak:"Streak",dashStreakDays:"days in a row",dashThisWeek:"This Week",dashThisMonth:"This Month",dashPRs:"Personal Records",dashNoPRs:"No PRs yet. Start working out!",dashMuscleFreq:"Muscle Group Frequency",dashWeekly:"Weekly",dashMonthly:"Monthly",dashProgress:"Progress Chart",dashSelectEx:"Select exercise...",dashWeight:"Weight",dashVolPerSet:"Volume/Set",dashEst1RM:"Estimated 1RM",dashNoData:"No data for this exercise.",dashBestSet:"Best Set",dashAvgWeight:"Avg Weight",dashSessions:"Sessions",dashExProgress:"Exercise Progress",dashOverview:"Overview",dashFrequency:"Frequency",times:"times",kg:"kg",est1RMLabel:"Estimated 1RM (Epley)",brzycki1RM:"Brzycki 1RM",weekLabel:"week",workoutDays:"Workout Days",noWorkoutsYet:"No workout data yet. Tap a day on the calendar to start logging!"};
+const TR={calendar:"Takvim",exercises:"Hareketler",programs:"Programlar",feedback:"Geri Bildirim",today:"Bugün",month:"Ay",week:"Hafta",addExercise:"Hareket Ekle",newExercise:"Yeni Hareket",exerciseName:"Hareket adı...",searchExercise:"Hareket ara...",noExercises:"Henüz hareket eklenmemiş.",notFound:"Hareket bulunamadı.",save:"Kaydet",saved:"Kaydedildi!",cancel:"İptal",addSet:"+ Set Ekle",set:"SET",kg:"KG",reps:"TEKRAR",rir:"RIR",backToCalendar:"← Takvim",todayLabel:"Bugün",more:"daha",programExercises:"Programdaki Hareketler",newProgram:"Yeni Program",programName:"Program adı...",editProgram:"Programı Düzenle",active:"AKTİF",activate:"Aktif Et",deactivate:"Pasif",activeProgram:"Aktif Program",confirmDeleteEx:"Bu hareketi ve tüm kayıtlarını silmek istiyor musun?",confirmDeletePg:"Silmek istiyor musun?",createProgram:"Haftanın günlerine göre program oluştur.",history:"Geçmiş",pr:"PR",maxKg:"Max",volume:"Hacim",noHistory:"Henüz kayıt yok.",close:"Kapat",login:"Giriş Yap",register:"Kayıt Ol",email:"E-posta",password:"Şifre",fullname:"Ad Soyad",confirmPw:"Şifre Tekrar",noAccount:"Hesabın yok mu?",hasAccount:"Zaten hesabın var mı?",logout:"Çıkış Yap",feedbackTitle:"Geri Bildirim Gönder",feedbackMsg:"Mesajınız...",feedbackBug:"Hata",feedbackFeature:"Özellik İsteği",feedbackGeneral:"Genel",feedbackOther:"Diğer",feedbackCat:"Kategori",feedbackRating:"Puan",feedbackSubmit:"Gönder",feedbackSent:"Geri bildirim gönderildi!",feedbackPrev:"Önceki Geri Bildirimler",feedbackNone:"Henüz geri bildirim yok.",timer:"Kronometre",timerStart:"Başlat",timerStop:"Durdur",timerReset:"Sıfırla",timerSave:"Süreyi Kaydet",timerSaved:"Süre kaydedildi!",timerTotal:"Toplam Antrenman",guestWarn:"Giriş yapmadan verileriniz sadece bu cihazda saklanır. Kaybolmaması için giriş yapın.",guestLogin:"Giriş Yap / Kayıt Ol",guest:"Misafir",days:["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"],daysFull:["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"],months:["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],cats:["Göğüs","Sırt","Omuz","Biceps","Triceps","Bacak","Trapez","Kalça","Kalf","Boyun","Bilek","Karın","Kardiyo","Diğer"],weeklyProgram:"Haftalık Program",dailyProgram:"Günlük Program",dailyPrograms:"Günlük Programlar",addDailyProgram:"Günlük Programı Ekle",selectDailyProgram:"Günlük Program Seç",noDailyPrograms:"Henüz günlük program yok.",programType:"Program Türü",dailyProgramExercises:"Programdaki Hareketler",createDailyProgram:"Hareketlerden oluşan günlük program oluştur.",customExercise:"Kendin Ekle",presetExercises:"Hazır Hareketler",addSelected:"Seçilenleri Ekle",allCategories:"Tümü",alreadyAdded:"Zaten ekli",presetDesc:"Spora yeni başlayanlar için hazır hareket listesi",dashboard:"Panel",dashTotalWorkouts:"Toplam Antrenman",dashTotalSets:"Toplam Set",dashTotalVolume:"Toplam Hacim",dashStreak:"Seri",dashStreakDays:"gün üst üste",dashThisWeek:"Bu Hafta",dashThisMonth:"Bu Ay",dashPRs:"Kişisel Rekorlar",dashNoPRs:"Henüz PR yok. Antrenman yapmaya başla!",dashMuscleFreq:"Kas Grubu Sıklığı",dashWeekly:"Haftalık",dashMonthly:"Aylık",dashProgress:"İlerleme Grafiği",dashSelectEx:"Hareket seç...",dashWeight:"Ağırlık",dashVolPerSet:"Set Başı Hacim",dashEst1RM:"Tahmini 1RM",dashNoData:"Bu hareket için veri yok.",dashBestSet:"En İyi Set",dashAvgWeight:"Ort. Ağırlık",dashSessions:"Seans",dashExProgress:"Hareket İlerlemesi",dashOverview:"Genel Bakış",dashFrequency:"Sıklık",times:"kez",kg:"kg",est1RMLabel:"Tahmini 1RM (Epley)",brzycki1RM:"Brzycki 1RM",weekLabel:"hafta",workoutDays:"Antrenman Günü",noWorkoutsYet:"Henüz antrenman verisi yok. Takvimden bir güne tıklayıp antrenman eklemeye başla!",prevWorkout:"Önceki",setType:"Tip",warmup:"Isınma",working:"Normal",drop:"Drop",failure:"Failure",restTimer:"Dinlenme",restStart:"Başlat",restSkip:"Atla",restDone:"Bitti!",restAutoStart:"Otomatik",dayNote:"Gün notu ekle...",exNote:"Hareket notu...",notesSaved:"Not kaydedildi",superset:"Süper Set",giantSet:"Giant Set",addToSuperset:"Süper Sete Ekle",removeSuperset:"Süper Seti Kaldır",moveUp:"Yukarı",moveDown:"Aşağı",lastTime:"Son seans",noLastData:"İlk seans"};
+const EN={calendar:"Calendar",exercises:"Exercises",programs:"Programs",feedback:"Feedback",today:"Today",month:"Month",week:"Week",addExercise:"Add Exercise",newExercise:"New Exercise",exerciseName:"Exercise name...",searchExercise:"Search exercise...",noExercises:"No exercises added yet.",notFound:"Exercise not found.",save:"Save",saved:"Saved!",cancel:"Cancel",addSet:"+ Add Set",set:"SET",kg:"KG",reps:"REPS",rir:"RIR",backToCalendar:"← Calendar",todayLabel:"Today",more:"more",programExercises:"Program Exercises",newProgram:"New Program",programName:"Program name...",editProgram:"Edit Program",active:"ACTIVE",activate:"Activate",deactivate:"Deactivate",activeProgram:"Active Program",confirmDeleteEx:"Delete this exercise and all its records?",confirmDeletePg:"Are you sure you want to delete?",createProgram:"Create a weekly workout program.",history:"History",pr:"PR",maxKg:"Max",volume:"Volume",noHistory:"No records yet.",close:"Close",login:"Login",register:"Register",email:"Email",password:"Password",fullname:"Full Name",confirmPw:"Confirm Password",noAccount:"Don't have an account?",hasAccount:"Already have an account?",logout:"Logout",feedbackTitle:"Send Feedback",feedbackMsg:"Your message...",feedbackBug:"Bug",feedbackFeature:"Feature Request",feedbackGeneral:"General",feedbackOther:"Other",feedbackCat:"Category",feedbackRating:"Rating",feedbackSubmit:"Submit",feedbackSent:"Feedback submitted!",feedbackPrev:"Previous Feedback",feedbackNone:"No feedback yet.",timer:"Timer",timerStart:"Start",timerStop:"Stop",timerReset:"Reset",timerSave:"Save Time",timerSaved:"Time saved!",timerTotal:"Total Workout",guestWarn:"Without signing in, your data is only saved on this device. Sign in to keep it safe.",guestLogin:"Login / Register",guest:"Guest",days:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],daysFull:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],cats:["Chest","Back","Shoulder","Biceps","Triceps","Leg","Traps","Hip","Calf","Neck","Wrist","Core","Cardio","Other"],weeklyProgram:"Weekly Program",dailyProgram:"Daily Program",dailyPrograms:"Daily Programs",addDailyProgram:"Add Daily Program",selectDailyProgram:"Select Daily Program",noDailyPrograms:"No daily programs yet.",programType:"Program Type",dailyProgramExercises:"Program Exercises",createDailyProgram:"Create a daily workout program from exercises.",customExercise:"Custom",presetExercises:"Preset Exercises",addSelected:"Add Selected",allCategories:"All",alreadyAdded:"Already added",presetDesc:"Ready-made exercises for beginners",dashboard:"Dashboard",dashTotalWorkouts:"Total Workouts",dashTotalSets:"Total Sets",dashTotalVolume:"Total Volume",dashStreak:"Streak",dashStreakDays:"days in a row",dashThisWeek:"This Week",dashThisMonth:"This Month",dashPRs:"Personal Records",dashNoPRs:"No PRs yet. Start working out!",dashMuscleFreq:"Muscle Group Frequency",dashWeekly:"Weekly",dashMonthly:"Monthly",dashProgress:"Progress Chart",dashSelectEx:"Select exercise...",dashWeight:"Weight",dashVolPerSet:"Volume/Set",dashEst1RM:"Estimated 1RM",dashNoData:"No data for this exercise.",dashBestSet:"Best Set",dashAvgWeight:"Avg Weight",dashSessions:"Sessions",dashExProgress:"Exercise Progress",dashOverview:"Overview",dashFrequency:"Frequency",times:"times",kg:"kg",est1RMLabel:"Estimated 1RM (Epley)",brzycki1RM:"Brzycki 1RM",weekLabel:"week",workoutDays:"Workout Days",noWorkoutsYet:"No workout data yet. Tap a day on the calendar to start logging!",prevWorkout:"Previous",setType:"Type",warmup:"Warm-up",working:"Working",drop:"Drop",failure:"Failure",restTimer:"Rest",restStart:"Start",restSkip:"Skip",restDone:"Done!",restAutoStart:"Auto",dayNote:"Add a day note...",exNote:"Exercise note...",notesSaved:"Note saved",superset:"Superset",giantSet:"Giant Set",addToSuperset:"Add to Superset",removeSuperset:"Remove Superset",moveUp:"Move Up",moveDown:"Move Down",lastTime:"Last session",noLastData:"First session"};
 
 function DashChart({chartRef,chartInstanceRef,chartHist,mode,theme,L,lang}){
   useEffect(()=>{
@@ -332,6 +337,15 @@ const[dashFreqPeriod,setDashFreqPeriod]=useState("week");
 const[dashTab,setDashTab]=useState("overview");
 const chartRef=useRef(null);
 const chartInstanceRef=useRef(null);
+const[restTimerSecs,setRestTimerSecs]=useState(0);
+const[restTimerTotal,setRestTimerTotal]=useState(90);
+const[restTimerRunning,setRestTimerRunning]=useState(false);
+const[restAutoStart,setRestAutoStart]=useState(false);
+const restIntervalRef=useRef(null);
+const[dragExIdx,setDragExIdx]=useState(null);
+const[editNoteExId,setEditNoteExId]=useState(null);
+const[showDayNote,setShowDayNote]=useState(false);
+const[supersetGroups,setSupersetGroups]=useState({});
 const[showPgModal,setShowPgModal]=useState(false);
 const[pgEditId,setPgEditId]=useState(null);
 const[pgName,setPgName]=useState("");
@@ -377,6 +391,15 @@ const timerResetFn=()=>{setTimerRunning(false);setTimerElapsed(0);timerStartRef.
 const fmtTime=s=>{const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sc=s%60;return h>0?`${h}:${String(m).padStart(2,"0")}:${String(sc).padStart(2,"0")}`:`${String(m).padStart(2,"0")}:${String(sc).padStart(2,"0")}`};
 const saveTimer=()=>{const d=dRef.current;const dk=fmt(new Date());const durations=[...(d.durations&&d.durations[dk]||[]),timerElapsed];const nd={...d,durations:{...(d.durations||{}),[dk]:durations}};save(nd);timerResetFn();setToast(L.timerSaved)};
 useEffect(()=>{if(toast){const t=setTimeout(()=>setToast(null),2000);return()=>clearTimeout(t)}},[toast]);
+// Rest timer countdown
+useEffect(()=>{
+  if(restTimerRunning&&restTimerSecs>0){
+    restIntervalRef.current=setInterval(()=>{setRestTimerSecs(s=>{if(s<=1){setRestTimerRunning(false);clearInterval(restIntervalRef.current);return 0}return s-1})},1000);
+    return()=>clearInterval(restIntervalRef.current);
+  }else if(restTimerSecs===0&&restTimerRunning){setRestTimerRunning(false)}
+},[restTimerRunning,restTimerSecs]);
+const startRest=()=>{setRestTimerSecs(restTimerTotal);setRestTimerRunning(true)};
+const skipRest=()=>{setRestTimerRunning(false);setRestTimerSecs(0)};
 const logout=async()=>{if(isGuest)return;await sb.auth.signOut();setUser(null)};
 const saveFeedback=async()=>{if(!feedbackMsg.trim())return;if(isGuest){setToast(L.guestWarn);return;}const fb={id:Date.now().toString(),user_id:user.id,msg:feedbackMsg.trim(),cat:feedbackCat,rating:feedbackRating,created_at:new Date().toISOString()};const{error}=await sb.from("feedback").insert(fb);if(error){console.error("feedback error:",error);return;}setFeedbackList(fl=>[{...fb,date:fb.created_at},...fl]);setFeedbackMsg("");setFeedbackRating(0);setFeedbackCat("general");setToast(L.feedbackSent)};
 const dRef=useRef(data);dRef.current=data;
@@ -480,10 +503,20 @@ const removeExercise=id=>{if(!confirm(L.confirmDeleteEx))return;if(saveTimeoutRe
 // day crud
 const addExToDay=eid=>{const d=dRef.current;const dk=fmt(selDate);const a=d.workouts[dk]||[];if(a.some(w=>w.exerciseId===eid))return;debouncedSave({...d,workouts:{...d.workouts,[dk]:[...a,{exerciseId:eid,sets:[]}]}});setAddExDay(false);setSEx("")};
 const rmExDay=eid=>{const d=dRef.current;const dk=fmt(selDate);const u=(d.workouts[dk]||[]).filter(w=>w.exerciseId!==eid);const nw={...d.workouts};if(!u.length)delete nw[dk];else nw[dk]=u;debouncedSave({...d,workouts:nw})};
-const addSet=eid=>{const d=dRef.current;const dk=fmt(selDate);const ws=[...(d.workouts[dk]||[])];const i=ws.findIndex(w=>w.exerciseId===eid);if(i===-1)return;ws[i]={...ws[i],sets:[...ws[i].sets,{weight:0,reps:0,rir:"-"}]};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
-const updSet=(eid,si,f,v)=>{const d=dRef.current;const dk=fmt(selDate);const ws=[...(d.workouts[dk]||[])];const i=ws.findIndex(w=>w.exerciseId===eid);if(i===-1)return;const sets=[...ws[i].sets];sets[si]={...sets[si],[f]:f==="rir"?v:(parseFloat(v)||0)};ws[i]={...ws[i],sets};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
+const addSet=(eid,type)=>{const d=dRef.current;const dk=fmt(selDate);const ws=[...(d.workouts[dk]||[])];const i=ws.findIndex(w=>w.exerciseId===eid);if(i===-1)return;ws[i]={...ws[i],sets:[...ws[i].sets,{weight:0,reps:0,rir:"-",type:type||"working"}]};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}});if(restAutoStart&&ws[i].sets.length>0)startRest()};
+const updSet=(eid,si,f,v)=>{const d=dRef.current;const dk=fmt(selDate);const ws=[...(d.workouts[dk]||[])];const i=ws.findIndex(w=>w.exerciseId===eid);if(i===-1)return;const sets=[...ws[i].sets];sets[si]={...sets[si],[f]:f==="rir"||f==="type"?v:(parseFloat(v)||0)};ws[i]={...ws[i],sets};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
 const rmSet=(eid,si)=>{const d=dRef.current;const dk=fmt(selDate);const ws=[...(d.workouts[dk]||[])];const i=ws.findIndex(w=>w.exerciseId===eid);if(i===-1)return;ws[i]={...ws[i],sets:ws[i].sets.filter((_,j)=>j!==si)};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
 const startPgEx=eid=>{const d=dRef.current;const dk=fmt(selDate);const a=d.workouts[dk]||[];if(a.some(w=>w.exerciseId===eid))return;debouncedSave({...d,workouts:{...d.workouts,[dk]:[...a,{exerciseId:eid,sets:[]}]}})};
+// previous workout reference
+const getPrevSets=(eid,curDate)=>{const keys=Object.keys(data.workouts).filter(k=>k<curDate).sort().reverse();for(const k of keys){const f=(data.workouts[k]||[]).find(w=>w.exerciseId===eid);if(f&&f.sets.length)return{date:k,sets:f.sets}}return null};
+// move exercise up/down in day
+const moveExInDay=(dk,fromIdx,toIdx)=>{const d=dRef.current;const ws=[...(d.workouts[dk]||[])];if(toIdx<0||toIdx>=ws.length)return;const[item]=ws.splice(fromIdx,1);ws.splice(toIdx,0,item);debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
+// day notes
+const saveDayNote=(dk,note)=>{const d=dRef.current;const dn={...(d.dayNotes||{})};if(note.trim())dn[dk]=note.trim();else delete dn[dk];debouncedSave({...d,dayNotes:dn})};
+const saveExNote=(eid,note)=>{const d=dRef.current;const en={...(d.exerciseNotes||{})};if(note.trim())en[eid]=note.trim();else delete en[eid];debouncedSave({...d,exerciseNotes:en})};
+// superset toggle
+const toggleSuperset=(dk,idx1,idx2)=>{const d=dRef.current;const ws=[...(d.workouts[dk]||[])];if(idx1>=ws.length||idx2>=ws.length)return;const gid=ws[idx1].supersetGroup||Date.now().toString();ws[idx1]={...ws[idx1],supersetGroup:gid};ws[idx2]={...ws[idx2],supersetGroup:gid};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
+const removeSupersetGroup=(dk,gid)=>{const d=dRef.current;const ws=(d.workouts[dk]||[]).map(w=>w.supersetGroup===gid?{...w,supersetGroup:undefined}:w);debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
 // program crud
 const savePg=()=>{const nm=pnRef.current.trim()||("Program "+(Object.keys(dRef.current.programs).length+1));const id=peRef.current||Date.now().toString();const nd={};const cd=pdRef.current;for(let i=0;i<7;i++){nd[String(i)]=[...(cd[String(i)]||cd[i]||[])];}const d=dRef.current;const np={...d.programs,[id]:{name:nm,days:nd}};const out={...d,programs:np};save(out);setShowPgModal(false);resetPg()};
 const delPg=id=>{if(!confirm(L.confirmDeletePg))return;const d=dRef.current;const np={...d.programs};delete np[id];save({...d,programs:np,activeProgram:d.activeProgram===id?null:d.activeProgram})};
@@ -816,21 +849,48 @@ return(
   const dk=fmt(selDate);const manual=data.workouts[dk]||[];const di=gdow(selDate);
   const pgExIds=aProg?(aProg.days[String(di)]||[]):[];
   const unstarted=pgExIds.filter(eid=>!manual.some(w=>w.exerciseId===eid));
+  const STL=lang==="tr"?ST_LABELS_TR:ST_LABELS_EN;
+  const dayNote=(data.dayNotes||{})[dk]||"";
+  // group supersets
+  const ssGroups={};manual.forEach((w,i)=>{if(w.supersetGroup){if(!ssGroups[w.supersetGroup])ssGroups[w.supersetGroup]=[];ssGroups[w.supersetGroup].push(i)}});
   return(<div style={{maxWidth:720,margin:"0 auto",padding:"24px 24px 80px"}}>
-    <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:24}}>
+    {/* Header */}
+    <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
       <button onClick={()=>setView("calendar")} style={S.tBtn}>{L.backToCalendar}</button>
       <button onClick={()=>setSelDate(d=>{const n=new Date(d);n.setDate(n.getDate()-1);return n})} style={S.ib}><IcoL/></button>
       <button onClick={()=>setSelDate(d=>{const n=new Date(d);n.setDate(n.getDate()+1);return n})} style={S.ib}><IcoR/></button>
-      <div>
+      <div style={{flex:1}}>
         <div style={{fontSize:20,fontWeight:500}}>{selDate.getDate()} {L.months[selDate.getMonth()]} {selDate.getFullYear()}</div>
         <div style={{fontSize:13,color:"var(--t2)"}}>{L.daysFull[di]}{dk===today&&<span style={{color:"var(--blue)",fontWeight:500,marginLeft:6}}>{L.todayLabel}</span>}</div>
       </div>
     </div>
+    {/* Rest Timer Widget */}
+    {(restTimerRunning||restTimerSecs>0)&&<div style={{background:"var(--bg2)",border:"2px solid var(--blue)",borderRadius:12,padding:16,marginBottom:16,textAlign:"center",animation:"pulseGlow 2s ease infinite"}}>
+      <div style={{fontSize:11,fontWeight:600,color:"var(--t3)",textTransform:"uppercase",letterSpacing:1,marginBottom:4}}>⏱ {L.restTimer}</div>
+      <div style={{fontSize:36,fontWeight:700,fontFamily:"'Space Mono',monospace",color:restTimerSecs<=5&&restTimerSecs>0?"var(--red)":"var(--blue)"}}>{fmtTime(restTimerSecs)}</div>
+      {restTimerSecs===0&&<div style={{fontSize:14,fontWeight:600,color:"var(--green)",marginTop:4}}>{L.restDone}</div>}
+      <div style={{display:"flex",gap:8,justifyContent:"center",marginTop:8}}>
+        <button onClick={skipRest} style={{...S.sec,fontSize:12,padding:"6px 16px"}}>{L.restSkip}</button>
+      </div>
+    </div>}
+    {/* Rest Timer Config */}
+    <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:16,flexWrap:"wrap"}}>
+      <span style={{fontSize:11,fontWeight:600,color:"var(--t3)"}}>⏱ {L.restTimer}:</span>
+      {REST_PRESETS.map(s=><button key={s} onClick={()=>setRestTimerTotal(s)} style={{padding:"3px 10px",borderRadius:12,border:restTimerTotal===s?"2px solid var(--blue)":"1px solid var(--brd)",background:restTimerTotal===s?"var(--blueL)":"var(--bg)",color:restTimerTotal===s?"var(--blue)":"var(--t2)",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"inherit"}}>{s>=60?Math.floor(s/60)+"m":s+"s"}{s>=60&&s%60>0?String(s%60)+"s":""}</button>)}
+      <button onClick={()=>setRestAutoStart(a=>!a)} style={{padding:"3px 10px",borderRadius:12,border:restAutoStart?"2px solid var(--green)":"1px solid var(--brd)",background:restAutoStart?"var(--greenL)":"var(--bg)",color:restAutoStart?"var(--green)":"var(--t3)",fontSize:11,fontWeight:500,cursor:"pointer",fontFamily:"inherit"}}>{L.restAutoStart} {restAutoStart?"✓":""}</button>
+    </div>
+    {/* Day Note */}
+    <div style={{marginBottom:16}}>
+      {showDayNote||dayNote?<textarea value={dayNote} placeholder={L.dayNote} onChange={e=>saveDayNote(dk,e.target.value)} onBlur={()=>{if(!dayNote)setShowDayNote(false)}} style={{...S.inp,minHeight:40,padding:"8px 12px",fontSize:12,resize:"vertical",fontFamily:"inherit",width:"100%"}} autoFocus={showDayNote&&!dayNote}/>
+      :<button onClick={()=>setShowDayNote(true)} style={{background:"none",border:"1px dashed var(--brd)",borderRadius:8,padding:"6px 12px",color:"var(--t3)",fontSize:12,cursor:"pointer",fontFamily:"inherit",width:"100%",textAlign:"left"}}>📝 {L.dayNote}</button>}
+    </div>
+    {/* Duration */}
     {(()=>{const durs=data.durations&&data.durations[dk]||[];const total=durs.reduce((a,b)=>a+b,0);return total>0?(<div style={{display:"flex",alignItems:"center",gap:8,marginBottom:16,padding:"10px 16px",background:"var(--bg3)",borderRadius:10,border:"1px solid var(--brd)"}}>
       <span style={{fontSize:20}}>⏱</span>
       <div><div style={{fontSize:13,fontWeight:600,color:"var(--t1)"}}>{L.timerTotal}: {fmtTime(total)}</div>
       <div style={{fontSize:11,color:"var(--t3)"}}>{durs.map((d,i)=>(i+1)+". "+fmtTime(d)).join(" · ")}</div></div>
     </div>):null})()}
+    {/* Copy Workout */}
     {manual.length===0&&(()=>{const pastDays=Object.keys(data.workouts).filter(k=>k<dk&&(data.workouts[k]||[]).some(w=>w.sets&&w.sets.length>0)).sort().reverse();if(!pastDays.length)return null;return(<>
       <div onClick={()=>setShowCopyPicker(true)} style={{background:"var(--bg3)",borderRadius:12,padding:16,marginBottom:20,border:"1px dashed var(--blue)",cursor:"pointer",transition:"all .2s ease"}} onMouseEnter={e=>e.currentTarget.style.borderColor="var(--blueH)"} onMouseLeave={e=>e.currentTarget.style.borderColor="var(--blue)"}>
         <div style={{fontSize:13,fontWeight:500,color:"var(--blue)",marginBottom:4}}>📋 {lang==="tr"?"Antrenman kopyala":"Copy workout"}</div>
@@ -857,6 +917,7 @@ return(
         </div>
       </div>}
     </>);})()}
+    {/* Program Exercises */}
     {unstarted.length>0&&<div style={{background:"var(--blueL)",borderRadius:12,padding:16,marginBottom:20,border:"1px solid var(--blueL2)"}}>
       <div style={{fontSize:12,fontWeight:500,color:"var(--blue)",marginBottom:10}}>📋 {aProg.name} — {L.programExercises}</div>
       <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
@@ -887,34 +948,76 @@ return(
         </div>
       </div>
     </div>}
+    {/* Exercise Cards */}
     {manual.map((w,wi)=>{
       const ex=data.exercises.find(e=>e.id===w.exerciseId);if(!ex)return null;const colors=clAll(ex.id);const c=colors[0];const cats=ex.categories||[ex.category||"Diğer"];
-      return(<div key={wi} style={{background:"var(--bg)",border:"1px solid var(--brd)",borderRadius:12,marginBottom:12,overflow:"hidden",boxShadow:"var(--shadow2)"}}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"12px 16px",borderBottom:w.sets.length?"1px solid var(--brd)":"none",borderLeft:colors.length>1?"4px solid transparent":`4px solid var(--${c})`,borderImage:colors.length>1?`linear-gradient(180deg,${colors.map(x=>`var(--${x})`).join(",")}) 1`:"none"}}>
-          <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
+      const prev=getPrevSets(ex.id,dk);
+      const ssGrp=w.supersetGroup;const ssMembers=ssGrp?ssGroups[ssGrp]||[]:[];const isSSFirst=ssMembers.length>0&&ssMembers[0]===wi;
+      const exNote=(data.exerciseNotes||{})[ex.id]||"";
+      return(<div key={wi}>
+        {/* Superset label */}
+        {ssGrp&&isSSFirst&&<div style={{display:"flex",alignItems:"center",gap:6,marginBottom:4}}>
+          <div style={{flex:1,height:2,background:"var(--purple)",borderRadius:2,opacity:.5}}/>
+          <span style={{fontSize:10,fontWeight:700,color:"var(--purple)",textTransform:"uppercase",letterSpacing:1}}>🔗 {ssMembers.length>2?L.giantSet:L.superset}</span>
+          <button onClick={()=>removeSupersetGroup(dk,ssGrp)} style={{background:"none",border:"none",color:"var(--t3)",cursor:"pointer",fontSize:10,fontFamily:"inherit"}}>{L.removeSuperset} ✕</button>
+          <div style={{flex:1,height:2,background:"var(--purple)",borderRadius:2,opacity:.5}}/>
+        </div>}
+        <div style={{background:"var(--bg)",border:ssGrp?"2px solid var(--purple)":"1px solid var(--brd)",borderRadius:12,marginBottom:ssGrp&&!isSSFirst?-1:12,overflow:"hidden",boxShadow:"var(--shadow2)"}}>
+        {/* Exercise Header */}
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 16px",borderBottom:w.sets.length||prev?"1px solid var(--brd)":"none",borderLeft:colors.length>1?"4px solid transparent":`4px solid var(--${c})`,borderImage:colors.length>1?`linear-gradient(180deg,${colors.map(x=>`var(--${x})`).join(",")}) 1`:"none"}}>
+          <div style={{display:"flex",alignItems:"center",gap:8,flexWrap:"wrap",flex:1,minWidth:0}}>
             <span style={{fontSize:15,fontWeight:500}}>{ex.name}</span>
-            {cats.map((cat,ci)=>{const cc=CC[cat]||"blue";return(<span key={ci} style={{fontSize:11,color:`var(--${cc})`,background:`var(--${cc}L)`,padding:"2px 8px",borderRadius:12}}>{cat}</span>)})}
+            {cats.map((cat,ci)=>{const cc=CC[cat]||"blue";return(<span key={ci} style={{fontSize:10,color:`var(--${cc})`,background:`var(--${cc}L)`,padding:"1px 6px",borderRadius:10}}>{cat}</span>)})}
           </div>
-          <div style={{display:"flex",gap:2}}>
-            <button onClick={()=>setHistId(ex.id)} style={{...S.ib,width:32,height:32}}><IcoHist/></button>
-            <button onClick={()=>rmExDay(ex.id)} style={{...S.ib,width:32,height:32}}><IcoX/></button>
+          <div style={{display:"flex",gap:1,flexShrink:0}}>
+            {wi>0&&<button onClick={()=>moveExInDay(dk,wi,wi-1)} title={L.moveUp} style={{...S.ib,width:28,height:28,fontSize:12}}>▲</button>}
+            {wi<manual.length-1&&<button onClick={()=>moveExInDay(dk,wi,wi+1)} title={L.moveDown} style={{...S.ib,width:28,height:28,fontSize:12}}>▼</button>}
+            {wi<manual.length-1&&!w.supersetGroup&&<button onClick={()=>toggleSuperset(dk,wi,wi+1)} title={L.superset} style={{...S.ib,width:28,height:28,fontSize:11}}>🔗</button>}
+            <button onClick={()=>setHistId(ex.id)} style={{...S.ib,width:28,height:28}}><IcoHist s={14}/></button>
+            <button onClick={()=>setEditNoteExId(editNoteExId===ex.id?null:ex.id)} style={{...S.ib,width:28,height:28,fontSize:12}}>📝</button>
+            <button onClick={()=>rmExDay(ex.id)} style={{...S.ib,width:28,height:28}}><IcoX s={14}/></button>
           </div>
         </div>
-        {w.sets.length>0&&<div style={{padding:"8px 16px 4px"}}>
-          <div style={{display:"grid",gridTemplateColumns:"36px 1fr 1fr 80px 32px",gap:6,marginBottom:6}}>
-            <span style={S.th}>SET</span><span style={S.th}>KG</span><span style={S.th}>TEKRAR</span><span style={S.th}>RIR</span><span/>
-          </div>
-          {w.sets.map((s,si)=>(<div key={si} style={{display:"grid",gridTemplateColumns:"36px 1fr 1fr 80px 32px",gap:6,marginBottom:6,alignItems:"center"}}>
-            <span style={{fontSize:13,fontWeight:500,color:"var(--t3)",textAlign:"center"}}>{si+1}</span>
-            <input type="number" value={s.weight||""} placeholder="0" onChange={e=>updSet(ex.id,si,"weight",e.target.value)} style={S.inp}/>
-            <input type="number" value={s.reps||""} placeholder="0" onChange={e=>updSet(ex.id,si,"reps",e.target.value)} style={S.inp}/>
-            <select value={s.rir||"-"} onChange={e=>updSet(ex.id,si,"rir",e.target.value)} style={{...S.inp,padding:"7px 4px",textAlign:"center"}}>
-              {RIRS.map(r=><option key={r} value={r}>{r==="0"?"Failure":r==="-"?"—":`RIR ${r}`}</option>)}
-            </select>
-            <button onClick={()=>rmSet(ex.id,si)} style={{...S.ib,width:28,height:28}}><IcoX s={16}/></button>
-          </div>))}
+        {/* Exercise Note */}
+        {editNoteExId===ex.id&&<div style={{padding:"6px 16px"}}>
+          <input type="text" value={exNote} placeholder={L.exNote} onChange={e=>saveExNote(ex.id,e.target.value)} style={{...S.inp,fontSize:12,padding:"6px 10px"}}/>
         </div>}
-        <button onClick={()=>addSet(ex.id)} style={{width:"100%",padding:"10px",border:"none",borderTop:"1px solid var(--brd)",background:"transparent",color:"var(--blue)",fontSize:13,fontWeight:500,cursor:"pointer",fontFamily:"inherit",borderRadius:"0 0 12px 12px"}}>{L.addSet}</button>
+        {editNoteExId!==ex.id&&exNote&&<div style={{padding:"4px 16px",fontSize:11,color:"var(--t3)",fontStyle:"italic"}}>📝 {exNote}</div>}
+        {/* Previous Workout Reference */}
+        {prev&&<div style={{padding:"6px 16px",background:"var(--bg3)",borderBottom:"1px solid var(--brd)"}}>
+          <div style={{fontSize:10,fontWeight:600,color:"var(--t3)",textTransform:"uppercase",letterSpacing:.5,marginBottom:3}}>{L.lastTime} · {pD(prev.date).getDate()}/{pD(prev.date).getMonth()+1}</div>
+          <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
+            {prev.sets.map((ps,pi)=>{const stc=ST_COLORS[ps.type||"working"]||"blue";return(<span key={pi} style={{fontSize:10,background:`var(--${stc}L)`,color:`var(--${stc})`,padding:"1px 6px",borderRadius:8,fontWeight:500}}>{ps.weight}×{ps.reps}</span>)})}
+          </div>
+        </div>}
+        {!prev&&w.sets.length===0&&<div style={{padding:"6px 16px",fontSize:11,color:"var(--t3)",fontStyle:"italic"}}>{L.noLastData}</div>}
+        {/* Sets Table */}
+        {w.sets.length>0&&<div style={{padding:"8px 12px 4px"}}>
+          <div style={{display:"grid",gridTemplateColumns:isMobile?"28px 54px 1fr 1fr 56px 24px":"32px 64px 1fr 1fr 80px 28px",gap:4,marginBottom:4}}>
+            <span style={S.th}>#</span><span style={S.th}>{L.setType}</span><span style={S.th}>KG</span><span style={S.th}>{lang==="tr"?"TEKRAR":"REPS"}</span><span style={S.th}>RIR</span><span/>
+          </div>
+          {w.sets.map((s,si)=>{const stc=ST_COLORS[s.type||"working"]||"blue";const prevSet=prev&&prev.sets[si];return(<div key={si} style={{display:"grid",gridTemplateColumns:isMobile?"28px 54px 1fr 1fr 56px 24px":"32px 64px 1fr 1fr 80px 28px",gap:4,marginBottom:4,alignItems:"center"}}>
+            <span style={{fontSize:12,fontWeight:500,color:`var(--${stc})`,textAlign:"center"}}>{si+1}</span>
+            <select value={s.type||"working"} onChange={e=>updSet(ex.id,si,"type",e.target.value)} style={{...S.inp,padding:"5px 2px",fontSize:10,textAlign:"center",color:`var(--${stc})`,borderColor:`var(--${stc})`}}>
+              {SET_TYPES.map(t=><option key={t} value={t}>{STL[t]}</option>)}
+            </select>
+            <div style={{position:"relative"}}><input type="number" value={s.weight||""} placeholder={prevSet?String(prevSet.weight):"0"} onChange={e=>updSet(ex.id,si,"weight",e.target.value)} style={S.inp}/></div>
+            <div style={{position:"relative"}}><input type="number" value={s.reps||""} placeholder={prevSet?String(prevSet.reps):"0"} onChange={e=>updSet(ex.id,si,"reps",e.target.value)} style={S.inp}/></div>
+            <select value={s.rir||"-"} onChange={e=>updSet(ex.id,si,"rir",e.target.value)} style={{...S.inp,padding:isMobile?"5px 1px":"7px 4px",textAlign:"center",fontSize:isMobile?10:13}}>
+              {RIRS.map(r=><option key={r} value={r}>{r==="0"?"F":r==="-"?"—":r}</option>)}
+            </select>
+            <button onClick={()=>rmSet(ex.id,si)} style={{...S.ib,width:24,height:24}}><IcoX s={12}/></button>
+          </div>)})}
+        </div>}
+        {/* Add Set Buttons */}
+        <div style={{display:"flex",borderTop:"1px solid var(--brd)"}}>
+          <button onClick={()=>addSet(ex.id,"working")} style={{flex:1,padding:"8px",border:"none",background:"transparent",color:"var(--blue)",fontSize:12,fontWeight:500,cursor:"pointer",fontFamily:"inherit"}}>{L.addSet}</button>
+          <button onClick={()=>addSet(ex.id,"warmup")} style={{padding:"8px 10px",border:"none",borderLeft:"1px solid var(--brd)",background:"transparent",color:"var(--orange)",fontSize:10,fontWeight:500,cursor:"pointer",fontFamily:"inherit"}}>+{L.warmup}</button>
+          <button onClick={()=>addSet(ex.id,"drop")} style={{padding:"8px 10px",border:"none",borderLeft:"1px solid var(--brd)",background:"transparent",color:"var(--purple)",fontSize:10,fontWeight:500,cursor:"pointer",fontFamily:"inherit"}}>+{L.drop}</button>
+        </div>
+        {/* Rest Timer Quick Start */}
+        {w.sets.length>0&&!restTimerRunning&&<button onClick={startRest} style={{width:"100%",padding:"6px",border:"none",borderTop:"1px solid var(--brd)",background:"var(--bg3)",color:"var(--t2)",fontSize:11,cursor:"pointer",fontFamily:"inherit",borderRadius:"0 0 12px 12px"}}>⏱ {L.restTimer} ({restTimerTotal>=60?Math.floor(restTimerTotal/60)+"m":restTimerTotal+"s"})</button>}
+      </div>
       </div>);
     })}
     <button onClick={()=>setAddExDay(true)} style={S.fab}><IcoPlus/></button>
