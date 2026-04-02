@@ -3,8 +3,18 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content="Track your workouts, monitor your progress, and reach your fitness goals with Log Wise. Your intelligent workout companion backed by Google for Startups."/>
-<title>LOG WISE - Smart Workout Tracker & Fitness Planning App</title>
+<meta name="description" content="Log Wise is a free workout tracker that helps you build strength, hit PRs, and stay consistent. Log sets, track progress with charts, build weekly programs, and analyze muscle frequency — all in one place."/>
+<meta name="keywords" content="workout tracker, fitness app, gym log, strength training, workout planner, progress tracking, exercise log, personal records, workout app"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://logwise.fit/"/>
+<meta property="og:title" content="Log Wise — Free Workout Tracker & Strength Training App"/>
+<meta property="og:description" content="Build strength, hit PRs, and stay consistent. Log sets, track progress with charts, build weekly programs, and analyze muscle frequency — all in one place."/>
+<meta property="og:image" content="https://logwise.fit/icon-512.png"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Log Wise — Free Workout Tracker & Strength Training App"/>
+<meta name="twitter:description" content="Build strength, hit PRs, and stay consistent. Log sets, track progress with charts, build weekly programs, and analyze muscle frequency — all in one place."/>
+<meta name="twitter:image" content="https://logwise.fit/icon-512.png"/>
+<title>Log Wise — Free Workout Tracker & Strength Training App</title>
 <link rel="canonical" href="https://logwise.fit/"/>
 <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
@@ -88,10 +98,10 @@ input:focus,select:focus{outline:none;border-color:var(--blue) !important}
 </style>
 </head>
 <body>
-<h1 class="sr-only">LOG WISE - Smart Workout Tracker & Fitness Planning App</h1>
+<h1 class="sr-only">Log Wise — Free Workout Tracker & Strength Training App</h1>
 <noscript>
   <div style="max-width:700px;margin:40px auto;padding:24px;font-family:'Space Mono',monospace;color:#e0e0e0;line-height:1.8">
-    <p>Log Wise is your intelligent workout companion — plan, track, and analyze every session with ease. Build custom routines or choose from ready-made programs, monitor your progress with detailed charts and statistics, unlock achievements as you grow, and keep your training history organized in one place. Start training smarter today.</p>
+    <p>Log Wise is a free workout tracker and strength training app. Log your sets and reps, build custom weekly programs or pick from ready-made routines, track your progress with detailed charts, estimate your 1RM, and see which muscle groups you're training most. Your entire training history in one place — start training smarter today.</p>
   </div>
 </noscript>
 <div id="root"></div>
@@ -568,7 +578,7 @@ useEffect(()=>{
 },[]);
 // Sayfa başlığını aktif görünüme göre güncelle
 useEffect(()=>{
-  const titles={calendar:"LOG WISE · Takvim",dashboard:"LOG WISE · Panel",exercises:"LOG WISE · Hareketler",programs:"LOG WISE · Programlar",feedback:"LOG WISE · Geri Bildirim",data:"LOG WISE · Veri Yönetimi",day:selDate?`LOG WISE · ${selDate.getDate()} ${MO[selDate.getMonth()]} ${selDate.getFullYear()}`:"LOG WISE"};
+  const titles={calendar:"Log Wise — Free Workout Tracker",dashboard:"Log Wise · Panel",exercises:"Log Wise · Hareketler",programs:"Log Wise · Programlar",feedback:"Log Wise · Geri Bildirim",data:"Log Wise · Veri Yönetimi",day:selDate?`LOG WISE · ${selDate.getDate()} ${MO[selDate.getMonth()]} ${selDate.getFullYear()}`:"LOG WISE"};
   document.title=titles[view]||"LOG WISE";
 },[view,selDate]);
 
