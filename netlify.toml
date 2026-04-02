@@ -1,0 +1,70 @@
+[build]
+  publish = "."
+
+# index.html ve index.php -> kök dizine 301 yönlendirme (Accessible index page fix)
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index.php"
+  to = "/"
+  status = 301
+  force = true
+
+# Trailing slash fix: /profile.html/ -> /profile.html
+[[redirects]]
+  from = "/profile.html/"
+  to = "/profile.html"
+  status = 301
+  force = true
+
+# Profil sayfası — /profile URL'i profile.html dosyasını sunar
+[[redirects]]
+  from = "/profile"
+  to = "/profile.html"
+  status = 200
+
+# /profile.html'e direkt erişimi /profile'a yönlendir (Pretty URLs çakışmasını önle)
+[[redirects]]
+  from = "/profile.html"
+  to = "/profile"
+  status = 301
+  force = true
+
+# SPA route'ları — React tarafında URL routing var
+[[redirects]]
+  from = "/dashboard"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/exercises"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/programs"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/feedback"
+  to = "/index.html"
+  status = 200
+
+# Var olmayan tüm sayfalar için 404 döndür (catch-all)
+[[redirects]]
+  from = "/*"
+  to = "/404.html"
+  status = 404
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Cache-Control = "public, max-age=3600"

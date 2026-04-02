@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="View your fitness profile, workout statistics, and training history on Log Wise. Track your strength gains and personal records."/>
+<title>LOG WISE - Your Profile & Workout Statistics Dashboard</title>
+<link rel="canonical" href="https://logwise.fit/profile"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet"/>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body,#root{height:100%;overflow:hidden}
+body{font-family:'Space Mono',monospace;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:8px}
+input:focus,select:focus{outline:none;border-color:var(--blue) !important}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+@keyframes toastIn{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastOut{from{opacity:1}to{opacity:0}}
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bgH:#222;
+  --t1:#e0e0e0;--t2:#888;--t3:#555;--t4:#333;
+  --brd:#222;--brd2:#333;
+  --blue:#f0c040;--blueH:#ffd060;--blueL:#2a2210;--blueL2:#3a3218;
+  --green:#8fbc8f;--greenL:#1a2a1a;--greenB:#b0d0b0;
+  --red:#ff6060;--redL:#2a1515;
+  --orange:#ffa040;--orangeL:#2a2010;
+  --purple:#d7aefb;--purpleL:#2a1a3a;
+  --teal:#78d9ec;--tealL:#1a2a2f;
+  --ngreen:#39ff14;--ngreenL:#0a2a05;
+  --sky:#4dabf7;--skyL:#0d1f33;
+  --pink:#ff69b4;--pinkL:#2a0f1f;
+  --scroll:#333;
+  --shadow:0 2px 8px rgba(0,0,0,.6);
+  --shadow2:0 1px 4px rgba(0,0,0,.4);
+  --accent:#f0c040;--accentT:#000;
+}
+[data-theme="light"]{
+  --bg:#f5f2ec;--bg2:#fff;--bg3:#f0ede6;--bgH:#e8e4dc;
+  --t1:#1a1a1a;--t2:#666;--t3:#999;--t4:#ccc;
+  --brd:#d0cdc6;--brd2:#bbb8b0;
+  --blue:#c8960a;--blueH:#a07808;--blueL:#f5ecd0;--blueL2:#e8dfc0;
+  --green:#2d7a2d;--greenL:#edf5ed;--greenB:#1e5e1e;
+  --red:#d44040;--redL:#fce8e6;
+  --orange:#e37400;--orangeL:#fef7e0;
+  --purple:#9334e6;--purpleL:#f3e8fd;
+  --teal:#007b83;--tealL:#e4f7fb;
+  --ngreen:#1db805;--ngreenL:#e5f9e0;
+  --sky:#1971c2;--skyL:#e3f0fd;
+  --pink:#c2185b;--pinkL:#fce4ec;
+  --scroll:#d0cdc6;
+  --shadow:0 2px 8px rgba(0,0,0,.15);
+  --shadow2:0 1px 4px rgba(0,0,0,.1);
+  --accent:#c8960a;--accentT:#fff;
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style>
+</head>
+<body>
+<h1 class="sr-only">LOG WISE - Your Profile & Workout Statistics Dashboard</h1>
+<div id="root"></div>
+<script type="text/babel">
+const SUPABASE_URL="https://czbxujioufhmvoajqwzp.supabase.co";
+const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6Ynh1amlvdWZobXZvYWpxd3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDYzNTgsImV4cCI6MjA5MDA4MjM1OH0._juhkh6W8p0iP3WVSooi1fFfZFXT50LugDszPBubOgk";
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const {useState,useEffect,useRef}=React;
+const TK="gym-log-theme",LK="gym-log-lang",SK="gym-log-v3";
+
+const TR={
+  profile:"Profil",editProfile:"Profili Düzenle",fullname:"Ad Soyad",email:"E-posta",
+  save:"Kaydet",saved:"Kaydedildi!",cancel:"İptal",back:"← Ana Sayfa",
+  changePassword:"Şifre Değiştir",newPassword:"Yeni Şifre",confirmNewPw:"Yeni Şifre Tekrar",
+  currentPassword:"Mevcut Şifre",passwordChanged:"Şifre başarıl ile değiştirildi!",
+  passwordMismatch:"Şifreler eşleşmiyor",passwordShort:"Şifre en az 6 karakter olmalı",
+  profilePhoto:"Profil Fotoğrafı",uploadPhoto:"Fotoğraf Yükle",removePhoto:"Fotoğrafı Kaldır",
+  accountInfo:"Hesap Bilgileri",securitySettings:"Güvenlik Ayarları",
+  memberSince:"Üyelik Tarihi",lastSignIn:"Son Giriş",
+  logout:"Çıkış Yap",dangerZone:"Tehlikeli Bölge",deleteAccount:"Hesabı Sil",
+  deleteWarn:"Bu işlem geri alınamaz. Tüm verileriniz silinecektir.",
+  passwordResetMode:"Yeni şifreni belirle",passwordResetDone:"Şifren güncellendi! Ana sayfaya yönlendiriliyorsun...",
+  trainingStats:"Antrenman İstatistikleri",totalTime:"Toplam Süre",trainingDays:"Antrenman Günleri",weeklyAvg:"Haftalık Ortalama",monthlyAvg:"Aylık Ortalama",avgSession:"Seans Ortalaması",noTimerData:"Henüz kronometre verisi yok. Antrenmanlarında kronometreyi kullanmaya başla!",sessions:"seans",days:"gün",hours:"sa",minutes:"dk",seconds:"sn"
+};
+const EN={
+  profile:"Profile",editProfile:"Edit Profile",fullname:"Full Name",email:"Email",
+  save:"Save",saved:"Saved!",cancel:"Cancel",back:"← Home",
+  changePassword:"Change Password",newPassword:"New Password",confirmNewPw:"Confirm New Password",
+  currentPassword:"Current Password",passwordChanged:"Password changed successfully!",
+  passwordMismatch:"Passwords do not match",passwordShort:"Password must be at least 6 characters",
+  profilePhoto:"Profile Photo",uploadPhoto:"Upload Photo",removePhoto:"Remove Photo",
+  accountInfo:"Account Info",securitySettings:"Security Settings",
+  memberSince:"Member Since",lastSignIn:"Last Sign In",
+  logout:"Logout",dangerZone:"Danger Zone",deleteAccount:"Delete Account",
+  deleteWarn:"This action cannot be undone. All your data will be deleted.",
+  passwordResetMode:"Set your new password",passwordResetDone:"Password updated! Redirecting to home...",
+  trainingStats:"Training Statistics",totalTime:"Total Time",trainingDays:"Training Days",weeklyAvg:"Weekly Average",monthlyAvg:"Monthly Average",avgSession:"Avg Per Session",noTimerData:"No timer data yet. Start using the timer during your workouts!",sessions:"sessions",days:"days",hours:"h",minutes:"min",seconds:"sec"
+};
+
+const AVATARS=["🏋️","💪","🔥","⚡","🎯","🏆","🦾","🐺","🦅","🐉","🧘","🏃"];
+
+function ProfileApp(){
+  const[user,setUser]=useState(null);
+  const[checking,setChecking]=useState(true);
+  const[lang,setLang]=useState(()=>localStorage.getItem(LK)||"tr");
+  const[theme,setTheme]=useState(()=>localStorage.getItem(TK)||"dark");
+  const[toast,setToast]=useState(null);
+
+  // Profile state
+  const[fullName,setFullName]=useState("");
+  const[avatar,setAvatar]=useState("");
+  const[showAvatarPicker,setShowAvatarPicker]=useState(false);
+  const[editingName,setEditingName]=useState(false);
+  const[savingName,setSavingName]=useState(false);
+
+  // Password state
+  const[showPwForm,setShowPwForm]=useState(false);
+  const[newPw,setNewPw]=useState("");
+  const[newPw2,setNewPw2]=useState("");
+  const[pwErr,setPwErr]=useState("");
+  const[savingPw,setSavingPw]=useState(false);
+
+  // Password reset mode (from email link)
+  const[isResetMode,setIsResetMode]=useState(false);
+
+  // User workout data for stats
+  const[userData,setUserData]=useState(null);
+
+  // Delete account state
+  const[showDeleteModal,setShowDeleteModal]=useState(false);
+  const[deleteConfirmText,setDeleteConfirmText]=useState("");
+  const[deleting,setDeleting]=useState(false);
+
+  const L=lang==="tr"?TR:EN;
+
+  useEffect(()=>{document.documentElement.setAttribute("data-theme",theme);localStorage.setItem(TK,theme)},[theme]);
+  useEffect(()=>{localStorage.setItem(LK,lang)},[lang]);
+
+  useEffect(()=>{
+    // Check if coming from password reset link
+    const params=new URLSearchParams(window.location.search);
+    if(params.get("reset")==="1"){setIsResetMode(true);setShowPwForm(true);}
+
+    let ready=false;
+    const{data:{subscription}}=sb.auth.onAuthStateChange((event,session)=>{
+      if(event==="PASSWORD_RECOVERY"){setIsResetMode(true);setShowPwForm(true);}
+      setUser(session?.user||null);
+      if(session?.user){
+        setFullName(session.user.user_metadata?.full_name||"");
+        setAvatar(session.user.user_metadata?.avatar||"");
+      }
+      if(!ready){ready=true;setChecking(false);}
+    });
+    sb.auth.getSession().then(({data:{session}})=>{
+      if(!ready){
+        ready=true;
+        setUser(session?.user||null);
+        if(session?.user){
+          setFullName(session.user.user_metadata?.full_name||"");
+          setAvatar(session.user.user_metadata?.avatar||"");
+        }
+        setChecking(false);
+      }
+    });
+    return()=>subscription.unsubscribe();
+  },[]);
+
+  useEffect(()=>{
+    if(!user)return;
+    sb.from("user_data").select("data").eq("user_id",user.id).single()
+      .then(({data:row})=>{if(row&&row.data)setUserData(row.data);});
+  },[user]);
+  useEffect(()=>{if(toast){const t=setTimeout(()=>setToast(null),2500);return()=>clearTimeout(t)}},[toast]);
+
+  const saveName=async()=>{
+    if(!fullName.trim())return;
+    setSavingName(true);
+    try{
+      const{error}=await sb.auth.updateUser({data:{full_name:fullName.trim()}});
+      if(error){setToast("Error: "+error.message);return;}
+      setToast(L.saved);setEditingName(false);
+    }finally{setSavingName(false)}
+  };
+
+  const saveAvatar=async(av)=>{
+    setAvatar(av);setShowAvatarPicker(false);
+    const{error}=await sb.auth.updateUser({data:{avatar:av}});
+    if(!error)setToast(L.saved);
+  };
+
+  const changePw=async(e)=>{
+    e.preventDefault();setPwErr("");
+    if(newPw.length<6){setPwErr(L.passwordShort);return;}
+    if(newPw!==newPw2){setPwErr(L.passwordMismatch);return;}
+    setSavingPw(true);
+    try{
+      const{error}=await sb.auth.updateUser({password:newPw});
+      if(error){setPwErr(error.message);return;}
+      if(isResetMode){
+        setToast(L.passwordResetDone);
+        setTimeout(()=>window.location.href="/",2000);
+      }else{
+        setToast(L.passwordChanged);
+      }
+      setNewPw("");setNewPw2("");setShowPwForm(false);setIsResetMode(false);
+    }finally{setSavingPw(false)}
+  };
+
+  const logout=async()=>{await sb.auth.signOut();window.location.href="/"};
+
+  const deleteAccount=async()=>{
+    if(deleteConfirmText!==(lang==="tr"?"SİL":"DELETE"))return;
+    setDeleting(true);
+    try{
+      // 1. Delete user data from user_data table
+      const{error:dataErr}=await sb.from("user_data").delete().eq("user_id",user.id);
+      if(dataErr)console.warn("user_data delete error:",dataErr.message);
+      // 2. Call the database function to delete auth user
+      const{error:rpcErr}=await sb.rpc("delete_own_account");
+      if(rpcErr){
+        setToast("Error: "+rpcErr.message);
+        setDeleting(false);
+        return;
+      }
+      // 3. Sign out and redirect
+      await sb.auth.signOut();
+      window.location.href="/";
+    }catch(err){
+      setToast("Error: "+err.message);
+      setDeleting(false);
+    }
+  };
+
+  const formatDate=(d)=>{
+    if(!d)return"—";
+    const dt=new Date(d);
+    const months=lang==="tr"?["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    return`${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
+  };
+
+  // Styles
+  const S={
+    pri:{padding:"10px 24px",borderRadius:12,border:"none",background:"var(--accent)",color:"var(--accentT)",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit",transition:"all .2s ease"},
+    sec:{padding:"10px 24px",borderRadius:12,border:"1px solid var(--brd)",background:"var(--bg)",color:"var(--t1)",fontSize:14,fontWeight:500,cursor:"pointer",fontFamily:"inherit",transition:"all .2s ease"},
+    inp:{background:"var(--bg3)",border:"1px solid var(--brd)",borderRadius:10,padding:"12px 16px",color:"var(--t1)",fontSize:14,fontFamily:"inherit",width:"100%",marginBottom:12,transition:"border-color .2s ease"},
+    card:{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:16,padding:24,marginBottom:20,boxShadow:"var(--shadow2)"},
+    ib:{width:40,height:40,borderRadius:"50%",border:"none",background:"transparent",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0},
+  };
+
+  const IcoSun=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--t2)"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>;
+  const IcoMoon=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--t2)"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>;
+
+  if(checking)return(<div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"var(--bg)",color:"var(--t1)"}}><div style={{fontSize:18,fontFamily:"'Space Mono',monospace"}}>🏋️ Yükleniyor...</div></div>);
+
+  if(!user)return(<div style={{height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:"var(--bg)",color:"var(--t1)",gap:16}}>
+    <div style={{fontSize:48}}>🔒</div>
+    <p style={{fontSize:16,color:"var(--t2)"}}>{lang==="tr"?"Profili görüntülemek için giriş yapmalısın":"You must be logged in to view your profile"}</p>
+    <button onClick={()=>window.location.href="/"} style={S.pri}>{L.back}</button>
+  </div>);
+
+  const displayName=fullName||user.email?.split("@")[0]||"User";
+  const initials=(displayName).charAt(0).toUpperCase();
+
+  return(
+  <div style={{height:"100vh",display:"flex",flexDirection:"column",background:"var(--bg)",color:"var(--t1)"}}>
+    {toast&&<div style={{position:"fixed",top:20,left:"50%",transform:"translateX(-50%)",background:"var(--accent)",color:"var(--accentT)",padding:"10px 24px",borderRadius:8,fontSize:14,fontWeight:700,zIndex:999,animation:"toastIn .3s ease",boxShadow:"var(--shadow)"}}>{toast}</div>}
+
+    {/* HEADER */}
+    <header style={{display:"flex",alignItems:"center",padding:"8px 16px",borderBottom:"1px solid var(--brd)",height:64,flexShrink:0,gap:12,zIndex:50,background:"var(--bg)"}}>
+      <button onClick={()=>window.location.href="/"} style={{...S.sec,fontSize:13,padding:"6px 16px",borderRadius:20}}>{L.back}</button>
+      <span style={{fontSize:22,fontWeight:400,color:"var(--t1)",flex:1}}>🏋️ <b>LOG WISE</b> <span style={{fontSize:14,color:"var(--t2)",fontWeight:400}}>— {L.profile}</span></span>
+      <button onClick={()=>setLang(l=>l==="tr"?"en":"tr")} style={{padding:"4px 10px",borderRadius:6,border:"1px solid var(--brd)",background:"var(--bg)",color:"var(--t1)",fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>{lang==="tr"?"EN":"TR"}</button>
+      <button onClick={()=>setTheme(t=>t==="dark"?"light":"dark")} style={S.ib}>{theme==="dark"?<IcoSun/>:<IcoMoon/>}</button>
+    </header>
+
+    {/* CONTENT */}
+    <main style={{flex:1,overflowY:"auto",padding:"24px 16px 120px"}}>
+      <div style={{maxWidth:560,margin:"0 auto"}}>
+
+        {/* AVATAR & NAME HERO */}
+        <div style={{...S.card,textAlign:"center",paddingTop:32,paddingBottom:28}}>
+          <div onClick={()=>setShowAvatarPicker(true)} style={{width:88,height:88,borderRadius:"50%",background:"var(--blueL)",border:"3px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px",cursor:"pointer",fontSize:avatar?40:32,fontWeight:700,color:"var(--blue)",transition:"all .2s ease",position:"relative"}}
+            onMouseEnter={e=>e.currentTarget.style.borderColor="var(--blueH)"} onMouseLeave={e=>e.currentTarget.style.borderColor="var(--blue)"}>
+            {avatar||initials}
+            <div style={{position:"absolute",bottom:0,right:0,width:28,height:28,borderRadius:"50%",background:"var(--accent)",color:"var(--accentT)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,border:"2px solid var(--bg2)"}}>✏️</div>
+          </div>
+
+          {/* Avatar Picker */}
+          {showAvatarPicker&&<div style={{animation:"scaleIn .2s ease",marginBottom:16}}>
+            <div style={{fontSize:12,color:"var(--t2)",marginBottom:8}}>{L.profilePhoto}</div>
+            <div style={{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"center",marginBottom:12}}>
+              {AVATARS.map(av=><button key={av} onClick={()=>saveAvatar(av)} style={{width:44,height:44,borderRadius:"50%",border:avatar===av?"2px solid var(--blue)":"1px solid var(--brd)",background:avatar===av?"var(--blueL)":"var(--bg3)",fontSize:22,cursor:"pointer",transition:"all .15s ease"}}>{av}</button>)}
+            </div>
+            <div style={{display:"flex",gap:8,justifyContent:"center"}}>
+              {avatar&&<button onClick={()=>saveAvatar("")} style={{...S.sec,fontSize:12,padding:"6px 14px"}}>{L.removePhoto}</button>}
+              <button onClick={()=>setShowAvatarPicker(false)} style={{...S.sec,fontSize:12,padding:"6px 14px"}}>{L.cancel}</button>
+            </div>
+          </div>}
+
+          {/* Name */}
+          {editingName?<div style={{display:"flex",gap:8,alignItems:"center",justifyContent:"center",marginTop:8}}>
+            <input type="text" value={fullName} onChange={e=>setFullName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&saveName()} style={{...S.inp,marginBottom:0,maxWidth:240,textAlign:"center"}} autoFocus/>
+            <button onClick={saveName} disabled={savingName} style={{...S.pri,fontSize:12,padding:"8px 16px"}}>{savingName?"...":L.save}</button>
+            <button onClick={()=>{setEditingName(false);setFullName(user.user_metadata?.full_name||"")}} style={{...S.sec,fontSize:12,padding:"8px 16px"}}>{L.cancel}</button>
+          </div>:<>
+            <h2 style={{fontSize:22,fontWeight:700,marginBottom:4,cursor:"pointer"}} onClick={()=>setEditingName(true)}>{displayName}</h2>
+            <p style={{fontSize:13,color:"var(--t3)",cursor:"pointer"}} onClick={()=>setEditingName(true)}>{user.email} · <span style={{color:"var(--blue)",textDecoration:"underline"}}>{L.editProfile}</span></p>
+          </>}
+        </div>
+
+        {/* ACCOUNT INFO */}
+        <div style={S.card}>
+          <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>📋 {L.accountInfo}</h3>
+          <div style={{display:"grid",gap:12}}>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
+              <span style={{fontSize:13,color:"var(--t2)"}}>{L.email}</span>
+              <span style={{fontSize:13,fontWeight:500}}>{user.email}</span>
+            </div>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
+              <span style={{fontSize:13,color:"var(--t2)"}}>{L.fullname}</span>
+              <span style={{fontSize:13,fontWeight:500}}>{user.user_metadata?.full_name||"—"}</span>
+            </div>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
+              <span style={{fontSize:13,color:"var(--t2)"}}>{L.memberSince}</span>
+              <span style={{fontSize:13,fontWeight:500}}>{formatDate(user.created_at)}</span>
+            </div>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
+              <span style={{fontSize:13,color:"var(--t2)"}}>{L.lastSignIn}</span>
+              <span style={{fontSize:13,fontWeight:500}}>{formatDate(user.last_sign_in_at)}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* TRAINING STATS */}
+        <div style={S.card}>
+          <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>⏱ {L.trainingStats}</h3>
+          {(()=>{
+            const durs=userData&&userData.durations?userData.durations:{};
+            const allDays=Object.keys(durs).sort();
+            if(!allDays.length)return <div style={{fontSize:13,color:"var(--t3)",textAlign:"center",padding:20}}>{L.noTimerData}</div>;
+            const allVals=Object.values(durs).flat();
+            const totalSec=allVals.reduce((a,b)=>a+b,0);
+            const totalSessions=allVals.length;
+            const totalDays=allDays.length;
+            const firstDay=new Date(allDays[0]);
+            const now=new Date();
+            const weeksSince=Math.max(1,Math.ceil((now-firstDay)/(7*24*60*60*1000)));
+            const monthsSince=Math.max(1,Math.ceil((now-firstDay)/(30*24*60*60*1000)));
+            const weeklyAvgSec=Math.round(totalSec/weeksSince);
+            const monthlyAvgSec=Math.round(totalSec/monthsSince);
+            const avgSessionSec=totalSessions>0?Math.round(totalSec/totalSessions):0;
+            const fmtDur=(s)=>{const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sc=s%60;return h>0?`${h}${L.hours} ${m}${L.minutes} ${sc}${L.seconds}`:`${m}${L.minutes} ${sc}${L.seconds}`};
+            const fmtBig=(s)=>{const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sc=s%60;return{h,m,sc}};
+            const big=fmtBig(totalSec);
+            const statRow=(label,val)=>(<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
+              <span style={{fontSize:13,color:"var(--t2)"}}>{label}</span>
+              <span style={{fontSize:13,fontWeight:500}}>{val}</span>
+            </div>);
+            return(<>
+              <div style={{textAlign:"center",padding:"12px 0 20px"}}>
+                <div style={{fontSize:36,fontWeight:700,color:"var(--accent)",letterSpacing:1}}>{big.h}<span style={{fontSize:16,fontWeight:400,color:"var(--t2)"}}>{L.hours}</span> {big.m}<span style={{fontSize:16,fontWeight:400,color:"var(--t2)"}}>{L.minutes}</span> {big.sc}<span style={{fontSize:16,fontWeight:400,color:"var(--t2)"}}>{L.seconds}</span></div>
+                <div style={{fontSize:12,color:"var(--t3)",marginTop:4}}>{L.totalTime}</div>
+              </div>
+              <div style={{display:"grid",gap:8}}>
+                {statRow(L.trainingDays,`${totalDays} ${L.days}`)}
+                {statRow(lang==="tr"?"Toplam Seans":"Total Sessions",`${totalSessions} ${L.sessions}`)}
+                {statRow(L.weeklyAvg,fmtDur(weeklyAvgSec))}
+                {statRow(L.monthlyAvg,fmtDur(monthlyAvgSec))}
+                {statRow(L.avgSession,fmtDur(avgSessionSec))}
+              </div>
+            </>);
+          })()}
+        </div>
+
+        {/* SECURITY */}
+        <div style={S.card}>
+          <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>🔒 {L.securitySettings}</h3>
+
+          {isResetMode&&!showPwForm===false&&<div style={{padding:"10px 14px",background:"var(--blueL)",borderRadius:10,marginBottom:12,fontSize:13,color:"var(--blue)",fontWeight:500}}>
+            {L.passwordResetMode}
+          </div>}
+
+          {!showPwForm?<button onClick={()=>setShowPwForm(true)} style={{...S.sec,width:"100%"}}>{L.changePassword}</button>
+          :<form onSubmit={changePw} style={{animation:"scaleIn .2s ease"}}>
+            {isResetMode&&<div style={{padding:"10px 14px",background:"var(--blueL)",borderRadius:10,marginBottom:12,fontSize:13,color:"var(--blue)",fontWeight:500}}>
+              {L.passwordResetMode}
+            </div>}
+            <input type="password" placeholder={L.newPassword} value={newPw} onChange={e=>setNewPw(e.target.value)} style={S.inp} autoFocus/>
+            <input type="password" placeholder={L.confirmNewPw} value={newPw2} onChange={e=>setNewPw2(e.target.value)} style={S.inp}/>
+            {pwErr&&<p style={{fontSize:13,color:"var(--red)",padding:"8px 12px",background:"var(--redL)",borderRadius:8,marginBottom:12}}>{pwErr}</p>}
+            <div style={{display:"flex",gap:8}}>
+              <button type="submit" disabled={savingPw} style={S.pri}>{savingPw?"...":L.save}</button>
+              {!isResetMode&&<button type="button" onClick={()=>{setShowPwForm(false);setNewPw("");setNewPw2("");setPwErr("")}} style={S.sec}>{L.cancel}</button>}
+            </div>
+          </form>}
+        </div>
+
+        {/* LOGOUT */}
+        <div style={{textAlign:"center",marginTop:8}}>
+          <button onClick={logout} style={{...S.sec,fontSize:13,padding:"10px 32px"}}>{L.logout}</button>
+        </div>
+
+        {/* DANGER ZONE */}
+        <div style={{...S.card,marginTop:20,borderColor:"var(--red)",border:"1px solid var(--red)"}}>
+          <h3 style={{fontSize:15,fontWeight:600,marginBottom:8,display:"flex",alignItems:"center",gap:8,color:"var(--red)"}}>⚠️ {L.dangerZone}</h3>
+          <p style={{fontSize:13,color:"var(--t2)",marginBottom:16}}>{L.deleteWarn}</p>
+          <button onClick={()=>setShowDeleteModal(true)} style={{...S.pri,background:"var(--red)",color:"#fff",width:"100%"}}>{L.deleteAccount}</button>
+        </div>
+
+      </div>
+    </main>
+
+    {/* DELETE ACCOUNT MODAL */}
+    {showDeleteModal&&<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.7)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:1000,padding:16,animation:"fadeIn .2s ease"}} onClick={()=>{setShowDeleteModal(false);setDeleteConfirmText("")}}>
+      <div style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:16,padding:28,maxWidth:420,width:"100%",animation:"scaleIn .2s ease",boxShadow:"var(--shadow)"}} onClick={e=>e.stopPropagation()}>
+        <div style={{fontSize:36,textAlign:"center",marginBottom:12}}>⚠️</div>
+        <h3 style={{fontSize:18,fontWeight:700,textAlign:"center",marginBottom:8,color:"var(--red)"}}>{L.deleteAccount}</h3>
+        <p style={{fontSize:13,color:"var(--t2)",textAlign:"center",marginBottom:20,lineHeight:1.5}}>{L.deleteWarn}</p>
+        <p style={{fontSize:13,color:"var(--t1)",marginBottom:8}}>{lang==="tr"?<>Onaylamak için <b>SİL</b> yazın:</>:<>Type <b>DELETE</b> to confirm:</>}</p>
+        <input type="text" value={deleteConfirmText} onChange={e=>setDeleteConfirmText(e.target.value)} placeholder={lang==="tr"?"SİL":"DELETE"} style={{...S.inp,textAlign:"center",fontSize:16,fontWeight:700,letterSpacing:2}} autoFocus/>
+        <div style={{display:"flex",gap:10,marginTop:4}}>
+          <button onClick={()=>{setShowDeleteModal(false);setDeleteConfirmText("")}} style={{...S.sec,flex:1}}>{L.cancel}</button>
+          <button onClick={deleteAccount} disabled={deleting||deleteConfirmText!==(lang==="tr"?"SİL":"DELETE")} style={{...S.pri,flex:1,background:deleteConfirmText===(lang==="tr"?"SİL":"DELETE")?"var(--red)":"var(--t4)",color:"#fff",opacity:deleteConfirmText===(lang==="tr"?"SİL":"DELETE")?1:0.5,cursor:deleteConfirmText===(lang==="tr"?"SİL":"DELETE")?"pointer":"not-allowed"}}>{deleting?(lang==="tr"?"Siliniyor...":"Deleting..."):L.deleteAccount}</button>
+        </div>
+      </div>
+    </div>}
+
+  </div>);
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<ProfileApp/>);
+</script>
+</body>
+</html>

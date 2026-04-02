@@ -1,0 +1,9 @@
+# IDE ve Araçlar
+.claude/
+
+# OS spesifik dosyalar
+Thumbs.db
+.DS_Store
+
+# Loglar
+*.log

@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Track your workouts, monitor your progress, and reach your fitness goals with Log Wise. Your intelligent workout companion backed by Google for Startups."/>
+<title>LOG WISE - Smart Workout Tracker & Fitness Planning App</title>
+<link rel="canonical" href="https://logwise.fit/"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet"/>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body,#root{height:100%;overflow:hidden}
+body{font-family:'Space Mono',monospace;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:8px}
+input:focus,select:focus{outline:none;border-color:var(--blue) !important}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+@keyframes toastIn{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
+@keyframes toastOut{from{opacity:1}to{opacity:0}}
+@keyframes slideInLeft{from{opacity:0;transform:translateX(-100%)}to{opacity:1;transform:translateX(0)}}
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bgH:#222;
+  --t1:#e0e0e0;--t2:#888;--t3:#555;--t4:#333;
+  --brd:#222;--brd2:#333;
+  --blue:#f0c040;--blueH:#ffd060;--blueL:#2a2210;--blueL2:#3a3218;
+  --green:#8fbc8f;--greenL:#1a2a1a;--greenB:#b0d0b0;
+  --red:#ff6060;--redL:#2a1515;
+  --orange:#ffa040;--orangeL:#2a2010;
+  --purple:#d7aefb;--purpleL:#2a1a3a;
+  --teal:#78d9ec;--tealL:#1a2a2f;
+  --ngreen:#39ff14;--ngreenL:#0a2a05;
+  --sky:#4dabf7;--skyL:#0d1f33;
+  --pink:#ff69b4;--pinkL:#2a0f1f;
+  --amber:#ffb300;--amberL:#2a2200;
+  --lime:#aeea00;--limeL:#1a2a00;
+  --indigo:#7c4dff;--indigoL:#1a0f3a;
+  --coral:#ff7043;--coralL:#2a1510;
+  --violet:#ce93d8;--violetL:#2a1030;
+  --scroll:#333;
+  --shadow:0 2px 8px rgba(0,0,0,.6);
+  --shadow2:0 1px 4px rgba(0,0,0,.4);
+  --accent:#f0c040;--accentT:#000;
+}
+[data-theme="light"]{
+  --bg:#f5f2ec;--bg2:#fff;--bg3:#f0ede6;--bgH:#e8e4dc;
+  --t1:#1a1a1a;--t2:#666;--t3:#999;--t4:#ccc;
+  --brd:#d0cdc6;--brd2:#bbb8b0;
+  --blue:#c8960a;--blueH:#a07808;--blueL:#f5ecd0;--blueL2:#e8dfc0;
+  --green:#2d7a2d;--greenL:#edf5ed;--greenB:#1e5e1e;
+  --red:#d44040;--redL:#fce8e6;
+  --orange:#e37400;--orangeL:#fef7e0;
+  --purple:#9334e6;--purpleL:#f3e8fd;
+  --teal:#007b83;--tealL:#e4f7fb;
+  --ngreen:#1db805;--ngreenL:#e5f9e0;
+  --sky:#1971c2;--skyL:#e3f0fd;
+  --pink:#c2185b;--pinkL:#fce4ec;
+  --amber:#ff8f00;--amberL:#fff8e1;
+  --lime:#827717;--limeL:#f9fbe7;
+  --indigo:#5c6bc0;--indigoL:#e8eaf6;
+  --coral:#e64a19;--coralL:#fbe9e7;
+  --violet:#8e24aa;--violetL:#f3e5f5;
+  --scroll:#d0cdc6;
+  --shadow:0 2px 8px rgba(0,0,0,.15);
+  --shadow2:0 1px 4px rgba(0,0,0,.1);
+  --accent:#c8960a;--accentT:#fff;
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(240,192,64,.3)}50%{box-shadow:0 0 16px 4px rgba(240,192,64,.15)}}
+.dash-card{animation:countUp .4s ease both}
+.dash-card:nth-child(2){animation-delay:.05s}.dash-card:nth-child(3){animation-delay:.1s}.dash-card:nth-child(4){animation-delay:.15s}
+.dash-card:nth-child(5){animation-delay:.2s}.dash-card:nth-child(6){animation-delay:.25s}
+.heatmap-cell{transition:transform .15s ease,box-shadow .15s ease}.heatmap-cell:hover{transform:scale(1.12);box-shadow:0 0 8px rgba(240,192,64,.3)}
+.chart-container canvas{max-height:300px}
+</style>
+</head>
+<body>
+<h1 class="sr-only">LOG WISE - Smart Workout Tracker & Fitness Planning App</h1>
+<noscript>
+  <div style="max-width:700px;margin:40px auto;padding:24px;font-family:'Space Mono',monospace;color:#e0e0e0;line-height:1.8">
+    <p>Log Wise is your intelligent workout companion — plan, track, and analyze every session with ease. Build custom routines or choose from ready-made programs, monitor your progress with detailed charts and statistics, unlock achievements as you grow, and keep your training history organized in one place. Start training smarter today.</p>
+  </div>
+</noscript>
+<div id="root"></div>
+<script type="text/babel">
+const SUPABASE_URL="https://czbxujioufhmvoajqwzp.supabase.co";
+const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6Ynh1amlvdWZobXZvYWpxd3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDYzNTgsImV4cCI6MjA5MDA4MjM1OH0._juhkh6W8p0iP3WVSooi1fFfZFXT50LugDszPBubOgk";
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const {useState,useEffect,useCallback,useMemo,useRef}=React;
+const D=["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"];
+const DF=["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"];
+const MO=["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"];
+const CATS=["Göğüs","Sırt","Omuz","Biceps","Triceps","Bacak","Trapez","Kalça","Kalf","Boyun","Bilek","Karın","Kardiyo","Diğer"];
+const CC={"Göğüs":"blue","Sırt":"ngreen","Omuz":"orange","Biceps":"purple","Triceps":"pink","Bacak":"teal","Trapez":"amber","Kalça":"indigo","Kalf":"coral","Boyun":"violet","Bilek":"lime","Karın":"red","Kardiyo":"sky","Diğer":"green"};
+/*──────────────────────────────────────────────────────────────
+  HAZIR HAREKETLER — Preset Exercises
+  ─────────────────────────────────────────────────────────────
+  Yeni hareket eklemek için aşağıdaki diziye bir satır ekle:
+    { name: "Türkçe Ad", nameEN: "English Name", categories: ["Bölge1"] }
+
+  • name    → Türkçe modda gösterilir, kullanıcı ekleyince bu isimle kaydedilir.
+  • nameEN  → İngilizce modda gösterilir, ekleme de bu isimle yapılır.
+              nameEN verilmezse her iki dilde de "name" kullanılır.
+  • categories → Bölge dizisi. Geçerli değerler:
+      Göğüs, Sırt, Omuz, Biceps, Triceps, Bacak,
+      Trapez, Kalça, Kalf, Boyun, Bilek, Karın, Kardiyo, Diğer
+
+  Örnek:
+    { name: "Barbell Row", nameEN: "Barbell Row", categories: ["Sırt","Biceps"] }
+    { name: "Şınav", nameEN: "Push Up", categories: ["Göğüs","Omuz","Triceps"] }
+──────────────────────────────────────────────────────────────*/
+const PRESET_EXERCISES=[
+  {name:"Chest Press",categories:["Göğüs"]},
+  {name:"Chest Fly",categories:["Göğüs"]},
+  {name:"Dumbell Press",categories:["Göğüs"]},
+  {name:"İncline Dumbell Press",nameEN:"Incline Dumbell Press",categories:["Göğüs"]},
+  {name:"Dumbell Fly",categories:["Göğüs"]},
+  {name:"Bench Press",categories:["Göğüs"]},
+  {name:"İncline Bench Press",nameEN:"Incline Bench Press",categories:["Göğüs"]},
+  {name:"Cable Crossover",categories:["Göğüs"]},
+  {name:"Overhead Press",categories:["Omuz"]},
+  {name:"Shoulder Press",categories:["Omuz"]},
+  {name:"Lateral Raise",categories:["Omuz"]},
+  {name:"Front Raise",categories:["Omuz"]},
+  {name:"Rear Delt Fly",categories:["Omuz"]},
+  {name:"Şınav", nameEN:"Push Up", categories:["Göğüs","Omuz","Triceps"]},
+  {name:"Dips",categories:["Göğüs","Omuz","Triceps"]},
+  {name:"Triceps Pushdown",categories:["Triceps"]},
+  {name:"Kickback",categories:["Triceps"]},
+  {name:"Overhead Triceps Extension",categories:["Triceps"]},
+  {name:"Skull Crusher",categories:["Triceps"]},
+  {name:"Biceps Curl",categories:["Biceps"]},
+  {name:"Hammer Curl",categories:["Biceps"]},
+  {name:"One Arm Cable Curl",categories:["Biceps"]},
+  {name:"Preacher Curl",categories:["Biceps"]},
+  {name:"Reverse Curl",categories:["Biceps", "Bilek"]},
+  {name:"Dead Hang",categories:["Bilek"]},
+  {name:"Wrist Extensions",categories:["Bilek"]},
+  {name:"Wrist Curls",categories:["Bilek"]},
+  {name:"Dead Hang",categories:["Bilek"]},
+  {name:"Lat Pulldown",categories:["Sırt","Biceps"]},
+  {name:"Pull Up",categories:["Sırt","Biceps"]},
+  {name:"Dumbell Row",categories:["Sırt","Biceps"]},
+  {name:"Cable Row",categories:["Sırt","Biceps"]},
+  {name:"Barbell Row",categories:["Sırt","Biceps"]},
+  {name:"T-Bar Row",categories:["Sırt","Biceps"]},
+  {name:"Pullover",categories:["Sırt","Biceps"]},
+  {name:"Deadlift",categories:["Sırt","Bacak","Kalça"]},
+  {name:"Squat",categories:["Bacak","Kalça"]},
+  {name:"Leg Press",categories:["Bacak","Kalça"]},
+  {name:"Lunge",categories:["Bacak","Kalça"]},
+  {name:"Leg Curl",categories:["Bacak"]},
+  {name:"Leg Extension",categories:["Bacak"]},
+  {name:"Calf Raise",categories:["Kalf"]},
+  {name:"Shrug",categories:["Trapez"]},
+  {name:"Hip Thrust",categories:["Kalça"]},
+  {name:"Glute Bridge",categories:["Kalça"]},
+  {name:"Plank",categories:["Karın"]},
+  {name:"Crunch",categories:["Karın"]},
+  {name:"Cable Crunch",categories:["Karın"]},
+  {name:"Russian Twist",categories:["Karın"]},
+  {name:"Mountain Climber",categories:["Karın","Kardiyo"]},
+  {name:"Burpee",categories:["Kardiyo"]},
+  {name:"Jumping Jack",categories:["Kardiyo"]},
+  {name:"Yürüyüş Bandı",nameEN:"Treadmill",categories:["Kardiyo"]},
+  {name:"Bisiklet",nameEN:"Cycling",categories:["Kardiyo"]},
+  {name:"Ay Yürüyüşü",nameEN:"Moonwalk",categories:["Kardiyo"]},
+
+];
+const presetName=(p,lang)=>(lang==="en"&&p.nameEN)?p.nameEN:p.name;
+const RIRS=["-","0","1","2","3","4+"];
+const fmt=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+const pD=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+const gdow=d=>{const v=d.getDay();return v===0?6:v-1};
+const SK="gym-log-v3",TK="gym-log-theme",LK="gym-log-lang",UK="gym-log-user",FK="gym-log-feedback";
+const eDays=()=>({"0":[],"1":[],"2":[],"3":[],"4":[],"5":[],"6":[]});
+const init=()=>({exercises:[],workouts:{},programs:{},dailyPrograms:{},activeProgram:null,durations:{},measurements:{}});
+const migrateData=(d)=>{if(!d)return d;if(d.exercises){d.exercises=d.exercises.map(e=>{if(e.category&&!e.categories){return{...e,categories:[e.category]}}return e})}if(!d.dailyPrograms)d.dailyPrograms={};if(!d.measurements)d.measurements={};return d};
+const calc1RM=(w,r)=>{if(!w||!r||r<=0)return 0;if(r===1)return w;return Math.round(w*(1+r/30)*10)/10};
+const calcBrzycki=(w,r)=>{if(!w||!r||r<=0)return 0;if(r===1)return w;if(r>=37)return w*2;return Math.round(w*(36/(37-r))*10)/10};
+const calcStreak=(workouts)=>{let streak=0;const t=new Date();t.setHours(0,0,0,0);for(let i=0;i<365;i++){const d=new Date(t);d.setDate(d.getDate()-i);const k=fmt(d);if(workouts[k]&&workouts[k].some(w=>w.sets&&w.sets.length>0)){streak++}else if(i>0)break}return streak};
+const calcWeekFreq=(workouts,exercises)=>{const now=new Date();const freq={};CATS.forEach(c=>freq[c]=0);for(let i=0;i<7;i++){const d=new Date(now);d.setDate(d.getDate()-i);const k=fmt(d);const ws=workouts[k]||[];ws.forEach(w=>{if(w.sets&&w.sets.length>0){const ex=exercises.find(e=>e.id===w.exerciseId);if(ex){(ex.categories||[]).forEach(c=>{freq[c]=(freq[c]||0)+1})}}});}return freq};
+const calcMonthFreq=(workouts,exercises)=>{const now=new Date();const freq={};CATS.forEach(c=>freq[c]=0);for(let i=0;i<30;i++){const d=new Date(now);d.setDate(d.getDate()-i);const k=fmt(d);const ws=workouts[k]||[];ws.forEach(w=>{if(w.sets&&w.sets.length>0){const ex=exercises.find(e=>e.id===w.exerciseId);if(ex){(ex.categories||[]).forEach(c=>{freq[c]=(freq[c]||0)+1})}}});}return freq};
+const getAllPRs=(workouts,exercises)=>{const prs={};exercises.forEach(ex=>{let maxW=0,maxVol=0,max1RM=0;Object.values(workouts).forEach(dayW=>{const f=dayW.find(w=>w.exerciseId===ex.id);if(f)f.sets.forEach(s=>{if(s.weight>maxW)maxW=s.weight;const vol=s.weight*s.reps;if(vol>maxVol)maxVol=vol;const rm=calc1RM(s.weight,s.reps);if(rm>max1RM)max1RM=rm})});if(maxW>0)prs[ex.id]={maxWeight:maxW,maxVolume:maxVol,est1RM:Math.round(max1RM)}});return prs};
+const TR={calendar:"Takvim",exercises:"Hareketler",programs:"Programlar",feedback:"Geri Bildirim",today:"Bugün",month:"Ay",week:"Hafta",addExercise:"Hareket Ekle",newExercise:"Yeni Hareket",exerciseName:"Hareket adı...",searchExercise:"Hareket ara...",noExercises:"Henüz hareket eklenmemiş.",notFound:"Hareket bulunamadı.",save:"Kaydet",saved:"Kaydedildi!",cancel:"İptal",addSet:"+ Set Ekle",set:"SET",kg:"KG",reps:"TEKRAR",rir:"RIR",backToCalendar:"← Takvim",todayLabel:"Bugün",more:"daha",programExercises:"Programdaki Hareketler",newProgram:"Yeni Program",programName:"Program adı...",editProgram:"Programı Düzenle",active:"AKTİF",activate:"Aktif Et",deactivate:"Pasif",activeProgram:"Aktif Program",confirmDeleteEx:"Bu hareketi ve tüm kayıtlarını silmek istiyor musun?",confirmDeletePg:"Silmek istiyor musun?",createProgram:"Haftanın günlerine göre program oluştur.",history:"Geçmiş",pr:"PR",maxKg:"Max",volume:"Hacim",noHistory:"Henüz kayıt yok.",close:"Kapat",login:"Giriş Yap",register:"Kayıt Ol",email:"E-posta",password:"Şifre",fullname:"Ad Soyad",confirmPw:"Şifre Tekrar",noAccount:"Hesabın yok mu?",hasAccount:"Zaten hesabın var mı?",logout:"Çıkış Yap",feedbackTitle:"Geri Bildirim Gönder",feedbackMsg:"Mesajınız...",feedbackBug:"Hata",feedbackFeature:"Özellik İsteği",feedbackGeneral:"Genel",feedbackOther:"Diğer",feedbackCat:"Kategori",feedbackRating:"Puan",feedbackSubmit:"Gönder",feedbackSent:"Geri bildirim gönderildi!",feedbackPrev:"Önceki Geri Bildirimler",feedbackNone:"Henüz geri bildirim yok.",timer:"Kronometre",timerStart:"Başlat",timerStop:"Durdur",timerReset:"Sıfırla",timerSave:"Süreyi Kaydet",timerSaved:"Süre kaydedildi!",timerTotal:"Toplam Antrenman",guestWarn:"Giriş yapmadan verileriniz sadece bu cihazda saklanır. Kaybolmaması için giriş yapın.",guestLogin:"Giriş Yap / Kayıt Ol",guest:"Misafir",days:["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"],daysFull:["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"],months:["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],cats:["Göğüs","Sırt","Omuz","Biceps","Triceps","Bacak","Trapez","Kalça","Kalf","Boyun","Bilek","Karın","Kardiyo","Diğer"],weeklyProgram:"Haftalık Program",dailyProgram:"Günlük Program",dailyPrograms:"Günlük Programlar",addDailyProgram:"Günlük Programı Ekle",selectDailyProgram:"Günlük Program Seç",noDailyPrograms:"Henüz günlük program yok.",programType:"Program Türü",dailyProgramExercises:"Programdaki Hareketler",createDailyProgram:"Hareketlerden oluşan günlük program oluştur.",customExercise:"Kendin Ekle",presetExercises:"Hazır Hareketler",addSelected:"Seçilenleri Ekle",allCategories:"Tümü",alreadyAdded:"Zaten ekli",presetDesc:"Spora yeni başlayanlar için hazır hareket listesi",dashboard:"Panel",dashTotalWorkouts:"Toplam Antrenman",dashTotalSets:"Toplam Set",dashTotalVolume:"Toplam Hacim",dashStreak:"Seri",dashStreakDays:"gün üst üste",dashThisWeek:"Bu Hafta",dashThisMonth:"Bu Ay",dashPRs:"Kişisel Rekorlar",dashNoPRs:"Henüz PR yok. Antrenman yapmaya başla!",dashMuscleFreq:"Kas Grubu Sıklığı",dashWeekly:"Haftalık",dashMonthly:"Aylık",dashProgress:"İlerleme Grafiği",dashSelectEx:"Hareket seç...",dashWeight:"Ağırlık",dashVolPerSet:"Set Başı Hacim",dashEst1RM:"Tahmini 1RM",dashNoData:"Bu hareket için veri yok.",dashBestSet:"En İyi Set",dashAvgWeight:"Ort. Ağırlık",dashSessions:"Seans",dashExProgress:"Hareket İlerlemesi",dashOverview:"Genel Bakış",dashFrequency:"Sıklık",times:"kez",kg:"kg",est1RMLabel:"Tahmini 1RM (Epley)",brzycki1RM:"Brzycki 1RM",weekLabel:"hafta",workoutDays:"Antrenman Günü",noWorkoutsYet:"Henüz antrenman verisi yok. Takvimden bir güne tıklayıp antrenman eklemeye başla!"};
+const EN={calendar:"Calendar",exercises:"Exercises",programs:"Programs",feedback:"Feedback",today:"Today",month:"Month",week:"Week",addExercise:"Add Exercise",newExercise:"New Exercise",exerciseName:"Exercise name...",searchExercise:"Search exercise...",noExercises:"No exercises added yet.",notFound:"Exercise not found.",save:"Save",saved:"Saved!",cancel:"Cancel",addSet:"+ Add Set",set:"SET",kg:"KG",reps:"REPS",rir:"RIR",backToCalendar:"← Calendar",todayLabel:"Today",more:"more",programExercises:"Program Exercises",newProgram:"New Program",programName:"Program name...",editProgram:"Edit Program",active:"ACTIVE",activate:"Activate",deactivate:"Deactivate",activeProgram:"Active Program",confirmDeleteEx:"Delete this exercise and all its records?",confirmDeletePg:"Are you sure you want to delete?",createProgram:"Create a weekly workout program.",history:"History",pr:"PR",maxKg:"Max",volume:"Volume",noHistory:"No records yet.",close:"Close",login:"Login",register:"Register",email:"Email",password:"Password",fullname:"Full Name",confirmPw:"Confirm Password",noAccount:"Don't have an account?",hasAccount:"Already have an account?",logout:"Logout",feedbackTitle:"Send Feedback",feedbackMsg:"Your message...",feedbackBug:"Bug",feedbackFeature:"Feature Request",feedbackGeneral:"General",feedbackOther:"Other",feedbackCat:"Category",feedbackRating:"Rating",feedbackSubmit:"Submit",feedbackSent:"Feedback submitted!",feedbackPrev:"Previous Feedback",feedbackNone:"No feedback yet.",timer:"Timer",timerStart:"Start",timerStop:"Stop",timerReset:"Reset",timerSave:"Save Time",timerSaved:"Time saved!",timerTotal:"Total Workout",guestWarn:"Without signing in, your data is only saved on this device. Sign in to keep it safe.",guestLogin:"Login / Register",guest:"Guest",days:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],daysFull:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],cats:["Chest","Back","Shoulder","Biceps","Triceps","Leg","Traps","Hip","Calf","Neck","Wrist","Core","Cardio","Other"],weeklyProgram:"Weekly Program",dailyProgram:"Daily Program",dailyPrograms:"Daily Programs",addDailyProgram:"Add Daily Program",selectDailyProgram:"Select Daily Program",noDailyPrograms:"No daily programs yet.",programType:"Program Type",dailyProgramExercises:"Program Exercises",createDailyProgram:"Create a daily workout program from exercises.",customExercise:"Custom",presetExercises:"Preset Exercises",addSelected:"Add Selected",allCategories:"All",alreadyAdded:"Already added",presetDesc:"Ready-made exercises for beginners",dashboard:"Dashboard",dashTotalWorkouts:"Total Workouts",dashTotalSets:"Total Sets",dashTotalVolume:"Total Volume",dashStreak:"Streak",dashStreakDays:"days in a row",dashThisWeek:"This Week",dashThisMonth:"This Month",dashPRs:"Personal Records",dashNoPRs:"No PRs yet. Start working out!",dashMuscleFreq:"Muscle Group Frequency",dashWeekly:"Weekly",dashMonthly:"Monthly",dashProgress:"Progress Chart",dashSelectEx:"Select exercise...",dashWeight:"Weight",dashVolPerSet:"Volume/Set",dashEst1RM:"Estimated 1RM",dashNoData:"No data for this exercise.",dashBestSet:"Best Set",dashAvgWeight:"Avg Weight",dashSessions:"Sessions",dashExProgress:"Exercise Progress",dashOverview:"Overview",dashFrequency:"Frequency",times:"times",kg:"kg",est1RMLabel:"Estimated 1RM (Epley)",brzycki1RM:"Brzycki 1RM",weekLabel:"week",workoutDays:"Workout Days",noWorkoutsYet:"No workout data yet. Tap a day on the calendar to start logging!"};
+
+function DashChart({chartRef,chartInstanceRef,chartHist,mode,theme,L,lang}){
+  useEffect(()=>{
+    if(!chartRef.current||!chartHist.length)return;
+    if(chartInstanceRef.current){chartInstanceRef.current.destroy();chartInstanceRef.current=null}
+    const ctx=chartRef.current.getContext("2d");
+    const labels=chartHist.map(h=>{const d=pD(h.date);return d.getDate()+"/"+(d.getMonth()+1)});
+    const dataPoints=mode==="weight"?chartHist.map(h=>h.maxW):mode==="volume"?chartHist.map(h=>h.avgVolPerSet):chartHist.map(h=>h.best1RM);
+    const label=mode==="weight"?L.dashWeight:mode==="volume"?L.dashVolPerSet:L.dashEst1RM;
+    const borderColor=mode==="weight"?"#f0c040":mode==="volume"?"#8fbc8f":"#d7aefb";
+    const bgColor=mode==="weight"?"rgba(240,192,64,0.1)":mode==="volume"?"rgba(143,188,143,0.1)":"rgba(215,174,251,0.1)";
+    const gridColor=theme==="dark"?"rgba(255,255,255,0.06)":"rgba(0,0,0,0.06)";
+    const tickColor=theme==="dark"?"#888":"#666";
+    chartInstanceRef.current=new Chart(ctx,{
+      type:"line",
+      data:{labels,datasets:[{label:label+" (kg)",data:dataPoints,borderColor,backgroundColor:bgColor,borderWidth:2,pointRadius:3,pointHoverRadius:6,pointBackgroundColor:borderColor,tension:0.3,fill:true}]},
+      options:{responsive:true,maintainAspectRatio:false,interaction:{intersect:false,mode:"index"},plugins:{legend:{display:false},tooltip:{backgroundColor:theme==="dark"?"#222":"#fff",titleColor:theme==="dark"?"#e0e0e0":"#1a1a1a",bodyColor:theme==="dark"?"#ccc":"#333",borderColor:theme==="dark"?"#333":"#ddd",borderWidth:1,cornerRadius:8,padding:10,displayColors:false,callbacks:{label:function(c){return label+": "+c.parsed.y+" kg"}}}},scales:{x:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:10,family:"'Space Mono',monospace"},maxRotation:0,autoSkip:true,maxTicksLimit:8}},y:{grid:{color:gridColor},ticks:{color:tickColor,font:{size:10,family:"'Space Mono',monospace"}},beginAtZero:false}}}
+    });
+    return()=>{if(chartInstanceRef.current){chartInstanceRef.current.destroy();chartInstanceRef.current=null}};
+  },[chartHist,mode,theme]);
+  return <canvas ref={chartRef} style={{width:"100%",height:260}}/>;
+}
+
+function AuthScreen({onLogin,lang,setLang,onClose}){
+const L=lang==="tr"?TR:EN;
+const[mode,setMode]=useState("login"); // "login","register","forgot"
+const[email,setEmail]=useState("");const[pw,setPw]=useState("");const[name,setName]=useState("");const[pw2,setPw2]=useState("");
+const[err,setErr]=useState("");const[info,setInfo]=useState("");const[busy,setBusy]=useState(false);
+const switchMode=(m)=>{setMode(m);setErr("");setInfo("")};
+const sub=async e=>{
+  e.preventDefault();setErr("");setInfo("");
+  if(mode==="forgot"){
+    if(!email){setErr(lang==="tr"?"E-posta adresini gir":"Enter your email");return;}
+    setBusy(true);
+    try{
+      const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+"/profile?reset=1"});
+      if(error){setErr(error.message);return;}
+      setInfo(lang==="tr"?"Şifre sıfırlama linki e-postana gönderildi!":"Password reset link sent to your email!");
+    }finally{setBusy(false)}
+    return;
+  }
+  if(!email||!pw)return;
+  if(mode==="register"&&(!name||pw!==pw2)){setErr(lang==="tr"?"Bilgileri kontrol edin":"Please check your info");return;}
+  setBusy(true);
+  try{
+    if(mode==="login"){
+      const{data,error}=await sb.auth.signInWithPassword({email,password:pw});
+      if(error){setErr(lang==="tr"?"E-posta veya şifre hatalı":"Invalid email or password");return;}
+      onLogin(data.user);
+    }else{
+      const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{full_name:name}}});
+      if(error){setErr(error.message);return;}
+      if(data.session){onLogin(data.user);}
+      else{setInfo(lang==="tr"?"Kayıt başarılı! E-postanı onaylayıp giriş yap.":"Registered! Please confirm your email then log in.");setMode("login");}
+    }
+  }finally{setBusy(false)}
+};
+const googleLogin=async()=>{
+  setBusy(true);
+  try{
+    const{error}=await sb.auth.signInWithOAuth({provider:"google",options:{redirectTo:window.location.origin}});
+    if(error)setErr(error.message);
+  }finally{setBusy(false)}
+};
+const inputStyle={background:"var(--bg3)",border:"1px solid var(--brd)",borderRadius:10,padding:"12px 16px",color:"var(--t1)",fontSize:14,fontFamily:"inherit",width:"100%",marginBottom:12,transition:"border-color .2s ease"};
+return(<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.65)",backdropFilter:"blur(4px)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:300,animation:"fadeIn .2s ease"}} onClick={onClose}>
+<div style={{background:"var(--bg2)",borderRadius:20,padding:"36px 32px 28px",width:"100%",maxWidth:420,boxShadow:"0 8px 32px rgba(0,0,0,.4)",animation:"scaleIn .3s ease",position:"relative",border:"1px solid var(--brd)"}} onClick={e=>e.stopPropagation()}>
+{onClose&&<button onClick={onClose} style={{position:"absolute",top:14,right:14,background:"none",border:"none",cursor:"pointer",color:"var(--t3)",fontSize:20,fontFamily:"inherit",lineHeight:1}}>✕</button>}
+<div style={{textAlign:"center",marginBottom:24}}>
+  <div style={{fontSize:40,marginBottom:4}}>🏋️</div>
+  <h1 style={{fontFamily:"'Archivo Black',sans-serif",fontSize:26,color:"var(--accent)",marginBottom:4}}>LOG WISE</h1>
+  <p style={{fontSize:13,color:"var(--t2)"}}>{mode==="login"?L.login:mode==="register"?L.register:(lang==="tr"?"Şifre Sıfırlama":"Reset Password")}</p>
+</div>
+
+{/* Google Login Button */}
+{mode!=="forgot"&&<button onClick={googleLogin} disabled={busy} style={{width:"100%",padding:"11px",borderRadius:10,border:"1px solid var(--brd)",background:"var(--bg3)",color:"var(--t1)",fontSize:14,fontWeight:500,cursor:busy?"not-allowed":"pointer",fontFamily:"inherit",marginBottom:16,display:"flex",alignItems:"center",justifyContent:"center",gap:10,transition:"all .2s ease"}}
+  onMouseEnter={e=>e.currentTarget.style.background="var(--bgH)"} onMouseLeave={e=>e.currentTarget.style.background="var(--bg3)"}>
+  <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+  {lang==="tr"?"Google ile devam et":"Continue with Google"}
+</button>}
+
+{mode!=="forgot"&&<div style={{display:"flex",alignItems:"center",gap:12,marginBottom:16}}>
+  <div style={{flex:1,height:1,background:"var(--brd)"}}/>
+  <span style={{fontSize:12,color:"var(--t3)"}}>{lang==="tr"?"veya":"or"}</span>
+  <div style={{flex:1,height:1,background:"var(--brd)"}}/>
+</div>}
+
+<form onSubmit={sub}>
+{mode==="register"&&<input type="text" placeholder={L.fullname} value={name} onChange={e=>setName(e.target.value)} style={inputStyle}/>}
+<input type="email" placeholder={L.email} value={email} onChange={e=>setEmail(e.target.value)} style={inputStyle}/>
+{mode!=="forgot"&&<input type="password" placeholder={L.password} value={pw} onChange={e=>setPw(e.target.value)} style={inputStyle}/>}
+{mode==="register"&&<input type="password" placeholder={L.confirmPw} value={pw2} onChange={e=>setPw2(e.target.value)} style={{...inputStyle,marginBottom:16}}/>}
+{err&&<p style={{fontSize:13,color:"var(--red)",textAlign:"center",marginBottom:10,padding:"8px 12px",background:"var(--redL)",borderRadius:8}}>{err}</p>}
+{info&&<p style={{fontSize:13,color:"var(--green)",textAlign:"center",marginBottom:10,padding:"8px 12px",background:"var(--greenL)",borderRadius:8}}>{info}</p>}
+<button type="submit" disabled={busy} style={{width:"100%",padding:"12px",borderRadius:12,border:"none",background:busy?"var(--t4)":"var(--accent)",color:"var(--accentT)",fontSize:15,fontWeight:700,cursor:busy?"not-allowed":"pointer",fontFamily:"inherit",marginBottom:12,transition:"all .2s ease",boxShadow:busy?"none":"0 2px 8px rgba(240,192,64,.3)"}}>{busy?"...":(mode==="login"?L.login:mode==="register"?L.register:(lang==="tr"?"Sıfırlama Linki Gönder":"Send Reset Link"))}</button>
+</form>
+
+{mode==="login"&&<p style={{fontSize:12,textAlign:"center",color:"var(--t3)",marginBottom:6}}><button onClick={()=>switchMode("forgot")} style={{background:"none",border:"none",color:"var(--blue)",cursor:"pointer",fontFamily:"inherit",fontSize:12}}>{lang==="tr"?"Şifremi Unuttum":"Forgot Password?"}</button></p>}
+{mode==="forgot"&&<p style={{fontSize:12,textAlign:"center",color:"var(--t3)",marginBottom:6}}><button onClick={()=>switchMode("login")} style={{background:"none",border:"none",color:"var(--blue)",cursor:"pointer",fontFamily:"inherit",fontSize:12}}>← {L.login}</button></p>}
+
+<p style={{fontSize:13,textAlign:"center",color:"var(--t3)"}}>{mode==="login"?L.noAccount:mode==="register"?L.hasAccount:""} {mode!=="forgot"&&<button onClick={()=>switchMode(mode==="login"?"register":"login")} style={{background:"none",border:"none",color:"var(--blue)",cursor:"pointer",fontFamily:"inherit",textDecoration:"underline"}}>{mode==="login"?L.register:L.login}</button>}</p>
+<div style={{textAlign:"center",marginTop:14}}><button onClick={()=>setLang(l=>l==="tr"?"en":"tr")} style={{padding:"4px 16px",borderRadius:6,border:"1px solid var(--brd)",background:"var(--bg)",color:"var(--t1)",fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>{lang==="tr"?"EN":"TR"}</button></div>
+</div></div>);
+}
+
+function App({user,setUser,lang,setLang,showAuth}){
+const isGuest=!user;
+const L=lang==="tr"?TR:EN;
+const[data,setData]=useState(null);
+const[loading,setLoading]=useState(true);
+const[theme,setTheme]=useState("dark");
+const[view,setView]=useState(()=>{const p=window.location.pathname;const q=new URLSearchParams(window.location.search);if(p==="/dashboard")return"dashboard";if(p==="/exercises")return"exercises";if(p==="/programs")return"programs";if(p==="/feedback")return"feedback";if(q.get("date"))return"day";return"calendar"});
+const[cMonth,setCMonth]=useState(()=>{const q=new URLSearchParams(window.location.search);const d=q.get("date");if(d){const dt=pD(d);return new Date(dt.getFullYear(),dt.getMonth(),1);}const n=new Date();return new Date(n.getFullYear(),n.getMonth(),1)});
+const[selDate,setSelDate]=useState(()=>{const q=new URLSearchParams(window.location.search);const d=q.get("date");return d?pD(d):null});
+const[calMode,setCalMode]=useState("month");
+const[wOff,setWOff]=useState(0);
+const[sidebar,setSidebar]=useState(window.innerWidth>768);
+const[isMobile,setIsMobile]=useState(window.innerWidth<=768);
+useEffect(()=>{const onResize=()=>{const m=window.innerWidth<=768;setIsMobile(m);if(!m)setSidebar(true)};window.addEventListener("resize",onResize);return()=>window.removeEventListener("resize",onResize)},[]);
+const[showAddEx,setShowAddEx]=useState(false);
+const[addExMode,setAddExMode]=useState("custom");
+const[presetFilter,setPresetFilter]=useState("all");
+const[presetSelected,setPresetSelected]=useState([]);
+const[nExName,setNExName]=useState("");
+const[nExCat,setNExCat]=useState(["Göğüs"]);
+const[addExDay,setAddExDay]=useState(false);
+const[sEx,setSEx]=useState("");
+const[histId,setHistId]=useState(null);
+const[showCopyPicker,setShowCopyPicker]=useState(false);
+const[dashChartEx,setDashChartEx]=useState("");
+const[dashChartMode,setDashChartMode]=useState("weight");
+const[dashFreqPeriod,setDashFreqPeriod]=useState("week");
+const[dashTab,setDashTab]=useState("overview");
+const chartRef=useRef(null);
+const chartInstanceRef=useRef(null);
+const[showPgModal,setShowPgModal]=useState(false);
+const[pgEditId,setPgEditId]=useState(null);
+const[pgName,setPgName]=useState("");
+const[pgDays,setPgDays]=useState(eDays);
+const[pgSrch,setPgSrch]=useState("");
+const[pgDay,setPgDay]=useState(0);
+const[pgType,setPgType]=useState("weekly");
+const[showDpModal,setShowDpModal]=useState(false);
+const[dpEditId,setDpEditId]=useState(null);
+const[dpName,setDpName]=useState("");
+const[dpExIds,setDpExIds]=useState([]);
+const[dpSrch,setDpSrch]=useState("");
+const[showDpPicker,setShowDpPicker]=useState(false);
+const[toast,setToast]=useState(null);
+const[feedbackMsg,setFeedbackMsg]=useState("");
+const[feedbackCat,setFeedbackCat]=useState("general");
+const[feedbackRating,setFeedbackRating]=useState(0);
+const[feedbackList,setFeedbackList]=useState([]);
+useEffect(()=>{if(!isGuest)sb.from("feedback").select("*").eq("user_id",user.id).order("created_at",{ascending:false}).then(({data})=>{if(data)setFeedbackList(data.map(f=>({...f,date:f.created_at})))});},[]);
+// Timer state — localStorage ile persist (tarayıcı kapansa bile kalır)
+const[timerRunning,setTimerRunning]=useState(false);
+const[timerElapsed,setTimerElapsed]=useState(0);
+const timerStartRef=useRef(null);
+const timerIntervalRef=useRef(null);
+useEffect(()=>{
+  const ss=localStorage.getItem("gym-timer");
+  if(ss){const o=JSON.parse(ss);if(o.running&&o.startedAt){timerStartRef.current=o.startedAt;setTimerElapsed(Math.floor((Date.now()-o.startedAt)/1000));setTimerRunning(true);}else if(o.elapsed){setTimerElapsed(o.elapsed);}}
+},[]);
+useEffect(()=>{
+  if(timerRunning){
+    if(!timerStartRef.current)timerStartRef.current=Date.now()-timerElapsed*1000;
+    localStorage.setItem("gym-timer",JSON.stringify({running:true,startedAt:timerStartRef.current}));
+    timerIntervalRef.current=setInterval(()=>{setTimerElapsed(Math.floor((Date.now()-timerStartRef.current)/1000))},1000);
+    return()=>clearInterval(timerIntervalRef.current);
+  }else{
+    if(timerIntervalRef.current)clearInterval(timerIntervalRef.current);
+    localStorage.setItem("gym-timer",JSON.stringify({running:false,elapsed:timerElapsed}));
+  }
+},[timerRunning]);
+const timerStartFn=()=>{timerStartRef.current=Date.now()-timerElapsed*1000;setTimerRunning(true)};
+const timerStopFn=()=>{setTimerRunning(false)};
+const timerResetFn=()=>{setTimerRunning(false);setTimerElapsed(0);timerStartRef.current=null;localStorage.removeItem("gym-timer")};
+const fmtTime=s=>{const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sc=s%60;return h>0?`${h}:${String(m).padStart(2,"0")}:${String(sc).padStart(2,"0")}`:`${String(m).padStart(2,"0")}:${String(sc).padStart(2,"0")}`};
+const saveTimer=()=>{const d=dRef.current;const dk=fmt(new Date());const durations=[...(d.durations&&d.durations[dk]||[]),timerElapsed];const nd={...d,durations:{...(d.durations||{}),[dk]:durations}};save(nd);timerResetFn();setToast(L.timerSaved)};
+useEffect(()=>{if(toast){const t=setTimeout(()=>setToast(null),2000);return()=>clearTimeout(t)}},[toast]);
+const logout=async()=>{if(isGuest)return;await sb.auth.signOut();setUser(null)};
+const saveFeedback=async()=>{if(!feedbackMsg.trim())return;if(isGuest){setToast(L.guestWarn);return;}const fb={id:Date.now().toString(),user_id:user.id,msg:feedbackMsg.trim(),cat:feedbackCat,rating:feedbackRating,created_at:new Date().toISOString()};const{error}=await sb.from("feedback").insert(fb);if(error){console.error("feedback error:",error);return;}setFeedbackList(fl=>[{...fb,date:fb.created_at},...fl]);setFeedbackMsg("");setFeedbackRating(0);setFeedbackCat("general");setToast(L.feedbackSent)};
+const dRef=useRef(data);dRef.current=data;
+const pnRef=useRef(pgName);pnRef.current=pgName;
+const pdRef=useRef(pgDays);pdRef.current=pgDays;
+const peRef=useRef(pgEditId);peRef.current=pgEditId;
+const dpnRef=useRef(dpName);dpnRef.current=dpName;
+const dpeRef=useRef(dpExIds);dpeRef.current=dpExIds;
+const dpeiRef=useRef(dpEditId);dpeiRef.current=dpEditId;
+const isPopRef=useRef(false);
+
+useEffect(()=>{
+  const t=localStorage.getItem(TK);if(t)setTheme(t);
+  if(isGuest){
+    try{const r=localStorage.getItem(SK);if(r){const p=migrateData(JSON.parse(r));if(!p.programs)p.programs={};if(!p.activeProgram)p.activeProgram=null;if(!p.durations)p.durations={};setData(p)}else setData(init())}catch(e){setData(init())}
+    setLoading(false);
+  }else{
+    sb.from("user_data").select("data").eq("user_id",user.id).single()
+      .then(({data:row})=>{
+        if(row&&row.data){const p=migrateData(row.data);if(!p.programs)p.programs={};if(!p.activeProgram)p.activeProgram=null;if(!p.durations)p.durations={};setData(p);}
+        else setData(init());
+        setLoading(false);
+      });
+  }
+},[]);
+useEffect(()=>{document.documentElement.setAttribute("data-theme",theme);localStorage.setItem(TK,theme)},[theme]);
+const save=useCallback(nd=>{setData(nd);if(isGuest){try{localStorage.setItem(SK,JSON.stringify(nd))}catch(e){}}else{sb.from("user_data").upsert({user_id:user.id,data:nd,updated_at:new Date().toISOString()},{onConflict:"user_id"}).then(({error})=>{if(error)console.error("save error:",error)});}},[isGuest,user?.id]);
+const localUpdate=useCallback(nd=>{setData(nd)},[]);
+const saveTimeoutRef=useRef(null);
+const pendingRef=useRef(null);
+const debouncedSave=useCallback((nd)=>{setData(nd);pendingRef.current=nd;if(saveTimeoutRef.current)clearTimeout(saveTimeoutRef.current);saveTimeoutRef.current=setTimeout(()=>{const d=pendingRef.current;if(!d)return;if(isGuest){try{localStorage.setItem(SK,JSON.stringify(d))}catch(e){}}else{sb.from("user_data").upsert({user_id:user.id,data:d,updated_at:new Date().toISOString()},{onConflict:"user_id"}).then(({error})=>{if(error)console.error("save error:",error)});}pendingRef.current=null;},1000)},[isGuest,user?.id]);
+const flushSave=useCallback(()=>{if(saveTimeoutRef.current){clearTimeout(saveTimeoutRef.current);saveTimeoutRef.current=null;}if(pendingRef.current){save(pendingRef.current);pendingRef.current=null;}},[save]);
+// --- URL ROUTING ---
+// view değişince URL'i pushState ile güncelle
+useEffect(()=>{
+  if(isPopRef.current){isPopRef.current=false;return;}
+  const u=view==="dashboard"?"/dashboard":view==="exercises"?"/exercises":view==="programs"?"/programs":view==="feedback"?"/feedback":view==="day"&&selDate?`/?date=${fmt(selDate)}`:"/";
+  const cur=window.location.pathname+(window.location.search||"");
+  if(cur!==u)history.pushState(null,"",u);
+},[view]);
+// selDate değişince (gün içi gezinme) URL'i replaceState ile güncelle
+useEffect(()=>{
+  if(view==="day"&&selDate){
+    const u=`/?date=${fmt(selDate)}`;
+    const cur=window.location.pathname+(window.location.search||"");
+    if(cur!==u)history.replaceState(null,"",u);
+  }
+},[selDate]);
+// Tarayıcı geri/ileri tuşu desteği
+useEffect(()=>{
+  const onPop=()=>{
+    isPopRef.current=true;
+    const p=window.location.pathname;const q=new URLSearchParams(window.location.search);const d=q.get("date");
+    if(p==="/dashboard")setView("dashboard");
+    else if(p==="/exercises")setView("exercises");
+    else if(p==="/programs")setView("programs");
+    else if(p==="/feedback")setView("feedback");
+    else if(d){setSelDate(pD(d));setView("day");}
+    else setView("calendar");
+  };
+  window.addEventListener("popstate",onPop);
+  return()=>window.removeEventListener("popstate",onPop);
+},[]);
+// Gün görünümünden çıkınca: flush + 0×0 temizlik
+const prevViewRef=useRef(view);
+useEffect(()=>{
+  if(prevViewRef.current==="day"&&view!=="day"){
+    flushSave();
+    const d=dRef.current;if(d&&selDate){
+      const dk=fmt(selDate);const ws=d.workouts[dk];
+      if(ws){
+        let cleaned=false;
+        const nws=ws.map(w=>{const vs=w.sets.filter(s=>s.weight>0||s.reps>0);if(vs.length!==w.sets.length)cleaned=true;return{...w,sets:vs}}).filter(w=>w.sets.length>0);
+        if(cleaned){const nw={...d.workouts};if(!nws.length)delete nw[dk];else nw[dk]=nws;save({...d,workouts:nw});setToast(lang==="tr"?"Hayali setleri sayamayız! 🏋️":"Can't count ghost reps! 🏋️");}
+      }
+    }
+  }
+  prevViewRef.current=view;
+},[view]);
+// beforeunload: flush debounced save + timer save
+useEffect(()=>{
+  const onBeforeUnload=()=>{
+    if(pendingRef.current){
+      try{localStorage.setItem(SK,JSON.stringify(pendingRef.current))}catch(e){}
+      pendingRef.current=null;
+    }
+  };
+  window.addEventListener("beforeunload",onBeforeUnload);
+  return()=>window.removeEventListener("beforeunload",onBeforeUnload);
+},[]);
+// Sayfa başlığını aktif görünüme göre güncelle
+useEffect(()=>{
+  const titles={calendar:"LOG WISE · Takvim",dashboard:"LOG WISE · Panel",exercises:"LOG WISE · Hareketler",programs:"LOG WISE · Programlar",feedback:"LOG WISE · Geri Bildirim",day:selDate?`LOG WISE · ${selDate.getDate()} ${MO[selDate.getMonth()]} ${selDate.getFullYear()}`:"LOG WISE"};
+  document.title=titles[view]||"LOG WISE";
+},[view,selDate]);
+
+// exercise crud
+const addExercise=()=>{if(!nExName.trim()||nExCat.length===0)return;const d=dRef.current;save({...d,exercises:[...d.exercises,{id:Date.now().toString(),name:nExName.trim(),categories:[...nExCat]}]});setNExName("");setNExCat(["Göğüs"]);setShowAddEx(false)};
+const addPresetExercises=()=>{if(!presetSelected.length)return;const d=dRef.current;const newExs=presetSelected.map((idx,i)=>{const p=PRESET_EXERCISES[idx];return{id:(Date.now()+i).toString(),name:presetName(p,lang),categories:[...p.categories]}});save({...d,exercises:[...d.exercises,...newExs]});setPresetSelected([]);setShowAddEx(false)};
+const removeExercise=id=>{if(!confirm(L.confirmDeleteEx))return;if(saveTimeoutRef.current){clearTimeout(saveTimeoutRef.current);saveTimeoutRef.current=null;}pendingRef.current=null;const d=dRef.current;const nw={...d.workouts};Object.keys(nw).forEach(k=>{nw[k]=nw[k].filter(w=>w.exerciseId!==id);if(!nw[k].length)delete nw[k]});const np={...d.programs};Object.keys(np).forEach(pid=>{const pr=np[pid];const nd={};Object.keys(pr.days).forEach(di=>{nd[di]=(pr.days[di]||[]).filter(e=>e!==id)});np[pid]={...pr,days:nd}});const ndp={...(d.dailyPrograms||{})};Object.keys(ndp).forEach(dpid=>{ndp[dpid]={...ndp[dpid],exercises:(ndp[dpid].exercises||[]).filter(e=>e!==id)}});save({...d,exercises:d.exercises.filter(e=>e.id!==id),workouts:nw,programs:np,dailyPrograms:ndp})};
+// day crud
+const addExToDay=eid=>{const d=dRef.current;const dk=fmt(selDate);const a=d.workouts[dk]||[];if(a.some(w=>w.exerciseId===eid))return;debouncedSave({...d,workouts:{...d.workouts,[dk]:[...a,{exerciseId:eid,sets:[]}]}});setAddExDay(false);setSEx("")};
+const rmExDay=eid=>{const d=dRef.current;const dk=fmt(selDate);const u=(d.workouts[dk]||[]).filter(w=>w.exerciseId!==eid);const nw={...d.workouts};if(!u.length)delete nw[dk];else nw[dk]=u;debouncedSave({...d,workouts:nw})};
+const addSet=eid=>{const d=dRef.current;const dk=fmt(selDate);const ws=[...(d.workouts[dk]||[])];const i=ws.findIndex(w=>w.exerciseId===eid);if(i===-1)return;ws[i]={...ws[i],sets:[...ws[i].sets,{weight:0,reps:0,rir:"-"}]};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
+const updSet=(eid,si,f,v)=>{const d=dRef.current;const dk=fmt(selDate);const ws=[...(d.workouts[dk]||[])];const i=ws.findIndex(w=>w.exerciseId===eid);if(i===-1)return;const sets=[...ws[i].sets];sets[si]={...sets[si],[f]:f==="rir"?v:(parseFloat(v)||0)};ws[i]={...ws[i],sets};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
+const rmSet=(eid,si)=>{const d=dRef.current;const dk=fmt(selDate);const ws=[...(d.workouts[dk]||[])];const i=ws.findIndex(w=>w.exerciseId===eid);if(i===-1)return;ws[i]={...ws[i],sets:ws[i].sets.filter((_,j)=>j!==si)};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
+const startPgEx=eid=>{const d=dRef.current;const dk=fmt(selDate);const a=d.workouts[dk]||[];if(a.some(w=>w.exerciseId===eid))return;debouncedSave({...d,workouts:{...d.workouts,[dk]:[...a,{exerciseId:eid,sets:[]}]}})};
+// program crud
+const savePg=()=>{const nm=pnRef.current.trim()||("Program "+(Object.keys(dRef.current.programs).length+1));const id=peRef.current||Date.now().toString();const nd={};const cd=pdRef.current;for(let i=0;i<7;i++){nd[String(i)]=[...(cd[String(i)]||cd[i]||[])];}const d=dRef.current;const np={...d.programs,[id]:{name:nm,days:nd}};const out={...d,programs:np};save(out);setShowPgModal(false);resetPg()};
+const delPg=id=>{if(!confirm(L.confirmDeletePg))return;const d=dRef.current;const np={...d.programs};delete np[id];save({...d,programs:np,activeProgram:d.activeProgram===id?null:d.activeProgram})};
+const actPg=id=>{const d=dRef.current;save({...d,activeProgram:d.activeProgram===id?null:id})};
+const resetPg=()=>{setPgName("");setPgDays(eDays());setPgEditId(null);setPgSrch("");setPgDay(0)};
+const openEditPg=id=>{const p=data.programs[id];setPgName(p.name);const nd=eDays();Object.keys(p.days).forEach(k=>{nd[String(k)]=[...(p.days[k]||[])]});setPgDays(nd);setPgEditId(id);setPgDay(0);setShowPgModal(true)};
+const togPgEx=eid=>{const k=String(pgDay);const c=pdRef.current;const a=[...(c[k]||[])];if(a.includes(eid))setPgDays({...c,[k]:a.filter(x=>x!==eid)});else setPgDays({...c,[k]:[...a,eid]})};
+// daily program crud
+const saveDp=()=>{const nm=dpnRef.current.trim()||("Günlük Program "+(Object.keys(dRef.current.dailyPrograms||{}).length+1));const id=dpeiRef.current||Date.now().toString();const d=dRef.current;const ndp={...(d.dailyPrograms||{}),[id]:{name:nm,exercises:[...dpeRef.current]}};save({...d,dailyPrograms:ndp});setShowDpModal(false);resetDp()};
+const delDp=id=>{if(!confirm(L.confirmDeletePg))return;const d=dRef.current;const ndp={...(d.dailyPrograms||{})};delete ndp[id];save({...d,dailyPrograms:ndp})};
+const resetDp=()=>{setDpName("");setDpExIds([]);setDpEditId(null);setDpSrch("")};
+const openEditDp=id=>{const p=(data.dailyPrograms||{})[id];setDpName(p.name);setDpExIds([...p.exercises]);setDpEditId(id);setShowDpModal(true)};
+const togDpEx=eid=>{const c=dpeRef.current;if(c.includes(eid))setDpExIds(c.filter(x=>x!==eid));else setDpExIds([...c,eid])};
+const addDpToDay=dpId=>{const d=dRef.current;const dp=(d.dailyPrograms||{})[dpId];if(!dp)return;const dk=fmt(selDate);const a=d.workouts[dk]||[];const newExs=dp.exercises.filter(eid=>!a.some(w=>w.exerciseId===eid));if(!newExs.length)return;const added=newExs.map(eid=>({exerciseId:eid,sets:[]}));debouncedSave({...d,workouts:{...d.workouts,[dk]:[...a,...added]}});setShowDpPicker(false)};
+// helpers
+const exN=id=>(data||{exercises:[]}).exercises.find(e=>e.id===id)?.name||"?";
+const exCats=id=>{const ex=(data||{exercises:[]}).exercises.find(e=>e.id===id);return ex?.categories||[ex?.category||"Diğer"]};
+const exC=id=>exCats(id)[0]||"Diğer";
+const cl=id=>CC[exC(id)]||"blue";
+const clAll=id=>exCats(id).map(c=>CC[c]||"blue");
+const getH=eid=>{const h=[];Object.entries(data.workouts).forEach(([dt,exs])=>{const f=exs.find(w=>w.exerciseId===eid);if(f&&f.sets.length)h.push({date:dt,sets:f.sets})});h.sort((a,b)=>b.date.localeCompare(a.date));return h};
+const getEff=ds=>{const m=data.workouts[ds]||[];if(!data.activeProgram||!data.programs[data.activeProgram])return m;const pr=data.programs[data.activeProgram];const di=gdow(pD(ds));const pe=pr.days[String(di)]||[];const c=[...m];pe.forEach(eid=>{if(!c.some(w=>w.exerciseId===eid))c.push({exerciseId:eid,sets:[],_pg:true})});return c};
+
+const calDays=useMemo(()=>{const y=cMonth.getFullYear(),m=cMonth.getMonth();let sd=new Date(y,m,1).getDay()-1;if(sd<0)sd=6;const dim=new Date(y,m+1,0).getDate();const o=[];for(let i=0;i<sd;i++)o.push(null);for(let i=1;i<=dim;i++)o.push(new Date(y,m,i));return o},[cMonth]);
+const weekDays=useMemo(()=>{const t=new Date();const d=t.getDay();const mo=d===0?-6:1-d;const mn=new Date(t);mn.setDate(t.getDate()+mo+wOff*7);return Array.from({length:7},(_,i)=>{const x=new Date(mn);x.setDate(mn.getDate()+i);return x})},[wOff]);
+const today=fmt(new Date());
+
+if(loading||!data)return(<div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh",background:"var(--bg)",color:"var(--t1)"}}><div style={{fontSize:18}}>Yükleniyor...</div></div>);
+const fEx=data.exercises.filter(e=>e.name.toLowerCase().includes(sEx.toLowerCase()));
+const fPgEx=data.exercises.filter(e=>e.name.toLowerCase().includes(pgSrch.toLowerCase()));
+const aProg=data.activeProgram&&data.programs[data.activeProgram]?data.programs[data.activeProgram]:null;
+
+const Pill=({eid,sets})=>{const colors=clAll(eid);const c=colors[0];const borderImg=colors.length>1?`linear-gradient(180deg,${colors.map(x=>`var(--${x})`).join(",")})`:`var(--${c})`;return(<div style={{background:`var(--${c}L)`,color:`var(--${c})`,fontSize:11,fontWeight:500,padding:"1px 6px",borderRadius:4,marginBottom:isMobile?4:2,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",borderLeft:colors.length>1?"3px solid transparent":"3px solid var(--"+c+")",borderImage:colors.length>1?borderImg+" 1":"none",lineHeight:"18px"}}>{exN(eid)}{sets&&sets.length>0&&<span style={{opacity:.6}}> ·{sets.length}s</span>}</div>)};
+
+const MiniCal=()=>{
+  const y=cMonth.getFullYear(),m=cMonth.getMonth();
+  let sd=new Date(y,m,1).getDay()-1;if(sd<0)sd=6;
+  const dim=new Date(y,m+1,0).getDate();
+  const cells=[];for(let i=0;i<sd;i++)cells.push(null);for(let i=1;i<=dim;i++)cells.push(i);
+  return(<div style={{padding:"0 12px 12px"}}>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:8,padding:"0 4px"}}>
+      <span style={{fontSize:14,fontWeight:500,color:"var(--t1)"}}>{L.months[m]} {y}</span>
+      <div style={{display:"flex",gap:2}}>
+        <button onClick={()=>setCMonth(new Date(y,m-1,1))} style={S.miniA}>◀</button>
+        <button onClick={()=>setCMonth(new Date(y,m+1,1))} style={S.miniA}>▶</button>
+      </div>
+    </div>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",textAlign:"center"}}>
+      {L.days.map(d=><div key={d} style={{fontSize:10,color:"var(--t3)",padding:"2px 0",fontWeight:500}}>{d.charAt(0)}</div>)}
+      {cells.map((c,i)=>{if(!c)return<div key={i}/>;const dt=new Date(y,m,c);const k=fmt(dt);const isT=k===today;const isSel=selDate&&k===fmt(selDate);const hasW=getEff(k).length>0;
+        return(<div key={i} onClick={()=>{setSelDate(dt);setView("day")}} style={{fontSize:11,padding:"3px 0",cursor:"pointer",borderRadius:"50%",width:28,height:28,display:"flex",alignItems:"center",justifyContent:"center",margin:"1px auto",fontWeight:isT?700:400,background:isT?"var(--blue)":isSel?"var(--blueL)":"transparent",color:isT?"#fff":isSel?"var(--blue)":"var(--t1)",position:"relative"}}>{c}{hasW&&!isT&&<div style={{position:"absolute",bottom:1,width:4,height:4,borderRadius:"50%",background:"var(--blue)"}}/>}</div>);
+      })}
+    </div>
+  </div>);
+};
+
+// SVG icons
+const IcoMenu=()=><svg width="24" height="24" viewBox="0 0 24 24" fill="var(--t2)"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>;
+const IcoL=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--t2)"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>;
+const IcoR=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--t2)"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>;
+const IcoX=({s=18})=><svg width={s} height={s} viewBox="0 0 24 24" fill="var(--t3)"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>;
+const IcoHist=({s=18})=><svg width={s} height={s} viewBox="0 0 24 24" fill="var(--t3)"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0013 21a9 9 0 000-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>;
+const IcoDel=({s=16})=><svg width={s} height={s} viewBox="0 0 24 24" fill="var(--t3)"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>;
+const IcoEdit=()=><svg width="16" height="16" viewBox="0 0 24 24" fill="var(--t3)"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a.996.996 0 000-1.41l-2.34-2.34a.996.996 0 00-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>;
+const IcoPlus=()=><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>;
+const IcoSun=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--t2)"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>;
+const IcoMoon=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--t2)"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>;
+const IcoCheck=({c})=><svg width="18" height="18" viewBox="0 0 24 24" fill={c}><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>;
+
+return(
+<div style={{height:"100vh",display:"flex",flexDirection:"column",background:"var(--bg)",color:"var(--t1)"}}>
+{toast&&<div style={{position:"fixed",top:20,left:"50%",transform:"translateX(-50%)",background:"var(--accent)",color:"var(--accentT)",padding:"10px 24px",borderRadius:8,fontSize:14,fontWeight:700,zIndex:999,animation:"toastIn .3s ease",boxShadow:"var(--shadow)"}}>{toast}</div>}
+{/* TOP BAR */}
+<header style={{display:"flex",alignItems:"center",padding:"8px 16px",borderBottom:"1px solid var(--brd)",height:64,flexShrink:0,gap:12,zIndex:50,background:"var(--bg)"}}>
+  <button onClick={()=>setSidebar(s=>!s)} style={S.ib}><IcoMenu/></button>
+  {(view==="calendar"||view==="day")&&<>
+    {!isMobile&&<button onClick={()=>{setCMonth(new Date(new Date().getFullYear(),new Date().getMonth(),1));setWOff(0);if(view==="day")setView("calendar")}} style={S.tBtn}>{L.today}</button>}
+    <button onClick={()=>{if(calMode==="month")setCMonth(new Date(cMonth.getFullYear(),cMonth.getMonth()-1,1));else setWOff(w=>w-1)}} style={S.ib}><IcoL/></button>
+    <button onClick={()=>{if(calMode==="month")setCMonth(new Date(cMonth.getFullYear(),cMonth.getMonth()+1,1));else setWOff(w=>w+1)}} style={S.ib}><IcoR/></button>
+    <span style={{fontSize:isMobile?13:22,fontWeight:400,color:"var(--t1)",flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",minWidth:0}}>
+      {view==="day"&&selDate?`${selDate.getDate()} ${L.months[selDate.getMonth()]}${!isMobile?" "+selDate.getFullYear():""}`
+      :calMode==="month"?`${L.months[cMonth.getMonth()]}${!isMobile?" "+cMonth.getFullYear():` '${String(cMonth.getFullYear()).slice(2)}`}`
+      :`${weekDays[0].getDate()} ${L.months[weekDays[0].getMonth()].slice(0,3)} – ${weekDays[6].getDate()} ${L.months[weekDays[6].getMonth()].slice(0,3)}`}
+    </span>
+  </>}
+  {view==="dashboard"&&<span style={{flex:1,fontSize:isMobile?15:22,fontWeight:400}}>{L.dashboard}</span>}
+  {view==="exercises"&&<span style={{flex:1,fontSize:isMobile?15:22,fontWeight:400}}>{L.exercises}</span>}
+  {view==="programs"&&<span style={{flex:1,fontSize:isMobile?15:22,fontWeight:400}}>{L.programs}</span>}
+  {view==="feedback"&&<span style={{flex:1,fontSize:isMobile?15:22,fontWeight:400}}>{L.feedback}</span>}
+  {(view==="calendar"||view==="day")&&<select value={calMode} onChange={e=>{setCalMode(e.target.value);if(view==="day")setView("calendar")}} style={{...S.sel,fontSize:isMobile?11:13,padding:isMobile?"4px 6px":"6px 12px"}}><option value="month">{L.month}</option><option value="week">{L.week}</option></select>}
+  {!isMobile&&<button onClick={()=>setLang(l=>l==="tr"?"en":"tr")} style={{...S.tBtn,fontSize:12,padding:"4px 10px"}}>{lang==="tr"?"EN":"TR"}</button>}
+  <button onClick={()=>setTheme(t=>t==="dark"?"light":"dark")} style={S.ib}>{theme==="dark"?<IcoSun/>:<IcoMoon/>}</button>
+</header>
+
+<div style={{display:"flex",flex:1,overflow:"hidden"}}>
+{/* SIDEBAR */}
+{sidebar&&<>
+{isMobile&&<div onClick={()=>setSidebar(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,.5)",zIndex:99,animation:"fadeIn .2s ease"}}/>}
+<aside style={isMobile?{position:"fixed",left:0,top:64,bottom:0,width:288,zIndex:100,background:"var(--bg)",borderRight:"1px solid var(--brd2)",overflowY:"auto",display:"flex",flexDirection:"column",boxShadow:"4px 0 24px rgba(0,0,0,.4)",animation:"slideInLeft .25s ease"}:{width:256,borderRight:"1px solid var(--brd)",overflowY:"auto",flexShrink:0,background:"var(--bg)",display:"flex",flexDirection:"column"}}>
+  <div style={{padding:"16px 12px 8px"}}>
+    {[["calendar","📅",L.calendar],["dashboard","📊",L.dashboard],["exercises","💪",L.exercises],["programs","📋",L.programs],["feedback","💬",L.feedback]].map(([v,i,l])=>(
+      <button key={v} onClick={()=>{setView(v);if(isMobile)setSidebar(false);}} style={{display:"flex",alignItems:"center",gap:12,width:"100%",padding:"8px 20px",borderRadius:24,border:"none",cursor:"pointer",fontSize:14,fontWeight:(view===v||(view==="day"&&v==="calendar"))?600:400,marginBottom:2,background:(view===v||(view==="day"&&v==="calendar"))?"var(--blueL)":"transparent",color:(view===v||(view==="day"&&v==="calendar"))?"var(--blue)":"var(--t1)",fontFamily:"inherit",transition:"all .15s ease"}}>{i} {l}</button>
+    ))}
+  </div>
+  <div style={{borderTop:"1px solid var(--brd)",margin:"4px 16px"}}/>
+  <div style={{padding:"8px 16px 12px"}}>
+    <div style={{fontSize:11,fontWeight:600,color:"var(--t3)",textTransform:"uppercase",letterSpacing:1,marginBottom:8}}>⏱ {L.timer}</div>
+    <div style={{textAlign:"center",fontSize:timerElapsed>=3600?28:32,fontWeight:700,fontFamily:"'Space Mono',monospace",color:timerRunning?"var(--accent)":"var(--t1)",padding:"8px 0",letterSpacing:2}}>{fmtTime(timerElapsed)}</div>
+    <div style={{display:"flex",gap:4,justifyContent:"center"}}>
+      {!timerRunning&&timerElapsed===0&&<button onClick={timerStartFn} style={{...S.pri,fontSize:12,padding:"6px 16px"}}>▶ {L.timerStart}</button>}
+      {timerRunning&&<button onClick={timerStopFn} style={{...S.sec,fontSize:12,padding:"6px 16px",borderColor:"var(--red)",color:"var(--red)"}}>⏸ {L.timerStop}</button>}
+      {!timerRunning&&timerElapsed>0&&<><button onClick={timerStartFn} style={{...S.pri,fontSize:12,padding:"6px 12px"}}>▶</button><button onClick={timerResetFn} style={{...S.sec,fontSize:12,padding:"6px 12px"}}>{L.timerReset}</button><button onClick={saveTimer} style={{fontSize:12,padding:"6px 12px",borderRadius:20,border:"none",background:"var(--green)",color:"#fff",fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{L.timerSave}</button></>}
+    </div>
+  </div>
+  <div style={{borderTop:"1px solid var(--brd)",margin:"4px 16px"}}/>
+  <MiniCal/>
+  {aProg&&<div style={{padding:"4px 16px 16px"}}>
+    <div style={{borderTop:"1px solid var(--brd)",paddingTop:12}}>
+      <div style={{fontSize:11,fontWeight:600,color:"var(--t3)",textTransform:"uppercase",letterSpacing:1,marginBottom:8}}>{L.activeProgram}</div>
+      <div style={{background:"var(--blueL)",borderRadius:8,padding:10}}>
+        <div style={{fontSize:13,fontWeight:500,color:"var(--blue)",marginBottom:4}}>{aProg.name}</div>
+        {L.days.map((dn,di)=>{const exs=aProg.days[String(di)]||[];if(!exs.length)return null;return(<div key={di} style={{fontSize:11,color:"var(--t2)",marginBottom:1}}><b style={{color:"var(--t1)"}}>{dn}: </b>{exs.map(e=>exN(e)).join(", ")}</div>)})}
+      </div>
+    </div>
+  </div>}
+  <div style={{marginTop:"auto",borderTop:"1px solid var(--brd)",padding:"12px 16px"}}>
+    {isGuest?<>
+      <div style={{fontSize:12,color:"var(--t2)",marginBottom:8}}>{L.guest}</div>
+      <button onClick={showAuth} style={{...S.pri,width:"100%",fontSize:12}}>{L.guestLogin}</button>
+    </>:<>
+      <div onClick={()=>window.location.href="/profile"} style={{cursor:"pointer",padding:"8px 10px",borderRadius:10,marginBottom:8,transition:"background .15s ease",display:"flex",alignItems:"center",gap:10}} onMouseEnter={e=>e.currentTarget.style.background="var(--bgH)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+        <div style={{width:36,height:36,borderRadius:"50%",background:"var(--blueL)",border:"2px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,fontWeight:700,color:"var(--blue)",flexShrink:0}}>{(user.user_metadata?.full_name||user.email||"U").charAt(0).toUpperCase()}</div>
+        <div>
+          <div style={{fontSize:13,fontWeight:600,color:"var(--t1)"}}>{user.user_metadata?.full_name||user.email?.split("@")[0]||"User"}</div>
+          <div style={{fontSize:11,color:"var(--t3)"}}>{user.email}</div>
+        </div>
+      </div>
+      <button onClick={logout} style={{...S.sec,width:"100%",fontSize:12}}>{L.logout}</button>
+    </>}
+  </div>
+</aside></>}
+
+{/* MAIN */}
+<main style={{flex:1,overflowY:"auto",background:"var(--bg)"}}>
+
+{/* DASHBOARD */}
+{view==="dashboard"&&(()=>{
+  const wKeys=Object.keys(data.workouts).filter(k=>data.workouts[k].some(w=>w.sets&&w.sets.length>0));
+  if(!wKeys.length)return(<div style={{maxWidth:700,margin:"0 auto",padding:"48px 24px",textAlign:"center"}}>
+    <div style={{fontSize:48,marginBottom:16}}>📊</div>
+    <div style={{fontSize:18,fontWeight:500,color:"var(--t1)",marginBottom:8}}>{L.dashboard}</div>
+    <div style={{fontSize:14,color:"var(--t3)"}}>{L.noWorkoutsYet}</div>
+  </div>);
+  const totalDays=wKeys.length;
+  const totalSets=wKeys.reduce((a,k)=>a+data.workouts[k].reduce((b,w)=>b+w.sets.length,0),0);
+  const totalVol=wKeys.reduce((a,k)=>a+data.workouts[k].reduce((b,w)=>b+w.sets.reduce((c,s)=>c+s.weight*s.reps,0),0),0);
+  const streak=calcStreak(data.workouts);
+  const prs=getAllPRs(data.workouts,data.exercises);
+  const freqData=dashFreqPeriod==="week"?calcWeekFreq(data.workouts,data.exercises):calcMonthFreq(data.workouts,data.exercises);
+  const maxFreq=Math.max(...Object.values(freqData),1);
+  const sortedPRs=Object.entries(prs).map(([eid,p])=>({eid,name:exN(eid),...p})).sort((a,b)=>b.est1RM-a.est1RM);
+
+  /* Chart logic */
+  const chartExId=dashChartEx||((data.exercises.length&&sortedPRs.length)?sortedPRs[0].eid:data.exercises[0]?.id||"");
+  const chartHist=[];
+  wKeys.sort().forEach(dk=>{const ws=data.workouts[dk];const f=ws.find(w=>w.exerciseId===chartExId);if(f&&f.sets.length){const maxW=Math.max(...f.sets.map(s=>s.weight));const vol=f.sets.reduce((a,s)=>a+s.weight*s.reps,0);const avgVolPerSet=Math.round(vol/f.sets.length);const best1RM=Math.max(...f.sets.map(s=>calc1RM(s.weight,s.reps)));chartHist.push({date:dk,maxW,vol,avgVolPerSet,best1RM:Math.round(best1RM),sets:f.sets.length})}});
+
+  return(<div style={{maxWidth:900,margin:"0 auto",padding:"24px 24px 80px"}}>
+    {/* Tab Navigation */}
+    <div style={{display:"flex",gap:6,marginBottom:24,flexWrap:"wrap"}}>
+      {[["overview","📈",L.dashOverview],["progress","📉",L.dashExProgress],["frequency","🔥",L.dashFrequency]].map(([t,ic,lb])=>(
+        <button key={t} onClick={()=>setDashTab(t)} style={{padding:"8px 18px",borderRadius:20,border:dashTab===t?"2px solid var(--blue)":"1px solid var(--brd)",background:dashTab===t?"var(--blueL)":"var(--bg)",color:dashTab===t?"var(--blue)":"var(--t2)",fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{ic} {lb}</button>
+      ))}
+    </div>
+
+    {/* OVERVIEW TAB */}
+    {dashTab==="overview"&&<>
+    {/* Stat Cards */}
+    <div style={{display:"grid",gridTemplateColumns:isMobile?"repeat(2,1fr)":"repeat(4,1fr)",gap:12,marginBottom:24}}>
+      <div className="dash-card" style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:16,textAlign:"center"}}>
+        <div style={{fontSize:28,fontWeight:700,color:"var(--blue)"}}>{totalDays}</div>
+        <div style={{fontSize:12,color:"var(--t2)",marginTop:4}}>{L.dashTotalWorkouts}</div>
+      </div>
+      <div className="dash-card" style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:16,textAlign:"center"}}>
+        <div style={{fontSize:28,fontWeight:700,color:"var(--green)"}}>{totalSets}</div>
+        <div style={{fontSize:12,color:"var(--t2)",marginTop:4}}>{L.dashTotalSets}</div>
+      </div>
+      <div className="dash-card" style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:16,textAlign:"center"}}>
+        <div style={{fontSize:28,fontWeight:700,color:"var(--orange)"}}>{totalVol>=1000?(Math.round(totalVol/100)/10)+"t":totalVol+L.kg}</div>
+        <div style={{fontSize:12,color:"var(--t2)",marginTop:4}}>{L.dashTotalVolume}</div>
+      </div>
+      <div className="dash-card" style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:16,textAlign:"center",animation:streak>=3?"pulseGlow 2s ease infinite":"none"}}>
+        <div style={{fontSize:28,fontWeight:700,color:"var(--red)"}}>{streak}🔥</div>
+        <div style={{fontSize:12,color:"var(--t2)",marginTop:4}}>{L.dashStreak} · {L.dashStreakDays}</div>
+      </div>
+    </div>
+
+    {/* PR Table */}
+    <div style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:20,marginBottom:24}}>
+      <div style={{fontSize:15,fontWeight:600,color:"var(--t1)",marginBottom:14,display:"flex",alignItems:"center",gap:8}}>🏆 {L.dashPRs}</div>
+      {sortedPRs.length===0&&<div style={{fontSize:13,color:"var(--t3)",textAlign:"center",padding:16}}>{L.dashNoPRs}</div>}
+      <div style={{display:"grid",gap:8}}>
+        {sortedPRs.slice(0,10).map((pr,i)=>{const c=cl(pr.eid);return(
+          <div key={pr.eid} style={{display:"flex",alignItems:"center",gap:12,padding:"8px 12px",background:`var(--${c}L)`,borderRadius:8,borderLeft:`3px solid var(--${c})`}}>
+            <span style={{fontSize:14,fontWeight:700,color:"var(--t3)",minWidth:20}}>{i+1}</span>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:600,color:"var(--t1)"}}>{pr.name}</div>
+              <div style={{fontSize:11,color:"var(--t2)"}}>{L.est1RMLabel}: {pr.est1RM}{L.kg}</div>
+            </div>
+            <div style={{textAlign:"right"}}>
+              <div style={{fontSize:15,fontWeight:700,color:`var(--${c})`}}>{pr.maxWeight}{L.kg}</div>
+              <div style={{fontSize:10,color:"var(--t3)"}}>{L.pr}</div>
+            </div>
+          </div>
+        )})}
+      </div>
+    </div>
+    </>}
+
+    {/* PROGRESS TAB */}
+    {dashTab==="progress"&&<>
+    <div style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:20,marginBottom:24}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,flexWrap:"wrap",gap:8}}>
+        <div style={{fontSize:15,fontWeight:600,color:"var(--t1)",display:"flex",alignItems:"center",gap:8}}>📉 {L.dashProgress}</div>
+        <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+          {[["weight",L.dashWeight],["volume",L.dashVolPerSet],["1rm",L.dashEst1RM]].map(([m,lb])=>(
+            <button key={m} onClick={()=>setDashChartMode(m)} style={{padding:"4px 12px",borderRadius:16,border:dashChartMode===m?"2px solid var(--blue)":"1px solid var(--brd)",background:dashChartMode===m?"var(--blueL)":"var(--bg)",color:dashChartMode===m?"var(--blue)":"var(--t2)",fontSize:11,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{lb}</button>
+          ))}
+        </div>
+      </div>
+      <select value={chartExId} onChange={e=>setDashChartEx(e.target.value)} style={{...S.inp,marginBottom:16,padding:"8px 12px"}}>
+        {data.exercises.map(ex=><option key={ex.id} value={ex.id}>{ex.name}</option>)}
+      </select>
+      {chartHist.length<2?<div style={{textAlign:"center",color:"var(--t3)",padding:32,fontSize:13}}>{L.dashNoData}</div>:
+      <div className="chart-container">
+        <DashChart chartRef={chartRef} chartInstanceRef={chartInstanceRef} chartHist={chartHist} mode={dashChartMode} theme={theme} L={L} lang={lang}/>
+      </div>}
+      {chartHist.length>0&&<div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8,marginTop:16}}>
+        <div style={{background:"var(--bg3)",borderRadius:8,padding:10,textAlign:"center"}}>
+          <div style={{fontSize:18,fontWeight:700,color:"var(--blue)"}}>{Math.max(...chartHist.map(h=>h.maxW))}{L.kg}</div>
+          <div style={{fontSize:10,color:"var(--t3)"}}>{L.dashBestSet}</div>
+        </div>
+        <div style={{background:"var(--bg3)",borderRadius:8,padding:10,textAlign:"center"}}>
+          <div style={{fontSize:18,fontWeight:700,color:"var(--green)"}}>{Math.round(chartHist.reduce((a,h)=>a+h.maxW,0)/chartHist.length)}{L.kg}</div>
+          <div style={{fontSize:10,color:"var(--t3)"}}>{L.dashAvgWeight}</div>
+        </div>
+        <div style={{background:"var(--bg3)",borderRadius:8,padding:10,textAlign:"center"}}>
+          <div style={{fontSize:18,fontWeight:700,color:"var(--orange)"}}>{chartHist.length}</div>
+          <div style={{fontSize:10,color:"var(--t3)"}}>{L.dashSessions}</div>
+        </div>
+      </div>}
+    </div>
+    </>}
+
+    {/* FREQUENCY TAB — Muscle Group Heatmap */}
+    {dashTab==="frequency"&&<>
+    <div style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:20}}>
+      <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16,flexWrap:"wrap",gap:8}}>
+        <div style={{fontSize:15,fontWeight:600,color:"var(--t1)",display:"flex",alignItems:"center",gap:8}}>🔥 {L.dashMuscleFreq}</div>
+        <div style={{display:"flex",gap:6}}>
+          {[["week",L.dashWeekly],["month",L.dashMonthly]].map(([p,lb])=>(
+            <button key={p} onClick={()=>setDashFreqPeriod(p)} style={{padding:"4px 12px",borderRadius:16,border:dashFreqPeriod===p?"2px solid var(--blue)":"1px solid var(--brd)",background:dashFreqPeriod===p?"var(--blueL)":"var(--bg)",color:dashFreqPeriod===p?"var(--blue)":"var(--t2)",fontSize:11,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>{lb}</button>
+          ))}
+        </div>
+      </div>
+      <div style={{display:"grid",gridTemplateColumns:isMobile?"repeat(2,1fr)":"repeat(3,1fr)",gap:8}}>
+        {CATS.filter(c=>c!=="Diğer").map(cat=>{const count=freqData[cat]||0;const ratio=count/maxFreq;const col=CC[cat]||"blue";const catLabel=lang==="en"?L.cats[CATS.indexOf(cat)]:cat;return(
+          <div key={cat} className="heatmap-cell" style={{background:`var(--${col}L)`,borderRadius:10,padding:"12px 14px",border:`1px solid var(--${col})`,borderColor:count>0?`var(--${col})`:"var(--brd)",opacity:count>0?1:0.4,cursor:"default",position:"relative",overflow:"hidden"}}>
+            <div style={{position:"absolute",bottom:0,left:0,right:0,height:`${Math.max(ratio*100,0)}%`,background:`var(--${col})`,opacity:0.08,transition:"height .3s ease"}}/>
+            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",position:"relative"}}>
+              <span style={{fontSize:13,fontWeight:600,color:`var(--${col})`}}>{catLabel}</span>
+              <span style={{fontSize:20,fontWeight:700,color:`var(--${col})`}}>{count}</span>
+            </div>
+            <div style={{fontSize:10,color:"var(--t3)",marginTop:2,position:"relative"}}>{count} {L.times} / {dashFreqPeriod==="week"?L.dashWeekly.toLowerCase():L.dashMonthly.toLowerCase()}</div>
+          </div>
+        )})}
+      </div>
+    </div>
+    </>}
+  </div>);
+})()}
+
+{/* CALENDAR */}
+{view==="calendar"&&<div style={{height:"100%",display:"flex",flexDirection:"column"}}>
+  {calMode==="month"?<>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",borderBottom:"1px solid var(--brd)"}}>
+      {L.days.map(d=><div key={d} style={{textAlign:"center",fontSize:11,fontWeight:500,color:"var(--t3)",padding:"8px 0"}}>{d}</div>)}
+    </div>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",overflowY:"auto",gridAutoRows:isMobile?"minmax(60px,auto)":"1fr",flex:isMobile?"none":1,paddingBottom:isMobile?120:0}}>
+      {calDays.map((d,i)=>{
+        if(!d)return<div key={i} style={{borderRight:"1px solid var(--brd)",borderBottom:"1px solid var(--brd)",background:"var(--bg2)"}}/>;
+        const k=fmt(d);const eff=getEff(k);const isT=k===today;const isSel=selDate&&k===fmt(selDate);
+        return(<div key={i} onClick={()=>{setSelDate(d);setView("day")}} style={{borderRight:"1px solid var(--brd)",borderBottom:"1px solid var(--brd)",padding:isMobile?"6px 5px 10px":"4px 5px",cursor:"pointer",overflow:"hidden",background:isSel?"var(--blueL)":"var(--bg)",transition:"background .1s"}}
+          onMouseEnter={e=>{if(!isSel)e.currentTarget.style.background="var(--bgH)"}} onMouseLeave={e=>{if(!isSel)e.currentTarget.style.background="var(--bg)"}}>
+          <div style={{display:"flex",justifyContent:"center",marginBottom:isMobile?5:3}}>
+            <span style={{fontSize:12,width:24,height:24,borderRadius:"50%",display:"flex",alignItems:"center",justifyContent:"center",fontWeight:isT?700:400,background:isT?"var(--blue)":"transparent",color:isT?"#fff":"var(--t2)"}}>{d.getDate()}</span>
+          </div>
+          {eff.slice(0,4).map((w,j)=><Pill key={j} eid={w.exerciseId} sets={w.sets}/>)}
+          {eff.length>4&&<div style={{fontSize:10,color:"var(--t3)",paddingLeft:6}}>+{eff.length-4} {L.more}</div>}
+        </div>);
+      })}
+    </div>
+  </>:<>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",borderBottom:"1px solid var(--brd)"}}>
+      {weekDays.map(d=>{const k=fmt(d);const isT=k===today;return(
+        <div key={k} style={{textAlign:"center",padding:"6px 0",borderRight:"1px solid var(--brd)"}}>
+          <div style={{fontSize:11,fontWeight:500,color:isT?"var(--blue)":"var(--t3)"}}>{L.days[gdow(d)]}</div>
+          <div onClick={()=>{setSelDate(d);setView("day")}} style={{fontSize:24,fontWeight:isT?500:400,width:44,height:44,borderRadius:"50%",margin:"2px auto",display:"flex",alignItems:"center",justifyContent:"center",background:isT?"var(--blue)":"transparent",color:isT?"#fff":"var(--t1)",cursor:"pointer"}}>{d.getDate()}</div>
+        </div>
+      )})}
+    </div>
+    <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",flex:1}}>
+      {weekDays.map(d=>{const k=fmt(d);const eff=getEff(k);return(
+        <div key={k} onClick={()=>{setSelDate(d);setView("day")}} style={{borderRight:"1px solid var(--brd)",padding:"8px 4px",cursor:"pointer",overflow:"auto",background:"var(--bg)"}}
+          onMouseEnter={e=>e.currentTarget.style.background="var(--bgH)"} onMouseLeave={e=>e.currentTarget.style.background="var(--bg)"}>
+          {eff.map((w,j)=>{const colors=clAll(w.exerciseId);const c=colors[0];return(
+            <div key={j} style={{background:`var(--${c}L)`,borderLeft:colors.length>1?"3px solid transparent":`3px solid var(--${c})`,borderImage:colors.length>1?`linear-gradient(180deg,${colors.map(x=>`var(--${x})`).join(",")}) 1`:"none",borderRadius:4,padding:"4px 8px",marginBottom:4,fontSize:12,color:`var(--${c})`}}>
+              <div style={{fontWeight:500}}>{exN(w.exerciseId)}</div>
+              {w.sets&&w.sets.length>0&&<div style={{fontSize:10,opacity:.7,marginTop:1}}>{w.sets.map(s=>`${s.weight}×${s.reps}`).join(" · ")}</div>}
+            </div>);
+          })}
+        </div>);
+      })}
+    </div>
+  </>}
+</div>}
+
+{/* DAY VIEW */}
+{view==="day"&&selDate&&(()=>{
+  const dk=fmt(selDate);const manual=data.workouts[dk]||[];const di=gdow(selDate);
+  const pgExIds=aProg?(aProg.days[String(di)]||[]):[];
+  const unstarted=pgExIds.filter(eid=>!manual.some(w=>w.exerciseId===eid));
+  return(<div style={{maxWidth:720,margin:"0 auto",padding:"24px 24px 80px"}}>
+    <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:24}}>
+      <button onClick={()=>setView("calendar")} style={S.tBtn}>{L.backToCalendar}</button>
+      <button onClick={()=>setSelDate(d=>{const n=new Date(d);n.setDate(n.getDate()-1);return n})} style={S.ib}><IcoL/></button>
+      <button onClick={()=>setSelDate(d=>{const n=new Date(d);n.setDate(n.getDate()+1);return n})} style={S.ib}><IcoR/></button>
+      <div>
+        <div style={{fontSize:20,fontWeight:500}}>{selDate.getDate()} {L.months[selDate.getMonth()]} {selDate.getFullYear()}</div>
+        <div style={{fontSize:13,color:"var(--t2)"}}>{L.daysFull[di]}{dk===today&&<span style={{color:"var(--blue)",fontWeight:500,marginLeft:6}}>{L.todayLabel}</span>}</div>
+      </div>
+    </div>
+    {(()=>{const durs=data.durations&&data.durations[dk]||[];const total=durs.reduce((a,b)=>a+b,0);return total>0?(<div style={{display:"flex",alignItems:"center",gap:8,marginBottom:16,padding:"10px 16px",background:"var(--bg3)",borderRadius:10,border:"1px solid var(--brd)"}}>
+      <span style={{fontSize:20}}>⏱</span>
+      <div><div style={{fontSize:13,fontWeight:600,color:"var(--t1)"}}>{L.timerTotal}: {fmtTime(total)}</div>
+      <div style={{fontSize:11,color:"var(--t3)"}}>{durs.map((d,i)=>(i+1)+". "+fmtTime(d)).join(" · ")}</div></div>
+    </div>):null})()}
+    {manual.length===0&&(()=>{const pastDays=Object.keys(data.workouts).filter(k=>k<dk&&(data.workouts[k]||[]).some(w=>w.sets&&w.sets.length>0)).sort().reverse();if(!pastDays.length)return null;return(<>
+      <div onClick={()=>setShowCopyPicker(true)} style={{background:"var(--bg3)",borderRadius:12,padding:16,marginBottom:20,border:"1px dashed var(--blue)",cursor:"pointer",transition:"all .2s ease"}} onMouseEnter={e=>e.currentTarget.style.borderColor="var(--blueH)"} onMouseLeave={e=>e.currentTarget.style.borderColor="var(--blue)"}>
+        <div style={{fontSize:13,fontWeight:500,color:"var(--blue)",marginBottom:4}}>📋 {lang==="tr"?"Antrenman kopyala":"Copy workout"}</div>
+        <div style={{fontSize:12,color:"var(--t2)"}}>{lang==="tr"?"Geçmiş bir antrenmanı seç ve kopyala":"Select and copy a past workout"}</div>
+      </div>
+      {showCopyPicker&&<div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,.5)",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:16}} onClick={()=>setShowCopyPicker(false)}>
+        <div style={{background:"var(--bg)",borderRadius:16,width:"100%",maxWidth:420,maxHeight:"70vh",display:"flex",flexDirection:"column",boxShadow:"0 20px 60px rgba(0,0,0,.3)"}} onClick={e=>e.stopPropagation()}>
+          <div style={{padding:"16px 20px",borderBottom:"1px solid var(--brd)",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+            <span style={{fontSize:16,fontWeight:600}}>{lang==="tr"?"Antrenman Seç":"Select Workout"}</span>
+            <button onClick={()=>setShowCopyPicker(false)} style={{background:"none",border:"none",fontSize:20,cursor:"pointer",color:"var(--t2)",fontFamily:"inherit"}}>✕</button>
+          </div>
+          <div style={{overflowY:"auto",padding:"8px 0"}}>
+            {pastDays.slice(0,15).map(dayKey=>{const dayExs=data.workouts[dayKey];const dayDate=pD(dayKey);const completedExs=dayExs.filter(w=>w.sets&&w.sets.length>0);const names=completedExs.map(w=>exN(w.exerciseId)).slice(0,4).join(", ");const totalSets=completedExs.reduce((a,w)=>a+w.sets.length,0);return(
+              <div key={dayKey} onClick={()=>{const copied=completedExs.map(w=>({exerciseId:w.exerciseId,sets:w.sets.map(s=>({...s}))}));debouncedSave({...data,workouts:{...data.workouts,[dk]:copied}});setShowCopyPicker(false);}} style={{padding:"12px 20px",cursor:"pointer",borderBottom:"1px solid var(--brd)",transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="var(--bg2)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4}}>
+                  <span style={{fontSize:14,fontWeight:600,color:"var(--t1)"}}>{dayDate.getDate()} {L.months[dayDate.getMonth()]} {dayDate.getFullYear()}</span>
+                  <span style={{fontSize:11,color:"var(--t3)",background:"var(--bg3)",padding:"2px 8px",borderRadius:10}}>{completedExs.length} {lang==="tr"?"hareket":"ex"} · {totalSets} set</span>
+                </div>
+                <div style={{fontSize:12,color:"var(--t2)"}}>{names}{completedExs.length>4?"...":""}</div>
+                <div style={{display:"flex",gap:4,marginTop:6,flexWrap:"wrap"}}>{completedExs.slice(0,6).map((w,i)=><span key={i} style={{fontSize:10,padding:"2px 6px",borderRadius:4,background:`var(--${cl(w.exerciseId)}L)`,color:`var(--${cl(w.exerciseId)})`,fontWeight:500}}>{exN(w.exerciseId)}</span>)}</div>
+              </div>);
+            })}
+          </div>
+        </div>
+      </div>}
+    </>);})()}
+    {unstarted.length>0&&<div style={{background:"var(--blueL)",borderRadius:12,padding:16,marginBottom:20,border:"1px solid var(--blueL2)"}}>
+      <div style={{fontSize:12,fontWeight:500,color:"var(--blue)",marginBottom:10}}>📋 {aProg.name} — {L.programExercises}</div>
+      <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+        {unstarted.map(eid=>(<button key={eid} onClick={()=>startPgEx(eid)} style={{padding:"6px 16px",borderRadius:20,border:"1px solid var(--blue)",background:"var(--bg)",color:"var(--blue)",fontSize:13,fontWeight:500,cursor:"pointer",fontFamily:"inherit"}}>+ {exN(eid)}</button>))}
+      </div>
+    </div>}
+    {/* Daily Program Picker */}
+    {Object.keys(data.dailyPrograms||{}).length>0&&<div onClick={()=>setShowDpPicker(true)} style={{background:"var(--bg3)",borderRadius:12,padding:16,marginBottom:20,border:"1px dashed var(--green)",cursor:"pointer",transition:"all .2s ease"}} onMouseEnter={e=>e.currentTarget.style.borderColor="var(--greenB)"} onMouseLeave={e=>e.currentTarget.style.borderColor="var(--green)"}>
+      <div style={{fontSize:13,fontWeight:500,color:"var(--green)",marginBottom:4}}>🏋️ {L.addDailyProgram}</div>
+      <div style={{fontSize:12,color:"var(--t2)"}}>{lang==="tr"?"Günlük programlarından birini seç ve bu güne ekle":"Select a daily program and add it to this day"}</div>
+    </div>}
+    {showDpPicker&&<div style={{position:"fixed",top:0,left:0,right:0,bottom:0,background:"rgba(0,0,0,.5)",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:16}} onClick={()=>setShowDpPicker(false)}>
+      <div style={{background:"var(--bg)",borderRadius:16,width:"100%",maxWidth:420,maxHeight:"70vh",display:"flex",flexDirection:"column",boxShadow:"0 20px 60px rgba(0,0,0,.3)"}} onClick={e=>e.stopPropagation()}>
+        <div style={{padding:"16px 20px",borderBottom:"1px solid var(--brd)",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <span style={{fontSize:16,fontWeight:600}}>{L.selectDailyProgram}</span>
+          <button onClick={()=>setShowDpPicker(false)} style={{background:"none",border:"none",fontSize:20,cursor:"pointer",color:"var(--t2)",fontFamily:"inherit"}}>✕</button>
+        </div>
+        <div style={{overflowY:"auto",padding:"8px 0"}}>
+          {Object.entries(data.dailyPrograms||{}).map(([dpId,dp])=>(
+            <div key={dpId} onClick={()=>addDpToDay(dpId)} style={{padding:"12px 20px",cursor:"pointer",borderBottom:"1px solid var(--brd)",transition:"background .15s"}} onMouseEnter={e=>e.currentTarget.style.background="var(--bg2)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
+                <span style={{fontSize:14,fontWeight:600,color:"var(--t1)"}}>{dp.name}</span>
+                <span style={{fontSize:11,color:"var(--t3)",background:"var(--bg3)",padding:"2px 8px",borderRadius:10}}>{dp.exercises.length} {lang==="tr"?"hareket":"ex"}</span>
+              </div>
+              <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>{dp.exercises.map((eid,i)=>{const c=cl(eid);return(<span key={i} style={{fontSize:10,padding:"2px 6px",borderRadius:4,background:`var(--${c}L)`,color:`var(--${c})`,fontWeight:500}}>{exN(eid)}</span>)})}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>}
+    {manual.map((w,wi)=>{
+      const ex=data.exercises.find(e=>e.id===w.exerciseId);if(!ex)return null;const colors=clAll(ex.id);const c=colors[0];const cats=ex.categories||[ex.category||"Diğer"];
+      return(<div key={wi} style={{background:"var(--bg)",border:"1px solid var(--brd)",borderRadius:12,marginBottom:12,overflow:"hidden",boxShadow:"var(--shadow2)"}}>
+        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"12px 16px",borderBottom:w.sets.length?"1px solid var(--brd)":"none",borderLeft:colors.length>1?"4px solid transparent":`4px solid var(--${c})`,borderImage:colors.length>1?`linear-gradient(180deg,${colors.map(x=>`var(--${x})`).join(",")}) 1`:"none"}}>
+          <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
+            <span style={{fontSize:15,fontWeight:500}}>{ex.name}</span>
+            {cats.map((cat,ci)=>{const cc=CC[cat]||"blue";return(<span key={ci} style={{fontSize:11,color:`var(--${cc})`,background:`var(--${cc}L)`,padding:"2px 8px",borderRadius:12}}>{cat}</span>)})}
+          </div>
+          <div style={{display:"flex",gap:2}}>
+            <button onClick={()=>setHistId(ex.id)} style={{...S.ib,width:32,height:32}}><IcoHist/></button>
+            <button onClick={()=>rmExDay(ex.id)} style={{...S.ib,width:32,height:32}}><IcoX/></button>
+          </div>
+        </div>
+        {w.sets.length>0&&<div style={{padding:"8px 16px 4px"}}>
+          <div style={{display:"grid",gridTemplateColumns:"36px 1fr 1fr 80px 32px",gap:6,marginBottom:6}}>
+            <span style={S.th}>SET</span><span style={S.th}>KG</span><span style={S.th}>TEKRAR</span><span style={S.th}>RIR</span><span/>
+          </div>
+          {w.sets.map((s,si)=>(<div key={si} style={{display:"grid",gridTemplateColumns:"36px 1fr 1fr 80px 32px",gap:6,marginBottom:6,alignItems:"center"}}>
+            <span style={{fontSize:13,fontWeight:500,color:"var(--t3)",textAlign:"center"}}>{si+1}</span>
+            <input type="number" value={s.weight||""} placeholder="0" onChange={e=>updSet(ex.id,si,"weight",e.target.value)} style={S.inp}/>
+            <input type="number" value={s.reps||""} placeholder="0" onChange={e=>updSet(ex.id,si,"reps",e.target.value)} style={S.inp}/>
+            <select value={s.rir||"-"} onChange={e=>updSet(ex.id,si,"rir",e.target.value)} style={{...S.inp,padding:"7px 4px",textAlign:"center"}}>
+              {RIRS.map(r=><option key={r} value={r}>{r==="0"?"Failure":r==="-"?"—":`RIR ${r}`}</option>)}
+            </select>
+            <button onClick={()=>rmSet(ex.id,si)} style={{...S.ib,width:28,height:28}}><IcoX s={16}/></button>
+          </div>))}
+        </div>}
+        <button onClick={()=>addSet(ex.id)} style={{width:"100%",padding:"10px",border:"none",borderTop:"1px solid var(--brd)",background:"transparent",color:"var(--blue)",fontSize:13,fontWeight:500,cursor:"pointer",fontFamily:"inherit",borderRadius:"0 0 12px 12px"}}>{L.addSet}</button>
+      </div>);
+    })}
+    <button onClick={()=>setAddExDay(true)} style={S.fab}><IcoPlus/></button>
+    {addExDay&&<div style={S.ov} onClick={()=>{setAddExDay(false);setSEx("")}}>
+      <div style={{...S.dlg,animation:"scaleIn .2s ease"}} onClick={e=>e.stopPropagation()}>
+        <div style={{fontSize:18,fontWeight:500,marginBottom:16}}>{L.addExercise}</div>
+        <input type="text" placeholder={L.searchExercise} value={sEx} onChange={e=>setSEx(e.target.value)} style={{...S.inp,marginBottom:12,fontSize:14,padding:"10px 14px"}}/>
+        <div style={{maxHeight:300,overflowY:"auto"}}>
+          {fEx.length===0&&<div style={{color:"var(--t3)",fontSize:13,padding:16,textAlign:"center"}}>{L.notFound}</div>}
+          {fEx.map(ex=>{const added=(data.workouts[dk]||[]).some(w=>w.exerciseId===ex.id);const c=cl(ex.id);const cats=ex.categories||[ex.category||"Diğer"];
+            return(<button key={ex.id} disabled={added} onClick={()=>addExToDay(ex.id)} style={{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",padding:"10px 14px",border:"none",borderBottom:"1px solid var(--brd)",cursor:added?"default":"pointer",background:"var(--bg)",fontFamily:"inherit",fontSize:14,color:"var(--t1)",opacity:added?.4:1}}
+              onMouseEnter={e=>{if(!added)e.currentTarget.style.background="var(--bg2)"}} onMouseLeave={e=>e.currentTarget.style.background="var(--bg)"}>
+              <div style={{display:"flex",alignItems:"center",gap:10}}>
+                <div style={{width:10,height:10,borderRadius:"50%",background:`var(--${c})`}}/><span style={{fontWeight:500}}>{ex.name}</span>
+              </div>
+              <div style={{display:"flex",gap:4}}>{cats.map((cat,ci)=>{const cc=CC[cat]||"blue";return(<span key={ci} style={{fontSize:11,color:`var(--${cc})`,background:`var(--${cc}L)`,padding:"1px 6px",borderRadius:8}}>{cat}</span>)})}</div>
+            </button>);
+          })}
+        </div>
+      </div>
+    </div>}
+  </div>);
+})()}
+
+{/* EXERCISES */}
+{view==="exercises"&&<div style={{maxWidth:640,margin:"0 auto",padding:"24px 24px 60px"}}>
+  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
+    <span style={{fontSize:14,color:"var(--t2)"}}>{data.exercises.length} hareket</span>
+    <button onClick={()=>setShowAddEx(true)} style={S.pri}>+ {L.newExercise}</button>
+  </div>
+  {showAddEx&&<div style={{background:"var(--bg)",border:"1px solid var(--brd)",borderRadius:12,padding:20,marginBottom:20,boxShadow:"var(--shadow2)"}}>
+    {/* Tab switch */}
+    <div style={{display:"flex",gap:8,marginBottom:16}}>
+      <button onClick={()=>setAddExMode("custom")} style={{flex:1,padding:"8px 0",borderRadius:8,border:addExMode==="custom"?"2px solid var(--blue)":"1px solid var(--brd)",background:addExMode==="custom"?"var(--blueL)":"var(--bg)",color:addExMode==="custom"?"var(--blue)":"var(--t2)",fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>✏️ {L.customExercise}</button>
+      <button onClick={()=>setAddExMode("preset")} style={{flex:1,padding:"8px 0",borderRadius:8,border:addExMode==="preset"?"2px solid var(--blue)":"1px solid var(--brd)",background:addExMode==="preset"?"var(--blueL)":"var(--bg)",color:addExMode==="preset"?"var(--blue)":"var(--t2)",fontSize:13,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>📋 {L.presetExercises}</button>
+    </div>
+    {/* Custom exercise form */}
+    {addExMode==="custom"&&<>
+    <input type="text" placeholder={L.exerciseName} value={nExName} onChange={e=>setNExName(e.target.value)} onKeyDown={e=>e.key==="Enter"&&addExercise()} style={{...S.inp,marginBottom:12,fontSize:15,padding:"10px 14px"}}/>
+    <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:16}}>
+      {CATS.map(c=>{const col=CC[c]||"blue";const sel=nExCat.includes(c);return(<button key={c} onClick={()=>setNExCat(prev=>prev.includes(c)?prev.filter(x=>x!==c):[...prev,c])} style={{padding:"6px 14px",borderRadius:20,border:sel?`2px solid var(--${col})`:"1px solid var(--brd)",background:sel?`var(--${col}L)`:"var(--bg)",color:sel?`var(--${col})`:"var(--t2)",fontSize:13,fontWeight:500,cursor:"pointer",fontFamily:"inherit"}}>{c}</button>)})}
+    </div>
+    <div style={{display:"flex",gap:8}}>
+      <button onClick={addExercise} style={S.pri}>{L.save}</button>
+      <button onClick={()=>setShowAddEx(false)} style={S.sec}>{L.cancel}</button>
+    </div>
+    </>}
+    {/* Preset exercises */}
+    {addExMode==="preset"&&(()=>{
+      const existingNames=new Set(data.exercises.map(e=>e.name.toLowerCase()));
+      const filteredPresets=PRESET_EXERCISES.map((p,i)=>({...p,idx:i,displayName:presetName(p,lang)})).filter(p=>presetFilter==="all"||p.categories.includes(presetFilter));
+      return(<>
+      <div style={{fontSize:12,color:"var(--t2)",marginBottom:12}}>{L.presetDesc}</div>
+      {/* Category filter pills */}
+      <div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:12}}>
+        <button onClick={()=>setPresetFilter("all")} style={{padding:"4px 12px",borderRadius:16,border:presetFilter==="all"?"2px solid var(--blue)":"1px solid var(--brd)",background:presetFilter==="all"?"var(--blueL)":"var(--bg)",color:presetFilter==="all"?"var(--blue)":"var(--t2)",fontSize:12,fontWeight:500,cursor:"pointer",fontFamily:"inherit"}}>{L.allCategories}</button>
+        {CATS.filter(cat=>PRESET_EXERCISES.some(p=>p.categories.includes(cat))).map(cat=>{const col=CC[cat]||"blue";return(
+          <button key={cat} onClick={()=>setPresetFilter(cat)} style={{padding:"4px 12px",borderRadius:16,border:presetFilter===cat?`2px solid var(--${col})`:"1px solid var(--brd)",background:presetFilter===cat?`var(--${col}L)`:"var(--bg)",color:presetFilter===cat?`var(--${col})`:"var(--t2)",fontSize:12,fontWeight:500,cursor:"pointer",fontFamily:"inherit"}}>{cat}</button>
+        )})}
+      </div>
+      {/* Preset list */}
+      <div style={{maxHeight:280,overflowY:"auto",border:"1px solid var(--brd)",borderRadius:8,marginBottom:12}}>
+        {filteredPresets.map(p=>{const already=existingNames.has(p.displayName.toLowerCase())||existingNames.has(p.name.toLowerCase())||(p.nameEN&&existingNames.has(p.nameEN.toLowerCase()));const sel=presetSelected.includes(p.idx);const c=CC[p.categories[0]]||"blue";return(
+          <button key={p.idx} disabled={already} onClick={()=>setPresetSelected(prev=>prev.includes(p.idx)?prev.filter(x=>x!==p.idx):[...prev,p.idx])} style={{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",padding:"10px 14px",border:"none",borderBottom:"1px solid var(--brd)",cursor:already?"default":"pointer",background:sel?`var(--${c}L)`:"var(--bg)",fontFamily:"inherit",fontSize:13,color:"var(--t1)",opacity:already?.4:1}}
+            onMouseEnter={e=>{if(!already&&!sel)e.currentTarget.style.background="var(--bg2)"}} onMouseLeave={e=>{if(!sel)e.currentTarget.style.background=already?"var(--bg)":"var(--bg)";else e.currentTarget.style.background=`var(--${c}L)`}}>
+            <div style={{display:"flex",alignItems:"center",gap:8}}>
+              {sel?<IcoCheck c={`var(--${c})`}/>:<div style={{width:18,height:18,border:`2px solid ${already?"var(--t4)":"var(--brd)"}`,borderRadius:3}}/>}
+              <span style={{fontWeight:500}}>{p.displayName}</span>
+              {already&&<span style={{fontSize:10,color:"var(--t3)",fontStyle:"italic"}}>({L.alreadyAdded})</span>}
+            </div>
+            <div style={{display:"flex",gap:3}}>{p.categories.map((cat,ci)=>{const cc=CC[cat]||"blue";return(<span key={ci} style={{fontSize:10,color:`var(--${cc})`,background:`var(--${cc}L)`,padding:"1px 6px",borderRadius:8}}>{cat}</span>)})}</div>
+          </button>);
+        })}
+      </div>
+      <div style={{display:"flex",gap:8,alignItems:"center"}}>
+        <button onClick={addPresetExercises} disabled={presetSelected.length===0} style={{...S.pri,opacity:presetSelected.length===0?.5:1}}>{L.addSelected} {presetSelected.length>0&&`(${presetSelected.length})`}</button>
+        <button onClick={()=>{setShowAddEx(false);setPresetSelected([]);setPresetFilter("all")}} style={S.sec}>{L.cancel}</button>
+      </div>
+      </>);
+    })()}
+  </div>}
+  {CATS.map(cat=>{const exs=data.exercises.filter(e=>{const cats=e.categories||[e.category||"Diğer"];return cats.includes(cat)});if(!exs.length)return null;const col=CC[cat]||"blue";
+    return(<div key={cat} style={{marginBottom:24}}>
+      <div style={{fontSize:12,fontWeight:600,color:"var(--t3)",textTransform:"uppercase",letterSpacing:1,marginBottom:8,paddingBottom:6,borderBottom:"1px solid var(--brd)"}}>{cat}</div>
+      {exs.map(ex=>{const h=getH(ex.id);const lm=h.length?h[0].sets.reduce((m,s)=>Math.max(m,s.weight),0):null;const cats=ex.categories||[ex.category||"Diğer"];const otherCats=cats.filter(c=>c!==cat);
+        return(<div key={ex.id} style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"10px 4px",borderBottom:"1px solid var(--brd)"}}>
+          <div style={{display:"flex",alignItems:"center",gap:10,flexWrap:"wrap"}}>
+            <div style={{width:10,height:10,borderRadius:"50%",background:`var(--${col})`}}/>
+            <span style={{fontSize:14,fontWeight:500}}>{ex.name}</span>
+            {otherCats.map((oc,i)=>{const occ=CC[oc]||"blue";return(<span key={i} style={{fontSize:10,color:`var(--${occ})`,background:`var(--${occ}L)`,padding:"1px 6px",borderRadius:8}}>{oc}</span>)})}
+            {lm!==null&&<span style={{fontSize:12,color:"var(--t3)"}}>Max: {lm}kg</span>}
+            {h.length>0&&<span style={{fontSize:11,color:"var(--t3)"}}>({h.length})</span>}
+          </div>
+          <div style={{display:"flex",gap:2}}>
+            <button onClick={()=>setHistId(ex.id)} style={{...S.ib,width:32,height:32}}><IcoHist s={16}/></button>
+            <button onClick={()=>removeExercise(ex.id)} style={{...S.ib,width:32,height:32}}><IcoDel/></button>
+          </div>
+        </div>);
+      })}
+    </div>);
+  })}
+  {data.exercises.length===0&&<div style={{textAlign:"center",color:"var(--t3)",padding:48}}>{L.noExercises}</div>}
+</div>}
+
+{/* PROGRAMS */}
+{view==="programs"&&<div style={{maxWidth:640,margin:"0 auto",padding:"24px 24px 60px"}}>
+  {/* Program Type Tabs */}
+  <div style={{display:"flex",gap:8,marginBottom:20}}>
+    <button onClick={()=>setPgType("weekly")} style={{flex:1,padding:"10px 0",borderRadius:10,border:pgType==="weekly"?"2px solid var(--blue)":"1px solid var(--brd)",background:pgType==="weekly"?"var(--blueL)":"var(--bg)",color:pgType==="weekly"?"var(--blue)":"var(--t2)",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>📅 {L.weeklyProgram}</button>
+    <button onClick={()=>setPgType("daily")} style={{flex:1,padding:"10px 0",borderRadius:10,border:pgType==="daily"?"2px solid var(--blue)":"1px solid var(--brd)",background:pgType==="daily"?"var(--blueL)":"var(--bg)",color:pgType==="daily"?"var(--blue)":"var(--t2)",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit"}}>🏋️ {L.dailyProgram}</button>
+  </div>
+
+  {/* WEEKLY PROGRAMS */}
+  {pgType==="weekly"&&<>
+  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
+    <span style={{fontSize:14,color:"var(--t2)"}}>{Object.keys(data.programs).length} program</span>
+    <button onClick={()=>{resetPg();setShowPgModal(true)}} style={S.pri}>+ {L.newProgram}</button>
+  </div>
+  {Object.entries(data.programs).map(([id,p])=>{const isA=data.activeProgram===id;
+    return(<div key={id} style={{background:"var(--bg)",border:isA?"2px solid var(--blue)":"1px solid var(--brd)",borderRadius:12,padding:16,marginBottom:12,boxShadow:"var(--shadow2)"}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+        <div style={{display:"flex",alignItems:"center",gap:8}}>
+          <span style={{fontSize:16,fontWeight:500}}>{p.name}</span>
+          {isA&&<span style={{fontSize:11,fontWeight:600,color:"var(--accentT)",background:"var(--blue)",padding:"2px 10px",borderRadius:12}}>{L.active}</span>}
+        </div>
+        <div style={{display:"flex",gap:4}}>
+          <button onClick={()=>actPg(id)} style={{...S.sec,fontSize:12,padding:"4px 12px"}}>{isA?L.deactivate:L.activate}</button>
+          <button onClick={()=>openEditPg(id)} style={{...S.ib,width:32,height:32}}><IcoEdit/></button>
+          <button onClick={()=>delPg(id)} style={{...S.ib,width:32,height:32}}><IcoDel/></button>
+        </div>
+      </div>
+      {L.days.map((dn,di)=>{const exs=p.days[String(di)]||[];if(!exs.length)return null;
+        return(<div key={di} style={{display:"flex",alignItems:"center",gap:6,marginBottom:4,flexWrap:"wrap"}}>
+          <span style={{fontSize:12,fontWeight:600,color:"var(--t2)",minWidth:28}}>{dn}</span>
+          {exs.map((eid,i)=>{const c=cl(eid);return(<span key={i} style={{fontSize:12,background:`var(--${c}L)`,color:`var(--${c})`,padding:"2px 10px",borderRadius:12,fontWeight:500}}>{exN(eid)}</span>)})}
+        </div>);
+      })}
+    </div>);
+  })}
+  {Object.keys(data.programs).length===0&&<div style={{textAlign:"center",color:"var(--t3)",padding:48}}>{L.createProgram}</div>}
+  </>}
+
+  {/* DAILY PROGRAMS */}
+  {pgType==="daily"&&<>
+  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:20}}>
+    <span style={{fontSize:14,color:"var(--t2)"}}>{Object.keys(data.dailyPrograms||{}).length} program</span>
+    <button onClick={()=>{resetDp();setShowDpModal(true)}} style={S.pri}>+ {L.dailyProgram}</button>
+  </div>
+  {Object.entries(data.dailyPrograms||{}).map(([id,dp])=>(
+    <div key={id} style={{background:"var(--bg)",border:"1px solid var(--brd)",borderRadius:12,padding:16,marginBottom:12,boxShadow:"var(--shadow2)"}}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:10}}>
+        <span style={{fontSize:16,fontWeight:500}}>{dp.name}</span>
+        <div style={{display:"flex",gap:4}}>
+          <button onClick={()=>openEditDp(id)} style={{...S.ib,width:32,height:32}}><IcoEdit/></button>
+          <button onClick={()=>delDp(id)} style={{...S.ib,width:32,height:32}}><IcoDel/></button>
+        </div>
+      </div>
+      <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+        {dp.exercises.map((eid,i)=>{const c=cl(eid);return(<span key={i} style={{fontSize:12,background:`var(--${c}L)`,color:`var(--${c})`,padding:"3px 10px",borderRadius:12,fontWeight:500}}>{exN(eid)}</span>)})}
+      </div>
+      {dp.exercises.length===0&&<div style={{fontSize:12,color:"var(--t3)"}}>{L.noExercises}</div>}
+    </div>
+  ))}
+  {Object.keys(data.dailyPrograms||{}).length===0&&<div style={{textAlign:"center",color:"var(--t3)",padding:48}}>{L.createDailyProgram}</div>}
+  </>}
+
+  {/* WEEKLY PROGRAM MODAL */}
+  {showPgModal&&<div style={S.ov} onClick={()=>{setShowPgModal(false);resetPg()}}>
+    <div style={{...S.dlg,maxWidth:520}} onClick={e=>e.stopPropagation()}>
+      <div style={{fontSize:18,fontWeight:500,marginBottom:16}}>{pgEditId?L.editProgram:L.newProgram}</div>
+      <input type="text" placeholder={L.programName} value={pgName} onChange={e=>setPgName(e.target.value)} style={{...S.inp,marginBottom:16,fontSize:15,padding:"10px 14px"}}/>
+      <div style={{display:"flex",gap:4,marginBottom:14,flexWrap:"wrap"}}>
+        {L.days.map((d,i)=>{const cnt=(pgDays[String(i)]||[]).length;return(
+          <button key={i} onClick={()=>setPgDay(i)} style={{padding:"6px 12px",borderRadius:20,border:pgDay===i?"2px solid var(--blue)":"1px solid var(--brd)",background:pgDay===i?"var(--blueL)":"var(--bg)",color:pgDay===i?"var(--blue)":"var(--t2)",fontSize:13,fontWeight:500,cursor:"pointer",fontFamily:"inherit",position:"relative"}}>
+            {d}{cnt>0&&<span style={{position:"absolute",top:-6,right:-6,background:"var(--blue)",color:"#fff",fontSize:9,fontWeight:700,borderRadius:"50%",width:18,height:18,display:"flex",alignItems:"center",justifyContent:"center"}}>{cnt}</span>}
+          </button>)})}
+      </div>
+      <div style={{fontSize:13,fontWeight:500,color:"var(--t2)",marginBottom:8}}>{L.daysFull[pgDay]}</div>
+      {(pgDays[String(pgDay)]||[]).length>0&&<div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:10}}>
+        {pgDays[String(pgDay)].map((eid,i)=>{const c=cl(eid);return(<span key={i} onClick={()=>togPgEx(eid)} style={{fontSize:12,color:`var(--${c})`,background:`var(--${c}L)`,padding:"4px 10px",borderRadius:16,cursor:"pointer",fontWeight:500,display:"flex",alignItems:"center",gap:4}}>{exN(eid)} ✕</span>)})}
+      </div>}
+      <input type="text" placeholder={L.searchExercise} value={pgSrch} onChange={e=>setPgSrch(e.target.value)} style={{...S.inp,marginBottom:8,padding:"8px 14px"}}/>
+      <div style={{maxHeight:180,overflowY:"auto",marginBottom:16,border:"1px solid var(--brd)",borderRadius:8}}>
+        {fPgEx.map(ex=>{const sel=(pgDays[String(pgDay)]||[]).includes(ex.id);const c=cl(ex.id);const cats=ex.categories||[ex.category||"Diğer"];return(
+          <button key={ex.id} onClick={()=>togPgEx(ex.id)} style={{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",padding:"8px 14px",border:"none",borderBottom:"1px solid var(--brd)",cursor:"pointer",background:sel?`var(--${c}L)`:"var(--bg)",fontFamily:"inherit",fontSize:13,color:"var(--t1)"}}
+            onMouseEnter={e=>e.currentTarget.style.background=sel?`var(--${c}L)`:"var(--bg2)"} onMouseLeave={e=>e.currentTarget.style.background=sel?`var(--${c}L)`:"var(--bg)"}>
+            <div style={{display:"flex",alignItems:"center",gap:8}}>
+              {sel?<IcoCheck c={`var(--${c})`}/>:<div style={{width:18,height:18,border:"2px solid var(--brd)",borderRadius:3}}/>}
+              <span style={{fontWeight:500}}>{ex.name}</span>
+            </div>
+            <div style={{display:"flex",gap:3}}>{cats.map((cat,ci)=>{const cc=CC[cat]||"blue";return(<span key={ci} style={{fontSize:10,color:`var(--${cc})`,background:`var(--${cc}L)`,padding:"1px 5px",borderRadius:6}}>{cat}</span>)})}</div>
+          </button>);
+        })}
+        {fPgEx.length===0&&<div style={{color:"var(--t3)",fontSize:12,padding:16,textAlign:"center"}}>Hareket bulunamadı.</div>}
+      </div>
+      <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
+        <button onClick={()=>{setShowPgModal(false);resetPg()}} style={S.sec}>{L.cancel}</button>
+        <button onClick={savePg} style={S.pri}>{L.save}</button>
+      </div>
+    </div>
+  </div>}
+
+  {/* DAILY PROGRAM MODAL */}
+  {showDpModal&&(()=>{const fDpEx=data.exercises.filter(e=>e.name.toLowerCase().includes(dpSrch.toLowerCase()));return(
+  <div style={S.ov} onClick={()=>{setShowDpModal(false);resetDp()}}>
+    <div style={{...S.dlg,maxWidth:520}} onClick={e=>e.stopPropagation()}>
+      <div style={{fontSize:18,fontWeight:500,marginBottom:16}}>{dpEditId?(lang==="tr"?"Günlük Programı Düzenle":"Edit Daily Program"):L.dailyProgram}</div>
+      <input type="text" placeholder={L.programName} value={dpName} onChange={e=>setDpName(e.target.value)} style={{...S.inp,marginBottom:16,fontSize:15,padding:"10px 14px"}}/>
+      {dpExIds.length>0&&<div style={{display:"flex",gap:5,flexWrap:"wrap",marginBottom:10}}>
+        {dpExIds.map((eid,i)=>{const c=cl(eid);return(<span key={i} onClick={()=>togDpEx(eid)} style={{fontSize:12,color:`var(--${c})`,background:`var(--${c}L)`,padding:"4px 10px",borderRadius:16,cursor:"pointer",fontWeight:500,display:"flex",alignItems:"center",gap:4}}>{exN(eid)} ✕</span>)})}
+      </div>}
+      <input type="text" placeholder={L.searchExercise} value={dpSrch} onChange={e=>setDpSrch(e.target.value)} style={{...S.inp,marginBottom:8,padding:"8px 14px"}}/>
+      <div style={{maxHeight:220,overflowY:"auto",marginBottom:16,border:"1px solid var(--brd)",borderRadius:8}}>
+        {fDpEx.map(ex=>{const sel=dpExIds.includes(ex.id);const c=cl(ex.id);const cats=ex.categories||[ex.category||"Diğer"];return(
+          <button key={ex.id} onClick={()=>togDpEx(ex.id)} style={{display:"flex",alignItems:"center",justifyContent:"space-between",width:"100%",padding:"8px 14px",border:"none",borderBottom:"1px solid var(--brd)",cursor:"pointer",background:sel?`var(--${c}L)`:"var(--bg)",fontFamily:"inherit",fontSize:13,color:"var(--t1)"}}
+            onMouseEnter={e=>e.currentTarget.style.background=sel?`var(--${c}L)`:"var(--bg2)"} onMouseLeave={e=>e.currentTarget.style.background=sel?`var(--${c}L)`:"var(--bg)"}>
+            <div style={{display:"flex",alignItems:"center",gap:8}}>
+              {sel?<IcoCheck c={`var(--${c})`}/>:<div style={{width:18,height:18,border:"2px solid var(--brd)",borderRadius:3}}/>}
+              <span style={{fontWeight:500}}>{ex.name}</span>
+            </div>
+            <div style={{display:"flex",gap:3}}>{cats.map((cat,ci)=>{const cc=CC[cat]||"blue";return(<span key={ci} style={{fontSize:10,color:`var(--${cc})`,background:`var(--${cc}L)`,padding:"1px 5px",borderRadius:6}}>{cat}</span>)})}</div>
+          </button>);
+        })}
+        {fDpEx.length===0&&<div style={{color:"var(--t3)",fontSize:12,padding:16,textAlign:"center"}}>Hareket bulunamadı.</div>}
+      </div>
+      <div style={{display:"flex",gap:8,justifyContent:"flex-end"}}>
+        <button onClick={()=>{setShowDpModal(false);resetDp()}} style={S.sec}>{L.cancel}</button>
+        <button onClick={saveDp} style={S.pri}>{L.save}</button>
+      </div>
+    </div>
+  </div>);})()}
+</div>}
+
+{/* FEEDBACK */}
+{view==="feedback"&&<div style={{maxWidth:640,margin:"0 auto",padding:"24px 24px 60px"}}>
+  <div style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:24,marginBottom:24,boxShadow:"var(--shadow2)"}}>
+    <h2 style={{fontSize:18,fontWeight:500,marginBottom:16}}>{L.feedbackTitle}</h2>
+    <textarea placeholder={L.feedbackMsg} value={feedbackMsg} onChange={e=>setFeedbackMsg(e.target.value)} style={{...S.inp,minHeight:80,marginBottom:12,padding:"10px 14px",fontFamily:"inherit",fontSize:14,resize:"vertical"}}/>
+    <div style={{marginBottom:12}}>
+      <label style={{fontSize:13,fontWeight:500,color:"var(--t2)",display:"block",marginBottom:6}}>{L.feedbackCat}</label>
+      <select value={feedbackCat} onChange={e=>setFeedbackCat(e.target.value)} style={{...S.inp,padding:"8px 12px"}}>
+        <option value="bug">{L.feedbackBug}</option>
+        <option value="feature">{L.feedbackFeature}</option>
+        <option value="general">{L.feedbackGeneral}</option>
+        <option value="other">{L.feedbackOther}</option>
+      </select>
+    </div>
+    <div style={{marginBottom:16}}>
+      <label style={{fontSize:13,fontWeight:500,color:"var(--t2)",display:"block",marginBottom:6}}>{L.feedbackRating}</label>
+      <div style={{display:"flex",gap:4}}>
+        {[1,2,3,4,5].map(r=>(<button key={r} onClick={()=>setFeedbackRating(r)} style={{width:36,height:36,borderRadius:8,border:feedbackRating>=r?"2px solid var(--accent)":"1px solid var(--brd)",background:feedbackRating>=r?"var(--blueL)":"var(--bg)",color:feedbackRating>=r?"var(--accent)":"var(--t3)",fontSize:16,cursor:"pointer",fontFamily:"inherit",transition:"all .15s ease"}}>★</button>))}
+      </div>
+    </div>
+    <button onClick={saveFeedback} style={{...S.pri,width:"100%"}}>{L.feedbackSubmit}</button>
+  </div>
+  {feedbackList.length>0&&<div>
+    <h3 style={{fontSize:16,fontWeight:500,marginBottom:12}}>{L.feedbackPrev}</h3>
+    {feedbackList.map((f,i)=>{const d=new Date(f.date);return(<div key={i} style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:8,padding:12,marginBottom:8}}>
+      <div style={{display:"flex",justifyContent:"space-between",marginBottom:4}}>
+        <span style={{fontSize:12,fontWeight:600,color:"var(--blue)",textTransform:"uppercase"}}>{f.cat}</span>
+        <span style={{fontSize:11,color:"var(--t3)"}}>{d.getDate()} {L.months[d.getMonth()]}</span>
+      </div>
+      <div style={{fontSize:13,color:"var(--t1)",marginBottom:4}}>{f.msg}</div>
+      <div style={{fontSize:12}}><span style={{color:"var(--accent)"}}>{"★".repeat(f.rating||0)}</span><span style={{color:"var(--t3)"}}>{"☆".repeat(5-(f.rating||0))}</span></div>
+    </div>)})}
+  </div>}
+  {feedbackList.length===0&&<div style={{textAlign:"center",color:"var(--t3)",padding:48}}>{L.feedbackNone}</div>}
+</div>}
+
+</main>
+</div>
+
+{/* HISTORY MODAL */}
+{histId&&(()=>{
+  const hist=getH(histId);const nm=exN(histId);const c=cl(histId);
+  let pr=0;let best1RM=0;hist.forEach(h=>h.sets.forEach(s=>{if(s.weight>pr)pr=s.weight;const rm=calc1RM(s.weight,s.reps);if(rm>best1RM)best1RM=rm}));
+  best1RM=Math.round(best1RM);const brz=Math.round(hist.reduce((mx,h)=>Math.max(mx,...h.sets.map(s=>calcBrzycki(s.weight,s.reps))),0));
+  return(<div style={S.ov} onClick={()=>setHistId(null)}>
+    <div style={{...S.dlg,maxWidth:500}} onClick={e=>e.stopPropagation()}>
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
+        <div style={{display:"flex",alignItems:"center",gap:10}}>
+          <div style={{width:12,height:12,borderRadius:"50%",background:`var(--${c})`}}/>
+          <span style={{fontSize:18,fontWeight:500}}>{nm}</span>
+        </div>
+        {pr>0&&<span style={{fontSize:13,fontWeight:600,color:"var(--blue)",background:"var(--blueL)",padding:"4px 12px",borderRadius:16}}>{L.pr}: {pr} kg</span>}
+      </div>
+      {best1RM>0&&<div style={{display:"flex",gap:8,marginBottom:16,flexWrap:"wrap"}}>
+        <div style={{background:"var(--purpleL)",border:"1px solid var(--purple)",borderRadius:10,padding:"8px 14px",flex:1,textAlign:"center"}}>
+          <div style={{fontSize:18,fontWeight:700,color:"var(--purple)"}}>{best1RM} kg</div>
+          <div style={{fontSize:10,color:"var(--t3)"}}>{L.est1RMLabel}</div>
+        </div>
+        <div style={{background:"var(--tealL)",border:"1px solid var(--teal)",borderRadius:10,padding:"8px 14px",flex:1,textAlign:"center"}}>
+          <div style={{fontSize:18,fontWeight:700,color:"var(--teal)"}}>{brz} kg</div>
+          <div style={{fontSize:10,color:"var(--t3)"}}>{L.brzycki1RM}</div>
+        </div>
+      </div>}
+      <div style={{maxHeight:400,overflowY:"auto"}}>
+        {hist.length===0&&<div style={{color:"var(--t3)",fontSize:13,padding:24,textAlign:"center"}}>{L.noHistory}</div>}
+        {hist.map((h,i)=>{const d=pD(h.date);const vol=h.sets.reduce((t,s)=>t+s.weight*s.reps,0);const session1RM=Math.round(Math.max(...h.sets.map(s=>calc1RM(s.weight,s.reps))));
+          return(<div key={i} style={{padding:"12px 0",borderBottom:"1px solid var(--brd)"}}>
+            <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
+              <span style={{fontSize:14,fontWeight:500}}>{d.getDate()} {L.months[d.getMonth()]} {d.getFullYear()}</span>
+              <div style={{display:"flex",gap:8,alignItems:"center"}}>
+                <span style={{fontSize:11,color:"var(--purple)",background:"var(--purpleL)",padding:"2px 6px",borderRadius:8}}>1RM≈{session1RM}</span>
+                <span style={{fontSize:12,color:"var(--t3)"}}>{L.volume} {vol}kg</span>
+              </div>
+            </div>
+            <div style={{display:"flex",gap:6,flexWrap:"wrap"}}>
+              {h.sets.map((s,j)=>(<span key={j} style={{fontSize:12,background:`var(--${c}L)`,color:`var(--${c})`,padding:"3px 10px",borderRadius:12,fontWeight:500}}>{s.weight}kg × {s.reps}{s.rir&&s.rir!=="-"?` (${s.rir==="0"?"F":"RIR "+s.rir})`:""}
+              </span>))}
+            </div>
+          </div>);
+        })}
+      </div>
+      <div style={{display:"flex",justifyContent:"flex-end",marginTop:16}}>
+        <button onClick={()=>setHistId(null)} style={S.sec}>{L.close}</button>
+      </div>
+    </div>
+  </div>);
+})()}
+{isGuest&&<div style={{position:"fixed",bottom:0,left:0,right:0,background:"linear-gradient(135deg,#999,#999)",borderTop:"2px solid var(--blue)",padding:"10px 16px",display:"flex",alignItems:"center",justifyContent:"center",gap:12,zIndex:100,animation:"fadeIn .3s ease"}}>
+  <span style={{fontSize:13,color:"var(--t1)"}}>⚠️ {L.guestWarn}</span>
+  <button onClick={showAuth} style={{padding:"5px 16px",borderRadius:16,border:"none",background:"var(--blue)",color:"var(--accentT)",fontSize:12,fontWeight:600,cursor:"pointer",fontFamily:"inherit",whiteSpace:"nowrap"}}>{L.guestLogin}</button>
+</div>}
+</div>);
+}
+
+const S={
+  ib:{width:40,height:40,borderRadius:"50%",border:"none",background:"transparent",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0},
+  tBtn:{padding:"6px 20px",borderRadius:4,border:"1px solid var(--brd)",background:"var(--bg)",color:"var(--t1)",fontSize:14,fontWeight:500,cursor:"pointer",fontFamily:"inherit"},
+  sel:{padding:"6px 12px",borderRadius:4,border:"1px solid var(--brd)",background:"var(--bg)",color:"var(--t1)",fontSize:13,fontFamily:"inherit",cursor:"pointer"},
+  miniA:{width:28,height:28,borderRadius:"50%",border:"none",background:"transparent",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,color:"var(--t2)",fontFamily:"inherit"},
+  pri:{padding:"8px 20px",borderRadius:20,border:"none",background:"var(--blue)",color:"var(--accentT)",fontSize:14,fontWeight:500,cursor:"pointer",fontFamily:"inherit"},
+  sec:{padding:"8px 20px",borderRadius:20,border:"1px solid var(--brd)",background:"var(--bg)",color:"var(--t1)",fontSize:14,fontWeight:500,cursor:"pointer",fontFamily:"inherit"},
+  inp:{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:8,padding:"8px 12px",color:"var(--t1)",fontSize:13,fontFamily:"inherit",width:"100%"},
+  th:{fontSize:10,fontWeight:600,color:"var(--t3)",textTransform:"uppercase",letterSpacing:.5},
+  fab:{position:"fixed",bottom:24,right:24,width:56,height:56,borderRadius:"50%",border:"none",background:"var(--blue)",cursor:"pointer",boxShadow:"var(--shadow)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:50},
+  ov:{position:"fixed",inset:0,background:"rgba(0,0,0,.5)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:200,padding:16,animation:"fadeIn .2s ease"},
+  dlg:{background:"var(--bg)",borderRadius:16,padding:24,width:"100%",maxWidth:440,maxHeight:"85vh",overflowY:"auto",boxShadow:"var(--shadow)",animation:"scaleIn .2s ease"},
+};
+
+function Root(){
+  const[user,setUser]=useState(null);
+  const[checking,setChecking]=useState(true);
+  const[showAuth,setShowAuth]=useState(false);
+  const[lang,setLang]=useState(()=>localStorage.getItem(LK)||"tr");
+  useEffect(()=>{
+    let ready=false;
+    const{data:{subscription}}=sb.auth.onAuthStateChange((event,session)=>{
+      setUser(session?.user||null);
+      if(session?.user)setShowAuth(false);
+      if(!ready){ready=true;setChecking(false);}
+    });
+    sb.auth.getSession().then(({data:{session}})=>{
+      if(!ready){ready=true;setUser(session?.user||null);setChecking(false);}
+    });
+    return()=>subscription.unsubscribe();
+  },[]);
+  useEffect(()=>{localStorage.setItem(LK,lang)},[lang]);
+  if(checking)return(<div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"var(--bg)",color:"var(--t1)"}}><div style={{fontSize:18,fontFamily:"'Space Mono',monospace"}}>🏋️ Yükleniyor...</div></div>);
+  return <>
+    <App key={user?.id||'guest'} user={user} setUser={setUser} lang={lang} setLang={setLang} showAuth={()=>setShowAuth(true)}/>
+    {showAuth&&!user&&<AuthScreen onLogin={u=>{setUser(u);setShowAuth(false)}} lang={lang} setLang={setLang} onClose={()=>setShowAuth(false)}/>}
+  </>;
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<Root/>);
+</script>
+</body>
+</html>
