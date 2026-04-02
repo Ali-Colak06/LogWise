@@ -55,6 +55,11 @@
   to = "/index.html"
   status = 200
 
+[[redirects]]
+  from = "/data"
+  to = "/index.html"
+  status = 200
+
 # Var olmayan tüm sayfalar için 404 döndür (catch-all)
 [[redirects]]
   from = "/*"

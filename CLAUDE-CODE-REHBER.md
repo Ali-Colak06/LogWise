@@ -11,7 +11,7 @@ LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıc
 - **Canlı URL**: https://logwise.fit/ (Netlify deploy, custom domain)
 - **Eski URL**: https://incomparable-starburst-f7802c.netlify.app/
 - **Teknoloji**: React 18 + Babel Standalone (tarayıcıda JSX derleme, build step yok), Supabase (auth + veritabanı), Chart.js 4.4.4
-- **Ana dosya**: `index.html` (~1550 satır, tüm CSS/JS/React inline tek dosyada)
+- **Ana dosya**: `index.html` (~1650 satır, tüm CSS/JS/React inline tek dosyada)
 - **Font**: Google Fonts — Space Mono (body), Archivo Black (logo)
 
 ---
@@ -100,6 +100,7 @@ React tarafında pushState/replaceState ile URL yönetimi:
 - `/exercises` → Hareketler
 - `/programs` → Programlar
 - `/feedback` → Geri Bildirim
+- `/data` → Veri Yönetimi
 - `/?date=2026-04-01` → Gün görünümü
 - `/profile` → Profil sayfası (ayrı HTML dosyası)
 
@@ -176,7 +177,7 @@ localStorage key: `gym-log-v3` veya Supabase `user_data.data` JSONB:
 - `dailyPrograms` — Haftanın günlerinden bağımsız, sadece hareket listesi içeren programlar.
 - `activeProgram` — Aktif haftalık program ID'si veya null. Aynı anda sadece bir program aktif olabilir.
 - `durations` — Timer kayıtları, gün bazında saniye cinsinden dizi.
-- `measurements` — Vücut ölçüleri (henüz UI yok, veri yapısı hazır).
+- `measurements` — Vücut ölçüleri. Key = tarih string, value = ölçüm dizisi. Her ölçüm: `{id, date, weight, bodyFat, chest, waist, hips, bicepL, bicepR, thighL, thighR, neck, shoulders}`. Sadece doldurulan alanlar kaydedilir.
 - `dayNotes` — Gün bazında not. Key = tarih string, value = not metni.
 - `exerciseNotes` — Hareket bazında not. Key = exercise ID, value = not metni.
 - `programMeta` — **YENİ**: Program metadata. Key = program ID, value = `{activatedAt, cycleType, deloadEvery}`. Aktifleştirildiğinde otomatik oluşturulur.
@@ -334,7 +335,32 @@ Preset hareket seçme listesinde her hareketin altında açıklama gösterilir.
 - **1RM Gösterimi**: Epley ve Brzycki tahmini 1RM değerleri mor ve teal kartlarda gösterilir
 - Her seans için ayrı 1RM tahmini de listelenir
 
-### 6.8 RIR (Reps in Reserve)
+### 6.8 Veri Yönetimi (YENİ)
+
+Sidebar'da `📦 Veri Yönetimi` linki ile erişilir. `/data` URL'i. 2 sekmeli yapı:
+
+**Veriler Sekmesi:**
+- JSON Dışa Aktarma: Tüm veriyi JSON olarak indirme (yedekleme için)
+- CSV Dışa Aktarma: Antrenman kayıtlarını CSV tablo olarak indirme
+- JSON İçe Aktarma: Dosya seçici ile önceden dışa aktarılmış JSON yükleme, mevcut veriyi üzerine yazar
+- Veri Özeti: Hareket, antrenman günü, toplam set, program, ölçüm sayıları
+
+**Ölçüler Sekmesi:**
+- Vücut ölçüleri: Kilo, vücut yağı %, göğüs, bel, kalça, biceps (L/R), bacak (L/R), boyun, omuz
+- Ölçüm ekleme formu: Grid layout, sayısal input'lar
+- Ölçüm geçmişi: Tarih sıralı, her ölçüm kartında doldurulan alanlar gösterilir
+- Ölçüm silme
+
+**Yardımcı Fonksiyonlar:**
+- `exportJSON()` — Blob + download link
+- `exportCSV()` — Workout verilerini CSV formatına dönüştürme
+- `importJSON(e)` — FileReader + JSON parse + migrateData + save
+- `saveMeasurement()` — Ölçüm kaydetme (measurements[date] dizisine push)
+- `delMeasurement(dk,mid)` — Ölçüm silme
+- `getMeasureHistory()` — Tüm ölçümleri ters kronolojik sırayla döndürür
+- `MEASURE_FIELDS` — Ölçüm alan isimleri sabiti
+
+### 6.9 RIR (eski 6.8) (Reps in Reserve)
 
 Her set için dropdown: "—" (yok), "F" (Failure/0), "1", "2", "3", "4+".
 
@@ -370,7 +396,7 @@ Satır 261-262   TR ve EN çeviri objeleri (~170+ anahtar)
 Satır 264-284   DashChart bileşeni (Chart.js canvas yönetimi)
 Satır 286-366   AuthScreen bileşeni (login/register/forgot modal, Google OAuth)
 Satır 368-~1500 App bileşeni (ana uygulama):
-  States       view, calendar, sidebar, mobile, dashboard, chart, rest timer, drag, note, superset, program modal, edit exercise, cycle states
+  States       view, calendar, sidebar, mobile, dashboard, chart, rest timer, drag, note, superset, program modal, edit exercise, cycle, dataTab, measureForm states
   Timer        Timer + rest timer countdown, localStorage persist
   Auth/Save    save/debouncedSave/flushSave/localUpdate
   Routing      URL routing, page title, view transitions, 0×0 temizlik, beforeunload
@@ -378,7 +404,7 @@ Satır 368-~1500 App bileşeni (ana uygulama):
   Day CRUD     addExToDay, rmExDay, addSet, updSet, rmSet, startPgEx, getPrevSets, moveExInDay, saveDayNote, saveExNote, toggleSuperset
   Pg CRUD      savePg (cycle meta dahil), delPg, actPg (activatedAt dahil), resetPg, openEditPg, togPgEx, addPresetProgram
   DP CRUD      saveDp, delDp, resetDp, openEditDp, togDpEx, addDpToDay
-  Helpers      exN, exC, exCats, cl, clAll, getH, getEff, calDays, weekDays
+  Helpers      exN, exC, exCats, cl, clAll, getH, getEff, calDays, weekDays, exportJSON, exportCSV, importJSON, saveMeasurement, delMeasurement, getMeasureHistory
   Components   Pill, MiniCal, SVG ikonları
   JSX:Header   Header + Sidebar (navigasyon, timer, mini takvim, aktif program özeti + ilerleme, user/guest)
   JSX:Dash     Dashboard view (3 sekmeli: overview, progress, frequency)
@@ -386,6 +412,7 @@ Satır 368-~1500 App bileşeni (ana uygulama):
   JSX:Day      Day view (rest timer, notes, set tabloları, set tipleri, prev reference, superset, sıralama)
   JSX:Ex       Exercises view (gruplandırılmış liste, düzenleme modalı, add exercise modal with tabs + açıklamalar)
   JSX:Pg       Programs view (weekly/daily tabs, preset programs modal, cycle settings, progress bar, modals)
+  JSX:Data     Data management view (export/import + body measurements, 2 sekmeli)
   JSX:Fb       Feedback view
   JSX:Hist     History modal (1RM gösterimi ile)
   JSX:Guest    Guest banner
@@ -433,7 +460,7 @@ Yeni alan eklenmesi gerekirse bu fonksiyona eklenmeli.
 Netlify'da deploy ediliyor. `netlify.toml` içeriği:
 
 - `publish = "."` — kök dizin publish edilir
-- SPA redirect'leri: `/dashboard`, `/exercises`, `/programs`, `/feedback` → `/index.html` (status 200)
+- SPA redirect'leri: `/dashboard`, `/exercises`, `/programs`, `/feedback`, `/data` → `/index.html` (status 200)
 - `/profile` → `/profile.html` (status 200)
 - Pretty URL redirect'leri: `/index.html` → `/`, `/profile.html` → `/profile`
 - 404 catch-all: `/*` → `/404.html`
@@ -519,6 +546,16 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Program döngüsü** — Deload cycle desteği, ayarlanabilir sıklık (3-8 hafta)
 - ✅ **Program ilerleme takibi** — Hafta numarası, uyum oranı (%), progress bar, deload haftası göstergesi
 
+### Kategori 5: Veri Yönetimi ✅ TAMAMLANDI (Fotoğraf hariç)
+- ✅ **Export JSON** — Tüm veriyi JSON olarak dışa aktarma (yedekleme)
+- ✅ **Export CSV** — Antrenman kayıtlarını CSV tablo olarak dışa aktarma
+- ✅ **Import JSON** — Daha önce dışa aktarılmış JSON dosyasından geri yükleme
+- ✅ **Vücut ölçüleri takibi** — Kilo, vücut yağı, göğüs, bel, kalça, biceps, bacak, boyun, omuz ölçümleri
+- ✅ **Veri özeti** — Hareket, antrenman günü, set, program, ölçüm sayıları
+
+### Diğer Düzeltmeler
+- ✅ **Profil sayfası local fix** — `/profile` → `/profile.html` yönlendirmesi (Python HTTP server uyumu)
+
 ---
 
 ## 15. HENÜZ YAPILMAMIŞ / GELİŞTİRİLEBİLECEK ŞEYLER
@@ -530,10 +567,10 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - Arama (global)
 - Konfeti / animasyon (PR kırıldığında)
 
-### Kategori 5: Veri Yönetimi
-- Export/Import (JSON/CSV)
-- Vücut ölçüleri takibi (measurements veri yapısı hazır)
-- Fotoğraf ilerleme
+### Kategori 5: Veri Yönetimi ✅ TAMAMLANDI (Fotoğraf hariç)
+- ✅ Export/Import (JSON/CSV)
+- ✅ Vücut ölçüleri takibi
+- Fotoğraf ilerleme (Supabase Storage gerekli, henüz yapılmadı)
 
 ### Kategori 6: Bildirimler & Motivasyon
 - Başarımlar / Rozetler
