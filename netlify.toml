@@ -67,6 +67,11 @@
   status = 404
 
 [[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"

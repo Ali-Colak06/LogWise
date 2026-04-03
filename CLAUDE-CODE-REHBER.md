@@ -11,7 +11,7 @@ LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıc
 - **Canlı URL**: https://logwise.fit/ (Netlify deploy, custom domain)
 - **Eski URL**: https://incomparable-starburst-f7802c.netlify.app/
 - **Teknoloji**: React 18 + Babel Standalone (tarayıcıda JSX derleme, build step yok), Supabase (auth + veritabanı), Chart.js 4.4.4
-- **Ana dosya**: `index.html` (~1650 satır, tüm CSS/JS/React inline tek dosyada)
+- **Ana dosya**: `index.html` (~1820 satır, tüm CSS/JS/React inline tek dosyada)
 - **Font**: Google Fonts — Space Mono (body), Archivo Black (logo)
 
 ---
@@ -24,6 +24,7 @@ LogWise/
 ├── profile.html            ← Profil sayfası (ayrı sayfa)
 ├── 404.html                ← 404 sayfası
 ├── netlify.toml            ← Deploy ayarları, redirect kuralları, header'lar
+├── sw.js                   ← Service Worker (PWA offline desteği)
 ├── manifest.json           ← PWA manifest
 ├── supabase_setup.sql      ← Supabase tablo şemaları + RLS politikaları
 ├── favicon.ico             ← Favicon
@@ -386,9 +387,9 @@ Her set için dropdown: "—" (yok), "F" (Failure/0), "1", "2", "3", "4+".
 ## 7. BİLEŞEN HARİTASI (index.html satır yapısı)
 
 ```
-Satır 1-88      HTML head, CSS (değişkenler, animasyonlar, dark/light tema, dashboard animasyonları)
-Satır 89-97     Noscript fallback, root div
-Satır 98-107    Supabase client, React hooks, sabitler (D, DF, MO, CATS, CC)
+Satır 1-110     HTML head, CSS (değişkenler, animasyonlar, dark/light tema, dashboard, badge, skip-link, skeleton animasyonları)
+Satır 111-116   Skip-to-content link, noscript fallback, root div (loading skeleton)
+Satır 117-145   Supabase client, React hooks, ErrorBoundary class component, sabitler (D, DF, MO, CATS, CC)
 Satır 108-182   PRESET_EXERCISES dizisi (~56 hazır hareket, yorum bloğu ile açıklanmış)
 Satır 183-232   EX_DESCS (hareket açıklamaları), getExDesc helper, presetName helper
 Satır 233-241   PRESET_PROGRAMS dizisi (4 hazır program şablonu: PPL, Upper/Lower, Full Body, Bro Split)
@@ -404,7 +405,7 @@ Satır 368-~1500 App bileşeni (ana uygulama):
   States       view, calendar, sidebar, mobile, dashboard, chart, rest timer, drag, note, superset, program modal, edit exercise, cycle, dataTab, measureForm, badgeToast, notifPerm states
   Timer        Timer + rest timer countdown, localStorage persist
   Auth/Save    save/debouncedSave/flushSave/localUpdate
-  Routing      URL routing, page title, view transitions, 0×0 temizlik, beforeunload
+  Routing      URL routing, page title, view transitions, 0×0 temizlik, beforeunload, Escape key modal handler
   Ex CRUD      addExercise, addPresetExercises, openEditEx, editExercise, removeExercise
   Day CRUD     addExToDay, rmExDay, addSet, updSet, rmSet, startPgEx, getPrevSets, moveExInDay, saveDayNote, saveExNote, toggleSuperset
   Pg CRUD      savePg (cycle meta dahil), delPg, actPg (activatedAt dahil), resetPg, openEditPg, togPgEx, addPresetProgram
@@ -472,6 +473,7 @@ Netlify'da deploy ediliyor. `netlify.toml` içeriği:
 - 404 catch-all: `/*` → `/404.html`
 - Güvenlik header'ları: X-Frame-Options, X-Content-Type-Options, Referrer-Policy
 - Cache: public, max-age=3600
+- `sw.js` özel header: `Cache-Control: no-cache` (tarayıcılar her zaman güncel SW kontrol eder)
 
 ---
 
@@ -514,6 +516,12 @@ Netlify'da deploy ediliyor. `netlify.toml` içeriği:
 
 10. **Chart.js lifecycle** — DashChart bileşeninde `chartInstanceRef.current.destroy()` çağrılmalı, aksi halde canvas leak olur.
 
+11. **ErrorBoundary** — İki katmanlı: dış (`<Root>` etrafında) ve iç (`<App>` etrafında). Class component olmalı (hooks desteklemez). `getDerivedStateFromError` + `componentDidCatch` pattern.
+
+12. **Service Worker** — `sw.js` dosyası root'ta, `CACHE_NAME` versiyonu güncellenmeli cache bust için. SW kaydı index.html sonunda plain `<script>` ile (Babel değil).
+
+13. **A11y** — Yeni modal eklenirse `role="dialog" aria-modal="true" aria-label={L.xxx}` eklenmeli. Yeni icon button'a `aria-label` eklenmeli. Escape key handler'a yeni modal state eklenmeli.
+
 ---
 
 ## 13. SUPABASE SETUP
@@ -527,7 +535,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 
 ---
 
-## 14. TAMAMLANAN ÖZELLİKLER (Son Güncelleme: 2026-04-03)
+## 14. TAMAMLANAN ÖZELLİKLER (Son Güncelleme: 2026-04-03, Kategori 7 dahil)
 
 ### Kategori 1: Veri & İlerleme Takibi ✅ TAMAMLANDI
 - ✅ **Grafik/Chart sistemi** — Chart.js ile ağırlık/hacim/1RM ilerleme grafiği
@@ -564,6 +572,12 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Streak görsel iyileştirme** — pulseGlow animasyonu (3+ gün), rozetler sekmesinde seri göstergesi
 - ✅ **Bildirim hatırlatıcı** — Notification API, antrenman günü tespiti (aktif program + bugünün günü), izin yönetimi, günlük tekrar engeli (localStorage key)
 
+### Kategori 7: Teknik / Altyapı ✅ TAMAMLANDI
+- ✅ **PWA offline desteği** — `sw.js` Service Worker: cache-first strateji, app shell precache (index.html, CDN libs, ikonlar), Supabase API için network-first, offline fallback. SW kaydı index.html'de plain JS ile. `netlify.toml`'da sw.js için no-cache header.
+- ✅ **Performans iyileştirmeleri** — Preconnect/dns-prefetch (fonts.gstatic.com, cdnjs, jsdelivr, supabase), loading skeleton (LOG WISE logo + animasyonlu progress bar, React mount öncesi gösterilir)
+- ✅ **Erişilebilirlik (a11y)** — Skip-to-content linki, `role="banner/navigation/main/dialog"`, `aria-label` tüm icon button'larda (menü, ay gezinme, tema, FAB), `aria-modal="true"` tüm modallarda, tüm input'lara `aria-label`, Escape tuşu ile tüm modalları kapatma (`useEffect` ile consolidated handler), TR/EN çeviri anahtarları (ariaMenu, ariaPrevMonth, ariaNextMonth, ariaToggleTheme, ariaAddExercise, ariaCloseModal, ariaNavigation, ariaMainContent)
+- ✅ **Error boundary** — `ErrorBoundary` class component (React.Component), `getDerivedStateFromError` + `componentDidCatch`, iki katmanlı koruma (dış: Root etrafında, iç: App etrafında), tema-uyumlu kurtarma UI'ı (hata detayı, "Tekrar Dene" / "Sayfayı Yenile" butonları), TR/EN dil desteği (localStorage'dan lang okur)
+
 ### Diğer Düzeltmeler
 - ✅ **Profil sayfası local fix** — `/profile` → `/profile.html` yönlendirmesi (Python HTTP server uyumu)
 
@@ -588,11 +602,11 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Streak görsel iyileştirme** — Dashboard'da pulseGlow animasyonu, rozetler sekmesinde seri göstergesi
 - ✅ **Hatırlatma bildirimleri** — Notification API ile antrenman günü hatırlatması, izin yönetimi, günlük tekrar kontrolü
 
-### Kategori 7: Teknik / Altyapı
-- PWA offline desteği (Service Worker)
-- Performans iyileştirmeleri
-- Erişilebilirlik (a11y)
-- Error boundary
+### Kategori 7: Teknik / Altyapı ✅ TAMAMLANDI
+- ✅ PWA offline desteği (Service Worker)
+- ✅ Performans iyileştirmeleri
+- ✅ Erişilebilirlik (a11y)
+- ✅ Error boundary
 
 ### Kategori 8: Sosyal Özellikler
 - Profil sayfası geliştirme
