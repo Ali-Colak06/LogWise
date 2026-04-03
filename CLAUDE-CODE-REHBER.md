@@ -159,6 +159,9 @@ localStorage key: `gym-log-v3` veya Supabase `user_data.data` JSONB:
     "2026-04-01": [1800, 600]
   },
   "measurements": {},
+  "badges": [
+    { "id": "first_workout", "unlockedAt": "2026-04-01" }
+  ],
   "dayNotes": {
     "2026-04-01": "Omuz ağrısı var, dikkat et"
   },
@@ -177,6 +180,7 @@ localStorage key: `gym-log-v3` veya Supabase `user_data.data` JSONB:
 - `dailyPrograms` — Haftanın günlerinden bağımsız, sadece hareket listesi içeren programlar.
 - `activeProgram` — Aktif haftalık program ID'si veya null. Aynı anda sadece bir program aktif olabilir.
 - `durations` — Timer kayıtları, gün bazında saniye cinsinden dizi.
+- `badges` — **YENİ**: Kazanılan rozetler dizisi. Her eleman `{id, unlockedAt}` formatında. `checkBadges()` fonksiyonu ile otomatik kontrol edilir.
 - `measurements` — Vücut ölçüleri. Key = tarih string, value = ölçüm dizisi. Her ölçüm: `{id, date, weight, bodyFat, chest, waist, hips, bicepL, bicepR, thighL, thighR, neck, shoulders}`. Sadece doldurulan alanlar kaydedilir.
 - `dayNotes` — Gün bazında not. Key = tarih string, value = not metni.
 - `exerciseNotes` — Hareket bazında not. Key = exercise ID, value = not metni.
@@ -392,11 +396,12 @@ Satır 242-245   RIRS, yardımcı fonksiyonlar (fmt, pD, gdow, storage keys, eDa
 Satır 246-250   SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
 Satır 251-252   init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu
 Satır 253-260   Dashboard + program yardımcı fonksiyonları (calc1RM, calcBrzycki, calcStreak, calcWeekFreq, calcMonthFreq, getAllPRs, calcCompliance)
-Satır 261-262   TR ve EN çeviri objeleri (~170+ anahtar)
+Satır 261-268   BADGES sabiti (30 rozet), getBadgeName, getBadgeCatLabel, calcBadgeStats, checkBadges, getNextBadge fonksiyonları
+Satır 269-270   TR ve EN çeviri objeleri (~185+ anahtar, badge/notif keys dahil)
 Satır 264-284   DashChart bileşeni (Chart.js canvas yönetimi)
 Satır 286-366   AuthScreen bileşeni (login/register/forgot modal, Google OAuth)
 Satır 368-~1500 App bileşeni (ana uygulama):
-  States       view, calendar, sidebar, mobile, dashboard, chart, rest timer, drag, note, superset, program modal, edit exercise, cycle, dataTab, measureForm states
+  States       view, calendar, sidebar, mobile, dashboard, chart, rest timer, drag, note, superset, program modal, edit exercise, cycle, dataTab, measureForm, badgeToast, notifPerm states
   Timer        Timer + rest timer countdown, localStorage persist
   Auth/Save    save/debouncedSave/flushSave/localUpdate
   Routing      URL routing, page title, view transitions, 0×0 temizlik, beforeunload
@@ -404,10 +409,11 @@ Satır 368-~1500 App bileşeni (ana uygulama):
   Day CRUD     addExToDay, rmExDay, addSet, updSet, rmSet, startPgEx, getPrevSets, moveExInDay, saveDayNote, saveExNote, toggleSuperset
   Pg CRUD      savePg (cycle meta dahil), delPg, actPg (activatedAt dahil), resetPg, openEditPg, togPgEx, addPresetProgram
   DP CRUD      saveDp, delDp, resetDp, openEditDp, togDpEx, addDpToDay
+  Badge/Notif  Badge checking useEffect (otomatik kontrol + kutlama toast), requestNotifPerm, checkWorkoutReminder
   Helpers      exN, exC, exCats, cl, clAll, getH, getEff, calDays, weekDays, exportJSON, exportCSV, importJSON, saveMeasurement, delMeasurement, getMeasureHistory
   Components   Pill, MiniCal, SVG ikonları
   JSX:Header   Header + Sidebar (navigasyon, timer, mini takvim, aktif program özeti + ilerleme, user/guest)
-  JSX:Dash     Dashboard view (3 sekmeli: overview, progress, frequency)
+  JSX:Dash     Dashboard view (4 sekmeli: overview, progress, frequency, badges)
   JSX:Cal      Calendar view (month + week grid'leri)
   JSX:Day      Day view (rest timer, notes, set tabloları, set tipleri, prev reference, superset, sıralama)
   JSX:Ex       Exercises view (gruplandırılmış liste, düzenleme modalı, add exercise modal with tabs + açıklamalar)
@@ -521,7 +527,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 
 ---
 
-## 14. TAMAMLANAN ÖZELLİKLER (Son Güncelleme: 2026-04-02)
+## 14. TAMAMLANAN ÖZELLİKLER (Son Güncelleme: 2026-04-03)
 
 ### Kategori 1: Veri & İlerleme Takibi ✅ TAMAMLANDI
 - ✅ **Grafik/Chart sistemi** — Chart.js ile ağırlık/hacim/1RM ilerleme grafiği
@@ -553,6 +559,11 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Vücut ölçüleri takibi** — Kilo, vücut yağı, göğüs, bel, kalça, biceps, bacak, boyun, omuz ölçümleri
 - ✅ **Veri özeti** — Hareket, antrenman günü, set, program, ölçüm sayıları
 
+### Kategori 6: Bildirimler & Motivasyon ✅ TAMAMLANDI
+- ✅ **Başarımlar / Rozetler** — 30 rozet, 6 kategori (Antrenman, Seri, PR, Hacim, Set, Çeşitlilik), BADGES sabiti, checkBadges() ile otomatik kontrol, kutlama toast animasyonu, ilerleme çubukları, kilitli/açık görsel fark
+- ✅ **Streak görsel iyileştirme** — pulseGlow animasyonu (3+ gün), rozetler sekmesinde seri göstergesi
+- ✅ **Bildirim hatırlatıcı** — Notification API, antrenman günü tespiti (aktif program + bugünün günü), izin yönetimi, günlük tekrar engeli (localStorage key)
+
 ### Diğer Düzeltmeler
 - ✅ **Profil sayfası local fix** — `/profile` → `/profile.html` yönlendirmesi (Python HTTP server uyumu)
 
@@ -572,9 +583,10 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ Vücut ölçüleri takibi
 - Fotoğraf ilerleme (Supabase Storage gerekli, henüz yapılmadı)
 
-### Kategori 6: Bildirimler & Motivasyon
-- Başarımlar / Rozetler
-- Hatırlatma bildirimleri (PWA push)
+### Kategori 6: Bildirimler & Motivasyon ✅ TAMAMLANDI
+- ✅ **Başarımlar / Rozetler** — 30 rozet, 6 kategori (Antrenman, Seri, Ağırlık PR, Hacim, Set, Çeşitlilik), otomatik kontrol, kutlama toast'u, ilerleme çubukları
+- ✅ **Streak görsel iyileştirme** — Dashboard'da pulseGlow animasyonu, rozetler sekmesinde seri göstergesi
+- ✅ **Hatırlatma bildirimleri** — Notification API ile antrenman günü hatırlatması, izin yönetimi, günlük tekrar kontrolü
 
 ### Kategori 7: Teknik / Altyapı
 - PWA offline desteği (Service Worker)
