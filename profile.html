@@ -24,11 +24,13 @@ body{font-family:'Space Mono',monospace;transition:background .3s,color .3s}
 ::-webkit-scrollbar{width:6px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:8px}
-input:focus,select:focus{outline:none;border-color:var(--blue) !important}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue) !important}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 @keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
 @keyframes toastIn{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
 @keyframes toastOut{from{opacity:1}to{opacity:0}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes shine{0%{background-position:-200% center}100%{background-position:200% center}}
 :root{
   --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bgH:#222;
   --t1:#e0e0e0;--t2:#888;--t3:#555;--t4:#333;
@@ -66,6 +68,12 @@ input:focus,select:focus{outline:none;border-color:var(--blue) !important}
   --accent:#c8960a;--accentT:#fff;
 }
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.pr-card{animation:countUp .4s ease both;transition:transform .15s ease,box-shadow .15s ease}
+.pr-card:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(240,192,64,.2)}
+.pr-card:nth-child(2){animation-delay:.05s}.pr-card:nth-child(3){animation-delay:.1s}
+.pr-card:nth-child(4){animation-delay:.15s}.pr-card:nth-child(5){animation-delay:.2s}
+.tab-btn{padding:8px 20px;border-radius:20px;border:1px solid var(--brd);background:var(--bg);color:var(--t1);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:all .15s ease}
+.tab-btn.active{background:var(--blueL);color:var(--blue);border-color:var(--blue);font-weight:600}
 </style>
 </head>
 <body>
@@ -82,7 +90,7 @@ const TR={
   profile:"Profil",editProfile:"Profili Düzenle",fullname:"Ad Soyad",email:"E-posta",
   save:"Kaydet",saved:"Kaydedildi!",cancel:"İptal",back:"← Ana Sayfa",
   changePassword:"Şifre Değiştir",newPassword:"Yeni Şifre",confirmNewPw:"Yeni Şifre Tekrar",
-  currentPassword:"Mevcut Şifre",passwordChanged:"Şifre başarıl ile değiştirildi!",
+  currentPassword:"Mevcut Şifre",passwordChanged:"Şifre başarıyla değiştirildi!",
   passwordMismatch:"Şifreler eşleşmiyor",passwordShort:"Şifre en az 6 karakter olmalı",
   profilePhoto:"Profil Fotoğrafı",uploadPhoto:"Fotoğraf Yükle",removePhoto:"Fotoğrafı Kaldır",
   accountInfo:"Hesap Bilgileri",securitySettings:"Güvenlik Ayarları",
@@ -90,7 +98,16 @@ const TR={
   logout:"Çıkış Yap",dangerZone:"Tehlikeli Bölge",deleteAccount:"Hesabı Sil",
   deleteWarn:"Bu işlem geri alınamaz. Tüm verileriniz silinecektir.",
   passwordResetMode:"Yeni şifreni belirle",passwordResetDone:"Şifren güncellendi! Ana sayfaya yönlendiriliyorsun...",
-  trainingStats:"Antrenman İstatistikleri",totalTime:"Toplam Süre",trainingDays:"Antrenman Günleri",weeklyAvg:"Haftalık Ortalama",monthlyAvg:"Aylık Ortalama",avgSession:"Seans Ortalaması",noTimerData:"Henüz kronometre verisi yok. Antrenmanlarında kronometreyi kullanmaya başla!",sessions:"seans",days:"gün",hours:"sa",minutes:"dk",seconds:"sn"
+  trainingStats:"Antrenman İstatistikleri",totalTime:"Toplam Süre",trainingDays:"Antrenman Günleri",weeklyAvg:"Haftalık Ortalama",monthlyAvg:"Aylık Ortalama",avgSession:"Seans Ortalaması",noTimerData:"Henüz kronometre verisi yok. Antrenmanlarında kronometreyi kullanmaya başla!",sessions:"seans",days:"gün",hours:"sa",minutes:"dk",seconds:"sn",
+  bio:"Biyografi",bioPlaceholder:"Kendin hakkında bir şeyler yaz...",
+  prShowcase:"PR Vitrinleri",noPRs:"Henüz PR verisi yok.",est1RM:"Tahmini 1RM",
+  followers:"Takipçi",following:"Takip",follow:"Takip Et",unfollow:"Takibi Bırak",
+  publicProfile:"Herkese Açık Profil",privateProfile:"Gizli Profil",
+  profileTab:"Profil",statsTab:"İstatistikler",securityTab:"Güvenlik",
+  totalWorkouts:"Toplam Antrenman",totalSets:"Toplam Set",totalVolume:"Toplam Hacim",streak:"Seri",
+  sharedWorkouts:"Paylaşılan Antrenmanlar",noSharedWorkouts:"Henüz paylaşılan antrenman yok.",
+  viewProfile:"Profili Gör",searchUsers:"Kullanıcı ara...",noUsersFound:"Kullanıcı bulunamadı.",
+  recentActivity:"Son Aktiviteler"
 };
 const EN={
   profile:"Profile",editProfile:"Edit Profile",fullname:"Full Name",email:"Email",
@@ -104,10 +121,22 @@ const EN={
   logout:"Logout",dangerZone:"Danger Zone",deleteAccount:"Delete Account",
   deleteWarn:"This action cannot be undone. All your data will be deleted.",
   passwordResetMode:"Set your new password",passwordResetDone:"Password updated! Redirecting to home...",
-  trainingStats:"Training Statistics",totalTime:"Total Time",trainingDays:"Training Days",weeklyAvg:"Weekly Average",monthlyAvg:"Monthly Average",avgSession:"Avg Per Session",noTimerData:"No timer data yet. Start using the timer during your workouts!",sessions:"sessions",days:"days",hours:"h",minutes:"min",seconds:"sec"
+  trainingStats:"Training Statistics",totalTime:"Total Time",trainingDays:"Training Days",weeklyAvg:"Weekly Average",monthlyAvg:"Monthly Average",avgSession:"Avg Per Session",noTimerData:"No timer data yet. Start using the timer during your workouts!",sessions:"sessions",days:"days",hours:"h",minutes:"min",seconds:"sec",
+  bio:"Bio",bioPlaceholder:"Write something about yourself...",
+  prShowcase:"PR Showcase",noPRs:"No PR data yet.",est1RM:"Est. 1RM",
+  followers:"Followers",following:"Following",follow:"Follow",unfollow:"Unfollow",
+  publicProfile:"Public Profile",privateProfile:"Private Profile",
+  profileTab:"Profile",statsTab:"Statistics",securityTab:"Security",
+  totalWorkouts:"Total Workouts",totalSets:"Total Sets",totalVolume:"Total Volume",streak:"Streak",
+  sharedWorkouts:"Shared Workouts",noSharedWorkouts:"No shared workouts yet.",
+  viewProfile:"View Profile",searchUsers:"Search users...",noUsersFound:"No users found.",
+  recentActivity:"Recent Activity"
 };
 
 const AVATARS=["🏋️","💪","🔥","⚡","🎯","🏆","🦾","🐺","🦅","🐉","🧘","🏃"];
+
+const calc1RM=(w,r)=>{if(!w||!r||r<=0)return 0;if(r===1)return w;return Math.round(w*(1+r/30)*10)/10};
+const calcStreak=(workouts)=>{let streak=0;const t=new Date();t.setHours(0,0,0,0);for(let i=0;i<365;i++){const d=new Date(t);d.setDate(d.getDate()-i);const k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;if(workouts[k]&&workouts[k].some(w=>w.sets&&w.sets.length>0)){streak++}else if(i>0)break}return streak};
 
 function ProfileApp(){
   const[user,setUser]=useState(null);
@@ -115,6 +144,7 @@ function ProfileApp(){
   const[lang,setLang]=useState(()=>localStorage.getItem(LK)||"tr");
   const[theme,setTheme]=useState(()=>localStorage.getItem(TK)||"dark");
   const[toast,setToast]=useState(null);
+  const[tab,setTab]=useState("profile");
 
   // Profile state
   const[fullName,setFullName]=useState("");
@@ -122,6 +152,10 @@ function ProfileApp(){
   const[showAvatarPicker,setShowAvatarPicker]=useState(false);
   const[editingName,setEditingName]=useState(false);
   const[savingName,setSavingName]=useState(false);
+  const[bio,setBio]=useState("");
+  const[editingBio,setEditingBio]=useState(false);
+  const[savingBio,setSavingBio]=useState(false);
+  const[isPublic,setIsPublic]=useState(true);
 
   // Password state
   const[showPwForm,setShowPwForm]=useState(false);
@@ -129,17 +163,32 @@ function ProfileApp(){
   const[newPw2,setNewPw2]=useState("");
   const[pwErr,setPwErr]=useState("");
   const[savingPw,setSavingPw]=useState(false);
-
-  // Password reset mode (from email link)
   const[isResetMode,setIsResetMode]=useState(false);
 
   // User workout data for stats
   const[userData,setUserData]=useState(null);
 
+  // Social state
+  const[followerCount,setFollowerCount]=useState(0);
+  const[followingCount,setFollowingCount]=useState(0);
+  const[topPRs,setTopPRs]=useState([]);
+  const[sharedWorkouts,setSharedWorkouts]=useState([]);
+
+  const[myUsername,setMyUsername]=useState("");
+
   // Delete account state
   const[showDeleteModal,setShowDeleteModal]=useState(false);
   const[deleteConfirmText,setDeleteConfirmText]=useState("");
   const[deleting,setDeleting]=useState(false);
+
+  // View other user's profile
+  const[viewUserId,setViewUserId]=useState(null);
+  const[viewUserProfile,setViewUserProfile]=useState(null);
+  const[viewUserPRs,setViewUserPRs]=useState([]);
+  const[viewUserShared,setViewUserShared]=useState([]);
+  const[isFollowingViewed,setIsFollowingViewed]=useState(false);
+  const[viewFollowerCount,setViewFollowerCount]=useState(0);
+  const[viewFollowingCount,setViewFollowingCount]=useState(0);
 
   const L=lang==="tr"?TR:EN;
 
@@ -147,13 +196,14 @@ function ProfileApp(){
   useEffect(()=>{localStorage.setItem(LK,lang)},[lang]);
 
   useEffect(()=>{
-    // Check if coming from password reset link
     const params=new URLSearchParams(window.location.search);
-    if(params.get("reset")==="1"){setIsResetMode(true);setShowPwForm(true);}
+    if(params.get("reset")==="1"){setIsResetMode(true);setShowPwForm(true);setTab("security");}
+    const uid=params.get("id");
+    if(uid)setViewUserId(uid);
 
     let ready=false;
     const{data:{subscription}}=sb.auth.onAuthStateChange((event,session)=>{
-      if(event==="PASSWORD_RECOVERY"){setIsResetMode(true);setShowPwForm(true);}
+      if(event==="PASSWORD_RECOVERY"){setIsResetMode(true);setShowPwForm(true);setTab("security");}
       setUser(session?.user||null);
       if(session?.user){
         setFullName(session.user.user_metadata?.full_name||"");
@@ -175,11 +225,77 @@ function ProfileApp(){
     return()=>subscription.unsubscribe();
   },[]);
 
+  // Load user data, profile, social data
   useEffect(()=>{
     if(!user)return;
+    // Load workout data
     sb.from("user_data").select("data").eq("user_id",user.id).single()
       .then(({data:row})=>{if(row&&row.data)setUserData(row.data);});
+    // Load profile
+    sb.from("profiles").select("*").eq("user_id",user.id).single()
+      .then(({data:p})=>{
+        if(p){setBio(p.bio||"");setIsPublic(p.is_public!==false);if(p.username)setMyUsername(p.username);}
+        else{
+          sb.from("profiles").upsert({user_id:user.id,display_name:user.user_metadata?.full_name||"",bio:"",avatar:user.user_metadata?.avatar||"",is_public:true},{onConflict:"user_id"});
+        }
+      });
+    // Load follower/following counts
+    sb.from("follows").select("follower_id",{count:"exact",head:true}).eq("following_id",user.id)
+      .then(({count})=>setFollowerCount(count||0));
+    sb.from("follows").select("following_id",{count:"exact",head:true}).eq("follower_id",user.id)
+      .then(({count})=>setFollowingCount(count||0));
+    // Load shared workouts
+    sb.from("shared_workouts").select("*").eq("user_id",user.id).order("created_at",{ascending:false}).limit(10)
+      .then(({data:sw})=>{if(sw)setSharedWorkouts(sw);});
   },[user]);
+
+  // Compute top PRs from userData
+  useEffect(()=>{
+    if(!userData||!userData.exercises||!userData.workouts)return;
+    const prs=[];
+    userData.exercises.forEach(ex=>{
+      let maxW=0,maxR=0,best1RM=0;
+      Object.values(userData.workouts).forEach(dayW=>{
+        const f=dayW.find(w=>w.exerciseId===ex.id);
+        if(f)f.sets.forEach(s=>{
+          if(s.weight>maxW){maxW=s.weight;maxR=s.reps;}
+          const rm=calc1RM(s.weight,s.reps);
+          if(rm>best1RM)best1RM=rm;
+        });
+      });
+      if(maxW>0)prs.push({name:ex.name,maxWeight:maxW,maxReps:maxR,est1RM:Math.round(best1RM),categories:ex.categories||[]});
+    });
+    prs.sort((a,b)=>b.est1RM-a.est1RM);
+    setTopPRs(prs.slice(0,8));
+    // Sync PRs to user_prs table for leaderboard
+    if(user&&prs.length>0){
+      const rows=prs.map(p=>({user_id:user.id,exercise_name:p.name,max_weight:p.maxWeight,max_reps:p.maxReps,estimated_1rm:p.est1RM}));
+      sb.from("user_prs").upsert(rows,{onConflict:"user_id,exercise_name"});
+    }
+  },[userData]);
+
+  // Load viewed user's profile
+  useEffect(()=>{
+    if(!viewUserId)return;
+    sb.from("profiles").select("*").eq("user_id",viewUserId).single()
+      .then(({data:p})=>{if(p)setViewUserProfile(p);});
+    sb.from("user_prs").select("*").eq("user_id",viewUserId).order("estimated_1rm",{ascending:false}).limit(8)
+      .then(({data:prs})=>{if(prs)setViewUserPRs(prs);});
+    sb.from("shared_workouts").select("*").eq("user_id",viewUserId).order("created_at",{ascending:false}).limit(10)
+      .then(({data:sw})=>{if(sw)setViewUserShared(sw);});
+    sb.from("follows").select("follower_id",{count:"exact",head:true}).eq("following_id",viewUserId)
+      .then(({count})=>setViewFollowerCount(count||0));
+    sb.from("follows").select("following_id",{count:"exact",head:true}).eq("follower_id",viewUserId)
+      .then(({count})=>setViewFollowingCount(count||0));
+  },[viewUserId]);
+
+  // Check if current user follows viewed user
+  useEffect(()=>{
+    if(!user||!viewUserId||viewUserId===user.id)return;
+    sb.from("follows").select("follower_id").eq("follower_id",user.id).eq("following_id",viewUserId).single()
+      .then(({data})=>setIsFollowingViewed(!!data));
+  },[user,viewUserId]);
+
   useEffect(()=>{if(toast){const t=setTimeout(()=>setToast(null),2500);return()=>clearTimeout(t)}},[toast]);
 
   const saveName=async()=>{
@@ -188,14 +304,33 @@ function ProfileApp(){
     try{
       const{error}=await sb.auth.updateUser({data:{full_name:fullName.trim()}});
       if(error){setToast("Error: "+error.message);return;}
+      await sb.from("profiles").upsert({user_id:user.id,display_name:fullName.trim()},{onConflict:"user_id"});
       setToast(L.saved);setEditingName(false);
     }finally{setSavingName(false)}
+  };
+
+  const saveBioFn=async()=>{
+    setSavingBio(true);
+    try{
+      await sb.from("profiles").upsert({user_id:user.id,bio:bio.trim()},{onConflict:"user_id"});
+      setToast(L.saved);setEditingBio(false);
+    }finally{setSavingBio(false)}
+  };
+
+  const togglePublic=async()=>{
+    const newVal=!isPublic;
+    setIsPublic(newVal);
+    await sb.from("profiles").upsert({user_id:user.id,is_public:newVal},{onConflict:"user_id"});
+    setToast(L.saved);
   };
 
   const saveAvatar=async(av)=>{
     setAvatar(av);setShowAvatarPicker(false);
     const{error}=await sb.auth.updateUser({data:{avatar:av}});
-    if(!error)setToast(L.saved);
+    if(!error){
+      await sb.from("profiles").upsert({user_id:user.id,avatar:av},{onConflict:"user_id"});
+      setToast(L.saved);
+    }
   };
 
   const changePw=async(e)=>{
@@ -206,39 +341,44 @@ function ProfileApp(){
     try{
       const{error}=await sb.auth.updateUser({password:newPw});
       if(error){setPwErr(error.message);return;}
-      if(isResetMode){
-        setToast(L.passwordResetDone);
-        setTimeout(()=>window.location.href="/",2000);
-      }else{
-        setToast(L.passwordChanged);
-      }
+      if(isResetMode){setToast(L.passwordResetDone);setTimeout(()=>window.location.href="/",2000);}
+      else{setToast(L.passwordChanged);}
       setNewPw("");setNewPw2("");setShowPwForm(false);setIsResetMode(false);
     }finally{setSavingPw(false)}
   };
 
   const logout=async()=>{await sb.auth.signOut();window.location.href="/"};
 
+  const followUser=async(targetId)=>{
+    if(!user)return;
+    await sb.from("follows").insert({follower_id:user.id,following_id:targetId});
+    setIsFollowingViewed(true);
+    setViewFollowerCount(c=>c+1);
+    setFollowingCount(c=>c+1);
+  };
+
+  const unfollowUser=async(targetId)=>{
+    if(!user)return;
+    await sb.from("follows").delete().eq("follower_id",user.id).eq("following_id",targetId);
+    setIsFollowingViewed(false);
+    setViewFollowerCount(c=>c-1);
+    setFollowingCount(c=>c-1);
+  };
+
   const deleteAccount=async()=>{
     if(deleteConfirmText!==(lang==="tr"?"SİL":"DELETE"))return;
     setDeleting(true);
     try{
-      // 1. Delete user data from user_data table
-      const{error:dataErr}=await sb.from("user_data").delete().eq("user_id",user.id);
-      if(dataErr)console.warn("user_data delete error:",dataErr.message);
-      // 2. Call the database function to delete auth user
+      await sb.from("user_data").delete().eq("user_id",user.id);
+      await sb.from("profiles").delete().eq("user_id",user.id);
+      await sb.from("user_prs").delete().eq("user_id",user.id);
+      await sb.from("shared_workouts").delete().eq("user_id",user.id);
+      await sb.from("follows").delete().eq("follower_id",user.id);
       const{error:rpcErr}=await sb.rpc("delete_own_account");
-      if(rpcErr){
-        setToast("Error: "+rpcErr.message);
-        setDeleting(false);
-        return;
-      }
-      // 3. Sign out and redirect
+      if(rpcErr){setToast("Error: "+rpcErr.message);setDeleting(false);return;}
       await sb.auth.signOut();
       window.location.href="/";
-    }catch(err){
-      setToast("Error: "+err.message);
-      setDeleting(false);
-    }
+    }catch(err){setToast("Error: "+err.message);setDeleting(false);}
   };
 
   const formatDate=(d)=>{
@@ -248,7 +388,6 @@ function ProfileApp(){
     return`${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
   };
 
-  // Styles
   const S={
     pri:{padding:"10px 24px",borderRadius:12,border:"none",background:"var(--accent)",color:"var(--accentT)",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit",transition:"all .2s ease"},
     sec:{padding:"10px 24px",borderRadius:12,border:"1px solid var(--brd)",background:"var(--bg)",color:"var(--t1)",fontSize:14,fontWeight:500,cursor:"pointer",fontFamily:"inherit",transition:"all .2s ease"},
@@ -262,6 +401,78 @@ function ProfileApp(){
 
   if(checking)return(<div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"var(--bg)",color:"var(--t1)"}}><div style={{fontSize:18,fontFamily:"'Space Mono',monospace"}}>🏋️ Yükleniyor...</div></div>);
 
+  // ─── VIEW OTHER USER'S PROFILE ───
+  if(viewUserId&&viewUserProfile){
+    const vp=viewUserProfile;
+    const vName=vp.display_name||"User";
+    const vInit=vName.charAt(0).toUpperCase();
+    return(
+    <div style={{height:"100vh",display:"flex",flexDirection:"column",background:"var(--bg)",color:"var(--t1)"}}>
+      {toast&&<div style={{position:"fixed",top:20,left:"50%",transform:"translateX(-50%)",background:"var(--accent)",color:"var(--accentT)",padding:"10px 24px",borderRadius:8,fontSize:14,fontWeight:700,zIndex:999,animation:"toastIn .3s ease",boxShadow:"var(--shadow)"}}>{toast}</div>}
+      <header style={{display:"flex",alignItems:"center",padding:"8px 16px",borderBottom:"1px solid var(--brd)",height:64,flexShrink:0,gap:12,zIndex:50,background:"var(--bg)"}}>
+        <button onClick={()=>{setViewUserId(null);setViewUserProfile(null);window.history.pushState(null,"","/profile");}} style={{...S.sec,fontSize:13,padding:"6px 16px",borderRadius:20}}>{L.back}</button>
+        <span style={{fontSize:22,fontWeight:400,color:"var(--t1)",flex:1}}>🏋️ <b>LOG WISE</b></span>
+        <button onClick={()=>setTheme(t=>t==="dark"?"light":"dark")} style={S.ib}>{theme==="dark"?<IcoSun/>:<IcoMoon/>}</button>
+      </header>
+      <main style={{flex:1,overflowY:"auto",padding:"24px 16px 180px"}}>
+        <div style={{maxWidth:560,margin:"0 auto"}}>
+          {/* Hero */}
+          <div style={{...S.card,textAlign:"center",paddingTop:32,paddingBottom:28}}>
+            <div style={{width:88,height:88,borderRadius:"50%",background:"var(--blueL)",border:"3px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px",fontSize:vp.avatar?40:32,fontWeight:700,color:"var(--blue)"}}>
+              {vp.avatar||vInit}
+            </div>
+            <h2 style={{fontSize:22,fontWeight:700,marginBottom:4}}>{vName}</h2>
+            {vp.username&&<div style={{fontSize:13,color:"var(--t3)",marginBottom:8}}>@{vp.username}</div>}
+            {vp.bio&&<p style={{fontSize:13,color:"var(--t2)",marginBottom:12,maxWidth:360,margin:"0 auto 12px",lineHeight:1.5}}>{vp.bio}</p>}
+            <div style={{display:"flex",justifyContent:"center",gap:24,marginBottom:16}}>
+              <div style={{textAlign:"center"}}>
+                <div style={{fontSize:20,fontWeight:700,color:"var(--accent)"}}>{viewFollowerCount}</div>
+                <div style={{fontSize:11,color:"var(--t3)"}}>{L.followers}</div>
+              </div>
+              <div style={{textAlign:"center"}}>
+                <div style={{fontSize:20,fontWeight:700,color:"var(--accent)"}}>{viewFollowingCount}</div>
+                <div style={{fontSize:11,color:"var(--t3)"}}>{L.following}</div>
+              </div>
+            </div>
+            {user&&viewUserId!==user.id&&(
+              isFollowingViewed
+                ?<button onClick={()=>unfollowUser(viewUserId)} style={{...S.sec,fontSize:13,padding:"8px 24px",borderRadius:20}}>{L.unfollow}</button>
+                :<button onClick={()=>followUser(viewUserId)} style={{...S.pri,fontSize:13,padding:"8px 24px",borderRadius:20}}>{L.follow}</button>
+            )}
+          </div>
+
+          {/* PR Showcase */}
+          {viewUserPRs.length>0&&<div style={S.card}>
+            <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>🏆 {L.prShowcase}</h3>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:10}}>
+              {viewUserPRs.map((pr,i)=><div key={i} className="pr-card" style={{background:"var(--bg3)",borderRadius:12,padding:14,textAlign:"center"}}>
+                <div style={{fontSize:12,fontWeight:600,color:"var(--t1)",marginBottom:4,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{pr.exercise_name}</div>
+                <div style={{fontSize:22,fontWeight:700,color:"var(--accent)"}}>{pr.max_weight}<span style={{fontSize:11,fontWeight:400,color:"var(--t3)"}}>kg</span></div>
+                <div style={{fontSize:10,color:"var(--t3)"}}>{L.est1RM}: {pr.estimated_1rm}kg</div>
+              </div>)}
+            </div>
+          </div>}
+
+          {/* Shared Workouts */}
+          {viewUserShared.length>0&&<div style={S.card}>
+            <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>📤 {L.sharedWorkouts}</h3>
+            {viewUserShared.map(sw=><div key={sw.id} onClick={()=>window.location.href="/share?id="+sw.id} style={{background:"var(--bg3)",borderRadius:10,padding:12,marginBottom:8,cursor:"pointer",transition:"background .15s ease"}}
+              onMouseEnter={e=>e.currentTarget.style.background="var(--bgH)"} onMouseLeave={e=>e.currentTarget.style.background="var(--bg3)"}>
+              <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                <span style={{fontSize:13,fontWeight:600,color:"var(--t1)"}}>{sw.workout_date}</span>
+                <span style={{fontSize:11,color:"var(--t3)"}}>{formatDate(sw.created_at)}</span>
+              </div>
+              {sw.caption&&<p style={{fontSize:12,color:"var(--t2)",marginTop:4}}>{sw.caption}</p>}
+              {sw.exercise_names&&<div style={{display:"flex",gap:4,flexWrap:"wrap",marginTop:6}}>
+                {(typeof sw.exercise_names==="string"?JSON.parse(sw.exercise_names):sw.exercise_names).slice(0,4).map((n,i)=><span key={i} style={{fontSize:10,padding:"2px 8px",borderRadius:6,background:"var(--blueL)",color:"var(--blue)"}}>{n}</span>)}
+              </div>}
+            </div>)}
+          </div>}
+        </div>
+      </main>
+    </div>);
+  }
+
   if(!user)return(<div style={{height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:"var(--bg)",color:"var(--t1)",gap:16}}>
     <div style={{fontSize:48}}>🔒</div>
     <p style={{fontSize:16,color:"var(--t2)"}}>{lang==="tr"?"Profili görüntülemek için giriş yapmalısın":"You must be logged in to view your profile"}</p>
@@ -270,6 +481,15 @@ function ProfileApp(){
 
   const displayName=fullName||user.email?.split("@")[0]||"User";
   const initials=(displayName).charAt(0).toUpperCase();
+
+  // Compute basic stats
+  const basicStats=(()=>{
+    if(!userData)return null;
+    const wKeys=Object.keys(userData.workouts||{}).filter(k=>(userData.workouts[k]||[]).some(w=>w.sets&&w.sets.length>0));
+    let totalSets=0,totalVol=0;
+    Object.values(userData.workouts||{}).forEach(ws=>{ws.forEach(w=>{if(w.sets)w.sets.forEach(s=>{totalSets++;totalVol+=(s.weight||0)*(s.reps||0)})})});
+    return{totalWorkouts:wKeys.length,totalSets,totalVol:Math.round(totalVol),streak:calcStreak(userData.workouts||{})};
+  })();
 
   return(
   <div style={{height:"100vh",display:"flex",flexDirection:"column",background:"var(--bg)",color:"var(--t1)"}}>
@@ -284,7 +504,7 @@ function ProfileApp(){
     </header>
 
     {/* CONTENT */}
-    <main style={{flex:1,overflowY:"auto",padding:"24px 16px 120px"}}>
+    <main style={{flex:1,overflowY:"auto",padding:"24px 16px 180px"}}>
       <div style={{maxWidth:560,margin:"0 auto"}}>
 
         {/* AVATAR & NAME HERO */}
@@ -314,108 +534,193 @@ function ProfileApp(){
             <button onClick={()=>{setEditingName(false);setFullName(user.user_metadata?.full_name||"")}} style={{...S.sec,fontSize:12,padding:"8px 16px"}}>{L.cancel}</button>
           </div>:<>
             <h2 style={{fontSize:22,fontWeight:700,marginBottom:4,cursor:"pointer"}} onClick={()=>setEditingName(true)}>{displayName}</h2>
+            {myUsername&&<div style={{fontSize:13,color:"var(--t3)",marginBottom:4}}>@{myUsername}</div>}
             <p style={{fontSize:13,color:"var(--t3)",cursor:"pointer"}} onClick={()=>setEditingName(true)}>{user.email} · <span style={{color:"var(--blue)",textDecoration:"underline"}}>{L.editProfile}</span></p>
           </>}
-        </div>
 
-        {/* ACCOUNT INFO */}
-        <div style={S.card}>
-          <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>📋 {L.accountInfo}</h3>
-          <div style={{display:"grid",gap:12}}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
-              <span style={{fontSize:13,color:"var(--t2)"}}>{L.email}</span>
-              <span style={{fontSize:13,fontWeight:500}}>{user.email}</span>
+          {/* Follower/Following Stats */}
+          <div style={{display:"flex",justifyContent:"center",gap:24,marginTop:16}}>
+            <div style={{textAlign:"center"}}>
+              <div style={{fontSize:20,fontWeight:700,color:"var(--accent)"}}>{followerCount}</div>
+              <div style={{fontSize:11,color:"var(--t3)"}}>{L.followers}</div>
             </div>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
-              <span style={{fontSize:13,color:"var(--t2)"}}>{L.fullname}</span>
-              <span style={{fontSize:13,fontWeight:500}}>{user.user_metadata?.full_name||"—"}</span>
+            <div style={{textAlign:"center"}}>
+              <div style={{fontSize:20,fontWeight:700,color:"var(--accent)"}}>{followingCount}</div>
+              <div style={{fontSize:11,color:"var(--t3)"}}>{L.following}</div>
             </div>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
-              <span style={{fontSize:13,color:"var(--t2)"}}>{L.memberSince}</span>
-              <span style={{fontSize:13,fontWeight:500}}>{formatDate(user.created_at)}</span>
+            {basicStats&&<div style={{textAlign:"center"}}>
+              <div style={{fontSize:20,fontWeight:700,color:"var(--accent)"}}>{basicStats.streak}</div>
+              <div style={{fontSize:11,color:"var(--t3)"}}>{lang==="tr"?"Gün Seri":"Day Streak"}</div>
+            </div>}
+          </div>
+
+          {/* Bio */}
+          <div style={{marginTop:16,padding:"0 12px"}}>
+            {editingBio?<div>
+              <textarea value={bio} onChange={e=>setBio(e.target.value)} placeholder={L.bioPlaceholder} maxLength={200} style={{...S.inp,marginBottom:8,minHeight:60,resize:"vertical"}}/>
+              <div style={{display:"flex",gap:8,justifyContent:"center"}}>
+                <button onClick={saveBioFn} disabled={savingBio} style={{...S.pri,fontSize:12,padding:"6px 16px"}}>{savingBio?"...":L.save}</button>
+                <button onClick={()=>setEditingBio(false)} style={{...S.sec,fontSize:12,padding:"6px 16px"}}>{L.cancel}</button>
+              </div>
             </div>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
-              <span style={{fontSize:13,color:"var(--t2)"}}>{L.lastSignIn}</span>
-              <span style={{fontSize:13,fontWeight:500}}>{formatDate(user.last_sign_in_at)}</span>
-            </div>
+            :<p onClick={()=>setEditingBio(true)} style={{fontSize:13,color:bio?"var(--t2)":"var(--t3)",cursor:"pointer",fontStyle:bio?"normal":"italic",lineHeight:1.5}}>
+              {bio||L.bioPlaceholder}
+            </p>}
+          </div>
+
+          {/* Public/Private toggle */}
+          <div style={{marginTop:12,display:"flex",alignItems:"center",justifyContent:"center",gap:8}}>
+            <span style={{fontSize:12,color:"var(--t3)"}}>{isPublic?"🌐":"🔒"} {isPublic?L.publicProfile:L.privateProfile}</span>
+            <button onClick={togglePublic} style={{width:44,height:24,borderRadius:12,border:"none",background:isPublic?"var(--green)":"var(--t4)",cursor:"pointer",position:"relative",transition:"background .2s ease"}}>
+              <div style={{width:18,height:18,borderRadius:"50%",background:"#fff",position:"absolute",top:3,left:isPublic?23:3,transition:"left .2s ease"}}/>
+            </button>
           </div>
         </div>
 
-        {/* TRAINING STATS */}
-        <div style={S.card}>
-          <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>⏱ {L.trainingStats}</h3>
-          {(()=>{
-            const durs=userData&&userData.durations?userData.durations:{};
-            const allDays=Object.keys(durs).sort();
-            if(!allDays.length)return <div style={{fontSize:13,color:"var(--t3)",textAlign:"center",padding:20}}>{L.noTimerData}</div>;
-            const allVals=Object.values(durs).flat();
-            const totalSec=allVals.reduce((a,b)=>a+b,0);
-            const totalSessions=allVals.length;
-            const totalDays=allDays.length;
-            const firstDay=new Date(allDays[0]);
-            const now=new Date();
-            const weeksSince=Math.max(1,Math.ceil((now-firstDay)/(7*24*60*60*1000)));
-            const monthsSince=Math.max(1,Math.ceil((now-firstDay)/(30*24*60*60*1000)));
-            const weeklyAvgSec=Math.round(totalSec/weeksSince);
-            const monthlyAvgSec=Math.round(totalSec/monthsSince);
-            const avgSessionSec=totalSessions>0?Math.round(totalSec/totalSessions):0;
-            const fmtDur=(s)=>{const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sc=s%60;return h>0?`${h}${L.hours} ${m}${L.minutes} ${sc}${L.seconds}`:`${m}${L.minutes} ${sc}${L.seconds}`};
-            const fmtBig=(s)=>{const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sc=s%60;return{h,m,sc}};
-            const big=fmtBig(totalSec);
-            const statRow=(label,val)=>(<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
-              <span style={{fontSize:13,color:"var(--t2)"}}>{label}</span>
-              <span style={{fontSize:13,fontWeight:500}}>{val}</span>
-            </div>);
-            return(<>
-              <div style={{textAlign:"center",padding:"12px 0 20px"}}>
-                <div style={{fontSize:36,fontWeight:700,color:"var(--accent)",letterSpacing:1}}>{big.h}<span style={{fontSize:16,fontWeight:400,color:"var(--t2)"}}>{L.hours}</span> {big.m}<span style={{fontSize:16,fontWeight:400,color:"var(--t2)"}}>{L.minutes}</span> {big.sc}<span style={{fontSize:16,fontWeight:400,color:"var(--t2)"}}>{L.seconds}</span></div>
-                <div style={{fontSize:12,color:"var(--t3)",marginTop:4}}>{L.totalTime}</div>
-              </div>
-              <div style={{display:"grid",gap:8}}>
-                {statRow(L.trainingDays,`${totalDays} ${L.days}`)}
-                {statRow(lang==="tr"?"Toplam Seans":"Total Sessions",`${totalSessions} ${L.sessions}`)}
-                {statRow(L.weeklyAvg,fmtDur(weeklyAvgSec))}
-                {statRow(L.monthlyAvg,fmtDur(monthlyAvgSec))}
-                {statRow(L.avgSession,fmtDur(avgSessionSec))}
-              </div>
-            </>);
-          })()}
+        {/* TAB NAVIGATION */}
+        <div style={{display:"flex",gap:8,marginBottom:20,justifyContent:"center",flexWrap:"wrap"}}>
+          {[["profile","👤",L.profileTab],["stats","📊",L.statsTab],["security","🔒",L.securityTab]].map(([v,i,l])=>
+            <button key={v} className={`tab-btn${tab===v?" active":""}`} onClick={()=>setTab(v)}>{i} {l}</button>
+          )}
         </div>
 
-        {/* SECURITY */}
-        <div style={S.card}>
-          <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>🔒 {L.securitySettings}</h3>
+        {/* PROFILE TAB */}
+        {tab==="profile"&&<>
+          {/* PR Showcase */}
+          <div style={S.card}>
+            <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>🏆 {L.prShowcase}</h3>
+            {topPRs.length===0?<div style={{fontSize:13,color:"var(--t3)",textAlign:"center",padding:20}}>{L.noPRs}</div>
+            :<div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(140px,1fr))",gap:10}}>
+              {topPRs.map((pr,i)=><div key={i} className="pr-card" style={{background:"var(--bg3)",borderRadius:12,padding:14,textAlign:"center"}}>
+                <div style={{fontSize:12,fontWeight:600,color:"var(--t1)",marginBottom:4,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{pr.name}</div>
+                <div style={{fontSize:22,fontWeight:700,color:"var(--accent)"}}>{pr.maxWeight}<span style={{fontSize:11,fontWeight:400,color:"var(--t3)"}}>kg</span></div>
+                <div style={{fontSize:10,color:"var(--t3)"}}>{L.est1RM}: {pr.est1RM}kg</div>
+                <div style={{display:"flex",gap:2,justifyContent:"center",marginTop:4,flexWrap:"wrap"}}>
+                  {pr.categories.slice(0,2).map((c,j)=><span key={j} style={{fontSize:9,padding:"1px 6px",borderRadius:4,background:"var(--blueL)",color:"var(--blue)"}}>{c}</span>)}
+                </div>
+              </div>)}
+            </div>}
+          </div>
 
-          {isResetMode&&!showPwForm===false&&<div style={{padding:"10px 14px",background:"var(--blueL)",borderRadius:10,marginBottom:12,fontSize:13,color:"var(--blue)",fontWeight:500}}>
-            {L.passwordResetMode}
+          {/* ACCOUNT INFO */}
+          <div style={S.card}>
+            <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>📋 {L.accountInfo}</h3>
+            <div style={{display:"grid",gap:12}}>
+              {[[L.email,user.email],[L.fullname,user.user_metadata?.full_name||"—"],[L.memberSince,formatDate(user.created_at)],[L.lastSignIn,formatDate(user.last_sign_in_at)]].map(([label,val],i)=>
+                <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
+                  <span style={{fontSize:13,color:"var(--t2)"}}>{label}</span>
+                  <span style={{fontSize:13,fontWeight:500}}>{val}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Shared Workouts */}
+          <div style={S.card}>
+            <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>📤 {L.sharedWorkouts}</h3>
+            {sharedWorkouts.length===0?<div style={{fontSize:13,color:"var(--t3)",textAlign:"center",padding:20}}>{L.noSharedWorkouts}</div>
+            :sharedWorkouts.map(sw=><div key={sw.id} style={{background:"var(--bg3)",borderRadius:10,padding:12,marginBottom:8,display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+              <div>
+                <div style={{fontSize:13,fontWeight:600,color:"var(--t1)"}}>{sw.workout_date}</div>
+                {sw.caption&&<div style={{fontSize:11,color:"var(--t2)"}}>"{sw.caption}"</div>}
+                {sw.exercise_names&&<div style={{display:"flex",gap:4,flexWrap:"wrap",marginTop:4}}>
+                  {(typeof sw.exercise_names==="string"?JSON.parse(sw.exercise_names):sw.exercise_names).slice(0,3).map((n,i)=><span key={i} style={{fontSize:9,padding:"2px 6px",borderRadius:4,background:"var(--blueL)",color:"var(--blue)"}}>{n}</span>)}
+                </div>}
+              </div>
+              <button onClick={()=>{navigator.clipboard.writeText(window.location.origin+"/share?id="+sw.id);setToast(lang==="tr"?"Link kopyalandı!":"Link copied!")}} style={{...S.sec,fontSize:11,padding:"4px 12px",borderRadius:8,whiteSpace:"nowrap"}}>🔗 {lang==="tr"?"Kopyala":"Copy"}</button>
+            </div>)}
+          </div>
+        </>}
+
+        {/* STATS TAB */}
+        {tab==="stats"&&<>
+          {/* Quick Stats */}
+          {basicStats&&<div style={{display:"grid",gridTemplateColumns:"repeat(2,1fr)",gap:12,marginBottom:20}}>
+            {[[L.totalWorkouts,basicStats.totalWorkouts,"🏋️"],[L.totalSets,basicStats.totalSets,"✅"],[L.totalVolume,basicStats.totalVol>=1000?Math.round(basicStats.totalVol/1000)+"K":basicStats.totalVol,"📊"],[L.streak,basicStats.streak+" "+L.days,"🔥"]].map(([label,val,ico],i)=>
+              <div key={i} className="pr-card" style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:14,padding:16,textAlign:"center"}}>
+                <div style={{fontSize:24,marginBottom:4}}>{ico}</div>
+                <div style={{fontSize:20,fontWeight:700,color:"var(--accent)"}}>{val}</div>
+                <div style={{fontSize:11,color:"var(--t3)"}}>{label}</div>
+              </div>
+            )}
           </div>}
 
-          {!showPwForm?<button onClick={()=>setShowPwForm(true)} style={{...S.sec,width:"100%"}}>{L.changePassword}</button>
-          :<form onSubmit={changePw} style={{animation:"scaleIn .2s ease"}}>
+          {/* Training Time Stats */}
+          <div style={S.card}>
+            <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>⏱ {L.trainingStats}</h3>
+            {(()=>{
+              const durs=userData&&userData.durations?userData.durations:{};
+              const allDays=Object.keys(durs).sort();
+              if(!allDays.length)return <div style={{fontSize:13,color:"var(--t3)",textAlign:"center",padding:20}}>{L.noTimerData}</div>;
+              const allVals=Object.values(durs).flat();
+              const totalSec=allVals.reduce((a,b)=>a+b,0);
+              const totalSessions=allVals.length;
+              const totalDays=allDays.length;
+              const firstDay=new Date(allDays[0]);
+              const now=new Date();
+              const weeksSince=Math.max(1,Math.ceil((now-firstDay)/(7*24*60*60*1000)));
+              const monthsSince=Math.max(1,Math.ceil((now-firstDay)/(30*24*60*60*1000)));
+              const weeklyAvgSec=Math.round(totalSec/weeksSince);
+              const monthlyAvgSec=Math.round(totalSec/monthsSince);
+              const avgSessionSec=totalSessions>0?Math.round(totalSec/totalSessions):0;
+              const fmtDur=(s)=>{const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sc=s%60;return h>0?`${h}${L.hours} ${m}${L.minutes} ${sc}${L.seconds}`:`${m}${L.minutes} ${sc}${L.seconds}`};
+              const fmtBig=(s)=>{const h=Math.floor(s/3600);const m=Math.floor((s%3600)/60);const sc=s%60;return{h,m,sc}};
+              const big=fmtBig(totalSec);
+              const statRow=(label,val)=>(<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"10px 14px",background:"var(--bg3)",borderRadius:10}}>
+                <span style={{fontSize:13,color:"var(--t2)"}}>{label}</span>
+                <span style={{fontSize:13,fontWeight:500}}>{val}</span>
+              </div>);
+              return(<>
+                <div style={{textAlign:"center",padding:"12px 0 20px"}}>
+                  <div style={{fontSize:36,fontWeight:700,color:"var(--accent)",letterSpacing:1}}>{big.h}<span style={{fontSize:16,fontWeight:400,color:"var(--t2)"}}>{L.hours}</span> {big.m}<span style={{fontSize:16,fontWeight:400,color:"var(--t2)"}}>{L.minutes}</span> {big.sc}<span style={{fontSize:16,fontWeight:400,color:"var(--t2)"}}>{L.seconds}</span></div>
+                  <div style={{fontSize:12,color:"var(--t3)",marginTop:4}}>{L.totalTime}</div>
+                </div>
+                <div style={{display:"grid",gap:8}}>
+                  {statRow(L.trainingDays,`${totalDays} ${L.days}`)}
+                  {statRow(lang==="tr"?"Toplam Seans":"Total Sessions",`${totalSessions} ${L.sessions}`)}
+                  {statRow(L.weeklyAvg,fmtDur(weeklyAvgSec))}
+                  {statRow(L.monthlyAvg,fmtDur(monthlyAvgSec))}
+                  {statRow(L.avgSession,fmtDur(avgSessionSec))}
+                </div>
+              </>);
+            })()}
+          </div>
+        </>}
+
+        {/* SECURITY TAB */}
+        {tab==="security"&&<>
+          <div style={S.card}>
+            <h3 style={{fontSize:15,fontWeight:600,marginBottom:16,display:"flex",alignItems:"center",gap:8}}>🔒 {L.securitySettings}</h3>
             {isResetMode&&<div style={{padding:"10px 14px",background:"var(--blueL)",borderRadius:10,marginBottom:12,fontSize:13,color:"var(--blue)",fontWeight:500}}>
               {L.passwordResetMode}
             </div>}
-            <input type="password" placeholder={L.newPassword} value={newPw} onChange={e=>setNewPw(e.target.value)} style={S.inp} autoFocus/>
-            <input type="password" placeholder={L.confirmNewPw} value={newPw2} onChange={e=>setNewPw2(e.target.value)} style={S.inp}/>
-            {pwErr&&<p style={{fontSize:13,color:"var(--red)",padding:"8px 12px",background:"var(--redL)",borderRadius:8,marginBottom:12}}>{pwErr}</p>}
-            <div style={{display:"flex",gap:8}}>
-              <button type="submit" disabled={savingPw} style={S.pri}>{savingPw?"...":L.save}</button>
-              {!isResetMode&&<button type="button" onClick={()=>{setShowPwForm(false);setNewPw("");setNewPw2("");setPwErr("")}} style={S.sec}>{L.cancel}</button>}
-            </div>
-          </form>}
-        </div>
+            {!showPwForm?<button onClick={()=>setShowPwForm(true)} style={{...S.sec,width:"100%"}}>{L.changePassword}</button>
+            :<form onSubmit={changePw} style={{animation:"scaleIn .2s ease"}}>
+              {isResetMode&&<div style={{padding:"10px 14px",background:"var(--blueL)",borderRadius:10,marginBottom:12,fontSize:13,color:"var(--blue)",fontWeight:500}}>
+                {L.passwordResetMode}
+              </div>}
+              <input type="password" placeholder={L.newPassword} value={newPw} onChange={e=>setNewPw(e.target.value)} style={S.inp} autoFocus/>
+              <input type="password" placeholder={L.confirmNewPw} value={newPw2} onChange={e=>setNewPw2(e.target.value)} style={S.inp}/>
+              {pwErr&&<p style={{fontSize:13,color:"var(--red)",padding:"8px 12px",background:"var(--redL)",borderRadius:8,marginBottom:12}}>{pwErr}</p>}
+              <div style={{display:"flex",gap:8}}>
+                <button type="submit" disabled={savingPw} style={S.pri}>{savingPw?"...":L.save}</button>
+                {!isResetMode&&<button type="button" onClick={()=>{setShowPwForm(false);setNewPw("");setNewPw2("");setPwErr("")}} style={S.sec}>{L.cancel}</button>}
+              </div>
+            </form>}
+          </div>
 
-        {/* LOGOUT */}
-        <div style={{textAlign:"center",marginTop:8}}>
-          <button onClick={logout} style={{...S.sec,fontSize:13,padding:"10px 32px"}}>{L.logout}</button>
-        </div>
+          {/* LOGOUT */}
+          <div style={{textAlign:"center",marginTop:8}}>
+            <button onClick={logout} style={{...S.sec,fontSize:13,padding:"10px 32px"}}>{L.logout}</button>
+          </div>
 
-        {/* DANGER ZONE */}
-        <div style={{...S.card,marginTop:20,borderColor:"var(--red)",border:"1px solid var(--red)"}}>
-          <h3 style={{fontSize:15,fontWeight:600,marginBottom:8,display:"flex",alignItems:"center",gap:8,color:"var(--red)"}}>⚠️ {L.dangerZone}</h3>
-          <p style={{fontSize:13,color:"var(--t2)",marginBottom:16}}>{L.deleteWarn}</p>
-          <button onClick={()=>setShowDeleteModal(true)} style={{...S.pri,background:"var(--red)",color:"#fff",width:"100%"}}>{L.deleteAccount}</button>
-        </div>
+          {/* DANGER ZONE */}
+          <div style={{...S.card,marginTop:20,borderColor:"var(--red)",border:"1px solid var(--red)"}}>
+            <h3 style={{fontSize:15,fontWeight:600,marginBottom:8,display:"flex",alignItems:"center",gap:8,color:"var(--red)"}}>⚠️ {L.dangerZone}</h3>
+            <p style={{fontSize:13,color:"var(--t2)",marginBottom:16}}>{L.deleteWarn}</p>
+            <button onClick={()=>setShowDeleteModal(true)} style={{...S.pri,background:"var(--red)",color:"#fff",width:"100%"}}>{L.deleteAccount}</button>
+          </div>
+        </>}
 
       </div>
     </main>

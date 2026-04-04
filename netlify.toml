@@ -14,27 +14,24 @@
   status = 301
   force = true
 
-# Trailing slash fix: /profile.html/ -> /profile.html
-[[redirects]]
-  from = "/profile.html/"
-  to = "/profile.html"
-  status = 301
-  force = true
-
 # Profil sayfası — /profile URL'i profile.html dosyasını sunar
 [[redirects]]
   from = "/profile"
   to = "/profile.html"
   status = 200
 
-# /profile.html'e direkt erişimi /profile'a yönlendir (Pretty URLs çakışmasını önle)
+# Paylaşılan antrenman sayfası — /share URL'i share.html dosyasını sunar
 [[redirects]]
-  from = "/profile.html"
-  to = "/profile"
-  status = 301
-  force = true
+  from = "/share"
+  to = "/share.html"
+  status = 200
 
 # SPA route'ları — React tarafında URL routing var
+[[redirects]]
+  from = "/social"
+  to = "/index.html"
+  status = 200
+
 [[redirects]]
   from = "/dashboard"
   to = "/index.html"

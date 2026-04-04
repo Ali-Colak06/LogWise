@@ -11,7 +11,7 @@ LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıc
 - **Canlı URL**: https://logwise.fit/ (Netlify deploy, custom domain)
 - **Eski URL**: https://incomparable-starburst-f7802c.netlify.app/
 - **Teknoloji**: React 18 + Babel Standalone (tarayıcıda JSX derleme, build step yok), Supabase (auth + veritabanı), Chart.js 4.4.4
-- **Ana dosya**: `index.html` (~1820 satır, tüm CSS/JS/React inline tek dosyada)
+- **Ana dosya**: `index.html` (~2274 satır, tüm CSS/JS/React inline tek dosyada)
 - **Font**: Google Fonts — Space Mono (body), Archivo Black (logo)
 
 ---
@@ -21,7 +21,8 @@ LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıc
 ```
 LogWise/
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React)
-├── profile.html            ← Profil sayfası (ayrı sayfa)
+├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil)
+├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
 ├── 404.html                ← 404 sayfası
 ├── netlify.toml            ← Deploy ayarları, redirect kuralları, header'lar
 ├── sw.js                   ← Service Worker (PWA offline desteği)
@@ -64,6 +65,10 @@ Tüm uygulama `index.html` içinde. Build tool yok. `<script type="text/babel">`
 - **Tablolar**:
   - `user_data` — JSONB blob, kullanıcı başına tek satır (tüm egzersiz/antrenman/program verisi)
   - `feedback` — Geri bildirim satırları
+  - `profiles` — Kullanıcı profilleri (username, display_name, bio, avatar, is_public). Kayıt sırasında username ile oluşturulur. Username unique + case-insensitive index.
+  - `shared_workouts` — Paylaşılan antrenmanlar (id, user_id, workout_date, workout_data JSONB, exercise_names JSONB, caption)
+  - `user_prs` — Kullanıcı PR'ları liderlik tablosu için denormalize (user_id+exercise_name PK, max_weight, estimated_1rm). Veri yüklendiğinde otomatik senkronize edilir.
+  - `follows` — Takip sistemi (follower_id, following_id PK). Tek yönlü, Instagram tarzı.
 - **Auth**: Email/password + Google OAuth
 - **RLS** (Row Level Security) aktif — her kullanıcı sadece kendi verisini görür
 - **Hesap silme**: `delete_own_account()` SQL fonksiyonu ile
@@ -77,7 +82,7 @@ Tüm uygulama `index.html` içinde. Build tool yok. `<script type="text/babel">`
 - `localUpdate(newData)` → Sadece React state günceller, hiçbir yere kaydetmez.
 - `flushSave()` → Bekleyen debounced kayıtları anında flush eder (gün görünümünden çıkınca çağrılır).
 
-**Gün görünümünden çıkınca**: 0×0 setler temizlenir (weight ve reps ikisi de 0 olan setler silinir) ve `flushSave()` çağrılır.
+**Gün görünümünden çıkınca**: Boş setler temizlenir. Standart hareketlerde weight/reps ikisi de 0 olan setler, kardiyoda ise duration değeri 0 olan setler silinir; ardından `flushSave()` çağrılır.
 
 ### 3.4 Misafir (Guest) Modu
 
@@ -103,7 +108,10 @@ React tarafında pushState/replaceState ile URL yönetimi:
 - `/feedback` → Geri Bildirim
 - `/data` → Veri Yönetimi
 - `/?date=2026-04-01` → Gün görünümü
+- `/social` → Sosyal (Liderlik Tablosu, Akış, Kullanıcı Arama)
 - `/profile` → Profil sayfası (ayrı HTML dosyası)
+- `/profile?id=xxx` → Başka kullanıcının profili (ayrı HTML dosyası)
+- `/share?id=xxx` → Paylaşılan antrenman görüntüleme (ayrı HTML dosyası, public)
 
 Tarayıcı geri/ileri tuşları `popstate` event'i ile desteklenir.
 
@@ -175,14 +183,15 @@ localStorage key: `gym-log-v3` veya Supabase `user_data.data` JSONB:
 ### Veri Alanları Açıklaması
 
 - `exercises[].categories` — Dizi! Eski veride `category` (string) olabilir, `migrateData()` fonksiyonu otomatik dönüştürür.
-- `workouts[].sets[].type` — **YENİ**: `"working"` (varsayılan), `"warmup"`, `"drop"`, `"failure"`.
+- `workouts[].sets[].type` — **YENİ**: `"working"` (varsayılan), `"warmup"`, `"drop"`, `"superset"`.
+- `workouts[].sets[].duration` — Kardiyo hareketlerinde ağırlık/tekrar yerine dakika bazlı süre saklanır.
 - `workouts[].supersetGroup` — **YENİ**: Aynı superset grubundaki hareketler aynı ID'yi paylaşır.
 - `programs[].days` — Key'ler string olmalı ("0"–"6", Pazartesi=0, Pazar=6). `savePg` fonksiyonunda normalize edilir.
 - `dailyPrograms` — Haftanın günlerinden bağımsız, sadece hareket listesi içeren programlar.
 - `activeProgram` — Aktif haftalık program ID'si veya null. Aynı anda sadece bir program aktif olabilir.
 - `durations` — Timer kayıtları, gün bazında saniye cinsinden dizi.
 - `badges` — **YENİ**: Kazanılan rozetler dizisi. Her eleman `{id, unlockedAt}` formatında. `checkBadges()` fonksiyonu ile otomatik kontrol edilir.
-- `measurements` — Vücut ölçüleri. Key = tarih string, value = ölçüm dizisi. Her ölçüm: `{id, date, weight, bodyFat, chest, waist, hips, bicepL, bicepR, thighL, thighR, neck, shoulders}`. Sadece doldurulan alanlar kaydedilir.
+- `measurements` — Vücut ölçüleri. Key = tarih string, value = ölçüm dizisi. Her ölçüm: `{id, date, weight, height, bodyFat, chest, waist, hips, bicepL, bicepR, thighL, thighR, neck, shoulders}`. Sadece doldurulan alanlar kaydedilir.
 - `dayNotes` — Gün bazında not. Key = tarih string, value = not metni.
 - `exerciseNotes` — Hareket bazında not. Key = exercise ID, value = not metni.
 - `programMeta` — **YENİ**: Program metadata. Key = program ID, value = `{activatedAt, cycleType, deloadEvery}`. Aktifleştirildiğinde otomatik oluşturulur.
@@ -257,13 +266,15 @@ Sidebar'da `📊 Panel` linki ile erişilir. `/dashboard` URL'i. 3 sekmeli yapı
 
 ### 6.3 Gün Görünümü
 
-- O gün eklenen hareketler kart olarak listelenir. Her kartta set tablosu (# | TİP | KG | TEKRAR | RIR | Sil).
-- **Set Tipleri**: Her set için Working/Warm-up/Drop/Failure seçimi. Renk kodlu (#, border).
-- **Önceki Antrenman Referansı**: Her hareketin üstünde son seanstaki set verileri gösterilir (tarih + ağırlık×tekrar pill'leri).
+- O gün eklenen hareketler kart olarak listelenir. Standart hareketlerde set tablosu `# | TİP | KG | TEKRAR | RIR | Sil`, kardiyo hareketlerinde ise sadeleştirilmiş `# | SÜRE | Sil` tablosu kullanılır.
+- Bir hareket güne ilk eklendiğinde otomatik olarak tek boş set ile başlar. Standart hareketlerde başlangıç seti `0 kg / 0 tekrar`, kardiyoda ise `0 dakika` olarak oluşturulur.
+- **Set Tipleri**: Working/Warm-up/Drop/Superset seçimi yalnızca standart hareketlerde gösterilir. Renk kodlu (#, border).
+- **Kardiyo Süre Girişi**: Kardiyo kategorisindeki hareketlerde ağırlık/tekrar ve set tipi yerine dakika bazlı süre alanı ve tek bir “+ Süre” aksiyonu gösterilir. Geçmiş görünümü, haftalık görünüm ve CSV export bunu dikkate alır.
+- **Önceki Antrenman Referansı**: Her hareketin üstünde son seanstaki veriler gösterilir; kardiyoda süre, standart hareketlerde ağırlık×tekrar pill'leri kullanılır.
 - **Hareket Sıralama**: ▲/▼ butonları ile hareket sırası değiştirilebilir.
 - **Gün Notu**: 📝 butonu ile o güne not eklenebilir (textarea, debouncedSave).
 - **Hareket Notu**: Her hareketin 📝 butonuyla o harekete özel not eklenebilir.
-- **Süper Set / Giant Set**: 🔗 butonu ile ardışık hareketler gruplandırılabilir. 2 hareket = Superset, 3+ = Giant Set. Mor border ile görsel ayrım.
+- **Süper Set / Giant Set**: 🔗 butonu ile yalnızca standart ardışık hareketler gruplandırılabilir. 2 hareket = Superset, 3+ = Giant Set. Mor border ile görsel ayrım.
 - **Dinlenme Zamanlayıcı (Rest Timer)**: Preset süreler (30s, 60s, 90s, 2m, 3m, 5m). Otomatik başlatma seçeneği. Geri sayım widget'ı (son 5 saniye kırmızı). Set eklenince otomatik başlayabilir.
 - Aktif haftalık programda o günün başlanmamış hareketleri üstte pill butonlar olarak gösterilir.
 - "Günlük Programı Ekle" butonu ile günlük programlardan biri seçilerek o güne eklenebilir.
@@ -335,10 +346,10 @@ Preset hareket seçme listesinde her hareketin altında açıklama gösterilir.
 ### 6.7 Hareket Geçmişi Modal
 
 - Herhangi bir hareketin geçmiş butonuna basınca açılır
-- Tüm kayıtlı günler ters kronolojik sırayla: tarih, max ağırlık, hacim, set detayları
-- PR (personal record) sağ üstte gösterilir
-- **1RM Gösterimi**: Epley ve Brzycki tahmini 1RM değerleri mor ve teal kartlarda gösterilir
-- Her seans için ayrı 1RM tahmini de listelenir
+- Tüm kayıtlı günler ters kronolojik sırayla listelenir. Standart hareketlerde tarih, max ağırlık, hacim ve set detayları; kardiyoda ise tarih, toplam süre ve süre detayları gösterilir.
+- PR (personal record) sağ üstte sadece standart hareketlerde gösterilir.
+- **1RM Gösterimi**: Epley ve Brzycki tahmini 1RM değerleri sadece ağırlıklı hareketlerde mor ve teal kartlarda gösterilir.
+- Her seans için ayrı 1RM tahmini sadece ağırlıklı hareketlerde listelenir.
 
 ### 6.8 Veri Yönetimi (YENİ)
 
@@ -351,7 +362,7 @@ Sidebar'da `📦 Veri Yönetimi` linki ile erişilir. `/data` URL'i. 2 sekmeli y
 - Veri Özeti: Hareket, antrenman günü, toplam set, program, ölçüm sayıları
 
 **Ölçüler Sekmesi:**
-- Vücut ölçüleri: Kilo, vücut yağı %, göğüs, bel, kalça, biceps (L/R), bacak (L/R), boyun, omuz
+- Vücut ölçüleri: Kilo, boy, vücut yağı %, göğüs, bel, kalça, biceps (L/R), bacak (L/R), boyun, omuz
 - Ölçüm ekleme formu: Grid layout, sayısal input'lar
 - Ölçüm geçmişi: Tarih sıralı, her ölçüm kartında doldurulan alanlar gösterilir
 - Ölçüm silme
@@ -398,14 +409,14 @@ Satır 246-250   SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
 Satır 251-252   init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu
 Satır 253-260   Dashboard + program yardımcı fonksiyonları (calc1RM, calcBrzycki, calcStreak, calcWeekFreq, calcMonthFreq, getAllPRs, calcCompliance)
 Satır 261-268   BADGES sabiti (30 rozet), getBadgeName, getBadgeCatLabel, calcBadgeStats, checkBadges, getNextBadge fonksiyonları
-Satır 269-270   TR ve EN çeviri objeleri (~185+ anahtar, badge/notif keys dahil)
+Satır 269-270   TR ve EN çeviri objeleri (~200+ anahtar, badge/notif/social/username/onboard keys dahil)
 Satır 264-284   DashChart bileşeni (Chart.js canvas yönetimi)
 Satır 286-366   AuthScreen bileşeni (login/register/forgot modal, Google OAuth)
 Satır 368-~1500 App bileşeni (ana uygulama):
-  States       view, calendar, sidebar, mobile, dashboard, chart, rest timer, drag, note, superset, program modal, edit exercise, cycle, dataTab, measureForm, badgeToast, notifPerm states
+  States       view, calendar, sidebar, mobile, dashboard, chart, rest timer, drag, note, superset, program modal, edit exercise, cycle, dataTab, measureForm, badgeToast, notifPerm, username modal, onboarding, search, pull-refresh, confetti, bottom tab states
   Timer        Timer + rest timer countdown, localStorage persist
   Auth/Save    save/debouncedSave/flushSave/localUpdate
-  Routing      URL routing, page title, view transitions, 0×0 temizlik, beforeunload, Escape key modal handler
+Routing      URL routing, page title, view transitions, boş set temizliği, beforeunload, Escape key modal handler
   Ex CRUD      addExercise, addPresetExercises, openEditEx, editExercise, removeExercise
   Day CRUD     addExToDay, rmExDay, addSet, updSet, rmSet, startPgEx, getPrevSets, moveExInDay, saveDayNote, saveExNote, toggleSuperset
   Pg CRUD      savePg (cycle meta dahil), delPg, actPg (activatedAt dahil), resetPg, openEditPg, togPgEx, addPresetProgram
@@ -422,9 +433,16 @@ Satır 368-~1500 App bileşeni (ana uygulama):
   JSX:Data     Data management view (export/import + body measurements, 2 sekmeli)
   JSX:Fb       Feedback view
   JSX:Hist     History modal (1RM gösterimi ile)
+  JSX:Social   Social view (Leaderboard, Feed, Search tabs, username display)
+  JSX:Share    Share workout modal
+  JSX:Username Username selection modal (for existing users without username)
+  JSX:Onboard  Onboarding modal (first-time users)
+  JSX:Confetti Confetti animation overlay (PR celebration)
+  JSX:Search   Global search modal
+  JSX:BottomTab Mobile bottom tab navigation bar
   JSX:Guest    Guest banner
-Satır ~1500-1510 S style objesi (inline style sabitleri)
-Satır ~1515-1550 Root bileşeni (auth state, lang, theme), ReactDOM render
+Satır ~2100-2120 S style objesi (inline style sabitleri)
+Satır ~2130-2160 Root bileşeni (auth state, lang, theme), ReactDOM render
 ```
 
 ---
@@ -467,9 +485,10 @@ Yeni alan eklenmesi gerekirse bu fonksiyona eklenmeli.
 Netlify'da deploy ediliyor. `netlify.toml` içeriği:
 
 - `publish = "."` — kök dizin publish edilir
-- SPA redirect'leri: `/dashboard`, `/exercises`, `/programs`, `/feedback`, `/data` → `/index.html` (status 200)
-- `/profile` → `/profile.html` (status 200)
-- Pretty URL redirect'leri: `/index.html` → `/`, `/profile.html` → `/profile`
+- SPA redirect'leri: `/dashboard`, `/exercises`, `/programs`, `/feedback`, `/data`, `/social` → `/index.html` (status 200)
+- `/profile` → `/profile.html` (status 200), `/share` → `/share.html` (status 200)
+- Pretty URL redirect'leri: `/index.html` → `/` (301)
+- **ÖNEMLİ**: `/profile.html` → `/profile` (301, force) redirect'i kaldırıldı çünkü sonsuz döngüye neden oluyordu. Aynı şekilde `/share.html` → `/share` redirect'i de kaldırıldı. Linklerde her zaman `/profile` ve `/share` kullanılmalı, `.html` uzantılı link kullanılmamalı.
 - 404 catch-all: `/*` → `/404.html`
 - Güvenlik header'ları: X-Frame-Options, X-Content-Type-Options, Referrer-Policy
 - Cache: public, max-age=3600
@@ -488,6 +507,10 @@ Netlify'da deploy ediliyor. `netlify.toml` içeriği:
 4. **Babel SyntaxError**: Dosya kesintisinden kaynaklı eksik JSX. **Çözüm**: Eksik satırlar eklendi.
 
 5. **Session persistence**: Auth state race condition. **Çözüm**: `onAuthStateChange` + `getSession()` fallback, `ready` flag.
+
+6. **Netlify redirect döngüsü**: `/profile.html` → `/profile` (301, force) ve `/profile` → `/profile.html` (200) birlikte sonsuz döngü oluşturuyordu → "Bu sayfa çalışmıyor" hatası. **Çözüm**: Pretty URL redirect'leri (`.html` → clean URL) kaldırıldı, sadece clean URL → `.html` rewrite (200) bırakıldı. Tüm linklerde `/profile` kullanılmalı, `/profile.html` kullanılmamalı.
+
+7. **Pull-to-refresh stale closure**: `handlePullRefresh` useCallback'inde `pullY` state değeri stale kalıyordu, `touchend`'de 60px kontrolü hep 0 okuyordu. **Çözüm**: `pullYRef` ile ref pattern uygulandı, `touchstart/touchmove/touchend` ayrı handler'lara bölündü, `scrollTop>5` kontrolü eklendi.
 
 ---
 
@@ -522,6 +545,8 @@ Netlify'da deploy ediliyor. `netlify.toml` içeriği:
 
 13. **A11y** — Yeni modal eklenirse `role="dialog" aria-modal="true" aria-label={L.xxx}` eklenmeli. Yeni icon button'a `aria-label` eklenmeli. Escape key handler'a yeni modal state eklenmeli.
 
+14. **Profil/Share linkleri** — Kodda her zaman `/profile` ve `/share` kullanılmalı, asla `/profile.html` veya `/share.html` kullanılmamalı. Netlify redirect döngüsüne sebep olur.
+
 ---
 
 ## 13. SUPABASE SETUP
@@ -535,7 +560,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 
 ---
 
-## 14. TAMAMLANAN ÖZELLİKLER (Son Güncelleme: 2026-04-03, Kategori 7 dahil)
+## 14. TAMAMLANAN ÖZELLİKLER (Son Güncelleme: 2026-04-04, Kategori 4+8+Username dahil)
 
 ### Kategori 1: Veri & İlerleme Takibi ✅ TAMAMLANDI
 - ✅ **Grafik/Chart sistemi** — Chart.js ile ağırlık/hacim/1RM ilerleme grafiği
@@ -546,7 +571,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **PR tablosu** — Top 10, tahmini 1RM ile sıralı
 
 ### Kategori 2: Gün Görünümü / Antrenman Deneyimi ✅ TAMAMLANDI
-- ✅ **Set tipleri** — Working / Warm-up / Drop / Failure, renk kodlu
+- ✅ **Set tipleri** — Standart hareketlerde Working / Warm-up / Drop / Superset, kardiyoda yalnızca süre girişi
 - ✅ **Dinlenme zamanlayıcı** — Preset süreler, otomatik başlatma, geri sayım widget
 - ✅ **Önceki antrenman referansı** — Son seans verileri set yanında (placeholder olarak da)
 - ✅ **Hareket sıralama** — ▲/▼ butonları
@@ -564,7 +589,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Export JSON** — Tüm veriyi JSON olarak dışa aktarma (yedekleme)
 - ✅ **Export CSV** — Antrenman kayıtlarını CSV tablo olarak dışa aktarma
 - ✅ **Import JSON** — Daha önce dışa aktarılmış JSON dosyasından geri yükleme
-- ✅ **Vücut ölçüleri takibi** — Kilo, vücut yağı, göğüs, bel, kalça, biceps, bacak, boyun, omuz ölçümleri
+- ✅ **Vücut ölçüleri takibi** — Kilo, boy, vücut yağı, göğüs, bel, kalça, biceps, bacak, boyun, omuz ölçümleri
 - ✅ **Veri özeti** — Hareket, antrenman günü, set, program, ölçüm sayıları
 
 ### Kategori 6: Bildirimler & Motivasyon ✅ TAMAMLANDI
@@ -578,6 +603,23 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Erişilebilirlik (a11y)** — Skip-to-content linki, `role="banner/navigation/main/dialog"`, `aria-label` tüm icon button'larda (menü, ay gezinme, tema, FAB), `aria-modal="true"` tüm modallarda, tüm input'lara `aria-label`, Escape tuşu ile tüm modalları kapatma (`useEffect` ile consolidated handler), TR/EN çeviri anahtarları (ariaMenu, ariaPrevMonth, ariaNextMonth, ariaToggleTheme, ariaAddExercise, ariaCloseModal, ariaNavigation, ariaMainContent)
 - ✅ **Error boundary** — `ErrorBoundary` class component (React.Component), `getDerivedStateFromError` + `componentDidCatch`, iki katmanlı koruma (dış: Root etrafında, iç: App etrafında), tema-uyumlu kurtarma UI'ı (hata detayı, "Tekrar Dene" / "Sayfayı Yenile" butonları), TR/EN dil desteği (localStorage'dan lang okur)
 
+### Kategori 4: UX / UI İyileştirmeleri ✅ TAMAMLANDI
+- ✅ **Onboarding akışı** — İlk ziyarette 4 adımlı hoş geldin modalı (localStorage "logwise-onboard-done" ile takip), emoji illüstrasyonlar, "Başlayalım" / "Geç" butonları
+- ✅ **Boş state'ler iyileştirme** — Hareketler, programlar ve takvim gün görünümünde motive edici mesajlar + aksiyon butonları, emoji illüstrasyonlar
+- ✅ **Swipe ile gün değiştirme (mobil)** — Touch swipe detection (50px threshold), sola kaydır = sonraki gün, sağa = önceki gün, sadece mobilde aktif
+- ✅ **Pull-to-refresh (mobil)** — Aşağı çekme ile veri yenileme, dönen ok göstergesi (scrollTop=0 kontrolü), 50px threshold, otomatik bırakıp yenileme, CSS pullSpin animasyonu
+- ✅ **Global arama** — Header'da arama ikonu, hareket adı/program adı/antrenman tarihi arama, sonuçlar dropdown'da tıklanabilir, tip etiketleri
+- ✅ **Mobil bottom tab bar** — 5 sekme (Takvim, Panel, Hareketler, Programlar, Sosyal), safe-area-inset desteği, aktif sekme vurgulama, sadece mobilde görünür
+- ✅ **Konfeti / PR animasyonu** — Yeni PR kırıldığında 30 parçacıklı CSS konfeti animasyonu, rastgele renkler, 2 saniye süre, fade/rotation/blur efektleri
+- ✅ **Haptic feedback** — `haptic(type)` helper fonksiyonu, set ekleme (50ms), PR kırma ([100,50,100]), navigator.vibrate API
+
+### Kategori 8: Sosyal Özellikler ✅ TAMAMLANDI
+- ✅ **Profil sayfası geliştirme** — Biyografi (bio), PR showcase (top 8 PR kartları), takipçi/takip sayıları, public/private toggle, sekmeli yapı (Profil/İstatistikler/Güvenlik), başka kullanıcıların profilini görüntüleme (`/profile?id=xxx`), paylaşılan antrenmanlar listesi, link kopyalama
+- ✅ **Antrenman paylaşma** — Gün görünümünde 📤 paylaş butonu, caption ekleyebilme, `shared_workouts` Supabase tablosu, otomatik link kopyalama, bağımsız `share.html` sayfası (authentication gerektirmez), paylaşan kullanıcının profil bilgileri, set detayları tablosu, CTA butonu
+- ✅ **Liderlik tablosu** — Sosyal sekmesinde hareket bazında topluluk PR sıralaması, `user_prs` Supabase tablosu (denormalize), otomatik PR senkronizasyonu (veri yüklendiğinde), profil avatarları, medya sıralaması (🥇🥈🥉), kendi sıranı vurgulama
+- ✅ **Arkadaş sistemi** — Instagram tarzı tek yönlü takip, `follows` Supabase tablosu, kullanıcı arama (display_name + username ilike), takip et/takiptesin butonları, antrenman akışı (feed) — takip edilen kişilerin paylaşılan antrenmanları, profil kartları, boş state yönlendirmeleri
+- ✅ **Username sistemi** — Kayıt sırasında zorunlu username (3-20 karakter, harf/rakam/alt çizgi), uniqueness kontrolü, mevcut kullanıcılar için username seçme modalı, sidebar/leaderboard/feed/search/profile'da @username gösterimi
+
 ### Diğer Düzeltmeler
 - ✅ **Profil sayfası local fix** — `/profile` → `/profile.html` yönlendirmesi (Python HTTP server uyumu)
 
@@ -585,31 +627,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 
 ## 15. HENÜZ YAPILMAMIŞ / GELİŞTİRİLEBİLECEK ŞEYLER
 
-### Kategori 4: UX / UI İyileştirmeleri
-- Onboarding akışı
-- Boş state'ler iyileştirme
-- Swipe ile gün değiştirme (mobil)
-- Arama (global)
-- Konfeti / animasyon (PR kırıldığında)
-
 ### Kategori 5: Veri Yönetimi ✅ TAMAMLANDI (Fotoğraf hariç)
 - ✅ Export/Import (JSON/CSV)
 - ✅ Vücut ölçüleri takibi
 - Fotoğraf ilerleme (Supabase Storage gerekli, henüz yapılmadı)
-
-### Kategori 6: Bildirimler & Motivasyon ✅ TAMAMLANDI
-- ✅ **Başarımlar / Rozetler** — 30 rozet, 6 kategori (Antrenman, Seri, Ağırlık PR, Hacim, Set, Çeşitlilik), otomatik kontrol, kutlama toast'u, ilerleme çubukları
-- ✅ **Streak görsel iyileştirme** — Dashboard'da pulseGlow animasyonu, rozetler sekmesinde seri göstergesi
-- ✅ **Hatırlatma bildirimleri** — Notification API ile antrenman günü hatırlatması, izin yönetimi, günlük tekrar kontrolü
-
-### Kategori 7: Teknik / Altyapı ✅ TAMAMLANDI
-- ✅ PWA offline desteği (Service Worker)
-- ✅ Performans iyileştirmeleri
-- ✅ Erişilebilirlik (a11y)
-- ✅ Error boundary
-
-### Kategori 8: Sosyal Özellikler
-- Profil sayfası geliştirme
-- Antrenman paylaşma
-- Liderlik tablosu
-- Arkadaş sistemi
