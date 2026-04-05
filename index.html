@@ -48,6 +48,9 @@ input:focus,select:focus{outline:none;border-color:var(--blue) !important}
 @keyframes pullSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @keyframes confetti{0%{opacity:1;transform:translateY(0) rotateZ(0deg);filter:blur(0)}100%{opacity:0;transform:translateY(400px) rotateZ(720deg);filter:blur(2px)}}
 @keyframes prPulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
+@keyframes daySlideFromLeft{from{opacity:.45;transform:translateX(-26px) scale(.985)}to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes daySlideFromRight{from{opacity:.45;transform:translateX(26px) scale(.985)}to{opacity:1;transform:translateX(0) scale(1)}}
+@keyframes daySlidePulse{0%{opacity:0;transform:translate(-50%,-10px) scale(.92)}20%{opacity:1}100%{opacity:0;transform:translate(-50%,0) scale(1)}}
 :root{
   --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bgH:#222;
   --t1:#e0e0e0;--t2:#888;--t3:#555;--t4:#333;
@@ -302,6 +305,9 @@ const fmt=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${Str
 const pD=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
 const gdow=d=>{const v=d.getDay();return v===0?6:v-1};
 const SK="gym-log-v3",TK="gym-log-theme",LK="gym-log-lang",UK="gym-log-user",FK="gym-log-feedback";
+const IS_LOCAL_STATIC=window.location.protocol==="file:"||["localhost","127.0.0.1"].includes(window.location.hostname);
+const profileRoute=id=>`${IS_LOCAL_STATIC?"/profile.html":"/profile"}${id?`?id=${encodeURIComponent(id)}`:""}`;
+const shareRoute=id=>`${IS_LOCAL_STATIC?"/share.html":"/share"}${id?`?id=${encodeURIComponent(id)}`:""}`;
 const eDays=()=>({"0":[],"1":[],"2":[],"3":[],"4":[],"5":[],"6":[]});
 const SET_TYPES=["working","warmup","drop","superset"];
 const ST_LABELS_TR={working:"Normal",warmup:"Isınma",drop:"Drop",superset:"Süper"};
@@ -326,6 +332,32 @@ const getNextBadge=(data)=>{const unlocked=new Set((data.badges||[]).map(b=>b.id
 const TR={calendar:"Takvim",exercises:"Hareketler",programs:"Programlar",feedback:"Geri Bildirim",today:"Bugün",month:"Ay",week:"Hafta",addExercise:"Hareket Ekle",newExercise:"Yeni Hareket",exerciseName:"Hareket adı...",searchExercise:"Hareket ara...",noExercises:"Henüz hareket eklenmemiş.",notFound:"Hareket bulunamadı.",save:"Kaydet",saved:"Kaydedildi!",cancel:"İptal",addSet:"+ Set Ekle",set:"SET",kg:"KG",reps:"TEKRAR",rir:"RIR",duration:"Süre",durationMinutes:"Süre (dk)",hourShort:"sa",minuteShort:"dk",backToCalendar:"← Takvim",todayLabel:"Bugün",more:"daha",programExercises:"Programdaki Hareketler",newProgram:"Yeni Program",programName:"Program adı...",editProgram:"Programı Düzenle",active:"AKTİF",activate:"Aktif Et",deactivate:"Pasif",activeProgram:"Aktif Program",confirmDeleteEx:"Bu hareketi ve tüm kayıtlarını silmek istiyor musun?",confirmDeletePg:"Silmek istiyor musun?",createProgram:"Haftanın günlerine göre program oluştur.",history:"Geçmiş",pr:"PR",maxKg:"Max",volume:"Hacim",noHistory:"Henüz kayıt yok.",close:"Kapat",login:"Giriş Yap",register:"Kayıt Ol",email:"E-posta",password:"Şifre",fullname:"Ad Soyad",confirmPw:"Şifre Tekrar",noAccount:"Hesabın yok mu?",hasAccount:"Zaten hesabın var mı?",logout:"Çıkış Yap",feedbackTitle:"Geri Bildirim Gönder",feedbackMsg:"Mesajınız...",feedbackBug:"Hata",feedbackFeature:"Özellik İsteği",feedbackGeneral:"Genel",feedbackOther:"Diğer",feedbackCat:"Kategori",feedbackRating:"Puan",feedbackSubmit:"Gönder",feedbackSent:"Geri bildirim gönderildi!",feedbackPrev:"Önceki Geri Bildirimler",feedbackNone:"Henüz geri bildirim yok.",timer:"Kronometre",timerStart:"Başlat",timerStop:"Durdur",timerReset:"Sıfırla",timerSave:"Süreyi Kaydet",timerSaved:"Süre kaydedildi!",timerTotal:"Toplam Antrenman",guestWarn:"Giriş yapmadan verileriniz sadece bu cihazda saklanır. Kaybolmaması için giriş yapın.",guestLogin:"Giriş Yap / Kayıt Ol",guest:"Misafir",days:["Pzt","Sal","Çar","Per","Cum","Cmt","Paz"],daysFull:["Pazartesi","Salı","Çarşamba","Perşembe","Cuma","Cumartesi","Pazar"],months:["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"],cats:["Göğüs","Sırt","Omuz","Biceps","Triceps","Bacak","Trapez","Kalça","Kalf","Boyun","Bilek","Karın","Kardiyo","Diğer"],weeklyProgram:"Haftalık Program",dailyProgram:"Günlük Program",dailyPrograms:"Günlük Programlar",addDailyProgram:"Günlük Programı Ekle",selectDailyProgram:"Günlük Program Seç",noDailyPrograms:"Henüz günlük program yok.",programType:"Program Türü",dailyProgramExercises:"Programdaki Hareketler",createDailyProgram:"Hareketlerden oluşan günlük program oluştur.",customExercise:"Kendin Ekle",presetExercises:"Hazır Hareketler",addSelected:"Seçilenleri Ekle",allCategories:"Tümü",alreadyAdded:"Zaten ekli",presetDesc:"Spora yeni başlayanlar için hazır hareket listesi",dashboard:"Panel",dashTotalWorkouts:"Toplam Antrenman",dashTotalSets:"Toplam Set",dashTotalVolume:"Toplam Hacim",dashStreak:"Seri",dashStreakDays:"gün üst üste",dashThisWeek:"Bu Hafta",dashThisMonth:"Bu Ay",dashPRs:"Kişisel Rekorlar",dashNoPRs:"Henüz PR yok. Antrenman yapmaya başla!",dashMuscleFreq:"Kas Grubu Sıklığı",dashWeekly:"Haftalık",dashMonthly:"Aylık",dashProgress:"İlerleme Grafiği",dashSelectEx:"Hareket seç...",dashWeight:"Ağırlık",dashVolPerSet:"Set Başı Hacim",dashEst1RM:"Tahmini 1RM",dashNoData:"Bu hareket için veri yok.",dashBestSet:"En İyi Set",dashAvgWeight:"Ort. Ağırlık",dashSessions:"Seans",dashExProgress:"Hareket İlerlemesi",dashOverview:"Genel Bakış",dashFrequency:"Sıklık",times:"kez",kg:"kg",est1RMLabel:"Tahmini 1RM (Epley)",brzycki1RM:"Brzycki 1RM",weekLabel:"hafta",workoutDays:"Antrenman Günü",noWorkoutsYet:"Henüz antrenman verisi yok. Takvimden bir güne tıklayıp antrenman eklemeye başla!",prevWorkout:"Önceki",setType:"Tip",warmup:"Isınma",working:"Normal",drop:"Drop",supersetSet:"Süper",restTimer:"Dinlenme",restStart:"Başlat",restSkip:"Atla",restDone:"Bitti!",restAutoStart:"Otomatik",dayNote:"Gün notu ekle...",exNote:"Hareket notu...",notesSaved:"Not kaydedildi",superset:"Süper Set",giantSet:"Giant Set",addToSuperset:"Süper Sete Ekle",removeSuperset:"Süper Seti Kaldır",moveUp:"Yukarı",moveDown:"Aşağı",lastTime:"Son seans",noLastData:"İlk seans",editEx:"Hareketi Düzenle",exDesc:"Açıklama",presetPgTitle:"Hazır Programlar",addPresetPg:"Hazır Program Ekle",presetPgDesc:"Popüler antrenman programları",programWeek:"Hafta",compliance:"Uyum",activeSince:"Aktif",deload:"Deload",deloadWeek:"Deload Haftası",cycleType:"Döngü",cycleNone:"Standart",cycleDeload:"Deload Döngüsü",deloadEvery:"Deload sıklığı",everyNWeeks:"haftada bir",exEditSuccess:"Hareket güncellendi!",programAdded:"Program eklendi!",missingExAdded:"eksik hareket eklendi",noDescAvail:"Açıklama yok",showDesc:"Bilgi",confirmOverwrite:"Bu program zaten mevcut. Üzerine yazmak istiyor musun?",pgProgress:"İlerleme",pgWeekNum:"hafta",pgComplianceRate:"uyum",dataManagement:"Veri Yönetimi",exportJSON:"JSON Dışa Aktar",exportCSV:"CSV Dışa Aktar",importJSON:"JSON İçe Aktar",importSuccess:"Veri başarıyla içe aktarıldı!",importError:"Geçersiz dosya formatı",exportSuccess:"Dışa aktarma başarılı!",confirmImport:"Mevcut verilerinizin üzerine yazılacak. Devam etmek istiyor musunuz?",bodyMeasurements:"Vücut Ölçüleri",addMeasurement:"Ölçüm Ekle",weight:"Kilo (kg)",height:"Boy (cm)",bodyFat:"Vücut Yağı (%)",chest:"Göğüs (cm)",waist:"Bel (cm)",hips:"Kalça (cm)",bicepL:"Biceps Sol (cm)",bicepR:"Biceps Sağ (cm)",thighL:"Bacak Sol (cm)",thighR:"Bacak Sağ (cm)",neck:"Boyun (cm)",shoulders:"Omuz (cm)",noMeasurements:"Henüz ölçüm yok. İlk ölçümünü ekle!",measurementSaved:"Ölçüm kaydedildi!",deleteMeasurement:"Bu ölçümü silmek istiyor musun?",dataTab:"Veriler",measureTab:"Ölçüler",badgesTitle:"Rozetler",badgeUnlocked:"Yeni rozet kazanıldı!",noBadges:"Henüz rozet yok. Antrenman yaparak rozetler kazan!",badgeEarned:"Kazanıldı",badgeProgress:"ilerleme",badgeLocked:"Kilitli",badgeAll:"Tüm Rozetler",badgeRecent:"Son Kazanılan",badgeNext:"Sıradaki Rozet",notifEnable:"Bildirimleri Aç",notifEnabled:"Bildirimler açık",notifDenied:"Bildirimler engellendi",notifWorkoutToday:"Bugün antrenman günü!",notifReminder:"Hatırlatıcı",notifNoPermission:"Tarayıcınız bildirimleri desteklemiyor",ariaMenu:"Menüyü aç",ariaPrevMonth:"Önceki ay",ariaNextMonth:"Sonraki ay",ariaToggleTheme:"Tema değiştir",ariaAddExercise:"Hareket ekle",ariaCloseModal:"Modalı kapat",ariaNavigation:"Ana navigasyon",ariaMainContent:"Ana içerik",shareWorkout:"Antrenmanı Paylaş",shareCaption:"Açıklama (opsiyonel)...",shareSuccess:"Antrenman paylaşıldı! Link kopyalandı.",shareNoData:"Paylaşılacak antrenman verisi yok.",social:"Sosyal",leaderboard:"Liderlik Tablosu",feed:"Akış",selectExForLb:"Hareket seç...",noLeaderboardData:"Henüz liderlik verisi yok.",rank:"Sıra",user:"Kullanıcı",searchUsers:"Kullanıcı ara...",noUsersFound:"Kullanıcı bulunamadı.",viewProfile:"Profili Gör",noFeedData:"Takip ettiğin kişilerin paylaşımları burada görünecek.",followSuggestion:"Kullanıcı arayarak takip etmeye başla!",feedShared:"paylaştı",communityPRs:"Topluluk PR'ları",username:"Kullanıcı Adı",usernamePlaceholder:"kullaniciadi",usernameRequired:"Kullanıcı adı gerekli",usernameTaken:"Bu kullanıcı adı alınmış",usernameInvalid:"Sadece harf, rakam ve alt çizgi. 3-20 karakter.",chooseUsername:"Kullanıcı adı seç",usernameSetSuccess:"Kullanıcı adı kaydedildi!",search:"Ara",onboardWelcome:"Log Wise'a Hoş Geldin!",onboardStep1:"Hareketlerini ekle veya hazır listeden seç",onboardStep2:"Takvimden bir güne tıkla ve antrenmanını kaydet",onboardStep3:"Panel'den ilerlemeni takip et",onboardStart:"Hadi Başlayalım!",onboardSkip:"Geç",pullToRefresh:"Yenilemek için çek",releasing:"Bırak...",refreshing:"Yenileniyor..."};
 const EN={calendar:"Calendar",exercises:"Exercises",programs:"Programs",feedback:"Feedback",today:"Today",month:"Month",week:"Week",addExercise:"Add Exercise",newExercise:"New Exercise",exerciseName:"Exercise name...",searchExercise:"Search exercise...",noExercises:"No exercises added yet.",notFound:"Exercise not found.",save:"Save",saved:"Saved!",cancel:"Cancel",addSet:"+ Add Set",set:"SET",kg:"KG",reps:"REPS",rir:"RIR",duration:"Duration",durationMinutes:"Duration (min)",hourShort:"h",minuteShort:"min",backToCalendar:"← Calendar",todayLabel:"Today",more:"more",programExercises:"Program Exercises",newProgram:"New Program",programName:"Program name...",editProgram:"Edit Program",active:"ACTIVE",activate:"Activate",deactivate:"Deactivate",activeProgram:"Active Program",confirmDeleteEx:"Delete this exercise and all its records?",confirmDeletePg:"Are you sure you want to delete?",createProgram:"Create a weekly workout program.",history:"History",pr:"PR",maxKg:"Max",volume:"Volume",noHistory:"No records yet.",close:"Close",login:"Login",register:"Register",email:"Email",password:"Password",fullname:"Full Name",confirmPw:"Confirm Password",noAccount:"Don't have an account?",hasAccount:"Already have an account?",logout:"Logout",feedbackTitle:"Send Feedback",feedbackMsg:"Your message...",feedbackBug:"Bug",feedbackFeature:"Feature Request",feedbackGeneral:"General",feedbackOther:"Other",feedbackCat:"Category",feedbackRating:"Rating",feedbackSubmit:"Submit",feedbackSent:"Feedback submitted!",feedbackPrev:"Previous Feedback",feedbackNone:"No feedback yet.",timer:"Timer",timerStart:"Start",timerStop:"Stop",timerReset:"Reset",timerSave:"Save Time",timerSaved:"Time saved!",timerTotal:"Total Workout",guestWarn:"Without signing in, your data is only saved on this device. Sign in to keep it safe.",guestLogin:"Login / Register",guest:"Guest",days:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],daysFull:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],months:["January","February","March","April","May","June","July","August","September","October","November","December"],cats:["Chest","Back","Shoulder","Biceps","Triceps","Leg","Traps","Hip","Calf","Neck","Wrist","Core","Cardio","Other"],weeklyProgram:"Weekly Program",dailyProgram:"Daily Program",dailyPrograms:"Daily Programs",addDailyProgram:"Add Daily Program",selectDailyProgram:"Select Daily Program",noDailyPrograms:"No daily programs yet.",programType:"Program Type",dailyProgramExercises:"Program Exercises",createDailyProgram:"Create a daily workout program from exercises.",customExercise:"Custom",presetExercises:"Preset Exercises",addSelected:"Add Selected",allCategories:"All",alreadyAdded:"Already added",presetDesc:"Ready-made exercises for beginners",dashboard:"Dashboard",dashTotalWorkouts:"Total Workouts",dashTotalSets:"Total Sets",dashTotalVolume:"Total Volume",dashStreak:"Streak",dashStreakDays:"days in a row",dashThisWeek:"This Week",dashThisMonth:"This Month",dashPRs:"Personal Records",dashNoPRs:"No PRs yet. Start working out!",dashMuscleFreq:"Muscle Group Frequency",dashWeekly:"Weekly",dashMonthly:"Monthly",dashProgress:"Progress Chart",dashSelectEx:"Select exercise...",dashWeight:"Weight",dashVolPerSet:"Volume/Set",dashEst1RM:"Estimated 1RM",dashNoData:"No data for this exercise.",dashBestSet:"Best Set",dashAvgWeight:"Avg Weight",dashSessions:"Sessions",dashExProgress:"Exercise Progress",dashOverview:"Overview",dashFrequency:"Frequency",times:"times",kg:"kg",est1RMLabel:"Estimated 1RM (Epley)",brzycki1RM:"Brzycki 1RM",weekLabel:"week",workoutDays:"Workout Days",noWorkoutsYet:"No workout data yet. Tap a day on the calendar to start logging!",prevWorkout:"Previous",setType:"Type",warmup:"Warm-up",working:"Working",drop:"Drop",supersetSet:"Superset",restTimer:"Rest",restStart:"Start",restSkip:"Skip",restDone:"Done!",restAutoStart:"Auto",dayNote:"Add a day note...",exNote:"Exercise note...",notesSaved:"Note saved",superset:"Superset",giantSet:"Giant Set",addToSuperset:"Add to Superset",removeSuperset:"Remove Superset",moveUp:"Move Up",moveDown:"Move Down",lastTime:"Last session",noLastData:"First session",editEx:"Edit Exercise",exDesc:"Description",presetPgTitle:"Preset Programs",addPresetPg:"Add Preset Program",presetPgDesc:"Popular workout programs",programWeek:"Week",compliance:"Compliance",activeSince:"Active",deload:"Deload",deloadWeek:"Deload Week",cycleType:"Cycle",cycleNone:"Standard",cycleDeload:"Deload Cycle",deloadEvery:"Deload frequency",everyNWeeks:"weeks",exEditSuccess:"Exercise updated!",programAdded:"Program added!",missingExAdded:"missing exercises added",noDescAvail:"No description",showDesc:"Info",confirmOverwrite:"This program already exists. Overwrite?",pgProgress:"Progress",pgWeekNum:"week",pgComplianceRate:"compliance",dataManagement:"Data Management",exportJSON:"Export JSON",exportCSV:"Export CSV",importJSON:"Import JSON",importSuccess:"Data imported successfully!",importError:"Invalid file format",exportSuccess:"Export successful!",confirmImport:"This will overwrite your current data. Continue?",bodyMeasurements:"Body Measurements",addMeasurement:"Add Measurement",weight:"Weight (kg)",height:"Height (cm)",bodyFat:"Body Fat (%)",chest:"Chest (cm)",waist:"Waist (cm)",hips:"Hips (cm)",bicepL:"Bicep Left (cm)",bicepR:"Bicep Right (cm)",thighL:"Thigh Left (cm)",thighR:"Thigh Right (cm)",neck:"Neck (cm)",shoulders:"Shoulders (cm)",noMeasurements:"No measurements yet. Add your first one!",measurementSaved:"Measurement saved!",deleteMeasurement:"Delete this measurement?",dataTab:"Data",measureTab:"Measures",badgesTitle:"Badges",badgeUnlocked:"New badge unlocked!",noBadges:"No badges yet. Earn badges by working out!",badgeEarned:"Earned",badgeProgress:"progress",badgeLocked:"Locked",badgeAll:"All Badges",badgeRecent:"Recently Earned",badgeNext:"Next Badge",notifEnable:"Enable Notifications",notifEnabled:"Notifications enabled",notifDenied:"Notifications blocked",notifWorkoutToday:"Today is workout day!",notifReminder:"Reminder",notifNoPermission:"Your browser doesn't support notifications",ariaMenu:"Open menu",ariaPrevMonth:"Previous month",ariaNextMonth:"Next month",ariaToggleTheme:"Toggle theme",ariaAddExercise:"Add exercise",ariaCloseModal:"Close modal",ariaNavigation:"Main navigation",ariaMainContent:"Main content",shareWorkout:"Share Workout",shareCaption:"Caption (optional)...",shareSuccess:"Workout shared! Link copied.",shareNoData:"No workout data to share.",social:"Social",leaderboard:"Leaderboard",feed:"Feed",selectExForLb:"Select exercise...",noLeaderboardData:"No leaderboard data yet.",rank:"Rank",user:"User",searchUsers:"Search users...",noUsersFound:"No users found.",viewProfile:"View Profile",noFeedData:"Posts from people you follow will appear here.",followSuggestion:"Search for users to start following!",feedShared:"shared",communityPRs:"Community PRs",username:"Username",usernamePlaceholder:"username",usernameRequired:"Username is required",usernameTaken:"This username is taken",usernameInvalid:"Only letters, numbers, underscores. 3-20 chars.",chooseUsername:"Choose a username",usernameSetSuccess:"Username saved!",search:"Search",onboardWelcome:"Welcome to Log Wise!",onboardStep1:"Add your exercises or pick from the preset list",onboardStep2:"Tap a day on the calendar and log your workout",onboardStep3:"Track your progress from the Dashboard",onboardStart:"Let's Go!",onboardSkip:"Skip",pullToRefresh:"Pull to refresh",releasing:"Release...",refreshing:"Refreshing..."};
 const catLabel=(cat,lang)=>(lang==="en"?(CAT_LABELS_EN[cat]||cat):cat);
+const normalizeUsername=v=>String(v||"").trim().toLowerCase();
+const isValidUsername=v=>/^[a-z0-9_]{3,20}$/.test(v);
+const defaultDisplayName=user=>user?.user_metadata?.full_name||user?.email?.split("@")[0]||"User";
+const defaultAvatar=user=>user?.user_metadata?.avatar||"";
+const buildProfileRow=(user,existing={},overrides={})=>{
+  const metaUsername=normalizeUsername(user?.user_metadata?.username);
+  const nextUsername=overrides.username!==undefined?normalizeUsername(overrides.username):(existing.username||(isValidUsername(metaUsername)?metaUsername:""));
+  return{
+    user_id:user.id,
+    username:nextUsername||null,
+    display_name:overrides.display_name??existing.display_name??defaultDisplayName(user),
+    bio:overrides.bio??existing.bio??"",
+    avatar:overrides.avatar??existing.avatar??defaultAvatar(user),
+    is_public:overrides.is_public??existing.is_public??true
+  };
+};
+const syncProfileRecord=async(user,overrides={})=>{
+  if(!user?.id)return{data:null,error:new Error("Missing user")};
+  const{data:existing,error:existingError}=await sb.from("profiles").select("*").eq("user_id",user.id).maybeSingle();
+  if(existingError)return{data:null,error:existingError};
+  const row=buildProfileRow(user,existing||{},overrides);
+  if(existing){
+    return await sb.from("profiles").update(row).eq("user_id",user.id).select("*").single();
+  }
+  return await sb.from("profiles").insert(row).select("*").single();
+};
 
 function DashChart({chartRef,chartInstanceRef,chartHist,mode,theme,L,lang}){
   useEffect(()=>{
@@ -361,7 +393,7 @@ const sub=async e=>{
     if(!email){setErr(lang==="tr"?"E-posta adresini gir":"Enter your email");return;}
     setBusy(true);
     try{
-      const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+"/profile?reset=1"});
+      const{error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:window.location.origin+profileRoute()+"?reset=1"});
       if(error){setErr(error.message);return;}
       setInfo(lang==="tr"?"Şifre sıfırlama linki e-postana gönderildi!":"Password reset link sent to your email!");
     }finally{setBusy(false)}
@@ -381,13 +413,16 @@ const sub=async e=>{
       onLogin(data.user);
     }else{
       // Check username uniqueness before signup
-      const{data:existing}=await sb.from("profiles").select("username").eq("username",uname.trim().toLowerCase()).maybeSingle();
+      const uLower=normalizeUsername(uname);
+      const{data:existing}=await sb.from("profiles").select("username").eq("username",uLower).maybeSingle();
       if(existing){setErr(L.usernameTaken);return;}
-      const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{full_name:name}}});
+      const{data,error}=await sb.auth.signUp({email,password:pw,options:{data:{full_name:name,username:uLower}}});
       if(error){setErr(error.message);return;}
-      // Create profile with username
+      // Best-effort profile bootstrap. If email confirmation delays the session,
+      // the first authenticated visit will finish syncing the profile from auth metadata.
       if(data.user){
-        await sb.from("profiles").upsert({user_id:data.user.id,username:uname.trim().toLowerCase(),display_name:name,is_public:true},{onConflict:"user_id"});
+        const{error:profileError}=await syncProfileRecord(data.user,{username:uLower,display_name:name,is_public:true});
+        if(profileError&&data.session){setErr(profileError.message);return;}
       }
       if(data.session){onLogin(data.user);}
       else{setInfo(lang==="tr"?"Kayıt başarılı! E-postanı onaylayıp giriş yap.":"Registered! Please confirm your email then log in.");setMode("login");}
@@ -545,8 +580,11 @@ const[showSearch,setShowSearch]=useState(false);
 const[searchResults,setSearchResults]=useState([]);
 const[confetti,setConfetti]=useState(null);
 const[activeTabMobile,setActiveTabMobile]=useState(view);
+const[dayNavFx,setDayNavFx]=useState(null);
 const pullStartRef=useRef(0);
 const pullRefreshRef=useRef(null);
+const dayNavFxTimeoutRef=useRef(null);
+const daySwipeRef=useRef({startX:0,startY:0,ignore:false});
 // Timer state — localStorage ile persist (tarayıcı kapansa bile kalır)
 const[timerRunning,setTimerRunning]=useState(false);
 const[timerElapsed,setTimerElapsed]=useState(0);
@@ -611,7 +649,41 @@ useEffect(()=>{document.documentElement.setAttribute("data-theme",theme);localSt
 // Pull-to-Refresh touch handlers
 useEffect(()=>{if(!isMobile)return;const mainEl=document.querySelector('[role="main"]');if(!mainEl)return;mainEl.addEventListener("touchstart",handlePullStart,{passive:true});mainEl.addEventListener("touchmove",handlePullMove,{passive:true});mainEl.addEventListener("touchend",handlePullEnd);return()=>{mainEl.removeEventListener("touchstart",handlePullStart);mainEl.removeEventListener("touchmove",handlePullMove);mainEl.removeEventListener("touchend",handlePullEnd)}},[isMobile,handlePullStart,handlePullMove,handlePullEnd]);
 // Swipe to change day
-useEffect(()=>{if(!isMobile||view!=="day"||!selDate)return;const mainEl=document.querySelector('[role="main"]');if(!mainEl)return;let startX=0;const onTouchStart=(e)=>{startX=e.touches[0].clientX};const onTouchEnd=(e)=>{const endX=e.changedTouches[0].clientX;const diff=startX-endX;if(Math.abs(diff)>50){if(diff>0){const nextDay=new Date(selDate);nextDay.setDate(nextDay.getDate()+1);setSelDate(nextDay)}else{const prevDay=new Date(selDate);prevDay.setDate(prevDay.getDate()-1);setSelDate(prevDay)}}};mainEl.addEventListener("touchstart",onTouchStart);mainEl.addEventListener("touchend",onTouchEnd);return()=>{mainEl.removeEventListener("touchstart",onTouchStart);mainEl.removeEventListener("touchend",onTouchEnd)}},[isMobile,view,selDate]);
+useEffect(()=>{
+  if(!isMobile||view!=="day"||!selDate)return;
+  const mainEl=document.querySelector('[role="main"]');
+  if(!mainEl)return;
+  const SWIPE_THRESHOLD=110;
+  const MAX_VERTICAL_DRIFT=54;
+  const onTouchStart=(e)=>{
+    const interactive=e.target.closest?.("input, textarea, select, button, a");
+    daySwipeRef.current={startX:e.touches[0].clientX,startY:e.touches[0].clientY,ignore:!!interactive};
+  };
+  const onTouchEnd=(e)=>{
+    if(daySwipeRef.current.ignore)return;
+    const endX=e.changedTouches[0].clientX;
+    const endY=e.changedTouches[0].clientY;
+    const diffX=daySwipeRef.current.startX-endX;
+    const diffY=daySwipeRef.current.startY-endY;
+    if(Math.abs(diffX)<SWIPE_THRESHOLD)return;
+    if(Math.abs(diffY)>MAX_VERTICAL_DRIFT)return;
+    if(Math.abs(diffX)<=Math.abs(diffY)*1.35)return;
+    const nextDate=new Date(selDate);
+    nextDate.setDate(nextDate.getDate()+(diffX>0?1:-1));
+    setSelDate(nextDate);
+    setCMonth(new Date(nextDate.getFullYear(),nextDate.getMonth(),1));
+    setWOff(getWeekOffsetForDate(nextDate));
+    if(dayNavFxTimeoutRef.current)clearTimeout(dayNavFxTimeoutRef.current);
+    setDayNavFx({direction:diffX>0?"next":"prev",label:`${nextDate.getDate()} ${L.months[nextDate.getMonth()]}`,icon:diffX>0?"→":"←",token:Date.now()});
+    dayNavFxTimeoutRef.current=setTimeout(()=>setDayNavFx(null),700);
+  };
+  mainEl.addEventListener("touchstart",onTouchStart,{passive:true});
+  mainEl.addEventListener("touchend",onTouchEnd,{passive:true});
+  return()=>{
+    mainEl.removeEventListener("touchstart",onTouchStart);
+    mainEl.removeEventListener("touchend",onTouchEnd);
+  };
+},[isMobile,view,selDate,lang]);
 // Update active mobile tab
 useEffect(()=>{setActiveTabMobile(view)},[view]);
 // Handle search
@@ -723,7 +795,7 @@ const updSet=(eid,si,f,v)=>{const d=dRef.current;const dk=fmt(selDate);const ws=
 const rmSet=(eid,si)=>{const d=dRef.current;const dk=fmt(selDate);const ws=[...(d.workouts[dk]||[])];const i=ws.findIndex(w=>w.exerciseId===eid);if(i===-1)return;ws[i]={...ws[i],sets:ws[i].sets.filter((_,j)=>j!==si)};debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
 const startPgEx=eid=>{const d=dRef.current;const dk=fmt(selDate);const a=d.workouts[dk]||[];if(a.some(w=>w.exerciseId===eid))return;debouncedSave({...d,workouts:{...d.workouts,[dk]:[...a,makeWorkoutEntry(eid)]}})};
 // previous workout reference
-const getPrevSets=(eid,curDate)=>{const keys=Object.keys(data.workouts).filter(k=>k<curDate).sort().reverse();for(const k of keys){const f=(data.workouts[k]||[]).find(w=>w.exerciseId===eid);if(f&&f.sets.length)return{date:k,sets:f.sets}}return null};
+const getPrevSets=(eid,curDate)=>{const keys=Object.keys(data.workouts).filter(k=>k<curDate).sort().reverse();for(const k of keys){const f=(data.workouts[k]||[]).find(w=>w.exerciseId===eid);if(f&&f.sets.length)return{date:k,sets:f.sets,note:(data.dayNotes||{})[k]||""}}return null};
 // move exercise up/down in day
 const moveExInDay=(dk,fromIdx,toIdx)=>{const d=dRef.current;const ws=[...(d.workouts[dk]||[])];if(toIdx<0||toIdx>=ws.length)return;const[item]=ws.splice(fromIdx,1);ws.splice(toIdx,0,item);debouncedSave({...d,workouts:{...d.workouts,[dk]:ws}})};
 // day notes
@@ -768,6 +840,20 @@ const MEASURE_FIELDS=["weight","height","bodyFat","chest","waist","hips","bicepL
 const saveMeasurement=()=>{const d=dRef.current;const entry={date:fmt(new Date()),id:Date.now().toString()};let hasVal=false;MEASURE_FIELDS.forEach(f=>{const v=parseFloat(measureForm[f]);if(!isNaN(v)&&v>0){entry[f]=v;hasVal=true}});if(!hasVal)return;const ms={...(d.measurements||{})};const dk=entry.date;if(!ms[dk])ms[dk]=[];ms[dk].push(entry);save({...d,measurements:ms});setMeasureForm({weight:"",height:"",bodyFat:"",chest:"",waist:"",hips:"",bicepL:"",bicepR:"",thighL:"",thighR:"",neck:"",shoulders:""});setShowMeasureForm(false);setToast(L.measurementSaved)};
 const delMeasurement=(dk,mid)=>{if(!confirm(L.deleteMeasurement))return;const d=dRef.current;const ms={...(d.measurements||{})};if(ms[dk])ms[dk]=ms[dk].filter(m=>m.id!==mid);if(ms[dk]&&!ms[dk].length)delete ms[dk];save({...d,measurements:ms})};
 const getMeasureHistory=()=>{const ms=(data||{}).measurements||{};const all=[];Object.entries(ms).forEach(([dk,arr])=>{(arr||[]).forEach(m=>all.push({...m,date:dk}))});all.sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id));return all};
+const getLatestMeasurementSnapshot=(dateKey)=>{
+  const hist=getMeasureHistory();
+  if(!hist.length)return null;
+  return hist.find(m=>!dateKey||m.date<=dateKey)||hist[0];
+};
+const buildShareMeasurementMeta=(dateKey)=>{
+  const latest=getLatestMeasurementSnapshot(dateKey);
+  if(!latest)return null;
+  const values={};
+  if(user?.user_metadata?.share_weight_in_shares&&latest.weight)values.weight=latest.weight;
+  if(user?.user_metadata?.share_height_in_shares&&latest.height)values.height=latest.height;
+  if(!Object.keys(values).length)return null;
+  return{date:latest.date,values};
+};
 
 // --- SOCIAL FUNCTIONS ---
 const shareWorkout=async()=>{
@@ -778,9 +864,11 @@ const shareWorkout=async()=>{
   try{
     const id=Date.now().toString(36)+Math.random().toString(36).slice(2,8);
     const exNames=ws.map(w=>exN(w.exerciseId));
-    const{error}=await sb.from("shared_workouts").insert({id,user_id:user.id,workout_date:dk,workout_data:ws,exercise_names:exNames,caption:shareCaption.trim()});
+    const shareMeasurements=buildShareMeasurementMeta(dk);
+    const sharePayload={exercises:ws,meta:{sharedMeasurements:shareMeasurements?.values||{},measurementDate:shareMeasurements?.date||null}};
+    const{error}=await sb.from("shared_workouts").insert({id,user_id:user.id,workout_date:dk,workout_data:sharePayload,exercise_names:exNames,caption:shareCaption.trim()});
     if(error){setToast("Error: "+error.message);return;}
-    const link=window.location.origin+"/share?id="+id;
+    const link=window.location.origin+shareRoute(id);
     try{await navigator.clipboard.writeText(link)}catch(e){}
     setToast(L.shareSuccess);setShowShareModal(false);setShareCaption("");
   }finally{setSharing(false)}
@@ -862,21 +950,44 @@ useEffect(()=>{
 // --- USERNAME CHECK ---
 useEffect(()=>{
   if(isGuest||!user)return;
-  sb.from("profiles").select("username,display_name").eq("user_id",user.id).maybeSingle().then(({data:p})=>{
-    if(p&&p.username){setMyUsername(p.username);}
-    else{setShowUsernameModal(true);}
-  });
+  let cancelled=false;
+  (async()=>{
+    const metaUsername=normalizeUsername(user.user_metadata?.username);
+    const shouldSeedMetaUsername=isValidUsername(metaUsername);
+    const{data:profile,error}=await syncProfileRecord(user,shouldSeedMetaUsername?{username:metaUsername}:{}); 
+    if(cancelled)return;
+    if(error){
+      console.error("profile sync error:",error);
+      setShowUsernameModal(true);
+      return;
+    }
+    const savedUsername=normalizeUsername(profile?.username)||metaUsername;
+    if(isValidUsername(savedUsername)){
+      setMyUsername(savedUsername);
+      setShowUsernameModal(false);
+    }else{
+      setShowUsernameModal(true);
+    }
+  })();
+  return()=>{cancelled=true};
 },[user]);
 const saveUsername=async()=>{
   if(!usernameInput.trim()){setUsernameErr(L.usernameRequired);return;}
   if(!/^[a-zA-Z0-9_]{3,20}$/.test(usernameInput.trim())){setUsernameErr(L.usernameInvalid);return;}
   setUsernameBusy(true);setUsernameErr("");
   try{
-    const uLower=usernameInput.trim().toLowerCase();
-    const{data:existing}=await sb.from("profiles").select("username").eq("username",uLower).maybeSingle();
-    if(existing){setUsernameErr(L.usernameTaken);return;}
-    await sb.from("profiles").upsert({user_id:user.id,username:uLower,display_name:user.user_metadata?.full_name||user.email?.split("@")[0]||"User",is_public:true},{onConflict:"user_id"});
-    setMyUsername(uLower);setShowUsernameModal(false);setToast(L.usernameSetSuccess);
+    const uLower=normalizeUsername(usernameInput);
+    const{data:existing,error:existingError}=await sb.from("profiles").select("user_id,username").eq("username",uLower).maybeSingle();
+    if(existingError){setUsernameErr(existingError.message);return;}
+    if(existing&&existing.user_id!==user.id){setUsernameErr(L.usernameTaken);return;}
+    const{data:profile,error:profileError}=await syncProfileRecord(user,{username:uLower,is_public:true});
+    if(profileError){setUsernameErr(profileError.message);return;}
+    const meta={...(user.user_metadata||{}),username:uLower};
+    const{data:updatedUser,error:updateUserError}=await sb.auth.updateUser({data:meta});
+    if(updateUserError)console.error("username metadata sync error:",updateUserError);
+    if(updatedUser?.user)setUser(updatedUser.user);
+    setMyUsername(normalizeUsername(profile?.username)||uLower);
+    setShowUsernameModal(false);setToast(L.usernameSetSuccess);
   }finally{setUsernameBusy(false)}
 };
 
@@ -922,6 +1033,35 @@ useEffect(()=>{if(data&&!loading)checkWorkoutReminder();},[loading]);
 const calDays=useMemo(()=>{const y=cMonth.getFullYear(),m=cMonth.getMonth();let sd=new Date(y,m,1).getDay()-1;if(sd<0)sd=6;const dim=new Date(y,m+1,0).getDate();const o=[];for(let i=0;i<sd;i++)o.push(null);for(let i=1;i<=dim;i++)o.push(new Date(y,m,i));return o},[cMonth]);
 const weekDays=useMemo(()=>{const t=new Date();const d=t.getDay();const mo=d===0?-6:1-d;const mn=new Date(t);mn.setDate(t.getDate()+mo+wOff*7);return Array.from({length:7},(_,i)=>{const x=new Date(mn);x.setDate(mn.getDate()+i);return x})},[wOff]);
 const today=fmt(new Date());
+const getWeekOffsetForDate=date=>{
+  const baseToday=new Date();
+  baseToday.setHours(0,0,0,0);
+  const baseMonday=new Date(baseToday);
+  const baseDelta=baseToday.getDay()===0?-6:1-baseToday.getDay();
+  baseMonday.setDate(baseToday.getDate()+baseDelta);
+  const target=new Date(date);
+  target.setHours(0,0,0,0);
+  const targetMonday=new Date(target);
+  const targetDelta=target.getDay()===0?-6:1-target.getDay();
+  targetMonday.setDate(target.getDate()+targetDelta);
+  return Math.round((targetMonday-baseMonday)/(7*24*60*60*1000));
+};
+const triggerDayFx=(date,direction="jump",icon=null)=>{
+  if(dayNavFxTimeoutRef.current)clearTimeout(dayNavFxTimeoutRef.current);
+  setDayNavFx({direction,label:`${date.getDate()} ${L.months[date.getMonth()]}`,icon:icon||(direction==="next"?"→":direction==="prev"?"←":"📍"),token:Date.now()});
+  dayNavFxTimeoutRef.current=setTimeout(()=>setDayNavFx(null),700);
+};
+const openDayView=(date,opts={})=>{
+  const nextDate=new Date(date);
+  nextDate.setHours(0,0,0,0);
+  setSelDate(nextDate);
+  setCMonth(new Date(nextDate.getFullYear(),nextDate.getMonth(),1));
+  setWOff(getWeekOffsetForDate(nextDate));
+  if(view!=="day")setView("day");
+  if(opts.animate!==false)triggerDayFx(nextDate,opts.direction||"jump",opts.icon||null);
+};
+const moveDayBy=delta=>{if(!selDate)return;const nextDate=new Date(selDate);nextDate.setDate(nextDate.getDate()+delta);openDayView(nextDate,{direction:delta>0?"next":"prev"});};
+useEffect(()=>()=>{if(dayNavFxTimeoutRef.current)clearTimeout(dayNavFxTimeoutRef.current);},[]);
 
 if(loading||!data)return(<div style={{display:"flex",alignItems:"center",justifyContent:"center",height:"100vh",background:"var(--bg)",color:"var(--t1)"}}><div style={{fontSize:18}}>Yükleniyor...</div></div>);
 const fEx=data.exercises.filter(e=>e.name.toLowerCase().includes(sEx.toLowerCase())).sort((a,b)=>a.name.localeCompare(b.name,lang==="tr"?"tr":"en"));
@@ -973,7 +1113,7 @@ return(
 <header role="banner" style={{display:"flex",alignItems:"center",padding:"8px 16px",borderBottom:"1px solid var(--brd)",height:64,flexShrink:0,gap:12,zIndex:50,background:"var(--bg)"}}>
   <button onClick={()=>setSidebar(s=>!s)} style={S.ib} aria-label={L.ariaMenu}><IcoMenu/></button>
   {(view==="calendar"||view==="day")&&<>
-    {!isMobile&&<button onClick={()=>{setCMonth(new Date(new Date().getFullYear(),new Date().getMonth(),1));setWOff(0);if(view==="day")setView("calendar")}} style={S.tBtn}>{L.today}</button>}
+    {!isMobile&&<button onClick={()=>openDayView(new Date(),{direction:"jump",icon:"📍"})} style={S.tBtn}>{L.today}</button>}
     <button onClick={()=>{if(calMode==="month")setCMonth(new Date(cMonth.getFullYear(),cMonth.getMonth()-1,1));else setWOff(w=>w-1)}} style={S.ib} aria-label={L.ariaPrevMonth}><IcoL/></button>
     <button onClick={()=>{if(calMode==="month")setCMonth(new Date(cMonth.getFullYear(),cMonth.getMonth()+1,1));else setWOff(w=>w+1)}} style={S.ib} aria-label={L.ariaNextMonth}><IcoR/></button>
     <span style={{fontSize:isMobile?13:22,fontWeight:400,color:"var(--t1)",flex:1,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",minWidth:0}}>
@@ -1055,7 +1195,7 @@ return(
       <div style={{fontSize:12,color:"var(--t2)",marginBottom:8}}>{L.guest}</div>
       <button onClick={showAuth} style={{...S.pri,width:"100%",fontSize:12}}>{L.guestLogin}</button>
     </>:<>
-      <div onClick={()=>window.location.href="/profile"} style={{cursor:"pointer",padding:"8px 10px",borderRadius:10,marginBottom:8,transition:"background .15s ease",display:"flex",alignItems:"center",gap:10}} onMouseEnter={e=>e.currentTarget.style.background="var(--bgH)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
+      <div onClick={()=>window.location.href=profileRoute()} style={{cursor:"pointer",padding:"8px 10px",borderRadius:10,marginBottom:8,transition:"background .15s ease",display:"flex",alignItems:"center",gap:10}} onMouseEnter={e=>e.currentTarget.style.background="var(--bgH)"} onMouseLeave={e=>e.currentTarget.style.background="transparent"}>
         <div style={{width:36,height:36,borderRadius:"50%",background:"var(--blueL)",border:"2px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:user.user_metadata?.avatar?18:14,fontWeight:700,color:"var(--blue)",flexShrink:0,overflow:"hidden",lineHeight:1}}>
           {user.user_metadata?.avatar_url
             ?<img src={user.user_metadata.avatar_url} alt="" style={{width:"100%",height:"100%",objectFit:"cover"}}/>
@@ -1392,12 +1532,15 @@ return(
   const dayNote=(data.dayNotes||{})[dk]||"";
   // group supersets
   const ssGroups={};manual.forEach((w,i)=>{if(w.supersetGroup){if(!ssGroups[w.supersetGroup])ssGroups[w.supersetGroup]=[];ssGroups[w.supersetGroup].push(i)}});
-  return(<div style={{maxWidth:720,margin:"0 auto",padding:"24px 24px 80px"}}>
+  return(<div style={{maxWidth:720,margin:"0 auto",padding:"24px 24px 80px",position:"relative",animation:dayNavFx?(dayNavFx.direction==="prev"?"daySlideFromLeft .26s ease":"daySlideFromRight .26s ease"):"none"}}>
+    {dayNavFx&&<div style={{position:"sticky",top:8,left:"50%",transform:"translateX(-50%)",margin:"0 auto 10px",width:"fit-content",zIndex:6,padding:"7px 14px",borderRadius:999,background:"rgba(0,0,0,.72)",color:"#fff",fontSize:12,fontWeight:700,letterSpacing:.3,boxShadow:"0 8px 24px rgba(0,0,0,.18)",animation:"daySlidePulse .7s ease",backdropFilter:"blur(6px)"}}>
+      {dayNavFx.icon} {dayNavFx.label}
+    </div>}
     {/* Header */}
     <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:16}}>
       <button onClick={()=>setView("calendar")} style={S.tBtn}>{L.backToCalendar}</button>
-      <button onClick={()=>setSelDate(d=>{const n=new Date(d);n.setDate(n.getDate()-1);return n})} style={S.ib}><IcoL/></button>
-      <button onClick={()=>setSelDate(d=>{const n=new Date(d);n.setDate(n.getDate()+1);return n})} style={S.ib}><IcoR/></button>
+      <button onClick={()=>moveDayBy(-1)} style={S.ib}><IcoL/></button>
+      <button onClick={()=>moveDayBy(1)} style={S.ib}><IcoR/></button>
       <div style={{flex:1}}>
         <div style={{fontSize:20,fontWeight:500}}>{selDate.getDate()} {L.months[selDate.getMonth()]} {selDate.getFullYear()}</div>
         <div style={{fontSize:13,color:"var(--t2)"}}>{L.daysFull[di]}{dk===today&&<span style={{color:"var(--blue)",fontWeight:500,marginLeft:6}}>{L.todayLabel}</span>}</div>
@@ -1536,6 +1679,7 @@ return(
           <div style={{display:"flex",gap:4,flexWrap:"wrap"}}>
             {prev.sets.map((ps,pi)=>{const stc=ST_COLORS[ps.type||"working"]||"blue";return(<span key={pi} style={{fontSize:10,background:`var(--${stc}L)`,color:`var(--${stc})`,padding:"1px 6px",borderRadius:8,fontWeight:500}}>{isCardio?fmtDurationValue(ps.duration||0):`${ps.weight}×${ps.reps}`}</span>)})}
           </div>
+          {prev.note&&<div style={{marginTop:6,fontSize:11,color:"var(--t2)",fontStyle:"italic"}}>📝 {lang==="tr"?"Antrenman notu":"Workout note"}: {prev.note}</div>}
         </div>}
         {!prev&&w.sets.length===0&&<div style={{padding:"6px 16px",fontSize:11,color:"var(--t3)",fontStyle:"italic"}}>{L.noLastData}</div>}
         {/* Sets Table */}
@@ -2050,11 +2194,11 @@ return(
       {lbData.map((r,i)=><div key={i} style={{display:"grid",gridTemplateColumns:"48px 1fr 80px 80px",padding:"10px 16px",borderBottom:"1px solid var(--brd)",background:!isGuest&&user&&r.user_id===user.id?"var(--blueL)":"transparent",alignItems:"center"}}>
         <span style={{fontSize:16,fontWeight:700,color:r.rank<=3?"var(--accent)":"var(--t2)"}}>{r.rank<=3?["🥇","🥈","🥉"][r.rank-1]:r.rank}</span>
         <div style={{display:"flex",alignItems:"center",gap:8,minWidth:0}}>
-          <div style={{width:28,height:28,borderRadius:"50%",background:"var(--blueL)",border:"1.5px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:r.profile.avatar?14:11,fontWeight:700,color:"var(--blue)",flexShrink:0,cursor:"pointer"}} onClick={()=>window.location.href="/profile?id="+r.user_id}>
+          <div style={{width:28,height:28,borderRadius:"50%",background:"var(--blueL)",border:"1.5px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:r.profile.avatar?14:11,fontWeight:700,color:"var(--blue)",flexShrink:0,cursor:"pointer"}} onClick={()=>window.location.href=profileRoute(r.user_id)}>
             {r.profile.avatar||(r.profile.display_name||"U").charAt(0).toUpperCase()}
           </div>
           <div style={{minWidth:0,overflow:"hidden"}}>
-            <span style={{fontSize:13,fontWeight:500,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",display:"block",cursor:"pointer"}} onClick={()=>window.location.href="/profile?id="+r.user_id}>{r.profile.display_name||"User"}</span>
+            <span style={{fontSize:13,fontWeight:500,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",display:"block",cursor:"pointer"}} onClick={()=>window.location.href=profileRoute(r.user_id)}>{r.profile.display_name||"User"}</span>
             {r.profile.username&&<span style={{fontSize:10,color:"var(--t3)"}}>@{r.profile.username}</span>}
           </div>
         </div>
@@ -2077,16 +2221,16 @@ return(
       const exNames=typeof post.exercise_names==="string"?JSON.parse(post.exercise_names):(post.exercise_names||[]);
       return(<div key={post.id} style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:16,marginBottom:12}}>
         <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:10}}>
-          <div style={{width:36,height:36,borderRadius:"50%",background:"var(--blueL)",border:"2px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:post.profile.avatar?16:13,fontWeight:700,color:"var(--blue)",cursor:"pointer",flexShrink:0}} onClick={()=>window.location.href="/profile?id="+post.user_id}>
+          <div style={{width:36,height:36,borderRadius:"50%",background:"var(--blueL)",border:"2px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:post.profile.avatar?16:13,fontWeight:700,color:"var(--blue)",cursor:"pointer",flexShrink:0}} onClick={()=>window.location.href=profileRoute(post.user_id)}>
             {post.profile.avatar||(post.profile.display_name||"U").charAt(0).toUpperCase()}
           </div>
           <div style={{flex:1,minWidth:0}}>
-            <span style={{fontSize:14,fontWeight:600,cursor:"pointer"}} onClick={()=>window.location.href="/profile?id="+post.user_id}>{post.profile.display_name||"User"}</span>
+            <span style={{fontSize:14,fontWeight:600,cursor:"pointer"}} onClick={()=>window.location.href=profileRoute(post.user_id)}>{post.profile.display_name||"User"}</span>
             {post.profile.username&&<span style={{fontSize:11,color:"var(--t3)",marginLeft:4}}>@{post.profile.username}</span>}
             <span style={{fontSize:12,color:"var(--t3)",marginLeft:6}}>{L.feedShared}</span>
             <div style={{fontSize:11,color:"var(--t3)"}}>{new Date(post.created_at).toLocaleDateString(lang==="tr"?"tr-TR":"en-US",{day:"numeric",month:"short",year:"numeric"})}</div>
           </div>
-          <button onClick={()=>window.location.href="/share?id="+post.id} style={{...S.sec,fontSize:11,padding:"4px 12px",borderRadius:8}}>👁️</button>
+          <button onClick={()=>window.location.href=shareRoute(post.id)} style={{...S.sec,fontSize:11,padding:"4px 12px",borderRadius:8}}>👁️</button>
         </div>
         <div style={{fontSize:14,fontWeight:600,color:"var(--accent)",marginBottom:4}}>📅 {post.workout_date}</div>
         {post.caption&&<p style={{fontSize:13,color:"var(--t2)",fontStyle:"italic",marginBottom:8}}>"{post.caption}"</p>}
@@ -2109,11 +2253,11 @@ return(
       const isMe=!isGuest&&user&&u.user_id===user.id;
       const isFollowing=followingIds.includes(u.user_id);
       return(<div key={u.user_id} style={{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:12,padding:14,marginBottom:8,display:"flex",alignItems:"center",gap:12}}>
-        <div style={{width:44,height:44,borderRadius:"50%",background:"var(--blueL)",border:"2px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:u.avatar?20:16,fontWeight:700,color:"var(--blue)",flexShrink:0,cursor:"pointer"}} onClick={()=>window.location.href="/profile?id="+u.user_id}>
+        <div style={{width:44,height:44,borderRadius:"50%",background:"var(--blueL)",border:"2px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:u.avatar?20:16,fontWeight:700,color:"var(--blue)",flexShrink:0,cursor:"pointer"}} onClick={()=>window.location.href=profileRoute(u.user_id)}>
           {u.avatar||(u.display_name||"U").charAt(0).toUpperCase()}
         </div>
         <div style={{flex:1,minWidth:0}}>
-          <div style={{fontSize:14,fontWeight:600,cursor:"pointer"}} onClick={()=>window.location.href="/profile?id="+u.user_id}>{u.display_name||"User"}</div>
+          <div style={{fontSize:14,fontWeight:600,cursor:"pointer"}} onClick={()=>window.location.href=profileRoute(u.user_id)}>{u.display_name||"User"}</div>
           {u.username&&<div style={{fontSize:11,color:"var(--t3)"}}>@{u.username}</div>}
           {u.bio&&<div style={{fontSize:12,color:"var(--t3)",overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>{u.bio}</div>}
         </div>
@@ -2167,7 +2311,7 @@ return(
       </div>}
       <div style={{maxHeight:400,overflowY:"auto"}}>
         {hist.length===0&&<div style={{color:"var(--t3)",fontSize:13,padding:24,textAlign:"center"}}>{L.noHistory}</div>}
-        {hist.map((h,i)=>{const d=pD(h.date);const vol=h.sets.reduce((t,s)=>t+s.weight*s.reps,0);const totalDuration=h.sets.reduce((t,s)=>t+(s.duration||0),0);const session1RM=Math.round(Math.max(...h.sets.map(s=>calc1RM(s.weight,s.reps))));
+        {hist.map((h,i)=>{const d=pD(h.date);const vol=h.sets.reduce((t,s)=>t+s.weight*s.reps,0);const totalDuration=h.sets.reduce((t,s)=>t+(s.duration||0),0);const session1RM=Math.round(Math.max(...h.sets.map(s=>calc1RM(s.weight,s.reps))));const workoutNote=(data.dayNotes||{})[h.date]||"";
           return(<div key={i} style={{padding:"12px 0",borderBottom:"1px solid var(--brd)"}}>
             <div style={{display:"flex",justifyContent:"space-between",marginBottom:8}}>
               <span style={{fontSize:14,fontWeight:500}}>{d.getDate()} {L.months[d.getMonth()]} {d.getFullYear()}</span>
@@ -2180,6 +2324,7 @@ return(
               {h.sets.map((s,j)=>(<span key={j} style={{fontSize:12,background:`var(--${c}L)`,color:`var(--${c})`,padding:"3px 10px",borderRadius:12,fontWeight:500}}>{fmtSetValue(histId,s)}
               </span>))}
             </div>
+            {workoutNote&&<div style={{marginTop:8,fontSize:12,color:"var(--t2)",lineHeight:1.5,fontStyle:"italic"}}>📝 {lang==="tr"?"Antrenman notu":"Workout note"}: {workoutNote}</div>}
           </div>);
         })}
       </div>
@@ -2202,6 +2347,13 @@ return(
         {(data.workouts[fmt(selDate)]||[]).map((w,i)=><span key={i} style={{fontSize:10,padding:"2px 8px",borderRadius:6,background:"var(--bg3)",color:"var(--t1)"}}>{exN(w.exerciseId)}</span>)}
       </div>
     </div>}
+    {(()=>{const shareMeasurementMeta=selDate?buildShareMeasurementMeta(fmt(selDate)):null;return <div style={{marginBottom:14,padding:"12px 14px",borderRadius:10,background:"var(--bg3)",border:"1px solid var(--brd)"}}>
+      <div style={{fontSize:11,fontWeight:700,color:"var(--t3)",textTransform:"uppercase",letterSpacing:.6,marginBottom:6}}>{lang==="tr"?"Paylaşım tercihleri":"Share preferences"}</div>
+      {shareMeasurementMeta?<div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+        {shareMeasurementMeta.values.weight&&<span style={{fontSize:12,padding:"4px 10px",borderRadius:999,background:"var(--greenL)",color:"var(--green)",fontWeight:600}}>⚖️ {lang==="tr"?"Kilo":"Weight"}: {shareMeasurementMeta.values.weight} kg</span>}
+        {shareMeasurementMeta.values.height&&<span style={{fontSize:12,padding:"4px 10px",borderRadius:999,background:"var(--tealL)",color:"var(--teal)",fontWeight:600}}>📏 {lang==="tr"?"Boy":"Height"}: {shareMeasurementMeta.values.height} cm</span>}
+      </div>:<div style={{fontSize:12,color:"var(--t2)",lineHeight:1.5}}>{lang==="tr"?"Bu paylaşımda boy/kilo bilgisi görünmeyecek. Ayarları profil sayfasından değiştirebilirsin.":"Height/weight will stay hidden in this share. You can change this from your profile settings."}</div>}
+    </div>})()}
     <textarea value={shareCaption} onChange={e=>setShareCaption(e.target.value)} placeholder={L.shareCaption} maxLength={200} style={{...S.inp,minHeight:60,resize:"vertical",fontFamily:"inherit"}}/>
     <button onClick={shareWorkout} disabled={sharing} style={{...S.pri,width:"100%",fontSize:15}}>{sharing?"...":`📤 ${L.shareWorkout}`}</button>
   </div>

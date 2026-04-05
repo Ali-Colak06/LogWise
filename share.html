@@ -67,6 +67,8 @@ const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYm
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 const {useState,useEffect}=React;
 const TK="gym-log-theme",LK="gym-log-lang";
+const IS_LOCAL_STATIC=window.location.protocol==="file:"||["localhost","127.0.0.1"].includes(window.location.hostname);
+const profileRoute=id=>`${IS_LOCAL_STATIC?"/profile.html":"/profile"}${id?`?id=${encodeURIComponent(id)}`:""}`;
 
 const ST_COLORS={working:"blue",warmup:"orange",drop:"purple",superset:"indigo"};
 const ST_LABELS_TR={working:"Normal",warmup:"Isınma",drop:"Drop",superset:"Süper"};
@@ -121,8 +123,12 @@ function ShareApp(){
     <button onClick={()=>window.location.href="/"} style={S.pri}>{lang==="tr"?"Ana Sayfa":"Home"}</button>
   </div>);
 
-  const wData=typeof workout.workout_data==="string"?JSON.parse(workout.workout_data):workout.workout_data;
+  const workoutPayload=typeof workout.workout_data==="string"?JSON.parse(workout.workout_data):workout.workout_data;
+  const shareMeta=Array.isArray(workoutPayload)?{}:(workoutPayload?.meta||{});
+  const wData=Array.isArray(workoutPayload)?workoutPayload:(Array.isArray(workoutPayload?.exercises)?workoutPayload.exercises:[]);
   const exNames=typeof workout.exercise_names==="string"?JSON.parse(workout.exercise_names):workout.exercise_names||[];
+  const sharedMeasurements=shareMeta.sharedMeasurements||{};
+  const measurementLabels=lang==="tr"?{title:"Paylaşılan Vücut Ölçüleri",weight:"Kilo",height:"Boy",snapshot:"Ölçüm tarihi"}:{title:"Shared Body Metrics",weight:"Weight",height:"Height",snapshot:"Measurement date"};
   const STL=lang==="tr"?ST_LABELS_TR:ST_LABELS_EN;
 
   return(
@@ -143,11 +149,11 @@ function ShareApp(){
         {/* Owner info + date */}
         <div style={{...S.card,textAlign:"center",paddingTop:28}}>
           {ownerProfile&&<div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:10,marginBottom:16}}>
-            <div style={{width:44,height:44,borderRadius:"50%",background:"var(--blueL)",border:"2px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:ownerProfile.avatar?20:16,fontWeight:700,color:"var(--blue)",cursor:"pointer"}} onClick={()=>window.location.href="/profile?id="+workout.user_id}>
+            <div style={{width:44,height:44,borderRadius:"50%",background:"var(--blueL)",border:"2px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:ownerProfile.avatar?20:16,fontWeight:700,color:"var(--blue)",cursor:"pointer"}} onClick={()=>window.location.href=profileRoute(workout.user_id)}>
               {ownerProfile.avatar||(ownerProfile.display_name||"U").charAt(0).toUpperCase()}
             </div>
             <div style={{textAlign:"left"}}>
-              <div style={{fontSize:15,fontWeight:600,color:"var(--t1)",cursor:"pointer"}} onClick={()=>window.location.href="/profile?id="+workout.user_id}>{ownerProfile.display_name||"User"}</div>
+              <div style={{fontSize:15,fontWeight:600,color:"var(--t1)",cursor:"pointer"}} onClick={()=>window.location.href=profileRoute(workout.user_id)}>{ownerProfile.display_name||"User"}</div>
               <div style={{fontSize:11,color:"var(--t3)"}}>{formatDate(workout.created_at)}</div>
             </div>
           </div>}
@@ -155,6 +161,14 @@ function ShareApp(){
           {workout.caption&&<p style={{fontSize:14,color:"var(--t2)",marginTop:8,fontStyle:"italic"}}>"{workout.caption}"</p>}
           {exNames.length>0&&<div style={{display:"flex",gap:6,flexWrap:"wrap",justifyContent:"center",marginTop:12}}>
             {exNames.map((n,i)=><span key={i} style={{fontSize:11,padding:"4px 10px",borderRadius:8,background:"var(--blueL)",color:"var(--blue)",fontWeight:500}}>{n}</span>)}
+          </div>}
+          {(sharedMeasurements.weight||sharedMeasurements.height)&&<div style={{marginTop:14,padding:"12px 14px",borderRadius:12,background:"var(--bg3)",border:"1px solid var(--brd)"}}>
+            <div style={{fontSize:11,fontWeight:700,color:"var(--t3)",textTransform:"uppercase",letterSpacing:.6,marginBottom:8}}>{measurementLabels.title}</div>
+            <div style={{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}}>
+              {sharedMeasurements.weight&&<span style={{fontSize:12,padding:"4px 10px",borderRadius:999,background:"var(--greenL)",color:"var(--green)",fontWeight:600}}>⚖️ {measurementLabels.weight}: {sharedMeasurements.weight} kg</span>}
+              {sharedMeasurements.height&&<span style={{fontSize:12,padding:"4px 10px",borderRadius:999,background:"var(--blueL)",color:"var(--blue)",fontWeight:600}}>📏 {measurementLabels.height}: {sharedMeasurements.height} cm</span>}
+            </div>
+            {shareMeta.measurementDate&&<div style={{marginTop:8,fontSize:11,color:"var(--t3)"}}>{measurementLabels.snapshot}: {shareMeta.measurementDate}</div>}
           </div>}
         </div>
 

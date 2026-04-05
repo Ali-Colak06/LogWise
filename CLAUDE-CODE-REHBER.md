@@ -631,3 +631,27 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ Export/Import (JSON/CSV)
 - ✅ Vücut ölçüleri takibi
 - Fotoğraf ilerleme (Supabase Storage gerekli, henüz yapılmadı)
+## 16. 2026-04-04 Username Kalicilik Duzeltmesi
+
+- Username artik sadece modal submit aninda `profiles` tablosuna yazilmaya calisilmiyor; auth metadata'ya da kaydediliyor.
+- Email onayi sebebiyle session geciken kayitlarda `profiles` satiri ilk authenticated ziyarette otomatik bootstrap/senkronize ediliyor.
+- Bu sync sayesinde sosyal arama (`display_name` + `username`) kayip kalan username yuzunden bos donmuyor.
+> Not (2026-04-04): Profil ve share linkleri kodda hardcoded yazilmaz. `profileRoute()` / `shareRoute()` helper'lari production'da clean URL, lokal static server'da `.html` fallback kullanir.
+
+## 17. 2026-04-04 Son Bakim Notlari
+
+- Hareket ve gun notu alanlarinda space/blank karakter kaybi yapan yazma akisi duzeltildi; textarea icinde bosluk kullanimi normal calisir.
+- Vucut olculeri formuna `height` / boy destegi eklendi; olcum kayitlari kilo ile birlikte boy snapshot'i da tutabilir.
+- Day view UX guncellendi: set ust aksiyonlari ve superset basliklari buyutuldu, `failure` secenegi kaldirildi, yerine `superset` set tipi ve hizli ekleme aksiyonu kullanildi.
+- Kardiyo hareketleri artik set tipi yerine yalnizca sure ile calisir. Tablo, gecmis, export ve bos set temizligi bu modele gore davranir.
+- Bir hareket gune ilk eklendiginde otomatik tek bos set ile baslar. Standart hareketlerde `0 kg / 0 tekrar`, kardiyoda `0 dakika` olusur.
+- Hareketler ekraninda isim ve aciklama bloklari sola yaslidir; kategori cevirilerinde EN etiketler tamamlandi.
+- Ana sayfa ve mobil layout icin ortak alt bosluk / safe-area tamponu eklendi; alttaki sabit butonlar artik sistem gezinme alaniyla cakisma riskini azaltir.
+- Profile avatar gostergesi ana sayfada duzeltildi; secilen emoji avatar veya uzaktaki `avatar_url` kullanilabilir.
+- Username kaliciligi auth metadata + `profiles` senkronu ile saglanir; eksik profil kayitlari ilk authenticated ziyarette bootstrap edilir.
+- Lokal static server uyumu icin profil/share linkleri route helper uzerinden `.html` fallback ile uretilir.
+- Paylasilan antrenmanlar icin yeni tercih sistemi vardir: profil ekraninda kullanici boy ve/veya kilo bilgisini paylasmayi acip kapatabilir. Bu tercihler auth metadata icinde saklanir ve share payload'ina snapshot olarak gomulur.
+- `share.html` eski array formatini ve yeni `{exercises, meta}` formatini birlikte okuyacak sekilde geriye donuk uyumludur. Izin verildiyse paylasilan workout sayfasinda boy/kilo rozetleri ve olcum tarihi gosterilir.
+- Mobil takvimde saga/sola kaydirarak gun degistirme toleransi artirildi. Dikey sapma kontrolu, daha yuksek swipe threshold'u ve gun degisiminde gorunur bir yon/tarih animasyonu eklendi.
+- `Today` / `Bugun` butonu artik takvimi resetlemek yerine dogrudan bugunun antrenman gunu ekranini acar.
+- Onceki antrenman referansinda ve history modalinda sadece setler degil, ilgili gune ait `dayNotes` metni de gosterilir.
