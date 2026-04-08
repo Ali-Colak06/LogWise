@@ -487,11 +487,11 @@ Yeni alan eklenmesi gerekirse bu fonksiyona eklenmeli.
 
 ### `_redirects` dosyası (kök dizinde)
 Tüm redirect ve rewrite kuralları bu dosyada tanımlı:
-- `/index.html` ve `/index.php` → `/` (301, force) — temiz URL
+- `/index.html` ve `/index.php` → `/` (301) — temiz URL
 - `/profile` → `/profile.html` (200 rewrite) — clean URL
 - `/share` → `/share.html` (200 rewrite) — clean URL
 - SPA route'ları: `/dashboard`, `/exercises`, `/programs`, `/feedback`, `/data`, `/social` → `/index.html` (200 rewrite)
-- Catch-all: `/*` → `/404.html` (404)
+- 404 sayfası için ayrı kural **gerekmez** — Cloudflare Pages kök dizindeki `404.html`'i otomatik kullanır
 
 ### `_headers` dosyası (kök dizinde)
 - `sw.js`: `Cache-Control: no-cache` — tarayıcı her zaman güncel SW'yi kontrol eder
@@ -501,8 +501,13 @@ Tüm redirect ve rewrite kuralları bu dosyada tanımlı:
 - **ÖNEMLİ**: Kodda her zaman `/profile` ve `/share` kullanılmalı, asla `/profile.html` veya `/share.html` kullanılmamalı. Redirect döngüsüne sebep olur.
 - `netlify.toml` artık kullanılmıyor; Cloudflare `_redirects` ve `_headers` dosyalarını kullanıyor.
 
+### Deploy Akışı
+- `main` branch'e her `git push` → otomatik deploy (limit yok)
+- Manuel deploy: Cloudflare dashboard → Workers & Pages → logwise → Deployments → "Create deployment"
+- Preview deploy: farklı bir branch'e push edilince `*-logwise.pages.dev` URL'iyle otomatik oluşur
+
 ### Eski Netlify Notu
-Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) sorunu nedeniyle Cloudflare Pages'e geçildi. `netlify.toml` referans amaçlı bırakıldı, silinebilir.
+Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama kısıtları nedeniyle Cloudflare Pages'e geçildi (2026-04-08). `netlify.toml` referans amaçlı bırakıldı, silinebilir.
 
 ---
 
@@ -521,6 +526,10 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) sorunu nede
 6. **Netlify redirect döngüsü**: `/profile.html` → `/profile` (301, force) ve `/profile` → `/profile.html` (200) birlikte sonsuz döngü oluşturuyordu → "Bu sayfa çalışmıyor" hatası. **Çözüm**: Pretty URL redirect'leri (`.html` → clean URL) kaldırıldı, sadece clean URL → `.html` rewrite (200) bırakıldı. Tüm linklerde `/profile` kullanılmalı, `/profile.html` kullanılmamalı.
 
 7. **Pull-to-refresh stale closure**: `handlePullRefresh` useCallback'inde `pullY` state değeri stale kalıyordu, `touchend`'de 60px kontrolü hep 0 okuyordu. **Çözüm**: `pullYRef` ile ref pattern uygulandı, `touchstart/touchmove/touchend` ayrı handler'lara bölündü, `scrollTop>5` kontrolü eklendi.
+
+8. **Cloudflare Pages `_redirects` hataları** (2026-04-08): İki sorun yaşandı. (a) `301!` force syntax'ı Netlify'a özgüdür, Cloudflare tanımıyor — `!` kaldırıldı. (b) `404` status kodu `_redirects` dosyasında geçersiz — Cloudflare Pages sadece 200, 301, 302, 303, 307, 308 kabul eder. Catch-all satırı kaldırıldı; `404.html` kök dizinde olduğu için Cloudflare onu otomatik kullanır.
+
+9. **Cloudflare custom domain "already in use" hatası** (2026-04-08): DNS'te Netlify'ı gösteren eski `A` kaydı (`75.2.60.5`) ve `www` CNAME'i (`logwise.netlify.app`) silinmeden custom domain eklenemiyordu. **Çözüm**: Cloudflare DNS panelinden her iki kayıt silindi, ardından custom domain ekleme başarılı oldu.
 
 ---
 
