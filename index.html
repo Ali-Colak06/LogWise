@@ -45,7 +45,6 @@ input:focus,select:focus{outline:none;border-color:var(--blue) !important}
 @keyframes toastIn{from{opacity:0;transform:translateY(-100%)}to{opacity:1;transform:translateY(0)}}
 @keyframes toastOut{from{opacity:1}to{opacity:0}}
 @keyframes slideInLeft{from{opacity:0;transform:translateX(-100%)}to{opacity:1;transform:translateX(0)}}
-@keyframes pullSpin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 @keyframes confetti{0%{opacity:1;transform:translateY(0) rotateZ(0deg);filter:blur(0)}100%{opacity:0;transform:translateY(400px) rotateZ(720deg);filter:blur(2px)}}
 @keyframes prPulse{0%{transform:scale(1)}50%{transform:scale(1.1)}100%{transform:scale(1)}}
 @keyframes daySlideFromLeft{from{opacity:.45;transform:translateX(-26px) scale(.985)}to{opacity:1;transform:translateX(0) scale(1)}}
@@ -572,19 +571,13 @@ useEffect(()=>{if(!isGuest)sb.from("feedback").select("*").eq("user_id",user.id)
 // Feature states
 const[showOnboard,setShowOnboard]=useState(()=>!localStorage.getItem("logwise-onboard-done"));
 const[onboardStep,setOnboardStep]=useState(0);
-const[pullY,setPullY]=useState(0);
-const[pullState,setPullState]=useState("idle");
-const[touchStartY,setTouchStartY]=useState(0);
 const[searchQuery,setSearchQuery]=useState("");
 const[showSearch,setShowSearch]=useState(false);
 const[searchResults,setSearchResults]=useState([]);
 const[confetti,setConfetti]=useState(null);
 const[activeTabMobile,setActiveTabMobile]=useState(view);
 const[dayNavFx,setDayNavFx]=useState(null);
-const pullStartRef=useRef(0);
-const pullRefreshRef=useRef(null);
 const dayNavFxTimeoutRef=useRef(null);
-const daySwipeRef=useRef({startX:0,startY:0,ignore:false});
 // Timer state — localStorage ile persist (tarayıcı kapansa bile kalır)
 const[timerRunning,setTimerRunning]=useState(false);
 const[timerElapsed,setTimerElapsed]=useState(0);
@@ -646,44 +639,6 @@ useEffect(()=>{
   }
 },[]);
 useEffect(()=>{document.documentElement.setAttribute("data-theme",theme);localStorage.setItem(TK,theme)},[theme]);
-// Pull-to-Refresh touch handlers
-useEffect(()=>{if(!isMobile)return;const mainEl=document.querySelector('[role="main"]');if(!mainEl)return;mainEl.addEventListener("touchstart",handlePullStart,{passive:true});mainEl.addEventListener("touchmove",handlePullMove,{passive:true});mainEl.addEventListener("touchend",handlePullEnd);return()=>{mainEl.removeEventListener("touchstart",handlePullStart);mainEl.removeEventListener("touchmove",handlePullMove);mainEl.removeEventListener("touchend",handlePullEnd)}},[isMobile,handlePullStart,handlePullMove,handlePullEnd]);
-// Swipe to change day
-useEffect(()=>{
-  if(!isMobile||view!=="day"||!selDate)return;
-  const mainEl=document.querySelector('[role="main"]');
-  if(!mainEl)return;
-  const SWIPE_THRESHOLD=110;
-  const MAX_VERTICAL_DRIFT=54;
-  const onTouchStart=(e)=>{
-    const interactive=e.target.closest?.("input, textarea, select, button, a");
-    daySwipeRef.current={startX:e.touches[0].clientX,startY:e.touches[0].clientY,ignore:!!interactive};
-  };
-  const onTouchEnd=(e)=>{
-    if(daySwipeRef.current.ignore)return;
-    const endX=e.changedTouches[0].clientX;
-    const endY=e.changedTouches[0].clientY;
-    const diffX=daySwipeRef.current.startX-endX;
-    const diffY=daySwipeRef.current.startY-endY;
-    if(Math.abs(diffX)<SWIPE_THRESHOLD)return;
-    if(Math.abs(diffY)>MAX_VERTICAL_DRIFT)return;
-    if(Math.abs(diffX)<=Math.abs(diffY)*1.35)return;
-    const nextDate=new Date(selDate);
-    nextDate.setDate(nextDate.getDate()+(diffX>0?1:-1));
-    setSelDate(nextDate);
-    setCMonth(new Date(nextDate.getFullYear(),nextDate.getMonth(),1));
-    setWOff(getWeekOffsetForDate(nextDate));
-    if(dayNavFxTimeoutRef.current)clearTimeout(dayNavFxTimeoutRef.current);
-    setDayNavFx({direction:diffX>0?"next":"prev",label:`${nextDate.getDate()} ${L.months[nextDate.getMonth()]}`,icon:diffX>0?"→":"←",token:Date.now()});
-    dayNavFxTimeoutRef.current=setTimeout(()=>setDayNavFx(null),700);
-  };
-  mainEl.addEventListener("touchstart",onTouchStart,{passive:true});
-  mainEl.addEventListener("touchend",onTouchEnd,{passive:true});
-  return()=>{
-    mainEl.removeEventListener("touchstart",onTouchStart);
-    mainEl.removeEventListener("touchend",onTouchEnd);
-  };
-},[isMobile,view,selDate,lang]);
 // Update active mobile tab
 useEffect(()=>{setActiveTabMobile(view)},[view]);
 // Handle search
@@ -996,10 +951,6 @@ const haptic=(type)=>{if(!navigator.vibrate)return;if(type==="short")navigator.v
 
 const triggerConfetti=()=>{setConfetti(true);haptic("pr");setTimeout(()=>setConfetti(false),2000)};
 
-const pullYRef=useRef(0);
-const handlePullStart=useCallback((e)=>{if(!isMobile)return;const mainEl=document.querySelector('[role="main"]');if(!mainEl||mainEl.scrollTop>5)return;pullStartRef.current=e.touches[0].clientY;pullYRef.current=0;setPullY(0);setPullState("idle")},[isMobile]);
-const handlePullMove=useCallback((e)=>{if(!isMobile||pullStartRef.current===0)return;const mainEl=document.querySelector('[role="main"]');if(!mainEl||mainEl.scrollTop>5){pullStartRef.current=0;return;}const diff=Math.max(0,Math.min(80,e.touches[0].clientY-pullStartRef.current));pullYRef.current=diff;setPullY(diff);setPullState(diff>50?"ready":"idle")},[isMobile]);
-const handlePullEnd=useCallback(()=>{if(!isMobile||pullStartRef.current===0)return;const curPull=pullYRef.current;pullStartRef.current=0;if(curPull>50){setPullState("refreshing");setPullY(50);const doRefresh=()=>{if(isGuest){const r=localStorage.getItem(SK);if(r)setData(JSON.parse(r))}else{sb.from("user_data").select("data").eq("user_id",user.id).single().then(({data:row})=>{if(row&&row.data)setData(row.data)});}setTimeout(()=>{setPullY(0);setPullState("idle")},600)};setTimeout(doRefresh,400)}else{setPullY(0);setPullState("idle")}},[isMobile,isGuest,user?.id]);
 
 const performSearch=useCallback(()=>{if(!searchQuery.trim()){setSearchResults([]);return;}const q=searchQuery.toLowerCase();const results=[];if(data){Object.keys(data.exercises||{}).forEach(exId=>{const ex=data.exercises[exId];if(ex.name.toLowerCase().includes(q)){results.push({type:"exercise",id:exId,name:ex.name})}});Object.keys(data.programs||{}).forEach(pgId=>{const pg=data.programs[pgId];if(pg.name.toLowerCase().includes(q)){results.push({type:"program",id:pgId,name:pg.name})}});Object.keys(data.workouts||{}).forEach(date=>{if(date.includes(q.split("-").join(""))||date.toLowerCase().includes(q)){results.push({type:"workout",id:date,name:`Workout: ${date.slice(0,4)}-${date.slice(4,6)}-${date.slice(6)}`})}})}setSearchResults(results)},[searchQuery,data]);
 
@@ -1215,13 +1166,6 @@ return(
 {/* MAIN */}
 <main id="main-content" role="main" aria-label={L.ariaMainContent} style={{flex:1,overflowY:"auto",background:"var(--bg)",position:"relative"}}>
 
-{isMobile&&pullY>10&&<div style={{position:"absolute",top:0,left:"50%",transform:"translateX(-50%)",zIndex:10,paddingTop:Math.min(pullY-10,40),transition:pullState==="refreshing"?"padding .3s ease":"none"}}>
-  <div style={{width:36,height:36,borderRadius:"50%",background:"var(--bg2)",border:"2px solid var(--brd)",display:"flex",alignItems:"center",justifyContent:"center",boxShadow:"0 2px 8px rgba(0,0,0,.3)"}}>
-    {pullState==="refreshing"
-      ?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" strokeWidth="2.5" strokeLinecap="round" style={{animation:"pullSpin .8s linear infinite"}}><path d="M21 12a9 9 0 11-6.22-8.56"/></svg>
-      :<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke={pullState==="ready"?"var(--blue)":"var(--t3)"} strokeWidth="2.5" strokeLinecap="round" style={{transform:`rotate(${Math.min(pullY/50*180,180)}deg)`,transition:"transform .1s ease"}}><path d="M12 5v14M5 12l7 7 7-7"/></svg>}
-  </div>
-</div>}
 
 {confetti&&<div style={{position:"fixed",inset:0,pointerEvents:"none",zIndex:999}}>
   {[...Array(30)].map((_, i) => (

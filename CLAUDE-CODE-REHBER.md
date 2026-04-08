@@ -525,7 +525,7 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama
 
 6. **Netlify redirect döngüsü**: `/profile.html` → `/profile` (301, force) ve `/profile` → `/profile.html` (200) birlikte sonsuz döngü oluşturuyordu → "Bu sayfa çalışmıyor" hatası. **Çözüm**: Pretty URL redirect'leri (`.html` → clean URL) kaldırıldı, sadece clean URL → `.html` rewrite (200) bırakıldı. Tüm linklerde `/profile` kullanılmalı, `/profile.html` kullanılmamalı.
 
-7. **Pull-to-refresh stale closure**: `handlePullRefresh` useCallback'inde `pullY` state değeri stale kalıyordu, `touchend`'de 60px kontrolü hep 0 okuyordu. **Çözüm**: `pullYRef` ile ref pattern uygulandı, `touchstart/touchmove/touchend` ayrı handler'lara bölündü, `scrollTop>5` kontrolü eklendi.
+7. **Pull-to-refresh stale closure** (geçmiş not — özellik kaldırıldı): `handlePullRefresh` useCallback'inde `pullY` state değeri stale kalıyordu. `pullYRef` ile çözülmüştü. Özellik 2026-04-08 tarihinde tamamen kaldırıldı.
 
 8. **Cloudflare Pages `_redirects` hataları** (2026-04-08): İki sorun yaşandı. (a) `301!` force syntax'ı Netlify'a özgüdür, Cloudflare tanımıyor — `!` kaldırıldı. (b) `404` status kodu `_redirects` dosyasında geçersiz — Cloudflare Pages sadece 200, 301, 302, 303, 307, 308 kabul eder. Catch-all satırı kaldırıldı; `404.html` kök dizinde olduğu için Cloudflare onu otomatik kullanır.
 
@@ -625,8 +625,8 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 ### Kategori 4: UX / UI İyileştirmeleri ✅ TAMAMLANDI
 - ✅ **Onboarding akışı** — İlk ziyarette 4 adımlı hoş geldin modalı (localStorage "logwise-onboard-done" ile takip), emoji illüstrasyonlar, "Başlayalım" / "Geç" butonları
 - ✅ **Boş state'ler iyileştirme** — Hareketler, programlar ve takvim gün görünümünde motive edici mesajlar + aksiyon butonları, emoji illüstrasyonlar
-- ✅ **Swipe ile gün değiştirme (mobil)** — Touch swipe detection (50px threshold), sola kaydır = sonraki gün, sağa = önceki gün, sadece mobilde aktif
-- ✅ **Pull-to-refresh (mobil)** — Aşağı çekme ile veri yenileme, dönen ok göstergesi (scrollTop=0 kontrolü), 50px threshold, otomatik bırakıp yenileme, CSS pullSpin animasyonu
+- ~~**Swipe ile gün değiştirme (mobil)**~~ — Kaldırıldı (2026-04-08). Kullanım deneyimini kötüleştirdiği için devre dışı bırakıldı. Gün değiştirme yalnızca ▲/▼ butonları ve takvim üzerinden yapılıyor.
+- ~~**Pull-to-refresh (mobil)**~~ — Kaldırıldı (2026-04-08). Kullanım deneyimini kötüleştirdiği için devre dışı bırakıldı.
 - ✅ **Global arama** — Header'da arama ikonu, hareket adı/program adı/antrenman tarihi arama, sonuçlar dropdown'da tıklanabilir, tip etiketleri
 - ✅ **Mobil bottom tab bar** — 5 sekme (Takvim, Panel, Hareketler, Programlar, Sosyal), safe-area-inset desteği, aktif sekme vurgulama, sadece mobilde görünür
 - ✅ **Konfeti / PR animasyonu** — Yeni PR kırıldığında 30 parçacıklı CSS konfeti animasyonu, rastgele renkler, 2 saniye süre, fade/rotation/blur efektleri
@@ -674,3 +674,8 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - Mobil takvimde saga/sola kaydirarak gun degistirme toleransi artirildi. Dikey sapma kontrolu, daha yuksek swipe threshold'u ve gun degisiminde gorunur bir yon/tarih animasyonu eklendi.
 - `Today` / `Bugun` butonu artik takvimi resetlemek yerine dogrudan bugunun antrenman gunu ekranini acar.
 - Onceki antrenman referansinda ve history modalinda sadece setler degil, ilgili gune ait `dayNotes` metni de gosterilir.
+
+## 18. 2026-04-08 Mobil Özellik Kaldırmaları
+
+- **Pull-to-refresh kaldırıldı**: Aşağı çekme ile yenileme özelliği (state'ler: `pullY`, `pullState`, `touchStartY`; ref'ler: `pullStartRef`, `pullRefreshRef`, `pullYRef`; handler'lar: `handlePullStart/Move/End`; CSS: `@keyframes pullSpin`) tamamen kaldırıldı. Kullanım deneyimini olumsuz etkiliyordu. İleride daha iyi bir implementasyonla yeniden eklenebilir.
+- **Swipe ile gün değiştirme kaldırıldı**: Gün görünümünde sağa/sola kaydırarak gün geçişi özelliği (swipe useEffect, `daySwipeRef`) kaldırıldı. Gün değiştirme yalnızca ▲/▼ butonları ile yapılıyor. Not: `dayNavFx` animasyonu ve `triggerDayFx` fonksiyonu **korundu** — bunlar ok butonlarıyla da kullanılıyor.
