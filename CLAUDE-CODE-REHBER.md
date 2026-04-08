@@ -24,7 +24,9 @@ LogWise/
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
 ├── 404.html                ← 404 sayfası
-├── netlify.toml            ← Deploy ayarları, redirect kuralları, header'lar
+├── _redirects              ← Cloudflare Pages redirect & rewrite kuralları
+├── _headers                ← Cloudflare Pages HTTP header kuralları
+├── netlify.toml            ← Eski Netlify deploy ayarları (artık kullanılmıyor, silinebilir)
 ├── sw.js                   ← Service Worker (PWA offline desteği)
 ├── manifest.json           ← PWA manifest
 ├── supabase_setup.sql      ← Supabase tablo şemaları + RLS politikaları
@@ -33,15 +35,9 @@ LogWise/
 ├── icon-512.png            ← PWA ikon (512x512)
 ├── apple-touch-icon.png    ← iOS ikon
 ├── logo_küçük.png          ← Küçük logo
-├── logo-concepts.html      ← Logo konseptleri (geliştirme amaçlı)
-├── logo-calendar.html      ← Takvim logosu (geliştirme amaçlı)
 ├── local-server.bat        ← Yerel sunucu başlatma scripti
 ├── local-server-mobile.bat ← Mobil test için yerel sunucu
-├── index.html.backup       ← Yedek (76KB, eski versiyon)
-├── index.html.backup2      ← Yedek (99KB, ara versiyon)
 ├── .gitignore              ← Git ignore kuralları
-├── PROJE-OZETI.md          ← Eski proje özeti (güncel değil)
-├── DEVAM_PROMPT.md         ← Eski devam promptu (güncel değil)
 └── CLAUDE-CODE-REHBER.md   ← Bu dosya
 ```
 
@@ -482,17 +478,31 @@ Yeni alan eklenmesi gerekirse bu fonksiyona eklenmeli.
 
 ## 10. DEPLOY
 
-Netlify'da deploy ediliyor. `netlify.toml` içeriği:
+**Cloudflare Pages** üzerinde deploy ediliyor. Canlı URL: https://logwise.fit/
 
-- `publish = "."` — kök dizin publish edilir
-- SPA redirect'leri: `/dashboard`, `/exercises`, `/programs`, `/feedback`, `/data`, `/social` → `/index.html` (status 200)
-- `/profile` → `/profile.html` (status 200), `/share` → `/share.html` (status 200)
-- Pretty URL redirect'leri: `/index.html` → `/` (301)
-- **ÖNEMLİ**: `/profile.html` → `/profile` (301, force) redirect'i kaldırıldı çünkü sonsuz döngüye neden oluyordu. Aynı şekilde `/share.html` → `/share` redirect'i de kaldırıldı. Linklerde her zaman `/profile` ve `/share` kullanılmalı, `.html` uzantılı link kullanılmamalı.
-- 404 catch-all: `/*` → `/404.html`
-- Güvenlik header'ları: X-Frame-Options, X-Content-Type-Options, Referrer-Policy
-- Cache: public, max-age=3600
-- `sw.js` özel header: `Cache-Control: no-cache` (tarayıcılar her zaman güncel SW kontrol eder)
+### Cloudflare Pages Ayarları
+- **Build command**: boş (build step yok)
+- **Build output directory**: `/` (kök dizin)
+- **Branch**: main
+
+### `_redirects` dosyası (kök dizinde)
+Tüm redirect ve rewrite kuralları bu dosyada tanımlı:
+- `/index.html` ve `/index.php` → `/` (301, force) — temiz URL
+- `/profile` → `/profile.html` (200 rewrite) — clean URL
+- `/share` → `/share.html` (200 rewrite) — clean URL
+- SPA route'ları: `/dashboard`, `/exercises`, `/programs`, `/feedback`, `/data`, `/social` → `/index.html` (200 rewrite)
+- Catch-all: `/*` → `/404.html` (404)
+
+### `_headers` dosyası (kök dizinde)
+- `sw.js`: `Cache-Control: no-cache` — tarayıcı her zaman güncel SW'yi kontrol eder
+- Tüm sayfalar: güvenlik header'ları (X-Frame-Options, X-Content-Type-Options, Referrer-Policy) + `Cache-Control: public, max-age=3600`
+
+### Önemli Kurallar
+- **ÖNEMLİ**: Kodda her zaman `/profile` ve `/share` kullanılmalı, asla `/profile.html` veya `/share.html` kullanılmamalı. Redirect döngüsüne sebep olur.
+- `netlify.toml` artık kullanılmıyor; Cloudflare `_redirects` ve `_headers` dosyalarını kullanıyor.
+
+### Eski Netlify Notu
+Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) sorunu nedeniyle Cloudflare Pages'e geçildi. `netlify.toml` referans amaçlı bırakıldı, silinebilir.
 
 ---
 

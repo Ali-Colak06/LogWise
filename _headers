@@ -1,0 +1,13 @@
+# Cloudflare Pages — HTTP Header Kuralları
+# netlify.toml'dan dönüştürüldü
+
+# sw.js için cache kapatma — tarayıcı her zaman güncel SW'yi kontrol eder
+/sw.js
+  Cache-Control: no-cache
+
+# Tüm sayfalar için güvenlik ve cache header'ları
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Cache-Control: public, max-age=3600
