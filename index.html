@@ -122,7 +122,7 @@ input:focus,select:focus{outline:none;border-color:var(--blue) !important}
     <p>Log Wise is a free workout tracker and strength training app. Log your sets and reps, build custom weekly programs or pick from ready-made routines, track your progress with detailed charts, estimate your 1RM, and see which muscle groups you're training most. Your entire training history in one place — start training smarter today.</p>
   </div>
 </noscript>
-<div id="root"><div style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0a0a;color:#e0e0e0;font-family:'Space Mono',monospace;gap:16px"><div style="font-size:48px;animation:pulseGlow 1.5s ease infinite">🏋️</div><div style="font-size:18px;font-weight:700;letter-spacing:2px;color:#f0c040">LOG WISE</div><div style="width:120px;height:4px;background:#222;border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:#f0c040;border-radius:4px;animation:skeletonSlide 1.2s ease infinite"></div></div></div></div>
+<div id="root"><div style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0a0a;color:#e0e0e0;font-family:'Space Mono',monospace;gap:16px"><div style="width:78px;height:78px;padding:9px;border-radius:22px;background:#111;border:1px solid #222;display:flex;align-items:center;justify-content:center;animation:pulseGlow 1.5s ease infinite"><img src="/Site_Logo180.svg" alt="" aria-hidden="true" style="width:100%;height:100%;display:block;border-radius:14px"/></div><div style="font-size:18px;font-weight:700;letter-spacing:2px;color:#f0c040">LOG WISE</div><div style="width:120px;height:4px;background:#222;border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:#f0c040;border-radius:4px;animation:skeletonSlide 1.2s ease infinite"></div></div></div></div>
 <script type="text/babel">
 const SUPABASE_URL="https://czbxujioufhmvoajqwzp.supabase.co";
 const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6Ynh1amlvdWZobXZvYWpxd3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDYzNTgsImV4cCI6MjA5MDA4MjM1OH0._juhkh6W8p0iP3WVSooi1fFfZFXT50LugDszPBubOgk";
@@ -305,6 +305,7 @@ const pD=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
 const gdow=d=>{const v=d.getDay();return v===0?6:v-1};
 const SK="gym-log-v3",TK="gym-log-theme",LK="gym-log-lang",UK="gym-log-user",FK="gym-log-feedback";
 const IS_LOCAL_STATIC=window.location.protocol==="file:"||["localhost","127.0.0.1"].includes(window.location.hostname);
+const BRAND_LOGO_SRC="/Site_Logo180.svg";
 const profileRoute=id=>`${IS_LOCAL_STATIC?"/profile.html":"/profile"}${id?`?id=${encodeURIComponent(id)}`:""}`;
 const shareRoute=id=>`${IS_LOCAL_STATIC?"/share.html":"/share"}${id?`?id=${encodeURIComponent(id)}`:""}`;
 const eDays=()=>({"0":[],"1":[],"2":[],"3":[],"4":[],"5":[],"6":[]});
@@ -347,6 +348,13 @@ const buildProfileRow=(user,existing={},overrides={})=>{
     is_public:overrides.is_public??existing.is_public??true
   };
 };
+function BrandMark({size=72,pad=8,radius=20,style={}}){
+  return(
+    <div style={{width:size,height:size,padding:pad,borderRadius:radius,background:"var(--bg3)",border:"1px solid var(--brd)",display:"inline-flex",alignItems:"center",justifyContent:"center",boxShadow:"var(--shadow2)",...style}}>
+      <img src={BRAND_LOGO_SRC} alt="" aria-hidden="true" style={{width:"100%",height:"100%",display:"block",objectFit:"contain",borderRadius:Math.max(radius-pad,8)}}/>
+    </div>
+  );
+}
 const syncProfileRecord=async(user,overrides={})=>{
   if(!user?.id)return{data:null,error:new Error("Missing user")};
   const{data:existing,error:existingError}=await sb.from("profiles").select("*").eq("user_id",user.id).maybeSingle();
@@ -440,7 +448,7 @@ return(<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.65)",backdr
 <div style={{background:"var(--bg2)",borderRadius:20,padding:"36px 32px 28px",width:"100%",maxWidth:420,boxShadow:"0 8px 32px rgba(0,0,0,.4)",animation:"scaleIn .3s ease",position:"relative",border:"1px solid var(--brd)"}} onClick={e=>e.stopPropagation()}>
 {onClose&&<button onClick={onClose} style={{position:"absolute",top:14,right:14,background:"none",border:"none",cursor:"pointer",color:"var(--t3)",fontSize:20,fontFamily:"inherit",lineHeight:1}}>✕</button>}
 <div style={{textAlign:"center",marginBottom:24}}>
-  <div style={{fontSize:40,marginBottom:4}}>🏋️</div>
+  <BrandMark size={68} pad={7} radius={20} style={{margin:"0 auto 8px"}}/>
   <h1 style={{fontFamily:"'Archivo Black',sans-serif",fontSize:26,color:"var(--accent)",marginBottom:4}}>LOG WISE</h1>
   <p style={{fontSize:13,color:"var(--t2)"}}>{mode==="login"?L.login:mode==="register"?L.register:(lang==="tr"?"Şifre Sıfırlama":"Reset Password")}</p>
 </div>
@@ -1187,7 +1195,7 @@ return(
 {showOnboard&&<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.7)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:300,padding:16}}>
   <div style={{background:"var(--bg)",borderRadius:16,padding:32,maxWidth:400,textAlign:"center",boxShadow:"var(--shadow)"}}>
     {onboardStep===0&&<>
-      <div style={{fontSize:48,marginBottom:16}}>🏋️</div>
+      <BrandMark size={84} pad={10} radius={24} style={{margin:"0 auto 16px"}}/>
       <h2 style={{fontSize:20,fontWeight:700,marginBottom:8}}>{L.onboardWelcome}</h2>
       <p style={{fontSize:14,color:"var(--t2)",marginBottom:24,lineHeight:1.6}}>
         {L.onboardStep1}<br/>
@@ -1211,8 +1219,8 @@ return(
       <p style={{fontSize:14,color:"var(--t2)",marginBottom:24}}>{L.onboardStep3}</p>
     </>}
     <div style={{display:"flex",gap:8,justifyContent:"center"}}>
-      <button onClick={()=>{setShowOnboard(false);localStorage.setItem("logwise-onboard-done","1")}} style={{...S.sec,flex:1}}>{L.onboardSkip}</button>
-      <button onClick={()=>{if(onboardStep<3)setOnboardStep(onboardStep+1);else{setShowOnboard(false);localStorage.setItem("logwise-onboard-done","1")}}} style={{...S.pri,flex:1}}>{onboardStep<3?"→":L.onboardStart}</button>
+      <button onClick={()=>{setShowOnboard(false);localStorage.setItem("logwise-onboard-done","1")}} style={{...S.sec,flex:1,display:"flex",alignItems:"center",justifyContent:"center"}}>{L.onboardSkip}</button>
+      <button onClick={()=>{if(onboardStep<3)setOnboardStep(onboardStep+1);else{setShowOnboard(false);localStorage.setItem("logwise-onboard-done","1")}}} style={{...S.pri,flex:1,display:"flex",alignItems:"center",justifyContent:"center"}}>{onboardStep<3?<span style={{fontSize:28,lineHeight:1,fontWeight:700}}>→</span>:L.onboardStart}</button>
     </div>
   </div>
 </div>}
@@ -2360,7 +2368,7 @@ function Root(){
     return()=>subscription.unsubscribe();
   },[]);
   useEffect(()=>{localStorage.setItem(LK,lang)},[lang]);
-  if(checking)return(<div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"var(--bg)",color:"var(--t1)"}}><div style={{fontSize:18,fontFamily:"'Space Mono',monospace"}}>🏋️ Yükleniyor...</div></div>);
+  if(checking)return(<div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"var(--bg)",color:"var(--t1)"}}><div style={{display:"flex",flexDirection:"column",alignItems:"center",gap:14,fontSize:18,fontFamily:"'Space Mono',monospace"}}><BrandMark size={74} pad={8} radius={22}/><div>Yükleniyor...</div></div></div>);
   return <>
     <ErrorBoundary><App key={user?.id||'guest'} user={user} setUser={setUser} lang={lang} setLang={setLang} showAuth={()=>setShowAuth(true)}/></ErrorBoundary>
     {showAuth&&!user&&<AuthScreen onLogin={u=>{setUser(u);setShowAuth(false)}} lang={lang} setLang={setLang} onClose={()=>setShowAuth(false)}/>}
