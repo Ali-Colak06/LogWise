@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v1';
+const CACHE_NAME = 'logwise-v2';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
