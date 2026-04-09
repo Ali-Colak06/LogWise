@@ -4,11 +4,9 @@
 /index.html   /   301
 /index.php    /   301
 
-# Profil sayfası — /profile URL'i profile.html'i yükler (clean URL)
-/profile      /profile.html   200
-
-# Paylaşılan antrenman sayfası — /share URL'i share.html'i yükler
-/share        /share.html     200
+# NOT: /profile ve /share için kural YOK — Cloudflare Pages, profile.html ve
+# share.html dosyalarını otomatik olarak clean URL olarak sunuyor.
+# Burada kural eklemek 307 döngüsüne neden oluyordu.
 
 # SPA route'ları — React client-side routing
 /social       /index.html     200
