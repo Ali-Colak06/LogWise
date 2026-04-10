@@ -10,7 +10,9 @@ Thumbs.db
 
 # JSX derleme araçları (deploy'a gitmez)
 node_modules/
+package.json
 package-lock.json
+compile.js
 
 # Babel backup'lar (kaynak JSX — deploy'a gitmez)
 *.babel-backup
