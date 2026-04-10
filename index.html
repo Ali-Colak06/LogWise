@@ -3943,7 +3943,8 @@ function App({
   const aProg = data.activeProgram && data.programs[data.activeProgram] ? data.programs[data.activeProgram] : null;
   const Pill = ({
     eid,
-    sets
+    sets,
+    planned
   }) => {
     const colors = clAll(eid);
     const c = colors[0];
@@ -3964,7 +3965,8 @@ function App({
         whiteSpace: "nowrap",
         borderLeft: colors.length > 1 ? "3px solid transparent" : "3px solid var(--" + c + ")",
         borderImage: colors.length > 1 ? borderImg + " 1" : "none",
-        lineHeight: "18px"
+        lineHeight: "18px",
+        opacity: planned ? 0.45 : 1
       }
     }, exN(eid), sets && sets.length > 0 && React.createElement("span", {
       style: {
@@ -5721,7 +5723,8 @@ function App({
     }, d.getDate())), eff.slice(0, 4).map((w, j) => React.createElement(Pill, {
       key: j,
       eid: w.exerciseId,
-      sets: w.sets
+      sets: w.sets,
+      planned: w._pg
     })), eff.length > 4 && React.createElement("div", {
       style: {
         fontSize: 10,
@@ -5808,7 +5811,8 @@ function App({
           padding: "4px 8px",
           marginBottom: 4,
           fontSize: 12,
-          color: `var(--${c})`
+          color: `var(--${c})`,
+          opacity: w._pg ? 0.45 : 1
         }
       }, React.createElement("div", {
         style: {
