@@ -7,3 +7,10 @@ Thumbs.db
 
 # Loglar
 *.log
+
+# JSX derleme araçları (deploy'a gitmez)
+node_modules/
+package-lock.json
+
+# Babel backup'lar (kaynak JSX — deploy'a gitmez)
+*.babel-backup

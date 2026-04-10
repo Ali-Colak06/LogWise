@@ -13,7 +13,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet"/>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
-<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -61,158 +60,516 @@ body{font-family:'Space Mono',monospace;transition:background .3s,color .3s}
 <body>
 <h1 class="sr-only">Log Wise — Shared Workout</h1>
 <div id="root"></div>
-<script type="text/babel">
-const SUPABASE_URL="https://czbxujioufhmvoajqwzp.supabase.co";
-const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6Ynh1amlvdWZobXZvYWpxd3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDYzNTgsImV4cCI6MjA5MDA4MjM1OH0._juhkh6W8p0iP3WVSooi1fFfZFXT50LugDszPBubOgk";
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-const {useState,useEffect}=React;
-const TK="gym-log-theme",LK="gym-log-lang";
-const IS_LOCAL_STATIC=window.location.protocol==="file:"||["localhost","127.0.0.1"].includes(window.location.hostname);
-const profileRoute=id=>`${IS_LOCAL_STATIC?"/profile.html":"/profile"}${id?`?id=${encodeURIComponent(id)}`:""}`;
-
-const ST_COLORS={working:"blue",warmup:"orange",drop:"purple",superset:"indigo"};
-const ST_LABELS_TR={working:"Normal",warmup:"Isınma",drop:"Drop",superset:"Süper"};
-const ST_LABELS_EN={working:"Working",warmup:"Warm-up",drop:"Drop",superset:"Superset"};
-
-function ShareApp(){
-  const[theme,setTheme]=useState(()=>localStorage.getItem(TK)||"dark");
-  const[lang,setLang]=useState(()=>localStorage.getItem(LK)||"tr");
-  const[loading,setLoading]=useState(true);
-  const[workout,setWorkout]=useState(null);
-  const[ownerProfile,setOwnerProfile]=useState(null);
-  const[error,setError]=useState(false);
-
-  useEffect(()=>{document.documentElement.setAttribute("data-theme",theme);localStorage.setItem(TK,theme)},[theme]);
-
-  useEffect(()=>{
-    const params=new URLSearchParams(window.location.search);
-    const id=params.get("id");
-    if(!id){setError(true);setLoading(false);return;}
-    sb.from("shared_workouts").select("*").eq("id",id).single()
-      .then(({data:sw,error:e})=>{
-        if(e||!sw){setError(true);setLoading(false);return;}
-        setWorkout(sw);
-        // Load owner profile
-        sb.from("profiles").select("*").eq("user_id",sw.user_id).single()
-          .then(({data:p})=>{if(p)setOwnerProfile(p);setLoading(false);});
+<script>
+const SUPABASE_URL = "https://czbxujioufhmvoajqwzp.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6Ynh1amlvdWZobXZvYWpxd3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDYzNTgsImV4cCI6MjA5MDA4MjM1OH0._juhkh6W8p0iP3WVSooi1fFfZFXT50LugDszPBubOgk";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const {
+  useState,
+  useEffect
+} = React;
+const TK = "gym-log-theme",
+  LK = "gym-log-lang";
+const IS_LOCAL_STATIC = window.location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(window.location.hostname);
+const profileRoute = id => `${IS_LOCAL_STATIC ? "/profile.html" : "/profile"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;
+const ST_COLORS = {
+  working: "blue",
+  warmup: "orange",
+  drop: "purple",
+  superset: "indigo"
+};
+const ST_LABELS_TR = {
+  working: "Normal",
+  warmup: "Isınma",
+  drop: "Drop",
+  superset: "Süper"
+};
+const ST_LABELS_EN = {
+  working: "Working",
+  warmup: "Warm-up",
+  drop: "Drop",
+  superset: "Superset"
+};
+function ShareApp() {
+  const [theme, setTheme] = useState(() => localStorage.getItem(TK) || "dark");
+  const [lang, setLang] = useState(() => localStorage.getItem(LK) || "tr");
+  const [loading, setLoading] = useState(true);
+  const [workout, setWorkout] = useState(null);
+  const [ownerProfile, setOwnerProfile] = useState(null);
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem(TK, theme);
+  }, [theme]);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    if (!id) {
+      setError(true);
+      setLoading(false);
+      return;
+    }
+    sb.from("shared_workouts").select("*").eq("id", id).single().then(({
+      data: sw,
+      error: e
+    }) => {
+      if (e || !sw) {
+        setError(true);
+        setLoading(false);
+        return;
+      }
+      setWorkout(sw);
+      sb.from("profiles").select("*").eq("user_id", sw.user_id).single().then(({
+        data: p
+      }) => {
+        if (p) setOwnerProfile(p);
+        setLoading(false);
       });
-  },[]);
-
-  const IcoSun=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--t2)"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>;
-  const IcoMoon=()=><svg width="20" height="20" viewBox="0 0 24 24" fill="var(--t2)"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>;
-
-  const formatDate=(d)=>{
-    if(!d)return"—";
-    const dt=new Date(d);
-    const months=lang==="tr"?["Ocak","Şubat","Mart","Nisan","Mayıs","Haziran","Temmuz","Ağustos","Eylül","Ekim","Kasım","Aralık"]:["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
-    return`${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
+    });
+  }, []);
+  const IcoSun = () => React.createElement("svg", {
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24",
+    fill: "var(--t2)"
+  }, React.createElement("circle", {
+    cx: "12",
+    cy: "12",
+    r: "5"
+  }), React.createElement("path", {
+    d: "M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+  }));
+  const IcoMoon = () => React.createElement("svg", {
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24",
+    fill: "var(--t2)"
+  }, React.createElement("path", {
+    d: "M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"
+  }));
+  const formatDate = d => {
+    if (!d) return "—";
+    const dt = new Date(d);
+    const months = lang === "tr" ? ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"] : ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    return `${dt.getDate()} ${months[dt.getMonth()]} ${dt.getFullYear()}`;
   };
-
-  const S={
-    card:{background:"var(--bg2)",border:"1px solid var(--brd)",borderRadius:16,padding:24,marginBottom:20,boxShadow:"var(--shadow2)"},
-    ib:{width:40,height:40,borderRadius:"50%",border:"none",background:"transparent",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0},
-    pri:{padding:"10px 24px",borderRadius:12,border:"none",background:"var(--accent)",color:"var(--accentT)",fontSize:14,fontWeight:600,cursor:"pointer",fontFamily:"inherit"},
+  const S = {
+    card: {
+      background: "var(--bg2)",
+      border: "1px solid var(--brd)",
+      borderRadius: 16,
+      padding: 24,
+      marginBottom: 20,
+      boxShadow: "var(--shadow2)"
+    },
+    ib: {
+      width: 40,
+      height: 40,
+      borderRadius: "50%",
+      border: "none",
+      background: "transparent",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    },
+    pri: {
+      padding: "10px 24px",
+      borderRadius: 12,
+      border: "none",
+      background: "var(--accent)",
+      color: "var(--accentT)",
+      fontSize: 14,
+      fontWeight: 600,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
   };
-
-  if(loading)return(<div style={{height:"100vh",display:"flex",alignItems:"center",justifyContent:"center",background:"var(--bg)",color:"var(--t1)"}}><div style={{fontSize:18}}>🏋️ {lang==="tr"?"Yükleniyor...":"Loading..."}</div></div>);
-
-  if(error||!workout)return(<div style={{height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",background:"var(--bg)",color:"var(--t1)",gap:16}}>
-    <div style={{fontSize:64}}>🏋️</div>
-    <h2 style={{fontSize:20,fontWeight:700,color:"var(--accent)"}}>LOG WISE</h2>
-    <p style={{fontSize:14,color:"var(--t2)"}}>{lang==="tr"?"Bu antrenman bulunamadı":"This workout was not found"}</p>
-    <button onClick={()=>window.location.href="/"} style={S.pri}>{lang==="tr"?"Ana Sayfa":"Home"}</button>
-  </div>);
-
-  const workoutPayload=typeof workout.workout_data==="string"?JSON.parse(workout.workout_data):workout.workout_data;
-  const shareMeta=Array.isArray(workoutPayload)?{}:(workoutPayload?.meta||{});
-  const wData=Array.isArray(workoutPayload)?workoutPayload:(Array.isArray(workoutPayload?.exercises)?workoutPayload.exercises:[]);
-  const exNames=typeof workout.exercise_names==="string"?JSON.parse(workout.exercise_names):workout.exercise_names||[];
-  const sharedMeasurements=shareMeta.sharedMeasurements||{};
-  const measurementLabels=lang==="tr"?{title:"Paylaşılan Vücut Ölçüleri",weight:"Kilo",height:"Boy",snapshot:"Ölçüm tarihi"}:{title:"Shared Body Metrics",weight:"Weight",height:"Height",snapshot:"Measurement date"};
-  const STL=lang==="tr"?ST_LABELS_TR:ST_LABELS_EN;
-
-  return(
-  <div style={{height:"100vh",display:"flex",flexDirection:"column",background:"var(--bg)",color:"var(--t1)"}}>
-    {/* Header */}
-    <header style={{display:"flex",alignItems:"center",padding:"8px 16px",borderBottom:"1px solid var(--brd)",height:64,flexShrink:0,gap:12,zIndex:50,background:"var(--bg)"}}>
-      <a href="/" style={{textDecoration:"none",display:"flex",alignItems:"center",gap:8}}>
-        <span style={{fontSize:22,fontWeight:400,color:"var(--t1)"}}>🏋️ <b style={{fontFamily:"'Archivo Black',sans-serif",color:"var(--accent)"}}>LOG WISE</b></span>
-      </a>
-      <span style={{flex:1}}/>
-      <button onClick={()=>setLang(l=>l==="tr"?"en":"tr")} style={{padding:"4px 10px",borderRadius:6,border:"1px solid var(--brd)",background:"var(--bg)",color:"var(--t1)",fontSize:12,cursor:"pointer",fontFamily:"inherit"}}>{lang==="tr"?"EN":"TR"}</button>
-      <button onClick={()=>setTheme(t=>t==="dark"?"light":"dark")} style={S.ib}>{theme==="dark"?<IcoSun/>:<IcoMoon/>}</button>
-    </header>
-
-    {/* Content */}
-    <main style={{flex:1,overflowY:"auto",padding:"24px 16px 160px"}}>
-      <div style={{maxWidth:560,margin:"0 auto"}}>
-        {/* Owner info + date */}
-        <div style={{...S.card,textAlign:"center",paddingTop:28}}>
-          {ownerProfile&&<div style={{display:"flex",alignItems:"center",justifyContent:"center",gap:10,marginBottom:16}}>
-            <div style={{width:44,height:44,borderRadius:"50%",background:"var(--blueL)",border:"2px solid var(--blue)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:ownerProfile.avatar?20:16,fontWeight:700,color:"var(--blue)",cursor:"pointer"}} onClick={()=>window.location.href=profileRoute(workout.user_id)}>
-              {ownerProfile.avatar||(ownerProfile.display_name||"U").charAt(0).toUpperCase()}
-            </div>
-            <div style={{textAlign:"left"}}>
-              <div style={{fontSize:15,fontWeight:600,color:"var(--t1)",cursor:"pointer"}} onClick={()=>window.location.href=profileRoute(workout.user_id)}>{ownerProfile.display_name||"User"}</div>
-              <div style={{fontSize:11,color:"var(--t3)"}}>{formatDate(workout.created_at)}</div>
-            </div>
-          </div>}
-          <h2 style={{fontSize:20,fontWeight:700,color:"var(--accent)",marginBottom:4}}>📅 {workout.workout_date}</h2>
-          {workout.caption&&<p style={{fontSize:14,color:"var(--t2)",marginTop:8,fontStyle:"italic"}}>"{workout.caption}"</p>}
-          {exNames.length>0&&<div style={{display:"flex",gap:6,flexWrap:"wrap",justifyContent:"center",marginTop:12}}>
-            {exNames.map((n,i)=><span key={i} style={{fontSize:11,padding:"4px 10px",borderRadius:8,background:"var(--blueL)",color:"var(--blue)",fontWeight:500}}>{n}</span>)}
-          </div>}
-          {(sharedMeasurements.weight||sharedMeasurements.height)&&<div style={{marginTop:14,padding:"12px 14px",borderRadius:12,background:"var(--bg3)",border:"1px solid var(--brd)"}}>
-            <div style={{fontSize:11,fontWeight:700,color:"var(--t3)",textTransform:"uppercase",letterSpacing:.6,marginBottom:8}}>{measurementLabels.title}</div>
-            <div style={{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap"}}>
-              {sharedMeasurements.weight&&<span style={{fontSize:12,padding:"4px 10px",borderRadius:999,background:"var(--greenL)",color:"var(--green)",fontWeight:600}}>⚖️ {measurementLabels.weight}: {sharedMeasurements.weight} kg</span>}
-              {sharedMeasurements.height&&<span style={{fontSize:12,padding:"4px 10px",borderRadius:999,background:"var(--blueL)",color:"var(--blue)",fontWeight:600}}>📏 {measurementLabels.height}: {sharedMeasurements.height} cm</span>}
-            </div>
-            {shareMeta.measurementDate&&<div style={{marginTop:8,fontSize:11,color:"var(--t3)"}}>{measurementLabels.snapshot}: {shareMeta.measurementDate}</div>}
-          </div>}
-        </div>
-
-        {/* Exercises */}
-        {wData.map((ex,idx)=>{
-          const name=exNames[idx]||`Exercise ${idx+1}`;
-          let totalVol=0,totalSets=ex.sets?ex.sets.length:0;
-          if(ex.sets)ex.sets.forEach(s=>{totalVol+=(s.weight||0)*(s.reps||0)});
-          return(
-          <div key={idx} className="ex-card" style={S.card}>
-            <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:12}}>
-              <h3 style={{fontSize:15,fontWeight:600}}>{name}</h3>
-              <span style={{fontSize:11,color:"var(--t3)"}}>{totalSets} set · {totalVol>0?totalVol+"kg vol":""}</span>
-            </div>
-            {ex.sets&&ex.sets.length>0&&<div>
-              <div style={{display:"grid",gridTemplateColumns:"36px 1fr 1fr 1fr 60px",gap:4,marginBottom:6}}>
-                <span style={{fontSize:10,fontWeight:600,color:"var(--t3)",textTransform:"uppercase"}}>#</span>
-                <span style={{fontSize:10,fontWeight:600,color:"var(--t3)",textTransform:"uppercase"}}>KG</span>
-                <span style={{fontSize:10,fontWeight:600,color:"var(--t3)",textTransform:"uppercase"}}>{lang==="tr"?"TEKRAR":"REPS"}</span>
-                <span style={{fontSize:10,fontWeight:600,color:"var(--t3)",textTransform:"uppercase"}}>RIR</span>
-                <span style={{fontSize:10,fontWeight:600,color:"var(--t3)",textTransform:"uppercase"}}>{lang==="tr"?"TİP":"TYPE"}</span>
-              </div>
-              {ex.sets.map((s,si)=><div key={si} style={{display:"grid",gridTemplateColumns:"36px 1fr 1fr 1fr 60px",gap:4,padding:"6px 0",borderBottom:"1px solid var(--brd)"}}>
-                <span style={{fontSize:13,color:"var(--t2)"}}>{si+1}</span>
-                <span style={{fontSize:13,fontWeight:600}}>{s.weight||"—"}</span>
-                <span style={{fontSize:13,fontWeight:600}}>{s.duration?s.duration+(lang==="tr"?"dk":"min"):(s.reps||"—")}</span>
-                <span style={{fontSize:13,color:"var(--t2)"}}>{s.rir||"—"}</span>
-                <span style={{fontSize:10,padding:"2px 6px",borderRadius:4,background:`var(--${ST_COLORS[s.type||"working"]}L)`,color:`var(--${ST_COLORS[s.type||"working"]})`,fontWeight:500,textAlign:"center"}}>{STL[s.type||"working"]}</span>
-              </div>)}
-            </div>}
-          </div>);
-        })}
-
-        {/* CTA */}
-        <div style={{textAlign:"center",marginTop:12}}>
-          <p style={{fontSize:13,color:"var(--t3)",marginBottom:12}}>{lang==="tr"?"Antrenmanlarını takip etmek ister misin?":"Want to track your workouts?"}</p>
-          <button onClick={()=>window.location.href="/"} style={S.pri}>🏋️ {lang==="tr"?"Log Wise'ı Dene":"Try Log Wise"}</button>
-        </div>
-      </div>
-    </main>
-  </div>);
+  if (loading) return React.createElement("div", {
+    style: {
+      height: "100vh",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "var(--bg)",
+      color: "var(--t1)"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 18
+    }
+  }, "\uD83C\uDFCB\uFE0F ", lang === "tr" ? "Yükleniyor..." : "Loading..."));
+  if (error || !workout) return React.createElement("div", {
+    style: {
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      background: "var(--bg)",
+      color: "var(--t1)",
+      gap: 16
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 64
+    }
+  }, "\uD83C\uDFCB\uFE0F"), React.createElement("h2", {
+    style: {
+      fontSize: 20,
+      fontWeight: 700,
+      color: "var(--accent)"
+    }
+  }, "LOG WISE"), React.createElement("p", {
+    style: {
+      fontSize: 14,
+      color: "var(--t2)"
+    }
+  }, lang === "tr" ? "Bu antrenman bulunamadı" : "This workout was not found"), React.createElement("button", {
+    onClick: () => window.location.href = "/",
+    style: S.pri
+  }, lang === "tr" ? "Ana Sayfa" : "Home"));
+  const workoutPayload = typeof workout.workout_data === "string" ? JSON.parse(workout.workout_data) : workout.workout_data;
+  const shareMeta = Array.isArray(workoutPayload) ? {} : workoutPayload?.meta || {};
+  const wData = Array.isArray(workoutPayload) ? workoutPayload : Array.isArray(workoutPayload?.exercises) ? workoutPayload.exercises : [];
+  const exNames = typeof workout.exercise_names === "string" ? JSON.parse(workout.exercise_names) : workout.exercise_names || [];
+  const sharedMeasurements = shareMeta.sharedMeasurements || {};
+  const measurementLabels = lang === "tr" ? {
+    title: "Paylaşılan Vücut Ölçüleri",
+    weight: "Kilo",
+    height: "Boy",
+    snapshot: "Ölçüm tarihi"
+  } : {
+    title: "Shared Body Metrics",
+    weight: "Weight",
+    height: "Height",
+    snapshot: "Measurement date"
+  };
+  const STL = lang === "tr" ? ST_LABELS_TR : ST_LABELS_EN;
+  return React.createElement("div", {
+    style: {
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      background: "var(--bg)",
+      color: "var(--t1)"
+    }
+  }, React.createElement("header", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      padding: "8px 16px",
+      borderBottom: "1px solid var(--brd)",
+      height: 64,
+      flexShrink: 0,
+      gap: 12,
+      zIndex: 50,
+      background: "var(--bg)"
+    }
+  }, React.createElement("a", {
+    href: "/",
+    style: {
+      textDecoration: "none",
+      display: "flex",
+      alignItems: "center",
+      gap: 8
+    }
+  }, React.createElement("span", {
+    style: {
+      fontSize: 22,
+      fontWeight: 400,
+      color: "var(--t1)"
+    }
+  }, "\uD83C\uDFCB\uFE0F ", React.createElement("b", {
+    style: {
+      fontFamily: "'Archivo Black',sans-serif",
+      color: "var(--accent)"
+    }
+  }, "LOG WISE"))), React.createElement("span", {
+    style: {
+      flex: 1
+    }
+  }), React.createElement("button", {
+    onClick: () => setLang(l => l === "tr" ? "en" : "tr"),
+    style: {
+      padding: "4px 10px",
+      borderRadius: 6,
+      border: "1px solid var(--brd)",
+      background: "var(--bg)",
+      color: "var(--t1)",
+      fontSize: 12,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, lang === "tr" ? "EN" : "TR"), React.createElement("button", {
+    onClick: () => setTheme(t => t === "dark" ? "light" : "dark"),
+    style: S.ib
+  }, theme === "dark" ? React.createElement(IcoSun, null) : React.createElement(IcoMoon, null))), React.createElement("main", {
+    style: {
+      flex: 1,
+      overflowY: "auto",
+      padding: "24px 16px 160px"
+    }
+  }, React.createElement("div", {
+    style: {
+      maxWidth: 560,
+      margin: "0 auto"
+    }
+  }, React.createElement("div", {
+    style: {
+      ...S.card,
+      textAlign: "center",
+      paddingTop: 28
+    }
+  }, ownerProfile && React.createElement("div", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 10,
+      marginBottom: 16
+    }
+  }, React.createElement("div", {
+    style: {
+      width: 44,
+      height: 44,
+      borderRadius: "50%",
+      background: "var(--blueL)",
+      border: "2px solid var(--blue)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: ownerProfile.avatar ? 20 : 16,
+      fontWeight: 700,
+      color: "var(--blue)",
+      cursor: "pointer"
+    },
+    onClick: () => window.location.href = profileRoute(workout.user_id)
+  }, ownerProfile.avatar || (ownerProfile.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
+    style: {
+      textAlign: "left"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 15,
+      fontWeight: 600,
+      color: "var(--t1)",
+      cursor: "pointer"
+    },
+    onClick: () => window.location.href = profileRoute(workout.user_id)
+  }, ownerProfile.display_name || "User"), React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: "var(--t3)"
+    }
+  }, formatDate(workout.created_at)))), React.createElement("h2", {
+    style: {
+      fontSize: 20,
+      fontWeight: 700,
+      color: "var(--accent)",
+      marginBottom: 4
+    }
+  }, "\uD83D\uDCC5 ", workout.workout_date), workout.caption && React.createElement("p", {
+    style: {
+      fontSize: 14,
+      color: "var(--t2)",
+      marginTop: 8,
+      fontStyle: "italic"
+    }
+  }, "\"", workout.caption, "\""), exNames.length > 0 && React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 6,
+      flexWrap: "wrap",
+      justifyContent: "center",
+      marginTop: 12
+    }
+  }, exNames.map((n, i) => React.createElement("span", {
+    key: i,
+    style: {
+      fontSize: 11,
+      padding: "4px 10px",
+      borderRadius: 8,
+      background: "var(--blueL)",
+      color: "var(--blue)",
+      fontWeight: 500
+    }
+  }, n))), (sharedMeasurements.weight || sharedMeasurements.height) && React.createElement("div", {
+    style: {
+      marginTop: 14,
+      padding: "12px 14px",
+      borderRadius: 12,
+      background: "var(--bg3)",
+      border: "1px solid var(--brd)"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      color: "var(--t3)",
+      textTransform: "uppercase",
+      letterSpacing: .6,
+      marginBottom: 8
+    }
+  }, measurementLabels.title), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      justifyContent: "center",
+      flexWrap: "wrap"
+    }
+  }, sharedMeasurements.weight && React.createElement("span", {
+    style: {
+      fontSize: 12,
+      padding: "4px 10px",
+      borderRadius: 999,
+      background: "var(--greenL)",
+      color: "var(--green)",
+      fontWeight: 600
+    }
+  }, "\u2696\uFE0F ", measurementLabels.weight, ": ", sharedMeasurements.weight, " kg"), sharedMeasurements.height && React.createElement("span", {
+    style: {
+      fontSize: 12,
+      padding: "4px 10px",
+      borderRadius: 999,
+      background: "var(--blueL)",
+      color: "var(--blue)",
+      fontWeight: 600
+    }
+  }, "\uD83D\uDCCF ", measurementLabels.height, ": ", sharedMeasurements.height, " cm")), shareMeta.measurementDate && React.createElement("div", {
+    style: {
+      marginTop: 8,
+      fontSize: 11,
+      color: "var(--t3)"
+    }
+  }, measurementLabels.snapshot, ": ", shareMeta.measurementDate))), wData.map((ex, idx) => {
+    const name = exNames[idx] || `Exercise ${idx + 1}`;
+    let totalVol = 0,
+      totalSets = ex.sets ? ex.sets.length : 0;
+    if (ex.sets) ex.sets.forEach(s => {
+      totalVol += (s.weight || 0) * (s.reps || 0);
+    });
+    return React.createElement("div", {
+      key: idx,
+      className: "ex-card",
+      style: S.card
+    }, React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 12
+      }
+    }, React.createElement("h3", {
+      style: {
+        fontSize: 15,
+        fontWeight: 600
+      }
+    }, name), React.createElement("span", {
+      style: {
+        fontSize: 11,
+        color: "var(--t3)"
+      }
+    }, totalSets, " set \xB7 ", totalVol > 0 ? totalVol + "kg vol" : "")), ex.sets && ex.sets.length > 0 && React.createElement("div", null, React.createElement("div", {
+      style: {
+        display: "grid",
+        gridTemplateColumns: "36px 1fr 1fr 1fr 60px",
+        gap: 4,
+        marginBottom: 6
+      }
+    }, React.createElement("span", {
+      style: {
+        fontSize: 10,
+        fontWeight: 600,
+        color: "var(--t3)",
+        textTransform: "uppercase"
+      }
+    }, "#"), React.createElement("span", {
+      style: {
+        fontSize: 10,
+        fontWeight: 600,
+        color: "var(--t3)",
+        textTransform: "uppercase"
+      }
+    }, "KG"), React.createElement("span", {
+      style: {
+        fontSize: 10,
+        fontWeight: 600,
+        color: "var(--t3)",
+        textTransform: "uppercase"
+      }
+    }, lang === "tr" ? "TEKRAR" : "REPS"), React.createElement("span", {
+      style: {
+        fontSize: 10,
+        fontWeight: 600,
+        color: "var(--t3)",
+        textTransform: "uppercase"
+      }
+    }, "RIR"), React.createElement("span", {
+      style: {
+        fontSize: 10,
+        fontWeight: 600,
+        color: "var(--t3)",
+        textTransform: "uppercase"
+      }
+    }, lang === "tr" ? "TİP" : "TYPE")), ex.sets.map((s, si) => React.createElement("div", {
+      key: si,
+      style: {
+        display: "grid",
+        gridTemplateColumns: "36px 1fr 1fr 1fr 60px",
+        gap: 4,
+        padding: "6px 0",
+        borderBottom: "1px solid var(--brd)"
+      }
+    }, React.createElement("span", {
+      style: {
+        fontSize: 13,
+        color: "var(--t2)"
+      }
+    }, si + 1), React.createElement("span", {
+      style: {
+        fontSize: 13,
+        fontWeight: 600
+      }
+    }, s.weight || "—"), React.createElement("span", {
+      style: {
+        fontSize: 13,
+        fontWeight: 600
+      }
+    }, s.duration ? s.duration + (lang === "tr" ? "dk" : "min") : s.reps || "—"), React.createElement("span", {
+      style: {
+        fontSize: 13,
+        color: "var(--t2)"
+      }
+    }, s.rir || "—"), React.createElement("span", {
+      style: {
+        fontSize: 10,
+        padding: "2px 6px",
+        borderRadius: 4,
+        background: `var(--${ST_COLORS[s.type || "working"]}L)`,
+        color: `var(--${ST_COLORS[s.type || "working"]})`,
+        fontWeight: 500,
+        textAlign: "center"
+      }
+    }, STL[s.type || "working"])))));
+  }), React.createElement("div", {
+    style: {
+      textAlign: "center",
+      marginTop: 12
+    }
+  }, React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "var(--t3)",
+      marginBottom: 12
+    }
+  }, lang === "tr" ? "Antrenmanlarını takip etmek ister misin?" : "Want to track your workouts?"), React.createElement("button", {
+    onClick: () => window.location.href = "/",
+    style: S.pri
+  }, "\uD83C\uDFCB\uFE0F ", lang === "tr" ? "Log Wise'ı Dene" : "Try Log Wise")))));
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(<ShareApp/>);
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(ShareApp, null));
 </script>
 </body>
 </html>
