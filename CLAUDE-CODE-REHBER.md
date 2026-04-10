@@ -765,3 +765,25 @@ Her badge için hem "kazanılmalı mı?" hem "geri alınmalı mı?" kontrolü ya
 ### Değişiklik 4: Service Worker Cache Versiyonu
 
 `sw.js` içindeki `CACHE_NAME` `logwise-v4` → `logwise-v5` olarak güncellendi. Bu sayede yeni SW deploy edildiğinde eski precache temizlenir ve güncel `index.html` offline fallback olarak da saklanır.
+
+---
+
+## 21. 2026-04-11 Takvimde Bugünün Hücresi Vurgulaması
+
+### Yeni CSS Animasyonu: `todayPulse`
+
+```css
+@keyframes todayPulse {
+  0%, 100% { box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 0 rgba(240,192,64,0); }
+  50%       { box-shadow: inset 0 0 0 2px var(--blue), 0 0 14px 2px rgba(240,192,64,.35); }
+}
+```
+
+İki katmanlı efekt: `inset` shadow ile layout'u bozmayan 2px altın iç çerçeve + 2 saniyede bir nabız gibi yanan dış glow.
+
+### Etkilenen Hücreler
+
+- **Aylık grid hücresi** (`calDays.map`): `isT` durumunda `animation: "todayPulse 2s ease infinite"`, `position: "relative"`, `zIndex: 2` eklendi. `onMouseEnter/Leave` hover efekti `!isT` koşuluna bağlandı (today hücresinde hover arka plan değiştirmiyor).
+- **Haftalık grid içerik hücresi** (`weekDays.map`, content grid): `const isT=k===today` eklendi, aynı animation/position/zIndex stili uygulandı.
+
+`zIndex: 2` sayesinde bugünün hücresi komşu hücrelerin üstünde render edilir; dış glow komşu border'ların arkasında kalmaz.

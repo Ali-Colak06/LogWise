@@ -98,6 +98,7 @@ input:focus,select:focus{outline:none;border-color:var(--blue) !important}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 0 rgba(240,192,64,.3)}50%{box-shadow:0 0 16px 4px rgba(240,192,64,.15)}}
+@keyframes todayPulse{0%,100%{box-shadow:inset 0 0 0 2px var(--blue),0 0 0 0 rgba(240,192,64,0)}50%{box-shadow:inset 0 0 0 2px var(--blue),0 0 14px 2px rgba(240,192,64,.35)}}
 .dash-card{animation:countUp .4s ease both}
 .dash-card:nth-child(2){animation-delay:.05s}.dash-card:nth-child(3){animation-delay:.1s}.dash-card:nth-child(4){animation-delay:.15s}
 .dash-card:nth-child(5){animation-delay:.2s}.dash-card:nth-child(6){animation-delay:.25s}
@@ -5795,13 +5796,16 @@ function App({
         cursor: "pointer",
         overflow: "hidden",
         background: isSel ? "var(--blueL)" : "var(--bg)",
-        transition: "background .1s"
+        transition: "background .1s",
+        position: "relative",
+        zIndex: isT ? 2 : "auto",
+        animation: isT ? "todayPulse 2s ease infinite" : "none"
       },
       onMouseEnter: e => {
-        if (!isSel) e.currentTarget.style.background = "var(--bgH)";
+        if (!isSel && !isT) e.currentTarget.style.background = "var(--bgH)";
       },
       onMouseLeave: e => {
-        if (!isSel) e.currentTarget.style.background = "var(--bg)";
+        if (!isSel && !isT) e.currentTarget.style.background = "var(--bg)";
       }
     }, React.createElement("div", {
       style: {
@@ -5885,6 +5889,7 @@ function App({
   }, weekDays.map(d => {
     const k = fmt(d);
     const eff = getEff(k);
+    const isT = k === today;
     return React.createElement("div", {
       key: k,
       onClick: () => {
@@ -5896,10 +5901,17 @@ function App({
         padding: "8px 4px",
         cursor: "pointer",
         overflow: "auto",
-        background: "var(--bg)"
+        background: "var(--bg)",
+        position: "relative",
+        zIndex: isT ? 2 : "auto",
+        animation: isT ? "todayPulse 2s ease infinite" : "none"
       },
-      onMouseEnter: e => e.currentTarget.style.background = "var(--bgH)",
-      onMouseLeave: e => e.currentTarget.style.background = "var(--bg)"
+      onMouseEnter: e => {
+        if (!isT) e.currentTarget.style.background = "var(--bgH)";
+      },
+      onMouseLeave: e => {
+        if (!isT) e.currentTarget.style.background = "var(--bg)";
+      }
     }, eff.map((w, j) => {
       const colors = clAll(w.exerciseId);
       const c = colors[0];
