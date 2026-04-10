@@ -1003,19 +1003,23 @@ const calcBadgeStats = data => {
   };
 };
 const checkBadges = data => {
-  const unlocked = new Set((data.badges || []).map(b => b.id));
+  const existing = data.badges || [];
+  const unlockedIds = new Set(existing.map(b => b.id));
   const st = calcBadgeStats(data);
   const fresh = [];
+  const revokeIds = new Set();
   BADGES.forEach(b => {
-    if (unlocked.has(b.id)) return;
     let ok = false;
     if (b.cat === "workout") ok = st.totalWorkouts >= b.val;else if (b.cat === "streak") ok = st.streak >= b.val;else if (b.cat === "pr") ok = st.maxWeight >= b.val;else if (b.cat === "volume") ok = st.totalVol >= b.val;else if (b.cat === "sets") ok = st.totalSets >= b.val;else if (b.cat === "variety") ok = st.variety >= b.val;
-    if (ok) fresh.push({
+    if (ok && !unlockedIds.has(b.id)) fresh.push({
       id: b.id,
       unlockedAt: fmt(new Date())
-    });
+    });else if (!ok && unlockedIds.has(b.id)) revokeIds.add(b.id);
   });
-  return fresh;
+  return {
+    fresh,
+    revokeIds
+  };
 };
 const getNextBadge = data => {
   const unlocked = new Set((data.badges || []).map(b => b.id));
@@ -2321,6 +2325,7 @@ function App({
   const [showSearch, setShowSearch] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [confetti, setConfetti] = useState(null);
+  const [anomalyConfirm, setAnomalyConfirm] = useState(null);
   const [activeTabMobile, setActiveTabMobile] = useState(view);
   const [dayNavFx, setDayNavFx] = useState(null);
   const dayNavFxTimeoutRef = useRef(null);
@@ -2894,8 +2899,9 @@ function App({
     const i = ws.findIndex(w => w.exerciseId === eid);
     if (i === -1) return;
     const sets = [...ws[i].sets];
-    const oldVal = sets[si][f];
-    const newVal = f === "rir" || f === "type" ? v : parseFloat(v) || 0;
+    let newVal = f === "rir" || f === "type" ? v : parseFloat(v) || 0;
+    if (f === "weight") newVal = Math.min(newVal, 500);
+    if (f === "reps") newVal = Math.min(newVal, 100);
     sets[si] = {
       ...sets[si],
       [f]: newVal
@@ -2916,6 +2922,23 @@ function App({
         [dk]: ws
       }
     });
+  };
+  const checkAnomaly = (eid, si, v) => {
+    const val = parseFloat(v) || 0;
+    if (val <= 0) return;
+    const d = dRef.current;
+    const dk = fmt(selDate);
+    const prevMax = Math.max(...Object.entries(d.workouts).filter(([date]) => date !== dk).flatMap(([, wArr]) => wArr).filter(w => w.exerciseId === eid).flatMap(w => w.sets.filter(s => s.weight > 0).map(s => s.weight)), 0);
+    if (prevMax > 0 && val > prevMax * 2) {
+      const exName = exN(eid);
+      setAnomalyConfirm({
+        eid,
+        si,
+        exName,
+        newVal: val,
+        prevMax
+      });
+    }
   };
   const rmSet = (eid, si) => {
     const d = dRef.current;
@@ -3786,26 +3809,34 @@ function App({
       badgeCheckRef.current = true;
       return;
     }
-    const fresh = checkBadges(data);
-    if (fresh.length > 0) {
+    const {
+      fresh,
+      revokeIds
+    } = checkBadges(data);
+    if (fresh.length > 0 || revokeIds.size > 0) {
+      const newBadges = [...(data.badges || []).filter(b => !revokeIds.has(b.id)), ...fresh];
       const nd = {
         ...data,
-        badges: [...(data.badges || []), ...fresh]
+        badges: newBadges
       };
       save(nd);
-      const lastBadge = BADGES.find(b => b.id === fresh[fresh.length - 1].id);
-      if (lastBadge) {
-        setBadgeToast({
-          icon: lastBadge.icon,
-          name: getBadgeName(lastBadge, lang)
-        });
-        setTimeout(() => setBadgeToast(null), 3500);
+      if (fresh.length > 0) {
+        const lastBadge = BADGES.find(b => b.id === fresh[fresh.length - 1].id);
+        if (lastBadge) {
+          setBadgeToast({
+            icon: lastBadge.icon,
+            name: getBadgeName(lastBadge, lang)
+          });
+          setTimeout(() => setBadgeToast(null), 3500);
+        }
       }
     }
   }, [data?.workouts]);
   useEffect(() => {
     if (!data || !data.workouts) return;
-    const fresh = checkBadges(data);
+    const {
+      fresh
+    } = checkBadges(data);
     if (fresh.length > 0) {
       const nd = {
         ...data,
@@ -4193,7 +4224,78 @@ function App({
       animation: "toastIn .3s ease",
       boxShadow: "var(--shadow)"
     }
-  }, toast), badgeToast && React.createElement("div", {
+  }, toast), anomalyConfirm && React.createElement("div", {
+    style: {
+      position: "fixed",
+      top: 20,
+      left: "50%",
+      transform: "translateX(-50%)",
+      background: "var(--bg2)",
+      border: "2px solid var(--orange)",
+      color: "var(--t1)",
+      padding: "14px 20px",
+      borderRadius: 12,
+      fontSize: 13,
+      fontWeight: 600,
+      zIndex: 1000,
+      animation: "toastIn .3s ease",
+      boxShadow: "var(--shadow)",
+      maxWidth: 320,
+      textAlign: "center",
+      width: "90%"
+    }
+  }, React.createElement("div", {
+    style: {
+      color: "var(--orange)",
+      marginBottom: 6,
+      fontSize: 14
+    }
+  }, "\u26A0\uFE0F ", lang === "tr" ? "Alışılmadık Değer" : "Unusual Value"), React.createElement("div", {
+    style: {
+      marginBottom: 12,
+      fontWeight: 400,
+      fontSize: 12
+    }
+  }, React.createElement("b", null, anomalyConfirm.exName), ": ", lang === "tr" ? "önceki max" : "prev max", " ", React.createElement("b", null, anomalyConfirm.prevMax, " kg"), " \u2192 ", React.createElement("b", {
+    style: {
+      color: "var(--orange)"
+    }
+  }, anomalyConfirm.newVal, " kg")), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      justifyContent: "center"
+    }
+  }, React.createElement("button", {
+    onClick: () => setAnomalyConfirm(null),
+    style: {
+      padding: "6px 16px",
+      borderRadius: 6,
+      border: "none",
+      background: "var(--green)",
+      color: "#fff",
+      fontFamily: "inherit",
+      fontWeight: 700,
+      cursor: "pointer",
+      fontSize: 12
+    }
+  }, lang === "tr" ? "Evet, devam et" : "Keep it"), React.createElement("button", {
+    onClick: () => {
+      updSet(anomalyConfirm.eid, anomalyConfirm.si, "weight", "");
+      setAnomalyConfirm(null);
+    },
+    style: {
+      padding: "6px 16px",
+      borderRadius: 6,
+      border: "none",
+      background: "var(--red)",
+      color: "#fff",
+      fontFamily: "inherit",
+      fontWeight: 700,
+      cursor: "pointer",
+      fontSize: 12
+    }
+  }, lang === "tr" ? "Düzelt (sil)" : "Clear"))), badgeToast && React.createElement("div", {
     style: {
       position: "fixed",
       top: 70,
@@ -6778,6 +6880,7 @@ function App({
           value: s.weight || "",
           placeholder: prevSet ? String(prevSet.weight) : "0",
           onChange: e => updSet(ex.id, si, "weight", e.target.value),
+          onBlur: e => checkAnomaly(ex.id, si, e.target.value),
           style: S.inp
         })), React.createElement("div", {
           style: {

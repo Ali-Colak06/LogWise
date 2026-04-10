@@ -714,3 +714,54 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - Geçmiş günler → sadece tamamlananlar, tam renk
 - Bugün → tamamlananlar tam renk, henüz başlanmamış program hareketleri %45 opaklık
 - Gelecek günler → tüm hareketler program kaynaklı, hepsi %45 opaklık
+
+---
+
+## 20. 2026-04-11 Girdi Doğrulama, Anomali Uyarısı ve Rozet Geri Alma
+
+### Değişiklik 1: Ağırlık ve Tekrar Üst Limitleri (Clamp)
+
+**Etkilenen fonksiyon**: `updSet` (index.html.babel-backup)
+
+`updSet` içinde `newVal` hesaplandıktan sonra clamp eklendi:
+- `f==="weight"` → `Math.min(newVal, 500)` (max 500 kg)
+- `f==="reps"` → `Math.min(newVal, 100)` (max 100 tekrar)
+
+Değer `onChange`'de anında sınırlanır; 501 yazmaya çalışırsan 500'e düşer.
+
+### Değişiklik 2: Anomali Uyarısı
+
+**Yeni state**: `anomalyConfirm` — `{eid, si, exName, newVal, prevMax}` veya null
+
+**Yeni fonksiyon**: `checkAnomaly(eid, si, v)` — `updSet`'in hemen altında tanımlı. Ağırlık inputundan çıkılınca (`onBlur`) tetiklenir. O egzersizin **bugün dışındaki** geçmiş kayıtlarındaki max ağırlığını hesaplar; girilen değer bu max'ın 2 katından büyükse `anomalyConfirm` state'ini set eder.
+
+**Tetikleyici**: Weight input'una `onBlur={e=>checkAnomaly(ex.id,si,e.target.value)}` eklendi.
+
+**UI**: Toast bölgesinde turuncu kenarlıklı onay kutusu. İki buton:
+- **"Evet, devam et"** → uyarıyı kapat, değer kalır
+- **"Düzelt (sil)"** → `updSet` ile değeri sıfırlar, uyarıyı kapat
+
+İlk antrenman (prevMax=0) durumunda tetiklenmez.
+
+### Değişiklik 3: Rozet Geri Alma (Badge Revocation)
+
+**Etkilenen fonksiyon**: `checkBadges(data)` — dönüş formatı değişti.
+
+Eski: `return fresh` (sadece yeni kazanılanlar dizisi)
+Yeni: `return {fresh, revokeIds}` — `fresh`: yeni kazanılacak rozetler, `revokeIds`: artık koşulu sağlamayan mevcut rozetlerin id'leri (Set).
+
+Her badge için hem "kazanılmalı mı?" hem "geri alınmalı mı?" kontrolü yapılır:
+- `ok && !unlockedIds.has(b.id)` → `fresh`'e ekle
+- `!ok && unlockedIds.has(b.id)` → `revokeIds`'e ekle
+
+**Etkilenen useEffect'ler**:
+- Workouts useEffect: `checkBadges` çağrısı `{fresh, revokeIds}` destructure edildi. `revokeIds.size > 0` durumunda da `save()` tetiklenir; mevcut badge listesi filtreden geçirilir.
+- Loading useEffect: sadece `fresh` kullanıldığından değişiklik minimal.
+
+**Davranış**: Kullanıcı kazara yüksek ağırlık girip rozet aldıktan sonra değeri düzeltirse, bir sonraki `debouncedSave` → `data.workouts` değişimi → useEffect tetiklenince haksız rozetler otomatik geri alınır.
+
+**Not**: Streak, antrenman sayısı, çeşitlilik gibi kümülatif rozetler tek bir set düzeltmesinden nadiren etkilenir. Ağırlık (pr_xxx) ve hacim (volume_xxx) rozetleri en çok etkilenebilecek kategorilerdir.
+
+### Değişiklik 4: Service Worker Cache Versiyonu
+
+`sw.js` içindeki `CACHE_NAME` `logwise-v4` → `logwise-v5` olarak güncellendi. Bu sayede yeni SW deploy edildiğinde eski precache temizlenir ve güncel `index.html` offline fallback olarak da saklanır.
