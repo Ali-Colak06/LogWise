@@ -38,6 +38,11 @@ LogWise/
 ├── local-server.bat        ← Yerel sunucu başlatma scripti
 ├── local-server-mobile.bat ← Mobil test için yerel sunucu
 ├── .gitignore              ← Git ignore kuralları
+├── compile.js              ← JSX önceden derleme scripti (git'e gitmez, sadece yerel)
+├── package.json            ← Babel bağımlılıkları (git'e gitmez, sadece yerel)
+├── index.html.babel-backup ← index.html kaynak JSX (git'e gitmez, sadece yerel)
+├── profile.html.babel-backup ← profile.html kaynak JSX (git'e gitmez, sadece yerel)
+├── share.html.babel-backup ← share.html kaynak JSX (git'e gitmez, sadece yerel)
 └── CLAUDE-CODE-REHBER.md   ← Bu dosya
 ```
 
@@ -531,6 +536,8 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama
 
 9. **Cloudflare custom domain "already in use" hatası** (2026-04-08): DNS'te Netlify'ı gösteren eski `A` kaydı (`75.2.60.5`) ve `www` CNAME'i (`logwise.netlify.app`) silinmeden custom domain eklenemiyordu. **Çözüm**: Cloudflare DNS panelinden her iki kayıt silindi, ardından custom domain ekleme başarılı oldu.
 
+10. **Cloudflare "Asset too large" hatası — node_modules** (2026-04-10): Babel Standalone kaldırma işlemi sırasında `package.json` git'e commit edildi. Cloudflare, `package.json` görünce otomatik `npm install` çalıştırdı; üretilen `node_modules/workerd/bin/workerd` (118 MB) 25 MB asset limitini aştı → deploy başarısız. **Çözüm**: `compile.js` ve `package.json` `.gitignore`'a eklendi ve `git rm --cached` ile git takibinden çıkarıldı. Bu dosyalar artık sadece yerel derleme aracı olarak tutulur, git'e gitmez.
+
 ---
 
 ## 12. ÖNEMLİ KURALLAR (Claude Code İçin)
@@ -539,7 +546,7 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama
 
 2. **Tek dosya uygulaması** — Tüm CSS, JS, React tek `index.html` içinde. Ayrı dosyalara bölme.
 
-3. **Babel standalone** — `<script type="text/babel">` kullanılıyor, import/export yok, build step yok.
+3. **JSX önceden derlenmiş** — Babel Standalone **kaldırıldı** (2026-04-10). `index.html`, `profile.html`, `share.html` artık `<script type="text/babel">` içermiyor; JSX önceden `@babel/preset-react` ile düz `React.createElement()` çağrılarına derlendi. Kaynak JSX dosyaları `*.babel-backup` uzantısıyla saklanıyor. Değişiklik yapmak için: `.babel-backup` dosyasını düzenle → `node compile.js` çalıştır → deploy. `compile.js` ve `package.json` git'te **takip edilmez** (.gitignore'da), sadece yerel araçtır.
 
 4. **Edit çok dikkatli yapılmalı** — Dosya kesintisi beyaz ekrana sebep olur. Her edit sonrası:
    - `tail -5 index.html` ile dosya sonunu kontrol et
@@ -619,6 +626,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 ### Kategori 7: Teknik / Altyapı ✅ TAMAMLANDI
 - ✅ **PWA offline desteği** — `sw.js` Service Worker: cache-first strateji, app shell precache (index.html, CDN libs, ikonlar), Supabase API için network-first, offline fallback. SW kaydı index.html'de plain JS ile. `netlify.toml`'da sw.js için no-cache header.
 - ✅ **Performans iyileştirmeleri** — Preconnect/dns-prefetch (fonts.gstatic.com, cdnjs, jsdelivr, supabase), loading skeleton (LOG WISE logo + animasyonlu progress bar, React mount öncesi gösterilir)
+- ✅ **Babel Standalone kaldırıldı** (2026-04-10) — ~1.4 MB CDN indirmesi ve runtime JSX derleme yükü ortadan kalktı. `index.html`, `profile.html`, `share.html` artık önceden derlenmiş düz JavaScript içeriyor. Derleme aracı: `compile.js` + `@babel/preset-react`. Kaynak JSX dosyaları `*.babel-backup` olarak yerel tutulur. Değişiklik akışı: `.babel-backup` düzenle → `node compile.js` → deploy.
 - ✅ **Erişilebilirlik (a11y)** — Skip-to-content linki, `role="banner/navigation/main/dialog"`, `aria-label` tüm icon button'larda (menü, ay gezinme, tema, FAB), `aria-modal="true"` tüm modallarda, tüm input'lara `aria-label`, Escape tuşu ile tüm modalları kapatma (`useEffect` ile consolidated handler), TR/EN çeviri anahtarları (ariaMenu, ariaPrevMonth, ariaNextMonth, ariaToggleTheme, ariaAddExercise, ariaCloseModal, ariaNavigation, ariaMainContent)
 - ✅ **Error boundary** — `ErrorBoundary` class component (React.Component), `getDerivedStateFromError` + `componentDidCatch`, iki katmanlı koruma (dış: Root etrafında, iç: App etrafında), tema-uyumlu kurtarma UI'ı (hata detayı, "Tekrar Dene" / "Sayfayı Yenile" butonları), TR/EN dil desteği (localStorage'dan lang okur)
 

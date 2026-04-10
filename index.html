@@ -3281,6 +3281,7 @@ function App({
   const getEff = ds => {
     const m = data.workouts[ds] || [];
     if (!data.activeProgram || !data.programs[data.activeProgram]) return m;
+    if (ds < today) return m;
     const pr = data.programs[data.activeProgram];
     const di = gdow(pD(ds));
     const pe = pr.days[String(di)] || [];
@@ -6253,7 +6254,7 @@ function App({
           }
         }, exN(w.exerciseId)))));
       })))));
-    })(), unstarted.length > 0 && React.createElement("div", {
+    })(), unstarted.length > 0 && dk >= today && React.createElement("div", {
       style: {
         background: "var(--blueL)",
         borderRadius: 12,
