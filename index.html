@@ -5791,18 +5791,19 @@ function App({
       style: {
         borderRight: "1px solid var(--brd)",
         borderBottom: "1px solid var(--brd)",
-        borderTop: isT ? "3px solid var(--blue)" : "none",
         padding: isMobile ? "6px 5px 10px" : "4px 5px",
         cursor: "pointer",
         overflow: "hidden",
-        background: isT ? "var(--blueL2)" : isSel ? "var(--blueL)" : "var(--bg)",
-        transition: "background .1s"
+        background: isSel ? "var(--blueL)" : "var(--bg)",
+        transition: "background .1s",
+        position: "relative",
+        boxShadow: isT ? "inset 0 0 14px rgba(240,192,64,.07)" : "none"
       },
       onMouseEnter: e => {
         if (!isSel && !isT) e.currentTarget.style.background = "var(--bgH)";
       },
       onMouseLeave: e => {
-        if (!isSel) e.currentTarget.style.background = isT ? "var(--blueL2)" : "var(--bg)";
+        if (!isSel) e.currentTarget.style.background = "var(--bg)";
       }
     }, React.createElement("div", {
       style: {
@@ -5834,7 +5835,19 @@ function App({
         color: "var(--t3)",
         paddingLeft: 6
       }
-    }, "+", eff.length - 4, " ", L.more));
+    }, "+", eff.length - 4, " ", L.more), isT && React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        position: "absolute",
+        inset: 0,
+        pointerEvents: "none",
+        zIndex: 3,
+        backgroundImage: "linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue))",
+        backgroundSize: "2px 12px,12px 2px,2px 12px,12px 2px,2px 12px,12px 2px,2px 12px,12px 2px",
+        backgroundPosition: "0 0,0 0,100% 0,100% 0,0 100%,0 100%,100% 100%,100% 100%",
+        backgroundRepeat: "no-repeat"
+      }
+    }));
   }))) : React.createElement(React.Fragment, null, React.createElement("div", {
     style: {
       display: "grid",
@@ -5895,16 +5908,17 @@ function App({
       },
       style: {
         borderRight: "1px solid var(--brd)",
-        borderTop: isT ? "3px solid var(--blue)" : "none",
         padding: "8px 4px",
         cursor: "pointer",
         overflow: "auto",
-        background: isT ? "var(--blueL2)" : "var(--bg)"
+        background: "var(--bg)",
+        position: "relative",
+        boxShadow: isT ? "inset 0 0 14px rgba(240,192,64,.07)" : "none"
       },
       onMouseEnter: e => {
         if (!isT) e.currentTarget.style.background = "var(--bgH)";
       },
-      onMouseLeave: e => e.currentTarget.style.background = isT ? "var(--blueL2)" : "var(--bg)"
+      onMouseLeave: e => e.currentTarget.style.background = "var(--bg)"
     }, eff.map((w, j) => {
       const colors = clAll(w.exerciseId);
       const c = colors[0];
@@ -5932,6 +5946,18 @@ function App({
           marginTop: 1
         }
       }, w.sets.map(s => isCardioExerciseId(w.exerciseId) ? fmtDurationValue(s.duration || 0) : `${s.weight}×${s.reps}`).join(" · ")));
+    }), isT && React.createElement("div", {
+      "aria-hidden": "true",
+      style: {
+        position: "absolute",
+        inset: 0,
+        pointerEvents: "none",
+        zIndex: 3,
+        backgroundImage: "linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue))",
+        backgroundSize: "2px 12px,12px 2px,2px 12px,12px 2px,2px 12px,12px 2px,2px 12px,12px 2px",
+        backgroundPosition: "0 0,0 0,100% 0,100% 0,0 100%,0 100%,100% 100%,100% 100%",
+        backgroundRepeat: "no-repeat"
+      }
     }));
   })))), view === "day" && selDate && (() => {
     const dk = fmt(selDate);
