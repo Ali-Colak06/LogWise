@@ -10021,7 +10021,33 @@ function Root() {
 ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(ErrorBoundary, null, React.createElement(Root, null)));
 </script>
 <script>
-if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('/sw.js').catch(()=>{})})}
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('/sw.js').then(reg=>{
+      // Yeni SW kurulumu tamamlandığında sayfa otomatik yenilenir
+      reg.addEventListener('updatefound',()=>{
+        const newWorker=reg.installing;
+        newWorker.addEventListener('statechange',()=>{
+          if(newWorker.state==='installed'&&navigator.serviceWorker.controller){
+            // Aktif controller varsa bu yeni bir sürüm demektir — sayfayı yenile
+            window.location.reload();
+          }
+        });
+      });
+    }).catch(()=>{});
+
+    // SW activate mesajını al (ilk kurulumdan sonraki güncellemeler için)
+    navigator.serviceWorker.addEventListener('message',e=>{
+      if(e.data&&e.data.type==='SW_UPDATED'){
+        // Zaten reload yapıldıysa tekrar yapma
+        if(!sessionStorage.getItem('sw-reloaded')){
+          sessionStorage.setItem('sw-reloaded','1');
+          window.location.reload();
+        }
+      }
+    });
+  });
+}
 </script>
 </body>
 </html>

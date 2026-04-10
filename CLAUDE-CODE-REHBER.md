@@ -687,3 +687,30 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 
 - **Pull-to-refresh kaldırıldı**: Aşağı çekme ile yenileme özelliği (state'ler: `pullY`, `pullState`, `touchStartY`; ref'ler: `pullStartRef`, `pullRefreshRef`, `pullYRef`; handler'lar: `handlePullStart/Move/End`; CSS: `@keyframes pullSpin`) tamamen kaldırıldı. Kullanım deneyimini olumsuz etkiliyordu. İleride daha iyi bir implementasyonla yeniden eklenebilir.
 - **Swipe ile gün değiştirme kaldırıldı**: Gün görünümünde sağa/sola kaydırarak gün geçişi özelliği (swipe useEffect, `daySwipeRef`) kaldırıldı. Gün değiştirme yalnızca ▲/▼ butonları ile yapılıyor. Not: `dayNavFx` animasyonu ve `triggerDayFx` fonksiyonu **korundu** — bunlar ok butonlarıyla da kullanılıyor.
+
+---
+
+## 19. 2026-04-10 Takvim Görünümü: Geçmiş / Gelecek Hareket Ayrımı
+
+### Değişiklik 1: Geçmiş günlerde sadece tamamlanan hareketler gösterilir
+
+**Etkilenen fonksiyon**: `getEff(ds)` (index.html.babel-backup)
+
+`getEff` fonksiyonuna `if(ds<today)return m;` kontrolü eklendi. Artık tarih bugünden önceyse program hareket listesine hiç bakılmıyor; yalnızca `data.workouts[ds]` içinde gerçekten kayıtlı (set girilmiş) hareketler döndürülüyor. Boş set temizliği (`prevViewRef` effect'i) zaten gün görünümünden çıkınca 0 kg/0 tekrar setlerini siliyor; dolayısıyla geçmiş günlerde `data.workouts` içinde kalan her hareket en az bir geçerli setle tamamlanmış demektir.
+
+**Etkilenen JSX**: Gün görünümünde "Programdaki Hareketler" mavi kutusu (`unstarted` listesi), koşula `dk>=today` eklenerek geçmiş günlerde gizlendi. Geçmiş bir güne girildiğinde o gün için program önerisi artık çıkmıyor.
+
+### Değişiklik 2: Yapılmamış program hareketleri takvimde saydam görünür
+
+**Etkilenen bileşen**: `Pill` (ay ve hafta takvim grid'i)
+
+`_pg:true` bayrağı taşıyan (program tarafından eklenen, henüz başlanmamış) hareket pill'lerine `opacity: 0.45` uygulandı. Tamamlanmış hareketler (`_pg` yok veya false) mevcut görünümlerini koruyor — hiçbir renk ya da stil değişikliği yok.
+
+- **Ay görünümü**: `<Pill>` çağrısına `planned={w._pg}` prop'u eklendi.
+- **Hafta görünümü**: Kart `<div>`'ine `opacity: w._pg ? 0.45 : 1` eklendi.
+- **Pill bileşeni**: `planned` prop alacak şekilde güncellendi; `opacity: planned ? 0.45 : 1` style'a eklendi.
+
+**Sonuç davranış özeti**:
+- Geçmiş günler → sadece tamamlananlar, tam renk
+- Bugün → tamamlananlar tam renk, henüz başlanmamış program hareketleri %45 opaklık
+- Gelecek günler → tüm hareketler program kaynaklı, hepsi %45 opaklık

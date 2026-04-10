@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v3';
+const CACHE_NAME = 'logwise-v4';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -9,7 +9,6 @@ const PRECACHE_URLS = [
   '/apple-touch-icon.png',
   'https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js',
-  'https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2',
   'https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js'
 ];
@@ -32,7 +31,7 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Fetch: network-first for API, cache-first for assets
+// Fetch: network-first for HTML and API, cache-first for static assets
 self.addEventListener('fetch', (e) => {
   const url = new URL(e.request.url);
 
@@ -52,23 +51,47 @@ self.addEventListener('fetch', (e) => {
   // Skip non-GET requests
   if (e.request.method !== 'GET') return;
 
-  // Cache-first for everything else
+  // Network-first for HTML navigation — kullanıcı her zaman güncel sürümü görür
+  if (e.request.mode === 'navigate') {
+    e.respondWith(
+      fetch(e.request)
+        .then(response => {
+          if (response && response.status === 200) {
+            const clone = response.clone();
+            caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
+          }
+          return response;
+        })
+        .catch(() =>
+          // Offline fallback — cache'den sun
+          caches.match(e.request).then(cached => cached || caches.match('/index.html'))
+        )
+    );
+    return;
+  }
+
+  // Cache-first for static assets (JS, CSS, images, fonts)
   e.respondWith(
     caches.match(e.request).then(cached => {
       if (cached) return cached;
       return fetch(e.request).then(response => {
-        // Cache successful responses (including opaque cross-origin)
         if (response && (response.status === 200 || response.type === 'opaque')) {
           const clone = response.clone();
           caches.open(CACHE_NAME).then(cache => cache.put(e.request, clone));
         }
         return response;
       }).catch(() =>
-        // Fallback for navigation requests — serve cached index.html
-        e.request.mode === 'navigate'
-          ? caches.match('/index.html')
-          : new Response('Offline', { status: 503 })
+        new Response('Offline', { status: 503 })
       );
+    })
+  );
+});
+
+// SW güncelleme bildirimi — tüm açık sekmelere mesaj gönder
+self.addEventListener('activate', (e) => {
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window' }).then(clients => {
+      clients.forEach(client => client.postMessage({ type: 'SW_UPDATED' }));
     })
   );
 });
