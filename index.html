@@ -784,7 +784,8 @@ const calcCompliance = (pgId, workouts, programs, programMeta) => {
     dd.setDate(dd.getDate() + i);
     const di = gdow(dd);
     const pgExs = pg.days[String(di)] || [];
-    if (pgExs.length === 0) continue;
+    const pgOff = pg.offDays || [];
+    if (pgOff.includes(String(di)) || pgExs.length === 0) continue;
     total++;
     const dk = fmt(dd);
     const ws = workouts[dk] || [];
@@ -1294,7 +1295,11 @@ const TR = {
   onboardSkip: "Geç",
   pullToRefresh: "Yenilemek için çek",
   releasing: "Bırak...",
-  refreshing: "Yenileniyor..."
+  refreshing: "Yenileniyor...",
+  offDay: "Dinlenme",
+  setOffDay: "Dinlenme Günü Yap",
+  removeOffDay: "Dinlenmeyi Kaldır",
+  offDayBanner: "Bu gün programında dinlenme günü."
 };
 const EN = {
   calendar: "Calendar",
@@ -1554,7 +1559,11 @@ const EN = {
   onboardSkip: "Skip",
   pullToRefresh: "Pull to refresh",
   releasing: "Release...",
-  refreshing: "Refreshing..."
+  refreshing: "Refreshing...",
+  offDay: "Rest",
+  setOffDay: "Mark as Off Day",
+  removeOffDay: "Remove Off Day",
+  offDayBanner: "This day is a rest day in your program."
 };
 const catLabel = (cat, lang) => lang === "en" ? CAT_LABELS_EN[cat] || cat : cat;
 const normalizeUsername = v => String(v || "").trim().toLowerCase();
@@ -2295,6 +2304,7 @@ function App({
   const [pgDays, setPgDays] = useState(eDays);
   const [pgSrch, setPgSrch] = useState("");
   const [pgDay, setPgDay] = useState(0);
+  const [pgOffDays, setPgOffDays] = useState([]);
   const [pgType, setPgType] = useState("weekly");
   const [showDpModal, setShowDpModal] = useState(false);
   const [dpEditId, setDpEditId] = useState(null);
@@ -2471,6 +2481,8 @@ function App({
   pnRef.current = pgName;
   const pdRef = useRef(pgDays);
   pdRef.current = pgDays;
+  const pgodRef = useRef(pgOffDays);
+  pgodRef.current = pgOffDays;
   const peRef = useRef(pgEditId);
   peRef.current = pgEditId;
   const dpnRef = useRef(dpName);
@@ -3068,7 +3080,8 @@ function App({
       ...d.programs,
       [id]: {
         name: nm,
-        days: nd
+        days: nd,
+        offDays: [...pgodRef.current]
       }
     };
     const pm = {
@@ -3175,6 +3188,7 @@ function App({
     setPgDay(0);
     setPgCycleType("none");
     setPgDeloadEvery(4);
+    setPgOffDays([]);
   };
   const openEditPg = id => {
     const p = data.programs[id];
@@ -3184,6 +3198,7 @@ function App({
       nd[String(k)] = [...(p.days[k] || [])];
     });
     setPgDays(nd);
+    setPgOffDays([...(p.offDays || [])]);
     setPgEditId(id);
     setPgDay(0);
     const meta = (data.programMeta || {})[id];
@@ -3202,6 +3217,20 @@ function App({
       ...c,
       [k]: [...a, eid]
     });
+  };
+  const togOffDay = i => {
+    const k = String(i);
+    const od = pgodRef.current;
+    if (od.includes(k)) {
+      setPgOffDays(od.filter(x => x !== k));
+    } else {
+      setPgOffDays([...od, k]);
+      setPgDays(prev => ({
+        ...prev,
+        [k]: []
+      }));
+    }
+    ;
   };
   const saveDp = () => {
     const nm = dpnRef.current.trim() || "Günlük Program " + (Object.keys(dRef.current.dailyPrograms || {}).length + 1);
@@ -5835,7 +5864,15 @@ function App({
         color: "var(--t3)",
         paddingLeft: 6
       }
-    }, "+", eff.length - 4, " ", L.more), isT && React.createElement("div", {
+    }, "+", eff.length - 4, " ", L.more), eff.length === 0 && (aProg?.offDays || []).includes(String(gdow(d))) && React.createElement("div", {
+      style: {
+        fontSize: 10,
+        color: "var(--teal)",
+        textAlign: "center",
+        marginTop: 4,
+        opacity: .8
+      }
+    }, "\uD83D\uDCA4 ", L.offDay), isT && React.createElement("div", {
       "aria-hidden": "true",
       style: {
         position: "absolute",
@@ -5946,7 +5983,15 @@ function App({
           marginTop: 1
         }
       }, w.sets.map(s => isCardioExerciseId(w.exerciseId) ? fmtDurationValue(s.duration || 0) : `${s.weight}×${s.reps}`).join(" · ")));
-    }), isT && React.createElement("div", {
+    }), eff.length === 0 && (aProg?.offDays || []).includes(String(gdow(d))) && React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: "var(--teal)",
+        textAlign: "center",
+        padding: "8px 0",
+        opacity: .8
+      }
+    }, "\uD83D\uDCA4 ", L.offDay), isT && React.createElement("div", {
       "aria-hidden": "true",
       style: {
         position: "absolute",
@@ -6050,7 +6095,28 @@ function App({
         gap: 4
       },
       "aria-label": L.shareWorkout
-    }, "\uD83D\uDCE4 ", !isMobile && L.shareWorkout)), (restTimerRunning || restTimerSecs > 0) && React.createElement("div", {
+    }, "\uD83D\uDCE4 ", !isMobile && L.shareWorkout)), (aProg?.offDays || []).includes(String(di)) && manual.length === 0 && React.createElement("div", {
+      style: {
+        background: "var(--tealL)",
+        border: "1px solid var(--teal)",
+        borderRadius: 10,
+        padding: "12px 16px",
+        marginBottom: 16,
+        display: "flex",
+        alignItems: "center",
+        gap: 10
+      }
+    }, React.createElement("span", {
+      style: {
+        fontSize: 20
+      }
+    }, "\uD83D\uDCA4"), React.createElement("div", {
+      style: {
+        fontSize: 13,
+        fontWeight: 500,
+        color: "var(--teal)"
+      }
+    }, L.offDayBanner)), (restTimerRunning || restTimerSecs > 0) && React.createElement("div", {
       style: {
         background: "var(--bg2)",
         border: "2px solid var(--blue)",
@@ -8186,6 +8252,7 @@ function App({
     }
   }, L.days.map((d, i) => {
     const cnt = (pgDays[String(i)] || []).length;
+    const isOff = pgOffDays.includes(String(i));
     return React.createElement("button", {
       key: i,
       onClick: () => setPgDay(i),
@@ -8193,15 +8260,22 @@ function App({
         padding: "6px 12px",
         borderRadius: 20,
         border: pgDay === i ? "2px solid var(--blue)" : "1px solid var(--brd)",
-        background: pgDay === i ? "var(--blueL)" : "var(--bg)",
-        color: pgDay === i ? "var(--blue)" : "var(--t2)",
+        background: isOff ? pgDay === i ? "var(--tealL)" : "var(--bg3)" : pgDay === i ? "var(--blueL)" : "var(--bg)",
+        color: isOff ? "var(--teal)" : pgDay === i ? "var(--blue)" : "var(--t2)",
         fontSize: 13,
         fontWeight: 500,
         cursor: "pointer",
         fontFamily: "inherit",
         position: "relative"
       }
-    }, d, cnt > 0 && React.createElement("span", {
+    }, d, isOff ? React.createElement("span", {
+      style: {
+        position: "absolute",
+        top: -6,
+        right: -6,
+        fontSize: 11
+      }
+    }, "\uD83D\uDCA4") : cnt > 0 && React.createElement("span", {
       style: {
         position: "absolute",
         top: -6,
@@ -8220,12 +8294,41 @@ function App({
     }, cnt));
   })), React.createElement("div", {
     style: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: 10
+    }
+  }, React.createElement("div", {
+    style: {
       fontSize: 13,
       fontWeight: 500,
-      color: "var(--t2)",
-      marginBottom: 8
+      color: "var(--t2)"
     }
-  }, L.daysFull[pgDay]), (pgDays[String(pgDay)] || []).length > 0 && React.createElement("div", {
+  }, L.daysFull[pgDay]), React.createElement("button", {
+    onClick: () => togOffDay(pgDay),
+    style: {
+      padding: "4px 12px",
+      borderRadius: 14,
+      border: "1px solid var(--brd)",
+      fontSize: 11,
+      fontWeight: 600,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      background: pgOffDays.includes(String(pgDay)) ? "var(--tealL)" : "var(--bg3)",
+      color: pgOffDays.includes(String(pgDay)) ? "var(--teal)" : "var(--t2)"
+    }
+  }, "\uD83D\uDCA4 ", pgOffDays.includes(String(pgDay)) ? L.removeOffDay : L.setOffDay)), pgOffDays.includes(String(pgDay)) ? React.createElement("div", {
+    style: {
+      textAlign: "center",
+      padding: "28px 16px",
+      color: "var(--teal)",
+      background: "var(--tealL)",
+      borderRadius: 10,
+      marginBottom: 16,
+      fontSize: 14
+    }
+  }, "\uD83D\uDCA4 ", L.offDay) : React.createElement(React.Fragment, null, (pgDays[String(pgDay)] || []).length > 0 && React.createElement("div", {
     style: {
       display: "flex",
       gap: 5,
@@ -8336,7 +8439,7 @@ function App({
       padding: 16,
       textAlign: "center"
     }
-  }, "Hareket bulunamad\u0131.")), React.createElement("div", {
+  }, "Hareket bulunamad\u0131."))), React.createElement("div", {
     style: {
       borderTop: "1px solid var(--brd)",
       paddingTop: 12,

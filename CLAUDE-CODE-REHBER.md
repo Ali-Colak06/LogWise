@@ -770,20 +770,145 @@ Her badge için hem "kazanılmalı mı?" hem "geri alınmalı mı?" kontrolü ya
 
 ## 21. 2026-04-11 Takvimde Bugünün Hücresi Vurgulaması
 
-### Yeni CSS Animasyonu: `todayPulse`
+### Yöntem: Köşe Braketleri + Hafif İç Glow
 
-```css
-@keyframes todayPulse {
-  0%, 100% { box-shadow: inset 0 0 0 2px var(--blue), 0 0 0 0 rgba(240,192,64,0); }
-  50%       { box-shadow: inset 0 0 0 2px var(--blue), 0 0 14px 2px rgba(240,192,64,.35); }
-}
+Animasyon kullanılmadı. Hücreye iki şey eklendi:
+
+**1. Hafif iç glow (parent hücre):**
+- `position: "relative"` (absolute child için gerekli)
+- `boxShadow: isT ? "inset 0 0 14px rgba(240,192,64,.07)" : "none"` — arka planı değiştirmeden nazik bir altın derinlik hissi
+
+**2. Köşe braket overlay (child `<div>`):**
+```jsx
+{isT && <div aria-hidden="true" style={{
+  position:"absolute", inset:0, pointerEvents:"none", zIndex:3,
+  backgroundImage: "linear-gradient(var(--blue),var(--blue)), ...", // 8 adet
+  backgroundSize: "2px 12px, 12px 2px, ...",  // dikey + yatay, 4 köşe için
+  backgroundPosition: "0 0, 0 0, 100% 0, 100% 0, 0 100%, 0 100%, 100% 100%, 100% 100%",
+  backgroundRepeat: "no-repeat"
+}} />}
 ```
 
-İki katmanlı efekt: `inset` shadow ile layout'u bozmayan 2px altın iç çerçeve + 2 saniyede bir nabız gibi yanan dış glow.
+Her köşe için 2 gradient (dikey 2×12px + yatay 12×2px = L şekli). Layout etkilenmez, tıklama geçer (`pointerEvents:"none"`), `overflow:hidden` ile kırpılmaz (inset:0 ile hücre sınırları içinde).
 
 ### Etkilenen Hücreler
 
-- **Aylık grid hücresi** (`calDays.map`): `isT` durumunda `animation: "todayPulse 2s ease infinite"`, `position: "relative"`, `zIndex: 2` eklendi. `onMouseEnter/Leave` hover efekti `!isT` koşuluna bağlandı (today hücresinde hover arka plan değiştirmiyor).
-- **Haftalık grid içerik hücresi** (`weekDays.map`, content grid): `const isT=k===today` eklendi, aynı animation/position/zIndex stili uygulandı.
+- **Aylık grid** (`calDays.map`): parent'a `position:"relative"` + `boxShadow`, son child olarak köşe overlay eklendi. `onMouseEnter/Leave` bugün hücresinde hover efektini bypass eder.
+- **Haftalık grid içerik** (`weekDays.map`, alt content grid): aynı yapı. `const isT=k===today` zaten mevcuttu.
 
-`zIndex: 2` sayesinde bugünün hücresi komşu hücrelerin üstünde render edilir; dış glow komşu border'ların arkasında kalmaz.
+### Notlar
+- CSS'e yeni `@keyframes` eklenmedi.
+- `zIndex:3` overlay'i, hareket pill'lerinin üstünde render eder ama tıklamayı engellemez.
+- Hover `onMouseLeave` her iki görünümde de `var(--bg)`'ye döner (tint yok).
+
+---
+
+## Bölüm 22 — Off Day (Dinlenme Günü) Özelliği
+
+### Genel Bakış
+
+Program oluştururken her güne "Dinlenme Günü" işareti konulabilir. Bu günlerde egzersiz listesi görünmez, uyum hesabı bu günleri atlar, takvim hücrelerinde 💤 ibaresi çıkar ve gün görünümünde bir banner gösterilir.
+
+### Veri Yapısı
+
+```js
+// Program nesnesi — yeni offDays dizisi eklendi
+{ name: "PPL", days: { "0": [...], "1": [], ... }, offDays: ["1","3","5"] }
+```
+
+`offDays` gün indeksleri string olarak saklanır (0=Pzt … 6=Paz), `days` objesi ile ayrı tutulur.
+
+### Yeni State ve Ref'ler
+
+```js
+const [pgOffDays, setPgOffDays] = useState([]);
+const pgodRef = useRef(pgOffDays);
+pgodRef.current = pgOffDays;  // stale closure koruması
+```
+
+### Temel Fonksiyonlar
+
+**`togOffDay(i)`** — gün index'ini `pgOffDays`'e ekler/çıkarır; off day yapılırken o günün egzersizleri temizlenir:
+```js
+const togOffDay = i => {
+  const k = String(i);
+  const od = pgodRef.current;
+  if (od.includes(k)) { setPgOffDays(od.filter(x => x !== k)) }
+  else { setPgOffDays([...od, k]); setPgDays(prev => ({...prev, [k]: []})) }
+};
+```
+
+**`calcCompliance`** — off day'leri atlar:
+```js
+const pgOff = pg.offDays || [];
+if (pgOff.includes(String(di)) || pgExs.length === 0) continue;
+```
+
+**`savePg`** — `offDays` kaydedilir:
+```js
+{ name: nm, days: nd, offDays: [...pgodRef.current] }
+```
+
+**`openEditPg`** — düzenleme açılırken off day'ler yüklenir:
+```js
+setPgOffDays([...(p.offDays || [])]);
+```
+
+**`resetPg`** — modal kapanınca temizlenir:
+```js
+setPgOffDays([]);
+```
+
+### Program Modal UI
+
+- **Gün sekmeleri**: Off day günleri teal renkli `💤` badge gösterir; aktif sekme `tealL` arka plan alır.
+- **Gün başlığı**: "💤 Dinlenme Günü Yap / Dinlenmeyi Kaldır" toggle butonu eklendi.
+- **Gün içeriği**: Off day ise teal 💤 panel; değilse normal egzersiz arama/listesi.
+
+### Takvim Göstergeleri
+
+**Aylık grid** (`calDays.map`, satır ~1464):
+```jsx
+{eff.length === 0 && (aProg?.offDays || []).includes(String(gdow(d))) &&
+  <div style={{fontSize:10, color:"var(--teal)", textAlign:"center", marginTop:4, opacity:.8}}>
+    💤 {L.offDay}
+  </div>}
+```
+
+**Haftalık grid içerik** (`weekDays.map` alt grid, satır ~1490):
+```jsx
+{eff.length === 0 && (aProg?.offDays || []).includes(String(gdow(d))) &&
+  <div style={{fontSize:11, color:"var(--teal)", textAlign:"center", padding:"8px 0", opacity:.8}}>
+    💤 {L.offDay}
+  </div>}
+```
+
+Her iki yerde de koşul: antrenman yoksa VE aktif programda o gün off day ise göster.
+
+### Gün Görünümü Banner'ı
+
+Day view header'ın hemen altına (Rest Timer Widget öncesi, satır ~1521):
+```jsx
+{(aProg?.offDays || []).includes(String(di)) && manual.length === 0 &&
+  <div style={{background:"var(--tealL)", border:"1px solid var(--teal)", borderRadius:10,
+               padding:"12px 16px", marginBottom:16, display:"flex", alignItems:"center", gap:10}}>
+    <span style={{fontSize:20}}>💤</span>
+    <div style={{fontSize:13, fontWeight:500, color:"var(--teal)"}}>{L.offDayBanner}</div>
+  </div>}
+```
+
+Banner yalnızca o güne ait manual antrenman yokken gösterilir (kullanıcı yine de antrenman kaydedebilir).
+
+### Çeviriler
+
+TR: `offDay:"Dinlenme"`, `setOffDay:"Dinlenme Günü Yap"`, `removeOffDay:"Dinlenmeyi Kaldır"`, `offDayBanner:"Bu gün programında dinlenme günü."`
+
+EN: `offDay:"Rest"`, `setOffDay:"Mark as Off Day"`, `removeOffDay:"Remove Off Day"`, `offDayBanner:"This day is a rest day in your program."`
+
+### Sidebar Aktif Program
+
+Sidebar program özeti (`L.days.map`, satır ~1158) off day günleri zaten filtreler çünkü `exs.length === 0` kontrolüyle sadece egzersiz olan günleri render eder. Off day işaretli ve egzersiz temizlenmiş günler otomatik olarak gizlenir.
+
+### SW Versiyonu
+
+Off day özelliği tamamlandıktan sonra `sw.js` içindeki `CACHE_NAME` gerekirse artırılmalıdır (şu an `logwise-v5`).
