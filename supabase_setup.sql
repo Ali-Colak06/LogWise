@@ -181,3 +181,26 @@ create trigger profiles_updated_at
 create trigger user_prs_updated_at
   before update on user_prs
   for each row execute function update_updated_at();
+
+-- ============================================================
+-- PROFIL BİLGİLERİ GÖRÜNÜRLÜĞü — show_profile_info
+-- ============================================================
+
+-- profiles tablosuna show_profile_info kolonu ekle (default true)
+alter table profiles add column if not exists show_profile_info boolean default true;
+
+-- user_data: profili public VE show_profile_info=true olan kullanıcıların verisini herkes okuyabilir
+create policy "user_data_select_public" on user_data
+  for select using (
+    exists (
+      select 1 from profiles
+      where profiles.user_id = user_data.user_id
+      and profiles.is_public = true
+      and profiles.show_profile_info = true
+    )
+  );
+
+-- follows: takip listelerini herkes görebilir (profil sayfasında takipçi/takip listesi için)
+drop policy if exists "follows_select" on follows;
+create policy "follows_select" on follows
+  for select using (true);

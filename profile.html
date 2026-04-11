@@ -159,7 +159,21 @@ const TR = {
   viewProfile: "Profili Gör",
   searchUsers: "Kullanıcı ara...",
   noUsersFound: "Kullanıcı bulunamadı.",
-  recentActivity: "Son Aktiviteler"
+  recentActivity: "Son Aktiviteler",
+  showProfileInfo: "Profil bilgilerini göster",
+  profileInfoDesc: "Antrenman programların, rozetlerin ve vücut ölçülerin profilinde görünsün.",
+  profileInfoHidden: "Bu kullanıcı profil bilgilerini gizli tutuyor.",
+  programsLabel: "Programlar",
+  badgesLabel: "Rozetler",
+  measurementsLabel: "Vücut Ölçüleri",
+  noPrograms: "Henüz program yok.",
+  noBadgesProfile: "Henüz rozet yok.",
+  noMeasurementsProfile: "Henüz ölçüm yok.",
+  followersList: "Takipçiler",
+  followingList: "Takip Edilenler",
+  weeklyProgram: "Haftalık Program",
+  dailyProgram: "Günlük Program",
+  activeLabel: "AKTİF"
 };
 const EN = {
   profile: "Profile",
@@ -225,7 +239,21 @@ const EN = {
   viewProfile: "View Profile",
   searchUsers: "Search users...",
   noUsersFound: "No users found.",
-  recentActivity: "Recent Activity"
+  recentActivity: "Recent Activity",
+  showProfileInfo: "Show profile info",
+  profileInfoDesc: "Let others see your programs, badges and body measurements on your profile.",
+  profileInfoHidden: "This user keeps their profile info private.",
+  programsLabel: "Programs",
+  badgesLabel: "Badges",
+  measurementsLabel: "Body Measurements",
+  noPrograms: "No programs yet.",
+  noBadgesProfile: "No badges yet.",
+  noMeasurementsProfile: "No measurements yet.",
+  followersList: "Followers",
+  followingList: "Following",
+  weeklyProgram: "Weekly Program",
+  dailyProgram: "Daily Program",
+  activeLabel: "ACTIVE"
 };
 const AVATARS = ["🏋️", "💪", "🔥", "⚡", "🎯", "🏆", "🦾", "🐺", "🦅", "🐉", "🧘", "🏃"];
 const SHARE_PREF_TEXT = {
@@ -267,6 +295,223 @@ const calcStreak = workouts => {
   }
   return streak;
 };
+const BADGES = [{
+  id: "first_workout",
+  icon: "🏋️",
+  cat: "workout",
+  val: 1
+}, {
+  id: "workouts_10",
+  icon: "💪",
+  cat: "workout",
+  val: 10
+}, {
+  id: "workouts_25",
+  icon: "🔥",
+  cat: "workout",
+  val: 25
+}, {
+  id: "workouts_50",
+  icon: "⭐",
+  cat: "workout",
+  val: 50
+}, {
+  id: "workouts_100",
+  icon: "💯",
+  cat: "workout",
+  val: 100
+}, {
+  id: "workouts_200",
+  icon: "🏅",
+  cat: "workout",
+  val: 200
+}, {
+  id: "workouts_365",
+  icon: "🏆",
+  cat: "workout",
+  val: 365
+}, {
+  id: "streak_3",
+  icon: "📅",
+  cat: "streak",
+  val: 3
+}, {
+  id: "streak_7",
+  icon: "🔗",
+  cat: "streak",
+  val: 7
+}, {
+  id: "streak_14",
+  icon: "⚡",
+  cat: "streak",
+  val: 14
+}, {
+  id: "streak_30",
+  icon: "💎",
+  cat: "streak",
+  val: 30
+}, {
+  id: "streak_60",
+  icon: "🌟",
+  cat: "streak",
+  val: 60
+}, {
+  id: "streak_90",
+  icon: "👑",
+  cat: "streak",
+  val: 90
+}, {
+  id: "pr_60",
+  icon: "🎯",
+  cat: "pr",
+  val: 60
+}, {
+  id: "pr_100",
+  icon: "💥",
+  cat: "pr",
+  val: 100
+}, {
+  id: "pr_140",
+  icon: "🦾",
+  cat: "pr",
+  val: 140
+}, {
+  id: "pr_180",
+  icon: "🚀",
+  cat: "pr",
+  val: 180
+}, {
+  id: "pr_200",
+  icon: "🔱",
+  cat: "pr",
+  val: 200
+}, {
+  id: "volume_10k",
+  icon: "📊",
+  cat: "volume",
+  val: 10000
+}, {
+  id: "volume_50k",
+  icon: "📈",
+  cat: "volume",
+  val: 50000
+}, {
+  id: "volume_100k",
+  icon: "🌋",
+  cat: "volume",
+  val: 100000
+}, {
+  id: "volume_500k",
+  icon: "⚜️",
+  cat: "volume",
+  val: 500000
+}, {
+  id: "volume_1m",
+  icon: "💫",
+  cat: "volume",
+  val: 1000000
+}, {
+  id: "sets_100",
+  icon: "✅",
+  cat: "sets",
+  val: 100
+}, {
+  id: "sets_500",
+  icon: "🎖️",
+  cat: "sets",
+  val: 500
+}, {
+  id: "sets_1000",
+  icon: "🏵️",
+  cat: "sets",
+  val: 1000
+}, {
+  id: "sets_5000",
+  icon: "💠",
+  cat: "sets",
+  val: 5000
+}, {
+  id: "variety_5",
+  icon: "🎨",
+  cat: "variety",
+  val: 5
+}, {
+  id: "variety_10",
+  icon: "🧩",
+  cat: "variety",
+  val: 10
+}, {
+  id: "variety_20",
+  icon: "🌈",
+  cat: "variety",
+  val: 20
+}];
+const getBadgeName = (b, lang) => {
+  if (b.cat === "workout" && b.val === 1) return lang === "tr" ? "İlk Antrenman" : "First Workout";
+  if (b.cat === "workout") return lang === "tr" ? b.val + " Antrenman" : b.val + " Workouts";
+  if (b.cat === "streak") return lang === "tr" ? b.val + " Gün Seri" : b.val + " Day Streak";
+  if (b.cat === "pr") return b.val + "kg PR";
+  if (b.cat === "volume") {
+    const v = b.val >= 1e6 ? b.val / 1e6 + "M" : b.val >= 1e3 ? b.val / 1e3 + "K" : b.val;
+    return lang === "tr" ? v + " Hacim" : v + " Volume";
+  }
+  if (b.cat === "sets") return b.val + " Set" + (lang === "en" ? "s" : "");
+  if (b.cat === "variety") return lang === "tr" ? b.val + " Farklı Hareket" : b.val + " Exercises";
+  return b.id;
+};
+const getBadgeCatLabel = (cat, lang) => {
+  const m = {
+    workout: ["Antrenman", "Workouts"],
+    streak: ["Seri", "Streak"],
+    pr: ["Ağırlık PR", "Weight PR"],
+    volume: ["Hacim", "Volume"],
+    sets: ["Setler", "Sets"],
+    variety: ["Çeşitlilik", "Variety"]
+  };
+  return (m[cat] || [cat, cat])[lang === "tr" ? 0 : 1];
+};
+const MEASURE_LABELS_TR = {
+  weight: "Kilo",
+  height: "Boy",
+  bodyFat: "Yağ %",
+  chest: "Göğüs",
+  waist: "Bel",
+  hips: "Kalça",
+  bicepL: "Biceps Sol",
+  bicepR: "Biceps Sağ",
+  thighL: "Bacak Sol",
+  thighR: "Bacak Sağ",
+  neck: "Boyun",
+  shoulders: "Omuz"
+};
+const MEASURE_LABELS_EN = {
+  weight: "Weight",
+  height: "Height",
+  bodyFat: "Body Fat %",
+  chest: "Chest",
+  waist: "Waist",
+  hips: "Hips",
+  bicepL: "Bicep L",
+  bicepR: "Bicep R",
+  thighL: "Thigh L",
+  thighR: "Thigh R",
+  neck: "Neck",
+  shoulders: "Shoulders"
+};
+const MEASURE_UNITS = {
+  weight: "kg",
+  height: "cm",
+  bodyFat: "%",
+  chest: "cm",
+  waist: "cm",
+  hips: "cm",
+  bicepL: "cm",
+  bicepR: "cm",
+  thighL: "cm",
+  thighR: "cm",
+  neck: "cm",
+  shoulders: "cm"
+};
 function ProfileApp() {
   const [user, setUser] = useState(null);
   const [checking, setChecking] = useState(true);
@@ -307,6 +552,11 @@ function ProfileApp() {
   const [isFollowingViewed, setIsFollowingViewed] = useState(false);
   const [viewFollowerCount, setViewFollowerCount] = useState(0);
   const [viewFollowingCount, setViewFollowingCount] = useState(0);
+  const [viewUserData, setViewUserData] = useState(null);
+  const [showProfileInfo, setShowProfileInfo] = useState(true);
+  const [followListModal, setFollowListModal] = useState(null);
+  const [followList, setFollowList] = useState([]);
+  const [followListLoading, setFollowListLoading] = useState(false);
   const L = lang === "tr" ? TR : EN;
   const shareText = lang === "tr" ? SHARE_PREF_TEXT.tr : SHARE_PREF_TEXT.en;
   useEffect(() => {
@@ -381,6 +631,7 @@ function ProfileApp() {
       if (p) {
         setBio(p.bio || "");
         setIsPublic(p.is_public !== false);
+        setShowProfileInfo(p.show_profile_info !== false);
         if (p.username) {
           setMyUsername(p.username);
         } else if (isValidUsername(metaUsername)) {
@@ -479,7 +730,18 @@ function ProfileApp() {
     sb.from("profiles").select("*").eq("user_id", viewUserId).single().then(({
       data: p
     }) => {
-      if (p) setViewUserProfile(p);
+      if (p) {
+        setViewUserProfile(p);
+        if (p.is_public && p.show_profile_info !== false) {
+          sb.from("user_data").select("data").eq("user_id", viewUserId).single().then(({
+            data: row
+          }) => {
+            if (row && row.data) setViewUserData(row.data);
+          });
+        } else {
+          setViewUserData(null);
+        }
+      }
     });
     sb.from("user_prs").select("*").eq("user_id", viewUserId).order("estimated_1rm", {
       ascending: false
@@ -597,6 +859,44 @@ function ProfileApp() {
     }
     if (updated?.user) setUser(updated.user);
     setToast(L.saved);
+  };
+  const toggleShowProfileInfo = async () => {
+    const newVal = !showProfileInfo;
+    setShowProfileInfo(newVal);
+    await sb.from("profiles").upsert({
+      user_id: user.id,
+      show_profile_info: newVal
+    }, {
+      onConflict: "user_id"
+    });
+    setToast(L.saved);
+  };
+  const loadFollowList = async (type, targetUserId) => {
+    setFollowListModal(type);
+    setFollowListLoading(true);
+    setFollowList([]);
+    try {
+      let userIds = [];
+      if (type === "followers") {
+        const {
+          data: rows
+        } = await sb.from("follows").select("follower_id").eq("following_id", targetUserId);
+        userIds = (rows || []).map(r => r.follower_id);
+      } else {
+        const {
+          data: rows
+        } = await sb.from("follows").select("following_id").eq("follower_id", targetUserId);
+        userIds = (rows || []).map(r => r.following_id);
+      }
+      if (userIds.length > 0) {
+        const {
+          data: profiles
+        } = await sb.from("profiles").select("user_id,username,display_name,avatar").in("user_id", userIds);
+        setFollowList(profiles || []);
+      }
+    } finally {
+      setFollowListLoading(false);
+    }
   };
   const saveAvatar = async av => {
     setAvatar(av);
@@ -923,8 +1223,10 @@ function ProfileApp() {
       }
     }, React.createElement("div", {
       style: {
-        textAlign: "center"
-      }
+        textAlign: "center",
+        cursor: "pointer"
+      },
+      onClick: () => loadFollowList("followers", viewUserId)
     }, React.createElement("div", {
       style: {
         fontSize: 20,
@@ -938,8 +1240,10 @@ function ProfileApp() {
       }
     }, L.followers)), React.createElement("div", {
       style: {
-        textAlign: "center"
-      }
+        textAlign: "center",
+        cursor: "pointer"
+      },
+      onClick: () => loadFollowList("following", viewUserId)
     }, React.createElement("div", {
       style: {
         fontSize: 20,
@@ -1020,7 +1324,270 @@ function ProfileApp() {
         fontSize: 10,
         color: "var(--t3)"
       }
-    }, L.est1RM, ": ", pr.estimated_1rm, "kg"))))), !viewUserId && React.createElement("div", {
+    }, L.est1RM, ": ", pr.estimated_1rm, "kg"))))), viewUserData && viewUserProfile.show_profile_info !== false ? React.createElement(React.Fragment, null, (() => {
+      const progs = viewUserData.programs || {};
+      const dProgs = viewUserData.dailyPrograms || {};
+      const exs = viewUserData.exercises || [];
+      const exName = id => {
+        const e = exs.find(x => x.id === id);
+        return e ? e.name : id;
+      };
+      const hasProg = Object.keys(progs).length > 0 || Object.keys(dProgs).length > 0;
+      return React.createElement("div", {
+        style: S.card
+      }, React.createElement("h3", {
+        style: {
+          fontSize: 15,
+          fontWeight: 600,
+          marginBottom: 16,
+          display: "flex",
+          alignItems: "center",
+          gap: 8
+        }
+      }, "\uD83D\uDCCB ", L.programsLabel), !hasProg ? React.createElement("div", {
+        style: {
+          fontSize: 13,
+          color: "var(--t3)",
+          textAlign: "center",
+          padding: 20
+        }
+      }, L.noPrograms) : React.createElement("div", {
+        style: {
+          display: "grid",
+          gap: 12
+        }
+      }, Object.entries(progs).map(([pid, pg]) => React.createElement("div", {
+        key: pid,
+        style: {
+          background: "var(--bg3)",
+          borderRadius: 12,
+          padding: 14
+        }
+      }, React.createElement("div", {
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 8
+        }
+      }, React.createElement("span", {
+        style: {
+          fontSize: 14,
+          fontWeight: 600,
+          color: "var(--t1)"
+        }
+      }, pg.name), React.createElement("span", {
+        style: {
+          fontSize: 10,
+          padding: "2px 8px",
+          borderRadius: 6,
+          background: "var(--blueL)",
+          color: "var(--blue)"
+        }
+      }, L.weeklyProgram), viewUserData.activeProgram === pid && React.createElement("span", {
+        style: {
+          fontSize: 10,
+          padding: "2px 8px",
+          borderRadius: 6,
+          background: "var(--greenL)",
+          color: "var(--green)",
+          fontWeight: 700
+        }
+      }, L.activeLabel)), React.createElement("div", {
+        style: {
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 4
+        }
+      }, Object.entries(pg.days || {}).filter(([, arr]) => arr.length > 0).map(([di, arr]) => React.createElement("div", {
+        key: di,
+        style: {
+          fontSize: 11,
+          color: "var(--t2)"
+        }
+      }, React.createElement("span", {
+        style: {
+          fontWeight: 600,
+          color: "var(--t1)"
+        }
+      }, (lang === "tr" ? ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"] : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])[Number(di)], ": "), arr.map(id => exName(id)).join(", ")))))), Object.entries(dProgs).map(([pid, dp]) => React.createElement("div", {
+        key: pid,
+        style: {
+          background: "var(--bg3)",
+          borderRadius: 12,
+          padding: 14
+        }
+      }, React.createElement("div", {
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          marginBottom: 8
+        }
+      }, React.createElement("span", {
+        style: {
+          fontSize: 14,
+          fontWeight: 600,
+          color: "var(--t1)"
+        }
+      }, dp.name), React.createElement("span", {
+        style: {
+          fontSize: 10,
+          padding: "2px 8px",
+          borderRadius: 6,
+          background: "var(--orangeL)",
+          color: "var(--orange)"
+        }
+      }, L.dailyProgram)), React.createElement("div", {
+        style: {
+          fontSize: 11,
+          color: "var(--t2)"
+        }
+      }, (dp.exercises || []).map(id => exName(id)).join(", "))))));
+    })(), (() => {
+      const userBadges = viewUserData.badges || [];
+      const unlockedIds = new Set(userBadges.map(b => b.id));
+      const unlocked = BADGES.filter(b => unlockedIds.has(b.id));
+      return React.createElement("div", {
+        style: S.card
+      }, React.createElement("h3", {
+        style: {
+          fontSize: 15,
+          fontWeight: 600,
+          marginBottom: 16,
+          display: "flex",
+          alignItems: "center",
+          gap: 8
+        }
+      }, "\uD83C\uDFC5 ", L.badgesLabel), unlocked.length === 0 ? React.createElement("div", {
+        style: {
+          fontSize: 13,
+          color: "var(--t3)",
+          textAlign: "center",
+          padding: 20
+        }
+      }, L.noBadgesProfile) : React.createElement("div", {
+        style: {
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill,minmax(100px,1fr))",
+          gap: 10
+        }
+      }, unlocked.map(b => {
+        const ub = userBadges.find(x => x.id === b.id);
+        return React.createElement("div", {
+          key: b.id,
+          style: {
+            background: "var(--bg3)",
+            borderRadius: 12,
+            padding: 12,
+            textAlign: "center"
+          }
+        }, React.createElement("div", {
+          style: {
+            fontSize: 28
+          }
+        }, b.icon), React.createElement("div", {
+          style: {
+            fontSize: 11,
+            fontWeight: 600,
+            color: "var(--t1)",
+            marginTop: 4
+          }
+        }, getBadgeName(b, lang)), React.createElement("div", {
+          style: {
+            fontSize: 9,
+            color: "var(--t3)",
+            marginTop: 2
+          }
+        }, getBadgeCatLabel(b.cat, lang)), ub && ub.unlockedAt && React.createElement("div", {
+          style: {
+            fontSize: 9,
+            color: "var(--t3)"
+          }
+        }, ub.unlockedAt));
+      })));
+    })(), (() => {
+      const ms = viewUserData.measurements || {};
+      const all = [];
+      Object.entries(ms).forEach(([date, items]) => (items || []).forEach(item => all.push({
+        ...item,
+        date
+      })));
+      all.sort((a, b) => b.date.localeCompare(a.date));
+      const latest = all[0];
+      const mLabels = lang === "tr" ? MEASURE_LABELS_TR : MEASURE_LABELS_EN;
+      return React.createElement("div", {
+        style: S.card
+      }, React.createElement("h3", {
+        style: {
+          fontSize: 15,
+          fontWeight: 600,
+          marginBottom: 16,
+          display: "flex",
+          alignItems: "center",
+          gap: 8
+        }
+      }, "\uD83D\uDCCF ", L.measurementsLabel), !latest ? React.createElement("div", {
+        style: {
+          fontSize: 13,
+          color: "var(--t3)",
+          textAlign: "center",
+          padding: 20
+        }
+      }, L.noMeasurementsProfile) : React.createElement("div", null, React.createElement("div", {
+        style: {
+          fontSize: 12,
+          color: "var(--t3)",
+          marginBottom: 10
+        }
+      }, latest.date), React.createElement("div", {
+        style: {
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill,minmax(120px,1fr))",
+          gap: 8
+        }
+      }, Object.entries(mLabels).filter(([k]) => latest[k] && latest[k] > 0).map(([k, label]) => React.createElement("div", {
+        key: k,
+        style: {
+          background: "var(--bg3)",
+          borderRadius: 10,
+          padding: 10,
+          textAlign: "center"
+        }
+      }, React.createElement("div", {
+        style: {
+          fontSize: 18,
+          fontWeight: 700,
+          color: "var(--accent)"
+        }
+      }, latest[k], React.createElement("span", {
+        style: {
+          fontSize: 10,
+          color: "var(--t3)"
+        }
+      }, " ", MEASURE_UNITS[k])), React.createElement("div", {
+        style: {
+          fontSize: 10,
+          color: "var(--t3)"
+        }
+      }, label))))));
+    })()) : viewUserProfile && viewUserProfile.show_profile_info === false && React.createElement("div", {
+      style: {
+        ...S.card,
+        textAlign: "center",
+        padding: 24
+      }
+    }, React.createElement("div", {
+      style: {
+        fontSize: 32,
+        marginBottom: 8
+      }
+    }, "\uD83D\uDD12"), React.createElement("p", {
+      style: {
+        fontSize: 13,
+        color: "var(--t3)"
+      }
+    }, L.profileInfoHidden)), !viewUserId && React.createElement("div", {
       style: S.card
     }, React.createElement("h3", {
       style: {
@@ -1165,7 +1732,133 @@ function ProfileApp() {
         background: "var(--blueL)",
         color: "var(--blue)"
       }
-    }, n)))))))));
+    }, n)))))))), followListModal && React.createElement("div", {
+      style: {
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: 16,
+        animation: "fadeIn .2s ease"
+      },
+      onClick: () => {
+        setFollowListModal(null);
+        setFollowList([]);
+      }
+    }, React.createElement("div", {
+      style: {
+        background: "var(--bg2)",
+        border: "1px solid var(--brd)",
+        borderRadius: 16,
+        padding: 24,
+        maxWidth: 420,
+        width: "100%",
+        maxHeight: "70vh",
+        display: "flex",
+        flexDirection: "column",
+        animation: "scaleIn .2s ease",
+        boxShadow: "var(--shadow)"
+      },
+      onClick: e => e.stopPropagation()
+    }, React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 16
+      }
+    }, React.createElement("h3", {
+      style: {
+        fontSize: 16,
+        fontWeight: 700
+      }
+    }, followListModal === "followers" ? L.followersList : L.followingList), React.createElement("button", {
+      onClick: () => {
+        setFollowListModal(null);
+        setFollowList([]);
+      },
+      style: {
+        background: "none",
+        border: "none",
+        fontSize: 18,
+        cursor: "pointer",
+        color: "var(--t2)",
+        padding: 4
+      }
+    }, "\u2715")), React.createElement("div", {
+      style: {
+        overflowY: "auto",
+        flex: 1
+      }
+    }, followListLoading ? React.createElement("div", {
+      style: {
+        textAlign: "center",
+        padding: 24,
+        color: "var(--t3)"
+      }
+    }, "...") : followList.length === 0 ? React.createElement("div", {
+      style: {
+        textAlign: "center",
+        padding: 24,
+        fontSize: 13,
+        color: "var(--t3)"
+      }
+    }, L.noUsersFound) : followList.map(p => React.createElement("div", {
+      key: p.user_id,
+      onClick: () => {
+        setFollowListModal(null);
+        setFollowList([]);
+        window.location.href = profileRoute(p.user_id);
+      },
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        padding: "10px 12px",
+        borderRadius: 10,
+        cursor: "pointer",
+        transition: "background .15s ease"
+      },
+      onMouseEnter: e => e.currentTarget.style.background = "var(--bgH)",
+      onMouseLeave: e => e.currentTarget.style.background = "transparent"
+    }, React.createElement("div", {
+      style: {
+        width: 40,
+        height: 40,
+        borderRadius: "50%",
+        background: "var(--blueL)",
+        border: "2px solid var(--blue)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: p.avatar ? 20 : 16,
+        fontWeight: 700,
+        color: "var(--blue)",
+        flexShrink: 0
+      }
+    }, p.avatar || (p.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, React.createElement("div", {
+      style: {
+        fontSize: 14,
+        fontWeight: 600,
+        color: "var(--t1)",
+        overflow: "hidden",
+        textOverflow: "ellipsis",
+        whiteSpace: "nowrap"
+      }
+    }, p.display_name || "User"), p.username && React.createElement("div", {
+      style: {
+        fontSize: 12,
+        color: "var(--t3)"
+      }
+    }, "@", p.username))))))));
   }
   if (!user) return React.createElement("div", {
     style: {
@@ -1475,8 +2168,10 @@ function ProfileApp() {
     }
   }, React.createElement("div", {
     style: {
-      textAlign: "center"
-    }
+      textAlign: "center",
+      cursor: "pointer"
+    },
+    onClick: () => loadFollowList("followers", user.id)
   }, React.createElement("div", {
     style: {
       fontSize: 20,
@@ -1490,8 +2185,10 @@ function ProfileApp() {
     }
   }, L.followers)), React.createElement("div", {
     style: {
-      textAlign: "center"
-    }
+      textAlign: "center",
+      cursor: "pointer"
+    },
+    onClick: () => loadFollowList("following", user.id)
   }, React.createElement("div", {
     style: {
       fontSize: 20,
@@ -1875,7 +2572,76 @@ function ProfileApp() {
       color: "var(--t3)",
       marginTop: 12
     }
-  }, shareText.helper))), tab === "stats" && React.createElement(React.Fragment, null, basicStats && React.createElement("div", {
+  }, shareText.helper)), React.createElement("div", {
+    style: S.card
+  }, React.createElement("h3", {
+    style: {
+      fontSize: 15,
+      fontWeight: 600,
+      marginBottom: 10,
+      display: "flex",
+      alignItems: "center",
+      gap: 8
+    }
+  }, "\uD83D\uDC41\uFE0F ", L.showProfileInfo), React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "var(--t2)",
+      lineHeight: 1.6,
+      marginBottom: 14
+    }
+  }, L.profileInfoDesc), React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      gap: 12,
+      padding: "12px 14px",
+      background: "var(--bg3)",
+      borderRadius: 12
+    }
+  }, React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 13,
+      fontWeight: 600,
+      color: "var(--t1)"
+    }
+  }, L.showProfileInfo), React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: "var(--t3)",
+      lineHeight: 1.5
+    }
+  }, L.programsLabel, " \xB7 ", L.badgesLabel, " \xB7 ", L.measurementsLabel)), React.createElement("button", {
+    onClick: toggleShowProfileInfo,
+    style: {
+      width: 46,
+      height: 26,
+      borderRadius: 13,
+      border: "none",
+      background: showProfileInfo ? "var(--green)" : "var(--t4)",
+      cursor: "pointer",
+      position: "relative",
+      transition: "background .2s ease",
+      flexShrink: 0
+    }
+  }, React.createElement("div", {
+    style: {
+      width: 20,
+      height: 20,
+      borderRadius: "50%",
+      background: "#fff",
+      position: "absolute",
+      top: 3,
+      left: showProfileInfo ? 23 : 3,
+      transition: "left .2s ease"
+    }
+  }))))), tab === "stats" && React.createElement(React.Fragment, null, basicStats && React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(2,1fr)",
@@ -2145,7 +2911,139 @@ function ProfileApp() {
       color: "#fff",
       width: "100%"
     }
-  }, L.deleteAccount))))), showDeleteModal && React.createElement("div", {
+  }, L.deleteAccount))))), followListModal && React.createElement("div", {
+    style: {
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,.7)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 1000,
+      padding: 16,
+      animation: "fadeIn .2s ease"
+    },
+    onClick: () => {
+      setFollowListModal(null);
+      setFollowList([]);
+    }
+  }, React.createElement("div", {
+    style: {
+      background: "var(--bg2)",
+      border: "1px solid var(--brd)",
+      borderRadius: 16,
+      padding: 24,
+      maxWidth: 420,
+      width: "100%",
+      maxHeight: "70vh",
+      display: "flex",
+      flexDirection: "column",
+      animation: "scaleIn .2s ease",
+      boxShadow: "var(--shadow)"
+    },
+    onClick: e => e.stopPropagation()
+  }, React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 16
+    }
+  }, React.createElement("h3", {
+    style: {
+      fontSize: 16,
+      fontWeight: 700
+    }
+  }, followListModal === "followers" ? L.followersList : L.followingList), React.createElement("button", {
+    onClick: () => {
+      setFollowListModal(null);
+      setFollowList([]);
+    },
+    style: {
+      background: "none",
+      border: "none",
+      fontSize: 18,
+      cursor: "pointer",
+      color: "var(--t2)",
+      padding: 4
+    }
+  }, "\u2715")), React.createElement("div", {
+    style: {
+      overflowY: "auto",
+      flex: 1
+    }
+  }, followListLoading ? React.createElement("div", {
+    style: {
+      textAlign: "center",
+      padding: 24,
+      color: "var(--t3)"
+    }
+  }, "...") : followList.length === 0 ? React.createElement("div", {
+    style: {
+      textAlign: "center",
+      padding: 24,
+      fontSize: 13,
+      color: "var(--t3)"
+    }
+  }, L.noUsersFound) : followList.map(p => React.createElement("div", {
+    key: p.user_id,
+    onClick: () => {
+      setFollowListModal(null);
+      setFollowList([]);
+      if (p.user_id === user?.id) {
+        setViewUserId(null);
+        setViewUserProfile(null);
+        window.history.pushState(null, "", profileRoute());
+      } else {
+        window.location.href = profileRoute(p.user_id);
+      }
+    },
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      padding: "10px 12px",
+      borderRadius: 10,
+      cursor: "pointer",
+      transition: "background .15s ease"
+    },
+    onMouseEnter: e => e.currentTarget.style.background = "var(--bgH)",
+    onMouseLeave: e => e.currentTarget.style.background = "transparent"
+  }, React.createElement("div", {
+    style: {
+      width: 40,
+      height: 40,
+      borderRadius: "50%",
+      background: "var(--blueL)",
+      border: "2px solid var(--blue)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      fontSize: p.avatar ? 20 : 16,
+      fontWeight: 700,
+      color: "var(--blue)",
+      flexShrink: 0
+    }
+  }, p.avatar || (p.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 600,
+      color: "var(--t1)",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      whiteSpace: "nowrap"
+    }
+  }, p.display_name || "User"), p.username && React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: "var(--t3)"
+    }
+  }, "@", p.username))))))), showDeleteModal && React.createElement("div", {
     style: {
       position: "fixed",
       inset: 0,
