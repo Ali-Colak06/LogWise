@@ -4661,7 +4661,31 @@ function App({
       fontFamily: "inherit",
       transition: "all .15s ease"
     }
-  }, i, " ", l))), React.createElement("div", {
+  }, i, " ", l)), isMobile && React.createElement("div", {
+    style: {
+      marginTop: 8,
+      paddingTop: 8,
+      borderTop: "1px solid var(--brd2)"
+    }
+  }, React.createElement("button", {
+    onClick: () => setLang(prev => prev === "tr" ? "en" : "tr"),
+    style: {
+      display: "flex",
+      alignItems: "center",
+      gap: 12,
+      width: "100%",
+      padding: "8px 20px",
+      borderRadius: 24,
+      border: "none",
+      cursor: "pointer",
+      fontSize: 14,
+      fontWeight: 400,
+      background: "transparent",
+      color: "var(--t1)",
+      fontFamily: "inherit",
+      transition: "all .15s ease"
+    }
+  }, "\uD83C\uDF10 ", lang === "tr" ? "English" : "Türkçe"))), React.createElement("div", {
     style: {
       borderTop: "1px solid var(--brd)",
       margin: "4px 16px"

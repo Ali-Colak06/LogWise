@@ -99,6 +99,8 @@ Tüm uygulama `index.html` içinde. Build tool yok. `<script type="text/babel">`
 
 - **Dark/Light tema**: CSS custom properties ile. `data-theme="light"` attribute'u ile geçiş. Tercih localStorage'da (`gym-log-theme`).
 - **TR/EN dil desteği**: `TR` ve `EN` constant objeleri (~150+ anahtar). `lang` state: "tr" veya "en", localStorage'da (`gym-log-lang`).
+  - **Desktop**: Header'da `!isMobile` koşuluyla gösterilen buton (index.html ~satır 4500).
+  - **Mobil**: Sol sidebar panelinde (index.html ~satır 4664), nav butonlarının altında, ince bir ayraçla ayrılmış 🌐 simgeli buton olarak gösterilir. `isMobile` koşuluyla render edilir. Sidebar kapanmaz, dil anında değişir.
 
 ### 3.6 URL Routing (Client-Side)
 
@@ -1177,3 +1179,28 @@ const files = [
 - **RLS kısıtı**: `user_data` başka kullanıcıdan RLS ile okunamaz. Bu yüzden program paylaşım linki, Supabase'e ihtiyaç duymadan tüm veriyi URL'de taşır. `profile.html`'de `viewUserData` ise `show_profile_info=true` politikası sayesinde okunabilmektedir.
 - **`escape`/`unescape` kullanımı**: Deprecated ama evrensel browser desteği var. Türkçe karakterleri (ş, ğ, ü vb.) base64'te güvenle kodlar/çözer.
 - **Wrapper vs. Ana Fonksiyon sırası**: `copyProgramFn` ve `copySwFn` wrapper'ları `copyProgram` ve `copyWorkoutFromProfile`'dan SONRA tanımlanmalı; aksi halde çalışma anında "not defined" hatası oluşur.
+
+---
+
+## Bölüm 25 — Mobil Dil Değiştirme Butonu (2026-04-12)
+
+### Değişiklik: TR/EN Toggle Mobil Sidebar'a Eklendi
+
+**Etkilenen dosya**: `index.html`
+
+**Önceki durum**: Dil değiştirme butonu yalnızca `!isMobile` koşuluyla header'da, masaüstünde görünüyordu (index.html ~satır 4500). Mobil kullanıcılar dili değiştiremiyordu.
+
+**Yeni durum**: Mobil sidebar panelinin nav butonları bölümüne, listedeki son butonun hemen altına `isMobile && ...` koşuluyla bir dil değiştirme satırı eklendi (index.html ~satır 4664).
+
+**Konum**: Sol sidebar → nav butonları → ince ayraç çizgisi → 🌐 dil butonu.
+
+**Görünüm**: Diğer nav butonlarıyla aynı stilde (borderRadius: 24, padding: "8px 20px", transparent background). TR aktifken "🌐 English", EN aktifken "🌐 Türkçe" yazar. Butona basıldığında sidebar kapanmaz, dil anında değişir.
+
+**Kod özeti**:
+```js
+isMobile && React.createElement("div", {
+  style: { marginTop: 8, paddingTop: 8, borderTop: "1px solid var(--brd2)" }
+}, React.createElement("button", {
+  onClick: () => setLang(prev => prev === "tr" ? "en" : "tr"),
+  style: { /* nav butonlarıyla aynı stil */ }
+}, "🌐 ", lang === "tr" ? "English" : "Türkçe"))
