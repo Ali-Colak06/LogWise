@@ -4,12 +4,9 @@
 /index.html   /   301
 /index.php    /   301
 
-# NOT: /profile ve /share için kural YOK — Cloudflare Pages, profile.html ve
-# share.html dosyalarını otomatik olarak clean URL olarak sunuyor.
-# Burada kural eklemek 307 döngüsüne neden oluyordu.
-
-# Program paylaşım sayfası
-/program      /program.html   200
+# NOT: /profile, /share ve /program için kural YOK — Cloudflare Pages, .html
+# dosyalarını otomatik olarak clean URL olarak sunuyor.
+# Burada kural eklemek redirect döngüsüne neden olur.
 
 # SPA route'ları — React client-side routing
 /social       /index.html     200
