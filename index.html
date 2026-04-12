@@ -7906,7 +7906,20 @@ function App({
           setToast(lang === "tr" ? "Giriş yapman gerekiyor" : "Please log in");
           return;
         }
-        const link = window.location.origin + profileRoute(user.id) + "?pg=" + id;
+        const pgData = {
+          name: p.name,
+          type: "weekly",
+          days: {},
+          offDays: p.offDays || [],
+          sharedBy: user.user_metadata?.full_name || user.email?.split("@")[0] || "",
+          sharedByUsername: myUsername || ""
+        };
+        for (let i = 0; i < 7; i++) {
+          const k = String(i);
+          pgData.days[k] = (p.days[k] || []).map(eid => exN(eid)).filter(Boolean);
+        }
+        const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(pgData))));
+        const link = window.location.origin + "/program?d=" + encoded;
         try {
           navigator.clipboard.writeText(link);
         } catch (e) {}

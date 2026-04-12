@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="View and copy a shared training program on Log Wise."/>
+<title>Log Wise — Shared Program</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet"/>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body,#root{height:100%;overflow:hidden}
+body{font-family:'Space Mono',monospace;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:8px}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bgH:#222;
+  --t1:#e0e0e0;--t2:#888;--t3:#555;--t4:#333;
+  --brd:#222;--brd2:#333;
+  --blue:#f0c040;--blueH:#ffd060;--blueL:#2a2210;
+  --green:#8fbc8f;--greenL:#1a2a1a;
+  --red:#ff6060;--redL:#2a1515;
+  --orange:#ffa040;--orangeL:#2a2010;
+  --scroll:#333;
+  --shadow:0 2px 8px rgba(0,0,0,.6);
+  --shadow2:0 1px 4px rgba(0,0,0,.4);
+  --accent:#f0c040;--accentT:#000;
+}
+[data-theme="light"]{
+  --bg:#f5f2ec;--bg2:#fff;--bg3:#f0ede6;--bgH:#e8e4dc;
+  --t1:#1a1a1a;--t2:#666;--t3:#999;--t4:#ccc;
+  --brd:#d0cdc6;--brd2:#bbb8b0;
+  --blue:#c8960a;--blueH:#a07808;--blueL:#f5ecd0;
+  --green:#2d7a2d;--greenL:#edf5ed;
+  --red:#d44040;--redL:#fce8e6;
+  --orange:#e37400;--orangeL:#fef7e0;
+  --scroll:#d0cdc6;
+  --shadow:0 2px 8px rgba(0,0,0,.15);
+  --shadow2:0 1px 4px rgba(0,0,0,.1);
+  --accent:#c8960a;--accentT:#fff;
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.day-card{animation:countUp .3s ease both}
+.day-card:nth-child(2){animation-delay:.04s}.day-card:nth-child(3){animation-delay:.08s}
+.day-card:nth-child(4){animation-delay:.12s}.day-card:nth-child(5){animation-delay:.16s}
+.day-card:nth-child(6){animation-delay:.20s}.day-card:nth-child(7){animation-delay:.24s}
+</style>
+</head>
+<body>
+<h1 class="sr-only">Log Wise — Shared Program</h1>
+<div id="root"></div>
+<script>
+const SUPABASE_URL = "https://czbxujioufhmvoajqwzp.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6Ynh1amlvdWZobXZvYWpxd3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDYzNTgsImV4cCI6MjA5MDA4MjM1OH0._juhkh6W8p0iP3WVSooi1fFfZFXT50LugDszPBubOgk";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const {
+  useState,
+  useEffect
+} = React;
+const TK = "gym-log-theme",
+  LK = "gym-log-lang";
+const DAY_NAMES_TR = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
+const DAY_NAMES_EN = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const DAY_SHORT_TR = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
+const DAY_SHORT_EN = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+function ProgramApp() {
+  const [theme, setTheme] = useState(() => localStorage.getItem(TK) || "dark");
+  const [lang, setLang] = useState(() => localStorage.getItem(LK) || "tr");
+  const [programData, setProgramData] = useState(null);
+  const [error, setError] = useState(false);
+  const [user, setUser] = useState(null);
+  const [copying, setCopying] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [toast, setToast] = useState(null);
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem(TK, theme);
+  }, [theme]);
+  useEffect(() => {
+    if (toast) {
+      const t = setTimeout(() => setToast(null), 3000);
+      return () => clearTimeout(t);
+    }
+  }, [toast]);
+  useEffect(() => {
+    sb.auth.getSession().then(({
+      data: {
+        session
+      }
+    }) => setUser(session?.user || null));
+    const {
+      data: {
+        subscription
+      }
+    } = sb.auth.onAuthStateChange((_, session) => setUser(session?.user || null));
+    return () => subscription.unsubscribe();
+  }, []);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const d = params.get("d");
+    if (!d) {
+      setError(true);
+      return;
+    }
+    try {
+      const decoded = JSON.parse(decodeURIComponent(escape(atob(d))));
+      if (!decoded || !decoded.name || !decoded.days) {
+        setError(true);
+        return;
+      }
+      setProgramData(decoded);
+      document.title = `Log Wise — ${decoded.name}`;
+    } catch (e) {
+      setError(true);
+    }
+  }, []);
+  const copyProgram = async () => {
+    if (!user || !programData) return;
+    setCopying(true);
+    try {
+      const {
+        data: row
+      } = await sb.from("user_data").select("data").eq("user_id", user.id).single();
+      const cur = row && row.data || {
+        exercises: [],
+        workouts: {},
+        programs: {},
+        dailyPrograms: {},
+        measurements: {},
+        dayNotes: {},
+        exerciseNotes: {},
+        programMeta: {},
+        badges: []
+      };
+      let exs = [...(cur.exercises || [])];
+      const allNames = new Set();
+      Object.values(programData.days || {}).forEach(arr => (arr || []).forEach(n => allNames.add(n)));
+      const nameToId = {};
+      allNames.forEach(name => {
+        let match = exs.find(e => e.name.toLowerCase() === name.toLowerCase());
+        if (!match) {
+          match = {
+            id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + name.slice(0, 2),
+            name,
+            categories: ["Diğer"]
+          };
+          exs.push(match);
+        }
+        nameToId[name] = match.id;
+      });
+      const newDays = {};
+      for (let i = 0; i < 7; i++) {
+        const k = String(i);
+        newDays[k] = (programData.days[k] || []).map(n => nameToId[n]).filter(Boolean);
+      }
+      const newPgId = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+      const suffix = lang === "tr" ? " (kopya)" : " (copy)";
+      const newProg = {
+        name: programData.name + suffix,
+        days: newDays,
+        ...(programData.offDays && programData.offDays.length ? {
+          offDays: programData.offDays
+        } : {})
+      };
+      const newData = {
+        ...cur,
+        exercises: exs,
+        programs: {
+          ...(cur.programs || {}),
+          [newPgId]: newProg
+        }
+      };
+      await sb.from("user_data").upsert({
+        user_id: user.id,
+        data: newData
+      }, {
+        onConflict: "user_id"
+      });
+      setCopied(true);
+      setToast(lang === "tr" ? `✅ "${programData.name}" programı kopyalandı! Programlar sayfasında görebilirsin.` : `✅ Program "${programData.name}" copied! Check your Programs page.`);
+    } catch (e) {
+      setToast(lang === "tr" ? "Bir hata oluştu: " + e.message : "Error: " + e.message);
+    } finally {
+      setCopying(false);
+    }
+  };
+  const IcoSun = () => React.createElement("svg", {
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "var(--t2)",
+    strokeWidth: "2"
+  }, React.createElement("circle", {
+    cx: "12",
+    cy: "12",
+    r: "5"
+  }), React.createElement("line", {
+    x1: "12",
+    y1: "1",
+    x2: "12",
+    y2: "3"
+  }), React.createElement("line", {
+    x1: "12",
+    y1: "21",
+    x2: "12",
+    y2: "23"
+  }), React.createElement("line", {
+    x1: "4.22",
+    y1: "4.22",
+    x2: "5.64",
+    y2: "5.64"
+  }), React.createElement("line", {
+    x1: "18.36",
+    y1: "18.36",
+    x2: "19.78",
+    y2: "19.78"
+  }), React.createElement("line", {
+    x1: "1",
+    y1: "12",
+    x2: "3",
+    y2: "12"
+  }), React.createElement("line", {
+    x1: "21",
+    y1: "12",
+    x2: "23",
+    y2: "12"
+  }), React.createElement("line", {
+    x1: "4.22",
+    y1: "19.78",
+    x2: "5.64",
+    y2: "18.36"
+  }), React.createElement("line", {
+    x1: "18.36",
+    y1: "5.64",
+    x2: "19.78",
+    y2: "4.22"
+  }));
+  const IcoMoon = () => React.createElement("svg", {
+    width: "20",
+    height: "20",
+    viewBox: "0 0 24 24",
+    fill: "var(--t2)"
+  }, React.createElement("path", {
+    d: "M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"
+  }));
+  const S = {
+    card: {
+      background: "var(--bg2)",
+      border: "1px solid var(--brd)",
+      borderRadius: 16,
+      padding: 24,
+      marginBottom: 16,
+      boxShadow: "var(--shadow2)"
+    },
+    pri: {
+      padding: "12px 28px",
+      borderRadius: 12,
+      border: "none",
+      background: "var(--accent)",
+      color: "var(--accentT)",
+      fontSize: 15,
+      fontWeight: 700,
+      cursor: "pointer",
+      fontFamily: "inherit",
+      transition: "all .2s ease"
+    },
+    sec: {
+      padding: "10px 20px",
+      borderRadius: 12,
+      border: "1px solid var(--brd)",
+      background: "var(--bg)",
+      color: "var(--t1)",
+      fontSize: 14,
+      fontWeight: 500,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    },
+    ib: {
+      width: 40,
+      height: 40,
+      borderRadius: "50%",
+      border: "none",
+      background: "transparent",
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    }
+  };
+  if (error || !programData && !error) return React.createElement("div", {
+    style: {
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      background: "var(--bg)",
+      color: "var(--t1)"
+    }
+  }, React.createElement("header", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      padding: "8px 16px",
+      borderBottom: "1px solid var(--brd)",
+      height: 64,
+      gap: 12,
+      background: "var(--bg)"
+    }
+  }, React.createElement("a", {
+    href: "/",
+    style: {
+      textDecoration: "none"
+    }
+  }, React.createElement("span", {
+    style: {
+      fontSize: 22,
+      fontWeight: 400,
+      color: "var(--t1)"
+    }
+  }, "\uD83C\uDFCB\uFE0F ", React.createElement("b", {
+    style: {
+      fontFamily: "'Archivo Black',sans-serif",
+      color: "var(--accent)"
+    }
+  }, "LOG WISE"))), React.createElement("span", {
+    style: {
+      flex: 1
+    }
+  }), React.createElement("button", {
+    onClick: () => setTheme(t => t === "dark" ? "light" : "dark"),
+    style: S.ib
+  }, theme === "dark" ? React.createElement(IcoSun, null) : React.createElement(IcoMoon, null))), error ? React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 16
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 64
+    }
+  }, "\uD83D\uDCCB"), React.createElement("h2", {
+    style: {
+      fontSize: 20,
+      fontWeight: 700,
+      color: "var(--accent)"
+    }
+  }, "LOG WISE"), React.createElement("p", {
+    style: {
+      fontSize: 14,
+      color: "var(--t2)"
+    }
+  }, lang === "tr" ? "Bu program linki geçersiz veya süresi dolmuş." : "This program link is invalid or has expired."), React.createElement("button", {
+    onClick: () => window.location.href = "/",
+    style: S.pri
+  }, lang === "tr" ? "Ana Sayfa" : "Home")) : React.createElement("div", {
+    style: {
+      flex: 1,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      color: "var(--t3)",
+      fontSize: 16
+    }
+  }, "\u23F3 ", lang === "tr" ? "Yükleniyor..." : "Loading..."));
+  const activeDays = Object.entries(programData.days || {}).filter(([, arr]) => (arr || []).length > 0);
+  const totalExercises = new Set(Object.values(programData.days || {}).flat()).size;
+  const trainDays = activeDays.length;
+  const dayNames = lang === "tr" ? DAY_NAMES_TR : DAY_NAMES_EN;
+  const dayShort = lang === "tr" ? DAY_SHORT_TR : DAY_SHORT_EN;
+  return React.createElement("div", {
+    style: {
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      background: "var(--bg)",
+      color: "var(--t1)"
+    }
+  }, toast && React.createElement("div", {
+    style: {
+      position: "fixed",
+      top: 16,
+      left: "50%",
+      transform: "translateX(-50%)",
+      background: "var(--bg2)",
+      border: "1px solid var(--brd)",
+      borderRadius: 10,
+      padding: "12px 24px",
+      fontSize: 13,
+      color: "var(--t1)",
+      zIndex: 9999,
+      boxShadow: "var(--shadow)",
+      animation: "fadeIn .2s ease",
+      maxWidth: "90vw",
+      textAlign: "center",
+      lineHeight: 1.5
+    }
+  }, toast), React.createElement("header", {
+    style: {
+      display: "flex",
+      alignItems: "center",
+      padding: "8px 16px",
+      borderBottom: "1px solid var(--brd)",
+      height: 64,
+      flexShrink: 0,
+      gap: 12,
+      zIndex: 50,
+      background: "var(--bg)"
+    }
+  }, React.createElement("a", {
+    href: "/",
+    style: {
+      textDecoration: "none",
+      display: "flex",
+      alignItems: "center",
+      gap: 8
+    }
+  }, React.createElement("span", {
+    style: {
+      fontSize: 22,
+      fontWeight: 400,
+      color: "var(--t1)"
+    }
+  }, "\uD83C\uDFCB\uFE0F ", React.createElement("b", {
+    style: {
+      fontFamily: "'Archivo Black',sans-serif",
+      color: "var(--accent)"
+    }
+  }, "LOG WISE"))), React.createElement("span", {
+    style: {
+      flex: 1
+    }
+  }), React.createElement("button", {
+    onClick: () => setLang(l => l === "tr" ? "en" : "tr"),
+    style: {
+      padding: "4px 10px",
+      borderRadius: 6,
+      border: "1px solid var(--brd)",
+      background: "var(--bg)",
+      color: "var(--t1)",
+      fontSize: 12,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, lang === "tr" ? "EN" : "TR"), React.createElement("button", {
+    onClick: () => setTheme(t => t === "dark" ? "light" : "dark"),
+    style: S.ib
+  }, theme === "dark" ? React.createElement(IcoSun, null) : React.createElement(IcoMoon, null))), React.createElement("main", {
+    style: {
+      flex: 1,
+      overflowY: "auto",
+      padding: "24px 16px 80px"
+    }
+  }, React.createElement("div", {
+    style: {
+      maxWidth: 560,
+      margin: "0 auto"
+    }
+  }, React.createElement("div", {
+    style: {
+      ...S.card,
+      textAlign: "center",
+      paddingTop: 32,
+      paddingBottom: 28,
+      animation: "fadeIn .4s ease"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 48,
+      marginBottom: 12
+    }
+  }, "\uD83D\uDCCB"), React.createElement("h2", {
+    style: {
+      fontSize: 24,
+      fontWeight: 700,
+      color: "var(--accent)",
+      marginBottom: 8,
+      fontFamily: "'Archivo Black',sans-serif"
+    }
+  }, programData.name), programData.sharedBy && React.createElement("div", {
+    style: {
+      fontSize: 13,
+      color: "var(--t3)",
+      marginBottom: 16
+    }
+  }, lang === "tr" ? "Paylaşan:" : "Shared by:", " ", React.createElement("span", {
+    style: {
+      color: "var(--t1)",
+      fontWeight: 600
+    }
+  }, programData.sharedBy), programData.sharedByUsername && React.createElement("span", {
+    style: {
+      color: "var(--t3)",
+      marginLeft: 4
+    }
+  }, "@", programData.sharedByUsername)), React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "center",
+      gap: 24,
+      marginBottom: 24
+    }
+  }, React.createElement("div", {
+    style: {
+      textAlign: "center"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 28,
+      fontWeight: 700,
+      color: "var(--accent)"
+    }
+  }, trainDays), React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: "var(--t3)"
+    }
+  }, lang === "tr" ? "Antrenman Günü" : "Training Days")), React.createElement("div", {
+    style: {
+      textAlign: "center"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 28,
+      fontWeight: 700,
+      color: "var(--accent)"
+    }
+  }, totalExercises), React.createElement("div", {
+    style: {
+      fontSize: 11,
+      color: "var(--t3)"
+    }
+  }, lang === "tr" ? "Farklı Hareket" : "Unique Exercises"))), user ? copied ? React.createElement("div", {
+    style: {
+      background: "var(--greenL)",
+      border: "1px solid var(--green)",
+      borderRadius: 12,
+      padding: "14px 20px"
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 20,
+      marginBottom: 4
+    }
+  }, "\u2705"), React.createElement("div", {
+    style: {
+      fontSize: 14,
+      fontWeight: 600,
+      color: "var(--green)",
+      marginBottom: 8
+    }
+  }, lang === "tr" ? "Program kopyalandı!" : "Program copied!"), React.createElement("button", {
+    onClick: () => window.location.href = "/",
+    style: S.pri
+  }, "\uD83C\uDFCB\uFE0F ", lang === "tr" ? "Programlarıma Git" : "Go to My Programs")) : React.createElement("div", null, React.createElement("button", {
+    onClick: copyProgram,
+    disabled: copying,
+    style: {
+      ...S.pri,
+      fontSize: 16,
+      padding: "14px 36px",
+      opacity: copying ? .7 : 1
+    }
+  }, copying ? "⏳ ..." : `📋 ${lang === "tr" ? "Bu Programı Kopyala" : "Copy This Program"}`), React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "var(--t3)",
+      marginTop: 10,
+      lineHeight: 1.5
+    }
+  }, lang === "tr" ? "Program ve tüm hareketler hesabına eklenecek." : "The program and all exercises will be added to your account.")) : React.createElement("div", null, React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "var(--t2)",
+      marginBottom: 14,
+      lineHeight: 1.5
+    }
+  }, lang === "tr" ? "Bu programı kopyalamak için giriş yapman gerekiyor." : "You need to log in to copy this program."), React.createElement("button", {
+    onClick: () => window.location.href = "/?redirect=" + encodeURIComponent(window.location.href),
+    style: S.pri
+  }, "\uD83D\uDD11 ", lang === "tr" ? "Giriş Yap / Kayıt Ol" : "Sign In / Sign Up"))), React.createElement("h3", {
+    style: {
+      fontSize: 14,
+      fontWeight: 600,
+      color: "var(--t3)",
+      textTransform: "uppercase",
+      letterSpacing: .6,
+      marginBottom: 12
+    }
+  }, lang === "tr" ? "Haftalık Plan" : "Weekly Schedule"), [0, 1, 2, 3, 4, 5, 6].map(i => {
+    const k = String(i);
+    const exs = programData.days[k] || [];
+    const isOff = programData.offDays && programData.offDays.includes(k);
+    const isEmpty = exs.length === 0 && !isOff;
+    return React.createElement("div", {
+      key: i,
+      className: "day-card",
+      style: {
+        background: "var(--bg2)",
+        border: "1px solid var(--brd)",
+        borderRadius: 12,
+        padding: "14px 18px",
+        marginBottom: 8,
+        opacity: isEmpty ? .4 : 1
+      }
+    }, React.createElement("div", {
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 10
+      }
+    }, React.createElement("div", {
+      style: {
+        width: 40,
+        height: 40,
+        borderRadius: 10,
+        background: exs.length > 0 ? "var(--blueL)" : isOff ? "var(--bg3)" : "var(--bg3)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        flexShrink: 0
+      }
+    }, React.createElement("span", {
+      style: {
+        fontSize: 13,
+        fontWeight: 700,
+        color: exs.length > 0 ? "var(--blue)" : isOff ? "var(--t3)" : "var(--t4)"
+      }
+    }, dayShort[i])), React.createElement("div", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, React.createElement("div", {
+      style: {
+        fontSize: 13,
+        fontWeight: 600,
+        color: "var(--t1)",
+        marginBottom: isOff || exs.length === 0 ? 0 : 4
+      }
+    }, dayNames[i], exs.length > 0 && React.createElement("span", {
+      style: {
+        fontSize: 11,
+        color: "var(--t3)",
+        fontWeight: 400,
+        marginLeft: 8
+      }
+    }, exs.length, " ", lang === "tr" ? "hareket" : "exercises"), isOff && React.createElement("span", {
+      style: {
+        fontSize: 11,
+        color: "var(--t3)",
+        marginLeft: 8
+      }
+    }, "\uD83D\uDCA4 ", lang === "tr" ? "Dinlenme" : "Rest day"), isEmpty && React.createElement("span", {
+      style: {
+        fontSize: 11,
+        color: "var(--t4)",
+        marginLeft: 8
+      }
+    }, lang === "tr" ? "—" : "—")), exs.length > 0 && React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 4,
+        flexWrap: "wrap"
+      }
+    }, exs.map((name, j) => React.createElement("span", {
+      key: j,
+      style: {
+        fontSize: 11,
+        padding: "2px 10px",
+        borderRadius: 999,
+        background: "var(--bg3)",
+        color: "var(--t2)",
+        border: "1px solid var(--brd)"
+      }
+    }, name))))));
+  }), React.createElement("div", {
+    style: {
+      textAlign: "center",
+      marginTop: 20,
+      padding: "20px",
+      background: "var(--bg2)",
+      border: "1px solid var(--brd)",
+      borderRadius: 16
+    }
+  }, React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "var(--t3)",
+      marginBottom: 12
+    }
+  }, lang === "tr" ? "Log Wise ile antrenmanlarını takip et." : "Track your workouts with Log Wise."), React.createElement("button", {
+    onClick: () => window.location.href = "/",
+    style: S.sec
+  }, "\uD83C\uDFCB\uFE0F Log Wise")))));
+}
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(ProgramApp, null));
+</script>
+</body>
+</html>

@@ -8,6 +8,9 @@
 # share.html dosyalarını otomatik olarak clean URL olarak sunuyor.
 # Burada kural eklemek 307 döngüsüne neden oluyordu.
 
+# Program paylaşım sayfası
+/program      /program.html   200
+
 # SPA route'ları — React client-side routing
 /social       /index.html     200
 /dashboard    /index.html     200

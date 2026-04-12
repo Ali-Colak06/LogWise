@@ -43,6 +43,8 @@ LogWise/
 ├── index.html.babel-backup ← index.html kaynak JSX (git'e gitmez, sadece yerel)
 ├── profile.html.babel-backup ← profile.html kaynak JSX (git'e gitmez, sadece yerel)
 ├── share.html.babel-backup ← share.html kaynak JSX (git'e gitmez, sadece yerel)
+├── program.html            ← Program paylaşım sayfası (public, base64 URL ile veri)
+├── program.html.babel-backup ← program.html kaynak JSX (git'e gitmez, sadece yerel)
 └── CLAUDE-CODE-REHBER.md   ← Bu dosya
 ```
 
@@ -113,6 +115,7 @@ React tarafında pushState/replaceState ile URL yönetimi:
 - `/profile` → Profil sayfası (ayrı HTML dosyası)
 - `/profile?id=xxx` → Başka kullanıcının profili (ayrı HTML dosyası)
 - `/share?id=xxx` → Paylaşılan antrenman görüntüleme (ayrı HTML dosyası, public)
+- `/program?d=xxx` → Paylaşılan program görüntüleme/kopyalama (ayrı HTML dosyası, public; `d` parametresi base64 JSON)
 
 Tarayıcı geri/ileri tuşları `popstate` event'i ile desteklenir.
 
@@ -495,6 +498,7 @@ Tüm redirect ve rewrite kuralları bu dosyada tanımlı:
 - `/index.html` ve `/index.php` → `/` (301) — temiz URL
 - `/profile` → `/profile.html` (200 rewrite) — clean URL
 - `/share` → `/share.html` (200 rewrite) — clean URL
+- `/program` → `/program.html` (200 rewrite) — program paylaşım sayfası
 - SPA route'ları: `/dashboard`, `/exercises`, `/programs`, `/feedback`, `/data`, `/social` → `/index.html` (200 rewrite)
 - 404 sayfası için ayrı kural **gerekmez** — Cloudflare Pages kök dizindeki `404.html`'i otomatik kullanır
 
@@ -503,7 +507,7 @@ Tüm redirect ve rewrite kuralları bu dosyada tanımlı:
 - Tüm sayfalar: güvenlik header'ları (X-Frame-Options, X-Content-Type-Options, Referrer-Policy) + `Cache-Control: public, max-age=3600`
 
 ### Önemli Kurallar
-- **ÖNEMLİ**: Kodda her zaman `/profile` ve `/share` kullanılmalı, asla `/profile.html` veya `/share.html` kullanılmamalı. Redirect döngüsüne sebep olur.
+- **ÖNEMLİ**: Kodda her zaman `/profile`, `/share`, `/program` kullanılmalı; asla `.html` uzantılı URL'ler kullanılmamalı. Redirect döngüsüne sebep olur.
 - `netlify.toml` artık kullanılmıyor; Cloudflare `_redirects` ve `_headers` dosyalarını kullanıyor.
 
 ### Deploy Akışı
@@ -546,7 +550,7 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama
 
 2. **Tek dosya uygulaması** — Tüm CSS, JS, React tek `index.html` içinde. Ayrı dosyalara bölme.
 
-3. **JSX önceden derlenmiş** — Babel Standalone **kaldırıldı** (2026-04-10). `index.html`, `profile.html`, `share.html` artık `<script type="text/babel">` içermiyor; JSX önceden `@babel/preset-react` ile düz `React.createElement()` çağrılarına derlendi. Kaynak JSX dosyaları `*.babel-backup` uzantısıyla saklanıyor. Değişiklik yapmak için: `.babel-backup` dosyasını düzenle → `node compile.js` çalıştır → deploy. `compile.js` ve `package.json` git'te **takip edilmez** (.gitignore'da), sadece yerel araçtır.
+3. **JSX önceden derlenmiş** — Babel Standalone **kaldırıldı** (2026-04-10). `index.html`, `profile.html`, `share.html`, `program.html` artık `<script type="text/babel">` içermiyor; JSX önceden `@babel/preset-react` ile düz `React.createElement()` çağrılarına derlendi. Kaynak JSX dosyaları `*.babel-backup` uzantısıyla saklanıyor. Değişiklik yapmak için: `.babel-backup` dosyasını düzenle → `node compile.js` çalıştır → deploy. `compile.js` ve `package.json` git'te **takip edilmez** (.gitignore'da), sadece yerel araçtır.
 
 4. **Edit çok dikkatli yapılmalı** — Dosya kesintisi beyaz ekrana sebep olur. Her edit sonrası:
    - `tail -5 index.html` ile dosya sonunu kontrol et
@@ -571,7 +575,7 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama
 
 13. **A11y** — Yeni modal eklenirse `role="dialog" aria-modal="true" aria-label={L.xxx}` eklenmeli. Yeni icon button'a `aria-label` eklenmeli. Escape key handler'a yeni modal state eklenmeli.
 
-14. **Profil/Share linkleri** — Kodda her zaman `/profile` ve `/share` kullanılmalı, asla `/profile.html` veya `/share.html` kullanılmamalı. Netlify redirect döngüsüne sebep olur.
+14. **Profil/Share/Program linkleri** — Kodda her zaman `/profile`, `/share`, `/program` kullanılmalı; asla `.html` uzantılı URL'ler kullanılmamalı. Redirect döngüsüne sebep olur.
 
 ---
 
@@ -647,6 +651,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Arkadaş sistemi** — Instagram tarzı tek yönlü takip, `follows` Supabase tablosu, kullanıcı arama (display_name + username ilike), takip et/takiptesin butonları, antrenman akışı (feed) — takip edilen kişilerin paylaşılan antrenmanları, profil kartları, boş state yönlendirmeleri
 - ✅ **Username sistemi** — Kayıt sırasında zorunlu username (3-20 karakter, harf/rakam/alt çizgi), uniqueness kontrolü, mevcut kullanıcılar için username seçme modalı, sidebar/leaderboard/feed/search/profile'da @username gösterimi
 - ✅ **Profil bilgileri görünürlüğü** — Başka kullanıcının profilinde programlar, rozetler ve vücut ölçüleri görüntülenebilir. `show_profile_info` toggle'ı ile kullanıcı bu bilgileri gizleyebilir (default: açık). Takipçi/takip sayılarına tıklayınca liste modalı açılır.
+- ✅ **Program & Antrenman Kopyalama Sistemi** — Üç farklı kopyalama akışı: (1) Sosyal akıştaki antrenman paylaşımından 📋 ile takvime kopyalama, (2) Başka kullanıcının profilindeki programı veya paylaşılan antrenmanı kopyalama, (3) Program paylaşım linki — `program.html` sayfasında base64 URL ile veri gömülü, Supabase gerektirmiyor. Tüm akışlarda egzersiz isim eşlemesi yapılır, eksik hareketler "Diğer" kategorisiyle otomatik oluşturulur.
 
 ### Diğer Düzeltmeler
 - ✅ **Profil sayfası local fix** — `/profile` → `/profile.html` yönlendirmesi (Python HTTP server uyumu)
@@ -1012,3 +1017,163 @@ Her iki view'da (kendi profil + başka kullanıcı profili) kullanılır. Avatar
 | `is_public=true` + `show_profile_info=true` | Programlar, rozetler, ölçüler tam görünür |
 | `is_public=true` + `show_profile_info=false` | 🔒 gizli mesajı |
 | `is_public=false` | Profil hiç görünmez (mevcut davranış) |
+
+---
+
+## Bölüm 24 — Program & Antrenman Kopyalama Sistemi (2026-04-12)
+
+### Genel Bakış
+
+Kullanıcılar üç farklı yoldan başkalarının antrenman ve programlarını kendi hesaplarına kopyalayabilir:
+
+1. **Sosyal akış (feed) → Antrenman kopyalama** (`index.html`)
+2. **Profil sayfası → Program veya antrenman kopyalama** (`profile.html`)
+3. **Program paylaşım linki → Bağımsız önizleme & kopyalama** (`program.html`)
+
+### Temel Tasarım Kararı: Egzersiz ID Eşlemesi
+
+Supabase'deki egzersiz ID'leri kullanıcıya özeldir (başka kullanıcının ID'si anlamsız). Bu yüzden tüm kopyalama akışlarında **isim tabanlı eşleme** yapılır:
+
+```js
+// Ortak pattern — tüm kopyalama fonksiyonlarında tekrarlanır
+const name = "Bench Press";
+let match = myExercises.find(e => e.name.toLowerCase() === name.toLowerCase());
+if (!match) {
+  match = { id: Date.now().toString(36) + Math.random().toString(36).slice(2,7), name, categories: ["Diğer"] };
+  myExercises.push(match);
+}
+idMap[sourceId_or_index] = match.id;
+```
+
+### 1. Sosyal Akıştan Antrenman Kopyalama (`index.html`)
+
+**Yeni state'ler** (diğer state'lerin hemen altına):
+```js
+const[copyFeedModal,setCopyFeedModal]=useState(null); // paylaşılan post objesi
+const[copyFeedDate,setCopyFeedDate]=useState("");      // hedef tarih
+const[copyingFeed,setCopyingFeed]=useState(false);
+```
+
+**`copySharedWorkout()` fonksiyonu** — `loadLeaderboard` öncesinde tanımlı:
+- `copyFeedModal` içindeki `exNames` dizisi ile egzersiz isimleri elde edilir
+- `workout_data.exercises` veya düz array formatı desteklenir (geriye dönük uyum)
+- `dRef.current` ile mevcut veri okunur (stale closure koruması)
+- `debouncedSave` yerine `save()` kullanılır (anlık kayıt)
+
+**Feed kartı UI**: Göz (👁️) butonunun yanına 📋 butonu eklendi. Tıklayınca `setCopyFeedModal({...post, exNames})` çağrılır.
+
+**Kopyalama modalı**: Tarih seçici + Kopyala butonu. `copyFeedDate` boşken buton disabled.
+
+### 2. Profil Sayfasından Kopyalama (`profile.html`)
+
+**Yeni state'ler**:
+```js
+const[copyPgConfirm,setCopyPgConfirm]=useState(null); // kopyalanacak program ID
+const[copySwModal,setCopySwModal]=useState(null);      // kopyalanacak shared workout objesi
+const[copySwDate,setCopySwDate]=useState("");
+const[copyingPg,setCopyingPg]=useState(false);
+const[copyingSw,setCopyingSw]=useState(false);
+const[highlightPgId,setHighlightPgId]=useState(null); // ?pg= URL param'dan
+```
+
+**`copyProgram(pid)` fonksiyonu**:
+- `viewUserData.programs[pid]` içindeki egzersiz ID'lerini isimlerine çevirir (`viewUserData.exercises` ile)
+- Kendi Supabase satırından güncel veriyi çekip (`user_data` SELECT) üzerine yazar
+- Yeni program adına dil bazlı suffix ekler: `" (kopya)"` / `" (copy)"`
+- `offDays` varsa kopyalanır
+
+**`copyWorkoutFromProfile(sw, targetDate)` fonksiyonu**:
+- `sw.exercise_names` — string ise JSON.parse, array ise direkt kullanılır
+- `sw.workout_data` — aynı güvenli ayrıştırma: `typeof === "string" ? JSON.parse(...) : ...`
+- Egzersiz isim eşlemesi yapılır, hedef tarihe eklenir
+
+**Wrapper fonksiyonlar** (ana fonksiyonlardan SONRA tanımlanır):
+```js
+const copyProgramFn = async(pid) => { setCopyingPg(true); try{await copyProgram(pid)} finally{setCopyingPg(false);setCopyPgConfirm(null)} };
+const copySwFn = async() => { if(!copySwModal||!copySwDate)return; setCopyingSw(true); try{await copyWorkoutFromProfile(copySwModal,copySwDate)} finally{setCopyingSw(false);setCopySwModal(null);setCopySwDate("")} };
+```
+
+**UI değişiklikleri**:
+- Başka kullanıcı profili, program kartları: `user&&viewUserId!==user.id` koşuluyla 📋 Kopyala butonu
+- Başka kullanıcı profili, paylaşılan antrenman kartları: 👁️ + 📋 Kopyala butonları
+- COPY PROGRAM CONFIRM MODAL ve COPY SHARED WORKOUT MODAL — FOLLOW LIST MODAL'dan önce
+- `?pg=` URL param'ı `highlightPgId` state'ini set eder; ilgili program kartına `id="pg-{pid}"` ve mavi kenarlı highlight uygulanır
+
+### 3. Program Paylaşım Linki (`program.html`)
+
+**Mimarisi**: Bağımsız tek dosya React uygulaması. `shared_workouts` tablosuna ihtiyaç duymaz — tüm program verisi URL'ye base64 JSON olarak gömülür.
+
+**Encoding (index.html Programs view, 🔗 butonu)**:
+```js
+// Türkçe karakter desteği için unescape/encodeURIComponent kombinasyonu
+const encoded = btoa(unescape(encodeURIComponent(JSON.stringify(pgData))));
+const link = window.location.origin + "/program?d=" + encoded;
+```
+
+**Payload yapısı** (`pgData`):
+```json
+{
+  "name": "Push Pull Legs",
+  "type": "weekly",
+  "days": {
+    "0": ["Bench Press", "Shoulder Press"],
+    "1": ["Pull Up", "Row"],
+    "2": [],
+    ...
+  },
+  "offDays": ["2", "5"],
+  "sharedBy": "Ali Çolak",
+  "sharedByUsername": "alicolak"
+}
+```
+⚠️ `days` içindeki değerler **egzersiz isimleri** (ID değil) — kullanıcıya özgü ID'ler paylaşım esnasında anlamsızdır.
+
+**Decoding (program.html)**:
+```js
+const decoded = JSON.parse(decodeURIComponent(escape(atob(d))));
+```
+
+**program.html akışı**:
+1. URL'den `?d=` param'ı okunur, decode edilir, `programData` state'ine set edilir
+2. Auth durumu Supabase'den kontrol edilir (`getSession` + `onAuthStateChange`)
+3. Oturum açıksa: 📋 "Bu Programı Kopyala" butonu → `copyProgram()` çağrılır
+4. Oturum yoksa: "Giriş Yap / Kayıt Ol" butonu → `/?redirect=<current_url>` yönlendirmesi
+5. Kopyalama başarılıysa: `copied=true`, yeşil onay + "Programlarıma Git" butonu
+
+**Kopyalama mantığı (program.html)**:
+- `programData.days` dizilerindeki isimler üzerinden egzersiz eşlemesi yapılır
+- Kendi `user_data` satırı SELECT + güncellenmiş data UPSERT
+- `offDays` varsa korunur
+
+### _redirects Güncellemesi
+
+```
+/program      /program.html   200
+```
+
+### compile.js Güncellemesi
+
+`files` dizisine `program.html` eklendi:
+```js
+const files = [
+  { src: 'index.html.babel-backup',   dst: 'index.html' },
+  { src: 'profile.html.babel-backup', dst: 'profile.html' },
+  { src: 'share.html.babel-backup',   dst: 'share.html' },
+  { src: 'program.html.babel-backup', dst: 'program.html' },
+];
+```
+
+### Kopyalama Sonrası Kullanıcı Yönlendirmesi
+
+| Kaynak | Hedef |
+|--------|-------|
+| Feed antrenman kopyala | Toast: "✅ {tarih} gününe kopyalandı" |
+| Profil program kopyala | Toast: "✅ '{isim}' programı kopyalandı!" |
+| Profil antrenman kopyala | Toast: "✅ {tarih} gününe kopyalandı" |
+| program.html kopyala | Yeşil onay kutusu + "Programlarıma Git" butonu → `/` |
+
+### Önemli Notlar
+
+- **RLS kısıtı**: `user_data` başka kullanıcıdan RLS ile okunamaz. Bu yüzden program paylaşım linki, Supabase'e ihtiyaç duymadan tüm veriyi URL'de taşır. `profile.html`'de `viewUserData` ise `show_profile_info=true` politikası sayesinde okunabilmektedir.
+- **`escape`/`unescape` kullanımı**: Deprecated ama evrensel browser desteği var. Türkçe karakterleri (ş, ğ, ü vb.) base64'te güvenle kodlar/çözer.
+- **Wrapper vs. Ana Fonksiyon sırası**: `copyProgramFn` ve `copySwFn` wrapper'ları `copyProgram` ve `copyWorkoutFromProfile`'dan SONRA tanımlanmalı; aksi halde çalışma anında "not defined" hatası oluşur.
