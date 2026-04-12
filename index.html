@@ -2298,6 +2298,9 @@ function App({
   const [usernameErr, setUsernameErr] = useState("");
   const [usernameBusy, setUsernameBusy] = useState(false);
   const [myUsername, setMyUsername] = useState(null);
+  const [copyFeedModal, setCopyFeedModal] = useState(null);
+  const [copyFeedDate, setCopyFeedDate] = useState("");
+  const [copyingFeed, setCopyingFeed] = useState(false);
   const [showPgModal, setShowPgModal] = useState(false);
   const [pgEditId, setPgEditId] = useState(null);
   const [pgName, setPgName] = useState("");
@@ -3533,6 +3536,56 @@ function App({
       setShareCaption("");
     } finally {
       setSharing(false);
+    }
+  };
+  const copySharedWorkout = async () => {
+    if (!copyFeedModal || !copyFeedDate || isGuest) return;
+    setCopyingFeed(true);
+    try {
+      const post = copyFeedModal;
+      const exNames = post.exNames || [];
+      const wd = post.workout_data;
+      const sharedExs = wd && wd.exercises ? wd.exercises : Array.isArray(wd) ? wd : [];
+      const cur = dRef.current;
+      let exs = [...cur.exercises];
+      const idMap = {};
+      sharedExs.forEach((se, idx) => {
+        const name = exNames[idx] || "Hareket " + (idx + 1);
+        let match = exs.find(e => e.name.toLowerCase() === name.toLowerCase());
+        if (!match) {
+          match = {
+            id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + String(idx),
+            name,
+            categories: ["Diğer"]
+          };
+          exs.push(match);
+        }
+        idMap[idx] = match.id;
+      });
+      const newEntries = sharedExs.map((se, idx) => ({
+        exerciseId: idMap[idx],
+        sets: (se.sets || []).map(s => ({
+          ...s
+        })),
+        ...(se.supersetGroup ? {
+          supersetGroup: se.supersetGroup
+        } : {})
+      }));
+      const existing = cur.workouts[copyFeedDate] || [];
+      const newData = {
+        ...cur,
+        exercises: exs,
+        workouts: {
+          ...cur.workouts,
+          [copyFeedDate]: [...existing, ...newEntries]
+        }
+      };
+      save(newData);
+      setToast(lang === "tr" ? `✅ ${copyFeedDate} gününe kopyalandı` : `✅ Copied to ${copyFeedDate}`);
+      setCopyFeedModal(null);
+      setCopyFeedDate("");
+    } finally {
+      setCopyingFeed(false);
     }
   };
   const loadLeaderboard = async exName => {
@@ -7843,9 +7896,29 @@ function App({
     }, "\uD83D\uDD04 ", L.deload, " (", meta.deloadEvery, L.everyNWeeks, ")")), React.createElement("div", {
       style: {
         display: "flex",
-        gap: 4
+        gap: 4,
+        flexWrap: "wrap",
+        justifyContent: "flex-end"
       }
     }, React.createElement("button", {
+      onClick: () => {
+        if (isGuest) {
+          setToast(lang === "tr" ? "Giriş yapman gerekiyor" : "Please log in");
+          return;
+        }
+        const link = window.location.origin + profileRoute(user.id) + "?pg=" + id;
+        try {
+          navigator.clipboard.writeText(link);
+        } catch (e) {}
+        setToast(lang === "tr" ? "🔗 Program linki kopyalandı!" : "🔗 Program link copied!");
+      },
+      style: {
+        ...S.ib,
+        width: 32,
+        height: 32
+      },
+      title: lang === "tr" ? "Program linkini paylaş" : "Share program link"
+    }, "\uD83D\uDD17"), React.createElement("button", {
       onClick: () => actPg(id),
       style: {
         ...S.sec,
@@ -9397,15 +9470,38 @@ function App({
       day: "numeric",
       month: "short",
       year: "numeric"
-    }))), React.createElement("button", {
+    }))), React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 4
+      }
+    }, React.createElement("button", {
       onClick: () => window.location.href = shareRoute(post.id),
       style: {
         ...S.sec,
         fontSize: 11,
-        padding: "4px 12px",
+        padding: "4px 10px",
         borderRadius: 8
-      }
-    }, "\uD83D\uDC41\uFE0F")), React.createElement("div", {
+      },
+      title: lang === "tr" ? "Görüntüle" : "View"
+    }, "\uD83D\uDC41\uFE0F"), !isGuest && React.createElement("button", {
+      onClick: () => {
+        setCopyFeedModal({
+          ...post,
+          exNames
+        });
+        setCopyFeedDate(fmt(new Date()));
+      },
+      style: {
+        ...S.sec,
+        fontSize: 11,
+        padding: "4px 10px",
+        borderRadius: 8,
+        color: "var(--blue)",
+        borderColor: "var(--blue)"
+      },
+      title: lang === "tr" ? "Antrenmanı kopyala" : "Copy workout"
+    }, "\uD83D\uDCCB"))), React.createElement("div", {
       style: {
         fontSize: 14,
         fontWeight: 600,
@@ -9926,7 +10022,110 @@ function App({
       width: "100%",
       fontSize: 15
     }
-  }, sharing ? "..." : `📤 ${L.shareWorkout}`))), showUsernameModal && !isGuest && React.createElement("div", {
+  }, sharing ? "..." : `📤 ${L.shareWorkout}`))), copyFeedModal && React.createElement("div", {
+    style: S.ov,
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-label": lang === "tr" ? "Antrenmanı Kopyala" : "Copy Workout",
+    onClick: () => setCopyFeedModal(null)
+  }, React.createElement("div", {
+    style: {
+      ...S.dlg,
+      maxWidth: 380
+    },
+    onClick: e => e.stopPropagation()
+  }, React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 16
+    }
+  }, React.createElement("h3", {
+    style: {
+      fontSize: 17,
+      fontWeight: 600
+    }
+  }, "\uD83D\uDCCB ", lang === "tr" ? "Antrenmanı Kopyala" : "Copy Workout"), React.createElement("button", {
+    onClick: () => setCopyFeedModal(null),
+    style: {
+      background: "none",
+      border: "none",
+      cursor: "pointer",
+      color: "var(--t3)",
+      fontSize: 20,
+      fontFamily: "inherit"
+    },
+    "aria-label": L.ariaCloseModal
+  }, "\u2715")), React.createElement("div", {
+    style: {
+      background: "var(--blueL)",
+      borderRadius: 10,
+      padding: 12,
+      marginBottom: 16
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: "var(--blue)",
+      marginBottom: 6
+    }
+  }, "\uD83D\uDCC5 ", copyFeedModal.workout_date), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 4,
+      flexWrap: "wrap"
+    }
+  }, copyFeedModal.exNames.slice(0, 5).map((n, i) => React.createElement("span", {
+    key: i,
+    style: {
+      fontSize: 10,
+      padding: "2px 8px",
+      borderRadius: 6,
+      background: "var(--bg3)",
+      color: "var(--t1)"
+    }
+  }, n)), copyFeedModal.exNames.length > 5 && React.createElement("span", {
+    style: {
+      fontSize: 10,
+      color: "var(--t3)"
+    }
+  }, "+", copyFeedModal.exNames.length - 5))), React.createElement("div", {
+    style: {
+      marginBottom: 16
+    }
+  }, React.createElement("label", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: "var(--t2)",
+      display: "block",
+      marginBottom: 6
+    }
+  }, lang === "tr" ? "Hangi güne kopyalansın?" : "Copy to which date?"), React.createElement("input", {
+    type: "date",
+    value: copyFeedDate,
+    onChange: e => setCopyFeedDate(e.target.value),
+    style: {
+      ...S.inp,
+      width: "100%"
+    },
+    "aria-label": lang === "tr" ? "Tarih seç" : "Select date"
+  })), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      justifyContent: "flex-end"
+    }
+  }, React.createElement("button", {
+    onClick: () => setCopyFeedModal(null),
+    style: S.sec
+  }, L.cancel), React.createElement("button", {
+    onClick: copySharedWorkout,
+    disabled: !copyFeedDate || copyingFeed,
+    style: S.pri
+  }, copyingFeed ? "..." : lang === "tr" ? "Kopyala" : "Copy")))), showUsernameModal && !isGuest && React.createElement("div", {
     style: {
       position: "fixed",
       inset: 0,

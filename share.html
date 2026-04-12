@@ -97,10 +97,34 @@ function ShareApp() {
   const [workout, setWorkout] = useState(null);
   const [ownerProfile, setOwnerProfile] = useState(null);
   const [error, setError] = useState(false);
+  const [user, setUser] = useState(null);
+  const [copyModal, setCopyModal] = useState(false);
+  const [copyDate, setCopyDate] = useState("");
+  const [copying, setCopying] = useState(false);
+  const [toast, setToast] = useState(null);
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem(TK, theme);
   }, [theme]);
+  useEffect(() => {
+    if (toast) {
+      const t = setTimeout(() => setToast(null), 2500);
+      return () => clearTimeout(t);
+    }
+  }, [toast]);
+  useEffect(() => {
+    sb.auth.getSession().then(({
+      data: {
+        session
+      }
+    }) => setUser(session?.user || null));
+    const {
+      data: {
+        subscription
+      }
+    } = sb.auth.onAuthStateChange((_, session) => setUser(session?.user || null));
+    return () => subscription.unsubscribe();
+  }, []);
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("id");
@@ -127,6 +151,73 @@ function ShareApp() {
       });
     });
   }, []);
+  const copyWorkoutFn = async () => {
+    if (!user || !workout || !copyDate) return;
+    setCopying(true);
+    try {
+      const exNames = typeof workout.exercise_names === "string" ? JSON.parse(workout.exercise_names) : workout.exercise_names || [];
+      const workoutPayload = typeof workout.workout_data === "string" ? JSON.parse(workout.workout_data) : workout.workout_data;
+      const sharedExs = workoutPayload && workoutPayload.exercises ? workoutPayload.exercises : Array.isArray(workoutPayload) ? workoutPayload : [];
+      const {
+        data: row
+      } = await sb.from("user_data").select("data").eq("user_id", user.id).single();
+      const cur = row && row.data || {
+        exercises: [],
+        workouts: {},
+        programs: {},
+        dailyPrograms: {},
+        measurements: {},
+        dayNotes: {},
+        exerciseNotes: {},
+        programMeta: {},
+        badges: []
+      };
+      let exs = [...(cur.exercises || [])];
+      const idMap = {};
+      sharedExs.forEach((se, idx) => {
+        const name = exNames[idx] || "Hareket " + (idx + 1);
+        let match = exs.find(e => e.name.toLowerCase() === name.toLowerCase());
+        if (!match) {
+          match = {
+            id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + String(idx),
+            name,
+            categories: ["Diğer"]
+          };
+          exs.push(match);
+        }
+        idMap[idx] = match.id;
+      });
+      const newEntries = sharedExs.map((se, idx) => ({
+        exerciseId: idMap[idx],
+        sets: (se.sets || []).map(s => ({
+          ...s
+        })),
+        ...(se.supersetGroup ? {
+          supersetGroup: se.supersetGroup
+        } : {})
+      }));
+      const existing = cur.workouts && cur.workouts[copyDate] || [];
+      const newData = {
+        ...cur,
+        exercises: exs,
+        workouts: {
+          ...(cur.workouts || {}),
+          [copyDate]: [...existing, ...newEntries]
+        }
+      };
+      await sb.from("user_data").upsert({
+        user_id: user.id,
+        data: newData
+      }, {
+        onConflict: "user_id"
+      });
+      setToast(lang === "tr" ? `✅ ${copyDate} gününe kopyalandı` : `✅ Copied to ${copyDate}`);
+      setCopyModal(false);
+      setCopyDate("");
+    } finally {
+      setCopying(false);
+    }
+  };
   const IcoSun = () => React.createElement("svg", {
     width: "20",
     height: "20",
@@ -234,6 +325,7 @@ function ShareApp() {
   const shareMeta = Array.isArray(workoutPayload) ? {} : workoutPayload?.meta || {};
   const wData = Array.isArray(workoutPayload) ? workoutPayload : Array.isArray(workoutPayload?.exercises) ? workoutPayload.exercises : [];
   const exNames = typeof workout.exercise_names === "string" ? JSON.parse(workout.exercise_names) : workout.exercise_names || [];
+  const isOwnWorkout = user && workout && user.id === workout.user_id;
   const sharedMeasurements = shareMeta.sharedMeasurements || {};
   const measurementLabels = lang === "tr" ? {
     title: "Paylaşılan Vücut Ölçüleri",
@@ -255,7 +347,159 @@ function ShareApp() {
       background: "var(--bg)",
       color: "var(--t1)"
     }
-  }, React.createElement("header", {
+  }, toast && React.createElement("div", {
+    style: {
+      position: "fixed",
+      top: 16,
+      left: "50%",
+      transform: "translateX(-50%)",
+      background: "var(--bg2)",
+      border: "1px solid var(--brd)",
+      borderRadius: 10,
+      padding: "10px 20px",
+      fontSize: 13,
+      color: "var(--t1)",
+      zIndex: 9999,
+      boxShadow: "var(--shadow)",
+      animation: "fadeIn .2s ease",
+      whiteSpace: "nowrap"
+    }
+  }, toast), copyModal && React.createElement("div", {
+    style: {
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,.7)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 1000,
+      padding: 16
+    },
+    onClick: () => setCopyModal(false)
+  }, React.createElement("div", {
+    style: {
+      background: "var(--bg2)",
+      border: "1px solid var(--brd)",
+      borderRadius: 16,
+      padding: 24,
+      maxWidth: 380,
+      width: "100%",
+      boxShadow: "var(--shadow)"
+    },
+    onClick: e => e.stopPropagation()
+  }, React.createElement("div", {
+    style: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      marginBottom: 16
+    }
+  }, React.createElement("h3", {
+    style: {
+      fontSize: 16,
+      fontWeight: 700
+    }
+  }, "\uD83D\uDCCB ", lang === "tr" ? "Antrenmanı Kopyala" : "Copy Workout"), React.createElement("button", {
+    onClick: () => setCopyModal(false),
+    style: {
+      background: "none",
+      border: "none",
+      fontSize: 18,
+      cursor: "pointer",
+      color: "var(--t2)",
+      padding: 4
+    }
+  }, "\u2715")), React.createElement("div", {
+    style: {
+      background: "var(--blueL)",
+      borderRadius: 10,
+      padding: 12,
+      marginBottom: 16
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: "var(--blue)",
+      marginBottom: 6
+    }
+  }, "\uD83D\uDCC5 ", workout.workout_date), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 4,
+      flexWrap: "wrap"
+    }
+  }, exNames.slice(0, 5).map((n, i) => React.createElement("span", {
+    key: i,
+    style: {
+      fontSize: 10,
+      padding: "2px 8px",
+      borderRadius: 6,
+      background: "var(--bg3)",
+      color: "var(--t1)"
+    }
+  }, n)), exNames.length > 5 && React.createElement("span", {
+    style: {
+      fontSize: 10,
+      color: "var(--t3)"
+    }
+  }, "+", exNames.length - 5))), React.createElement("div", {
+    style: {
+      marginBottom: 16
+    }
+  }, React.createElement("label", {
+    style: {
+      fontSize: 12,
+      fontWeight: 600,
+      color: "var(--t2)",
+      display: "block",
+      marginBottom: 6
+    }
+  }, lang === "tr" ? "Hangi güne kopyalansın?" : "Copy to which date?"), React.createElement("input", {
+    type: "date",
+    value: copyDate,
+    onChange: e => setCopyDate(e.target.value),
+    style: {
+      width: "100%",
+      padding: "10px 14px",
+      borderRadius: 8,
+      border: "1px solid var(--brd)",
+      background: "var(--bg3)",
+      color: "var(--t1)",
+      fontSize: 14,
+      fontFamily: "inherit"
+    }
+  })), React.createElement("div", {
+    style: {
+      display: "flex",
+      gap: 8,
+      justifyContent: "flex-end"
+    }
+  }, React.createElement("button", {
+    onClick: () => setCopyModal(false),
+    style: {
+      padding: "8px 16px",
+      borderRadius: 8,
+      border: "1px solid var(--brd)",
+      background: "var(--bg3)",
+      color: "var(--t1)",
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, lang === "tr" ? "İptal" : "Cancel"), React.createElement("button", {
+    onClick: copyWorkoutFn,
+    disabled: !copyDate || copying,
+    style: {
+      padding: "8px 20px",
+      borderRadius: 8,
+      border: "none",
+      background: "var(--accent)",
+      color: "var(--accentT)",
+      cursor: !copyDate || copying ? "not-allowed" : "pointer",
+      fontFamily: "inherit",
+      fontWeight: 700
+    }
+  }, copying ? "..." : lang === "tr" ? "Kopyala" : "Copy")))), React.createElement("header", {
     style: {
       display: "flex",
       alignItems: "center",
@@ -556,9 +800,59 @@ function ShareApp() {
   }), React.createElement("div", {
     style: {
       textAlign: "center",
-      marginTop: 12
+      marginTop: 12,
+      padding: "20px 16px",
+      background: "var(--bg2)",
+      border: "1px solid var(--brd)",
+      borderRadius: 16,
+      boxShadow: "var(--shadow2)"
     }
-  }, React.createElement("p", {
+  }, user && !isOwnWorkout && React.createElement(React.Fragment, null, React.createElement("p", {
+    style: {
+      fontSize: 14,
+      fontWeight: 600,
+      color: "var(--t1)",
+      marginBottom: 6
+    }
+  }, lang === "tr" ? "Bu antrenmanı kopyalamak ister misin?" : "Want to copy this workout?"), React.createElement("p", {
+    style: {
+      fontSize: 12,
+      color: "var(--t2)",
+      marginBottom: 12,
+      lineHeight: 1.5
+    }
+  }, lang === "tr" ? "Hareketler ve setler seçtiğin güne kopyalanır." : "Exercises and sets will be copied to your chosen date."), React.createElement("button", {
+    onClick: () => {
+      setCopyDate(new Date().toISOString().split("T")[0]);
+      setCopyModal(true);
+    },
+    style: {
+      ...S.pri,
+      marginBottom: 16
+    }
+  }, "\uD83D\uDCCB ", lang === "tr" ? "Antrenmanı Kopyala" : "Copy Workout"), React.createElement("div", {
+    style: {
+      borderTop: "1px solid var(--brd)",
+      paddingTop: 16
+    }
+  })), !user && React.createElement(React.Fragment, null, React.createElement("p", {
+    style: {
+      fontSize: 13,
+      color: "var(--t2)",
+      marginBottom: 12
+    }
+  }, lang === "tr" ? "Bu antrenmanı kopyalamak için giriş yapman gerekiyor." : "Log in to copy this workout."), React.createElement("button", {
+    onClick: () => window.location.href = "/",
+    style: {
+      ...S.pri,
+      marginBottom: 16
+    }
+  }, "\uD83D\uDD11 ", lang === "tr" ? "Giriş Yap" : "Sign In"), React.createElement("div", {
+    style: {
+      borderTop: "1px solid var(--brd)",
+      paddingTop: 16
+    }
+  })), React.createElement("p", {
     style: {
       fontSize: 13,
       color: "var(--t3)",

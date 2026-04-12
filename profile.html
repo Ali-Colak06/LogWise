@@ -557,6 +557,12 @@ function ProfileApp() {
   const [followListModal, setFollowListModal] = useState(null);
   const [followList, setFollowList] = useState([]);
   const [followListLoading, setFollowListLoading] = useState(false);
+  const [copyPgConfirm, setCopyPgConfirm] = useState(null);
+  const [copySwModal, setCopySwModal] = useState(null);
+  const [copySwDate, setCopySwDate] = useState("");
+  const [copyingPg, setCopyingPg] = useState(false);
+  const [copyingSw, setCopyingSw] = useState(false);
+  const [highlightPgId, setHighlightPgId] = useState(null);
   const L = lang === "tr" ? TR : EN;
   const shareText = lang === "tr" ? SHARE_PREF_TEXT.tr : SHARE_PREF_TEXT.en;
   useEffect(() => {
@@ -579,6 +585,8 @@ function ProfileApp() {
     }
     const uid = params.get("id");
     if (uid) setViewUserId(uid);
+    const pgParam = params.get("pg");
+    if (pgParam) setHighlightPgId(pgParam);
     let ready = false;
     const {
       data: {
@@ -975,6 +983,152 @@ function ProfileApp() {
     setViewFollowerCount(c => c - 1);
     setFollowingCount(c => c - 1);
   };
+  const copyProgram = async pid => {
+    if (!user || !viewUserData) return;
+    const prog = viewUserData.programs && viewUserData.programs[pid];
+    if (!prog) return;
+    const {
+      data: row
+    } = await sb.from("user_data").select("data").eq("user_id", user.id).single();
+    const cur = row && row.data || {
+      exercises: [],
+      workouts: {},
+      programs: {},
+      dailyPrograms: {},
+      measurements: {},
+      dayNotes: {},
+      exerciseNotes: {},
+      programMeta: {},
+      badges: []
+    };
+    let exs = [...(cur.exercises || [])];
+    const viewExs = viewUserData.exercises || [];
+    const idMap = {};
+    const usedDayIds = new Set();
+    Object.values(prog.days || {}).forEach(arr => (arr || []).forEach(eid => usedDayIds.add(eid)));
+    usedDayIds.forEach(eid => {
+      const srcEx = viewExs.find(e => e.id === eid);
+      if (!srcEx) return;
+      let match = exs.find(e => e.name.toLowerCase() === srcEx.name.toLowerCase());
+      if (!match) {
+        match = {
+          id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + eid.slice(-3),
+          name: srcEx.name,
+          categories: srcEx.categories || [srcEx.category || "Diğer"]
+        };
+        exs.push(match);
+      }
+      idMap[eid] = match.id;
+    });
+    const newDays = {};
+    for (let i = 0; i < 7; i++) {
+      const k = String(i);
+      newDays[k] = (prog.days[k] || []).map(eid => idMap[eid]).filter(Boolean);
+    }
+    const newPgId = Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    const newProg = {
+      name: prog.name + (lang === "tr" ? " (kopya)" : " (copy)"),
+      days: newDays,
+      ...(prog.offDays ? {
+        offDays: prog.offDays
+      } : {})
+    };
+    const newData = {
+      ...cur,
+      exercises: exs,
+      programs: {
+        ...(cur.programs || {}),
+        [newPgId]: newProg
+      }
+    };
+    await sb.from("user_data").upsert({
+      user_id: user.id,
+      data: newData
+    }, {
+      onConflict: "user_id"
+    });
+    setToast(lang === "tr" ? `✅ "${prog.name}" programı kopyalandı!` : `✅ Program "${prog.name}" copied!`);
+  };
+  const copyWorkoutFromProfile = async (sw, targetDate) => {
+    if (!user) return;
+    const exNames = typeof sw.exercise_names === "string" ? JSON.parse(sw.exercise_names) : sw.exercise_names || [];
+    const rawWd = typeof sw.workout_data === "string" ? JSON.parse(sw.workout_data) : sw.workout_data;
+    const sharedExs = rawWd && rawWd.exercises ? rawWd.exercises : Array.isArray(rawWd) ? rawWd : [];
+    const {
+      data: row
+    } = await sb.from("user_data").select("data").eq("user_id", user.id).single();
+    const cur = row && row.data || {
+      exercises: [],
+      workouts: {},
+      programs: {},
+      dailyPrograms: {},
+      measurements: {},
+      dayNotes: {},
+      exerciseNotes: {},
+      programMeta: {},
+      badges: []
+    };
+    let exs = [...(cur.exercises || [])];
+    const idMap = {};
+    sharedExs.forEach((se, idx) => {
+      const name = exNames[idx] || "Hareket " + (idx + 1);
+      let match = exs.find(e => e.name.toLowerCase() === name.toLowerCase());
+      if (!match) {
+        match = {
+          id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + String(idx),
+          name,
+          categories: ["Diğer"]
+        };
+        exs.push(match);
+      }
+      idMap[idx] = match.id;
+    });
+    const newEntries = sharedExs.map((se, idx) => ({
+      exerciseId: idMap[idx],
+      sets: (se.sets || []).map(s => ({
+        ...s
+      })),
+      ...(se.supersetGroup ? {
+        supersetGroup: se.supersetGroup
+      } : {})
+    }));
+    const existing = cur.workouts && cur.workouts[targetDate] || [];
+    const newData = {
+      ...cur,
+      exercises: exs,
+      workouts: {
+        ...(cur.workouts || {}),
+        [targetDate]: [...existing, ...newEntries]
+      }
+    };
+    await sb.from("user_data").upsert({
+      user_id: user.id,
+      data: newData
+    }, {
+      onConflict: "user_id"
+    });
+    setToast(lang === "tr" ? `✅ ${targetDate} gününe kopyalandı` : `✅ Copied to ${targetDate}`);
+  };
+  const copyProgramFn = async pid => {
+    setCopyingPg(true);
+    try {
+      await copyProgram(pid);
+    } finally {
+      setCopyingPg(false);
+      setCopyPgConfirm(null);
+    }
+  };
+  const copySwFn = async () => {
+    if (!copySwModal || !copySwDate) return;
+    setCopyingSw(true);
+    try {
+      await copyWorkoutFromProfile(copySwModal, copySwDate);
+    } finally {
+      setCopyingSw(false);
+      setCopySwModal(null);
+      setCopySwDate("");
+    }
+  };
   const deleteAccount = async () => {
     if (deleteConfirmText !== (lang === "tr" ? "SİL" : "DELETE")) return;
     setDeleting(true);
@@ -1356,7 +1510,83 @@ function ProfileApp() {
           display: "grid",
           gap: 12
         }
-      }, Object.entries(progs).map(([pid, pg]) => React.createElement("div", {
+      }, Object.entries(progs).map(([pid, pg]) => {
+        const isHL = highlightPgId === pid;
+        return React.createElement("div", {
+          key: pid,
+          id: "pg-" + pid,
+          style: {
+            background: "var(--bg3)",
+            borderRadius: 12,
+            padding: 14,
+            border: isHL ? "2px solid var(--blue)" : "1px solid transparent",
+            boxShadow: isHL ? "0 0 16px rgba(240,192,64,.18)" : "none",
+            transition: "box-shadow .3s"
+          }
+        }, React.createElement("div", {
+          style: {
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            marginBottom: 8,
+            flexWrap: "wrap"
+          }
+        }, React.createElement("span", {
+          style: {
+            fontSize: 14,
+            fontWeight: 600,
+            color: "var(--t1)",
+            flex: 1
+          }
+        }, pg.name), React.createElement("span", {
+          style: {
+            fontSize: 10,
+            padding: "2px 8px",
+            borderRadius: 6,
+            background: "var(--blueL)",
+            color: "var(--blue)"
+          }
+        }, L.weeklyProgram), viewUserData.activeProgram === pid && React.createElement("span", {
+          style: {
+            fontSize: 10,
+            padding: "2px 8px",
+            borderRadius: 6,
+            background: "var(--greenL)",
+            color: "var(--green)",
+            fontWeight: 700
+          }
+        }, L.activeLabel), user && viewUserId !== user.id && React.createElement("button", {
+          onClick: () => setCopyPgConfirm(pid),
+          style: {
+            fontSize: 11,
+            padding: "3px 12px",
+            borderRadius: 8,
+            border: "1px solid var(--blue)",
+            background: "var(--blueL)",
+            color: "var(--blue)",
+            cursor: "pointer",
+            fontFamily: "inherit",
+            fontWeight: 600
+          }
+        }, "\uD83D\uDCCB ", lang === "tr" ? "Kopyala" : "Copy")), React.createElement("div", {
+          style: {
+            display: "flex",
+            flexWrap: "wrap",
+            gap: 4
+          }
+        }, Object.entries(pg.days || {}).filter(([, arr]) => arr.length > 0).map(([di, arr]) => React.createElement("div", {
+          key: di,
+          style: {
+            fontSize: 11,
+            color: "var(--t2)"
+          }
+        }, React.createElement("span", {
+          style: {
+            fontWeight: 600,
+            color: "var(--t1)"
+          }
+        }, (lang === "tr" ? ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"] : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])[Number(di)], ": "), arr.map(id => exName(id)).join(", ")))));
+      }), Object.entries(dProgs).map(([pid, dp]) => React.createElement("div", {
         key: pid,
         style: {
           background: "var(--bg3)",
@@ -1368,67 +1598,15 @@ function ProfileApp() {
           display: "flex",
           alignItems: "center",
           gap: 8,
-          marginBottom: 8
+          marginBottom: 8,
+          flexWrap: "wrap"
         }
       }, React.createElement("span", {
         style: {
           fontSize: 14,
           fontWeight: 600,
-          color: "var(--t1)"
-        }
-      }, pg.name), React.createElement("span", {
-        style: {
-          fontSize: 10,
-          padding: "2px 8px",
-          borderRadius: 6,
-          background: "var(--blueL)",
-          color: "var(--blue)"
-        }
-      }, L.weeklyProgram), viewUserData.activeProgram === pid && React.createElement("span", {
-        style: {
-          fontSize: 10,
-          padding: "2px 8px",
-          borderRadius: 6,
-          background: "var(--greenL)",
-          color: "var(--green)",
-          fontWeight: 700
-        }
-      }, L.activeLabel)), React.createElement("div", {
-        style: {
-          display: "flex",
-          flexWrap: "wrap",
-          gap: 4
-        }
-      }, Object.entries(pg.days || {}).filter(([, arr]) => arr.length > 0).map(([di, arr]) => React.createElement("div", {
-        key: di,
-        style: {
-          fontSize: 11,
-          color: "var(--t2)"
-        }
-      }, React.createElement("span", {
-        style: {
-          fontWeight: 600,
-          color: "var(--t1)"
-        }
-      }, (lang === "tr" ? ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"] : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])[Number(di)], ": "), arr.map(id => exName(id)).join(", ")))))), Object.entries(dProgs).map(([pid, dp]) => React.createElement("div", {
-        key: pid,
-        style: {
-          background: "var(--bg3)",
-          borderRadius: 12,
-          padding: 14
-        }
-      }, React.createElement("div", {
-        style: {
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          marginBottom: 8
-        }
-      }, React.createElement("span", {
-        style: {
-          fontSize: 14,
-          fontWeight: 600,
-          color: "var(--t1)"
+          color: "var(--t1)",
+          flex: 1
         }
       }, dp.name), React.createElement("span", {
         style: {
@@ -1680,59 +1858,349 @@ function ProfileApp() {
         alignItems: "center",
         gap: 8
       }
-    }, "\uD83D\uDCE4 ", L.sharedWorkouts), viewUserShared.map(sw => React.createElement("div", {
-      key: sw.id,
-      onClick: () => window.location.href = shareRoute(sw.id),
+    }, "\uD83D\uDCE4 ", L.sharedWorkouts), viewUserShared.map(sw => {
+      const swNames = typeof sw.exercise_names === "string" ? JSON.parse(sw.exercise_names) : sw.exercise_names || [];
+      return React.createElement("div", {
+        key: sw.id,
+        style: {
+          background: "var(--bg3)",
+          borderRadius: 10,
+          padding: 12,
+          marginBottom: 8
+        }
+      }, React.createElement("div", {
+        style: {
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: 4
+        }
+      }, React.createElement("span", {
+        style: {
+          fontSize: 13,
+          fontWeight: 600,
+          color: "var(--t1)",
+          cursor: "pointer"
+        },
+        onClick: () => window.location.href = shareRoute(sw.id)
+      }, sw.workout_date), React.createElement("div", {
+        style: {
+          display: "flex",
+          gap: 4,
+          alignItems: "center"
+        }
+      }, React.createElement("span", {
+        style: {
+          fontSize: 11,
+          color: "var(--t3)"
+        }
+      }, formatDate(sw.created_at)), React.createElement("button", {
+        onClick: () => window.location.href = shareRoute(sw.id),
+        style: {
+          fontSize: 11,
+          padding: "3px 8px",
+          borderRadius: 6,
+          border: "1px solid var(--brd)",
+          background: "var(--bg2)",
+          color: "var(--t2)",
+          cursor: "pointer",
+          fontFamily: "inherit"
+        }
+      }, "\uD83D\uDC41\uFE0F"), user && viewUserId !== user.id && React.createElement("button", {
+        onClick: () => {
+          setCopySwModal(sw);
+          setCopySwDate(new Date().toISOString().split("T")[0]);
+        },
+        style: {
+          fontSize: 11,
+          padding: "3px 8px",
+          borderRadius: 6,
+          border: "1px solid var(--blue)",
+          background: "var(--blueL)",
+          color: "var(--blue)",
+          cursor: "pointer",
+          fontFamily: "inherit",
+          fontWeight: 600
+        }
+      }, "\uD83D\uDCCB ", lang === "tr" ? "Kopyala" : "Copy"))), sw.caption && React.createElement("p", {
+        style: {
+          fontSize: 12,
+          color: "var(--t2)",
+          marginBottom: 4
+        }
+      }, sw.caption), swNames.length > 0 && React.createElement("div", {
+        style: {
+          display: "flex",
+          gap: 4,
+          flexWrap: "wrap"
+        }
+      }, swNames.slice(0, 4).map((n, i) => React.createElement("span", {
+        key: i,
+        style: {
+          fontSize: 10,
+          padding: "2px 8px",
+          borderRadius: 6,
+          background: "var(--blueL)",
+          color: "var(--blue)"
+        }
+      }, n)), swNames.length > 4 && React.createElement("span", {
+        style: {
+          fontSize: 10,
+          color: "var(--t3)"
+        }
+      }, "+", swNames.length - 4)));
+    })))), copyPgConfirm && viewUserData && React.createElement("div", {
       style: {
-        background: "var(--bg3)",
-        borderRadius: 10,
-        padding: 12,
-        marginBottom: 8,
-        cursor: "pointer",
-        transition: "background .15s ease"
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: 16,
+        animation: "fadeIn .2s ease"
       },
-      onMouseEnter: e => e.currentTarget.style.background = "var(--bgH)",
-      onMouseLeave: e => e.currentTarget.style.background = "var(--bg3)"
+      onClick: () => setCopyPgConfirm(null)
+    }, React.createElement("div", {
+      style: {
+        background: "var(--bg2)",
+        border: "1px solid var(--brd)",
+        borderRadius: 16,
+        padding: 24,
+        maxWidth: 400,
+        width: "100%",
+        animation: "scaleIn .2s ease",
+        boxShadow: "var(--shadow)"
+      },
+      onClick: e => e.stopPropagation()
     }, React.createElement("div", {
       style: {
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
+        marginBottom: 16
       }
-    }, React.createElement("span", {
+    }, React.createElement("h3", {
       style: {
-        fontSize: 13,
-        fontWeight: 600,
-        color: "var(--t1)"
+        fontSize: 16,
+        fontWeight: 700
       }
-    }, sw.workout_date), React.createElement("span", {
+    }, "\uD83D\uDCCB ", lang === "tr" ? "Programı Kopyala" : "Copy Program"), React.createElement("button", {
+      onClick: () => setCopyPgConfirm(null),
       style: {
-        fontSize: 11,
-        color: "var(--t3)"
+        background: "none",
+        border: "none",
+        fontSize: 18,
+        cursor: "pointer",
+        color: "var(--t2)",
+        padding: 4
       }
-    }, formatDate(sw.created_at))), sw.caption && React.createElement("p", {
+    }, "\u2715")), (() => {
+      const pg = (viewUserData.programs || {})[copyPgConfirm];
+      if (!pg) return null;
+      const exs = viewUserData.exercises || [];
+      const exName = id => {
+        const e = exs.find(x => x.id === id);
+        return e ? e.name : id;
+      };
+      return React.createElement(React.Fragment, null, React.createElement("div", {
+        style: {
+          background: "var(--blueL)",
+          borderRadius: 10,
+          padding: 12,
+          marginBottom: 16
+        }
+      }, React.createElement("div", {
+        style: {
+          fontSize: 14,
+          fontWeight: 600,
+          color: "var(--blue)",
+          marginBottom: 8
+        }
+      }, pg.name), Object.entries(pg.days || {}).filter(([, arr]) => (arr || []).length > 0).map(([di, arr]) => React.createElement("div", {
+        key: di,
+        style: {
+          fontSize: 11,
+          color: "var(--t2)",
+          marginBottom: 2
+        }
+      }, React.createElement("span", {
+        style: {
+          fontWeight: 600,
+          color: "var(--t1)"
+        }
+      }, (lang === "tr" ? ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"] : ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"])[Number(di)], ": "), (arr || []).map(id => exName(id)).join(", ")))), React.createElement("p", {
+        style: {
+          fontSize: 13,
+          color: "var(--t2)",
+          marginBottom: 16,
+          lineHeight: 1.5
+        }
+      }, lang === "tr" ? "Bu program kendi programların arasına eklenecek. Eksik hareketler de listene eklenir." : "This program will be added to your programs. Missing exercises will be created."), React.createElement("div", {
+        style: {
+          display: "flex",
+          gap: 8,
+          justifyContent: "flex-end"
+        }
+      }, React.createElement("button", {
+        onClick: () => setCopyPgConfirm(null),
+        style: {
+          padding: "8px 16px",
+          borderRadius: 8,
+          border: "1px solid var(--brd)",
+          background: "var(--bg3)",
+          color: "var(--t1)",
+          cursor: "pointer",
+          fontFamily: "inherit"
+        }
+      }, lang === "tr" ? "İptal" : "Cancel"), React.createElement("button", {
+        onClick: () => copyProgramFn(copyPgConfirm),
+        disabled: copyingPg,
+        style: {
+          padding: "8px 20px",
+          borderRadius: 8,
+          border: "none",
+          background: "var(--blue)",
+          color: "var(--accentT)",
+          cursor: copyingPg ? "not-allowed" : "pointer",
+          fontFamily: "inherit",
+          fontWeight: 700
+        }
+      }, copyingPg ? "..." : lang === "tr" ? "Kopyala" : "Copy")));
+    })())), copySwModal && React.createElement("div", {
+      style: {
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,.7)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: 16,
+        animation: "fadeIn .2s ease"
+      },
+      onClick: () => setCopySwModal(null)
+    }, React.createElement("div", {
+      style: {
+        background: "var(--bg2)",
+        border: "1px solid var(--brd)",
+        borderRadius: 16,
+        padding: 24,
+        maxWidth: 380,
+        width: "100%",
+        animation: "scaleIn .2s ease",
+        boxShadow: "var(--shadow)"
+      },
+      onClick: e => e.stopPropagation()
+    }, React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        marginBottom: 16
+      }
+    }, React.createElement("h3", {
+      style: {
+        fontSize: 16,
+        fontWeight: 700
+      }
+    }, "\uD83D\uDCCB ", lang === "tr" ? "Antrenmanı Kopyala" : "Copy Workout"), React.createElement("button", {
+      onClick: () => setCopySwModal(null),
+      style: {
+        background: "none",
+        border: "none",
+        fontSize: 18,
+        cursor: "pointer",
+        color: "var(--t2)",
+        padding: 4
+      }
+    }, "\u2715")), React.createElement("div", {
+      style: {
+        background: "var(--blueL)",
+        borderRadius: 10,
+        padding: 12,
+        marginBottom: 16
+      }
+    }, React.createElement("div", {
       style: {
         fontSize: 12,
-        color: "var(--t2)",
-        marginTop: 4
+        fontWeight: 600,
+        color: "var(--blue)",
+        marginBottom: 6
       }
-    }, sw.caption), sw.exercise_names && React.createElement("div", {
+    }, "\uD83D\uDCC5 ", copySwModal.workout_date), React.createElement("div", {
       style: {
         display: "flex",
         gap: 4,
-        flexWrap: "wrap",
-        marginTop: 6
+        flexWrap: "wrap"
       }
-    }, (typeof sw.exercise_names === "string" ? JSON.parse(sw.exercise_names) : sw.exercise_names).slice(0, 4).map((n, i) => React.createElement("span", {
+    }, (typeof copySwModal.exercise_names === "string" ? JSON.parse(copySwModal.exercise_names) : copySwModal.exercise_names || []).slice(0, 5).map((n, i) => React.createElement("span", {
       key: i,
       style: {
         fontSize: 10,
         padding: "2px 8px",
         borderRadius: 6,
-        background: "var(--blueL)",
-        color: "var(--blue)"
+        background: "var(--bg3)",
+        color: "var(--t1)"
       }
-    }, n)))))))), followListModal && React.createElement("div", {
+    }, n)))), React.createElement("div", {
+      style: {
+        marginBottom: 16
+      }
+    }, React.createElement("label", {
+      style: {
+        fontSize: 12,
+        fontWeight: 600,
+        color: "var(--t2)",
+        display: "block",
+        marginBottom: 6
+      }
+    }, lang === "tr" ? "Hangi güne kopyalansın?" : "Copy to which date?"), React.createElement("input", {
+      type: "date",
+      value: copySwDate,
+      onChange: e => setCopySwDate(e.target.value),
+      style: {
+        width: "100%",
+        padding: "10px 14px",
+        borderRadius: 8,
+        border: "1px solid var(--brd)",
+        background: "var(--bg3)",
+        color: "var(--t1)",
+        fontSize: 14,
+        fontFamily: "inherit"
+      }
+    })), React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 8,
+        justifyContent: "flex-end"
+      }
+    }, React.createElement("button", {
+      onClick: () => setCopySwModal(null),
+      style: {
+        padding: "8px 16px",
+        borderRadius: 8,
+        border: "1px solid var(--brd)",
+        background: "var(--bg3)",
+        color: "var(--t1)",
+        cursor: "pointer",
+        fontFamily: "inherit"
+      }
+    }, lang === "tr" ? "İptal" : "Cancel"), React.createElement("button", {
+      onClick: copySwFn,
+      disabled: !copySwDate || copyingSw,
+      style: {
+        padding: "8px 20px",
+        borderRadius: 8,
+        border: "none",
+        background: "var(--blue)",
+        color: "var(--accentT)",
+        cursor: !copySwDate || copyingSw ? "not-allowed" : "pointer",
+        fontFamily: "inherit",
+        fontWeight: 700
+      }
+    }, copyingSw ? "..." : lang === "tr" ? "Kopyala" : "Copy")))), followListModal && React.createElement("div", {
       style: {
         position: "fixed",
         inset: 0,

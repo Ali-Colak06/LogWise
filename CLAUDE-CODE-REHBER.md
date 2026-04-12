@@ -66,7 +66,7 @@ Tüm uygulama `index.html` içinde. Build tool yok. `<script type="text/babel">`
 - **Tablolar**:
   - `user_data` — JSONB blob, kullanıcı başına tek satır (tüm egzersiz/antrenman/program verisi)
   - `feedback` — Geri bildirim satırları
-  - `profiles` — Kullanıcı profilleri (username, display_name, bio, avatar, is_public). Kayıt sırasında username ile oluşturulur. Username unique + case-insensitive index.
+  - `profiles` — Kullanıcı profilleri (username, display_name, bio, avatar, is_public, show_profile_info). Kayıt sırasında username ile oluşturulur. Username unique + case-insensitive index. `show_profile_info` (boolean, default true) — programlar/rozetler/ölçümlerin başkalarına görünüp görünmeyeceğini kontrol eder.
   - `shared_workouts` — Paylaşılan antrenmanlar (id, user_id, workout_date, workout_data JSONB, exercise_names JSONB, caption)
   - `user_prs` — Kullanıcı PR'ları liderlik tablosu için denormalize (user_id+exercise_name PK, max_weight, estimated_1rm). Veri yüklendiğinde otomatik senkronize edilir.
   - `follows` — Takip sistemi (follower_id, following_id PK). Tek yönlü, Instagram tarzı.
@@ -646,6 +646,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Liderlik tablosu** — Sosyal sekmesinde hareket bazında topluluk PR sıralaması, `user_prs` Supabase tablosu (denormalize), otomatik PR senkronizasyonu (veri yüklendiğinde), profil avatarları, medya sıralaması (🥇🥈🥉), kendi sıranı vurgulama
 - ✅ **Arkadaş sistemi** — Instagram tarzı tek yönlü takip, `follows` Supabase tablosu, kullanıcı arama (display_name + username ilike), takip et/takiptesin butonları, antrenman akışı (feed) — takip edilen kişilerin paylaşılan antrenmanları, profil kartları, boş state yönlendirmeleri
 - ✅ **Username sistemi** — Kayıt sırasında zorunlu username (3-20 karakter, harf/rakam/alt çizgi), uniqueness kontrolü, mevcut kullanıcılar için username seçme modalı, sidebar/leaderboard/feed/search/profile'da @username gösterimi
+- ✅ **Profil bilgileri görünürlüğü** — Başka kullanıcının profilinde programlar, rozetler ve vücut ölçüleri görüntülenebilir. `show_profile_info` toggle'ı ile kullanıcı bu bilgileri gizleyebilir (default: açık). Takipçi/takip sayılarına tıklayınca liste modalı açılır.
 
 ### Diğer Düzeltmeler
 - ✅ **Profil sayfası local fix** — `/profile` → `/profile.html` yönlendirmesi (Python HTTP server uyumu)
@@ -912,3 +913,102 @@ Sidebar program özeti (`L.days.map`, satır ~1158) off day günleri zaten filtr
 ### SW Versiyonu
 
 Off day özelliği tamamlandıktan sonra `sw.js` içindeki `CACHE_NAME` gerekirse artırılmalıdır (şu an `logwise-v5`).
+
+---
+
+## Bölüm 23 — Profil Bilgileri Görünürlüğü ve Takipçi Listesi (2026-04-12)
+
+### Genel Bakış
+
+Başka kullanıcıların profilinde programlar, rozetler ve vücut ölçüleri görüntülenebilir. Kullanıcı kendi profilinden bu bilgilerin görünüp görünmeyeceğini toggle ile kontrol edebilir. Takipçi ve takip edilen sayılarına tıklanınca liste modalı açılır.
+
+---
+
+### Supabase Değişiklikleri
+
+**1. `profiles` tablosuna yeni kolon:**
+```sql
+alter table profiles add column if not exists show_profile_info boolean default true;
+```
+
+**2. `user_data` için yeni SELECT politikası:**
+```sql
+create policy "user_data_select_public" on user_data
+  for select using (
+    exists (
+      select 1 from profiles
+      where profiles.user_id = user_data.user_id
+      and profiles.is_public = true
+      and profiles.show_profile_info = true
+    )
+  );
+```
+Mevcut `user_data_select` politikası (sadece kendi verisi) ile birlikte OR mantığıyla çalışır. Kullanıcı her zaman kendi verisini okuyabilir.
+
+**3. `follows` SELECT politikası genişletildi:**
+```sql
+drop policy if exists "follows_select" on follows;
+create policy "follows_select" on follows for select using (true);
+```
+Takipçi/takip listelerinin görüntülenebilmesi için herkese açık okuma izni verildi.
+
+---
+
+### profile.html Değişiklikleri
+
+#### Yeni Global Sabitler (ProfileApp fonksiyonundan önce)
+
+- `BADGES` — 30 rozet dizisi (index.html'den kopyalandı)
+- `getBadgeName(b, lang)` — rozet adı lokalizasyonu
+- `getBadgeCatLabel(cat, lang)` — rozet kategori etiketi
+- `MEASURE_LABELS_TR / MEASURE_LABELS_EN` — ölçüm alan isimleri
+- `MEASURE_UNITS` — ölçüm birimleri (kg, cm, %)
+
+#### Yeni State'ler
+
+```js
+const[viewUserData,setViewUserData]=useState(null);       // başka kullanıcının antrenman verisi
+const[showProfileInfo,setShowProfileInfo]=useState(true); // kendi gizlilik ayarı
+const[followListModal,setFollowListModal]=useState(null); // "followers"|"following"|null
+const[followList,setFollowList]=useState([]);             // listedeki profiller
+const[followListLoading,setFollowListLoading]=useState(false);
+```
+
+#### Yeni Fonksiyonlar
+
+**`toggleShowProfileInfo()`** — `profiles.show_profile_info` alanını toggle eder, anında Supabase'e yazar.
+
+**`loadFollowList(type, targetUserId)`** — `follows` tablosundan kullanıcı ID'lerini çeker, ardından `profiles` tablosundan avatar/username/display_name bilgilerini getirir. `type`: `"followers"` veya `"following"`.
+
+#### Viewed User Profili — Yeni İçerik
+
+`viewUserData` yüklendikten sonra (RLS izin veriyorsa) profil sayfasında şunlar gösterilir:
+
+- **📋 Programlar** — Haftalık programlar gün-hareket detayıyla, günlük programlar hareket listesiyle. Aktif program yeşil AKTİF badge'i ile vurgulanır.
+- **🏅 Rozetler** — Kazanılmış rozetler ikon, isim, kategori ve kazanılma tarihi ile grid görünümde.
+- **📏 Vücut Ölçüleri** — En son ölçüm: sadece dolu alanlar gösterilir (kilo, boy, göğüs, bel vb.).
+
+`show_profile_info === false` ise yerine 🔒 "Bu kullanıcı profil bilgilerini gizli tutuyor." mesajı gösterilir.
+
+#### Kendi Profili — Yeni İçerik
+
+- **Takipçi / Takip sayıları tıklanabilir** oldu → `loadFollowList()` tetiklenir.
+- **"Profil bilgilerini göster" toggle'ı** — Profil sekmesinde Paylaşım Tercihleri kartının altında. Programlar, rozetler ve ölçümlerin başkalarına görünüp görünmeyeceğini kontrol eder.
+
+#### Follow List Modalı
+
+Her iki view'da (kendi profil + başka kullanıcı profili) kullanılır. Avatar, display_name ve @username gösterir. Tıklanınca o kullanıcının profil sayfasına yönlendirir.
+
+#### Yeni Çeviri Anahtarları (TR/EN)
+
+`showProfileInfo`, `profileInfoDesc`, `profileInfoHidden`, `programsLabel`, `badgesLabel`, `measurementsLabel`, `noPrograms`, `noBadgesProfile`, `noMeasurementsProfile`, `followersList`, `followingList`, `weeklyProgram`, `dailyProgram`, `activeLabel`
+
+---
+
+### Davranış Özeti
+
+| Durum | Ne gösterilir |
+|-------|--------------|
+| `is_public=true` + `show_profile_info=true` | Programlar, rozetler, ölçüler tam görünür |
+| `is_public=true` + `show_profile_info=false` | 🔒 gizli mesajı |
+| `is_public=false` | Profil hiç görünmez (mevcut davranış) |
