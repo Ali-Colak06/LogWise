@@ -3144,7 +3144,8 @@ function App({
       ...d.programs,
       [pgId]: {
         name: pgName,
-        days
+        days,
+        offDays: [...(preset.offDays || [])]
       }
     };
     save({
