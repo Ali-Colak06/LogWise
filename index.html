@@ -261,7 +261,7 @@ class ErrorBoundary extends React.Component {
 const D = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
 const DF = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
 const MO = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
-const CATS = ["Göğüs", "Sırt", "Omuz", "Biceps", "Triceps", "Bacak", "Trapez", "Kalça", "Kalf", "Boyun", "Bilek", "Karın", "Kardiyo", "Diğer"];
+const CATS = ["Göğüs", "Sırt", "Omuz", "Biceps", "Triceps", "Bacak", "Trapez", "Kalça", "Kalf", "Boyun", "Bilek", "Karın", "Bel", "Kardiyo", "Diğer"];
 const CAT_LABELS_EN = {
   "Göğüs": "Chest",
   "Sırt": "Back",
@@ -275,6 +275,7 @@ const CAT_LABELS_EN = {
   "Boyun": "Neck",
   "Bilek": "Wrist",
   "Karın": "Core",
+  "Bel": "Lower Back",
   "Kardiyo": "Cardio",
   "Diğer": "Other"
 };
@@ -291,32 +292,48 @@ const CC = {
   "Boyun": "violet",
   "Bilek": "lime",
   "Karın": "red",
+  "Bel": "amber",
   "Kardiyo": "sky",
   "Diğer": "green"
 };
 const PRESET_EXERCISES = [{
   name: "Chest Press",
-  categories: ["Göğüs"]
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Plate Loaded Chest Press",
+  categories: ["Göğüs", "Omuz"]
 }, {
   name: "Chest Fly",
-  categories: ["Göğüs"]
+  categories: ["Göğüs", "Omuz"]
 }, {
-  name: "Dumbell Press",
-  categories: ["Göğüs"]
+  name: "Dumbbell Press",
+  categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
-  name: "İncline Dumbell Press",
-  nameEN: "Incline Dumbell Press",
-  categories: ["Göğüs"]
+  name: "Incline Dumbbell Press",
+  nameEN: "Incline Dumbbell Press",
+  categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
-  name: "Dumbell Fly",
-  categories: ["Göğüs"]
+  name: "Dumbbell Fly",
+  categories: ["Göğüs", "Omuz"]
 }, {
   name: "Bench Press",
-  categories: ["Göğüs"]
+  categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
-  name: "İncline Bench Press",
+  name: "Incline Bench Press",
   nameEN: "Incline Bench Press",
-  categories: ["Göğüs"]
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Smith Machine Bench Press",
+  nameEN: "Smith Machine Bench Press",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Incline Smith Machine Bench Press",
+  nameEN: "Incline Smith Machine Bench Press",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Low-To-High Cable Fly",
+  nameEN: "Low-To-High Cable Fly",
+  categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
   name: "Cable Crossover",
   categories: ["Göğüs"]
@@ -324,20 +341,70 @@ const PRESET_EXERCISES = [{
   name: "Overhead Press",
   categories: ["Omuz"]
 }, {
-  name: "Shoulder Press",
+  name: "Dumble Shoulder Press",
+  categories: ["Omuz"]
+}, {
+  name: "Machine Shoulder Press",
+  categories: ["Omuz"]
+}, {
+  name: "Smith Machine Shoulder Press",
   categories: ["Omuz"]
 }, {
   name: "Lateral Raise",
   categories: ["Omuz"]
 }, {
+  name: "Machine Lateral Raise",
+  categories: ["Omuz"]
+}, {
+  name: "Cable Lateral Raise",
+  categories: ["Omuz"]
+}, {
+  name: "Upright Row",
+  categories: ["Omuz"]
+}, {
   name: "Front Raise",
   categories: ["Omuz"]
 }, {
-  name: "Rear Delt Fly",
+  name: "Arka Omuz Fly",
+  nameEN: "Rear Delt Fly",
+  categories: ["Omuz"]
+}, {
+  name: "Arnold Press",
+  categories: ["Omuz"]
+}, {
+  name: "Face Pull",
+  categories: ["Omuz"]
+}, {
+  name: "Arka Omuz Row",
+  nameEN: "Rear Delt Row",
   categories: ["Omuz"]
 }, {
   name: "Şınav",
-  nameEN: "Push Up",
+  nameEN: "Push-Up",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Geniş Tutuş Şınav",
+  nameEN: "Wide Push-Up",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Incline Şınav",
+  nameEN: "Incline Push-Up",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Decline Şınav",
+  nameEN: "Decline Push-Up",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Archer Şınav",
+  nameEN: "Archer Push-Up",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Patlayıcı Şınav",
+  nameEN: "Explosive Push-Up",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  name: "Alkışlı Şınav",
+  nameEN: "Clapping Push-Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
   name: "Dips",
@@ -355,7 +422,19 @@ const PRESET_EXERCISES = [{
   name: "Skull Crusher",
   categories: ["Triceps"]
 }, {
-  name: "Biceps Curl",
+  name: "Barbell Curl",
+  categories: ["Biceps"]
+}, {
+  name: "Dumbbell Curl",
+  categories: ["Biceps"]
+}, {
+  name: "Incline Dumbbell Curl",
+  categories: ["Biceps"]
+}, {
+  name: "Concentration Curl",
+  categories: ["Biceps"]
+}, {
+  name: "Spider Curl",
   categories: ["Biceps"]
 }, {
   name: "Hammer Curl",
@@ -369,6 +448,9 @@ const PRESET_EXERCISES = [{
 }, {
   name: "Reverse Curl",
   categories: ["Biceps", "Bilek"]
+}, {
+  name: "Chin-Up",
+  categories: ["Biceps", "Sırt"]
 }, {
   name: "Dead Hang",
   categories: ["Bilek"]
@@ -385,13 +467,20 @@ const PRESET_EXERCISES = [{
   name: "Lat Pulldown",
   categories: ["Sırt", "Biceps"]
 }, {
-  name: "Pull Up",
+  name: "Barfiks",
+  nameEN: "Pull Up",
+  categories: ["Sırt", "Biceps"]
+},{
+  name: "Muscle-Up",
   categories: ["Sırt", "Biceps"]
 }, {
-  name: "Dumbell Row",
+  name: "Dumbbell Row",
   categories: ["Sırt", "Biceps"]
 }, {
   name: "Cable Row",
+  categories: ["Sırt", "Biceps"]
+}, {
+  name: "Single-Arm Cable Row",
   categories: ["Sırt", "Biceps"]
 }, {
   name: "Barbell Row",
@@ -427,6 +516,18 @@ const PRESET_EXERCISES = [{
   name: "Shrug",
   categories: ["Trapez"]
 }, {
+  name: "Deadlift",
+  categories: ["Bel", "Sırt", "Bacak", "Kalça"]
+}, {
+  name: "Romanian Deadlift",
+  categories: ["Bel", "Sırt", "Bacak", "Kalça"]
+}, {
+  name: "Back Extension",
+  categories: ["Bel"]
+}, {
+  name: "Superman",
+  categories: ["Bel"]
+}, {
   name: "Hip Thrust",
   categories: ["Kalça"]
 }, {
@@ -451,6 +552,18 @@ const PRESET_EXERCISES = [{
   name: "Burpee",
   categories: ["Kardiyo"]
 }, {
+  name: "Yürüyüş",
+  nameEN: "Walking",
+  categories: ["Kardiyo"]
+}, {
+  name: "Koşu",
+  nameEN: "Running",
+  categories: ["Kardiyo"]
+}, {
+  name: "İp atlamak",
+  nameEN: "Jump Rope",
+  categories: ["Kardiyo"]
+}, {
   name: "Jumping Jack",
   categories: ["Kardiyo"]
 }, {
@@ -469,11 +582,11 @@ const PRESET_EXERCISES = [{
 const EX_DESCS = {
   "Chest Press": ["Makinede göğüs press. Sabit hareket yolu, güvenli.", "Machine chest press. Fixed path, safe."],
   "Chest Fly": ["Göğüs açma-kapama. İzolasyon hareketi.", "Chest fly. Isolation movement."],
-  "Dumbell Press": ["Dumbbell ile düz bank press.", "Flat dumbbell press."],
-  "İncline Dumbell Press": ["Eğik bankta dumbbell press. Üst göğüs.", "Incline dumbbell press. Upper chest."],
-  "Dumbell Fly": ["Dumbbell ile göğüs açma-kapama.", "Dumbbell chest fly."],
+  "Dumbbell Press": ["Dumbbell ile düz bank press.", "Flat dumbbell press."],
+  "Incline Dumbbell Press": ["Eğik bankta dumbbell press. Üst göğüs.", "Incline dumbbell press. Upper chest."],
+  "Dumbbell Fly": ["Dumbbell ile göğüs açma-kapama.", "Dumbbell chest fly."],
   "Bench Press": ["Düz bankta barbell press. Temel bileşik hareket.", "Barbell bench press. Fundamental compound."],
-  "İncline Bench Press": ["Eğik bankta barbell press. Üst göğüs + ön omuz.", "Incline barbell press. Upper chest + front delts."],
+  "Incline Bench Press": ["Eğik bankta barbell press. Üst göğüs + ön omuz.", "Incline barbell press. Upper chest + front delts."],
   "Cable Crossover": ["Kablo çaprazlama. Sürekli gerilim.", "Cable crossover. Constant tension."],
   "Overhead Press": ["Ayakta barbell omuz press.", "Standing barbell overhead press."],
   "Shoulder Press": ["Oturarak/ayakta omuz press.", "Seated/standing shoulder press."],
@@ -496,7 +609,7 @@ const EX_DESCS = {
   "Wrist Curls": ["Bilek bükme. Ön kol.", "Wrist curls. Forearms."],
   "Lat Pulldown": ["Lat pulldown. Sırt genişliği.", "Lat pulldown. Back width."],
   "Pull Up": ["Barfiks. Temel sırt hareketi.", "Pull-up. Fundamental back exercise."],
-  "Dumbell Row": ["Tek kol dumbbell sıra çekme.", "Single arm dumbbell row."],
+  "Dumbbell Row": ["Tek kol dumbbell sıra çekme.", "Single arm dumbbell row."],
   "Cable Row": ["Oturarak kablo çekme.", "Seated cable row."],
   "Barbell Row": ["Eğilerek barbell sıra çekme.", "Bent-over barbell row."],
   "T-Bar Row": ["T-bar sıra çekme. Sırt kalınlığı.", "T-bar row. Back thickness."],
@@ -537,8 +650,8 @@ const PRESET_PROGRAMS = [{
     "0": ["Bench Press", "Overhead Press", "Lateral Raise", "Triceps Pushdown", "Cable Crossover"],
     "1": ["Barbell Row", "Lat Pulldown", "Cable Row", "Biceps Curl", "Rear Delt Fly"],
     "2": ["Squat", "Leg Press", "Leg Curl", "Leg Extension", "Calf Raise"],
-    "3": ["Dumbell Press", "Shoulder Press", "Dumbell Fly", "Overhead Triceps Extension"],
-    "4": ["Deadlift", "Pull Up", "Dumbell Row", "Hammer Curl", "Shrug"],
+    "3": ["Dumbbell Press", "Shoulder Press", "Dumbbell Fly", "Overhead Triceps Extension"],
+    "4": ["Deadlift", "Pull Up", "Dumbbell Row", "Hammer Curl", "Shrug"],
     "5": ["Leg Press", "Lunge", "Hip Thrust", "Leg Curl", "Calf Raise"],
     "6": []
   },
@@ -552,12 +665,42 @@ const PRESET_PROGRAMS = [{
     "0": ["Bench Press", "Barbell Row", "Overhead Press", "Biceps Curl", "Triceps Pushdown"],
     "1": ["Squat", "Deadlift", "Leg Press", "Leg Curl", "Calf Raise"],
     "2": [],
-    "3": ["Dumbell Press", "Lat Pulldown", "Lateral Raise", "Hammer Curl", "Skull Crusher"],
+    "3": ["Dumbbell Press", "Lat Pulldown", "Lateral Raise", "Hammer Curl", "Skull Crusher"],
     "4": ["Leg Press", "Lunge", "Hip Thrust", "Leg Extension", "Calf Raise"],
     "5": [],
     "6": []
   },
   offDays: ["2", "5", "6"]
+}, {
+  name: "Güray's Hypertrophy No:1",
+  nameEN: "Güray's Hypertrophy No:1",
+  desc: "Güray Aydın'ın hipertrofi programı. Haftada 4 gün, Orta seviye.",
+  descEN: "Güray Aydın's hypertrophy program. 4 days/week, Intermediate.",
+  days: {
+    "0": ["Bench Press", "Incline Dumbbell Press", "Cable Crossover", "Overhead Press", "Lateral Raise", "Rear Delt Fly", "Triceps Pushdown"],
+    "1": ["Lat Pulldown", "Barbell Row", "Cable Row", "Pullover", "Barfiks", "Barbell Curl", "Dumbbell Curl"],
+    "2": ["Squat", "Leg Press", "Leg Curl", "Calf Raise"],
+    "3": [],
+    "4": ["Incline Dumbbell Press", "Cable Crossover", "Overhead Press", "Lateral Raise", "Rear Delt Fly", "Triceps Pushdown"],
+    "5": ["Lat Pulldown", "Cable Row", "Romanian Deadlift", "Dumbbell Curl", "Leg Press", "Calf Raise"],
+    "6": []
+  },
+  offDays: ["3", "6"]
+}, {
+  name: "Güray's Hypertrophy Max",
+  nameEN: "Güray's Hypertrophy Max",
+  desc: "Güray Aydın'ın hipertrofi programı. Haftada 4 gün, Orta seviye.",
+  descEN: "Güray Aydın's hypertrophy program. 4 days/week, Intermediate.",
+  days: {
+    "0": ["Plate Loaded Chest Press", "Incline Smith Machine Bench Press", "Chest Fly", "Shoulder Press", "Lateral Raise", "Triceps Pushdown", "Overhead Triceps Extension"],
+    "1": ["Lat Pulldown", "Barbell Row", "Cable Row", "Incline Dumbbell Curl", "Cable Curl", "Hammer Curl", "Reverse Curl"],
+    "2": ["Leg Press", "Smith Machine Squat", "Leg Extension", "Leg Curl",],
+    "3": [],
+    "4": ["Shoulder Press", "Lateral Raise", "Incline Smith Machine Bench Press", "Chest Fly", "Rear Delt Fly", "Triceps Pushdown", "Overhead Triceps Extension"],
+    "5": ["Barbell Row", "Lat Pulldown", "Romanian Deadlift", "Cable Curl", "Hammer Curl", "Reverse Curl", "Leg Extension", "Leg Curl"],
+    "6": []
+  },
+  offDays: ["3", "6"]
 }, {
   name: "Full Body",
   nameEN: "Full Body",
@@ -566,7 +709,7 @@ const PRESET_PROGRAMS = [{
   days: {
     "0": ["Bench Press", "Barbell Row", "Squat", "Overhead Press", "Biceps Curl"],
     "1": [],
-    "2": ["Deadlift", "Dumbell Press", "Lat Pulldown", "Leg Press", "Triceps Pushdown"],
+    "2": ["Deadlift", "Dumbbell Press", "Lat Pulldown", "Leg Press", "Triceps Pushdown"],
     "3": [],
     "4": ["Squat", "Cable Row", "Shoulder Press", "Leg Curl", "Hammer Curl"],
     "5": [],
@@ -579,8 +722,8 @@ const PRESET_PROGRAMS = [{
   desc: "Her gün farklı kas grubu. Klasik bölünme.",
   descEN: "Each day different muscle group. Classic split.",
   days: {
-    "0": ["Bench Press", "İncline Dumbell Press", "Cable Crossover", "Dumbell Fly"],
-    "1": ["Barbell Row", "Lat Pulldown", "Cable Row", "Dumbell Row", "Shrug"],
+    "0": ["Bench Press", "Incline Dumbbell Press", "Cable Crossover", "Dumbbell Fly"],
+    "1": ["Barbell Row", "Lat Pulldown", "Cable Row", "Dumbbell Row", "Shrug"],
     "2": ["Overhead Press", "Lateral Raise", "Front Raise", "Rear Delt Fly"],
     "3": ["Biceps Curl", "Hammer Curl", "Preacher Curl", "Triceps Pushdown", "Skull Crusher"],
     "4": ["Squat", "Leg Press", "Leg Curl", "Leg Extension", "Calf Raise"],
