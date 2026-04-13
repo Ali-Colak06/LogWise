@@ -16,5 +16,10 @@
 /feedback     /index.html     200
 /data         /index.html     200
 
+# Wildcard fallback — listelenmemiş tüm rotaları index.html'e yönlendir (rewrite, redirect değil)
+# NOT: Cloudflare Pages, mevcut statik dosyaları (profile.html, share.html vb.) bu kuraldan önce sunar.
+# Yani gerçek dosyalar bu kuraldan etkilenmez.
+/*            /index.html     200
+
 # NOT: 404 sayfası için ayrı satır gerekmez.
 # Cloudflare Pages, kök dizindeki 404.html dosyasını otomatik olarak kullanır.

@@ -1,21 +1,32 @@
 # Cloudflare Pages — HTTP Header Kuralları
-# netlify.toml'dan dönüştürüldü
+
+# Güvenlik header'ları — tüm URL'lere uygulanır
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+# Statik varlıklar için cache (resimler, ikonlar, manifest vb.)
+# NOT: *.html ve / için aşağıdaki özel kurallar geçerlidir; bunlar bu cache'i ezmez.
+/icon-192.png
+  Cache-Control: public, max-age=604800
+/icon-512.png
+  Cache-Control: public, max-age=604800
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800
+/favicon.ico
+  Cache-Control: public, max-age=604800
+/manifest.json
+  Cache-Control: public, max-age=86400
 
 # sw.js için cache kapatma — tarayıcı her zaman güncel SW'yi kontrol eder
 /sw.js
   Cache-Control: no-cache, no-store, must-revalidate
 
-# HTML sayfaları için cache kapatma — kullanıcılar hep güncel sürümü görür
-/*.html
-  Cache-Control: no-cache, no-store, must-revalidate
-
-# Kök URL (index.html) için de cache kapatma
+# Kök URL için cache kapatma — kullanıcılar hep güncel sürümü görür
 /
   Cache-Control: no-cache, no-store, must-revalidate
 
-# Tüm sayfalar için güvenlik header'ları + statik varlıklar için cache
-/*
-  X-Frame-Options: DENY
-  X-Content-Type-Options: nosniff
-  Referrer-Policy: strict-origin-when-cross-origin
-  Cache-Control: public, max-age=86400
+# HTML sayfaları için cache kapatma
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
