@@ -4379,26 +4379,26 @@ function App({
   useEffect(() => {
     if (isGuest || !user) return;
     let cancelled = false;
+    const metaUsername = normalizeUsername(user.user_metadata?.username);
+    const hasMetaUsername = isValidUsername(metaUsername);
+    if (hasMetaUsername) {
+      setMyUsername(metaUsername);
+      setShowUsernameModal(false);
+    }
     (async () => {
-      const metaUsername = normalizeUsername(user.user_metadata?.username);
-      const shouldSeedMetaUsername = isValidUsername(metaUsername);
       const {
         data: profile,
         error
-      } = await syncProfileRecord(user, shouldSeedMetaUsername ? {
+      } = await syncProfileRecord(user, hasMetaUsername ? {
         username: metaUsername
       } : {});
       if (cancelled) return;
-      if (error) {
-        console.error("profile sync error:", error);
-        setShowUsernameModal(true);
-        return;
-      }
       const savedUsername = normalizeUsername(profile?.username) || metaUsername;
       if (isValidUsername(savedUsername)) {
         setMyUsername(savedUsername);
         setShowUsernameModal(false);
       } else {
+        if (error) console.error("profile sync error:", error);
         setShowUsernameModal(true);
       }
     })();
