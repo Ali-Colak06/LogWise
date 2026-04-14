@@ -5254,7 +5254,7 @@ function App({
     style: isMobile ? {
       position: "fixed",
       left: 0,
-      top: 64,
+      top: 0,
       bottom: 0,
       width: 288,
       zIndex: 100,
@@ -5266,13 +5266,19 @@ function App({
       boxShadow: "4px 0 24px rgba(0,0,0,.4)",
       animation: "slideInLeft .25s ease"
     } : {
+      position: "fixed",
+      left: 0,
+      top: 0,
+      bottom: 0,
       width: 256,
+      zIndex: 60,
       borderRight: "1px solid var(--brd)",
       overflowY: "auto",
       flexShrink: 0,
       background: "var(--bg)",
       display: "flex",
-      flexDirection: "column"
+      flexDirection: "column",
+      boxShadow: "4px 0 24px rgba(0,0,0,.12)"
     }
   }, React.createElement("div", {
     style: {
@@ -5592,7 +5598,8 @@ function App({
       flex: 1,
       overflowY: "auto",
       background: "var(--bg)",
-      position: "relative"
+      position: "relative",
+      marginLeft: !isMobile && sidebar ? 256 : 0
     }
   }, confetti && React.createElement("div", {
     style: {

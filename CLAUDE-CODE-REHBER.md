@@ -45,6 +45,9 @@ LogWise/
 ├── share.html.babel-backup ← share.html kaynak JSX (git'e gitmez, sadece yerel)
 ├── program.html            ← Program paylaşım sayfası (public, base64 URL ile veri)
 ├── program.html.babel-backup ← program.html kaynak JSX (git'e gitmez, sadece yerel)
+├── PRESET_PROGRAM_ONERILERI.md ← Yeni preset program fikirleri, etiketler ve haftalık taslaklar
+├── PRESET_PROGRAM_ONERILERI_READABLE.html ← Program önerisi belgesinin okunabilir HTML versiyonu
+├── PRESET_PROGRAM_ONERILERI.pdf ← Program önerisi belgesinin okunabilir PDF export'u
 └── CLAUDE-CODE-REHBER.md   ← Bu dosya
 ```
 
@@ -298,6 +301,8 @@ Sidebar'da `📊 Panel` linki ile erişilir. `/dashboard` URL'i. 3 sekmeli yapı
 - "Yeni Hareket" butonuna tıklanınca iki sekme açılır:
   - **Kendin Ekle**: İsim gir + birden fazla bölge seç (multi-select pill butonlar)
   - **Hazır Hareketler**: Bölgeye göre filtrelenebilen preset hareket listesinden çoklu seçim yapılır. **Her hareketin altında kısa açıklama** gösterilir.
+  - Hazır hareketlerde bölge filtresi artık birden fazla bölgeyi aynı anda destekler. Mantık `AND` çalışır; örneğin Göğüs + Omuz seçilirse yalnızca iki bölgeyi de içeren hareketler listelenir.
+  - Hazır hareket filtresinin üstünde eşleşen hareket sayacı gösterilir. Filtre temizlenirse liste tekrar "Tümü" durumuna döner.
 
 ### 6.5 Hazır Hareketler Sistemi (PRESET_EXERCISES + EX_DESCS)
 
@@ -353,6 +358,13 @@ Preset hareket seçme listesinde her hareketin altında açıklama gösterilir.
 - `days` içindeki elemanlar artık serbest metin isimler değil, `PRESET_EXERCISES` içindeki `key` değerleridir.
 - Aynı preset daha önce eklenmişse `program.presetKey` veya bilinen isim varyasyonları üzerinden bulunur; kullanıcıya overwrite onayı sorulur.
 - Hazır program modalında seviye filtresi vardır; kullanıcı `Tüm Seviyeler / Başlangıç / Orta Seviye / İleri Seviye` chip'leri ile listeyi daraltabilir.
+- Sonraki genişleme için düşünülen metadata/filtre alanları: `environment`, `goal`, `equipment`, `daysPerWeek`, `focus`.
+- Bu alanlar henüz uygulamada aktif filtre olarak kullanılmıyor; ancak preset program planlaması ve dokümantasyon bu şema üzerinden hazırlanıyor.
+
+**Preset Program Öneri Belgeleri (dokümantasyon, henüz uygulamaya eklenmedi):**
+- `PRESET_PROGRAM_ONERILERI.md` içinde etiket tabloları, program özetleri ve 12 aday preset program için haftalık planlar bulunur.
+- Aynı içeriğin daha okunabilir çıktıları olarak `PRESET_PROGRAM_ONERILERI_READABLE.html` ve `PRESET_PROGRAM_ONERILERI.pdf` dosyaları oluşturulmuştur.
+- Belgede geçen aday program key'leri: `home-full-body-3-beginner`, `home-upper-lower-4-beginner`, `bodyweight-strength-3`, `calisthenics-beginner-3`, `push-up-focus-3`, `pull-up-focus-3`, `home-hypertrophy-4`, `calisthenics-upper-lower-4`, `core-conditioning-3`, `lower-body-home-3`, `advanced-calisthenics-4`, `fat-burn-home-4`.
 
 **Program Döngüsü (Cycle — YENİ):**
 - Program oluşturma/düzenleme modalında "Döngü" ayarı: Standart veya Deload Döngüsü
