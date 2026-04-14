@@ -1,0 +1,449 @@
+﻿<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Preset Program Onerileri</title>
+<style>
+:root {
+  --bg: #f5f1e8;
+  --paper: #fffdf8;
+  --ink: #1f2933;
+  --muted: #52606d;
+  --accent: #c05621;
+  --accent-soft: #fff0e8;
+  --line: #d9cfc0;
+  --table-head: #f3e8d7;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(180deg, #efe7d8 0%, #f7f4ee 240px, #f7f4ee 100%);
+  color: var(--ink);
+}
+main {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 32px 60px;
+}
+.hero {
+  background: linear-gradient(135deg, #fff7ec 0%, #fffdf8 100%);
+  border: 1px solid #e7d9c4;
+  border-radius: 24px;
+  padding: 28px 32px;
+  box-shadow: 0 18px 45px rgba(109, 76, 50, 0.08);
+  margin-bottom: 28px;
+}
+.hero h1 {
+  margin: 0 0 8px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 34px;
+  line-height: 1.15;
+}
+.hero p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+}
+.section-title {
+  margin: 34px 0 14px;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 24px;
+}
+.program-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 22px 24px;
+  margin: 18px 0;
+  box-shadow: 0 12px 30px rgba(31, 41, 51, 0.05);
+  break-inside: avoid;
+}
+.program-card h3 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+.program-card h3 code {
+  font-size: 16px;
+}
+.meta-label {
+  margin: 18px 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+ul {
+  margin: 8px 0 0 18px;
+  padding: 0;
+}
+li {
+  margin: 7px 0;
+  line-height: 1.5;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(31, 41, 51, 0.04);
+}
+th, td {
+  border-bottom: 1px solid #e7dfd2;
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+  font-size: 14px;
+  line-height: 1.45;
+}
+th {
+  background: var(--table-head);
+  font-weight: 700;
+}
+tr:nth-child(even) td {
+  background: #fffaf1;
+}
+p {
+  margin: 10px 0;
+  line-height: 1.6;
+}
+code {
+  background: var(--accent-soft);
+  color: #8c2d04;
+  padding: 2px 6px;
+  border-radius: 7px;
+  font-family: Consolas, 'Courier New', monospace;
+  font-size: 0.94em;
+}
+.page-note {
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 10px;
+}
+@media print {
+  body { background: #fff; }
+  main { max-width: none; padding: 20px 12px 28px; }
+  .hero { box-shadow: none; }
+  table, .program-card { box-shadow: none; }
+}
+</style>
+</head>
+<body>
+<main>
+<section class="hero">
+<h1>Preset Program Onerileri</h1>
+<p>Bu belge, LogWise icin onerilen yeni preset programlari toplu halde incelemek icin hazirlandi.</p>
+<p>Bu belge, LogWise icin onerilen yeni preset programlari toplu halde incelemek icin hazirlandi.</p>
+<p class="page-note">PDF versiyonu daha rahat okunabilmesi icin yeniden duzenlenmistir.</p>
+</section>
+<h2 class="section-title">1. Etiket Onerileri</h2>
+<table>
+<thead><tr><th>Alan</th><th>Onerilen degerler</th><th>Amac</th></tr></thead>
+<tbody>
+<tr><td><code>level</code></td><td><code>beginner</code>, <code>intermediate</code>, <code>advanced</code></td><td>Zorluk filtresi</td></tr>
+<tr><td><code>environment</code></td><td><code>home</code>, <code>gym</code>, <code>hybrid</code></td><td>Ev / salon ayrimi</td></tr>
+<tr><td><code>goal</code></td><td><code>strength</code>, <code>hypertrophy</code>, <code>general-fitness</code>, <code>fat-loss</code>, <code>skill</code>, <code>endurance</code></td><td>Program amaci</td></tr>
+<tr><td><code>equipment</code></td><td><code>bodyweight</code>, <code>chair</code>, <code>bar</code>, <code>dumbbell</code>, <code>machine</code>, <code>full-gym</code></td><td>Gerekli ekipman</td></tr>
+<tr><td><code>daysPerWeek</code></td><td><code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>, <code>6</code></td><td>Haftalik gun sayisi</td></tr>
+<tr><td><code>focus</code></td><td><code>full-body</code>, <code>upper-lower</code>, <code>push-up</code>, <code>pull-up</code>, <code>core</code>, <code>lower-body</code>, <code>conditioning</code></td><td>Ana vurgu</td></tr>
+</tbody></table>
+<h2 class="section-title">2. Program Ozeti</h2>
+<table>
+<thead><tr><th>Key</th><th>Program Adi</th><th>Seviye</th><th>Ortam</th><th>Hedef</th><th>Gun</th><th>Yapi</th></tr></thead>
+<tbody>
+<tr><td><code>home-full-body-3-beginner</code></td><td>Evde Full Body Baslangic</td><td>beginner</td><td>home</td><td>general-fitness</td><td>3</td><td>Full body</td></tr>
+<tr><td><code>home-upper-lower-4-beginner</code></td><td>Evde Upper/Lower Baslangic</td><td>beginner</td><td>home</td><td>general-fitness</td><td>4</td><td>Upper/Lower</td></tr>
+<tr><td><code>bodyweight-strength-3</code></td><td>Bodyweight Strength Foundation</td><td>beginner</td><td>home</td><td>strength</td><td>3</td><td>Full body</td></tr>
+<tr><td><code>calisthenics-beginner-3</code></td><td>Calisthenics Baslangic</td><td>beginner</td><td>home</td><td>skill</td><td>3</td><td>Skill + temel kuvvet</td></tr>
+<tr><td><code>push-up-focus-3</code></td><td>Push-Up Gelisim Programi</td><td>beginner</td><td>home</td><td>skill</td><td>3</td><td>Push odakli</td></tr>
+<tr><td><code>pull-up-focus-3</code></td><td>Pull-Up Gelisim Programi</td><td>intermediate</td><td>home</td><td>skill</td><td>3</td><td>Pull odakli</td></tr>
+<tr><td><code>home-hypertrophy-4</code></td><td>Evde Hipertrofi</td><td>intermediate</td><td>home</td><td>hypertrophy</td><td>4</td><td>Upper/Lower</td></tr>
+<tr><td><code>calisthenics-upper-lower-4</code></td><td>Calisthenics Upper/Lower</td><td>intermediate</td><td>home</td><td>strength</td><td>4</td><td>Upper/Lower</td></tr>
+<tr><td><code>core-conditioning-3</code></td><td>Core and Conditioning</td><td>beginner</td><td>home</td><td>fat-loss</td><td>3</td><td>Core + kondisyon</td></tr>
+<tr><td><code>lower-body-home-3</code></td><td>Evde Alt Vucut Odakli</td><td>beginner</td><td>home</td><td>strength</td><td>3</td><td>Lower body</td></tr>
+<tr><td><code>advanced-calisthenics-4</code></td><td>Ileri Calisthenics Guc</td><td>advanced</td><td>home</td><td>strength</td><td>4</td><td>Skill + strength</td></tr>
+<tr><td><code>fat-burn-home-4</code></td><td>Evde Yag Yakin Odakli</td><td>beginner</td><td>home</td><td>fat-loss</td><td>4</td><td>Conditioning</td></tr>
+</tbody></table>
+<h2 class="section-title">3. Ayrintili Haftalik Planlar</h2>
+<section class="program-card">
+<h3>3.1 <code>home-full-body-3-beginner</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>beginner</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>general-fitness</code></li>
+<li>Ekipman: <code>bodyweight</code>, <code>chair</code></li>
+<li>Gun sayisi: <code>3</code></li>
+<li>Yapi: <code>full-body</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>incline-push-up</code>, <code>inverted-row</code>, <code>wall-sit</code>, <code>glute-bridge</code>, <code>dead-bug</code>, <code>jumping-jack</code></li>
+<li>Gun 2: Dinlenme</li>
+<li>Gun 3: <code>push-up</code>, <code>bench-dips</code>, <code>step-up</code>, <code>single-leg-glute-bridge</code>, <code>side-plank</code>, <code>high-knees</code></li>
+<li>Gun 4: Dinlenme</li>
+<li>Gun 5: <code>diamond-push-up</code>, <code>australian-pull-up</code>, <code>cossack-squat</code>, <code>bird-dog</code>, <code>flutter-kicks</code>, <code>mountain-climber</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.2 <code>home-upper-lower-4-beginner</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>beginner</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>general-fitness</code></li>
+<li>Ekipman: <code>bodyweight</code>, <code>chair</code></li>
+<li>Gun sayisi: <code>4</code></li>
+<li>Yapi: <code>upper-lower</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>push-up</code>, <code>bench-dips</code>, <code>inverted-row</code>, <code>dead-bug</code>, <code>side-plank</code></li>
+<li>Gun 2: <code>wall-sit</code>, <code>step-up</code>, <code>glute-bridge</code>, <code>calf-raise</code>, <code>high-knees</code></li>
+<li>Gun 3: Dinlenme</li>
+<li>Gun 4: <code>incline-push-up</code>, <code>australian-pull-up</code>, <code>pike-push-up</code>, <code>bird-dog</code>, <code>flutter-kicks</code></li>
+<li>Gun 5: <code>jump-squat</code>, <code>cossack-squat</code>, <code>single-leg-glute-bridge</code>, <code>wall-sit</code>, <code>mountain-climber</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.3 <code>bodyweight-strength-3</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>beginner</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>strength</code></li>
+<li>Ekipman: <code>bodyweight</code>, <code>chair</code>, <code>bar</code></li>
+<li>Gun sayisi: <code>3</code></li>
+<li>Yapi: <code>full-body</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>push-up</code>, <code>inverted-row</code>, <code>bulgarian-split-squat</code>, <code>single-leg-glute-bridge</code>, <code>hollow-body-hold</code></li>
+<li>Gun 2: Dinlenme</li>
+<li>Gun 3: <code>diamond-push-up</code>, <code>australian-pull-up</code>, <code>step-up</code>, <code>wall-sit</code>, <code>dead-bug</code></li>
+<li>Gun 4: Dinlenme</li>
+<li>Gun 5: <code>pike-push-up</code>, <code>assisted-pull-up</code>, <code>assisted-pistol-squat</code>, <code>glute-bridge</code>, <code>side-plank</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.4 <code>calisthenics-beginner-3</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>beginner</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>skill</code></li>
+<li>Ekipman: <code>bodyweight</code>, <code>chair</code>, <code>bar</code></li>
+<li>Gun sayisi: <code>3</code></li>
+<li>Yapi: <code>skill</code>, <code>full-body</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>assisted-pull-up</code>, <code>pike-push-up</code>, <code>bench-dips</code>, <code>wall-sit</code>, <code>dead-bug</code></li>
+<li>Gun 2: Dinlenme</li>
+<li>Gun 3: <code>scapular-pull-up</code>, <code>push-up</code>, <code>step-up</code>, <code>bird-dog</code>, <code>hollow-body-hold</code></li>
+<li>Gun 4: Dinlenme</li>
+<li>Gun 5: <code>inverted-row</code>, <code>incline-push-up</code>, <code>glute-bridge</code>, <code>side-plank</code>, <code>jumping-jack</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.5 <code>push-up-focus-3</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>beginner</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>skill</code></li>
+<li>Ekipman: <code>bodyweight</code></li>
+<li>Gun sayisi: <code>3</code></li>
+<li>Yapi: <code>push-up</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>incline-push-up</code>, <code>push-up</code>, <code>diamond-push-up</code>, <code>plank</code></li>
+<li>Gun 2: Dinlenme</li>
+<li>Gun 3: <code>push-up</code>, <code>pike-push-up</code>, <code>bench-dips</code>, <code>dead-bug</code></li>
+<li>Gun 4: Dinlenme</li>
+<li>Gun 5: <code>diamond-push-up</code>, <code>pseudo-planche-push-up</code>, <code>hindu-push-up</code>, <code>side-plank</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.6 <code>pull-up-focus-3</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>intermediate</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>skill</code></li>
+<li>Ekipman: <code>bar</code></li>
+<li>Gun sayisi: <code>3</code></li>
+<li>Yapi: <code>pull-up</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>scapular-pull-up</code>, <code>assisted-pull-up</code>, <code>inverted-row</code>, <code>dead-hang</code></li>
+<li>Gun 2: Dinlenme</li>
+<li>Gun 3: <code>australian-pull-up</code>, <code>commando-pull-up</code>, <code>towel-row</code>, <code>dead-hang</code></li>
+<li>Gun 4: Dinlenme</li>
+<li>Gun 5: <code>pull-up</code>, <code>assisted-pull-up</code>, <code>chest-supported-row</code>, <code>bird-dog</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.7 <code>home-hypertrophy-4</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>intermediate</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>hypertrophy</code></li>
+<li>Ekipman: <code>bodyweight</code>, <code>chair</code>, <code>bar</code></li>
+<li>Gun sayisi: <code>4</code></li>
+<li>Yapi: <code>upper-lower</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>diamond-push-up</code>, <code>bench-dips</code>, <code>pike-push-up</code>, <code>side-plank</code></li>
+<li>Gun 2: <code>bulgarian-split-squat</code>, <code>step-up</code>, <code>single-leg-glute-bridge</code>, <code>calf-raise</code></li>
+<li>Gun 3: Dinlenme</li>
+<li>Gun 4: <code>inverted-row</code>, <code>australian-pull-up</code>, <code>towel-row</code>, <code>hanging-leg-raise</code></li>
+<li>Gun 5: <code>chair-bulgarian-split-squat</code>, <code>wall-sit</code>, <code>jump-squat</code>, <code>glute-kickback</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.8 <code>calisthenics-upper-lower-4</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>intermediate</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>strength</code></li>
+<li>Ekipman: <code>bodyweight</code>, <code>chair</code>, <code>bar</code></li>
+<li>Gun sayisi: <code>4</code></li>
+<li>Yapi: <code>upper-lower</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>pull-up</code>, <code>pike-push-up</code>, <code>bench-dips</code>, <code>l-sit-hold</code></li>
+<li>Gun 2: <code>pistol-squat</code>, <code>cossack-squat</code>, <code>step-up</code>, <code>single-leg-glute-bridge</code></li>
+<li>Gun 3: Dinlenme</li>
+<li>Gun 4: <code>commando-pull-up</code>, <code>diamond-push-up</code>, <code>inverted-row</code>, <code>tuck-l-sit</code></li>
+<li>Gun 5: <code>bulgarian-split-squat</code>, <code>wall-sit</code>, <code>jump-squat</code>, <code>calf-raise</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.9 <code>core-conditioning-3</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>beginner</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>fat-loss</code></li>
+<li>Ekipman: <code>bodyweight</code></li>
+<li>Gun sayisi: <code>3</code></li>
+<li>Yapi: <code>core</code>, <code>conditioning</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>mountain-climber</code>, <code>dead-bug</code>, <code>hollow-rock</code>, <code>side-plank</code>, <code>high-knees</code></li>
+<li>Gun 2: Dinlenme</li>
+<li>Gun 3: <code>bear-crawl</code>, <code>reverse-crunch</code>, <code>flutter-kicks</code>, <code>bird-dog</code>, <code>jumping-jack</code></li>
+<li>Gun 4: Dinlenme</li>
+<li>Gun 5: <code>crab-walk</code>, <code>v-up</code>, <code>plank</code>, <code>skater-jump</code>, <code>burpee</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.10 <code>lower-body-home-3</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>beginner</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>strength</code></li>
+<li>Ekipman: <code>bodyweight</code>, <code>chair</code></li>
+<li>Gun sayisi: <code>3</code></li>
+<li>Yapi: <code>lower-body</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>wall-sit</code>, <code>jump-squat</code>, <code>bulgarian-split-squat</code>, <code>calf-raise</code></li>
+<li>Gun 2: Dinlenme</li>
+<li>Gun 3: <code>step-up</code>, <code>single-leg-glute-bridge</code>, <code>cossack-squat</code>, <code>glute-kickback</code></li>
+<li>Gun 4: Dinlenme</li>
+<li>Gun 5: <code>chair-bulgarian-split-squat</code>, <code>assisted-pistol-squat</code>, <code>wall-sit</code>, <code>calf-raise</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.11 <code>advanced-calisthenics-4</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>advanced</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>strength</code></li>
+<li>Ekipman: <code>bodyweight</code>, <code>bar</code>, <code>chair</code></li>
+<li>Gun sayisi: <code>4</code></li>
+<li>Yapi: <code>skill</code>, <code>strength</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>archer-pull-up</code>, <code>pseudo-planche-push-up</code>, <code>l-sit-hold</code>, <code>wall-handstand-hold</code></li>
+<li>Gun 2: <code>pistol-squat</code>, <code>cossack-squat</code>, <code>single-leg-glute-bridge</code>, <code>ab-wheel</code></li>
+<li>Gun 3: Dinlenme</li>
+<li>Gun 4: <code>commando-pull-up</code>, <code>diamond-push-up</code>, <code>tuck-l-sit</code>, <code>hollow-body-hold</code></li>
+<li>Gun 5: <code>pistol-squat</code>, <code>jump-squat</code>, <code>glute-kickback</code>, <code>side-plank</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<section class="program-card">
+<h3>3.12 <code>fat-burn-home-4</code></h3>
+<div class="meta-label">Meta</div>
+<ul>
+<li>Seviye: <code>beginner</code></li>
+<li>Ortam: <code>home</code></li>
+<li>Hedef: <code>fat-loss</code></li>
+<li>Ekipman: <code>bodyweight</code></li>
+<li>Gun sayisi: <code>4</code></li>
+<li>Yapi: <code>conditioning</code></li>
+</ul>
+<div class="meta-label">Haftalik plan</div>
+<ul>
+<li>Gun 1: <code>burpee</code>, <code>high-knees</code>, <code>mountain-climber</code>, <code>jumping-jack</code></li>
+<li>Gun 2: <code>jump-squat</code>, <code>skater-jump</code>, <code>crab-walk</code>, <code>dead-bug</code></li>
+<li>Gun 3: Dinlenme</li>
+<li>Gun 4: <code>bear-crawl</code>, <code>high-knees</code>, <code>flutter-kicks</code>, <code>side-plank</code></li>
+<li>Gun 5: <code>burpee</code>, <code>mountain-climber</code>, <code>skater-jump</code>, <code>bird-dog</code></li>
+<li>Gun 6: Dinlenme</li>
+<li>Gun 7: Dinlenme</li>
+</ul>
+</section>
+<h2 class="section-title">4. Ilk Faz Icin En Guclu Oneri Paketi</h2>
+<table>
+<thead><tr><th>Oncelik</th><th>Key</th><th>Program Adi</th><th>Neden</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><code>home-full-body-3-beginner</code></td><td>Evde Full Body Baslangic</td><td>En genis kitleye hitap eder</td></tr>
+<tr><td>2</td><td><code>calisthenics-beginner-3</code></td><td>Calisthenics Baslangic</td><td>Yeni baslayan ev/calisthenics kullanicisi icin guclu giris preset&#39;i</td></tr>
+<tr><td>3</td><td><code>pull-up-focus-3</code></td><td>Pull-Up Gelisim Programi</td><td>Hedef odakli ve motive edici</td></tr>
+<tr><td>4</td><td><code>calisthenics-upper-lower-4</code></td><td>Calisthenics Upper/Lower</td><td>Orta seviye icin dengeli ana preset</td></tr>
+<tr><td>5</td><td><code>advanced-calisthenics-4</code></td><td>Ileri Calisthenics Guc</td><td>Ileri kullanicilar icin vitrinde guclu gorunur</td></tr>
+</tbody></table>
+</main>
+</body>
+</html>

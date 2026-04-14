@@ -2478,7 +2478,7 @@ function AuthScreen({
         if (data.session) {
           onLogin(data.user);
         } else {
-          setInfo(lang === "tr" ? "Kayıt başarılı! E-postanı onaylayıp giriş yap." : "Registered! Please confirm your email then log in.");
+          setInfo(lang === "tr" ? "Kayıt başarılı! E-postanı onaylayıp giriş yap. Spam kutunu da kontrol et." : "Registered! Please confirm your email, then log in. Also check your spam folder.");
           setMode("login");
         }
       }
