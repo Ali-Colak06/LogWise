@@ -297,284 +297,384 @@ const CC = {
   "Diğer": "green"
 };
 const PRESET_EXERCISES = [{
+  key: "chest-press",
   name: "Chest Press",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "plate-loaded-chest-press",
   name: "Plate Loaded Chest Press",
   categories: ["Göğüs", "Omuz"]
 }, {
+  key: "chest-fly",
   name: "Chest Fly",
   categories: ["Göğüs", "Omuz"]
 }, {
+  key: "dumbbell-press",
   name: "Dumbbell Press",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "incline-dumbbell-press",
   name: "Incline Dumbbell Press",
   nameEN: "Incline Dumbbell Press",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "dumbbell-fly",
   name: "Dumbbell Fly",
   categories: ["Göğüs", "Omuz"]
 }, {
+  key: "bench-press",
   name: "Bench Press",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "incline-bench-press",
   name: "Incline Bench Press",
   nameEN: "Incline Bench Press",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "smith-machine-bench-press",
   name: "Smith Machine Bench Press",
   nameEN: "Smith Machine Bench Press",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "incline-smith-machine-bench-press",
   name: "Incline Smith Machine Bench Press",
   nameEN: "Incline Smith Machine Bench Press",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "low-to-high-cable-fly",
   name: "Low-To-High Cable Fly",
   nameEN: "Low-To-High Cable Fly",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "cable-crossover",
   name: "Cable Crossover",
   categories: ["Göğüs"]
 }, {
+  key: "overhead-press",
   name: "Overhead Press",
   categories: ["Omuz"]
 }, {
-  name: "Dumble Shoulder Press",
+  key: "shoulder-press",
+  name: "Shoulder Press",
+  nameEN: "Shoulder Press",
   categories: ["Omuz"]
 }, {
+  key: "dumbbell-shoulder-press",
+  name: "Dumbbell Shoulder Press",
+  aliases: ["Dumble Shoulder Press"],
+  categories: ["Omuz"]
+}, {
+  key: "machine-shoulder-press",
   name: "Machine Shoulder Press",
   categories: ["Omuz"]
 }, {
+  key: "smith-machine-shoulder-press",
   name: "Smith Machine Shoulder Press",
   categories: ["Omuz"]
 }, {
+  key: "lateral-raise",
   name: "Lateral Raise",
   categories: ["Omuz"]
 }, {
+  key: "machine-lateral-raise",
   name: "Machine Lateral Raise",
   categories: ["Omuz"]
 }, {
+  key: "cable-lateral-raise",
   name: "Cable Lateral Raise",
   categories: ["Omuz"]
 }, {
+  key: "upright-row",
   name: "Upright Row",
   categories: ["Omuz"]
 }, {
+  key: "front-raise",
   name: "Front Raise",
   categories: ["Omuz"]
 }, {
+  key: "rear-delt-fly",
   name: "Arka Omuz Fly",
   nameEN: "Rear Delt Fly",
   categories: ["Omuz"]
 }, {
+  key: "arnold-press",
   name: "Arnold Press",
   categories: ["Omuz"]
 }, {
+  key: "face-pull",
   name: "Face Pull",
   categories: ["Omuz"]
 }, {
+  key: "rear-delt-row",
   name: "Arka Omuz Row",
   nameEN: "Rear Delt Row",
   categories: ["Omuz"]
 }, {
+  key: "push-up",
   name: "Şınav",
   nameEN: "Push-Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "wide-push-up",
   name: "Geniş Tutuş Şınav",
   nameEN: "Wide Push-Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "incline-push-up",
   name: "Incline Şınav",
   nameEN: "Incline Push-Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "decline-push-up",
   name: "Decline Şınav",
   nameEN: "Decline Push-Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "archer-push-up",
   name: "Archer Şınav",
   nameEN: "Archer Push-Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "explosive-push-up",
   name: "Patlayıcı Şınav",
   nameEN: "Explosive Push-Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "clapping-push-up",
   name: "Alkışlı Şınav",
   nameEN: "Clapping Push-Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "dips",
   name: "Dips",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "triceps-pushdown",
   name: "Triceps Pushdown",
   categories: ["Triceps"]
 }, {
+  key: "kickback",
   name: "Kickback",
   categories: ["Triceps"]
 }, {
+  key: "overhead-triceps-extension",
   name: "Overhead Triceps Extension",
   categories: ["Triceps"]
 }, {
+  key: "skull-crusher",
   name: "Skull Crusher",
   categories: ["Triceps"]
 }, {
+  key: "biceps-curl",
+  name: "Biceps Curl",
+  nameEN: "Biceps Curl",
+  categories: ["Biceps"]
+}, {
+  key: "barbell-curl",
   name: "Barbell Curl",
   categories: ["Biceps"]
 }, {
+  key: "dumbbell-curl",
   name: "Dumbbell Curl",
   categories: ["Biceps"]
 }, {
+  key: "incline-dumbbell-curl",
   name: "Incline Dumbbell Curl",
   categories: ["Biceps"]
 }, {
+  key: "cable-curl",
+  name: "Cable Curl",
+  nameEN: "Cable Curl",
+  categories: ["Biceps"]
+}, {
+  key: "concentration-curl",
   name: "Concentration Curl",
   categories: ["Biceps"]
 }, {
+  key: "spider-curl",
   name: "Spider Curl",
   categories: ["Biceps"]
 }, {
+  key: "hammer-curl",
   name: "Hammer Curl",
   categories: ["Biceps"]
 }, {
+  key: "one-arm-cable-curl",
   name: "One Arm Cable Curl",
   categories: ["Biceps"]
 }, {
+  key: "preacher-curl",
   name: "Preacher Curl",
   categories: ["Biceps"]
 }, {
+  key: "reverse-curl",
   name: "Reverse Curl",
   categories: ["Biceps", "Bilek"]
 }, {
+  key: "chin-up",
   name: "Chin-Up",
   categories: ["Biceps", "Sırt"]
 }, {
+  key: "dead-hang",
   name: "Dead Hang",
   categories: ["Bilek"]
 }, {
+  key: "wrist-extensions",
   name: "Wrist Extensions",
   categories: ["Bilek"]
 }, {
+  key: "wrist-curls",
   name: "Wrist Curls",
   categories: ["Bilek"]
 }, {
-  name: "Dead Hang",
-  categories: ["Bilek"]
-}, {
+  key: "lat-pulldown",
   name: "Lat Pulldown",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "pull-up",
   name: "Barfiks",
   nameEN: "Pull Up",
   categories: ["Sırt", "Biceps"]
-},{
+}, {
+  key: "muscle-up",
   name: "Muscle-Up",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "dumbbell-row",
   name: "Dumbbell Row",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "cable-row",
   name: "Cable Row",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "single-arm-cable-row",
   name: "Single-Arm Cable Row",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "barbell-row",
   name: "Barbell Row",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "t-bar-row",
   name: "T-Bar Row",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "pullover",
   name: "Pullover",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "deadlift",
   name: "Deadlift",
-  categories: ["Sırt", "Bacak", "Kalça"]
+  categories: ["Bel", "Sırt", "Bacak", "Kalça"]
 }, {
+  key: "squat",
   name: "Squat",
   categories: ["Bacak", "Kalça"]
 }, {
+  key: "smith-machine-squat",
+  name: "Smith Machine Squat",
+  nameEN: "Smith Machine Squat",
+  categories: ["Bacak", "Kalça"]
+}, {
+  key: "leg-press",
   name: "Leg Press",
   categories: ["Bacak", "Kalça"]
 }, {
+  key: "lunge",
   name: "Lunge",
   categories: ["Bacak", "Kalça"]
 }, {
+  key: "leg-curl",
   name: "Leg Curl",
   categories: ["Bacak"]
 }, {
+  key: "leg-extension",
   name: "Leg Extension",
   categories: ["Bacak"]
 }, {
+  key: "calf-raise",
   name: "Calf Raise",
   categories: ["Kalf"]
 }, {
+  key: "shrug",
   name: "Shrug",
   categories: ["Trapez"]
 }, {
-  name: "Deadlift",
-  categories: ["Bel", "Sırt", "Bacak", "Kalça"]
-}, {
+  key: "romanian-deadlift",
   name: "Romanian Deadlift",
   categories: ["Bel", "Sırt", "Bacak", "Kalça"]
 }, {
+  key: "back-extension",
   name: "Back Extension",
   categories: ["Bel"]
 }, {
+  key: "superman",
   name: "Superman",
   categories: ["Bel"]
 }, {
+  key: "hip-thrust",
   name: "Hip Thrust",
   categories: ["Kalça"]
 }, {
+  key: "glute-bridge",
   name: "Glute Bridge",
   categories: ["Kalça"]
 }, {
+  key: "plank",
   name: "Plank",
   categories: ["Karın"]
 }, {
+  key: "crunch",
   name: "Crunch",
   categories: ["Karın"]
 }, {
+  key: "cable-crunch",
   name: "Cable Crunch",
   categories: ["Karın"]
 }, {
+  key: "russian-twist",
   name: "Russian Twist",
   categories: ["Karın"]
 }, {
+  key: "mountain-climber",
   name: "Mountain Climber",
   categories: ["Karın", "Kardiyo"]
 }, {
+  key: "burpee",
   name: "Burpee",
   categories: ["Kardiyo"]
 }, {
+  key: "walking",
   name: "Yürüyüş",
   nameEN: "Walking",
   categories: ["Kardiyo"]
 }, {
+  key: "running",
   name: "Koşu",
   nameEN: "Running",
   categories: ["Kardiyo"]
 }, {
+  key: "jump-rope",
   name: "İp atlamak",
   nameEN: "Jump Rope",
   categories: ["Kardiyo"]
 }, {
+  key: "jumping-jack",
   name: "Jumping Jack",
   categories: ["Kardiyo"]
 }, {
+  key: "treadmill",
   name: "Yürüyüş Bandı",
   nameEN: "Treadmill",
   categories: ["Kardiyo"]
 }, {
+  key: "cycling",
   name: "Bisiklet",
   nameEN: "Cycling",
   categories: ["Kardiyo"]
 }, {
+  key: "moonwalk",
   name: "Ay Yürüyüşü",
   nameEN: "Moonwalk",
   categories: ["Kardiyo"]
@@ -590,6 +690,9 @@ const EX_DESCS = {
   "Cable Crossover": ["Kablo çaprazlama. Sürekli gerilim.", "Cable crossover. Constant tension."],
   "Overhead Press": ["Ayakta barbell omuz press.", "Standing barbell overhead press."],
   "Shoulder Press": ["Oturarak/ayakta omuz press.", "Seated/standing shoulder press."],
+  "Dumbbell Shoulder Press": ["Dumbbell ile omuz press.", "Dumbbell shoulder press."],
+  "Machine Shoulder Press": ["Makinede omuz press.", "Machine shoulder press."],
+  "Smith Machine Shoulder Press": ["Smith machine ile omuz press.", "Smith machine shoulder press."],
   "Lateral Raise": ["Yana kaldırma. Yan deltoid.", "Lateral raise. Side delts."],
   "Front Raise": ["Öne kaldırma. Ön deltoid.", "Front raise. Front delts."],
   "Rear Delt Fly": ["Arka omuz açma. Arka deltoid.", "Rear delt fly. Rear delts."],
@@ -600,6 +703,7 @@ const EX_DESCS = {
   "Overhead Triceps Extension": ["Baş üstü triceps uzatma.", "Overhead triceps extension."],
   "Skull Crusher": ["Yatarak barbell triceps uzatma.", "Lying barbell triceps extension."],
   "Biceps Curl": ["Barbell/dumbbell biceps curl.", "Barbell/dumbbell biceps curl."],
+  "Cable Curl": ["Kablo ile biceps curl.", "Cable biceps curl."],
   "Hammer Curl": ["Nötr tutuş curl. Brachialis vurgusu.", "Neutral grip curl. Brachialis emphasis."],
   "One Arm Cable Curl": ["Tek kol kablo curl.", "Single arm cable curl."],
   "Preacher Curl": ["Scott sehpasında curl.", "Preacher bench curl."],
@@ -616,6 +720,7 @@ const EX_DESCS = {
   "Pullover": ["Dumbbell pullover. Sırt + göğüs.", "Dumbbell pullover. Back + chest."],
   "Deadlift": ["Yerden kaldırma. En temel bileşik hareket.", "Deadlift. Most fundamental compound lift."],
   "Squat": ["Barbell squat. Bacak bileşik hareketi.", "Barbell squat. Leg compound."],
+  "Smith Machine Squat": ["Smith machine ile squat.", "Smith machine squat."],
   "Leg Press": ["Bacak press makinesi.", "Leg press machine."],
   "Lunge": ["İleri hamle. Tek bacak gücü.", "Lunge. Single leg strength."],
   "Leg Curl": ["Yatarak bacak bükme. Hamstring.", "Leg curl. Hamstrings."],
@@ -635,98 +740,129 @@ const EX_DESCS = {
   "Bisiklet": ["Bisiklet kardiyo.", "Cycling cardio."],
   "Ay Yürüyüşü": ["Eliptik/özel yürüyüş.", "Elliptical/special walk."]
 };
-const getExDesc = (name, lang) => {
-  const d = EX_DESCS[name];
-  if (!d) return null;
-  return lang === "en" ? d[1] : d[0];
+const normalizePresetText = value => (value || "").trim().toLocaleLowerCase("tr");
+const getPresetExerciseNames = preset => [preset?.name, preset?.nameEN, ...(preset?.aliases || [])].filter(Boolean);
+const getPresetExerciseLookupKeys = preset => [preset?.key, ...getPresetExerciseNames(preset)];
+const PRESET_EXERCISES_BY_KEY = PRESET_EXERCISES.reduce((acc, preset) => {
+  acc[preset.key] = preset;
+  return acc;
+}, {});
+const PRESET_EXERCISE_REF_TO_KEY = PRESET_EXERCISES.reduce((acc, preset) => {
+  acc[preset.key] = preset.key;
+  getPresetExerciseNames(preset).forEach(name => {
+    acc[normalizePresetText(name)] = preset.key;
+  });
+  return acc;
+}, {});
+const findPresetExercise = ref => {
+  if (!ref) return null;
+  if (typeof ref === "object" && ref.key) return PRESET_EXERCISES_BY_KEY[ref.key] || ref;
+  const lookupKey = PRESET_EXERCISE_REF_TO_KEY[normalizePresetText(ref)] || ref;
+  return PRESET_EXERCISES_BY_KEY[lookupKey] || null;
+};
+const getExDesc = (ref, lang) => {
+  const preset = findPresetExercise(ref);
+  const lookupKeys = preset ? getPresetExerciseLookupKeys(preset) : [ref];
+  for (const key of lookupKeys) {
+    const d = EX_DESCS[key];
+    if (d) return lang === "en" ? d[1] : d[0];
+  }
+  return null;
 };
 const presetName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;
+const presetProgramName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;
 const PRESET_PROGRAMS = [{
+  key: "ppl",
   name: "Push Pull Legs (PPL)",
   nameEN: "Push Pull Legs (PPL)",
   desc: "Haftada 6 gün, push/pull/legs döngüsü. Orta-ileri seviye.",
   descEN: "6 days/week push/pull/legs. Intermediate-advanced.",
   days: {
-    "0": ["Bench Press", "Overhead Press", "Lateral Raise", "Triceps Pushdown", "Cable Crossover"],
-    "1": ["Barbell Row", "Lat Pulldown", "Cable Row", "Biceps Curl", "Rear Delt Fly"],
-    "2": ["Squat", "Leg Press", "Leg Curl", "Leg Extension", "Calf Raise"],
-    "3": ["Dumbbell Press", "Shoulder Press", "Dumbbell Fly", "Overhead Triceps Extension"],
-    "4": ["Deadlift", "Pull Up", "Dumbbell Row", "Hammer Curl", "Shrug"],
-    "5": ["Leg Press", "Lunge", "Hip Thrust", "Leg Curl", "Calf Raise"],
+    "0": ["bench-press", "overhead-press", "lateral-raise", "triceps-pushdown", "cable-crossover"],
+    "1": ["barbell-row", "lat-pulldown", "cable-row", "biceps-curl", "rear-delt-fly"],
+    "2": ["squat", "leg-press", "leg-curl", "leg-extension", "calf-raise"],
+    "3": ["dumbbell-press", "shoulder-press", "dumbbell-fly", "overhead-triceps-extension"],
+    "4": ["deadlift", "pull-up", "dumbbell-row", "hammer-curl", "shrug"],
+    "5": ["leg-press", "lunge", "hip-thrust", "leg-curl", "calf-raise"],
     "6": []
   },
   offDays: ["6"]
 }, {
+  key: "upper-lower",
   name: "Üst / Alt Bölünme",
   nameEN: "Upper / Lower Split",
   desc: "Haftada 4 gün, üst ve alt vücut dönüşümlü. Orta seviye.",
   descEN: "4 days/week upper/lower alternating. Intermediate.",
   days: {
-    "0": ["Bench Press", "Barbell Row", "Overhead Press", "Biceps Curl", "Triceps Pushdown"],
-    "1": ["Squat", "Deadlift", "Leg Press", "Leg Curl", "Calf Raise"],
+    "0": ["bench-press", "barbell-row", "overhead-press", "biceps-curl", "triceps-pushdown"],
+    "1": ["squat", "deadlift", "leg-press", "leg-curl", "calf-raise"],
     "2": [],
-    "3": ["Dumbbell Press", "Lat Pulldown", "Lateral Raise", "Hammer Curl", "Skull Crusher"],
-    "4": ["Leg Press", "Lunge", "Hip Thrust", "Leg Extension", "Calf Raise"],
+    "3": ["dumbbell-press", "lat-pulldown", "lateral-raise", "hammer-curl", "skull-crusher"],
+    "4": ["leg-press", "lunge", "hip-thrust", "leg-extension", "calf-raise"],
     "5": [],
     "6": []
   },
   offDays: ["2", "5", "6"]
 }, {
+  key: "guray-hypertrophy-1",
   name: "Güray's Hypertrophy No:1",
   nameEN: "Güray's Hypertrophy No:1",
   desc: "Güray Aydın'ın hipertrofi programı. Haftada 4 gün, Orta seviye.",
   descEN: "Güray Aydın's hypertrophy program. 4 days/week, Intermediate.",
   days: {
-    "0": ["Bench Press", "Incline Dumbbell Press", "Cable Crossover", "Overhead Press", "Lateral Raise", "Rear Delt Fly", "Triceps Pushdown"],
-    "1": ["Lat Pulldown", "Barbell Row", "Cable Row", "Pullover", "Barfiks", "Barbell Curl", "Dumbbell Curl"],
-    "2": ["Squat", "Leg Press", "Leg Curl", "Calf Raise"],
+    "0": ["bench-press", "incline-dumbbell-press", "cable-crossover", "overhead-press", "lateral-raise", "rear-delt-fly", "triceps-pushdown"],
+    "1": ["lat-pulldown", "barbell-row", "cable-row", "pullover", "pull-up", "barbell-curl", "dumbbell-curl"],
+    "2": ["squat", "leg-press", "leg-curl", "calf-raise"],
     "3": [],
-    "4": ["Incline Dumbbell Press", "Cable Crossover", "Overhead Press", "Lateral Raise", "Rear Delt Fly", "Triceps Pushdown"],
-    "5": ["Lat Pulldown", "Cable Row", "Romanian Deadlift", "Dumbbell Curl", "Leg Press", "Calf Raise"],
+    "4": ["incline-dumbbell-press", "cable-crossover", "overhead-press", "lateral-raise", "rear-delt-fly", "triceps-pushdown"],
+    "5": ["lat-pulldown", "cable-row", "romanian-deadlift", "dumbbell-curl", "leg-press", "calf-raise"],
     "6": []
   },
   offDays: ["3", "6"]
 }, {
+  key: "guray-hypertrophy-max",
   name: "Güray's Hypertrophy Max",
   nameEN: "Güray's Hypertrophy Max",
   desc: "Güray Aydın'ın hipertrofi programı. Haftada 4 gün, Orta seviye.",
   descEN: "Güray Aydın's hypertrophy program. 4 days/week, Intermediate.",
   days: {
-    "0": ["Plate Loaded Chest Press", "Incline Smith Machine Bench Press", "Chest Fly", "Shoulder Press", "Lateral Raise", "Triceps Pushdown", "Overhead Triceps Extension"],
-    "1": ["Lat Pulldown", "Barbell Row", "Cable Row", "Incline Dumbbell Curl", "Cable Curl", "Hammer Curl", "Reverse Curl"],
-    "2": ["Leg Press", "Smith Machine Squat", "Leg Extension", "Leg Curl",],
+    "0": ["plate-loaded-chest-press", "incline-smith-machine-bench-press", "chest-fly", "shoulder-press", "lateral-raise", "triceps-pushdown", "overhead-triceps-extension"],
+    "1": ["lat-pulldown", "barbell-row", "cable-row", "incline-dumbbell-curl", "cable-curl", "hammer-curl", "reverse-curl"],
+    "2": ["leg-press", "smith-machine-squat", "leg-extension", "leg-curl"],
     "3": [],
-    "4": ["Shoulder Press", "Lateral Raise", "Incline Smith Machine Bench Press", "Chest Fly", "Rear Delt Fly", "Triceps Pushdown", "Overhead Triceps Extension"],
-    "5": ["Barbell Row", "Lat Pulldown", "Romanian Deadlift", "Cable Curl", "Hammer Curl", "Reverse Curl", "Leg Extension", "Leg Curl"],
+    "4": ["shoulder-press", "lateral-raise", "incline-smith-machine-bench-press", "chest-fly", "rear-delt-fly", "triceps-pushdown", "overhead-triceps-extension"],
+    "5": ["barbell-row", "lat-pulldown", "romanian-deadlift", "cable-curl", "hammer-curl", "reverse-curl", "leg-extension", "leg-curl"],
     "6": []
   },
   offDays: ["3", "6"]
 }, {
+  key: "full-body",
   name: "Full Body",
   nameEN: "Full Body",
   desc: "Haftada 3 gün, tüm vücut. Yeni başlayanlar için ideal.",
   descEN: "3 days/week full body. Ideal for beginners.",
   days: {
-    "0": ["Bench Press", "Barbell Row", "Squat", "Overhead Press", "Biceps Curl"],
+    "0": ["bench-press", "barbell-row", "squat", "overhead-press", "biceps-curl"],
     "1": [],
-    "2": ["Deadlift", "Dumbbell Press", "Lat Pulldown", "Leg Press", "Triceps Pushdown"],
+    "2": ["deadlift", "dumbbell-press", "lat-pulldown", "leg-press", "triceps-pushdown"],
     "3": [],
-    "4": ["Squat", "Cable Row", "Shoulder Press", "Leg Curl", "Hammer Curl"],
+    "4": ["squat", "cable-row", "shoulder-press", "leg-curl", "hammer-curl"],
     "5": [],
     "6": []
   },
   offDays: ["1", "3", "5", "6"]
 }, {
+  key: "bro-split-5-days",
   name: "Bro Split (5 Gün)",
   nameEN: "Bro Split (5 Days)",
   desc: "Her gün farklı kas grubu. Klasik bölünme.",
   descEN: "Each day different muscle group. Classic split.",
   days: {
-    "0": ["Bench Press", "Incline Dumbbell Press", "Cable Crossover", "Dumbbell Fly"],
-    "1": ["Barbell Row", "Lat Pulldown", "Cable Row", "Dumbbell Row", "Shrug"],
-    "2": ["Overhead Press", "Lateral Raise", "Front Raise", "Rear Delt Fly"],
-    "3": ["Biceps Curl", "Hammer Curl", "Preacher Curl", "Triceps Pushdown", "Skull Crusher"],
-    "4": ["Squat", "Leg Press", "Leg Curl", "Leg Extension", "Calf Raise"],
+    "0": ["bench-press", "incline-dumbbell-press", "cable-crossover", "dumbbell-fly"],
+    "1": ["barbell-row", "lat-pulldown", "cable-row", "dumbbell-row", "shrug"],
+    "2": ["overhead-press", "lateral-raise", "front-raise", "rear-delt-fly"],
+    "3": ["biceps-curl", "hammer-curl", "preacher-curl", "triceps-pushdown", "skull-crusher"],
+    "4": ["squat", "leg-press", "leg-curl", "leg-extension", "calf-raise"],
     "5": [],
     "6": []
   },
@@ -2909,7 +3045,8 @@ function App({
       return {
         id: (Date.now() + i).toString(),
         name: presetName(p, lang),
-        categories: [...p.categories]
+        categories: [...p.categories],
+        presetKey: p.key
       };
     });
     save({
@@ -3254,41 +3391,70 @@ function App({
   const addPresetProgram = preset => {
     const d = dRef.current;
     const nameMap = {};
+    const presetKeyMap = {};
+    const addNameMatch = (value, id) => {
+      const key = normalizePresetText(value);
+      if (!key) return;
+      nameMap[key] = id;
+    };
+    const linkPresetExercise = (presetExercise, id) => {
+      if (!presetExercise) return;
+      presetKeyMap[presetExercise.key] = id;
+      getPresetExerciseNames(presetExercise).forEach(name => addNameMatch(name, id));
+    };
     d.exercises.forEach(e => {
-      nameMap[e.name.toLowerCase()] = e.id;
+      addNameMatch(e.name, e.id);
+      if (e.presetKey) presetKeyMap[e.presetKey] = e.id;
     });
     let newExs = [...d.exercises];
     let addedCount = 0;
-    const ensureEx = name => {
-      const key = name.toLowerCase();
-      if (nameMap[key]) return nameMap[key];
-      const pe = PRESET_EXERCISES.find(p => p.name === name || p.nameEN === name);
+    const ensureEx = ref => {
+      const presetExercise = findPresetExercise(ref);
+      if (presetExercise && presetKeyMap[presetExercise.key]) return presetKeyMap[presetExercise.key];
+      const refKey = normalizePresetText(ref);
+      if (nameMap[refKey]) return nameMap[refKey];
+      if (presetExercise) {
+        const matchedId = getPresetExerciseNames(presetExercise).map(name => nameMap[normalizePresetText(name)]).find(Boolean);
+        if (matchedId) {
+          linkPresetExercise(presetExercise, matchedId);
+          addNameMatch(ref, matchedId);
+          return matchedId;
+        }
+      }
       const id = Date.now().toString() + Math.random().toString(36).slice(2, 6);
-      const cats = pe ? [...pe.categories] : ["Diğer"];
-      const displayName = pe ? presetName(pe, lang) : name;
+      const cats = presetExercise ? [...presetExercise.categories] : ["Diğer"];
+      const displayName = presetExercise ? presetName(presetExercise, lang) : ref;
       newExs.push({
         id,
         name: displayName,
-        categories: cats
+        categories: cats,
+        ...(presetExercise ? {
+          presetKey: presetExercise.key
+        } : {})
       });
-      nameMap[key] = id;
-      nameMap[displayName.toLowerCase()] = id;
+      addNameMatch(ref, id);
+      addNameMatch(displayName, id);
+      if (presetExercise) linkPresetExercise(presetExercise, id);
       addedCount++;
       return id;
     };
     const days = {};
     for (let i = 0; i < 7; i++) {
       const k = String(i);
-      days[k] = (preset.days[k] || []).map(name => ensureEx(name));
+      days[k] = (preset.days[k] || []).map(ref => ensureEx(ref));
     }
-    const pgId = Date.now().toString();
-    const pgName = lang === "en" && preset.nameEN ? preset.nameEN : preset.name;
+    const pgName = presetProgramName(preset, lang);
+    const presetProgramNames = new Set([preset.name, preset.nameEN, pgName].filter(Boolean).map(normalizePresetText));
+    const existingPgEntry = Object.entries(d.programs || {}).find(([, program]) => program.presetKey === preset.key || presetProgramNames.has(normalizePresetText(program.name)));
+    if (existingPgEntry && !confirm(L.confirmOverwrite)) return;
+    const pgId = existingPgEntry ? existingPgEntry[0] : Date.now().toString();
     const np = {
       ...d.programs,
       [pgId]: {
         name: pgName,
         days,
-        offDays: [...(preset.offDays || [])]
+        offDays: [...(preset.offDays || [])],
+        presetKey: preset.key
       }
     };
     save({
@@ -7555,7 +7721,8 @@ function App({
     onClick: () => setShowAddEx(false),
     style: S.sec
   }, L.cancel))), addExMode === "preset" && (() => {
-    const existingNames = new Set(data.exercises.map(e => e.name.toLowerCase()));
+    const existingNames = new Set(data.exercises.map(e => normalizePresetText(e.name)));
+    const existingPresetKeys = new Set(data.exercises.map(e => e.presetKey).filter(Boolean));
     const filteredPresets = PRESET_EXERCISES.map((p, i) => ({
       ...p,
       idx: i,
@@ -7613,7 +7780,7 @@ function App({
         marginBottom: 12
       }
     }, filteredPresets.map(p => {
-      const already = existingNames.has(p.displayName.toLowerCase()) || existingNames.has(p.name.toLowerCase()) || p.nameEN && existingNames.has(p.nameEN.toLowerCase());
+      const already = existingPresetKeys.has(p.key) || getPresetExerciseNames(p).some(name => existingNames.has(normalizePresetText(name)));
       const sel = presetSelected.includes(p.idx);
       const c = CC[p.categories[0]] || "blue";
       return React.createElement("button", {
@@ -7678,7 +7845,7 @@ function App({
           marginLeft: 4
         }
       }, "(", L.alreadyAdded, ")"), (() => {
-        const desc = getExDesc(p.name, lang);
+        const desc = getExDesc(p, lang);
         return desc ? React.createElement("div", {
           style: {
             fontSize: 10,
