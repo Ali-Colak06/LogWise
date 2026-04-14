@@ -455,9 +455,39 @@ const PRESET_EXERCISES = [{
   nameEN: "Clapping Push-Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
+  key: "diamond-push-up",
+  name: "Dar Tutuş Şınav",
+  nameEN: "Diamond Push-Up",
+  categories: ["Göğüs", "Triceps", "Omuz"]
+}, {
+  key: "pike-push-up",
+  name: "Pike Şınav",
+  nameEN: "Pike Push-Up",
+  categories: ["Omuz", "Triceps", "Göğüs"]
+}, {
+  key: "pseudo-planche-push-up",
+  name: "Pseudo Planche Şınav",
+  nameEN: "Pseudo Planche Push-Up",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  key: "hindu-push-up",
+  name: "Hindu Şınav",
+  nameEN: "Hindu Push-Up",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  key: "wall-handstand-hold",
+  name: "Duvarda Handstand Bekleme",
+  nameEN: "Wall Handstand Hold",
+  categories: ["Omuz", "Karın", "Triceps"]
+}, {
   key: "dips",
   name: "Dips",
   categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  key: "bench-dips",
+  name: "Bench Dips",
+  nameEN: "Bench Dips",
+  categories: ["Triceps", "Göğüs", "Omuz"]
 }, {
   key: "triceps-pushdown",
   name: "Triceps Pushdown",
@@ -569,6 +599,36 @@ const PRESET_EXERCISES = [{
   nameEN: "Chest-Supported Row",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "inverted-row",
+  name: "Ters Row",
+  nameEN: "Inverted Row",
+  categories: ["Sırt", "Biceps"]
+}, {
+  key: "australian-pull-up",
+  name: "Australian Pull-Up",
+  nameEN: "Australian Pull-Up",
+  categories: ["Sırt", "Biceps"]
+}, {
+  key: "towel-row",
+  name: "Havlu Row",
+  nameEN: "Towel Row",
+  categories: ["Sırt", "Biceps"]
+}, {
+  key: "scapular-pull-up",
+  name: "Scapular Pull-Up",
+  nameEN: "Scapular Pull-Up",
+  categories: ["Sırt"]
+}, {
+  key: "commando-pull-up",
+  name: "Commando Pull-Up",
+  nameEN: "Commando Pull-Up",
+  categories: ["Sırt", "Biceps"]
+}, {
+  key: "archer-pull-up",
+  name: "Archer Pull-Up",
+  nameEN: "Archer Pull-Up",
+  categories: ["Sırt", "Biceps"]
+}, {
   key: "cable-row",
   name: "Cable Row",
   categories: ["Sırt", "Biceps"]
@@ -605,6 +665,31 @@ const PRESET_EXERCISES = [{
   key: "bulgarian-split-squat",
   name: "Bulgar Split Squat",
   nameEN: "Bulgarian Split Squat",
+  categories: ["Bacak", "Kalça"]
+}, {
+  key: "wall-sit",
+  name: "Duvar Oturuşu",
+  nameEN: "Wall Sit",
+  categories: ["Bacak"]
+}, {
+  key: "jump-squat",
+  name: "Zıplamalı Squat",
+  nameEN: "Jump Squat",
+  categories: ["Bacak", "Kardiyo"]
+}, {
+  key: "cossack-squat",
+  name: "Cossack Squat",
+  nameEN: "Cossack Squat",
+  categories: ["Bacak", "Kalça"]
+}, {
+  key: "assisted-pistol-squat",
+  name: "Destekli Pistol Squat",
+  nameEN: "Assisted Pistol Squat",
+  categories: ["Bacak", "Kalça"]
+}, {
+  key: "pistol-squat",
+  name: "Pistol Squat",
+  nameEN: "Pistol Squat",
   categories: ["Bacak", "Kalça"]
 }, {
   key: "smith-machine-squat",
@@ -676,6 +761,11 @@ const PRESET_EXERCISES = [{
   name: "Glute Bridge",
   categories: ["Kalça"]
 }, {
+  key: "single-leg-glute-bridge",
+  name: "Tek Bacak Glute Bridge",
+  nameEN: "Single-Leg Glute Bridge",
+  categories: ["Kalça", "Bacak"]
+}, {
   key: "plank",
   name: "Plank",
   categories: ["Karın"]
@@ -703,6 +793,51 @@ const PRESET_EXERCISES = [{
   nameEN: "Ab Wheel Rollout",
   categories: ["Karın"]
 }, {
+  key: "dead-bug",
+  name: "Dead Bug",
+  nameEN: "Dead Bug",
+  categories: ["Karın"]
+}, {
+  key: "hollow-body-hold",
+  name: "Hollow Body Hold",
+  nameEN: "Hollow Body Hold",
+  categories: ["Karın"]
+}, {
+  key: "hollow-rock",
+  name: "Hollow Rock",
+  nameEN: "Hollow Rock",
+  categories: ["Karın"]
+}, {
+  key: "reverse-crunch",
+  name: "Ters Crunch",
+  nameEN: "Reverse Crunch",
+  categories: ["Karın"]
+}, {
+  key: "v-up",
+  name: "V-Up",
+  nameEN: "V-Up",
+  categories: ["Karın"]
+}, {
+  key: "flutter-kicks",
+  name: "Flutter Kicks",
+  nameEN: "Flutter Kicks",
+  categories: ["Karın"]
+}, {
+  key: "bird-dog",
+  name: "Bird Dog",
+  nameEN: "Bird Dog",
+  categories: ["Karın", "Bel"]
+}, {
+  key: "l-sit-hold",
+  name: "L-Sit Bekleme",
+  nameEN: "L-Sit Hold",
+  categories: ["Karın", "Omuz", "Triceps"]
+}, {
+  key: "tuck-l-sit",
+  name: "Tuck L-Sit",
+  nameEN: "Tuck L-Sit",
+  categories: ["Karın", "Omuz", "Triceps"]
+}, {
   key: "russian-twist",
   name: "Russian Twist",
   categories: ["Karın"]
@@ -714,6 +849,26 @@ const PRESET_EXERCISES = [{
   key: "burpee",
   name: "Burpee",
   categories: ["Kardiyo"]
+}, {
+  key: "bear-crawl",
+  name: "Bear Crawl",
+  nameEN: "Bear Crawl",
+  categories: ["Kardiyo", "Karın", "Omuz"]
+}, {
+  key: "crab-walk",
+  name: "Crab Walk",
+  nameEN: "Crab Walk",
+  categories: ["Kardiyo", "Omuz", "Triceps"]
+}, {
+  key: "high-knees",
+  name: "Diz Çekme Koşusu",
+  nameEN: "High Knees",
+  categories: ["Kardiyo", "Bacak"]
+}, {
+  key: "skater-jump",
+  name: "Skater Jump",
+  nameEN: "Skater Jump",
+  categories: ["Kardiyo", "Bacak", "Kalça"]
 }, {
   key: "walking",
   name: "Yürüyüş",
@@ -748,6 +903,16 @@ const PRESET_EXERCISES = [{
   name: "Ay Yürüyüşü",
   nameEN: "Moonwalk",
   categories: ["Kardiyo"]
+}, {
+  key: "step-up",
+  name: "Step-Up",
+  nameEN: "Step-Up",
+  categories: ["Bacak", "Kalça"]
+}, {
+  key: "chair-bulgarian-split-squat",
+  name: "Sandalye Bulgar Split Squat",
+  nameEN: "Chair Bulgarian Split Squat",
+  categories: ["Bacak", "Kalça"]
 }];
 const EX_DESCS = {
   "Chest Press": ["Makinede göğüs press. Sabit hareket yolu, güvenli.", "Machine chest press. Fixed path, safe."],
@@ -769,7 +934,13 @@ const EX_DESCS = {
   "Rear Delt Fly": ["Arka omuz açma. Arka deltoid.", "Rear delt fly. Rear delts."],
   "reverse-pec-deck": ["Ters pec deck. Arka omuz ve üst sırt odaklı.", "Reverse pec deck. Rear delts and upper back focus."],
   "Şınav": ["Push-up. Göğüs, omuz, triceps.", "Push-up. Chest, shoulders, triceps."],
+  "diamond-push-up": ["Dar el pozisyonu ile şınav. Triceps vurgusu yüksektir.", "Push-up with a narrow hand position. Strong triceps emphasis."],
+  "pike-push-up": ["Kalça yukarıda yapılan şınav. Omuz baskın bir itiş hareketi.", "Hips high push-up variation with a shoulder emphasis."],
+  "pseudo-planche-push-up": ["Ağırlığı öne taşıyan ileri seviye şınav varyasyonu.", "Advanced push-up variation with the body weight shifted forward."],
+  "hindu-push-up": ["Akıcı geçişli şınav. Omuz, göğüs ve mobilite katkısı sağlar.", "Flowing push-up variation that trains shoulders, chest, and mobility."],
+  "wall-handstand-hold": ["Duvarda handstand bekleme. Omuz stabilitesi ve gövde kontrolü geliştirir.", "Wall-supported handstand hold for shoulder stability and body control."],
   "Dips": ["Paralel barda dip. Göğüs + triceps.", "Parallel bar dips. Chest + triceps."],
+  "bench-dips": ["Bench veya sandalye desteğiyle dip. Evde triceps çalışmak için pratik.", "Dip variation using a bench or chair. Handy for home triceps work."],
   "Triceps Pushdown": ["Kablo triceps pushdown.", "Cable triceps pushdown."],
   "Kickback": ["Dumbbell kickback. Triceps izolasyonu.", "Dumbbell kickback. Triceps isolation."],
   "Overhead Triceps Extension": ["Baş üstü triceps uzatma.", "Overhead triceps extension."],
@@ -789,6 +960,12 @@ const EX_DESCS = {
   "Pull Up": ["Barfiks. Temel sırt hareketi.", "Pull-up. Fundamental back exercise."],
   "Dumbbell Row": ["Tek kol dumbbell sıra çekme.", "Single arm dumbbell row."],
   "chest-supported-row": ["Göğüs destekli çekiş. Bel yükünü azaltır, sırtı izole eder.", "Chest-supported row. Reduces lower-back load and isolates the back."],
+  "inverted-row": ["Bar veya masa altında yapılan yatay çekiş. Evde sırt için çok kullanışlı.", "Horizontal pulling movement under a bar or table. Great for home back work."],
+  "australian-pull-up": ["Alçak barda yapılan vücut ağırlığı row. Inverted row'a çok benzer.", "Bodyweight row on a low bar. Very similar to an inverted row."],
+  "towel-row": ["Havlu yardımıyla yapılan çekiş. Kavrama ve sırt aktivasyonu sağlar.", "Pulling variation using a towel. Good for grip and back activation."],
+  "scapular-pull-up": ["Dirsekleri bükmeden skapulayı aşağı çekme. Barfiks hazırlığı için iyi.", "Scapular depression drill without bending the elbows. Great pull-up prep."],
+  "commando-pull-up": ["Barı yan tutuşla çekiş. Tekrarlar boyunca taraf değiştirilebilir.", "Pull-up variation with a side grip on the bar. You can alternate sides."],
+  "archer-pull-up": ["Bir kola daha fazla yük bindiren ileri seviye barfiks varyasyonu.", "Advanced pull-up variation that shifts more load to one arm."],
   "Cable Row": ["Oturarak kablo çekme.", "Seated cable row."],
   "Barbell Row": ["Eğilerek barbell sıra çekme.", "Bent-over barbell row."],
   "T-Bar Row": ["T-bar sıra çekme. Sırt kalınlığı.", "T-bar row. Back thickness."],
@@ -797,6 +974,11 @@ const EX_DESCS = {
   "Squat": ["Barbell squat. Bacak bileşik hareketi.", "Barbell squat. Leg compound."],
   "hack-squat": ["Hack squat makinesi. Quadriceps odaklı squat varyasyonu.", "Hack squat machine. Squat variation with a quad emphasis."],
   "bulgarian-split-squat": ["Arka ayak yükseltili tek bacak squat. Denge ve kalça katkısı yüksek.", "Rear-foot-elevated single-leg squat. Great for balance and glutes."],
+  "wall-sit": ["Duvara yaslanarak izometrik bekleme. Quadriceps yanmasını hızlı hissettirir.", "Isometric hold against a wall. A quick burner for the quads."],
+  "jump-squat": ["Patlayıcı squat varyasyonu. Bacak gücü ve kondisyonu birlikte çalıştırır.", "Explosive squat variation that trains legs and conditioning together."],
+  "cossack-squat": ["Yana ağırlık aktararak yapılan squat. Mobilite ve iç bacak katkısı yüksektir.", "Side-to-side squat that builds mobility and adductor strength."],
+  "assisted-pistol-squat": ["Destek alarak tek bacak squat. Pistol squat için ara basamak.", "Supported single-leg squat. A progression toward the pistol squat."],
+  "pistol-squat": ["Tek bacak üzerinde tam squat. Denge ve kuvvet gerektirir.", "Full squat on one leg. Demands balance and strength."],
   "Smith Machine Squat": ["Smith machine ile squat.", "Smith machine squat."],
   "Leg Press": ["Bacak press makinesi.", "Leg press machine."],
   "Lunge": ["İleri hamle. Tek bacak gücü.", "Lunge. Single leg strength."],
@@ -810,19 +992,35 @@ const EX_DESCS = {
   "Hip Thrust": ["Kalça itiş. Gluteus maximus.", "Hip thrust. Glutes."],
   "glute-kickback": ["Kalçayı geriye itiş. Glute izolasyonu için iyi bir seçenek.", "Hip extension kickback. Great for glute isolation."],
   "Glute Bridge": ["Kalça köprüsü. Kalça aktivasyonu.", "Glute bridge. Glute activation."],
+  "single-leg-glute-bridge": ["Tek bacakla glute bridge. Kalça stabilitesi ve tek taraflı güç için iyi.", "Single-leg glute bridge. Great for glute stability and unilateral strength."],
   "Plank": ["Plank. Karın stabilizasyonu.", "Plank. Core stabilization."],
   "side-plank": ["Yan plank. Oblikler ve gövde stabilitesi için etkilidir.", "Side plank. Effective for obliques and lateral core stability."],
   "Crunch": ["Karın sıkıştırma.", "Abdominal crunch."],
   "Cable Crunch": ["Kablo karın sıkıştırma.", "Cable crunch."],
   "hanging-leg-raise": ["Asılı pozisyonda bacak kaldırma. Alt karın ve core kontrolü odaklı.", "Raise the legs while hanging. Targets lower abs and core control."],
   "ab-wheel": ["Ab wheel rollout. Karın, omuz ve gövde stabilitesi ister.", "Ab wheel rollout. Demands core, shoulder, and trunk stability."],
+  "dead-bug": ["Sırt üstü karşı kol ve bacak uzatma. Core stabilitesi için çok iyi.", "Opposite arm and leg extension on the floor. Excellent for core stability."],
+  "hollow-body-hold": ["Vücudu muz şeklinde sabit tutma. Calisthenics temel core hareketidir.", "Static hollow position. A foundational calisthenics core drill."],
+  "hollow-rock": ["Hollow body pozisyonunda kontrollü sallanma.", "Controlled rocking while staying in a hollow body position."],
+  "reverse-crunch": ["Kalçayı yerden kaldırarak alt karına yük bindirir.", "Raises the hips off the floor to emphasize the lower abs."],
+  "v-up": ["Aynı anda bacak ve gövdeyi kaldırma. Karın sıkılaştırıcı bir varyasyon.", "Raise the legs and torso together. Challenging abdominal variation."],
+  "flutter-kicks": ["Bacakları sırayla küçük vuruşlarla hareket ettirme. Süre bazlı core egzersizi.", "Small alternating leg kicks. Time-based core exercise."],
+  "bird-dog": ["Karşı kol ve bacağı uzatarak denge kurma. Bel dostu bir core hareketi.", "Extend opposite arm and leg to train balance and core control."],
+  "l-sit-hold": ["Bacaklar önde düz bekleme. Core ve omuz baskısı yüksektir.", "Hold the legs straight out in front. Demanding on core and shoulders."],
+  "tuck-l-sit": ["L-sit'in dizler bükülü daha ulaşılabilir versiyonu.", "More accessible L-sit variation with bent knees."],
   "Russian Twist": ["Gövde rotasyonu. Oblikler.", "Torso rotation. Obliques."],
   "Mountain Climber": ["Dağ tırmanıcı. Kardiyo + karın.", "Mountain climber. Cardio + core."],
   "Burpee": ["Tam vücut kardiyo.", "Full body cardio."],
+  "bear-crawl": ["Eller ve ayaklar üzerinde ilerleme. Omuz, core ve kondisyonu birlikte çalıştırır.", "Crawl on hands and feet. Trains shoulders, core, and conditioning together."],
+  "crab-walk": ["Ters masa pozisyonunda yürüyüş. Omuz ve triceps dayanıklılığına katkı sağlar.", "Walk in a reverse tabletop position. Good for shoulder and triceps endurance."],
+  "high-knees": ["Dizleri hızlıca yukarı çekerek yerinde koşu.", "Run in place while driving the knees high."],
+  "skater-jump": ["Yanal zıplama varyasyonu. Denge, güç ve kondisyonu birleştirir.", "Lateral jumping drill that combines balance, power, and conditioning."],
   "Jumping Jack": ["Zıplama. Kardiyo.", "Jumping jack. Cardio."],
   "Yürüyüş Bandı": ["Koşu bandında yürüyüş/koşu.", "Treadmill walking/running."],
   "Bisiklet": ["Bisiklet kardiyo.", "Cycling cardio."],
-  "Ay Yürüyüşü": ["Eliptik/özel yürüyüş.", "Elliptical/special walk."]
+  "Ay Yürüyüşü": ["Eliptik/özel yürüyüş.", "Elliptical/special walk."],
+  "step-up": ["Bir yükseltiye çıkıp inme. Tek taraflı bacak kuvveti için çok kullanışlı.", "Step up onto a box or chair. Great for unilateral leg strength."],
+  "chair-bulgarian-split-squat": ["Arka ayak sandalyede olacak şekilde yapılan Bulgar split squat.", "Bulgarian split squat performed with the rear foot on a chair."]
 };
 const normalizePresetText = value => (value || "").trim().toLocaleLowerCase("tr");
 const getPresetExerciseNames = preset => [preset?.name, preset?.nameEN, ...(preset?.aliases || [])].filter(Boolean);

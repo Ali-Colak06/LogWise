@@ -320,6 +320,7 @@ Kodun başında `PRESET_EXERCISES` dizisi var. Her preset hareket artık sadece 
 - Zaten eklenmiş hareketler `presetKey` ve tüm alias/name varyasyonları üzerinden tespit edilir; farklı dilde eklenmiş olsalar bile tekrar seçilemezler.
 - Hazır hareket kullanıcıya eklenince exercise kaydına `presetKey` de yazılır.
 - Son eklenen preset hareketler: Assisted Pull-Up, Chest-Supported Row, Straight-Arm Pulldown, Pec Deck Fly, Reverse Pec Deck, Bulgarian Split Squat, Hack Squat, Seated Leg Curl, Leg Abduction, Leg Adduction, Glute Kickback, Hanging Leg Raise, Ab Wheel Rollout, Side Plank.
+- Son eklenen ev tipi / calisthenics preset paketi: Diamond Push-Up, Pike Push-Up, Pseudo Planche Push-Up, Hindu Push-Up, Wall Handstand Hold, Wall Sit, Jump Squat, Cossack Squat, Assisted Pistol Squat, Pistol Squat, Single-Leg Glute Bridge, Dead Bug, Hollow Body Hold, Hollow Rock, Reverse Crunch, V-Up, Flutter Kicks, Bird Dog, Bear Crawl, Crab Walk, High Knees, Skater Jump, Inverted Row, Australian Pull-Up, Towel Row, Scapular Pull-Up, Commando Pull-Up, Archer Pull-Up, Bench Dips, Step-Up, Chair Bulgarian Split Squat, L-Sit Hold, Tuck L-Sit.
 
 **Hareket Açıklamaları (EX_DESCS)**: Ayrı bir obje olarak tanımlı. Açıklama lookup'ı artık sadece görünen ada değil, `key` + `name` + `nameEN` + `aliases` kombinasyonuna bakar. En güvenlisi `EX_DESCS` içinde `key` ile entry tutmaktır:
 ```js
