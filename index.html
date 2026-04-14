@@ -1725,6 +1725,8 @@ const TR = {
   presetExercises: "Hazır Hareketler",
   addSelected: "Seçilenleri Ekle",
   allCategories: "Tümü",
+  matchingExercises: "eşleşen hareket",
+  multiFilterHint: "Birden fazla bölge seçebilirsin. Tüm seçili bölgeleri içeren hareketler gösterilir.",
   alreadyAdded: "Zaten ekli",
   presetDesc: "Spora yeni başlayanlar için hazır hareket listesi",
   dashboard: "Panel",
@@ -1994,6 +1996,8 @@ const EN = {
   presetExercises: "Preset Exercises",
   addSelected: "Add Selected",
   allCategories: "All",
+  matchingExercises: "matching exercises",
+  multiFilterHint: "You can select multiple regions. Only exercises matching all selected regions are shown.",
   alreadyAdded: "Already added",
   presetDesc: "Ready-made exercises for beginners",
   dashboard: "Dashboard",
@@ -2834,7 +2838,7 @@ function App({
   }, []);
   const [showAddEx, setShowAddEx] = useState(false);
   const [addExMode, setAddExMode] = useState("custom");
-  const [presetFilter, setPresetFilter] = useState("all");
+  const [presetFilters, setPresetFilters] = useState([]);
   const [presetSelected, setPresetSelected] = useState([]);
   const [nExName, setNExName] = useState("");
   const [nExCat, setNExCat] = useState(["Göğüs"]);
@@ -8045,18 +8049,25 @@ function App({
   }, L.cancel))), addExMode === "preset" && (() => {
     const existingNames = new Set(data.exercises.map(e => normalizePresetText(e.name)));
     const existingPresetKeys = new Set(data.exercises.map(e => e.presetKey).filter(Boolean));
+    const hasPresetFilters = presetFilters.length > 0;
     const filteredPresets = PRESET_EXERCISES.map((p, i) => ({
       ...p,
       idx: i,
       displayName: presetName(p, lang)
-    })).filter(p => presetFilter === "all" || p.categories.includes(presetFilter));
+    })).filter(p => !hasPresetFilters || presetFilters.every(cat => p.categories.includes(cat)));
     return React.createElement(React.Fragment, null, React.createElement("div", {
       style: {
         fontSize: 12,
         color: "var(--t2)",
-        marginBottom: 12
+        marginBottom: 6
       }
     }, L.presetDesc), React.createElement("div", {
+      style: {
+        fontSize: 11,
+        color: "var(--t3)",
+        marginBottom: 12
+      }
+    }, filteredPresets.length, " ", L.matchingExercises, " \u2022 ", L.multiFilterHint), React.createElement("div", {
       style: {
         display: "flex",
         gap: 5,
@@ -8064,13 +8075,13 @@ function App({
         marginBottom: 12
       }
     }, React.createElement("button", {
-      onClick: () => setPresetFilter("all"),
+      onClick: () => setPresetFilters([]),
       style: {
         padding: "4px 12px",
         borderRadius: 16,
-        border: presetFilter === "all" ? "2px solid var(--blue)" : "1px solid var(--brd)",
-        background: presetFilter === "all" ? "var(--blueL)" : "var(--bg)",
-        color: presetFilter === "all" ? "var(--blue)" : "var(--t2)",
+        border: !hasPresetFilters ? "2px solid var(--blue)" : "1px solid var(--brd)",
+        background: !hasPresetFilters ? "var(--blueL)" : "var(--bg)",
+        color: !hasPresetFilters ? "var(--blue)" : "var(--t2)",
         fontSize: 12,
         fontWeight: 500,
         cursor: "pointer",
@@ -8078,15 +8089,16 @@ function App({
       }
     }, L.allCategories), CATS.filter(cat => PRESET_EXERCISES.some(p => p.categories.includes(cat))).map(cat => {
       const col = CC[cat] || "blue";
+      const isActive = presetFilters.includes(cat);
       return React.createElement("button", {
         key: cat,
-        onClick: () => setPresetFilter(cat),
+        onClick: () => setPresetFilters(prev => prev.includes(cat) ? prev.filter(x => x !== cat) : [...prev, cat]),
         style: {
           padding: "4px 12px",
           borderRadius: 16,
-          border: presetFilter === cat ? `2px solid var(--${col})` : "1px solid var(--brd)",
-          background: presetFilter === cat ? `var(--${col}L)` : "var(--bg)",
-          color: presetFilter === cat ? `var(--${col})` : "var(--t2)",
+          border: isActive ? `2px solid var(--${col})` : "1px solid var(--brd)",
+          background: isActive ? `var(--${col}L)` : "var(--bg)",
+          color: isActive ? `var(--${col})` : "var(--t2)",
           fontSize: 12,
           fontWeight: 500,
           cursor: "pointer",
@@ -8211,7 +8223,7 @@ function App({
       onClick: () => {
         setShowAddEx(false);
         setPresetSelected([]);
-        setPresetFilter("all");
+        setPresetFilters([]);
       },
       style: S.sec
     }, L.cancel)));
