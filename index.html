@@ -5282,7 +5282,36 @@ function App({
     }
   }, React.createElement("div", {
     style: {
-      padding: "16px 12px 8px"
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      padding: "12px 12px 8px",
+      borderBottom: "1px solid var(--brd)"
+    }
+  }, React.createElement("button", {
+    onClick: () => setSidebar(false),
+    style: {
+      ...S.ib,
+      width: 36,
+      height: 36
+    },
+    "aria-label": L.ariaMenu
+  }, React.createElement(IcoMenu, null)), React.createElement("div", {
+    style: {
+      fontSize: 12,
+      fontWeight: 700,
+      letterSpacing: 1.2,
+      color: "var(--t2)"
+    }
+  }, "LOG WISE"), React.createElement("div", {
+    style: {
+      width: 36,
+      height: 36
+    },
+    "aria-hidden": "true"
+  })), React.createElement("div", {
+    style: {
+      padding: "12px 12px 8px"
     }
   }, [["calendar", "📅", L.calendar], ["dashboard", "📊", L.dashboard], ["exercises", "💪", L.exercises], ["programs", "📋", L.programs], ["social", "👥", L.social], ["data", "📦", L.dataManagement], ["feedback", "💬", L.feedback]].map(([v, i, l]) => React.createElement("button", {
     key: v,
