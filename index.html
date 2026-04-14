@@ -350,6 +350,11 @@ const PRESET_EXERCISES = [{
   name: "Cable Crossover",
   categories: ["Göğüs"]
 }, {
+  key: "pec-deck-fly",
+  name: "Pec Deck Fly",
+  nameEN: "Pec Deck Fly",
+  categories: ["Göğüs"]
+}, {
   key: "overhead-press",
   name: "Overhead Press",
   categories: ["Omuz"]
@@ -395,6 +400,11 @@ const PRESET_EXERCISES = [{
   key: "rear-delt-fly",
   name: "Arka Omuz Fly",
   nameEN: "Rear Delt Fly",
+  categories: ["Omuz"]
+}, {
+  key: "reverse-pec-deck",
+  name: "Ters Pec Deck",
+  nameEN: "Reverse Pec Deck",
   categories: ["Omuz"]
 }, {
   key: "arnold-press",
@@ -515,6 +525,11 @@ const PRESET_EXERCISES = [{
   name: "Chin-Up",
   categories: ["Biceps", "Sırt"]
 }, {
+  key: "assisted-pull-up",
+  name: "Destekli Barfiks",
+  nameEN: "Assisted Pull-Up",
+  categories: ["Sırt", "Biceps"]
+}, {
   key: "dead-hang",
   name: "Dead Hang",
   categories: ["Bilek"]
@@ -531,6 +546,11 @@ const PRESET_EXERCISES = [{
   name: "Lat Pulldown",
   categories: ["Sırt", "Biceps"]
 }, {
+  key: "straight-arm-pulldown",
+  name: "Düz Kol Pulldown",
+  nameEN: "Straight-Arm Pulldown",
+  categories: ["Sırt"]
+}, {
   key: "pull-up",
   name: "Barfiks",
   nameEN: "Pull Up",
@@ -542,6 +562,11 @@ const PRESET_EXERCISES = [{
 }, {
   key: "dumbbell-row",
   name: "Dumbbell Row",
+  categories: ["Sırt", "Biceps"]
+}, {
+  key: "chest-supported-row",
+  name: "Göğüs Destekli Row",
+  nameEN: "Chest-Supported Row",
   categories: ["Sırt", "Biceps"]
 }, {
   key: "cable-row",
@@ -572,6 +597,16 @@ const PRESET_EXERCISES = [{
   name: "Squat",
   categories: ["Bacak", "Kalça"]
 }, {
+  key: "hack-squat",
+  name: "Hack Squat",
+  nameEN: "Hack Squat",
+  categories: ["Bacak", "Kalça"]
+}, {
+  key: "bulgarian-split-squat",
+  name: "Bulgar Split Squat",
+  nameEN: "Bulgarian Split Squat",
+  categories: ["Bacak", "Kalça"]
+}, {
   key: "smith-machine-squat",
   name: "Smith Machine Squat",
   nameEN: "Smith Machine Squat",
@@ -589,9 +624,24 @@ const PRESET_EXERCISES = [{
   name: "Leg Curl",
   categories: ["Bacak"]
 }, {
+  key: "seated-leg-curl",
+  name: "Oturarak Leg Curl",
+  nameEN: "Seated Leg Curl",
+  categories: ["Bacak"]
+}, {
   key: "leg-extension",
   name: "Leg Extension",
   categories: ["Bacak"]
+}, {
+  key: "leg-abduction",
+  name: "Kalça Abdüksiyon",
+  nameEN: "Leg Abduction",
+  categories: ["Kalça"]
+}, {
+  key: "leg-adduction",
+  name: "Kalça Addüksiyon",
+  nameEN: "Leg Adduction",
+  categories: ["Kalça", "Bacak"]
 }, {
   key: "calf-raise",
   name: "Calf Raise",
@@ -617,6 +667,11 @@ const PRESET_EXERCISES = [{
   name: "Hip Thrust",
   categories: ["Kalça"]
 }, {
+  key: "glute-kickback",
+  name: "Glute Kickback",
+  nameEN: "Glute Kickback",
+  categories: ["Kalça"]
+}, {
   key: "glute-bridge",
   name: "Glute Bridge",
   categories: ["Kalça"]
@@ -625,12 +680,27 @@ const PRESET_EXERCISES = [{
   name: "Plank",
   categories: ["Karın"]
 }, {
+  key: "side-plank",
+  name: "Yan Plank",
+  nameEN: "Side Plank",
+  categories: ["Karın"]
+}, {
   key: "crunch",
   name: "Crunch",
   categories: ["Karın"]
 }, {
   key: "cable-crunch",
   name: "Cable Crunch",
+  categories: ["Karın"]
+}, {
+  key: "hanging-leg-raise",
+  name: "Asılı Bacak Kaldırma",
+  nameEN: "Hanging Leg Raise",
+  categories: ["Karın"]
+}, {
+  key: "ab-wheel",
+  name: "Ab Wheel",
+  nameEN: "Ab Wheel Rollout",
   categories: ["Karın"]
 }, {
   key: "russian-twist",
@@ -688,6 +758,7 @@ const EX_DESCS = {
   "Bench Press": ["Düz bankta barbell press. Temel bileşik hareket.", "Barbell bench press. Fundamental compound."],
   "Incline Bench Press": ["Eğik bankta barbell press. Üst göğüs + ön omuz.", "Incline barbell press. Upper chest + front delts."],
   "Cable Crossover": ["Kablo çaprazlama. Sürekli gerilim.", "Cable crossover. Constant tension."],
+  "pec-deck-fly": ["Makinede göğüs açma-kapama. Sabit yol, izolasyon odaklı.", "Machine chest fly. Fixed path, chest isolation."],
   "Overhead Press": ["Ayakta barbell omuz press.", "Standing barbell overhead press."],
   "Shoulder Press": ["Oturarak/ayakta omuz press.", "Seated/standing shoulder press."],
   "Dumbbell Shoulder Press": ["Dumbbell ile omuz press.", "Dumbbell shoulder press."],
@@ -696,6 +767,7 @@ const EX_DESCS = {
   "Lateral Raise": ["Yana kaldırma. Yan deltoid.", "Lateral raise. Side delts."],
   "Front Raise": ["Öne kaldırma. Ön deltoid.", "Front raise. Front delts."],
   "Rear Delt Fly": ["Arka omuz açma. Arka deltoid.", "Rear delt fly. Rear delts."],
+  "reverse-pec-deck": ["Ters pec deck. Arka omuz ve üst sırt odaklı.", "Reverse pec deck. Rear delts and upper back focus."],
   "Şınav": ["Push-up. Göğüs, omuz, triceps.", "Push-up. Chest, shoulders, triceps."],
   "Dips": ["Paralel barda dip. Göğüs + triceps.", "Parallel bar dips. Chest + triceps."],
   "Triceps Pushdown": ["Kablo triceps pushdown.", "Cable triceps pushdown."],
@@ -708,30 +780,42 @@ const EX_DESCS = {
   "One Arm Cable Curl": ["Tek kol kablo curl.", "Single arm cable curl."],
   "Preacher Curl": ["Scott sehpasında curl.", "Preacher bench curl."],
   "Reverse Curl": ["Ters tutuş curl. Ön kol + brachialis.", "Reverse curl. Forearm + brachialis."],
+  "assisted-pull-up": ["Destekli barfiks. Barfiks formunu öğrenmek ve hacim toplamak için ideal.", "Assisted pull-up. Great for learning pull-ups and adding volume."],
   "Dead Hang": ["Barfikse asılma. Kavrama gücü.", "Bar hang. Grip strength."],
   "Wrist Extensions": ["Bilek uzatma. Ön kol.", "Wrist extensions. Forearms."],
   "Wrist Curls": ["Bilek bükme. Ön kol.", "Wrist curls. Forearms."],
   "Lat Pulldown": ["Lat pulldown. Sırt genişliği.", "Lat pulldown. Back width."],
+  "straight-arm-pulldown": ["Kollar nispeten düz kalır, lat aktivasyonunu artırır.", "Keep the arms mostly straight to emphasize the lats."],
   "Pull Up": ["Barfiks. Temel sırt hareketi.", "Pull-up. Fundamental back exercise."],
   "Dumbbell Row": ["Tek kol dumbbell sıra çekme.", "Single arm dumbbell row."],
+  "chest-supported-row": ["Göğüs destekli çekiş. Bel yükünü azaltır, sırtı izole eder.", "Chest-supported row. Reduces lower-back load and isolates the back."],
   "Cable Row": ["Oturarak kablo çekme.", "Seated cable row."],
   "Barbell Row": ["Eğilerek barbell sıra çekme.", "Bent-over barbell row."],
   "T-Bar Row": ["T-bar sıra çekme. Sırt kalınlığı.", "T-bar row. Back thickness."],
   "Pullover": ["Dumbbell pullover. Sırt + göğüs.", "Dumbbell pullover. Back + chest."],
   "Deadlift": ["Yerden kaldırma. En temel bileşik hareket.", "Deadlift. Most fundamental compound lift."],
   "Squat": ["Barbell squat. Bacak bileşik hareketi.", "Barbell squat. Leg compound."],
+  "hack-squat": ["Hack squat makinesi. Quadriceps odaklı squat varyasyonu.", "Hack squat machine. Squat variation with a quad emphasis."],
+  "bulgarian-split-squat": ["Arka ayak yükseltili tek bacak squat. Denge ve kalça katkısı yüksek.", "Rear-foot-elevated single-leg squat. Great for balance and glutes."],
   "Smith Machine Squat": ["Smith machine ile squat.", "Smith machine squat."],
   "Leg Press": ["Bacak press makinesi.", "Leg press machine."],
   "Lunge": ["İleri hamle. Tek bacak gücü.", "Lunge. Single leg strength."],
   "Leg Curl": ["Yatarak bacak bükme. Hamstring.", "Leg curl. Hamstrings."],
+  "seated-leg-curl": ["Oturarak leg curl. Hamstringleri uzun pozisyonda çalıştırır.", "Seated leg curl. Trains the hamstrings in a lengthened position."],
   "Leg Extension": ["Oturarak bacak uzatma. Quadriceps.", "Leg extension. Quadriceps."],
+  "leg-abduction": ["Bacakları dışa açma. Glute medius ve kalça yan hattı odaklı.", "Leg abduction. Targets the glute medius and outer hips."],
+  "leg-adduction": ["Bacakları içe kapatma. İç bacak ve kalça stabilitesi odaklı.", "Leg adduction. Targets inner thighs and hip stability."],
   "Calf Raise": ["Baldır kaldırma.", "Calf raise."],
   "Shrug": ["Omuz silkme. Trapez.", "Shrug. Traps."],
   "Hip Thrust": ["Kalça itiş. Gluteus maximus.", "Hip thrust. Glutes."],
+  "glute-kickback": ["Kalçayı geriye itiş. Glute izolasyonu için iyi bir seçenek.", "Hip extension kickback. Great for glute isolation."],
   "Glute Bridge": ["Kalça köprüsü. Kalça aktivasyonu.", "Glute bridge. Glute activation."],
   "Plank": ["Plank. Karın stabilizasyonu.", "Plank. Core stabilization."],
+  "side-plank": ["Yan plank. Oblikler ve gövde stabilitesi için etkilidir.", "Side plank. Effective for obliques and lateral core stability."],
   "Crunch": ["Karın sıkıştırma.", "Abdominal crunch."],
   "Cable Crunch": ["Kablo karın sıkıştırma.", "Cable crunch."],
+  "hanging-leg-raise": ["Asılı pozisyonda bacak kaldırma. Alt karın ve core kontrolü odaklı.", "Raise the legs while hanging. Targets lower abs and core control."],
+  "ab-wheel": ["Ab wheel rollout. Karın, omuz ve gövde stabilitesi ister.", "Ab wheel rollout. Demands core, shoulder, and trunk stability."],
   "Russian Twist": ["Gövde rotasyonu. Oblikler.", "Torso rotation. Obliques."],
   "Mountain Climber": ["Dağ tırmanıcı. Kardiyo + karın.", "Mountain climber. Cardio + core."],
   "Burpee": ["Tam vücut kardiyo.", "Full body cardio."],
@@ -771,12 +855,36 @@ const getExDesc = (ref, lang) => {
 };
 const presetName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;
 const presetProgramName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;
+const PROGRAM_LEVEL_META = {
+  beginner: {
+    tr: "Başlangıç",
+    en: "Beginner",
+    color: "green"
+  },
+  intermediate: {
+    tr: "Orta Seviye",
+    en: "Intermediate",
+    color: "orange"
+  },
+  advanced: {
+    tr: "İleri Seviye",
+    en: "Advanced",
+    color: "red"
+  }
+};
+const PROGRAM_LEVELS = ["beginner", "intermediate", "advanced"];
+const getProgramLevelMeta = level => PROGRAM_LEVEL_META[level] || PROGRAM_LEVEL_META.intermediate;
+const getProgramLevelLabel = (level, lang) => {
+  const meta = getProgramLevelMeta(level);
+  return lang === "tr" ? meta.tr : meta.en;
+};
 const PRESET_PROGRAMS = [{
   key: "ppl",
   name: "Push Pull Legs (PPL)",
   nameEN: "Push Pull Legs (PPL)",
   desc: "Haftada 6 gün, push/pull/legs döngüsü. Orta-ileri seviye.",
   descEN: "6 days/week push/pull/legs. Intermediate-advanced.",
+  level: "advanced",
   days: {
     "0": ["bench-press", "overhead-press", "lateral-raise", "triceps-pushdown", "cable-crossover"],
     "1": ["barbell-row", "lat-pulldown", "cable-row", "biceps-curl", "rear-delt-fly"],
@@ -793,6 +901,7 @@ const PRESET_PROGRAMS = [{
   nameEN: "Upper / Lower Split",
   desc: "Haftada 4 gün, üst ve alt vücut dönüşümlü. Orta seviye.",
   descEN: "4 days/week upper/lower alternating. Intermediate.",
+  level: "intermediate",
   days: {
     "0": ["bench-press", "barbell-row", "overhead-press", "biceps-curl", "triceps-pushdown"],
     "1": ["squat", "deadlift", "leg-press", "leg-curl", "calf-raise"],
@@ -809,6 +918,7 @@ const PRESET_PROGRAMS = [{
   nameEN: "Güray's Hypertrophy No:1",
   desc: "Güray Aydın'ın hipertrofi programı. Haftada 4 gün, Orta seviye.",
   descEN: "Güray Aydın's hypertrophy program. 4 days/week, Intermediate.",
+  level: "intermediate",
   days: {
     "0": ["bench-press", "incline-dumbbell-press", "cable-crossover", "overhead-press", "lateral-raise", "rear-delt-fly", "triceps-pushdown"],
     "1": ["lat-pulldown", "barbell-row", "cable-row", "pullover", "pull-up", "barbell-curl", "dumbbell-curl"],
@@ -825,6 +935,7 @@ const PRESET_PROGRAMS = [{
   nameEN: "Güray's Hypertrophy Max",
   desc: "Güray Aydın'ın hipertrofi programı. Haftada 4 gün, Orta seviye.",
   descEN: "Güray Aydın's hypertrophy program. 4 days/week, Intermediate.",
+  level: "advanced",
   days: {
     "0": ["plate-loaded-chest-press", "incline-smith-machine-bench-press", "chest-fly", "shoulder-press", "lateral-raise", "triceps-pushdown", "overhead-triceps-extension"],
     "1": ["lat-pulldown", "barbell-row", "cable-row", "incline-dumbbell-curl", "cable-curl", "hammer-curl", "reverse-curl"],
@@ -841,6 +952,7 @@ const PRESET_PROGRAMS = [{
   nameEN: "Full Body",
   desc: "Haftada 3 gün, tüm vücut. Yeni başlayanlar için ideal.",
   descEN: "3 days/week full body. Ideal for beginners.",
+  level: "beginner",
   days: {
     "0": ["bench-press", "barbell-row", "squat", "overhead-press", "biceps-curl"],
     "1": [],
@@ -857,6 +969,7 @@ const PRESET_PROGRAMS = [{
   nameEN: "Bro Split (5 Days)",
   desc: "Her gün farklı kas grubu. Klasik bölünme.",
   descEN: "Each day different muscle group. Classic split.",
+  level: "intermediate",
   days: {
     "0": ["bench-press", "incline-dumbbell-press", "cable-crossover", "dumbbell-fly"],
     "1": ["barbell-row", "lat-pulldown", "cable-row", "dumbbell-row", "shrug"],
@@ -1475,6 +1588,11 @@ const TR = {
   presetPgTitle: "Hazır Programlar",
   addPresetPg: "Hazır Program Ekle",
   presetPgDesc: "Popüler antrenman programları",
+  programLevel: "Seviye",
+  allLevels: "Tüm Seviyeler",
+  beginner: "Başlangıç",
+  intermediate: "Orta Seviye",
+  advanced: "İleri Seviye",
   programWeek: "Hafta",
   compliance: "Uyum",
   activeSince: "Aktif",
@@ -1739,6 +1857,11 @@ const EN = {
   presetPgTitle: "Preset Programs",
   addPresetPg: "Add Preset Program",
   presetPgDesc: "Popular workout programs",
+  programLevel: "Level",
+  allLevels: "All Levels",
+  beginner: "Beginner",
+  intermediate: "Intermediate",
+  advanced: "Advanced",
   programWeek: "Week",
   compliance: "Compliance",
   activeSince: "Active",
@@ -2525,6 +2648,7 @@ function App({
   const [editExName, setEditExName] = useState("");
   const [editExCats, setEditExCats] = useState([]);
   const [showPresetPg, setShowPresetPg] = useState(false);
+  const [presetPgLevelFilter, setPresetPgLevelFilter] = useState("all");
   const [pgCycleType, setPgCycleType] = useState("none");
   const [pgDeloadEvery, setPgDeloadEvery] = useState(4);
   const [showExDesc, setShowExDesc] = useState(null);
@@ -8168,7 +8292,10 @@ function App({
       gap: 6
     }
   }, React.createElement("button", {
-    onClick: () => setShowPresetPg(true),
+    onClick: () => {
+      setPresetPgLevelFilter("all");
+      setShowPresetPg(true);
+    },
     style: S.sec
   }, "\uD83D\uDCCB ", L.addPresetPg), React.createElement("button", {
     onClick: () => {
@@ -8546,14 +8673,53 @@ function App({
     }
   }, L.presetPgDesc), React.createElement("div", {
     style: {
+      display: "flex",
+      gap: 6,
+      flexWrap: "wrap",
+      marginBottom: 16
+    }
+  }, React.createElement("button", {
+    onClick: () => setPresetPgLevelFilter("all"),
+    style: {
+      padding: "5px 12px",
+      borderRadius: 16,
+      border: presetPgLevelFilter === "all" ? "2px solid var(--blue)" : "1px solid var(--brd)",
+      background: presetPgLevelFilter === "all" ? "var(--blueL)" : "var(--bg)",
+      color: presetPgLevelFilter === "all" ? "var(--blue)" : "var(--t2)",
+      fontSize: 12,
+      fontWeight: 500,
+      cursor: "pointer",
+      fontFamily: "inherit"
+    }
+  }, L.allLevels), PROGRAM_LEVELS.map(level => {
+    const meta = getProgramLevelMeta(level);
+    const active = presetPgLevelFilter === level;
+    return React.createElement("button", {
+      key: level,
+      onClick: () => setPresetPgLevelFilter(level),
+      style: {
+        padding: "5px 12px",
+        borderRadius: 16,
+        border: active ? `2px solid var(--${meta.color})` : "1px solid var(--brd)",
+        background: active ? `var(--${meta.color}L)` : "var(--bg)",
+        color: active ? `var(--${meta.color})` : "var(--t2)",
+        fontSize: 12,
+        fontWeight: 500,
+        cursor: "pointer",
+        fontFamily: "inherit"
+      }
+    }, getProgramLevelLabel(level, lang));
+  })), React.createElement("div", {
+    style: {
       display: "grid",
       gap: 12
     }
-  }, PRESET_PROGRAMS.map((pp, pi) => {
+  }, PRESET_PROGRAMS.filter(pp => presetPgLevelFilter === "all" || pp.level === presetPgLevelFilter).map((pp, pi) => {
     const pgName = lang === "en" && pp.nameEN ? pp.nameEN : pp.name;
     const pgDesc = lang === "en" && pp.descEN ? pp.descEN : pp.desc;
     const totalEx = Object.values(pp.days).flat().length;
     const activeDays = Object.values(pp.days).filter(d => d.length > 0).length;
+    const levelMeta = getProgramLevelMeta(pp.level);
     return React.createElement("div", {
       key: pi,
       style: {
@@ -8577,8 +8743,15 @@ function App({
       style: {
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
+        alignItems: "flex-start",
         marginBottom: 6
+      }
+    }, React.createElement("div", {
+      style: {
+        display: "flex",
+        flexDirection: "column",
+        gap: 6,
+        minWidth: 0
       }
     }, React.createElement("span", {
       style: {
@@ -8587,6 +8760,16 @@ function App({
         color: "var(--t1)"
       }
     }, pgName), React.createElement("span", {
+      style: {
+        alignSelf: "flex-start",
+        fontSize: 10,
+        fontWeight: 700,
+        color: `var(--${levelMeta.color})`,
+        background: `var(--${levelMeta.color}L)`,
+        padding: "2px 8px",
+        borderRadius: 999
+      }
+    }, L.programLevel, ": ", getProgramLevelLabel(pp.level, lang))), React.createElement("span", {
       style: {
         fontSize: 11,
         color: "var(--t3)",

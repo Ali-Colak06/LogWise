@@ -10,8 +10,8 @@ LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıc
 
 - **Canlı URL**: https://logwise.fit/ (Netlify deploy, custom domain)
 - **Eski URL**: https://incomparable-starburst-f7802c.netlify.app/
-- **Teknoloji**: React 18 + Babel Standalone (tarayıcıda JSX derleme, build step yok), Supabase (auth + veritabanı), Chart.js 4.4.4
-- **Ana dosya**: `index.html` (~2274 satır, tüm CSS/JS/React inline tek dosyada)
+- **Teknoloji**: React 18, önceden derlenmiş JSX (`compile.js` + `@babel/preset-react`), Supabase (auth + veritabanı), Chart.js 4.4.4
+- **Ana dosya**: `index.html` (ana uygulama; React çıktısı `React.createElement()` olarak derlenmiş tek dosya)
 - **Font**: Google Fonts — Space Mono (body), Archivo Black (logo)
 
 ---
@@ -54,11 +54,10 @@ LogWise/
 
 ### 3.1 Tek Dosya Uygulaması
 
-Tüm uygulama `index.html` içinde. Build tool yok. `<script type="text/babel">` bloğunda React + JSX yazılıyor, Babel Standalone tarayıcıda derliyor. CDN'lerden yüklenen kütüphaneler:
+Tüm uygulama mantığı ağırlıklı olarak `index.html` içinde. Runtime'da Babel Standalone kullanılmıyor; JSX yerelde `compile.js` ile önceden derlenip düz `React.createElement()` çıktısına çevriliyor. Kod değiştirirken kaynak dosya `*.babel-backup`, deploy edilen çıktı ise ilgili `.html` dosyasıdır. CDN'lerden yüklenen kütüphaneler:
 
 - React 18.3.1 (production)
 - ReactDOM 18.3.1
-- Babel Standalone 7.24.7
 - Supabase JS v2
 - **Chart.js 4.4.4** (dashboard grafikleri için)
 
@@ -133,7 +132,8 @@ localStorage key: `gym-log-v3` veya Supabase `user_data.data` JSONB:
     {
       "id": "1711234567890",
       "name": "Bench Press",
-      "categories": ["Göğüs"]
+      "categories": ["Göğüs"],
+      "presetKey": "bench-press"
     }
   ],
   "workouts": {
@@ -152,6 +152,7 @@ localStorage key: `gym-log-v3` veya Supabase `user_data.data` JSONB:
   "programs": {
     "1711234567900": {
       "name": "Push Pull Legs",
+      "presetKey": "ppl",
       "days": {
         "0": ["exId1", "exId2"],
         "1": ["exId3"],
@@ -189,10 +190,12 @@ localStorage key: `gym-log-v3` veya Supabase `user_data.data` JSONB:
 ### Veri Alanları Açıklaması
 
 - `exercises[].categories` — Dizi! Eski veride `category` (string) olabilir, `migrateData()` fonksiyonu otomatik dönüştürür.
+- `exercises[].presetKey` — Hazır hareketlerden gelen egzersizlerde kanonik preset kimliği. TR/EN isim farklarına rağmen aynı preset'i tekilleştirmek için kullanılır.
 - `workouts[].sets[].type` — **YENİ**: `"working"` (varsayılan), `"warmup"`, `"drop"`, `"superset"`.
 - `workouts[].sets[].duration` — Kardiyo hareketlerinde ağırlık/tekrar yerine dakika bazlı süre saklanır.
 - `workouts[].supersetGroup` — **YENİ**: Aynı superset grubundaki hareketler aynı ID'yi paylaşır.
 - `programs[].days` — Key'ler string olmalı ("0"–"6", Pazartesi=0, Pazar=6). `savePg` fonksiyonunda normalize edilir.
+- `programs[].presetKey` — Hazır programlardan eklenen haftalık programlarda kanonik preset program kimliği. Aynı preset tekrar eklenirse overwrite kontrolünde kullanılır.
 - `dailyPrograms` — Haftanın günlerinden bağımsız, sadece hareket listesi içeren programlar.
 - `activeProgram` — Aktif haftalık program ID'si veya null. Aynı anda sadece bir program aktif olabilir.
 - `durations` — Timer kayıtları, gün bazında saniye cinsinden dizi.
@@ -298,20 +301,34 @@ Sidebar'da `📊 Panel` linki ile erişilir. `/dashboard` URL'i. 3 sekmeli yapı
 
 ### 6.5 Hazır Hareketler Sistemi (PRESET_EXERCISES + EX_DESCS)
 
-Kodun başında `PRESET_EXERCISES` dizisi var (~56 hazır hareket). Developer yeni hareket eklemek için bu diziye satır ekler:
+Kodun başında `PRESET_EXERCISES` dizisi var. Her preset hareket artık sadece görünen isimle değil, kanonik bir `key` ile tanımlanır. Yeni preset eklerken temel format:
 
 ```js
-{ name: "Türkçe Ad", nameEN: "English Name", categories: ["Bölge1", "Bölge2"] }
+{
+  key: "bench-press",
+  name: "Türkçe Ad veya varsayılan ad",
+  nameEN: "English Name",
+  aliases: ["Eski ad / typo / alternatif yazım"],
+  categories: ["Bölge1", "Bölge2"]
+}
 ```
 
-- `name` → Türkçe modda gösterilir ve bu isimle kaydedilir
-- `nameEN` → İngilizce modda gösterilir ve bu isimle kaydedilir. Verilmezse `name` kullanılır.
-- Zaten eklenmiş hareketler soluk gösterilir ve seçilemez (her iki dildeki isme de bakılır).
+- `key` → Zorunlu. Preset'in değişmeyen kanonik kimliği. Program preset'leri bu anahtara referans verir.
+- `name` → Türkçe modda gösterilen isim.
+- `nameEN` → İngilizce modda gösterilen isim. Verilmezse `name` fallback olur.
+- `aliases` → Eski typo, eski isim veya alternatif yazımlar. Migration/dedup için kullanılır.
+- Zaten eklenmiş hareketler `presetKey` ve tüm alias/name varyasyonları üzerinden tespit edilir; farklı dilde eklenmiş olsalar bile tekrar seçilemezler.
+- Hazır hareket kullanıcıya eklenince exercise kaydına `presetKey` de yazılır.
+- Son eklenen preset hareketler: Assisted Pull-Up, Chest-Supported Row, Straight-Arm Pulldown, Pec Deck Fly, Reverse Pec Deck, Bulgarian Split Squat, Hack Squat, Seated Leg Curl, Leg Abduction, Leg Adduction, Glute Kickback, Hanging Leg Raise, Ab Wheel Rollout, Side Plank.
 
-**Hareket Açıklamaları (EX_DESCS)**: Ayrı bir obje olarak tanımlı. Her hareketin kısa TR/EN açıklaması:
+**Hareket Açıklamaları (EX_DESCS)**: Ayrı bir obje olarak tanımlı. Açıklama lookup'ı artık sadece görünen ada değil, `key` + `name` + `nameEN` + `aliases` kombinasyonuna bakar. En güvenlisi `EX_DESCS` içinde `key` ile entry tutmaktır:
 ```js
-const EX_DESCS = { "Bench Press": ["Düz bankta barbell press. Temel bileşik hareket.", "Barbell bench press. Fundamental compound."], ... };
-const getExDesc = (name, lang) => ...;
+const EX_DESCS = {
+  "bench-press": [
+    "Düz bankta barbell press. Temel bileşik hareket.",
+    "Barbell bench press. Fundamental compound."
+  ]
+};
 ```
 Preset hareket seçme listesinde her hareketin altında açıklama gösterilir.
 
@@ -326,10 +343,15 @@ Preset hareket seçme listesinde her hareketin altında açıklama gösterilir.
 - Aktif program sidebar'da özet olarak gösterilir (hafta numarası, uyum oranı, deload göstergesi dahil)
 
 **Hazır Program Şablonları (PRESET_PROGRAMS — YENİ):**
-- 4 hazır program: Push Pull Legs (PPL), Üst/Alt Bölünme, Full Body, Bro Split
+- Mevcut preset seti: Push Pull Legs (PPL), Üst/Alt Bölünme, Güray's Hypertrophy No:1, Güray's Hypertrophy Max, Full Body, Bro Split
+- Hazır programlar `PRESET_PROGRAMS` dizisinde tutulur. Her preset programın da sabit bir `key` alanı vardır.
 - `📋 Hazır Program Ekle` butonu ile modal açılır
 - Seçildiğinde eksik hareketler otomatik eklenir (`addPresetProgram` fonksiyonu)
-- Her preset'te: name/nameEN, desc/descEN, days (hareket isimleri ile)
+- Her preset'te: `key`, `name/nameEN`, `desc/descEN`, `days`, `offDays`
+- Her preset programda ayrıca `level` alanı tutulur (`beginner`, `intermediate`, `advanced`)
+- `days` içindeki elemanlar artık serbest metin isimler değil, `PRESET_EXERCISES` içindeki `key` değerleridir.
+- Aynı preset daha önce eklenmişse `program.presetKey` veya bilinen isim varyasyonları üzerinden bulunur; kullanıcıya overwrite onayı sorulur.
+- Hazır program modalında seviye filtresi vardır; kullanıcı `Tüm Seviyeler / Başlangıç / Orta Seviye / İleri Seviye` chip'leri ile listeyi daraltabilir.
 
 **Program Döngüsü (Cycle — YENİ):**
 - Program oluşturma/düzenleme modalında "Döngü" ayarı: Standart veya Deload Döngüsü
@@ -552,7 +574,7 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama
 
 2. **Tek dosya uygulaması** — Tüm CSS, JS, React tek `index.html` içinde. Ayrı dosyalara bölme.
 
-3. **JSX önceden derlenmiş** — Babel Standalone **kaldırıldı** (2026-04-10). `index.html`, `profile.html`, `share.html`, `program.html` artık `<script type="text/babel">` içermiyor; JSX önceden `@babel/preset-react` ile düz `React.createElement()` çağrılarına derlendi. Kaynak JSX dosyaları `*.babel-backup` uzantısıyla saklanıyor. Değişiklik yapmak için: `.babel-backup` dosyasını düzenle → `node compile.js` çalıştır → deploy. `compile.js` ve `package.json` git'te **takip edilmez** (.gitignore'da), sadece yerel araçtır.
+3. **JSX önceden derlenmiş** — Babel Standalone kaldırıldı (2026-04-10). `index.html`, `profile.html`, `share.html`, `program.html` artık `<script type="text/babel">` içermiyor; JSX yerelde `compile.js` ile düz `React.createElement()` çağrılarına derlenir. Kaynak JSX dosyaları `*.babel-backup` uzantısıyla saklanır. Değişiklik akışı: `.babel-backup` düzenle → `node compile.js` çalıştır → çıktı HTML'leri kontrol et.
 
 4. **Edit çok dikkatli yapılmalı** — Dosya kesintisi beyaz ekrana sebep olur. Her edit sonrası:
    - `tail -5 index.html` ile dosya sonunu kontrol et
@@ -565,7 +587,7 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama
 
 7. **migrateData'yı güncelle** — Yeni veri alanı eklenirse `migrateData()` fonksiyonuna da eklenmeli.
 
-8. **PRESET_EXERCISES** — Yeni hazır hareket eklemek için sadece diziye satır ekle, UI otomatik güncellenir. `nameEN` alanı İngilizce isim için.
+8. **Preset veri modeli** — Yeni hazır hareket eklerken `PRESET_EXERCISES` içinde `key` zorunludur. Mümkünse `name`, `nameEN`, gerekiyorsa `aliases`, `categories` ve `EX_DESCS[key]` birlikte eklenmeli. Yeni hazır program eklerken `PRESET_PROGRAMS[].days` içinde hareket adı değil preset `key` kullanılmalı.
 
 9. **Çeviri anahtarları** — Yeni UI metni eklenirse hem `TR` hem `EN` objesine eklenmeli.
 
@@ -613,7 +635,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 ### Kategori 3: Hareketler & Programlar ✅ TAMAMLANDI
 - ✅ **Hareket düzenleme** — İsim ve bölge değiştirme, geçmiş korunur (ID aynı kalır)
 - ✅ **Hareket açıklamaları** — EX_DESCS objesi, preset listede açıklama gösterimi
-- ✅ **Program şablonları** — 4 hazır program (PPL, Upper/Lower, Full Body, Bro Split), eksik hareketler otomatik eklenir
+- ✅ **Program şablonları** — Hazır program kütüphanesi (PPL, Upper/Lower, Güray varyasyonları, Full Body, Bro Split), eksik hareketler otomatik eklenir
 - ✅ **Program döngüsü** — Deload cycle desteği, ayarlanabilir sıklık (3-8 hafta)
 - ✅ **Program ilerleme takibi** — Hafta numarası, uyum oranı (%), progress bar, deload haftası göstergesi
 
