@@ -7,6 +7,8 @@
  *   PUT    /avatars/<userId>/* → Profil fotoğrafı yükle (auth gerekli)
  *   PUT    /workouts/<userId>/* → Antrenman fotoğrafı yükle (auth gerekli)
  *   DELETE /<key>              → Resmi sil (auth gerekli, sadece kendi klasörü)
+ *
+ * Auth: Token, Supabase'in kendi /auth/v1/user endpoint'ine sorularak doğrulanır.
  */
 
 export default {
@@ -55,11 +57,10 @@ export default {
       );
     }
 
+    const token = authHeader.slice(7);
     let userId;
     try {
-      const token = authHeader.slice(7);
-      const payload = await verifyJWT(token, env.SUPABASE_JWT_SECRET);
-      userId = payload.sub;
+      userId = await verifyWithSupabase(token, env.SUPABASE_URL, env.SUPABASE_ANON_KEY);
     } catch (err) {
       return new Response(
         JSON.stringify({ error: 'Invalid token', detail: err.message }),
@@ -119,43 +120,23 @@ export default {
   },
 };
 
-// ── JWT Doğrulama (Web Crypto API) ──────────────────────────────────────────
+// ── Supabase API ile token doğrulama ────────────────────────────────────────
+// JWT algoritmasından (HS256/RS256) bağımsız çalışır.
 
-async function verifyJWT(token, secret) {
-  const parts = token.split('.');
-  if (parts.length !== 3) throw new Error('Malformed JWT');
+async function verifyWithSupabase(token, supabaseUrl, anonKey) {
+  const res = await fetch(`${supabaseUrl}/auth/v1/user`, {
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'apikey': anonKey,
+    },
+  });
 
-  const encoder = new TextEncoder();
-  const key = await crypto.subtle.importKey(
-    'raw',
-    encoder.encode(secret),
-    { name: 'HMAC', hash: 'SHA-256' },
-    false,
-    ['verify']
-  );
-
-  const data = encoder.encode(`${parts[0]}.${parts[1]}`);
-  const signature = base64UrlToBuffer(parts[2]);
-
-  const valid = await crypto.subtle.verify('HMAC', key, signature, data);
-  if (!valid) throw new Error('Invalid signature');
-
-  const payload = JSON.parse(
-    new TextDecoder().decode(base64UrlToBuffer(parts[1]))
-  );
-
-  if (payload.exp && payload.exp < Math.floor(Date.now() / 1000)) {
-    throw new Error('Token expired');
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.message || `Supabase auth error: ${res.status}`);
   }
 
-  return payload;
-}
-
-function base64UrlToBuffer(str) {
-  const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
-  const padded = base64.padEnd(base64.length + ((4 - (base64.length % 4)) % 4), '=');
-  const binary = atob(padded);
-  const bytes = new Uint8Array(binary.length);
-  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-  return bytes.buffer;
+  const user = await res.json();
+  if (!user?.id) throw new Error('No user id in response');
+  return user.id;
 }
