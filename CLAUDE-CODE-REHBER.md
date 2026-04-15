@@ -1365,4 +1365,13 @@ Avatar değeri `http` ile başlıyorsa `<img>` tag'iyle, emoji/metin ise doğrud
 
 **Sidebar Kullanıcı Kartı Özel Notu**: Bu kısımda `avatar_url` (Google OAuth) ve `avatar` (custom upload URL) iki farklı kaynaktan gelebilir. Kontrol sırası: `avatar_url` varsa veya `avatar` http ile başlıyorsa `<img>` göster; yoksa emoji ya da baş harf göster.
 
+### Değişiklik 5: Profil Fotoğrafı Lightbox (2026-04-15)
+
+Avatar dairesine tıklayınca fotoğraf büyüyerek gösterilir.
+
+- **`photoModal` state** eklendi (`null` veya URL string) — `profile.html.babel-backup`
+- **Kendi profil dairesi**: Avatar URL'yse tıklayınca lightbox açılır; emoji/baş harfse picker açılır. ✏️ butonu her durumda picker'ı açar (`e.stopPropagation()` ile ayrıştırıldı).
+- **Başka kullanıcı profil dairesi** (`vp.avatar`): URL'yse tıklayınca lightbox açılır.
+- **Lightbox modal**: Siyah transparan overlay (`rgba(0,0,0,.85)`), ortalanmış büyük resim, sağ üstte ✕ butonu. Overlay'e veya ✕'e tıklayınca kapanır.
+
 Derleme: `node compile.js` (tüm dosyalar)

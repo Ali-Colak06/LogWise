@@ -525,6 +525,7 @@ function ProfileApp() {
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
   const [uploadingAvatar, setUploadingAvatar] = useState(false);
   const avatarFileRef = useRef(null);
+  const [photoModal, setPhotoModal] = useState(null);
   const [editingName, setEditingName] = useState(false);
   const [savingName, setSavingName] = useState(false);
   const [bio, setBio] = useState("");
@@ -1386,6 +1387,7 @@ function ProfileApp() {
         paddingBottom: 28
       }
     }, React.createElement("div", {
+      onClick: () => vp.avatar && vp.avatar.startsWith("http") && setPhotoModal(vp.avatar),
       style: {
         width: 88,
         height: 88,
@@ -1399,7 +1401,8 @@ function ProfileApp() {
         fontSize: vp.avatar && !vp.avatar.startsWith("http") ? 40 : 32,
         fontWeight: 700,
         color: "var(--blue)",
-        overflow: "hidden"
+        overflow: "hidden",
+        cursor: vp.avatar && vp.avatar.startsWith("http") ? "pointer" : "default"
       }
     }, vp.avatar && vp.avatar.startsWith("http") ? React.createElement("img", {
       src: vp.avatar,
@@ -2481,7 +2484,57 @@ function ProfileApp() {
       animation: "toastIn .3s ease",
       boxShadow: "var(--shadow)"
     }
-  }, toast), React.createElement("header", {
+  }, toast), photoModal && React.createElement("div", {
+    onClick: () => setPhotoModal(null),
+    style: {
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,.85)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 2000,
+      animation: "fadeIn .2s ease",
+      cursor: "zoom-out"
+    }
+  }, React.createElement("div", {
+    onClick: e => e.stopPropagation(),
+    style: {
+      position: "relative",
+      maxWidth: "90vw",
+      maxHeight: "90vh"
+    }
+  }, React.createElement("img", {
+    src: photoModal,
+    alt: "profil foto\u011Fraf\u0131",
+    style: {
+      maxWidth: "90vw",
+      maxHeight: "85vh",
+      borderRadius: 16,
+      boxShadow: "0 8px 48px rgba(0,0,0,.6)",
+      objectFit: "contain",
+      display: "block"
+    }
+  }), React.createElement("button", {
+    onClick: () => setPhotoModal(null),
+    style: {
+      position: "absolute",
+      top: -14,
+      right: -14,
+      width: 32,
+      height: 32,
+      borderRadius: "50%",
+      background: "var(--bg2)",
+      border: "1px solid var(--brd)",
+      color: "var(--t1)",
+      fontSize: 18,
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      lineHeight: 1
+    }
+  }, "\u2715"))), React.createElement("header", {
     style: {
       display: "flex",
       alignItems: "center",
@@ -2548,7 +2601,7 @@ function ProfileApp() {
       paddingBottom: 28
     }
   }, React.createElement("div", {
-    onClick: () => setShowAvatarPicker(true),
+    onClick: () => avatar && avatar.startsWith("http") ? setPhotoModal(avatar) : setShowAvatarPicker(true),
     style: {
       width: 88,
       height: 88,
@@ -2579,6 +2632,10 @@ function ProfileApp() {
       borderRadius: "50%"
     }
   }) : avatar || initials, React.createElement("div", {
+    onClick: e => {
+      e.stopPropagation();
+      setShowAvatarPicker(true);
+    },
     style: {
       position: "absolute",
       bottom: 0,
@@ -2592,7 +2649,8 @@ function ProfileApp() {
       alignItems: "center",
       justifyContent: "center",
       fontSize: 14,
-      border: "2px solid var(--bg2)"
+      border: "2px solid var(--bg2)",
+      zIndex: 1
     }
   }, "\u270F\uFE0F")), showAvatarPicker && React.createElement("div", {
     style: {
