@@ -9377,14 +9377,24 @@ function App({
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: r.profile.avatar ? 14 : 11,
+      fontSize: r.profile.avatar && !r.profile.avatar.startsWith("http") ? 14 : 11,
       fontWeight: 700,
       color: "var(--blue)",
       flexShrink: 0,
-      cursor: "pointer"
+      cursor: "pointer",
+      overflow: "hidden"
     },
     onClick: () => window.location.href = profileRoute(r.user_id)
-  }, r.profile.avatar || (r.profile.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
+  }, r.profile.avatar && r.profile.avatar.startsWith("http") ? React.createElement("img", {
+    src: r.profile.avatar,
+    alt: "avatar",
+    style: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      borderRadius: "50%"
+    }
+  }) : r.profile.avatar || (r.profile.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
     style: {
       minWidth: 0,
       overflow: "hidden"
@@ -9479,14 +9489,24 @@ function App({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontSize: post.profile.avatar ? 16 : 13,
+        fontSize: post.profile.avatar && !post.profile.avatar.startsWith("http") ? 16 : 13,
         fontWeight: 700,
         color: "var(--blue)",
         cursor: "pointer",
-        flexShrink: 0
+        flexShrink: 0,
+        overflow: "hidden"
       },
       onClick: () => window.location.href = profileRoute(post.user_id)
-    }, post.profile.avatar || (post.profile.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
+    }, post.profile.avatar && post.profile.avatar.startsWith("http") ? React.createElement("img", {
+      src: post.profile.avatar,
+      alt: "avatar",
+      style: {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        borderRadius: "50%"
+      }
+    }) : post.profile.avatar || (post.profile.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
       style: {
         flex: 1,
         minWidth: 0
@@ -9644,14 +9664,24 @@ function App({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontSize: u.avatar ? 20 : 16,
+        fontSize: u.avatar && !u.avatar.startsWith("http") ? 20 : 16,
         fontWeight: 700,
         color: "var(--blue)",
         flexShrink: 0,
-        cursor: "pointer"
+        cursor: "pointer",
+        overflow: "hidden"
       },
       onClick: () => window.location.href = profileRoute(u.user_id)
-    }, u.avatar || (u.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
+    }, u.avatar && u.avatar.startsWith("http") ? React.createElement("img", {
+      src: u.avatar,
+      alt: "avatar",
+      style: {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        borderRadius: "50%"
+      }
+    }) : u.avatar || (u.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
       style: {
         flex: 1,
         minWidth: 0

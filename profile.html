@@ -3588,12 +3588,22 @@ function ProfileApp() {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: p.avatar ? 20 : 16,
+      fontSize: p.avatar && !p.avatar.startsWith("http") ? 20 : 16,
       fontWeight: 700,
       color: "var(--blue)",
-      flexShrink: 0
+      flexShrink: 0,
+      overflow: "hidden"
     }
-  }, p.avatar || (p.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
+  }, p.avatar && p.avatar.startsWith("http") ? React.createElement("img", {
+    src: p.avatar,
+    alt: "avatar",
+    style: {
+      width: "100%",
+      height: "100%",
+      objectFit: "cover",
+      borderRadius: "50%"
+    }
+  }) : p.avatar || (p.display_name || "U").charAt(0).toUpperCase()), React.createElement("div", {
     style: {
       flex: 1,
       minWidth: 0
