@@ -1,0 +1,12 @@
+name = "logwise-images-worker"
+main = "src/worker.js"
+compatibility_date = "2024-09-23"
+
+[[r2_buckets]]
+binding = "LOGWISE_IMAGES"
+bucket_name = "logwise-images"
+
+# Ortam değişkenleri wrangler secret put ile eklenir:
+# SUPABASE_JWT_SECRET  → Supabase Dashboard > Settings > API > JWT Secret
+# WORKER_URL           → Deploy sonrası otomatik oluşan URL (örn: https://logwise-images-worker.xxx.workers.dev)
+# ALLOWED_ORIGIN       → https://logwise.fit

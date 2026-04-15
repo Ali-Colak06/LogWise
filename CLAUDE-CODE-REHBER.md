@@ -2,6 +2,8 @@
 
 Bu doküman, LOG WISE projesinin kuruluşundan güncel haline kadar her şeyi açıklar. Claude Code'a bu dosyayı okutarak projeye hakim olması sağlanır.
 
+```
+
 ---
 
 ## 1. PROJE NEDİR?
@@ -70,7 +72,7 @@ Tüm uygulama mantığı ağırlıklı olarak `index.html` içinde. Runtime'da B
 - **Tablolar**:
   - `user_data` — JSONB blob, kullanıcı başına tek satır (tüm egzersiz/antrenman/program verisi)
   - `feedback` — Geri bildirim satırları
-  - `profiles` — Kullanıcı profilleri (username, display_name, bio, avatar, is_public, show_profile_info). Kayıt sırasında username ile oluşturulur. Username unique + case-insensitive index. `show_profile_info` (boolean, default true) — programlar/rozetler/ölçümlerin başkalarına görünüp görünmeyeceğini kontrol eder.
+  - `profiles` — Kullanıcı profilleri (username, display_name, bio, avatar, is_public, show_profile_info). Kayıt sırasında username ile oluşturulur. Username unique + case-insensitive index. E-posta onayı sonrası ilk girişte username auth metadata + `profiles` senkronu ile otomatik tanınır; username modalı yalnızca gerçekten username'i olmayan eski/eksik hesaplarda açılır. `show_profile_info` (boolean, default true) — programlar/rozetler/ölçümlerin başkalarına görünüp görünmeyeceğini kontrol eder.
   - `shared_workouts` — Paylaşılan antrenmanlar (id, user_id, workout_date, workout_data JSONB, exercise_names JSONB, caption)
   - `user_prs` — Kullanıcı PR'ları liderlik tablosu için denormalize (user_id+exercise_name PK, max_weight, estimated_1rm). Veri yüklendiğinde otomatik senkronize edilir.
   - `follows` — Takip sistemi (follower_id, following_id PK). Tek yönlü, Instagram tarzı.
@@ -686,7 +688,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Antrenman paylaşma** — Gün görünümünde 📤 paylaş butonu, caption ekleyebilme, `shared_workouts` Supabase tablosu, otomatik link kopyalama, bağımsız `share.html` sayfası (authentication gerektirmez), paylaşan kullanıcının profil bilgileri, set detayları tablosu, CTA butonu
 - ✅ **Liderlik tablosu** — Sosyal sekmesinde hareket bazında topluluk PR sıralaması, `user_prs` Supabase tablosu (denormalize), otomatik PR senkronizasyonu (veri yüklendiğinde), profil avatarları, medya sıralaması (🥇🥈🥉), kendi sıranı vurgulama
 - ✅ **Arkadaş sistemi** — Instagram tarzı tek yönlü takip, `follows` Supabase tablosu, kullanıcı arama (display_name + username ilike), takip et/takiptesin butonları, antrenman akışı (feed) — takip edilen kişilerin paylaşılan antrenmanları, profil kartları, boş state yönlendirmeleri
-- ✅ **Username sistemi** — Kayıt sırasında zorunlu username (3-20 karakter, harf/rakam/alt çizgi), uniqueness kontrolü, mevcut kullanıcılar için username seçme modalı, sidebar/leaderboard/feed/search/profile'da @username gösterimi
+- ✅ **Username sistemi** — Kayıt sırasında zorunlu username (3-20 karakter, harf/rakam/alt çizgi), uniqueness kontrolü, auth metadata + `profiles` senkronu, username'siz mevcut kullanıcılar için fallback modal, sidebar/leaderboard/feed/search/profile'da @username gösterimi
 - ✅ **Profil bilgileri görünürlüğü** — Başka kullanıcının profilinde programlar, rozetler ve vücut ölçüleri görüntülenebilir. `show_profile_info` toggle'ı ile kullanıcı bu bilgileri gizleyebilir (default: açık). Takipçi/takip sayılarına tıklayınca liste modalı açılır.
 - ✅ **Program & Antrenman Kopyalama Sistemi** — Üç farklı kopyalama akışı: (1) Sosyal akıştaki antrenman paylaşımından 📋 ile takvime kopyalama, (2) Başka kullanıcının profilindeki programı veya paylaşılan antrenmanı kopyalama, (3) Program paylaşım linki — `program.html` sayfasında base64 URL ile veri gömülü, Supabase gerektirmiyor. Tüm akışlarda egzersiz isim eşlemesi yapılır, eksik hareketler "Diğer" kategorisiyle otomatik oluşturulur.
 
@@ -1239,3 +1241,27 @@ isMobile && React.createElement("div", {
   onClick: () => setLang(prev => prev === "tr" ? "en" : "tr"),
   style: { /* nav butonlarıyla aynı stil */ }
 }, "🌐 ", lang === "tr" ? "English" : "Türkçe"))
+---
+
+## BÃ¶lÃ¼m 26 â€” Auth ve Sidebar UX DÃ¼zeltmeleri (2026-04-14)
+
+### KayÄ±t SonrasÄ± Bilgilendirme MesajÄ±
+
+- KayÄ±t baÅŸarÄ±lÄ± olduktan sonra login ekranÄ±nda gÃ¶sterilen yeÅŸil bilgi mesajÄ± gÃ¼ncellendi.
+- Yeni metin, e-posta onayÄ±na ek olarak spam/junk klasÃ¶rÃ¼nÃ¼n de kontrol edilmesini sÃ¶yler.
+- TR Ã¶rnek: `KayÄ±t baÅŸarÄ±lÄ±! E-postanÄ± onaylayÄ±p giriÅŸ yap. Spam kutunu da kontrol et.`
+- EN Ã¶rnek: `Registered! Please confirm your email, then log in. Also check your spam folder.`
+
+### Username Modal DavranÄ±ÅŸÄ±
+
+- Username artÄ±k sadece kayÄ±t formunda zorunlu olarak alÄ±nÄ±r.
+- KullanÄ±cÄ± kayÄ±t sÄ±rasÄ±nda username seÃ§tiyse ve bu deÄŸer auth metadata iÃ§inde varsa, e-posta onayÄ± sonrasÄ± ilk giriÅŸte tekrar username modalÄ± aÃ§Ä±lmaz.
+- Ä°lk giriÅŸte yapÄ±lan `syncProfileRecord(...)` senkronu, auth metadata'daki username'i `profiles` kaydÄ±yla hizalar.
+- Username modalÄ± yalnÄ±zca gerÃ§ekten username'i bulunmayan legacy/eksik hesaplar iÃ§in fallback olarak kalÄ±r.
+
+### Sidebar YerleÅŸimi ve Kapatma DavranÄ±ÅŸÄ±
+
+- Sol sidebar hem mobilde hem masaÃ¼stÃ¼nde `top: 0, bottom: 0` olacak ÅŸekilde tam yÃ¼kseklik kaplar; Ã¼stte boÅŸluk bÄ±rakmaz.
+- MasaÃ¼stÃ¼nde sidebar `fixed` konuma alÄ±ndÄ±ÄŸÄ± iÃ§in ana iÃ§erikte panel aÃ§Ä±kken `margin-left: 256px` uygulanÄ±r.
+- Sidebar Ã¼st kÄ±smÄ±na ek bir hamburger butonu yerleÅŸtirildi; bÃ¶ylece masaÃ¼stÃ¼nde panel iÃ§inden manuel kapatma mÃ¼mkÃ¼ndÃ¼r.
+- Mobilde overlay kapanÄ±ÅŸÄ± korunur; panel dÄ±ÅŸÄ±na dokununca sidebar kapanÄ±r.
