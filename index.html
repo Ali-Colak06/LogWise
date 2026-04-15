@@ -4917,20 +4917,21 @@ function App({
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      fontSize: user.user_metadata?.avatar ? 18 : 14,
+      fontSize: user.user_metadata?.avatar && !user.user_metadata.avatar.startsWith("http") ? 18 : 14,
       fontWeight: 700,
       color: "var(--blue)",
       flexShrink: 0,
       overflow: "hidden",
       lineHeight: 1
     }
-  }, user.user_metadata?.avatar_url ? React.createElement("img", {
-    src: user.user_metadata.avatar_url,
+  }, user.user_metadata?.avatar_url || user.user_metadata?.avatar?.startsWith("http") ? React.createElement("img", {
+    src: user.user_metadata.avatar || user.user_metadata.avatar_url,
     alt: "",
     style: {
       width: "100%",
       height: "100%",
-      objectFit: "cover"
+      objectFit: "cover",
+      borderRadius: "50%"
     }
   }) : user.user_metadata?.avatar || (user.user_metadata?.full_name || user.email || "U").charAt(0).toUpperCase()), React.createElement("div", null, React.createElement("div", {
     style: {

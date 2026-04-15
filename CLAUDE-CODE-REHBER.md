@@ -10,9 +10,9 @@ Bu doküman, LOG WISE projesinin kuruluşundan güncel haline kadar her şeyi a�
 
 LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıcılar hareketlerini tanımlar, haftalık veya günlük programlar oluşturur, takvim üzerinden günlere hareket ekler ve her set için ağırlık/tekrar/RIR kaydı tutar. Dashboard ile ilerleme takibi yapılır.
 
-- **Canlı URL**: https://logwise.fit/ (Netlify deploy, custom domain)
+- **Canlı URL**: https://logwise.fit/ (Cloudflare Pages deploy, custom domain)
 - **Eski URL**: https://incomparable-starburst-f7802c.netlify.app/
-- **Teknoloji**: React 18, önceden derlenmiş JSX (`compile.js` + `@babel/preset-react`), Supabase (auth + veritabanı), Chart.js 4.4.4
+- **Teknoloji**: React 18, önceden derlenmiş JSX (`compile.js` + `@babel/preset-react`), Supabase (auth + veritabanı), Cloudflare R2 (resim depolama), Cloudflare Workers (resim API), Chart.js 4.4.4
 - **Ana dosya**: `index.html` (ana uygulama; React çıktısı `React.createElement()` olarak derlenmiş tek dosya)
 - **Font**: Google Fonts — Space Mono (body), Archivo Black (logo)
 
@@ -50,7 +50,11 @@ LogWise/
 ├── PRESET_PROGRAM_ONERILERI.md ← Yeni preset program fikirleri, etiketler ve haftalık taslaklar
 ├── PRESET_PROGRAM_ONERILERI_READABLE.html ← Program önerisi belgesinin okunabilir HTML versiyonu
 ├── PRESET_PROGRAM_ONERILERI.pdf ← Program önerisi belgesinin okunabilir PDF export'u
-└── CLAUDE-CODE-REHBER.md   ← Bu dosya
+├── CLAUDE-CODE-REHBER.md   ← Bu dosya
+└── logwise-worker/         ← Cloudflare Worker (resim upload/serve API)
+    ├── src/
+    │   └── worker.js       ← Worker kaynak kodu
+    └── wrangler.toml       ← Wrangler deploy konfigürasyonu
 ```
 
 ---
@@ -69,6 +73,7 @@ Tüm uygulama mantığı ağırlıklı olarak `index.html` içinde. Runtime'da B
 ### 3.2 Supabase Backend
 
 - **URL**: `https://czbxujioufhmvoajqwzp.supabase.co`
+- **Not**: Supabase artık JWT'leri RS256 (asimetrik) ile imzalıyor. Token doğrulama gerektiren Worker veya harici servisler HMAC/HS256 değil, Supabase'in `/auth/v1/user` endpoint'ini kullanmalı.
 - **Tablolar**:
   - `user_data` — JSONB blob, kullanıcı başına tek satır (tüm egzersiz/antrenman/program verisi)
   - `feedback` — Geri bildirim satırları
@@ -80,7 +85,58 @@ Tüm uygulama mantığı ağırlıklı olarak `index.html` içinde. Runtime'da B
 - **RLS** (Row Level Security) aktif — her kullanıcı sadece kendi verisini görür
 - **Hesap silme**: `delete_own_account()` SQL fonksiyonu ile
 
-### 3.3 Kayıt Stratejisi (Çok Önemli)
+### 3.3 Cloudflare R2 + Worker (Resim Depolama)
+
+Resim dosyaları (profil fotoğrafları, ileride antrenman fotoğrafları) Supabase Storage yerine **Cloudflare R2**'de tutulur.
+
+**Neden R2?**
+- Supabase Storage'ın ücretsiz katmanı çok kısıtlı
+- R2'nin 10 GB ücretsiz depolaması ve **sıfır egress ücreti** var
+- Zaten Cloudflare Pages kullanıldığı için aynı ekosistem
+
+**Mimari:**
+- **Bucket adı**: `logwise-images`
+- **Worker URL**: `https://logwise-images-worker.colak-ali1928.workers.dev`
+- **Worker kaynak**: `logwise-worker/src/worker.js`
+
+**Worker Endpoint'leri:**
+- `GET /<key>` → Resmi herkese açık serve et (cache-control: 1 yıl)
+- `PUT /avatars/<userId>/<dosya>` → Profil fotoğrafı yükle (auth gerekli)
+- `PUT /workouts/<userId>/<dosya>` → Antrenman fotoğrafı yükle (auth gerekli)
+- `DELETE /<key>` → Resim sil (auth gerekli, sadece kendi klasörü)
+
+**Auth Yöntemi:**
+Token doğrulama, Supabase'in kendi endpoint'ine sorarak yapılır (RS256 uyumlu):
+```
+GET https://czbxujioufhmvoajqwzp.supabase.co/auth/v1/user
+Authorization: Bearer <token>
+apikey: <anon_key>
+```
+
+**Worker Secret'ları** (`wrangler secret put` ile eklendi):
+- `SUPABASE_URL` → `https://czbxujioufhmvoajqwzp.supabase.co`
+- `SUPABASE_ANON_KEY` → Supabase anon public key
+- `WORKER_URL` → `https://logwise-images-worker.colak-ali1928.workers.dev`
+- `ALLOWED_ORIGIN` → `https://logwise.fit`
+
+**Frontend Entegrasyonu (`profile.html`):**
+- `WORKER_URL` sabiti eklendi
+- `uploadingAvatar` state + `avatarFileRef` ref eklendi
+- `uploadAvatarPhoto(e)` fonksiyonu: dosya seçilince Supabase session token'ını alır → Worker'a PUT isteği atar → dönen URL'i `saveAvatar(url)` ile kaydeder
+- Avatar görüntüleme: `avatar.startsWith("http")` kontrolü ile URL avatarlar `<img>` tag'iyle, emoji avatarlar metin olarak render edilir
+- Bu kontrol şu yerlerde uygulandı: kendi profil dairesi, başka kullanıcı profil dairesi, sosyal feed post kartları, liderlik tablosu, kullanıcı arama sonuçları, takipçi/takip listeleri
+
+**Boyut Limiti:** 5 MB (Worker tarafında Content-Length kontrolü)
+
+**Deploy:**
+```bash
+# logwise-worker klasöründe:
+wrangler deploy
+```
+
+---
+
+### 3.5 Kayıt Stratejisi (Çok Önemli)
 
 Üç farklı kayıt fonksiyonu var:
 
@@ -91,7 +147,7 @@ Tüm uygulama mantığı ağırlıklı olarak `index.html` içinde. Runtime'da B
 
 **Gün görünümünden çıkınca**: Boş setler temizlenir. Standart hareketlerde weight/reps ikisi de 0 olan setler, kardiyoda ise duration değeri 0 olan setler silinir; ardından `flushSave()` çağrılır.
 
-### 3.4 Misafir (Guest) Modu
+### 3.6 Misafir (Guest) Modu
 
 - Siteye giriş yapmadan kullanılabilir
 - `isGuest = !user` — user null ise misafir
@@ -99,14 +155,14 @@ Tüm uygulama mantığı ağırlıklı olarak `index.html` içinde. Runtime'da B
 - Ekranın altında sabit uyarı banner'ı gösterilir
 - Feedback gönderme misafir modda engelli
 
-### 3.5 Tema ve Dil
+### 3.7 Tema ve Dil
 
 - **Dark/Light tema**: CSS custom properties ile. `data-theme="light"` attribute'u ile geçiş. Tercih localStorage'da (`gym-log-theme`).
 - **TR/EN dil desteği**: `TR` ve `EN` constant objeleri (~150+ anahtar). `lang` state: "tr" veya "en", localStorage'da (`gym-log-lang`).
   - **Desktop**: Header'da `!isMobile` koşuluyla gösterilen buton (index.html ~satır 4500).
   - **Mobil**: Sol sidebar panelinde (index.html ~satır 4664), nav butonlarının altında, ince bir ayraçla ayrılmış 🌐 simgeli buton olarak gösterilir. `isMobile` koşuluyla render edilir. Sidebar kapanmaz, dil anında değişir.
 
-### 3.6 URL Routing (Client-Side)
+### 3.8 URL Routing (Client-Side)
 
 React tarafında pushState/replaceState ile URL yönetimi:
 
@@ -654,12 +710,13 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 - ✅ **Program döngüsü** — Deload cycle desteği, ayarlanabilir sıklık (3-8 hafta)
 - ✅ **Program ilerleme takibi** — Hafta numarası, uyum oranı (%), progress bar, deload haftası göstergesi
 
-### Kategori 5: Veri Yönetimi ✅ TAMAMLANDI (Fotoğraf hariç)
+### Kategori 5: Veri Yönetimi ✅ TAMAMLANDI
 - ✅ **Export JSON** — Tüm veriyi JSON olarak dışa aktarma (yedekleme)
 - ✅ **Export CSV** — Antrenman kayıtlarını CSV tablo olarak dışa aktarma
 - ✅ **Import JSON** — Daha önce dışa aktarılmış JSON dosyasından geri yükleme
 - ✅ **Vücut ölçüleri takibi** — Kilo, boy, vücut yağı, göğüs, bel, kalça, biceps, bacak, boyun, omuz ölçümleri
 - ✅ **Veri özeti** — Hareket, antrenman günü, set, program, ölçüm sayıları
+- ✅ **Profil fotoğrafı yükleme** — Cloudflare R2'ye upload, 5 MB limit, URL avatar desteği (bkz. 3.3)
 
 ### Kategori 6: Bildirimler & Motivasyon ✅ TAMAMLANDI
 - ✅ **Başarımlar / Rozetler** — 30 rozet, 6 kategori (Antrenman, Seri, PR, Hacim, Set, Çeşitlilik), BADGES sabiti, checkBadges() ile otomatik kontrol, kutlama toast animasyonu, ilerleme çubukları, kilitli/açık görsel fark
@@ -699,10 +756,10 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 
 ## 15. HENÜZ YAPILMAMIŞ / GELİŞTİRİLEBİLECEK ŞEYLER
 
-### Kategori 5: Veri Yönetimi ✅ TAMAMLANDI (Fotoğraf hariç)
+### Kategori 5: Veri Yönetimi ✅ TAMAMLANDI
 - ✅ Export/Import (JSON/CSV)
 - ✅ Vücut ölçüleri takibi
-- Fotoğraf ilerleme (Supabase Storage gerekli, henüz yapılmadı)
+- ✅ Profil fotoğrafı yükleme (Cloudflare R2, 2026-04-15)
 ## 16. 2026-04-04 Username Kalicilik Duzeltmesi
 
 - Username artik sadece modal submit aninda `profiles` tablosuna yazilmaya calisilmiyor; auth metadata'ya da kaydediliyor.
@@ -1265,3 +1322,47 @@ isMobile && React.createElement("div", {
 - MasaÃ¼stÃ¼nde sidebar `fixed` konuma alÄ±ndÄ±ÄŸÄ± iÃ§in ana iÃ§erikte panel aÃ§Ä±kken `margin-left: 256px` uygulanÄ±r.
 - Sidebar Ã¼st kÄ±smÄ±na ek bir hamburger butonu yerleÅŸtirildi; bÃ¶ylece masaÃ¼stÃ¼nde panel iÃ§inden manuel kapatma mÃ¼mkÃ¼ndÃ¼r.
 - Mobilde overlay kapanÄ±ÅŸÄ± korunur; panel dÄ±ÅŸÄ±na dokununca sidebar kapanÄ±r.
+
+---
+
+## 22. 2026-04-15 Cloudflare R2 Resim Depolama Entegrasyonu
+
+### Değişiklik 1: R2 Bucket ve Worker Kurulumu
+
+- **Cloudflare R2** aktifleştirildi (hesap: colak.ali1928@gmail.com)
+- `logwise-images` R2 bucket oluşturuldu (bölge: ENAM)
+- `logwise-images-worker` adlı Cloudflare Worker deploy edildi
+- Worker URL: `https://logwise-images-worker.colak-ali1928.workers.dev`
+- Worker `logwise-worker/` klasöründe tutulur; deploy: `cd logwise-worker && wrangler deploy`
+- Worker secret'ları: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `WORKER_URL`, `ALLOWED_ORIGIN`
+
+### Değişiklik 2: JWT Doğrulama Yöntemi
+
+İlk implementasyonda HMAC/HS256 tabanlı JWT doğrulama kullanıldı. Ancak Supabase artık RS256 (asimetrik) ile imzaladığından "Invalid token" hatası alındı. **Çözüm**: Supabase'in `/auth/v1/user` endpoint'ine token ile istek atarak doğrulama yapıldı. Bu yöntem algoritma değişikliklerinden bağımsızdır.
+
+### Değişiklik 3: Profile.html Avatar Upload
+
+`profile.html.babel-backup` değişiklikleri:
+- `WORKER_URL` sabiti eklendi
+- `uploadingAvatar` state, `avatarFileRef` ref eklendi
+- `uploadAvatarPhoto(e)` fonksiyonu eklendi: Supabase session token alır → `PUT /avatars/<userId>/avatar_<timestamp>.<ext>` isteği → dönen URL `saveAvatar(url)` ile kaydedilir
+- Avatar picker'a gizli `<input type="file">` + **"Fotoğraf Yükle"** butonu eklendi
+- Avatar dairesi `overflow: hidden` ile güncellendi
+
+### Değişiklik 4: URL Avatar Render Desteği
+
+Avatar değeri `http` ile başlıyorsa `<img>` tag'iyle, emoji/metin ise doğrudan render edilir. Bu kontrol şu tüm konumlarda uygulandı:
+
+| Dosya | Konum |
+|---|---|
+| `profile.html.babel-backup` | Kendi profil dairesi (88px) |
+| `profile.html.babel-backup` | Başka kullanıcı profil dairesi (88px) |
+| `profile.html.babel-backup` | Follow/follower listesi (40px) — 2 adet |
+| `index.html.babel-backup` | Sosyal feed post kartları (36px) |
+| `index.html.babel-backup` | Liderlik tablosu (28px) |
+| `index.html.babel-backup` | Kullanıcı arama sonuçları (44px) |
+| `index.html.babel-backup` | Sidebar kullanıcı kartı (36px) |
+
+**Sidebar Kullanıcı Kartı Özel Notu**: Bu kısımda `avatar_url` (Google OAuth) ve `avatar` (custom upload URL) iki farklı kaynaktan gelebilir. Kontrol sırası: `avatar_url` varsa veya `avatar` http ile başlıyorsa `<img>` göster; yoksa emoji ya da baş harf göster.
+
+Derleme: `node compile.js` (tüm dosyalar)
