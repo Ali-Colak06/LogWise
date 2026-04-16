@@ -503,7 +503,7 @@ Satır 117-145   Supabase client, React hooks, ErrorBoundary class component, sa
 Satır 108-182   PRESET_EXERCISES dizisi (~56 hazır hareket, yorum bloğu ile açıklanmış)
 Satır 183-232   EX_DESCS (hareket açıklamaları), getExDesc helper, presetName helper
 Satır 233-295   EX_PREVIEW objesi (~50 hareket için gif/desc/tips), getExPreview helper
-Satır 296+      PRESET_PROGRAMS dizisi (4 hazır program şablonu: PPL, Upper/Lower, Full Body, Bro Split)
+Satır 296+      PRESET_PROGRAMS dizisi (6 hazır program şablonu: PPL, Upper/Lower, Güray's Hypertrophy No:1, Güray's Hypertrophy Max, Full Body, Bro Split)
 Satır 242-245   RIRS, yardımcı fonksiyonlar (fmt, pD, gdow, storage keys, eDays)
 Satır 246-250   SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
 Satır 251-252   init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu
