@@ -502,7 +502,8 @@ Satır 111-116   Skip-to-content link, noscript fallback, root div (loading skel
 Satır 117-145   Supabase client, React hooks, ErrorBoundary class component, sabitler (D, DF, MO, CATS, CC)
 Satır 108-182   PRESET_EXERCISES dizisi (~56 hazır hareket, yorum bloğu ile açıklanmış)
 Satır 183-232   EX_DESCS (hareket açıklamaları), getExDesc helper, presetName helper
-Satır 233-241   PRESET_PROGRAMS dizisi (4 hazır program şablonu: PPL, Upper/Lower, Full Body, Bro Split)
+Satır 233-295   EX_PREVIEW objesi (~50 hareket için gif/desc/tips), getExPreview helper
+Satır 296+      PRESET_PROGRAMS dizisi (4 hazır program şablonu: PPL, Upper/Lower, Full Body, Bro Split)
 Satır 242-245   RIRS, yardımcı fonksiyonlar (fmt, pD, gdow, storage keys, eDays)
 Satır 246-250   SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
 Satır 251-252   init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu
@@ -706,6 +707,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 ### Kategori 3: Hareketler & Programlar ✅ TAMAMLANDI
 - ✅ **Hareket düzenleme** — İsim ve bölge değiştirme, geçmiş korunur (ID aynı kalır)
 - ✅ **Hareket açıklamaları** — EX_DESCS objesi, preset listede açıklama gösterimi
+- ✅ **Hareket önizleme modalı** — EX_PREVIEW objesi (~50 temel hareket), ExPreviewModal bileşeni, IcoInfo ikonu, 3 tetikleyici nokta (Hareketlerim listesi, Hazır Hareketler modal, Gün görünümü kartları), gif/açıklama/teknik ipuçları, TR/EN dil desteği, Escape ile kapanma
 - ✅ **Program şablonları** — Hazır program kütüphanesi (PPL, Upper/Lower, Güray varyasyonları, Full Body, Bro Split), eksik hareketler otomatik eklenir
 - ✅ **Program döngüsü** — Deload cycle desteği, ayarlanabilir sıklık (3-8 hafta)
 - ✅ **Program ilerleme takibi** — Hafta numarası, uyum oranı (%), progress bar, deload haftası göstergesi

@@ -261,7 +261,7 @@ class ErrorBoundary extends React.Component {
 const D = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
 const DF = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
 const MO = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
-const CATS = ["Göğüs", "Sırt", "Omuz", "Biceps", "Triceps", "Bacak", "Trapez", "Kalça", "Kalf", "Boyun", "Bilek", "Karın", "Bel", "Kardiyo", "Diğer"];
+const CATS = ["Göğüs", "Sırt", "Omuz", "Biceps", "Triceps", "Bacak", "Trapez", "Kalça", "Kalf", "Boyun", "Bilek", "Karın", "Kardiyo", "Diğer"];
 const CAT_LABELS_EN = {
   "Göğüs": "Chest",
   "Sırt": "Back",
@@ -275,7 +275,6 @@ const CAT_LABELS_EN = {
   "Boyun": "Neck",
   "Bilek": "Wrist",
   "Karın": "Core",
-  "Bel": "Lower Back",
   "Kardiyo": "Cardio",
   "Diğer": "Other"
 };
@@ -292,892 +291,562 @@ const CC = {
   "Boyun": "violet",
   "Bilek": "lime",
   "Karın": "red",
-  "Bel": "amber",
   "Kardiyo": "sky",
   "Diğer": "green"
 };
 const PRESET_EXERCISES = [{
-  key: "chest-press",
   name: "Chest Press",
-  categories: ["Göğüs", "Omuz", "Triceps"]
+  categories: ["Göğüs"]
 }, {
-  key: "plate-loaded-chest-press",
-  name: "Plate Loaded Chest Press",
-  categories: ["Göğüs", "Omuz"]
-}, {
-  key: "chest-fly",
   name: "Chest Fly",
-  categories: ["Göğüs", "Omuz"]
+  categories: ["Göğüs"]
 }, {
-  key: "dumbbell-press",
-  name: "Dumbbell Press",
-  categories: ["Göğüs", "Omuz", "Triceps"]
+  name: "Dumbell Press",
+  categories: ["Göğüs"]
 }, {
-  key: "incline-dumbbell-press",
-  name: "Incline Dumbbell Press",
-  nameEN: "Incline Dumbbell Press",
-  categories: ["Göğüs", "Omuz", "Triceps"]
+  name: "İncline Dumbell Press",
+  nameEN: "Incline Dumbell Press",
+  categories: ["Göğüs"]
 }, {
-  key: "dumbbell-fly",
-  name: "Dumbbell Fly",
-  categories: ["Göğüs", "Omuz"]
+  name: "Dumbell Fly",
+  categories: ["Göğüs"]
 }, {
-  key: "bench-press",
   name: "Bench Press",
-  categories: ["Göğüs", "Omuz", "Triceps"]
+  categories: ["Göğüs"]
 }, {
-  key: "incline-bench-press",
-  name: "Incline Bench Press",
+  name: "İncline Bench Press",
   nameEN: "Incline Bench Press",
-  categories: ["Göğüs", "Omuz", "Triceps"]
+  categories: ["Göğüs"]
 }, {
-  key: "smith-machine-bench-press",
-  name: "Smith Machine Bench Press",
-  nameEN: "Smith Machine Bench Press",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "incline-smith-machine-bench-press",
-  name: "Incline Smith Machine Bench Press",
-  nameEN: "Incline Smith Machine Bench Press",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "low-to-high-cable-fly",
-  name: "Low-To-High Cable Fly",
-  nameEN: "Low-To-High Cable Fly",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "cable-crossover",
   name: "Cable Crossover",
   categories: ["Göğüs"]
 }, {
-  key: "pec-deck-fly",
-  name: "Pec Deck Fly",
-  nameEN: "Pec Deck Fly",
-  categories: ["Göğüs"]
-}, {
-  key: "overhead-press",
   name: "Overhead Press",
   categories: ["Omuz"]
 }, {
-  key: "shoulder-press",
   name: "Shoulder Press",
-  nameEN: "Shoulder Press",
   categories: ["Omuz"]
 }, {
-  key: "dumbbell-shoulder-press",
-  name: "Dumbbell Shoulder Press",
-  aliases: ["Dumble Shoulder Press"],
-  categories: ["Omuz"]
-}, {
-  key: "machine-shoulder-press",
-  name: "Machine Shoulder Press",
-  categories: ["Omuz"]
-}, {
-  key: "smith-machine-shoulder-press",
-  name: "Smith Machine Shoulder Press",
-  categories: ["Omuz"]
-}, {
-  key: "lateral-raise",
   name: "Lateral Raise",
   categories: ["Omuz"]
 }, {
-  key: "machine-lateral-raise",
-  name: "Machine Lateral Raise",
-  categories: ["Omuz"]
-}, {
-  key: "cable-lateral-raise",
-  name: "Cable Lateral Raise",
-  categories: ["Omuz"]
-}, {
-  key: "upright-row",
-  name: "Upright Row",
-  categories: ["Omuz"]
-}, {
-  key: "front-raise",
   name: "Front Raise",
   categories: ["Omuz"]
 }, {
-  key: "rear-delt-fly",
-  name: "Arka Omuz Fly",
-  nameEN: "Rear Delt Fly",
+  name: "Rear Delt Fly",
   categories: ["Omuz"]
 }, {
-  key: "reverse-pec-deck",
-  name: "Ters Pec Deck",
-  nameEN: "Reverse Pec Deck",
-  categories: ["Omuz"]
-}, {
-  key: "arnold-press",
-  name: "Arnold Press",
-  categories: ["Omuz"]
-}, {
-  key: "face-pull",
-  name: "Face Pull",
-  categories: ["Omuz"]
-}, {
-  key: "rear-delt-row",
-  name: "Arka Omuz Row",
-  nameEN: "Rear Delt Row",
-  categories: ["Omuz"]
-}, {
-  key: "push-up",
   name: "Şınav",
-  nameEN: "Push-Up",
+  nameEN: "Push Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
-  key: "wide-push-up",
-  name: "Geniş Tutuş Şınav",
-  nameEN: "Wide Push-Up",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "incline-push-up",
-  name: "Incline Şınav",
-  nameEN: "Incline Push-Up",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "decline-push-up",
-  name: "Decline Şınav",
-  nameEN: "Decline Push-Up",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "archer-push-up",
-  name: "Archer Şınav",
-  nameEN: "Archer Push-Up",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "explosive-push-up",
-  name: "Patlayıcı Şınav",
-  nameEN: "Explosive Push-Up",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "clapping-push-up",
-  name: "Alkışlı Şınav",
-  nameEN: "Clapping Push-Up",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "diamond-push-up",
-  name: "Dar Tutuş Şınav",
-  nameEN: "Diamond Push-Up",
-  categories: ["Göğüs", "Triceps", "Omuz"]
-}, {
-  key: "pike-push-up",
-  name: "Pike Şınav",
-  nameEN: "Pike Push-Up",
-  categories: ["Omuz", "Triceps", "Göğüs"]
-}, {
-  key: "pseudo-planche-push-up",
-  name: "Pseudo Planche Şınav",
-  nameEN: "Pseudo Planche Push-Up",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "hindu-push-up",
-  name: "Hindu Şınav",
-  nameEN: "Hindu Push-Up",
-  categories: ["Göğüs", "Omuz", "Triceps"]
-}, {
-  key: "wall-handstand-hold",
-  name: "Duvarda Handstand Bekleme",
-  nameEN: "Wall Handstand Hold",
-  categories: ["Omuz", "Karın", "Triceps"]
-}, {
-  key: "dips",
   name: "Dips",
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
-  key: "bench-dips",
-  name: "Bench Dips",
-  nameEN: "Bench Dips",
-  categories: ["Triceps", "Göğüs", "Omuz"]
-}, {
-  key: "triceps-pushdown",
   name: "Triceps Pushdown",
   categories: ["Triceps"]
 }, {
-  key: "kickback",
   name: "Kickback",
   categories: ["Triceps"]
 }, {
-  key: "overhead-triceps-extension",
   name: "Overhead Triceps Extension",
   categories: ["Triceps"]
 }, {
-  key: "skull-crusher",
   name: "Skull Crusher",
   categories: ["Triceps"]
 }, {
-  key: "biceps-curl",
   name: "Biceps Curl",
-  nameEN: "Biceps Curl",
   categories: ["Biceps"]
 }, {
-  key: "barbell-curl",
-  name: "Barbell Curl",
-  categories: ["Biceps"]
-}, {
-  key: "dumbbell-curl",
-  name: "Dumbbell Curl",
-  categories: ["Biceps"]
-}, {
-  key: "incline-dumbbell-curl",
-  name: "Incline Dumbbell Curl",
-  categories: ["Biceps"]
-}, {
-  key: "cable-curl",
-  name: "Cable Curl",
-  nameEN: "Cable Curl",
-  categories: ["Biceps"]
-}, {
-  key: "concentration-curl",
-  name: "Concentration Curl",
-  categories: ["Biceps"]
-}, {
-  key: "spider-curl",
-  name: "Spider Curl",
-  categories: ["Biceps"]
-}, {
-  key: "hammer-curl",
   name: "Hammer Curl",
   categories: ["Biceps"]
 }, {
-  key: "one-arm-cable-curl",
   name: "One Arm Cable Curl",
   categories: ["Biceps"]
 }, {
-  key: "preacher-curl",
   name: "Preacher Curl",
   categories: ["Biceps"]
 }, {
-  key: "reverse-curl",
   name: "Reverse Curl",
   categories: ["Biceps", "Bilek"]
 }, {
-  key: "chin-up",
-  name: "Chin-Up",
-  categories: ["Biceps", "Sırt"]
-}, {
-  key: "assisted-pull-up",
-  name: "Destekli Barfiks",
-  nameEN: "Assisted Pull-Up",
-  categories: ["Sırt", "Biceps"]
-}, {
-  key: "dead-hang",
   name: "Dead Hang",
   categories: ["Bilek"]
 }, {
-  key: "wrist-extensions",
   name: "Wrist Extensions",
   categories: ["Bilek"]
 }, {
-  key: "wrist-curls",
   name: "Wrist Curls",
   categories: ["Bilek"]
 }, {
-  key: "lat-pulldown",
+  name: "Dead Hang",
+  categories: ["Bilek"]
+}, {
   name: "Lat Pulldown",
   categories: ["Sırt", "Biceps"]
 }, {
-  key: "straight-arm-pulldown",
-  name: "Düz Kol Pulldown",
-  nameEN: "Straight-Arm Pulldown",
-  categories: ["Sırt"]
-}, {
-  key: "pull-up",
-  name: "Barfiks",
-  nameEN: "Pull Up",
+  name: "Pull Up",
   categories: ["Sırt", "Biceps"]
 }, {
-  key: "muscle-up",
-  name: "Muscle-Up",
+  name: "Dumbell Row",
   categories: ["Sırt", "Biceps"]
 }, {
-  key: "dumbbell-row",
-  name: "Dumbbell Row",
-  categories: ["Sırt", "Biceps"]
-}, {
-  key: "chest-supported-row",
-  name: "Göğüs Destekli Row",
-  nameEN: "Chest-Supported Row",
-  categories: ["Sırt", "Biceps"]
-}, {
-  key: "inverted-row",
-  name: "Ters Row",
-  nameEN: "Inverted Row",
-  categories: ["Sırt", "Biceps"]
-}, {
-  key: "australian-pull-up",
-  name: "Australian Pull-Up",
-  nameEN: "Australian Pull-Up",
-  categories: ["Sırt", "Biceps"]
-}, {
-  key: "towel-row",
-  name: "Havlu Row",
-  nameEN: "Towel Row",
-  categories: ["Sırt", "Biceps"]
-}, {
-  key: "scapular-pull-up",
-  name: "Scapular Pull-Up",
-  nameEN: "Scapular Pull-Up",
-  categories: ["Sırt"]
-}, {
-  key: "commando-pull-up",
-  name: "Commando Pull-Up",
-  nameEN: "Commando Pull-Up",
-  categories: ["Sırt", "Biceps"]
-}, {
-  key: "archer-pull-up",
-  name: "Archer Pull-Up",
-  nameEN: "Archer Pull-Up",
-  categories: ["Sırt", "Biceps"]
-}, {
-  key: "cable-row",
   name: "Cable Row",
   categories: ["Sırt", "Biceps"]
 }, {
-  key: "single-arm-cable-row",
-  name: "Single-Arm Cable Row",
-  categories: ["Sırt", "Biceps"]
-}, {
-  key: "barbell-row",
   name: "Barbell Row",
   categories: ["Sırt", "Biceps"]
 }, {
-  key: "t-bar-row",
   name: "T-Bar Row",
   categories: ["Sırt", "Biceps"]
 }, {
-  key: "pullover",
   name: "Pullover",
   categories: ["Sırt", "Biceps"]
 }, {
-  key: "deadlift",
   name: "Deadlift",
-  categories: ["Bel", "Sırt", "Bacak", "Kalça"]
+  categories: ["Sırt", "Bacak", "Kalça"]
 }, {
-  key: "squat",
   name: "Squat",
   categories: ["Bacak", "Kalça"]
 }, {
-  key: "hack-squat",
-  name: "Hack Squat",
-  nameEN: "Hack Squat",
-  categories: ["Bacak", "Kalça"]
-}, {
-  key: "bulgarian-split-squat",
-  name: "Bulgar Split Squat",
-  nameEN: "Bulgarian Split Squat",
-  categories: ["Bacak", "Kalça"]
-}, {
-  key: "wall-sit",
-  name: "Duvar Oturuşu",
-  nameEN: "Wall Sit",
-  categories: ["Bacak"]
-}, {
-  key: "jump-squat",
-  name: "Zıplamalı Squat",
-  nameEN: "Jump Squat",
-  categories: ["Bacak", "Kardiyo"]
-}, {
-  key: "cossack-squat",
-  name: "Cossack Squat",
-  nameEN: "Cossack Squat",
-  categories: ["Bacak", "Kalça"]
-}, {
-  key: "assisted-pistol-squat",
-  name: "Destekli Pistol Squat",
-  nameEN: "Assisted Pistol Squat",
-  categories: ["Bacak", "Kalça"]
-}, {
-  key: "pistol-squat",
-  name: "Pistol Squat",
-  nameEN: "Pistol Squat",
-  categories: ["Bacak", "Kalça"]
-}, {
-  key: "smith-machine-squat",
-  name: "Smith Machine Squat",
-  nameEN: "Smith Machine Squat",
-  categories: ["Bacak", "Kalça"]
-}, {
-  key: "leg-press",
   name: "Leg Press",
   categories: ["Bacak", "Kalça"]
 }, {
-  key: "lunge",
   name: "Lunge",
   categories: ["Bacak", "Kalça"]
 }, {
-  key: "leg-curl",
   name: "Leg Curl",
   categories: ["Bacak"]
 }, {
-  key: "seated-leg-curl",
-  name: "Oturarak Leg Curl",
-  nameEN: "Seated Leg Curl",
-  categories: ["Bacak"]
-}, {
-  key: "leg-extension",
   name: "Leg Extension",
   categories: ["Bacak"]
 }, {
-  key: "leg-abduction",
-  name: "Kalça Abdüksiyon",
-  nameEN: "Leg Abduction",
-  categories: ["Kalça"]
-}, {
-  key: "leg-adduction",
-  name: "Kalça Addüksiyon",
-  nameEN: "Leg Adduction",
-  categories: ["Kalça", "Bacak"]
-}, {
-  key: "calf-raise",
   name: "Calf Raise",
   categories: ["Kalf"]
 }, {
-  key: "shrug",
   name: "Shrug",
   categories: ["Trapez"]
 }, {
-  key: "romanian-deadlift",
-  name: "Romanian Deadlift",
-  categories: ["Bel", "Sırt", "Bacak", "Kalça"]
-}, {
-  key: "back-extension",
-  name: "Back Extension",
-  categories: ["Bel"]
-}, {
-  key: "superman",
-  name: "Superman",
-  categories: ["Bel"]
-}, {
-  key: "hip-thrust",
   name: "Hip Thrust",
   categories: ["Kalça"]
 }, {
-  key: "glute-kickback",
-  name: "Glute Kickback",
-  nameEN: "Glute Kickback",
-  categories: ["Kalça"]
-}, {
-  key: "glute-bridge",
   name: "Glute Bridge",
   categories: ["Kalça"]
 }, {
-  key: "single-leg-glute-bridge",
-  name: "Tek Bacak Glute Bridge",
-  nameEN: "Single-Leg Glute Bridge",
-  categories: ["Kalça", "Bacak"]
-}, {
-  key: "plank",
   name: "Plank",
   categories: ["Karın"]
 }, {
-  key: "side-plank",
-  name: "Yan Plank",
-  nameEN: "Side Plank",
-  categories: ["Karın"]
-}, {
-  key: "crunch",
   name: "Crunch",
   categories: ["Karın"]
 }, {
-  key: "cable-crunch",
   name: "Cable Crunch",
   categories: ["Karın"]
 }, {
-  key: "hanging-leg-raise",
-  name: "Asılı Bacak Kaldırma",
-  nameEN: "Hanging Leg Raise",
-  categories: ["Karın"]
-}, {
-  key: "ab-wheel",
-  name: "Ab Wheel",
-  nameEN: "Ab Wheel Rollout",
-  categories: ["Karın"]
-}, {
-  key: "dead-bug",
-  name: "Dead Bug",
-  nameEN: "Dead Bug",
-  categories: ["Karın"]
-}, {
-  key: "hollow-body-hold",
-  name: "Hollow Body Hold",
-  nameEN: "Hollow Body Hold",
-  categories: ["Karın"]
-}, {
-  key: "hollow-rock",
-  name: "Hollow Rock",
-  nameEN: "Hollow Rock",
-  categories: ["Karın"]
-}, {
-  key: "reverse-crunch",
-  name: "Ters Crunch",
-  nameEN: "Reverse Crunch",
-  categories: ["Karın"]
-}, {
-  key: "v-up",
-  name: "V-Up",
-  nameEN: "V-Up",
-  categories: ["Karın"]
-}, {
-  key: "flutter-kicks",
-  name: "Flutter Kicks",
-  nameEN: "Flutter Kicks",
-  categories: ["Karın"]
-}, {
-  key: "bird-dog",
-  name: "Bird Dog",
-  nameEN: "Bird Dog",
-  categories: ["Karın", "Bel"]
-}, {
-  key: "l-sit-hold",
-  name: "L-Sit Bekleme",
-  nameEN: "L-Sit Hold",
-  categories: ["Karın", "Omuz", "Triceps"]
-}, {
-  key: "tuck-l-sit",
-  name: "Tuck L-Sit",
-  nameEN: "Tuck L-Sit",
-  categories: ["Karın", "Omuz", "Triceps"]
-}, {
-  key: "russian-twist",
   name: "Russian Twist",
   categories: ["Karın"]
 }, {
-  key: "mountain-climber",
   name: "Mountain Climber",
   categories: ["Karın", "Kardiyo"]
 }, {
-  key: "burpee",
   name: "Burpee",
   categories: ["Kardiyo"]
 }, {
-  key: "bear-crawl",
-  name: "Bear Crawl",
-  nameEN: "Bear Crawl",
-  categories: ["Kardiyo", "Karın", "Omuz"]
-}, {
-  key: "crab-walk",
-  name: "Crab Walk",
-  nameEN: "Crab Walk",
-  categories: ["Kardiyo", "Omuz", "Triceps"]
-}, {
-  key: "high-knees",
-  name: "Diz Çekme Koşusu",
-  nameEN: "High Knees",
-  categories: ["Kardiyo", "Bacak"]
-}, {
-  key: "skater-jump",
-  name: "Skater Jump",
-  nameEN: "Skater Jump",
-  categories: ["Kardiyo", "Bacak", "Kalça"]
-}, {
-  key: "walking",
-  name: "Yürüyüş",
-  nameEN: "Walking",
-  categories: ["Kardiyo"]
-}, {
-  key: "running",
-  name: "Koşu",
-  nameEN: "Running",
-  categories: ["Kardiyo"]
-}, {
-  key: "jump-rope",
-  name: "İp atlamak",
-  nameEN: "Jump Rope",
-  categories: ["Kardiyo"]
-}, {
-  key: "jumping-jack",
   name: "Jumping Jack",
   categories: ["Kardiyo"]
 }, {
-  key: "treadmill",
   name: "Yürüyüş Bandı",
   nameEN: "Treadmill",
   categories: ["Kardiyo"]
 }, {
-  key: "cycling",
   name: "Bisiklet",
   nameEN: "Cycling",
   categories: ["Kardiyo"]
 }, {
-  key: "moonwalk",
   name: "Ay Yürüyüşü",
   nameEN: "Moonwalk",
   categories: ["Kardiyo"]
-}, {
-  key: "step-up",
-  name: "Step-Up",
-  nameEN: "Step-Up",
-  categories: ["Bacak", "Kalça"]
-}, {
-  key: "chair-bulgarian-split-squat",
-  name: "Sandalye Bulgar Split Squat",
-  nameEN: "Chair Bulgarian Split Squat",
-  categories: ["Bacak", "Kalça"]
 }];
 const EX_DESCS = {
   "Chest Press": ["Makinede göğüs press. Sabit hareket yolu, güvenli.", "Machine chest press. Fixed path, safe."],
   "Chest Fly": ["Göğüs açma-kapama. İzolasyon hareketi.", "Chest fly. Isolation movement."],
-  "Dumbbell Press": ["Dumbbell ile düz bank press.", "Flat dumbbell press."],
-  "Incline Dumbbell Press": ["Eğik bankta dumbbell press. Üst göğüs.", "Incline dumbbell press. Upper chest."],
-  "Dumbbell Fly": ["Dumbbell ile göğüs açma-kapama.", "Dumbbell chest fly."],
+  "Dumbell Press": ["Dumbbell ile düz bank press.", "Flat dumbbell press."],
+  "İncline Dumbell Press": ["Eğik bankta dumbbell press. Üst göğüs.", "Incline dumbbell press. Upper chest."],
+  "Dumbell Fly": ["Dumbbell ile göğüs açma-kapama.", "Dumbbell chest fly."],
   "Bench Press": ["Düz bankta barbell press. Temel bileşik hareket.", "Barbell bench press. Fundamental compound."],
-  "Incline Bench Press": ["Eğik bankta barbell press. Üst göğüs + ön omuz.", "Incline barbell press. Upper chest + front delts."],
+  "İncline Bench Press": ["Eğik bankta barbell press. Üst göğüs + ön omuz.", "Incline barbell press. Upper chest + front delts."],
   "Cable Crossover": ["Kablo çaprazlama. Sürekli gerilim.", "Cable crossover. Constant tension."],
-  "pec-deck-fly": ["Makinede göğüs açma-kapama. Sabit yol, izolasyon odaklı.", "Machine chest fly. Fixed path, chest isolation."],
   "Overhead Press": ["Ayakta barbell omuz press.", "Standing barbell overhead press."],
   "Shoulder Press": ["Oturarak/ayakta omuz press.", "Seated/standing shoulder press."],
-  "Dumbbell Shoulder Press": ["Dumbbell ile omuz press.", "Dumbbell shoulder press."],
-  "Machine Shoulder Press": ["Makinede omuz press.", "Machine shoulder press."],
-  "Smith Machine Shoulder Press": ["Smith machine ile omuz press.", "Smith machine shoulder press."],
   "Lateral Raise": ["Yana kaldırma. Yan deltoid.", "Lateral raise. Side delts."],
   "Front Raise": ["Öne kaldırma. Ön deltoid.", "Front raise. Front delts."],
   "Rear Delt Fly": ["Arka omuz açma. Arka deltoid.", "Rear delt fly. Rear delts."],
-  "reverse-pec-deck": ["Ters pec deck. Arka omuz ve üst sırt odaklı.", "Reverse pec deck. Rear delts and upper back focus."],
   "Şınav": ["Push-up. Göğüs, omuz, triceps.", "Push-up. Chest, shoulders, triceps."],
-  "diamond-push-up": ["Dar el pozisyonu ile şınav. Triceps vurgusu yüksektir.", "Push-up with a narrow hand position. Strong triceps emphasis."],
-  "pike-push-up": ["Kalça yukarıda yapılan şınav. Omuz baskın bir itiş hareketi.", "Hips high push-up variation with a shoulder emphasis."],
-  "pseudo-planche-push-up": ["Ağırlığı öne taşıyan ileri seviye şınav varyasyonu.", "Advanced push-up variation with the body weight shifted forward."],
-  "hindu-push-up": ["Akıcı geçişli şınav. Omuz, göğüs ve mobilite katkısı sağlar.", "Flowing push-up variation that trains shoulders, chest, and mobility."],
-  "wall-handstand-hold": ["Duvarda handstand bekleme. Omuz stabilitesi ve gövde kontrolü geliştirir.", "Wall-supported handstand hold for shoulder stability and body control."],
   "Dips": ["Paralel barda dip. Göğüs + triceps.", "Parallel bar dips. Chest + triceps."],
-  "bench-dips": ["Bench veya sandalye desteğiyle dip. Evde triceps çalışmak için pratik.", "Dip variation using a bench or chair. Handy for home triceps work."],
   "Triceps Pushdown": ["Kablo triceps pushdown.", "Cable triceps pushdown."],
   "Kickback": ["Dumbbell kickback. Triceps izolasyonu.", "Dumbbell kickback. Triceps isolation."],
   "Overhead Triceps Extension": ["Baş üstü triceps uzatma.", "Overhead triceps extension."],
   "Skull Crusher": ["Yatarak barbell triceps uzatma.", "Lying barbell triceps extension."],
   "Biceps Curl": ["Barbell/dumbbell biceps curl.", "Barbell/dumbbell biceps curl."],
-  "Cable Curl": ["Kablo ile biceps curl.", "Cable biceps curl."],
   "Hammer Curl": ["Nötr tutuş curl. Brachialis vurgusu.", "Neutral grip curl. Brachialis emphasis."],
   "One Arm Cable Curl": ["Tek kol kablo curl.", "Single arm cable curl."],
   "Preacher Curl": ["Scott sehpasında curl.", "Preacher bench curl."],
   "Reverse Curl": ["Ters tutuş curl. Ön kol + brachialis.", "Reverse curl. Forearm + brachialis."],
-  "assisted-pull-up": ["Destekli barfiks. Barfiks formunu öğrenmek ve hacim toplamak için ideal.", "Assisted pull-up. Great for learning pull-ups and adding volume."],
   "Dead Hang": ["Barfikse asılma. Kavrama gücü.", "Bar hang. Grip strength."],
   "Wrist Extensions": ["Bilek uzatma. Ön kol.", "Wrist extensions. Forearms."],
   "Wrist Curls": ["Bilek bükme. Ön kol.", "Wrist curls. Forearms."],
   "Lat Pulldown": ["Lat pulldown. Sırt genişliği.", "Lat pulldown. Back width."],
-  "straight-arm-pulldown": ["Kollar nispeten düz kalır, lat aktivasyonunu artırır.", "Keep the arms mostly straight to emphasize the lats."],
   "Pull Up": ["Barfiks. Temel sırt hareketi.", "Pull-up. Fundamental back exercise."],
-  "Dumbbell Row": ["Tek kol dumbbell sıra çekme.", "Single arm dumbbell row."],
-  "chest-supported-row": ["Göğüs destekli çekiş. Bel yükünü azaltır, sırtı izole eder.", "Chest-supported row. Reduces lower-back load and isolates the back."],
-  "inverted-row": ["Bar veya masa altında yapılan yatay çekiş. Evde sırt için çok kullanışlı.", "Horizontal pulling movement under a bar or table. Great for home back work."],
-  "australian-pull-up": ["Alçak barda yapılan vücut ağırlığı row. Inverted row'a çok benzer.", "Bodyweight row on a low bar. Very similar to an inverted row."],
-  "towel-row": ["Havlu yardımıyla yapılan çekiş. Kavrama ve sırt aktivasyonu sağlar.", "Pulling variation using a towel. Good for grip and back activation."],
-  "scapular-pull-up": ["Dirsekleri bükmeden skapulayı aşağı çekme. Barfiks hazırlığı için iyi.", "Scapular depression drill without bending the elbows. Great pull-up prep."],
-  "commando-pull-up": ["Barı yan tutuşla çekiş. Tekrarlar boyunca taraf değiştirilebilir.", "Pull-up variation with a side grip on the bar. You can alternate sides."],
-  "archer-pull-up": ["Bir kola daha fazla yük bindiren ileri seviye barfiks varyasyonu.", "Advanced pull-up variation that shifts more load to one arm."],
+  "Dumbell Row": ["Tek kol dumbbell sıra çekme.", "Single arm dumbbell row."],
   "Cable Row": ["Oturarak kablo çekme.", "Seated cable row."],
   "Barbell Row": ["Eğilerek barbell sıra çekme.", "Bent-over barbell row."],
   "T-Bar Row": ["T-bar sıra çekme. Sırt kalınlığı.", "T-bar row. Back thickness."],
   "Pullover": ["Dumbbell pullover. Sırt + göğüs.", "Dumbbell pullover. Back + chest."],
   "Deadlift": ["Yerden kaldırma. En temel bileşik hareket.", "Deadlift. Most fundamental compound lift."],
   "Squat": ["Barbell squat. Bacak bileşik hareketi.", "Barbell squat. Leg compound."],
-  "hack-squat": ["Hack squat makinesi. Quadriceps odaklı squat varyasyonu.", "Hack squat machine. Squat variation with a quad emphasis."],
-  "bulgarian-split-squat": ["Arka ayak yükseltili tek bacak squat. Denge ve kalça katkısı yüksek.", "Rear-foot-elevated single-leg squat. Great for balance and glutes."],
-  "wall-sit": ["Duvara yaslanarak izometrik bekleme. Quadriceps yanmasını hızlı hissettirir.", "Isometric hold against a wall. A quick burner for the quads."],
-  "jump-squat": ["Patlayıcı squat varyasyonu. Bacak gücü ve kondisyonu birlikte çalıştırır.", "Explosive squat variation that trains legs and conditioning together."],
-  "cossack-squat": ["Yana ağırlık aktararak yapılan squat. Mobilite ve iç bacak katkısı yüksektir.", "Side-to-side squat that builds mobility and adductor strength."],
-  "assisted-pistol-squat": ["Destek alarak tek bacak squat. Pistol squat için ara basamak.", "Supported single-leg squat. A progression toward the pistol squat."],
-  "pistol-squat": ["Tek bacak üzerinde tam squat. Denge ve kuvvet gerektirir.", "Full squat on one leg. Demands balance and strength."],
-  "Smith Machine Squat": ["Smith machine ile squat.", "Smith machine squat."],
   "Leg Press": ["Bacak press makinesi.", "Leg press machine."],
   "Lunge": ["İleri hamle. Tek bacak gücü.", "Lunge. Single leg strength."],
   "Leg Curl": ["Yatarak bacak bükme. Hamstring.", "Leg curl. Hamstrings."],
-  "seated-leg-curl": ["Oturarak leg curl. Hamstringleri uzun pozisyonda çalıştırır.", "Seated leg curl. Trains the hamstrings in a lengthened position."],
   "Leg Extension": ["Oturarak bacak uzatma. Quadriceps.", "Leg extension. Quadriceps."],
-  "leg-abduction": ["Bacakları dışa açma. Glute medius ve kalça yan hattı odaklı.", "Leg abduction. Targets the glute medius and outer hips."],
-  "leg-adduction": ["Bacakları içe kapatma. İç bacak ve kalça stabilitesi odaklı.", "Leg adduction. Targets inner thighs and hip stability."],
   "Calf Raise": ["Baldır kaldırma.", "Calf raise."],
   "Shrug": ["Omuz silkme. Trapez.", "Shrug. Traps."],
   "Hip Thrust": ["Kalça itiş. Gluteus maximus.", "Hip thrust. Glutes."],
-  "glute-kickback": ["Kalçayı geriye itiş. Glute izolasyonu için iyi bir seçenek.", "Hip extension kickback. Great for glute isolation."],
   "Glute Bridge": ["Kalça köprüsü. Kalça aktivasyonu.", "Glute bridge. Glute activation."],
-  "single-leg-glute-bridge": ["Tek bacakla glute bridge. Kalça stabilitesi ve tek taraflı güç için iyi.", "Single-leg glute bridge. Great for glute stability and unilateral strength."],
   "Plank": ["Plank. Karın stabilizasyonu.", "Plank. Core stabilization."],
-  "side-plank": ["Yan plank. Oblikler ve gövde stabilitesi için etkilidir.", "Side plank. Effective for obliques and lateral core stability."],
   "Crunch": ["Karın sıkıştırma.", "Abdominal crunch."],
   "Cable Crunch": ["Kablo karın sıkıştırma.", "Cable crunch."],
-  "hanging-leg-raise": ["Asılı pozisyonda bacak kaldırma. Alt karın ve core kontrolü odaklı.", "Raise the legs while hanging. Targets lower abs and core control."],
-  "ab-wheel": ["Ab wheel rollout. Karın, omuz ve gövde stabilitesi ister.", "Ab wheel rollout. Demands core, shoulder, and trunk stability."],
-  "dead-bug": ["Sırt üstü karşı kol ve bacak uzatma. Core stabilitesi için çok iyi.", "Opposite arm and leg extension on the floor. Excellent for core stability."],
-  "hollow-body-hold": ["Vücudu muz şeklinde sabit tutma. Calisthenics temel core hareketidir.", "Static hollow position. A foundational calisthenics core drill."],
-  "hollow-rock": ["Hollow body pozisyonunda kontrollü sallanma.", "Controlled rocking while staying in a hollow body position."],
-  "reverse-crunch": ["Kalçayı yerden kaldırarak alt karına yük bindirir.", "Raises the hips off the floor to emphasize the lower abs."],
-  "v-up": ["Aynı anda bacak ve gövdeyi kaldırma. Karın sıkılaştırıcı bir varyasyon.", "Raise the legs and torso together. Challenging abdominal variation."],
-  "flutter-kicks": ["Bacakları sırayla küçük vuruşlarla hareket ettirme. Süre bazlı core egzersizi.", "Small alternating leg kicks. Time-based core exercise."],
-  "bird-dog": ["Karşı kol ve bacağı uzatarak denge kurma. Bel dostu bir core hareketi.", "Extend opposite arm and leg to train balance and core control."],
-  "l-sit-hold": ["Bacaklar önde düz bekleme. Core ve omuz baskısı yüksektir.", "Hold the legs straight out in front. Demanding on core and shoulders."],
-  "tuck-l-sit": ["L-sit'in dizler bükülü daha ulaşılabilir versiyonu.", "More accessible L-sit variation with bent knees."],
   "Russian Twist": ["Gövde rotasyonu. Oblikler.", "Torso rotation. Obliques."],
   "Mountain Climber": ["Dağ tırmanıcı. Kardiyo + karın.", "Mountain climber. Cardio + core."],
   "Burpee": ["Tam vücut kardiyo.", "Full body cardio."],
-  "bear-crawl": ["Eller ve ayaklar üzerinde ilerleme. Omuz, core ve kondisyonu birlikte çalıştırır.", "Crawl on hands and feet. Trains shoulders, core, and conditioning together."],
-  "crab-walk": ["Ters masa pozisyonunda yürüyüş. Omuz ve triceps dayanıklılığına katkı sağlar.", "Walk in a reverse tabletop position. Good for shoulder and triceps endurance."],
-  "high-knees": ["Dizleri hızlıca yukarı çekerek yerinde koşu.", "Run in place while driving the knees high."],
-  "skater-jump": ["Yanal zıplama varyasyonu. Denge, güç ve kondisyonu birleştirir.", "Lateral jumping drill that combines balance, power, and conditioning."],
   "Jumping Jack": ["Zıplama. Kardiyo.", "Jumping jack. Cardio."],
   "Yürüyüş Bandı": ["Koşu bandında yürüyüş/koşu.", "Treadmill walking/running."],
   "Bisiklet": ["Bisiklet kardiyo.", "Cycling cardio."],
-  "Ay Yürüyüşü": ["Eliptik/özel yürüyüş.", "Elliptical/special walk."],
-  "step-up": ["Bir yükseltiye çıkıp inme. Tek taraflı bacak kuvveti için çok kullanışlı.", "Step up onto a box or chair. Great for unilateral leg strength."],
-  "chair-bulgarian-split-squat": ["Arka ayak sandalyede olacak şekilde yapılan Bulgar split squat.", "Bulgarian split squat performed with the rear foot on a chair."]
+  "Ay Yürüyüşü": ["Eliptik/özel yürüyüş.", "Elliptical/special walk."]
 };
-const normalizePresetText = value => (value || "").trim().toLocaleLowerCase("tr");
-const getPresetExerciseNames = preset => [preset?.name, preset?.nameEN, ...(preset?.aliases || [])].filter(Boolean);
-const getPresetExerciseLookupKeys = preset => [preset?.key, ...getPresetExerciseNames(preset)];
-const PRESET_EXERCISES_BY_KEY = PRESET_EXERCISES.reduce((acc, preset) => {
-  acc[preset.key] = preset;
-  return acc;
-}, {});
-const PRESET_EXERCISE_REF_TO_KEY = PRESET_EXERCISES.reduce((acc, preset) => {
-  acc[preset.key] = preset.key;
-  getPresetExerciseNames(preset).forEach(name => {
-    acc[normalizePresetText(name)] = preset.key;
-  });
-  return acc;
-}, {});
-const findPresetExercise = ref => {
-  if (!ref) return null;
-  if (typeof ref === "object" && ref.key) return PRESET_EXERCISES_BY_KEY[ref.key] || ref;
-  const lookupKey = PRESET_EXERCISE_REF_TO_KEY[normalizePresetText(ref)] || ref;
-  return PRESET_EXERCISES_BY_KEY[lookupKey] || null;
-};
-const getExDesc = (ref, lang) => {
-  const preset = findPresetExercise(ref);
-  const lookupKeys = preset ? getPresetExerciseLookupKeys(preset) : [ref];
-  for (const key of lookupKeys) {
-    const d = EX_DESCS[key];
-    if (d) return lang === "en" ? d[1] : d[0];
-  }
-  return null;
+const getExDesc = (name, lang) => {
+  const d = EX_DESCS[name];
+  if (!d) return null;
+  return lang === "en" ? d[1] : d[0];
 };
 const presetName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;
-const presetProgramName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;
-const PROGRAM_LEVEL_META = {
-  beginner: {
-    tr: "Başlangıç",
-    en: "Beginner",
-    color: "green"
+const EX_PREVIEW = {
+  "Bench Press": {
+    gif: null,
+    desc: ["Düz bankta barbell press. Göğüs kasları (pectoralis major), ön deltoid ve triceps aynı anda çalışır. Üst vücut kuvvetinin temel bileşik hareketi.", "Barbell press on a flat bench. Works the pectorals, front deltoids, and triceps together. The foundational compound for upper body strength."],
+    tips: [["Omuz bıçaklarını bankta birbirine sıkıştır ve kilitli tut.", "Retract and lock shoulder blades into the bench before unracking."], ["Barı göğsünün orta-alt kısmına değdir; sektirme.", "Touch bar to mid-lower chest without bouncing."], ["Ayaklar yere tam bassın; kalça banktan kalkmamalı.", "Keep feet flat on floor; hips must stay on the bench."], ["Kontrollü indir (~2 sn), güçlü ve hızlı it.", "Lower slowly (~2 sec), then press up powerfully."], ["Nefesi inerken al, iterken ver.", "Inhale on the way down, exhale as you press."]]
   },
-  intermediate: {
-    tr: "Orta Seviye",
-    en: "Intermediate",
-    color: "orange"
+  "İncline Bench Press": {
+    gif: null,
+    desc: ["30–45° eğik bankta barbell press. Üst göğüs bölgesini ve ön omuzları standart bench'e göre daha fazla çalıştırır. Tam göğüs gelişimi için önemlidir.", "Barbell press on a 30–45° incline bench. Targets the upper chest and front deltoids more than flat bench. Essential for complete chest development."],
+    tips: [["Banco 30–45° arasında ayarla; fazla eğik olursa omuz baskısı artar.", "Set bench to 30–45°; steeper angles overload the shoulders."], ["Bar üst göğse iner — boyun veya yüze değil.", "Bar descends to upper chest — not toward neck or face."], ["Dirsekleri hafifçe içe al (~75°); tam yanlara açma.", "Tuck elbows slightly (~75°); don't fully flare them out."], ["Göğsü hareket boyunca kasılı hissedecek şekilde sıkıştır.", "Feel the chest squeezing throughout the entire movement."]]
   },
-  advanced: {
-    tr: "İleri Seviye",
-    en: "Advanced",
-    color: "red"
+  "Dumbell Press": {
+    gif: null,
+    desc: ["Dumbbell ile düz bankta göğüs press. Her kol bağımsız çalışır; kas dengesizliklerini giderir ve hareket açısı daha geniş olabilir.", "Flat dumbbell chest press. Each arm works independently, correcting imbalances. Allows a greater range of motion at the bottom."],
+    tips: [["Dumbbellları hafifçe birbirine yaklaştırarak sık — göğüs aktivasyonunu artırır.", "Squeeze dumbbells slightly toward each other at the top for extra chest contraction."], ["Her iki tarafın aynı ağırlık ve tekrarı yapmasına dikkat et.", "Ensure both sides match in weight and reps to prevent imbalance."], ["Alt noktada dirsekler 90° bükük, dumbbelllar omuz hizasında.", "At the bottom, elbows at 90°, dumbbells in line with shoulders."]]
+  },
+  "İncline Dumbell Press": {
+    gif: null,
+    desc: ["Eğik bankta dumbbell press. Üst göğüsü izole eder, hareket açısı barbell'e göre daha serbesttir. Bütün göğüs programının önemli bir parçasıdır.", "Incline dumbbell press. Isolates the upper chest with a freer range of motion than barbell. An important part of any complete chest program."],
+    tips: [["Banco 30–45° arasında — fazla dik omuzları aşırı yorar.", "Set bench to 30–45° — too steep overworks the shoulders."], ["Her iki kolu eşit şekilde kaldır; biri ileride olmamalı.", "Raise both arms equally; one side shouldn't lead the other."], ["Hareketi tamamlarken dumbbellları birbirine yaklaştır ve üst göğsü sık.", "Bring dumbbells together at the top and squeeze the upper chest."]]
+  },
+  "Dumbell Fly": {
+    gif: null,
+    desc: ["Dumbbell ile göğüs açma-kapama (fly) hareketi. Göğüs kasını yatay düzlemde izole eder. Büyük bir gerilim açısı sağlar.", "Dumbbell chest fly. Isolates the chest in the horizontal plane. Provides a large stretch at the bottom."],
+    tips: [["Dirsekleri hafifçe bük — tamamen düz tutma, eklem stresi artar.", "Keep a soft elbow bend throughout — fully straight arms increase joint stress."], ["Geniş açıdan indir; göğüste derin bir gerilim hissedeceksin.", "Lower through a wide arc until you feel a deep chest stretch."], ["Ağırlıktan değil, hissettirenden git; form her zaman önce.", "Prioritize the feel over the load; form always comes first."]]
+  },
+  "Cable Crossover": {
+    gif: null,
+    desc: ["Çift kablo makinesinde göğüs çaprazlama hareketi. Hareket boyunca sürekli gerilim sağlar. Özellikle iç göğüs ve alt göğüsü izole etmek için idealdir.", "Chest crossover on a dual cable machine. Provides constant tension throughout the movement. Ideal for isolating the inner and lower chest."],
+    tips: [["Kablo yüksekliğini değiştirerek farklı göğüs bölgelerini hedefleyebilirsin.", "Change cable height to target different chest regions (upper/mid/lower)."], ["Hareketi bitirirken elleri birbiriyle kapat ve 1 sn sık.", "Fully close and cross hands at the end, hold for 1 second."], ["Gövdeyi hafifçe öne eğ; dik durmak göğsü devre dışı bırakır.", "Lean torso slightly forward; standing fully upright removes chest tension."]]
+  },
+  "Şınav": {
+    gif: null,
+    desc: ["Temel vücut ağırlığı egzersizi. Göğüs, omuz ve triceps kaslarını birlikte çalıştırır. Ekipman gerektirmez, her yerde yapılabilir.", "Fundamental bodyweight exercise. Works chest, shoulders, and triceps together. Requires no equipment, can be done anywhere."],
+    tips: [["Vücut baştan topuğa düz bir çizgi oluşturmalı; bel ne düşmeli ne de kabarmalı.", "Body should form a straight line from head to heels; hips neither sag nor pike."], ["Göğsü yere değdir — tam ROM için çalış.", "Touch chest to floor — aim for full range of motion."], ["Ayakları yükseltince (decline) üst göğüs, dizleri yere koyunca kolaylaşır.", "Elevated feet (decline) hits upper chest; knees on floor for an easier variation."], ["Nefes alarak in, iterken ver.", "Inhale going down, exhale pressing up."]]
+  },
+  "Dips": {
+    gif: null,
+    desc: ["Paralel barlarda baskı egzersizi. Öne eğilince göğüs, dik durulursa triceps vurgulanır. Ciddi ağırlık eklenebilen güçlü bir bileşik harekettir.", "Upper body pressing on parallel bars. Leaning forward emphasizes chest; staying upright emphasizes triceps. Can be loaded heavily over time."],
+    tips: [["Göğüs için öne ~30° eğil; triceps için gövdeyi dik tut.", "Lean forward ~30° for chest emphasis; stay upright for triceps."], ["Omuzları kulağa doğru çöktürme — omuz bıçaklarını gergin tut.", "Don't let shoulders shrug up — keep them depressed and retracted."], ["Tam aşağı in (90°), tam yukarı çık ama dirsekleri kilitleme.", "Go to 90° at the elbow at bottom, fully extend at top without locking."]]
+  },
+  "Deadlift": {
+    gif: null,
+    desc: ["Yerden barbell kaldırma. En temel güç hareketlerinden biri. Sırt, bacak, kalça, core ve kavrama gücü dahil neredeyse tüm vücudu çalıştırır.", "Barbell lift from the floor. One of the most fundamental strength movements. Works back, legs, glutes, core, and grip — virtually the whole body."],
+    tips: [["Bar ayak ortasının üzerinde olmalı; kaldırmadan önce bacaklar barla temas etsin.", "Bar over mid-foot; shins should contact the bar before pulling."], ["Kalçaları öne it ve sırtı düz tut — kamburluk kesinlikle olmamalı.", "Drive hips through at the top — maintain neutral spine, no rounding."], ["Kaldırmadan önce derin nefes al ve karnı sabitle (Valsalva).", "Take a deep breath and brace core before each rep (Valsalva maneuver)."], ["Bar vücuda yakın kalsın — ayaklardan uzaklaşmasın.", "Keep bar close to body throughout — don't let it drift forward."], ["Erken aşamada bacaklarla it, geç aşamada kalçayla tamamla.", "Think: push the floor away early (legs), then drive hips through late."]]
+  },
+  "Squat": {
+    gif: null,
+    desc: ["Barbell arka squat. Bacakların temel bileşik hareketi. Quadriceps, hamstring, gluteus ve core kaslarını güçlü biçimde çalıştırır.", "Barbell back squat. The primary lower body compound movement. Works quads, hamstrings, glutes, and core powerfully."],
+    tips: [["Diz ayak parmakları yönünde açılsın — içe çökmemeli.", "Knees should track over toes — don't let them cave inward."], ["Kalçayı paralelin altına indir (esnekliğin izin verdiği kadar).", "Break parallel with the hips if your flexibility allows."], ["Nefesi inerken al, yukarı çıkarken ver.", "Inhale going down, exhale on the way up."], ["Topuklar yerde kalsın — kaldırılmamalı.", "Keep heels on the ground throughout the entire movement."], ["Core kilitli, göğüs yukarı bakmalı — öne kapanma.", "Brace core hard, chest up — don't fold forward at the hips."]]
+  },
+  "Leg Press": {
+    gif: null,
+    desc: ["Bacak press makinesi. Squat'ın aksine omurga yükü olmadan quadriceps, hamstring ve gluteusları çalıştırır. Başlangıç seviyesi için güvenli bir seçenek.", "Leg press machine. Works quads, hamstrings, and glutes without spinal loading. A safer option especially for beginners."],
+    tips: [["Ayak pozisyonu önemlidir: yukarıda=hamstring/glute, aşağıda=quad vurgusu.", "Foot placement matters: high = more hamstring/glute, low = more quad."], ["Dizleri platforma tam uzanarak kilitleme — eklem stresini artırır.", "Don't lock out knees fully at the top — stop just short to protect joints."], ["Sırtını makine sırtlığından kaldırma, tüm hareket boyunca bassın.", "Keep lower back pressed firmly against the pad throughout."], ["Kontrollü indir (2-3 sn), güçlü ve hızlı çık.", "Lower slowly (2-3 sec), press up powerfully."]]
+  },
+  "Lunge": {
+    gif: null,
+    desc: ["İleri hamle. Tek bacak gücü, denge ve koordinasyon için mükemmeldir. Quadriceps ve gluteusları birlikte çalıştırır.", "Forward lunge. Excellent for single-leg strength, balance, and coordination. Works quads and glutes together."],
+    tips: [["Adım atınca ön diz ayak parmağının önüne geçmemeli.", "When stepping, front knee should not go past the toes."], ["Gövdeyi dik tut — aşırı öne eğilme.", "Keep torso upright — don't lean excessively forward."], ["Arka diz yere yakın insin ama değmemeli.", "Rear knee comes close to the floor but should not touch it."], ["Her iki tarafı eşit tekrarla çalıştır.", "Train both sides with equal reps and weight."]]
+  },
+  "Leg Curl": {
+    gif: null,
+    desc: ["Bacak bükme makinesi. Hamstring kaslarını izole eder. Yatarak veya oturarak yapılır. Bacak güç dengesini korumak için kritiktir.", "Leg curl machine. Isolates the hamstring muscles. Performed lying or seated. Critical for balanced leg strength."],
+    tips: [["Hareket boyunca kalçanın banktan kalkmasını engelle.", "Prevent hips from lifting off the pad during the movement."], ["Tam uzanmaya izin ver — hamstring gerilimi önemlidir.", "Allow full extension — the hamstring stretch is important."], ["Kontrollü indir; hamstring yaralanmalarından korunmak için form şart.", "Lower with control; proper form is essential to prevent hamstring injuries."]]
+  },
+  "Leg Extension": {
+    gif: null,
+    desc: ["Oturarak bacak uzatma makinesi. Quadriceps kaslarını izole eder. Genellikle squat ve leg press'in tamamlayıcısı olarak kullanılır.", "Seated leg extension machine. Isolates the quadriceps. Usually used as a complement to squat and leg press."],
+    tips: [["Tam uzanmaya git ama dizleri kilitleme.", "Extend fully but don't lock out knees at the top."], ["Kontrollü indir — eksantrik faz çok önemlidir.", "Lower slowly — the eccentric (lowering) phase is very important."], ["Diz rahatsızlığı varsa dikkatli ol; çok ağır yüklemekten kaçın.", "Be cautious with knee issues; avoid going excessively heavy."]]
+  },
+  "Hip Thrust": {
+    gif: null,
+    desc: ["Gluteus maximus izolasyon hareketi. Banka yaslanılarak barbell veya bant ile yapılır. Kalça kasını en etkili çalıştıran egzersizler arasındadır.", "Glute isolation movement using a bench, with barbell or band. One of the most effective exercises for targeting gluteus maximus."],
+    tips: [["Omuz bıçaklarını banka daya — omuzlar banka temas halinde olmalı.", "Rest upper back/shoulder blades on the bench edge."], ["Kalçayı tam uzat — üst noktada sanki ayakta duruyormuş gibi sık.", "Fully extend hips at top — squeeze glutes as hard as if standing."], ["Ayaklar yere düz bassın, topuklardan it.", "Press through heels with feet flat on the floor."], ["Barbell için ped kullan — direkt temas rahatsız edicidir.", "Use a barbell pad — direct contact can be quite uncomfortable."]]
+  },
+  "Glute Bridge": {
+    gif: null,
+    desc: ["Sırt üstü yatarak kalça kaldırma. Hip thrust'ın ekipmansız versiyonu. Kalça aktivasyonu ve başlangıç seviyesi antrenmanları için çok yaygındır.", "Lying glute bridge. Bodyweight version of the hip thrust. Very common for glute activation and beginner training."],
+    tips: [["Ayaklar kalça genişliğinde, dizler yaklaşık 90° bükük.", "Feet hip-width apart, knees bent to about 90°."], ["Üst noktada en az 1 saniye güçlüce sık.", "Squeeze glutes at the top for at least 1 second."], ["Diz bandı veya kalça üstü ağırlık ekleyerek zorlaştırabilirsin.", "Add a resistance band around knees or weight on hips to increase difficulty."]]
+  },
+  "Pull Up": {
+    gif: null,
+    desc: ["Barfikse asılarak çıkma. Sırt kaslarının en temel bileşik hareketi. Latissimus dorsi, biceps ve core kaslarını birlikte çalıştırır.", "Pull-up from a dead hang. The foundational compound for back muscles. Works latissimus dorsi, biceps, and core together."],
+    tips: [["Geniş, overhand tutuş lat'ları vurgular; dar tutuş biceps'i.", "Wide overhand grip emphasizes lats; narrower grip shifts more to biceps."], ["Her tekrarda ölü asılmaya dön — tam ROM şart.", "Return to a full dead hang each rep — full range of motion is essential."], ["Çıkış boyunca kürek kemiklerini aşağı çek — omuzları kulağa yaklaştırma.", "Depress shoulder blades throughout — don't let shoulders shrug up."], ["Vücut sallanmasın — kontrollü ve yavaş indir.", "No swinging — controlled and slow descent."]]
+  },
+  "Lat Pulldown": {
+    gif: null,
+    desc: ["Kablo makinesinde yukarıdan çekiş. Pull-up yapamayan kullanıcılar için mükemmel alternatif. Latissimus dorsi ve biceps başarıyla çalıştırılır.", "Cable pulldown from overhead. Excellent alternative for those who can't do pull-ups yet. Works latissimus dorsi and biceps effectively."],
+    tips: [["Bar üst göğse çekilmeli — boyun veya yüze değil.", "Pull bar to upper chest — not toward neck or face."], ["Çekerken dirsekleri aşağı ve hafifçe arkaya götür.", "Drive elbows down and slightly back during the pull."], ["Çıkışta tam uzanmaya izin ver — lat gerilimi önemlidir.", "Allow full stretch at the top — lat elongation matters."], ["Hafifçe arkaya yaslan (~30°); aşırı eğilme.", "Lean back slightly (~30°) — but avoid excessive lean."]]
+  },
+  "Barbell Row": {
+    gif: null,
+    desc: ["Eğilerek barbell sıra çekme. Sırt kalınlığı için en etkili hareketlerden biri. Rhomboid'ler, orta trap, lat ve biceps birlikte çalışır.", "Bent-over barbell row. One of the most effective movements for back thickness. Works rhomboids, middle traps, lats, and biceps."],
+    tips: [["Gövde yaklaşık 45° eğik — yatay pozisyon değil.", "Torso should be roughly 45° — not completely horizontal."], ["Bar göbeğe veya alt göğse değmeli.", "Pull bar to lower abdomen or lower chest."], ["Her tekrarda nefes al ve core'u kilitle — sırtın için deadlift gibi.", "Brace core before each rep — treat it like a deadlift for spine safety."], ["Çekiş sırasında dirsekleri arkaya doğru götür.", "Drive elbows back behind the body during the pull."]]
+  },
+  "Cable Row": {
+    gif: null,
+    desc: ["Oturarak kablo çekme. Sırt kaslarını sürekli gerilimle çalıştırır. Orta sırt ve rhomboid'ler için özellikle etkilidir.", "Seated cable row. Works back muscles under constant tension. Particularly effective for mid-back and rhomboids."],
+    tips: [["Hareket boyunca sırtı düz tut — hareketle birlikte öne sallanma.", "Keep back straight — don't sway forward with each rep."], ["Bitişte kürek kemiklerini sık ve 1 sn tut.", "Squeeze shoulder blades together at the end and hold for 1 second."], ["Tam gerilim için hareketi tam uzanarak başlat.", "Start from a full stretch for maximum range of motion."], ["Dirsekler gövdeye yakın kalsın — dışa açılmasın.", "Keep elbows close to the body — don't let them flare outward."]]
+  },
+  "Dumbell Row": {
+    gif: null,
+    desc: ["Tek kol dumbbell sıra çekme. Her kolu bağımsız çalıştırır; kas dengesizliklerini düzeltir. Sırt kalınlığı ve lat gelişimi için mükemmeldir.", "Single arm dumbbell row. Works each arm independently, correcting imbalances. Excellent for back thickness and lat development."],
+    tips: [["Destek el ve dizi banka koy — sırt düz ve paralel.", "Place support hand and knee on bench — keep back flat and parallel."], ["Dumbbell'ı kalça yanına çek — öne değil, geriye.", "Pull dumbbell toward hip — back and up, not forward."], ["Kürek kemiğini harekete dahil et; sadece kolunla çekme.", "Engage the shoulder blade; don't just pull with the arm."]]
+  },
+  "T-Bar Row": {
+    gif: null,
+    desc: ["T-bar makinesinde veya köşeye sıkıştırılmış barbell ile sıra çekme. Sırt kalınlığını geliştirmede çok etkilidir. Orta sırt kaslarını güçlü çalıştırır.", "Row using a T-bar machine or landmine setup. Very effective for building back thickness. Powerfully works mid-back muscles."],
+    tips: [["Gövdeyi yaklaşık 45° eğik tut — fazla dik durma.", "Keep torso roughly 45° — don't stand too upright."], ["Bar göbeğe veya alt göğse çekilmeli.", "Pull toward abdomen or lower chest."], ["Çekiş boyunca kürek kemiklerini sıkıştır ve tut.", "Squeeze and hold shoulder blades together throughout the pull."]]
+  },
+  "Pullover": {
+    gif: null,
+    desc: ["Banka en-çapraz yatarak dumbbell hareketi. Hem lat'ları hem göğüsü (serratus anterior dahil) çalıştıran benzersiz bir egzersizdir.", "Lying dumbbell pullover. A unique movement working both lats and chest (including serratus anterior)."],
+    tips: [["Bankta sadece omuz bıçakları temas etmeli — en-çapraz yat.", "Lie across bench with only shoulder blades touching — perpendicular position."], ["Dirsekleri hafifçe bükük tut; kilitleme.", "Maintain a soft elbow bend throughout — don't lock out."], ["Başın altına kadar in — lat'lar tam gerilsin.", "Lower to below head level for a full lat stretch."]]
+  },
+  "Overhead Press": {
+    gif: null,
+    desc: ["Ayakta barbell omuz press. Tüm deltoid başlarını, triceps ve üst trap kaslarını çalıştıran temel bileşik omuz hareketi.", "Standing barbell overhead press. Fundamental compound shoulder movement working all deltoid heads, triceps, and upper traps."],
+    tips: [["Bar alt çeneye yakın başlar; basarken kulakların üstüne hizalan.", "Bar starts just below chin; end position directly over ears."], ["Sırtı aşırı kamburlaştırma — core'u sıkı tut.", "Avoid excessive back arch — keep core braced throughout."], ["Bacak bükme olmadan tam güçle it — teknik egzersiz bu şekilde.", "No knee bend — strict overhead press with no leg drive."], ["Nefes al → kilitlen → it → ver sırası önemlidir.", "Inhale → brace → press → exhale — this sequence matters."]]
+  },
+  "Shoulder Press": {
+    gif: null,
+    desc: ["Oturarak veya ayakta dumbbell/barbell ile omuz press. Tüm deltoid kaslarını ve triceps'i çalıştırır. Overhead Press'in esnek bir alternatifidir.", "Seated or standing dumbbell/barbell shoulder press. Works all deltoid heads and triceps. A flexible alternative to the strict overhead press."],
+    tips: [["Oturarak sırtı sırtlığa yasla — omurga koruması için.", "When seated, keep back firmly against the pad for spinal support."], ["Barı kulak hizasına kadar indir — çok aşağıya gitme.", "Lower bar to ear level — don't go excessively low."], ["Dumbbellı basarken kontrollü yüksel; yanlara açma.", "Press upward with control; don't flare dumbbells outward."]]
+  },
+  "Lateral Raise": {
+    gif: null,
+    desc: ["Yana kaldırma hareketi. Deltoidin yan (medial) bölümünü izole eder. Omuz genişliği ve V şekli için en önemli izolasyon hareketlerinden biridir.", "Lateral raise. Isolates the medial (side) deltoid. One of the most important isolation movements for shoulder width and V-taper."],
+    tips: [["Küçük ağırlık kullan — bu harekette form her şeydir.", "Use light weight — form is everything in lateral raises."], ["Başparmakları biraz aşağı eğ (kutu dökmek gibi) — medial delti daha iyi aktive eder.", "Tilt thumbs slightly down as if pouring water — better medial delt activation."], ["Kolu omuz hizasının biraz üstüne kaldır, kontrollü indir.", "Raise to just above shoulder level, then lower slowly."], ["Dirsekleri hafifçe bükük tut — tam düz kol stres yaratır.", "Keep a slight elbow bend — fully straight arms create unnecessary joint stress."]]
+  },
+  "Front Raise": {
+    gif: null,
+    desc: ["Öne kaldırma hareketi. Deltoidin ön (anterior) bölümünü izole eder. Barbell, dumbbell veya kablo ile yapılabilir.", "Front raise. Isolates the anterior (front) deltoid. Can be done with barbell, dumbbells, or cable."],
+    tips: [["Kolu omuz hizasına kadar kaldır; aşırı yukarı gitme.", "Raise to shoulder level; don't go excessively higher."], ["Gövdeyi sabit tut — momentum kullanma.", "Keep torso still — don't use body swing for momentum."], ["Ön omuzlar zaten bir çok harekette çalışır; çok fazla ek hacim ekleme.", "Front delts already get work from pressing; don't overdo additional volume."]]
+  },
+  "Rear Delt Fly": {
+    gif: null,
+    desc: ["Arka deltoid açma hareketi. Genellikle ihmal edilen arka omuz kasını çalıştırır. Omuz sağlığı ve dik duruş için kritiktir.", "Rear deltoid fly. Targets the often-neglected posterior deltoid. Critical for shoulder health and upright posture."],
+    tips: [["Öne eğik veya makine/kablo ile yapılabilir; kontrol her zaman önce.", "Can be done bent over or on a cable/machine; control is always first."], ["Hareket boyunca dirsekleri hafifçe bükük tut.", "Keep a slight elbow bend throughout the movement."], ["Kürek kemiklerini sık harekentin sonunda — sadece kolla değil sırtla yap.", "Retract shoulder blades at peak — use your back, not just the arms."]]
+  },
+  "Biceps Curl": {
+    gif: null,
+    desc: ["Klasik biceps curl. Barbell veya dumbbell ile yapılır. Biceps brachii ve brachialis kaslarını çalıştırır.", "Classic biceps curl with barbell or dumbbells. Works biceps brachii and brachialis muscles."],
+    tips: [["Dirsekleri gövde yanında sabit tut — öne sallanmasın.", "Keep elbows locked at sides — don't let them swing forward."], ["Üst noktada 1 sn sık; inişi kontrollü yap (~2-3 sn).", "Squeeze at the top for 1 sec; lower slowly in 2-3 sec."], ["Tam aşağı in — bicepsin tam gerilmesi için önemlidir.", "Go to full extension at the bottom — important for full bicep stretch."]]
+  },
+  "Hammer Curl": {
+    gif: null,
+    desc: ["Nötr (dik) tutuşla curl. Brachialis ve brachioradialis kaslarını vurgular. Ön kol ve biceps kalınlığı için önemlidir.", "Neutral grip curl. More emphasis on brachialis and brachioradialis. Important for forearm and overall arm thickness."],
+    tips: [["Başparmak yukarı bakacak şekilde tut — nötr kavrama.", "Hold with thumbs pointing up — neutral grip."], ["Her iki kolu aynı anda veya dönüşümlü yapabilirsin.", "Can be done simultaneously or alternating arms."], ["Dirsekleri sabit tut — sadece ön kol hareket etmeli.", "Keep upper arms stationary — only the forearm should move."]]
+  },
+  "One Arm Cable Curl": {
+    gif: null,
+    desc: ["Tek kol kablo curl. Her kolu bağımsız çalıştırır, sürekli gerilim sağlar. Kasların eşit gelişimi için faydalıdır.", "Single arm cable curl. Works each arm independently with constant tension. Useful for equal muscular development."],
+    tips: [["Kablo alçak pozisyonda — ayak seviyesinden çek.", "Cable set to low position — pull from ankle level."], ["Dirsek sabit kalmalı; sadece ön kol hareket eder.", "Upper arm stays fixed; only the forearm moves."], ["Her iki kola eşit tekrar uygula.", "Apply equal reps to both arms."]]
+  },
+  "Preacher Curl": {
+    gif: null,
+    desc: ["Scott sehpasında (preacher bench) biceps curl. Dirsekleri sehpaya kilitler, momentum kullanımını engeller. Saf biceps izolasyonu sağlar.", "Biceps curl on a preacher bench. Locks elbows on the pad, eliminating momentum. Provides pure biceps isolation."],
+    tips: [["Koltuk altları sehpanın üstünde; dirsekler pad'e tam oturmalı.", "Armpits at the top of the pad; elbows fully supported on the pad."], ["Tam gerilim için tam aşağı in ama dirseği hiperekstanse etme.", "Go to full extension at the bottom but don't hyperextend the elbow."], ["İniş kontrolü çok kritik — yavaş ve kasılı indir.", "Eccentric (lowering) control is crucial — slow and controlled."]]
+  },
+  "Reverse Curl": {
+    gif: null,
+    desc: ["Ters tutuşla (pronated) curl. Brachialis ve brachioradialis kaslarını güçlü çalıştırır. Ön kol kalınlığı için değerlidir.", "Reverse (pronated) grip curl. Powerfully works brachialis and brachioradialis. Valuable for forearm thickness."],
+    tips: [["Ellerimizi aşağı bakacak şekilde tut — overhand kavrama.", "Hold with palms facing down — overhand grip."], ["Dirsekleri sabit tut; sadece ön kol hareket etmeli.", "Keep elbows stationary; only the forearms should move."], ["Küçük ağırlıkla başla — bu kavramada daha az güç üretilir.", "Start with lighter weight — grip is generally weaker in this position."]]
+  },
+  "Triceps Pushdown": {
+    gif: null,
+    desc: ["Kablo makinesiyle triceps kasılma hareketi. Üç kafa kas grubu olan triceps'i izole eder. En yaygın triceps egzersizlerinden biridir.", "Cable triceps pushdown. Isolates the three-headed triceps muscle. One of the most common triceps exercises."],
+    tips: [["Dirsekleri gövde yanında sabit tut; öne gelmemeli.", "Keep elbows locked at your sides throughout."], ["Hareketin altında tam uzat ve 1 sn sık.", "Fully extend at the bottom and hold for 1 second."], ["Halatta elleri biraz dışa aç — ekstra triceps aktivasyonu sağlar.", "With a rope, slightly flare hands apart at the bottom for extra activation."], ["Momentum kullanma; kontrolü her noktada koru.", "No swinging — maintain control at all points."]]
+  },
+  "Skull Crusher": {
+    gif: null,
+    desc: ["Yatarak barbell triceps uzatma. Triceps uzun başını (long head) en iyi çalıştıran hareketlerden biridir. Ciddi yüklenme yapılabilir.", "Lying triceps extension with barbell. One of the best exercises for the triceps long head. Can be loaded significantly."],
+    tips: [["Barı alnın hizasına değil, başın biraz arkasına getir — uzun başı daha iyi çalıştırır.", "Lower bar slightly behind the forehead — better long head stretch."], ["Dirsekler yukarıya bakmalı — dışa açılmamalı.", "Keep elbows pointing toward ceiling — don't let them flare out."], ["EZ-bar düz bar'a göre bileği/dirseği daha az zorlar.", "EZ-bar reduces wrist/elbow discomfort compared to straight bar."]]
+  },
+  "Overhead Triceps Extension": {
+    gif: null,
+    desc: ["Baş üstü triceps uzatma. Triceps uzun başını tam gerilimde çalıştırır. Dumbbell, barbell veya kablo ile yapılabilir.", "Overhead triceps extension. Works the long head of triceps under full stretch. Can be done with dumbbell, barbell, or cable."],
+    tips: [["Dirsekleri kulak yanında sabit tut — öne gelmemeli.", "Keep elbows by ears, pointing upward — don't let them drift forward."], ["Tam aşağı in — maksimum uzama bu hareketin temel avantajıdır.", "Lower fully — maximum stretch is the primary benefit of this movement."], ["Kablo versiyonu sürekli gerilim için tercih edilebilir.", "Cable version is preferred for constant tension throughout."]]
+  },
+  "Kickback": {
+    gif: null,
+    desc: ["Dumbbell ile triceps izolasyon hareketi. Öne eğilerek yapılır. Triceps'in medial ve lateral başlarını çalıştırır.", "Dumbbell triceps isolation done bent over. Works the medial and lateral heads of the triceps."],
+    tips: [["Gövde yere paralel — yeterince öne eğil.", "Torso should be parallel to floor — lean forward enough."], ["Üst kol sabit ve omuz hizasında; sadece ön kol hareket eder.", "Upper arm stationary at shoulder height — only the forearm moves."], ["Üst noktada tam uzat ve güçlüce sık.", "Fully extend and squeeze hard at the top."]]
+  },
+  "Calf Raise": {
+    gif: null,
+    desc: ["Baldır kaslarını çalıştıran yükselme hareketi. Gastrocnemius ve soleus kaslarını hedef alır. Ayakta, makinede veya basamak kenarında yapılabilir.", "Calf raise targeting the calf muscles. Works gastrocnemius and soleus. Can be done standing, on a machine, or on a step edge."],
+    tips: [["Tam yukarı yüksel ve alt noktada tam in — tam ROM kritik.", "Rise all the way up and stretch fully at the bottom — full ROM is critical."], ["Üst noktada 1-2 sn sık.", "Pause and squeeze at the top for 1-2 seconds."], ["Baldır kasları yüksek tekrara adapte olur; 15-25 rep iyi çalışır.", "Calves adapt quickly; higher reps (15-25) work well for them."]]
+  },
+  "Shrug": {
+    gif: null,
+    desc: ["Omuz silkme hareketi. Trapez kasının üst bölümünü (upper trapezius) çalıştırır. Barbell, dumbbell veya makinede yapılabilir.", "Shoulder shrug. Works the upper trapezius. Can be done with barbell, dumbbells, or machine."],
+    tips: [["Boyun döndürme yok — sadece omuzları dikey olarak kaldır.", "No neck rolling — simply elevate the shoulders straight up."], ["Üst noktada 1-2 sn tut.", "Hold at the top for 1-2 seconds."], ["Ağır kullanabilirsin ama inişi her zaman kontrollü yap.", "Can go heavy but always lower with control."]]
+  },
+  "Plank": {
+    gif: null,
+    desc: ["İzometrik core stabilizasyon egzersizi. Karın kasları, sırt alt kısmı ve omuzları statik olarak çalıştırır. Temel bir core hareketi.", "Isometric core stabilization. Works the abdominals, lower back, and shoulders statically. A foundational core movement."],
+    tips: [["Kalça ne çok düşmeli ne de yükselmelidir — baştan topuğa düz çizgi.", "Hips should neither sag nor pike — maintain a straight line from head to heels."], ["Nefesini tutma; karın kaslarını sıkarken normal nefes al.", "Don't hold breath; keep breathing normally while squeezing core."], ["Zamanı kademeli artır — 20-30 sn ile başla ve her hafta artır.", "Gradually increase duration — start at 20-30 sec and add each week."], ["Dirsek plank, bilek problemi olanlar için daha az stres yaratır.", "Forearm plank creates less wrist stress for those with wrist issues."]]
+  },
+  "Crunch": {
+    gif: null,
+    desc: ["Klasik karın kasılma hareketi. Rectus abdominis (altı paket kası) için temel izolasyon egzersizi.", "Classic abdominal crunch. Fundamental isolation exercise for the rectus abdominis (six-pack muscle)."],
+    tips: [["Boyuna baskı yapma — elleri başın yanına koy, çeneyi göğse değdirme.", "Don't pull on the neck — hands beside head, chin not jammed to chest."], ["Küçük hareket yeterli — sadece omuz bıçakları yerden kalkmalı.", "Small movement is enough — just lift shoulder blades off the floor."], ["Nefesi kasılırken ver, inerken al.", "Exhale as you crunch up, inhale on the way down."]]
+  },
+  "Cable Crunch": {
+    gif: null,
+    desc: ["Diz çökerek kablo makinesiyle karın kasılma hareketi. Karına dirençli yük ekler. Rectus abdominis ve oblikler yüksek aktivasyonla çalışır.", "Kneeling cable crunch. Adds resistance to the abs. High activation for rectus abdominis and obliques."],
+    tips: [["Hareket boyunca kalçaları topuklarda tut; sadece boynu eğme.", "Hinge from the hips toward heels throughout — don't just flex the neck."], ["Alt noktada nefes ver ve karını maksimum sık.", "Exhale at the bottom and squeeze abs maximally."], ["Halatı yüz yanında tut — yukarı sallanmasın.", "Hold the rope by your head — don't let it swing upward."]]
+  },
+  "Russian Twist": {
+    gif: null,
+    desc: ["Gövde rotasyonu egzersizi. Oblik kasları ve transversus abdominis kaslarını çalıştırır. Yan karın kaslarının gelişimi için idealdir.", "Torso rotation exercise. Works the obliques and transverse abdominis. Ideal for lateral core development."],
+    tips: [["Bacakları yerde tutabilirsin; kaldırınca zorluk artar.", "Legs can be on the ground; raising them adds difficulty."], ["Her yana tam dön — kısmi rotasyon etkinliği düşürür.", "Rotate fully to each side — partial rotation reduces effectiveness."], ["Ağırlıklı yapıyorsan hafiften başla; bel stresi olabilir.", "Start light if weighted — can strain the lower back if too heavy."]]
+  },
+  "Mountain Climber": {
+    gif: null,
+    desc: ["Dinamik plank pozisyonundan diz çekme hareketi. Core, omuzlar ve kardiyo sistemini aynı anda çalıştırır. Yüksek yoğunluklu antrenmanlar için mükemmeldir.", "Dynamic knee drive from plank position. Works core, shoulders, and cardiovascular system simultaneously. Excellent for high-intensity training."],
+    tips: [["Kalçayı sabit tut — yukarı veya aşağı hareket etmemeli.", "Keep hips level — don't let them rise or drop."], ["Eller omuz altında tam hizalı olsun.", "Make sure hands are directly below shoulders."], ["Hızlı yapınca kardiyo, yavaş yapınca core odaklı olur.", "Fast pace = cardio focus; slow pace = core focus."]]
+  },
+  "Burpee": {
+    gif: null,
+    desc: ["Tam vücut kardiyo ve kuvvet egzersizi. Squat, plank, şınav ve zıplamayı birleştirir. Kondisyon ve yağ yakımı için en etkili hareketlerden biridir.", "Full body cardio and strength exercise combining squat, plank, push-up, and jump. One of the most effective movements for conditioning and fat loss."],
+    tips: [["Şınav tam olsun — sadece göğüs yere gelsin.", "Full push-up during the burpee — chest touches the floor."], ["Zıplamanın ardından tam yüksel; kolları yukarı kaldır.", "Jump fully at the top — reach arms overhead."], ["Nefes al → aşağı in → yukarı çık → ver ritmi önemli.", "Breathing rhythm: inhale on descent, exhale on ascent."]]
+  },
+  "Yürüyüş Bandı": {
+    gif: null,
+    desc: ["Koşu bandında yürüyüş veya koşu. En yaygın kardiyo egzersizlerinden biridir. Hız ve eğim ayarı ile zorluk kolayca değiştirilebilir.", "Treadmill walking or running. One of the most common cardio exercises. Difficulty easily adjustable via speed and incline settings."],
+    tips: [["Eğim artırmak kalori yakımını önemli ölçüde artırabilir.", "Increasing incline can boost calorie burn significantly."], ["Yürüyüşte kollarını doğal salla — kenarlığa tutunma.", "If walking, let arms swing naturally — don't hold the side rails."], ["LISS (düşük yoğunluklu sabit hız) yağ yakımı için etkilidir.", "Low-intensity steady state (LISS) is effective for fat burning."]]
+  },
+  "Bisiklet": {
+    gif: null,
+    desc: ["Sabit veya dışarıda bisiklet sürmek. Dizlere az yük bindiren, güçlü bir kardiyo egzersizi. Quadriceps ve kalça kaslarını da çalıştırır.", "Stationary or outdoor cycling. A powerful cardio exercise with low impact on the knees. Also works quads and hip muscles."],
+    tips: [["Oturma yüksekliğini ayarla — diz tam uzanmalı ama kilitlenmemeli.", "Adjust seat height so knee almost fully extends but doesn't lock."], ["Kadansı (devir/dk) yüksek tut, ağır vites kullanmak dizi yorar.", "Keep cadence high; heavy gearing puts extra stress on knees."], ["HIIT için interval çalışması kalorileri çok daha hızlı yakar.", "Interval training burns calories much faster than steady pace."]]
+  },
+  "Dead Hang": {
+    gif: null,
+    desc: ["Barfikse ağırlıkla asılı durmak. Kavrama gücünü, ön kol kaslarını ve omuz sağlığını geliştirir. Basit ama çok etkilidir.", "Hanging from a bar under load. Develops grip strength, forearm muscles, and shoulder health. Simple but very effective."],
+    tips: [["Omuzları kulağa doğru çöktürme — omuzlar aktif ve aşağıda kalmalı.", "Don't let shoulders shrug to ears — keep them active and depressed."], ["Ön kol kaslarını kasarak tut; pasif sarkmak yerine aktif asıl.", "Actively engage forearms; active hanging is better than passive sagging."], ["Süreyi kademeli artır — 20-30 sn'den başla.", "Gradually increase duration — start at 20-30 seconds."]]
+  },
+  "Wrist Curls": {
+    gif: null,
+    desc: ["Bilek bükme hareketi. Ön kolun fleksör kaslarını çalıştırır. Kavrama gücü ve ön kol dengesi için kullanılır.", "Wrist curling movement. Works the flexor muscles of the forearm. Used for grip strength and forearm balance."],
+    tips: [["Hafif ağırlıkla başla; bu kaslar küçük ve kolay yaralanabilir.", "Start light; these are small muscles that fatigue and injure easily."], ["Hareketi tam yapın; bilek yukarı ve aşağı tam gidebilmeli.", "Use full range of motion; wrist should flex and extend fully."], ["Ön kolu banka üstüne koy — sadece bilek hareket etmeli.", "Rest forearm on a bench — only the wrist should move."]]
+  },
+  "Wrist Extensions": {
+    gif: null,
+    desc: ["Bilek uzatma hareketi. Ön kolun ekstansör kaslarını çalıştırır. Bilek dengesi ve dirsek sağlığı için önemlidir.", "Wrist extension movement. Works the extensor muscles of the forearm. Important for wrist balance and elbow health."],
+    tips: [["Fleksörlerden daha zayıf olan ekstansörler için hafif ağırlık kullan.", "Use lighter weight — extensors are generally weaker than flexors."], ["Aşırı yükleme 'tenis dirseği' (lateral epikondilitis) riskini artırır.", "Overloading increases risk of lateral epicondylitis (tennis elbow)."], ["Rehabilitasyon veya önleyici olarak düzenli çalıştır.", "Train regularly as rehabilitation or preventive care."]]
+  },
+  "Jumping Jack": {
+    gif: null,
+    desc: ["Zıplayarak kol-bacak açma kapama. Klasik kardiyo ısınma hareketi. Tüm vücut koordinasyonunu ve kardiyovasküler sistemi aktive eder.", "Jump with simultaneous arm and leg opening/closing. Classic cardio warm-up movement. Activates whole-body coordination and cardiovascular system."],
+    tips: [["Yumuşak yüzey tercih et veya ayakkabı giy — eklemler için iyidir.", "Prefer a soft surface or wear shoes — gentler on the joints."], ["Her zıplamada topuk yere değmesin; ayak parmakları üzerine in.", "Land on the balls of your feet, not flat-footed."], ["Kardiyovasküler ısınma olarak 2-3 dakika yeterlidir.", "2-3 minutes is sufficient as a cardiovascular warm-up."]]
+  },
+  "Chest Press": {
+    gif: null,
+    desc: ["Makinede göğüs press. Sabit hareket yolu ve destekli pozisyon sayesinde güvenlidir. Başlangıç seviyesi için ideal bir göğüs egzersizi.", "Machine chest press. Safe due to its fixed movement path and supported position. Ideal chest exercise for beginners."],
+    tips: [["Koltuk ve sırtlık yüksekliğini ayarla — kollar omuz hizasında başlamalı.", "Adjust seat and back pad — arms should start at shoulder height."], ["Kontrollü geri çekil — makinenin ağırlığını aniden bırakma.", "Return slowly — don't let the machine's weight snap back."], ["Hareketin başında ve sonunda göğsü kasılı hissetmeye çalış.", "Focus on feeling the chest squeeze at the start and end of each rep."]]
   }
 };
-const PROGRAM_LEVELS = ["beginner", "intermediate", "advanced"];
-const getProgramLevelMeta = level => PROGRAM_LEVEL_META[level] || PROGRAM_LEVEL_META.intermediate;
-const getProgramLevelLabel = (level, lang) => {
-  const meta = getProgramLevelMeta(level);
-  return lang === "tr" ? meta.tr : meta.en;
-};
+const getExPreview = exName => EX_PREVIEW[exName] || null;
 const PRESET_PROGRAMS = [{
-  key: "ppl",
   name: "Push Pull Legs (PPL)",
   nameEN: "Push Pull Legs (PPL)",
   desc: "Haftada 6 gün, push/pull/legs döngüsü. Orta-ileri seviye.",
   descEN: "6 days/week push/pull/legs. Intermediate-advanced.",
-  level: "advanced",
   days: {
-    "0": ["bench-press", "overhead-press", "lateral-raise", "triceps-pushdown", "cable-crossover"],
-    "1": ["barbell-row", "lat-pulldown", "cable-row", "biceps-curl", "rear-delt-fly"],
-    "2": ["squat", "leg-press", "leg-curl", "leg-extension", "calf-raise"],
-    "3": ["dumbbell-press", "shoulder-press", "dumbbell-fly", "overhead-triceps-extension"],
-    "4": ["deadlift", "pull-up", "dumbbell-row", "hammer-curl", "shrug"],
-    "5": ["leg-press", "lunge", "hip-thrust", "leg-curl", "calf-raise"],
+    "0": ["Bench Press", "Overhead Press", "Lateral Raise", "Triceps Pushdown", "Cable Crossover"],
+    "1": ["Barbell Row", "Lat Pulldown", "Cable Row", "Biceps Curl", "Rear Delt Fly"],
+    "2": ["Squat", "Leg Press", "Leg Curl", "Leg Extension", "Calf Raise"],
+    "3": ["Dumbell Press", "Shoulder Press", "Dumbell Fly", "Overhead Triceps Extension"],
+    "4": ["Deadlift", "Pull Up", "Dumbell Row", "Hammer Curl", "Shrug"],
+    "5": ["Leg Press", "Lunge", "Hip Thrust", "Leg Curl", "Calf Raise"],
     "6": []
-  },
-  offDays: ["6"]
+  }
 }, {
-  key: "upper-lower",
   name: "Üst / Alt Bölünme",
   nameEN: "Upper / Lower Split",
   desc: "Haftada 4 gün, üst ve alt vücut dönüşümlü. Orta seviye.",
   descEN: "4 days/week upper/lower alternating. Intermediate.",
-  level: "intermediate",
   days: {
-    "0": ["bench-press", "barbell-row", "overhead-press", "biceps-curl", "triceps-pushdown"],
-    "1": ["squat", "deadlift", "leg-press", "leg-curl", "calf-raise"],
+    "0": ["Bench Press", "Barbell Row", "Overhead Press", "Biceps Curl", "Triceps Pushdown"],
+    "1": ["Squat", "Deadlift", "Leg Press", "Leg Curl", "Calf Raise"],
     "2": [],
-    "3": ["dumbbell-press", "lat-pulldown", "lateral-raise", "hammer-curl", "skull-crusher"],
-    "4": ["leg-press", "lunge", "hip-thrust", "leg-extension", "calf-raise"],
+    "3": ["Dumbell Press", "Lat Pulldown", "Lateral Raise", "Hammer Curl", "Skull Crusher"],
+    "4": ["Leg Press", "Lunge", "Hip Thrust", "Leg Extension", "Calf Raise"],
     "5": [],
     "6": []
-  },
-  offDays: ["2", "5", "6"]
+  }
 }, {
-  key: "guray-hypertrophy-1",
-  name: "Güray's Hypertrophy No:1",
-  nameEN: "Güray's Hypertrophy No:1",
-  desc: "Güray Aydın'ın hipertrofi programı. Haftada 4 gün, Orta seviye.",
-  descEN: "Güray Aydın's hypertrophy program. 4 days/week, Intermediate.",
-  level: "intermediate",
-  days: {
-    "0": ["bench-press", "incline-dumbbell-press", "cable-crossover", "overhead-press", "lateral-raise", "rear-delt-fly", "triceps-pushdown"],
-    "1": ["lat-pulldown", "barbell-row", "cable-row", "pullover", "pull-up", "barbell-curl", "dumbbell-curl"],
-    "2": ["squat", "leg-press", "leg-curl", "calf-raise"],
-    "3": [],
-    "4": ["incline-dumbbell-press", "cable-crossover", "overhead-press", "lateral-raise", "rear-delt-fly", "triceps-pushdown"],
-    "5": ["lat-pulldown", "cable-row", "romanian-deadlift", "dumbbell-curl", "leg-press", "calf-raise"],
-    "6": []
-  },
-  offDays: ["3", "6"]
-}, {
-  key: "guray-hypertrophy-max",
-  name: "Güray's Hypertrophy Max",
-  nameEN: "Güray's Hypertrophy Max",
-  desc: "Güray Aydın'ın hipertrofi programı. Haftada 4 gün, Orta seviye.",
-  descEN: "Güray Aydın's hypertrophy program. 4 days/week, Intermediate.",
-  level: "advanced",
-  days: {
-    "0": ["plate-loaded-chest-press", "incline-smith-machine-bench-press", "chest-fly", "shoulder-press", "lateral-raise", "triceps-pushdown", "overhead-triceps-extension"],
-    "1": ["lat-pulldown", "barbell-row", "cable-row", "incline-dumbbell-curl", "cable-curl", "hammer-curl", "reverse-curl"],
-    "2": ["leg-press", "smith-machine-squat", "leg-extension", "leg-curl"],
-    "3": [],
-    "4": ["shoulder-press", "lateral-raise", "incline-smith-machine-bench-press", "chest-fly", "rear-delt-fly", "triceps-pushdown", "overhead-triceps-extension"],
-    "5": ["barbell-row", "lat-pulldown", "romanian-deadlift", "cable-curl", "hammer-curl", "reverse-curl", "leg-extension", "leg-curl"],
-    "6": []
-  },
-  offDays: ["3", "6"]
-}, {
-  key: "full-body",
   name: "Full Body",
   nameEN: "Full Body",
   desc: "Haftada 3 gün, tüm vücut. Yeni başlayanlar için ideal.",
   descEN: "3 days/week full body. Ideal for beginners.",
-  level: "beginner",
   days: {
-    "0": ["bench-press", "barbell-row", "squat", "overhead-press", "biceps-curl"],
+    "0": ["Bench Press", "Barbell Row", "Squat", "Overhead Press", "Biceps Curl"],
     "1": [],
-    "2": ["deadlift", "dumbbell-press", "lat-pulldown", "leg-press", "triceps-pushdown"],
+    "2": ["Deadlift", "Dumbell Press", "Lat Pulldown", "Leg Press", "Triceps Pushdown"],
     "3": [],
-    "4": ["squat", "cable-row", "shoulder-press", "leg-curl", "hammer-curl"],
+    "4": ["Squat", "Cable Row", "Shoulder Press", "Leg Curl", "Hammer Curl"],
     "5": [],
     "6": []
-  },
-  offDays: ["1", "3", "5", "6"]
+  }
 }, {
-  key: "bro-split-5-days",
   name: "Bro Split (5 Gün)",
   nameEN: "Bro Split (5 Days)",
   desc: "Her gün farklı kas grubu. Klasik bölünme.",
   descEN: "Each day different muscle group. Classic split.",
-  level: "intermediate",
   days: {
-    "0": ["bench-press", "incline-dumbbell-press", "cable-crossover", "dumbbell-fly"],
-    "1": ["barbell-row", "lat-pulldown", "cable-row", "dumbbell-row", "shrug"],
-    "2": ["overhead-press", "lateral-raise", "front-raise", "rear-delt-fly"],
-    "3": ["biceps-curl", "hammer-curl", "preacher-curl", "triceps-pushdown", "skull-crusher"],
-    "4": ["squat", "leg-press", "leg-curl", "leg-extension", "calf-raise"],
+    "0": ["Bench Press", "İncline Dumbell Press", "Cable Crossover", "Dumbell Fly"],
+    "1": ["Barbell Row", "Lat Pulldown", "Cable Row", "Dumbell Row", "Shrug"],
+    "2": ["Overhead Press", "Lateral Raise", "Front Raise", "Rear Delt Fly"],
+    "3": ["Biceps Curl", "Hammer Curl", "Preacher Curl", "Triceps Pushdown", "Skull Crusher"],
+    "4": ["Squat", "Leg Press", "Leg Curl", "Leg Extension", "Calf Raise"],
     "5": [],
     "6": []
-  },
-  offDays: ["5", "6"]
+  }
 }];
 const RIRS = ["-", "0", "1", "2", "3", "4+"];
 const fmt = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -1725,8 +1394,6 @@ const TR = {
   presetExercises: "Hazır Hareketler",
   addSelected: "Seçilenleri Ekle",
   allCategories: "Tümü",
-  matchingExercises: "eşleşen hareket",
-  multiFilterHint: "Birden fazla bölge seçebilirsin. Tüm seçili bölgeleri içeren hareketler gösterilir.",
   alreadyAdded: "Zaten ekli",
   presetDesc: "Spora yeni başlayanlar için hazır hareket listesi",
   dashboard: "Panel",
@@ -1788,11 +1455,6 @@ const TR = {
   presetPgTitle: "Hazır Programlar",
   addPresetPg: "Hazır Program Ekle",
   presetPgDesc: "Popüler antrenman programları",
-  programLevel: "Seviye",
-  allLevels: "Tüm Seviyeler",
-  beginner: "Başlangıç",
-  intermediate: "Orta Seviye",
-  advanced: "İleri Seviye",
   programWeek: "Hafta",
   compliance: "Uyum",
   activeSince: "Aktif",
@@ -1900,7 +1562,12 @@ const TR = {
   offDay: "Dinlenme",
   setOffDay: "Dinlenme Günü Yap",
   removeOffDay: "Dinlenmeyi Kaldır",
-  offDayBanner: "Bu gün programında dinlenme günü."
+  offDayBanner: "Bu gün programında dinlenme günü.",
+  exPreviewBtn: "Hareketi Görüntüle",
+  exPreviewDesc: "Açıklama",
+  exPreviewTips: "Teknik İpuçları",
+  exPreviewNoContent: "Bu hareket için içerik henüz eklenmemiş.",
+  exPreviewImgSoon: "Görsel yakında eklenecek"
 };
 const EN = {
   calendar: "Calendar",
@@ -1996,8 +1663,6 @@ const EN = {
   presetExercises: "Preset Exercises",
   addSelected: "Add Selected",
   allCategories: "All",
-  matchingExercises: "matching exercises",
-  multiFilterHint: "You can select multiple regions. Only exercises matching all selected regions are shown.",
   alreadyAdded: "Already added",
   presetDesc: "Ready-made exercises for beginners",
   dashboard: "Dashboard",
@@ -2059,11 +1724,6 @@ const EN = {
   presetPgTitle: "Preset Programs",
   addPresetPg: "Add Preset Program",
   presetPgDesc: "Popular workout programs",
-  programLevel: "Level",
-  allLevels: "All Levels",
-  beginner: "Beginner",
-  intermediate: "Intermediate",
-  advanced: "Advanced",
   programWeek: "Week",
   compliance: "Compliance",
   activeSince: "Active",
@@ -2171,7 +1831,12 @@ const EN = {
   offDay: "Rest",
   setOffDay: "Mark as Off Day",
   removeOffDay: "Remove Off Day",
-  offDayBanner: "This day is a rest day in your program."
+  offDayBanner: "This day is a rest day in your program.",
+  exPreviewBtn: "View Exercise",
+  exPreviewDesc: "Description",
+  exPreviewTips: "Technique Tips",
+  exPreviewNoContent: "No content available for this exercise yet.",
+  exPreviewImgSoon: "Visual coming soon"
 };
 const catLabel = (cat, lang) => lang === "en" ? CAT_LABELS_EN[cat] || cat : cat;
 const normalizeUsername = v => String(v || "").trim().toLowerCase();
@@ -2358,6 +2023,261 @@ function DashChart({
       height: 260
     }
   });
+}
+function ExPreviewModal({
+  ex,
+  onClose,
+  lang
+}) {
+  const L = lang === "tr" ? TR : EN;
+  const preview = getExPreview(ex.name);
+  const desc = preview ? lang === "tr" ? preview.desc[0] : preview.desc[1] : null;
+  const tips = preview ? preview.tips : null;
+  const gif = preview ? preview.gif : null;
+  const [imgErr, setImgErr] = useState(false);
+  const cats = ex.categories || [];
+  const CAT_COLORS = {
+    "Göğüs": "#e8a0b4",
+    "Chest": "#e8a0b4",
+    "Sırt": "#82c9a0",
+    "Back": "#82c9a0",
+    "Omuz": "#7db8e8",
+    "Shoulder": "#7db8e8",
+    "Biceps": "#f0c06e",
+    "Triceps": "#b07de8",
+    "Bacak": "#6ecee8",
+    "Leg": "#6ecee8",
+    "Kalça": "#e87d7d",
+    "Hip": "#e87d7d",
+    "Karın": "#a0d080",
+    "Core": "#a0d080",
+    "Kardiyo": "#f0906e",
+    "Cardio": "#f0906e",
+    "Trapez": "#c0a87e",
+    "Traps": "#c0a87e",
+    "Kalf": "#7ebea0",
+    "Calf": "#7ebea0",
+    "Bilek": "#c8c080",
+    "Wrist": "#c8c080",
+    "Boyun": "#d8a0c8",
+    "Neck": "#d8a0c8",
+    "Diğer": "#a0a8b8",
+    "Other": "#a0a8b8"
+  };
+  const getCatColor = c => CAT_COLORS[c] || "#a0a8b8";
+  const catLabels = cats.map(c => catLabel(c, lang));
+  const firstCatColor = cats.length > 0 ? getCatColor(catLabels[0]) : "#a0a8b8";
+  return React.createElement("div", {
+    style: {
+      position: "fixed",
+      inset: 0,
+      zIndex: 3000,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "16px",
+      background: "rgba(0,0,0,0.55)",
+      backdropFilter: "blur(4px)"
+    },
+    onClick: onClose
+  }, React.createElement("div", {
+    style: {
+      background: "var(--bg2)",
+      borderRadius: 20,
+      maxWidth: 480,
+      width: "100%",
+      maxHeight: "85vh",
+      overflow: "hidden",
+      display: "flex",
+      flexDirection: "column",
+      boxShadow: "0 20px 60px rgba(0,0,0,0.4)"
+    },
+    onClick: e => e.stopPropagation()
+  }, React.createElement("div", {
+    style: {
+      padding: "18px 20px 14px",
+      borderBottom: "1px solid var(--brd)",
+      display: "flex",
+      alignItems: "flex-start",
+      gap: 12
+    }
+  }, React.createElement("div", {
+    style: {
+      flex: 1,
+      minWidth: 0
+    }
+  }, React.createElement("div", {
+    style: {
+      fontFamily: "'Space Mono',monospace",
+      fontWeight: 700,
+      fontSize: 17,
+      color: "var(--t1)",
+      marginBottom: 6,
+      lineHeight: 1.2
+    }
+  }, ex.name), React.createElement("div", {
+    style: {
+      display: "flex",
+      flexWrap: "wrap",
+      gap: 5
+    }
+  }, catLabels.map((c, i) => React.createElement("span", {
+    key: i,
+    style: {
+      fontSize: 10,
+      fontWeight: 600,
+      padding: "2px 8px",
+      borderRadius: 10,
+      background: getCatColor(c) + "22",
+      color: getCatColor(c),
+      border: "1px solid " + getCatColor(c) + "44",
+      letterSpacing: "0.5px",
+      textTransform: "uppercase"
+    }
+  }, c)))), React.createElement("button", {
+    onClick: onClose,
+    style: {
+      background: "var(--bg3)",
+      border: "none",
+      borderRadius: 8,
+      width: 32,
+      height: 32,
+      cursor: "pointer",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexShrink: 0
+    }
+  }, React.createElement(IcoX, {
+    s: 16
+  }))), React.createElement("div", {
+    style: {
+      flex: 1,
+      overflowY: "auto",
+      padding: "0 20px 20px"
+    }
+  }, React.createElement("div", {
+    style: {
+      marginTop: 16,
+      marginBottom: 16,
+      borderRadius: 14,
+      overflow: "hidden",
+      background: "var(--bg3)",
+      minHeight: 180,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      position: "relative"
+    }
+  }, gif && !imgErr ? React.createElement("img", {
+    src: gif,
+    alt: ex.name,
+    onError: () => setImgErr(true),
+    style: {
+      width: "100%",
+      maxHeight: 260,
+      objectFit: "cover",
+      display: "block"
+    }
+  }) : React.createElement("div", {
+    style: {
+      padding: "32px 20px",
+      textAlign: "center"
+    }
+  }, React.createElement("div", {
+    style: {
+      width: 64,
+      height: 64,
+      borderRadius: "50%",
+      background: firstCatColor + "22",
+      border: "2px dashed " + firstCatColor + "66",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      margin: "0 auto 12px",
+      fontSize: 28
+    }
+  }, "\uD83D\uDCAA"), React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: "var(--t3)",
+      fontFamily: "'Space Mono',monospace"
+    }
+  }, L.exPreviewImgSoon))), !preview && React.createElement("div", {
+    style: {
+      padding: "16px",
+      background: "var(--bg3)",
+      borderRadius: 12,
+      textAlign: "center",
+      color: "var(--t3)",
+      fontSize: 13
+    }
+  }, L.exPreviewNoContent), desc && React.createElement("div", {
+    style: {
+      marginBottom: 16
+    }
+  }, React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: "1px",
+      textTransform: "uppercase",
+      color: "var(--t3)",
+      marginBottom: 8,
+      fontFamily: "'Space Mono',monospace"
+    }
+  }, L.exPreviewDesc), React.createElement("div", {
+    style: {
+      fontSize: 14,
+      color: "var(--t2)",
+      lineHeight: 1.65
+    }
+  }, desc)), tips && tips.length > 0 && React.createElement("div", null, React.createElement("div", {
+    style: {
+      fontSize: 11,
+      fontWeight: 700,
+      letterSpacing: "1px",
+      textTransform: "uppercase",
+      color: "var(--t3)",
+      marginBottom: 8,
+      fontFamily: "'Space Mono',monospace"
+    }
+  }, L.exPreviewTips), React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 8
+    }
+  }, tips.map((tip, i) => {
+    const tipText = lang === "tr" ? tip[0] : tip[1];
+    return React.createElement("div", {
+      key: i,
+      style: {
+        display: "flex",
+        gap: 10,
+        alignItems: "flex-start",
+        padding: "10px 12px",
+        background: "var(--bg3)",
+        borderRadius: 10,
+        borderLeft: "3px solid " + firstCatColor
+      }
+    }, React.createElement("span", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        color: firstCatColor,
+        fontFamily: "'Space Mono',monospace",
+        flexShrink: 0,
+        paddingTop: 1
+      }
+    }, i + 1), React.createElement("span", {
+      style: {
+        fontSize: 13,
+        color: "var(--t2)",
+        lineHeight: 1.5
+      }
+    }, tipText));
+  }))))));
 }
 function AuthScreen({
   onLogin,
@@ -2838,7 +2758,7 @@ function App({
   }, []);
   const [showAddEx, setShowAddEx] = useState(false);
   const [addExMode, setAddExMode] = useState("custom");
-  const [presetFilters, setPresetFilters] = useState([]);
+  const [presetFilter, setPresetFilter] = useState("all");
   const [presetSelected, setPresetSelected] = useState([]);
   const [nExName, setNExName] = useState("");
   const [nExCat, setNExCat] = useState(["Göğüs"]);
@@ -2850,10 +2770,10 @@ function App({
   const [editExName, setEditExName] = useState("");
   const [editExCats, setEditExCats] = useState([]);
   const [showPresetPg, setShowPresetPg] = useState(false);
-  const [presetPgLevelFilter, setPresetPgLevelFilter] = useState("all");
   const [pgCycleType, setPgCycleType] = useState("none");
   const [pgDeloadEvery, setPgDeloadEvery] = useState(4);
   const [showExDesc, setShowExDesc] = useState(null);
+  const [previewEx, setPreviewEx] = useState(null);
   const [dashChartEx, setDashChartEx] = useState("");
   const [dashChartMode, setDashChartMode] = useState("weight");
   const [dashFreqPeriod, setDashFreqPeriod] = useState("week");
@@ -3340,6 +3260,10 @@ function App({
         setShowExDesc(null);
         return;
       }
+      if (previewEx !== null) {
+        setPreviewEx(null);
+        return;
+      }
       if (showShareModal) {
         setShowShareModal(false);
         return;
@@ -3371,8 +3295,7 @@ function App({
       return {
         id: (Date.now() + i).toString(),
         name: presetName(p, lang),
-        categories: [...p.categories],
-        presetKey: p.key
+        categories: [...p.categories]
       };
     });
     save({
@@ -3717,70 +3640,40 @@ function App({
   const addPresetProgram = preset => {
     const d = dRef.current;
     const nameMap = {};
-    const presetKeyMap = {};
-    const addNameMatch = (value, id) => {
-      const key = normalizePresetText(value);
-      if (!key) return;
-      nameMap[key] = id;
-    };
-    const linkPresetExercise = (presetExercise, id) => {
-      if (!presetExercise) return;
-      presetKeyMap[presetExercise.key] = id;
-      getPresetExerciseNames(presetExercise).forEach(name => addNameMatch(name, id));
-    };
     d.exercises.forEach(e => {
-      addNameMatch(e.name, e.id);
-      if (e.presetKey) presetKeyMap[e.presetKey] = e.id;
+      nameMap[e.name.toLowerCase()] = e.id;
     });
     let newExs = [...d.exercises];
     let addedCount = 0;
-    const ensureEx = ref => {
-      const presetExercise = findPresetExercise(ref);
-      if (presetExercise && presetKeyMap[presetExercise.key]) return presetKeyMap[presetExercise.key];
-      const refKey = normalizePresetText(ref);
-      if (nameMap[refKey]) return nameMap[refKey];
-      if (presetExercise) {
-        const matchedId = getPresetExerciseNames(presetExercise).map(name => nameMap[normalizePresetText(name)]).find(Boolean);
-        if (matchedId) {
-          linkPresetExercise(presetExercise, matchedId);
-          addNameMatch(ref, matchedId);
-          return matchedId;
-        }
-      }
+    const ensureEx = name => {
+      const key = name.toLowerCase();
+      if (nameMap[key]) return nameMap[key];
+      const pe = PRESET_EXERCISES.find(p => p.name === name || p.nameEN === name);
       const id = Date.now().toString() + Math.random().toString(36).slice(2, 6);
-      const cats = presetExercise ? [...presetExercise.categories] : ["Diğer"];
-      const displayName = presetExercise ? presetName(presetExercise, lang) : ref;
+      const cats = pe ? [...pe.categories] : ["Diğer"];
+      const displayName = pe ? presetName(pe, lang) : name;
       newExs.push({
         id,
         name: displayName,
-        categories: cats,
-        ...(presetExercise ? {
-          presetKey: presetExercise.key
-        } : {})
+        categories: cats
       });
-      addNameMatch(ref, id);
-      addNameMatch(displayName, id);
-      if (presetExercise) linkPresetExercise(presetExercise, id);
+      nameMap[key] = id;
+      nameMap[displayName.toLowerCase()] = id;
       addedCount++;
       return id;
     };
     const days = {};
     for (let i = 0; i < 7; i++) {
       const k = String(i);
-      days[k] = (preset.days[k] || []).map(ref => ensureEx(ref));
+      days[k] = (preset.days[k] || []).map(name => ensureEx(name));
     }
-    const pgName = presetProgramName(preset, lang);
-    const presetProgramNames = new Set([preset.name, preset.nameEN, pgName].filter(Boolean).map(normalizePresetText));
-    const existingPgEntry = Object.entries(d.programs || {}).find(([, program]) => program.presetKey === preset.key || presetProgramNames.has(normalizePresetText(program.name)));
-    if (existingPgEntry && !confirm(L.confirmOverwrite)) return;
-    const pgId = existingPgEntry ? existingPgEntry[0] : Date.now().toString();
+    const pgId = Date.now().toString();
+    const pgName = lang === "en" && preset.nameEN ? preset.nameEN : preset.name;
     const np = {
       ...d.programs,
       [pgId]: {
         name: pgName,
-        days,
-        offDays: [...(preset.offDays || [])],
-        presetKey: preset.key
+        days
       }
     };
     save({
@@ -4922,6 +4815,16 @@ function App({
   }, React.createElement("path", {
     d: "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
   }));
+  const IcoInfo = ({
+    s = 18
+  }) => React.createElement("svg", {
+    width: s,
+    height: s,
+    viewBox: "0 0 24 24",
+    fill: "var(--t3)"
+  }, React.createElement("path", {
+    d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+  }));
   return React.createElement("div", {
     style: {
       height: "100vh",
@@ -5336,31 +5239,7 @@ function App({
       fontFamily: "inherit",
       transition: "all .15s ease"
     }
-  }, i, " ", l)), isMobile && React.createElement("div", {
-    style: {
-      marginTop: 8,
-      paddingTop: 8,
-      borderTop: "1px solid var(--brd2)"
-    }
-  }, React.createElement("button", {
-    onClick: () => setLang(prev => prev === "tr" ? "en" : "tr"),
-    style: {
-      display: "flex",
-      alignItems: "center",
-      gap: 12,
-      width: "100%",
-      padding: "8px 20px",
-      borderRadius: 24,
-      border: "none",
-      cursor: "pointer",
-      fontSize: 14,
-      fontWeight: 400,
-      background: "transparent",
-      color: "var(--t1)",
-      fontFamily: "inherit",
-      transition: "all .15s ease"
-    }
-  }, "\uD83C\uDF10 ", lang === "tr" ? "English" : "Türkçe"))), React.createElement("div", {
+  }, i, " ", l))), React.createElement("div", {
     style: {
       borderTop: "1px solid var(--brd)",
       margin: "4px 16px"
@@ -7524,6 +7403,16 @@ function App({
           fontSize: 15
         }
       }, "\uD83D\uDD17"), React.createElement("button", {
+        onClick: () => setPreviewEx(ex),
+        title: L.exPreviewBtn,
+        style: {
+          ...S.ib,
+          width: 36,
+          height: 36
+        }
+      }, React.createElement(IcoInfo, {
+        s: 18
+      })), React.createElement("button", {
         onClick: () => setHistId(ex.id),
         style: {
           ...S.ib,
@@ -8084,27 +7973,19 @@ function App({
     onClick: () => setShowAddEx(false),
     style: S.sec
   }, L.cancel))), addExMode === "preset" && (() => {
-    const existingNames = new Set(data.exercises.map(e => normalizePresetText(e.name)));
-    const existingPresetKeys = new Set(data.exercises.map(e => e.presetKey).filter(Boolean));
-    const hasPresetFilters = presetFilters.length > 0;
+    const existingNames = new Set(data.exercises.map(e => e.name.toLowerCase()));
     const filteredPresets = PRESET_EXERCISES.map((p, i) => ({
       ...p,
       idx: i,
       displayName: presetName(p, lang)
-    })).filter(p => !hasPresetFilters || presetFilters.every(cat => p.categories.includes(cat)));
+    })).filter(p => presetFilter === "all" || p.categories.includes(presetFilter));
     return React.createElement(React.Fragment, null, React.createElement("div", {
       style: {
         fontSize: 12,
         color: "var(--t2)",
-        marginBottom: 6
-      }
-    }, L.presetDesc), React.createElement("div", {
-      style: {
-        fontSize: 11,
-        color: "var(--t3)",
         marginBottom: 12
       }
-    }, filteredPresets.length, " ", L.matchingExercises, " \u2022 ", L.multiFilterHint), React.createElement("div", {
+    }, L.presetDesc), React.createElement("div", {
       style: {
         display: "flex",
         gap: 5,
@@ -8112,13 +7993,13 @@ function App({
         marginBottom: 12
       }
     }, React.createElement("button", {
-      onClick: () => setPresetFilters([]),
+      onClick: () => setPresetFilter("all"),
       style: {
         padding: "4px 12px",
         borderRadius: 16,
-        border: !hasPresetFilters ? "2px solid var(--blue)" : "1px solid var(--brd)",
-        background: !hasPresetFilters ? "var(--blueL)" : "var(--bg)",
-        color: !hasPresetFilters ? "var(--blue)" : "var(--t2)",
+        border: presetFilter === "all" ? "2px solid var(--blue)" : "1px solid var(--brd)",
+        background: presetFilter === "all" ? "var(--blueL)" : "var(--bg)",
+        color: presetFilter === "all" ? "var(--blue)" : "var(--t2)",
         fontSize: 12,
         fontWeight: 500,
         cursor: "pointer",
@@ -8126,16 +8007,15 @@ function App({
       }
     }, L.allCategories), CATS.filter(cat => PRESET_EXERCISES.some(p => p.categories.includes(cat))).map(cat => {
       const col = CC[cat] || "blue";
-      const isActive = presetFilters.includes(cat);
       return React.createElement("button", {
         key: cat,
-        onClick: () => setPresetFilters(prev => prev.includes(cat) ? prev.filter(x => x !== cat) : [...prev, cat]),
+        onClick: () => setPresetFilter(cat),
         style: {
           padding: "4px 12px",
           borderRadius: 16,
-          border: isActive ? `2px solid var(--${col})` : "1px solid var(--brd)",
-          background: isActive ? `var(--${col}L)` : "var(--bg)",
-          color: isActive ? `var(--${col})` : "var(--t2)",
+          border: presetFilter === cat ? `2px solid var(--${col})` : "1px solid var(--brd)",
+          background: presetFilter === cat ? `var(--${col}L)` : "var(--bg)",
+          color: presetFilter === cat ? `var(--${col})` : "var(--t2)",
           fontSize: 12,
           fontWeight: 500,
           cursor: "pointer",
@@ -8151,27 +8031,23 @@ function App({
         marginBottom: 12
       }
     }, filteredPresets.map(p => {
-      const already = existingPresetKeys.has(p.key) || getPresetExerciseNames(p).some(name => existingNames.has(normalizePresetText(name)));
+      const already = existingNames.has(p.displayName.toLowerCase()) || existingNames.has(p.name.toLowerCase()) || p.nameEN && existingNames.has(p.nameEN.toLowerCase());
       const sel = presetSelected.includes(p.idx);
       const c = CC[p.categories[0]] || "blue";
-      return React.createElement("button", {
+      return React.createElement("div", {
         key: p.idx,
-        disabled: already,
-        onClick: () => setPresetSelected(prev => prev.includes(p.idx) ? prev.filter(x => x !== p.idx) : [...prev, p.idx]),
         style: {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           width: "100%",
           padding: "10px 14px",
-          border: "none",
           borderBottom: "1px solid var(--brd)",
-          cursor: already ? "default" : "pointer",
           background: sel ? `var(--${c}L)` : "var(--bg)",
-          fontFamily: "inherit",
           fontSize: 13,
           color: "var(--t1)",
-          opacity: already ? .4 : 1
+          opacity: already ? .4 : 1,
+          gap: 6
         },
         onMouseEnter: e => {
           if (!already && !sel) e.currentTarget.style.background = "var(--bg2)";
@@ -8180,13 +8056,17 @@ function App({
           if (!sel) e.currentTarget.style.background = already ? "var(--bg)" : "var(--bg)";else e.currentTarget.style.background = `var(--${c}L)`;
         }
       }, React.createElement("div", {
+        onClick: () => {
+          if (!already) setPresetSelected(prev => prev.includes(p.idx) ? prev.filter(x => x !== p.idx) : [...prev, p.idx]);
+        },
         style: {
           display: "flex",
           alignItems: "center",
           gap: 8,
           flex: 1,
           minWidth: 0,
-          textAlign: "left"
+          textAlign: "left",
+          cursor: already ? "default" : "pointer"
         }
       }, sel ? React.createElement(IcoCheck, {
         c: `var(--${c})`
@@ -8206,7 +8086,8 @@ function App({
       }, React.createElement("span", {
         style: {
           display: "block",
-          fontWeight: 500
+          fontWeight: 500,
+          fontFamily: "inherit"
         }
       }, p.displayName), already && React.createElement("span", {
         style: {
@@ -8216,7 +8097,7 @@ function App({
           marginLeft: 4
         }
       }, "(", L.alreadyAdded, ")"), (() => {
-        const desc = getExDesc(p, lang);
+        const desc = getExDesc(p.name, lang);
         return desc ? React.createElement("div", {
           style: {
             fontSize: 10,
@@ -8227,7 +8108,8 @@ function App({
       })())), React.createElement("div", {
         style: {
           display: "flex",
-          gap: 3,
+          alignItems: "center",
+          gap: 4,
           flexShrink: 0
         }
       }, p.categories.map((cat, ci) => {
@@ -8242,7 +8124,25 @@ function App({
             borderRadius: 8
           }
         }, catLabel(cat, lang));
-      })));
+      }), React.createElement("button", {
+        onClick: e => {
+          e.stopPropagation();
+          setPreviewEx({
+            id: "preset-" + p.idx,
+            name: p.displayName,
+            categories: p.categories
+          });
+        },
+        style: {
+          ...S.ib,
+          width: 28,
+          height: 28,
+          flexShrink: 0
+        },
+        title: L.exPreviewBtn
+      }, React.createElement(IcoInfo, {
+        s: 15
+      }))));
     })), React.createElement("div", {
       style: {
         display: "flex",
@@ -8260,7 +8160,7 @@ function App({
       onClick: () => {
         setShowAddEx(false);
         setPresetSelected([]);
-        setPresetFilters([]);
+        setPresetFilter("all");
       },
       style: S.sec
     }, L.cancel)));
@@ -8352,6 +8252,16 @@ function App({
           gap: 2
         }
       }, React.createElement("button", {
+        onClick: () => setPreviewEx(ex),
+        style: {
+          ...S.ib,
+          width: 32,
+          height: 32
+        },
+        title: L.exPreviewBtn
+      }, React.createElement(IcoInfo, {
+        s: 16
+      })), React.createElement("button", {
         onClick: () => openEditEx(ex.id),
         style: {
           ...S.ib,
@@ -8539,10 +8449,7 @@ function App({
       gap: 6
     }
   }, React.createElement("button", {
-    onClick: () => {
-      setPresetPgLevelFilter("all");
-      setShowPresetPg(true);
-    },
+    onClick: () => setShowPresetPg(true),
     style: S.sec
   }, "\uD83D\uDCCB ", L.addPresetPg), React.createElement("button", {
     onClick: () => {
@@ -8920,53 +8827,14 @@ function App({
     }
   }, L.presetPgDesc), React.createElement("div", {
     style: {
-      display: "flex",
-      gap: 6,
-      flexWrap: "wrap",
-      marginBottom: 16
-    }
-  }, React.createElement("button", {
-    onClick: () => setPresetPgLevelFilter("all"),
-    style: {
-      padding: "5px 12px",
-      borderRadius: 16,
-      border: presetPgLevelFilter === "all" ? "2px solid var(--blue)" : "1px solid var(--brd)",
-      background: presetPgLevelFilter === "all" ? "var(--blueL)" : "var(--bg)",
-      color: presetPgLevelFilter === "all" ? "var(--blue)" : "var(--t2)",
-      fontSize: 12,
-      fontWeight: 500,
-      cursor: "pointer",
-      fontFamily: "inherit"
-    }
-  }, L.allLevels), PROGRAM_LEVELS.map(level => {
-    const meta = getProgramLevelMeta(level);
-    const active = presetPgLevelFilter === level;
-    return React.createElement("button", {
-      key: level,
-      onClick: () => setPresetPgLevelFilter(level),
-      style: {
-        padding: "5px 12px",
-        borderRadius: 16,
-        border: active ? `2px solid var(--${meta.color})` : "1px solid var(--brd)",
-        background: active ? `var(--${meta.color}L)` : "var(--bg)",
-        color: active ? `var(--${meta.color})` : "var(--t2)",
-        fontSize: 12,
-        fontWeight: 500,
-        cursor: "pointer",
-        fontFamily: "inherit"
-      }
-    }, getProgramLevelLabel(level, lang));
-  })), React.createElement("div", {
-    style: {
       display: "grid",
       gap: 12
     }
-  }, PRESET_PROGRAMS.filter(pp => presetPgLevelFilter === "all" || pp.level === presetPgLevelFilter).map((pp, pi) => {
+  }, PRESET_PROGRAMS.map((pp, pi) => {
     const pgName = lang === "en" && pp.nameEN ? pp.nameEN : pp.name;
     const pgDesc = lang === "en" && pp.descEN ? pp.descEN : pp.desc;
     const totalEx = Object.values(pp.days).flat().length;
     const activeDays = Object.values(pp.days).filter(d => d.length > 0).length;
-    const levelMeta = getProgramLevelMeta(pp.level);
     return React.createElement("div", {
       key: pi,
       style: {
@@ -8990,15 +8858,8 @@ function App({
       style: {
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "flex-start",
+        alignItems: "center",
         marginBottom: 6
-      }
-    }, React.createElement("div", {
-      style: {
-        display: "flex",
-        flexDirection: "column",
-        gap: 6,
-        minWidth: 0
       }
     }, React.createElement("span", {
       style: {
@@ -9007,16 +8868,6 @@ function App({
         color: "var(--t1)"
       }
     }, pgName), React.createElement("span", {
-      style: {
-        alignSelf: "flex-start",
-        fontSize: 10,
-        fontWeight: 700,
-        color: `var(--${levelMeta.color})`,
-        background: `var(--${levelMeta.color}L)`,
-        padding: "2px 8px",
-        borderRadius: 999
-      }
-    }, L.programLevel, ": ", getProgramLevelLabel(pp.level, lang))), React.createElement("span", {
       style: {
         fontSize: 11,
         color: "var(--t3)",
@@ -10505,7 +10356,11 @@ function App({
       height: isMobile ? isGuest ? 160 : 120 : isGuest ? PAGE_BOTTOM_GAP_GUEST : PAGE_BOTTOM_GAP,
       flexShrink: 0
     }
-  }))), histId && (() => {
+  }))), previewEx && React.createElement(ExPreviewModal, {
+    ex: previewEx,
+    onClose: () => setPreviewEx(null),
+    lang: lang
+  }), histId && (() => {
     const hist = getH(histId);
     const nm = exN(histId);
     const c = cl(histId);
