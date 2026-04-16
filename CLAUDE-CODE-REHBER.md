@@ -1373,5 +1373,6 @@ Avatar dairesine tıklayınca fotoğraf büyüyerek gösterilir.
 - **Kendi profil dairesi**: Avatar URL'yse tıklayınca lightbox açılır; emoji/baş harfse picker açılır. ✏️ butonu her durumda picker'ı açar (`e.stopPropagation()` ile ayrıştırıldı).
 - **Başka kullanıcı profil dairesi** (`vp.avatar`): URL'yse tıklayınca lightbox açılır.
 - **Lightbox modal**: Siyah transparan overlay (`rgba(0,0,0,.85)`), ortalanmış büyük resim, sağ üstte ✕ butonu. Overlay'e veya ✕'e tıklayınca kapanır.
+- **Önemli**: `profile.html`'de iki ayrı `return()` bloğu var — biri kendi profili, biri `viewUserProfile` (başka kullanıcı). Lightbox modal **her iki bloğa da** ayrı ayrı eklenmelidir. Sadece birine eklenirse diğer blokta state set edilir ama modal render edilmez (görünmez).
 
 Derleme: `node compile.js` (tüm dosyalar)
