@@ -22,8 +22,13 @@ LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıc
 
 ```
 LogWise/
-├── index.html              ← Ana uygulama (tüm CSS + JS + React)
-├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil)
+├── data/                   ← Refactor Aşama 1 ile eklenen veri/sabit klasörü (bkz. Bölüm 28)
+│   ├── i18n-tr.js          ← window.LOGWISE_TR — index.html için Türkçe çeviri anahtarları
+│   ├── i18n-en.js          ← window.LOGWISE_EN — index.html için İngilizce çeviri anahtarları
+│   ├── i18n-tr-profile.js  ← window.LOGWISE_TR_PROFILE — profile.html için Türkçe
+│   └── i18n-en-profile.js  ← window.LOGWISE_EN_PROFILE — profile.html için İngilizce
+├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN artık data/ klasöründen yükleniyor)
+├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN data/ klasöründen)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
 ├── 404.html                ← 404 sayfası
 ├── _redirects              ← Cloudflare Pages redirect & rewrite kuralları
@@ -503,7 +508,7 @@ Satır 246-250   SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
 Satır 251-252   init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu
 Satır 253-260   Dashboard + program yardımcı fonksiyonları (calc1RM, calcBrzycki, calcStreak, calcWeekFreq, calcMonthFreq, getAllPRs, calcCompliance)
 Satır 261-268   BADGES sabiti (30 rozet), getBadgeName, getBadgeCatLabel, calcBadgeStats, checkBadges, getNextBadge fonksiyonları
-Satır 269-270   TR ve EN çeviri objeleri (~200+ anahtar, badge/notif/social/username/onboard keys dahil)
+Satır 1305-1306 `const TR = window.LOGWISE_TR; const EN = window.LOGWISE_EN;` — çeviriler data/i18n-tr.js ve data/i18n-en.js dosyalarından yükleniyor (Refactor Aşama 1, Adım A — bkz. Bölüm 28). Eski 538 satırlık inline tanım kaldırıldı.
 Satır 264-284   DashChart bileşeni (Chart.js canvas yönetimi)
 Satır 286-366   AuthScreen bileşeni (login/register/forgot modal, Google OAuth)
 Satır 368-~1500 App bileşeni (ana uygulama):
@@ -655,7 +660,7 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama
 
 8. **Preset veri modeli** — Yeni hazır hareket eklerken `PRESET_EXERCISES` içinde `key` zorunludur. Mümkünse `name`, `nameEN`, gerekiyorsa `aliases`, `categories` ve `EX_DESCS[key]` birlikte eklenmeli. Yeni hazır program eklerken `PRESET_PROGRAMS[].days` içinde hareket adı değil preset `key` kullanılmalı.
 
-9. **Çeviri anahtarları** — Yeni UI metni eklenirse hem `TR` hem `EN` objesine eklenmeli.
+9. **Çeviri anahtarları** — Yeni UI metni eklenirse hem TR hem EN karşılığı eklenmeli. Hedef dosya kullanıldığı sayfaya göre değişir: `index.html` için `data/i18n-tr.js` + `data/i18n-en.js`, `profile.html` için `data/i18n-tr-profile.js` + `data/i18n-en-profile.js`. Eski inline `const TR = {...}` / `const EN = {...}` tanımları artık yok (Refactor Aşama 1, Adım A — bkz. Bölüm 28). `share.html` ve `program.html` inline `lang === "tr" ? "..." : "..."` patternini kullanmaya devam ediyor.
 
 10. **Chart.js lifecycle** — DashChart bileşeninde `chartInstanceRef.current.destroy()` çağrılmalı, aksi halde canvas leak olur.
 
@@ -1480,3 +1485,101 @@ Eğer ileride "JSX ile yazmak istiyorum" dersen `_archived_babel_system_2026-04-
 ### `.babel-backup` Referanslarının Rehberde Kalma Nedeni
 
 Bölüm 18, 19, 20, 22, 23, 24, 26'da tarihsel değişiklik notlarında `.babel-backup` referansları yer alıyordu. Bunların çoğu bugünkü dosya adlarına güncellendi. Bazıları "tarihsel" olarak işaretlendi (örn. Bölüm 24'teki compile.js güncellemesi bloğu). Bu referansları tamamen silmedim çünkü **o tarihteki commit geçmişinde** gerçekten `.babel-backup` düzenlenmişti — tarihsel doğruluk korundu. Bugün kod değişikliği yaparken bu notlara bakanların kafa karıştırmaması için "o tarihte `.babel-backup`, bugün `.html`" şeklinde anotasyon eklendi.
+
+---
+
+## Bölüm 28 — Refactor Aşama 1, Adım A: TR/EN Çevirileri Ayrıldı (2026-04-17)
+
+### Özet
+
+Aşama 1 refactor'un ilk adımı tamamlandı. `index.html` ve `profile.html` içinde inline olarak tanımlı `TR` ve `EN` çeviri objeleri `data/` klasöründe ayrı JavaScript dosyalarına taşındı. Ana `.html` dosyaları artık bu dosyaları plain `<script src="...">` tag'iyle yükleyip `window.LOGWISE_*` global'lerinden okuyor.
+
+### Arka Plan
+
+`index.html` 11.161 satıra ulaşmıştı; TR + EN çevirileri dosyanın ortasında 538 satır yer kaplıyor ve düzenlenecek kodun arama/gezinme sürecini zorlaştırıyordu. Ayrıca profile.html kendi 160 satırlık TR/EN tanımlarını ayrı olarak tutuyor, ortak anahtarlarda (örn. `save`, `cancel`, `email`) görsel olarak duplikasyon oluşuyordu.
+
+Aşama 1 hedefi: veri/sabit bloklarını `data/` ve `lib/` klasörlerine taşımak. Adım A (en izole, en düşük riskli) çeviriler; sonraki adımlar BADGES, PRESET_EXERCISES, PRESET_PROGRAMS, hesaplama yardımcıları ve migrate/init olacak.
+
+### Yapılan Değişiklikler
+
+**1. Yeni dosyalar (`data/` klasörü oluşturuldu):**
+- `data/i18n-tr.js` — `window.LOGWISE_TR` (266 anahtar; index.html için)
+- `data/i18n-en.js` — `window.LOGWISE_EN` (266 anahtar; index.html için)
+- `data/i18n-tr-profile.js` — `window.LOGWISE_TR_PROFILE` (78 anahtar; profile.html için)
+- `data/i18n-en-profile.js` — `window.LOGWISE_EN_PROFILE` (78 anahtar; profile.html için)
+
+Dosyalar ES module değildir — plain script olarak yüklenir ve `window` nesnesi üzerinden global'e atanır. Her dosyanın başında kısa bir JSDoc yorum bloğu vardır (kullanım örneği + karşılık gelen EN/TR dosyasına ekleme uyarısı).
+
+**2. `index.html` değişiklikleri:**
+- Head kısmında Chart.js CDN satırından sonra, `<style>` bloğundan önce iki yeni satır:
+  ```html
+  <script src="data/i18n-tr.js"></script>
+  <script src="data/i18n-en.js"></script>
+  ```
+- Ana `<script>` içinde `const TR = { ... }` (eski 269 satır) ve `const EN = { ... }` (eski 269 satır) blokları silindi; yerlerine iki satır kondu:
+  ```js
+  const TR = window.LOGWISE_TR;
+  const EN = window.LOGWISE_EN;
+  ```
+- **Satır sayısı: 11.161 → 10.627 (534 satır azalma).**
+
+**3. `profile.html` değişiklikleri:**
+- Head kısmında Supabase CDN satırından sonra, `<style>` bloğundan önce iki yeni satır:
+  ```html
+  <script src="data/i18n-tr-profile.js"></script>
+  <script src="data/i18n-en-profile.js"></script>
+  ```
+- Ana `<script>` içinde `const TR = { ... }` ve `const EN = { ... }` blokları silindi; yerlerine:
+  ```js
+  const TR = window.LOGWISE_TR_PROFILE;
+  const EN = window.LOGWISE_EN_PROFILE;
+  ```
+- **Satır sayısı: 3.833 → 3.677 (156 satır azalma).**
+
+**4. `sw.js` güncellendi:**
+- `CACHE_NAME`: `'logwise-v5'` → `'logwise-v6'` — yeni dosyalar eklendiği için cache versiyonu bump edildi; aksi halde mevcut kullanıcıların tarayıcısındaki eski `index.html` cache'i yeni `data/i18n-*.js` dosyalarını 404 olarak alırdı.
+- `PRECACHE_URLS` listesine `/data/i18n-tr.js` ve `/data/i18n-en.js` eklendi (ilk offline ziyarette uygulamanın açılabilmesi için). Profile dosyaları listeye eklenmedi çünkü `profile.html` zaten precache'te değil; cache-first fetch stratejisiyle gerektiğinde cache'lenir.
+
+**5. `share.html` ve `program.html`:** Dokunulmadı. Bu dosyalar `TR`/`EN` obje paterni kullanmıyor, inline `lang === "tr" ? "..." : "..."` yaklaşımıyla yazılmış.
+
+**6. `_headers`:** Dokunulmadı. `/*` kuralı `data/` dosyalarını da kapsıyor (güvenlik header'ları). Ekstra cache kuralı bu aşamada gereksiz — Service Worker cache'i yönetiyor, CDN cache başka adımlarda optimize edilebilir.
+
+### Yükleme Stratejisi
+
+Yeni dosyalar klasik `<script src="...">` etiketi ile yüklenir, **ES modules değil**. Sıralama önemli:
+
+1. React + ReactDOM (CDN)
+2. Supabase + Chart.js (CDN)
+3. `data/i18n-tr.js` + `data/i18n-en.js` (yeni)
+4. Ana `<script>` bloğu (index.html'in gövdesi) — burada `const TR = window.LOGWISE_TR` satırı artık garanti bir global'e referans veriyor
+
+Ana kod bloğu çalışmadan önce çevirilerin yüklü olması gerekiyor. Tarayıcı script'leri HTML'deki sıraya göre senkron yüklediği için bu pattern doğal olarak çalışır.
+
+### Doğrulama
+
+- **Syntax check:** `node --check` ile hem `data/*.js` dosyaları hem de `index.html`/`profile.html` içinden ayıklanan inline script bloğu valide edildi.
+- **Runtime test:** Node'da `global.window = {}` ile dört data dosyası yüklendi, `window.LOGWISE_TR.calendar === "Takvim"`, `window.LOGWISE_EN.calendar === "Calendar"`, `window.LOGWISE_TR_PROFILE.profile === "Profil"`, `window.LOGWISE_EN_PROFILE.profile === "Profile"` kontrolleri başarılı. Key sayıları TR/EN simetrik (266/266 ve 78/78).
+- **Dosya sonu kontrolü:** `tail -5` ile hem `index.html` hem `profile.html`'in `</script></body></html>` ile düzgün bitişi doğrulandı (Rehber Bölüm 11'deki "dosya kesintisi" uyarısı).
+- **Bracket balance:** `(` / `{` / `[` farkları Adım A öncesi HEAD ile birebir aynı — değişikliğin dengesizlik eklemediği kanıtlandı.
+
+### Production Etkisi
+
+**Sıfır görsel değişiklik.** Çeviri metinleri tamamen aynı; sadece tanım konumu değişti. Site tam olarak eskisi gibi çalışıyor.
+
+**Kullanıcı deneyimi:**
+- Ekstra 2 HTTP isteği (data/i18n-tr.js ~9 KB + data/i18n-en.js ~9 KB; profile.html için ayrıca ~3 KB + 3 KB). CDN cache'leri önceden hazırlandığında bu yük kalıcı değil; ayrıca SW precache ilk yüklemede offline için de işe yarıyor.
+- İlk deploy sonrası mevcut kullanıcıların SW cache'i `logwise-v6`'ya güncelleneceği için bir kerelik full reload olabilir. Beklenen davranış.
+
+### Geri Dönüş Planı
+
+Eğer sorun çıkarsa: `data/` klasörünü sil, `index.html` ve `profile.html`'deki `<script src="data/...">` satırlarını kaldır, `const TR = window.LOGWISE_TR` satırları yerine orijinal `const TR = { ... }` + `const EN = { ... }` bloklarını geri yapıştır. `_archived_babel_system_2026-04-17/` içinde bu çevirilerin kopyası **yok** (arşiv Babel temizliği öncesi halidir); ama git history bu commit'ten bir önceki state'i tutuyor, `git revert` yeterli.
+
+### Sonraki Adımlar
+
+- **Adım B:** `BADGES` sabiti ve badge yardımcı fonksiyonları (`checkBadges`, `getBadgeName`, `getBadgeCatLabel`, `calcBadgeStats`, `getNextBadge`). `profile.html`'de de `BADGES` dublikasyonu var; ikisi de ortak dosyaya çekilecek.
+- **Adım C:** `PRESET_EXERCISES` + `EX_DESCS` + `EX_PREVIEW` (en büyük veri bloğu).
+- **Adım D:** `PRESET_PROGRAMS`.
+- **Adım E:** Hesaplama yardımcıları (`calc1RM`, `calcBrzycki`, `calcStreak`, `calcWeekFreq`, `calcMonthFreq`, `getAllPRs`, `calcCompliance`).
+- **Adım F:** `migrateData` + `init`.
+
+Her adımda Ali test edip onay verir, git commit yapar, sonraki adıma geçilir.
