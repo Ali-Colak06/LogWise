@@ -22,15 +22,18 @@ LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıc
 
 ```
 LogWise/
-├── data/                   ← Refactor Aşama 1 ile eklenen veri/sabit klasörü (bkz. Bölüm 28, 29)
+├── data/                   ← Refactor Aşama 1 ile eklenen veri/sabit klasörü (bkz. Bölüm 28, 29, 30)
 │   ├── i18n-tr.js          ← window.LOGWISE_TR — index.html için Türkçe çeviri anahtarları
 │   ├── i18n-en.js          ← window.LOGWISE_EN — index.html için İngilizce çeviri anahtarları
 │   ├── i18n-tr-profile.js  ← window.LOGWISE_TR_PROFILE — profile.html için Türkçe
 │   ├── i18n-en-profile.js  ← window.LOGWISE_EN_PROFILE — profile.html için İngilizce
-│   └── badges.js           ← window.LOGWISE_BADGES — 30 rozet tanımı (Adım B)
+│   ├── badges.js           ← window.LOGWISE_BADGES — 30 rozet tanımı (Adım B)
+│   ├── presets-exercises.js ← window.LOGWISE_PRESET_EXERCISES — 55 hazır hareket (Adım C)
+│   ├── ex-descriptions.js  ← window.LOGWISE_EX_DESCS — hareket kısa açıklamaları (TR/EN) (Adım C)
+│   └── ex-preview.js       ← window.LOGWISE_EX_PREVIEW — hareket önizleme (gif/uzun desc/tips) (Adım C)
 ├── lib/                    ← Refactor Aşama 1 — yardımcı fonksiyonlar klasörü (bkz. Bölüm 29)
 │   └── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — getBadgeName + getBadgeCatLabel
-├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES artık data/ ve lib/'ten yükleniyor)
+├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
 ├── 404.html                ← 404 sayfası
@@ -502,10 +505,11 @@ Her set için dropdown: "—" (yok), "F" (Failure/0), "1", "2", "3", "4+".
 Satır 1-110     HTML head, CSS (değişkenler, animasyonlar, dark/light tema, dashboard, badge, skip-link, skeleton animasyonları)
 Satır 111-116   Skip-to-content link, noscript fallback, root div (loading skeleton)
 Satır 117-145   Supabase client, React hooks, ErrorBoundary class component, sabitler (D, DF, MO, CATS, CC)
-Satır 108-182   PRESET_EXERCISES dizisi (~56 hazır hareket, yorum bloğu ile açıklanmış)
-Satır 183-232   EX_DESCS (hareket açıklamaları), getExDesc helper, presetName helper
-Satır 233-295   EX_PREVIEW objesi (~50 hareket için gif/desc/tips), getExPreview helper
-Satır 296+      PRESET_PROGRAMS dizisi (6 hazır program şablonu: PPL, Upper/Lower, Güray's Hypertrophy No:1, Güray's Hypertrophy Max, Full Body, Bro Split)
+Satır ~304     `const PRESET_EXERCISES = window.LOGWISE_PRESET_EXERCISES;` — 55 hazır hareket data/presets-exercises.js'ten yükleniyor (Refactor Aşama 1, Adım C — bkz. Bölüm 30). Eski 172 satırlık inline tanım kaldırıldı.
+Satır ~305-310 `const EX_DESCS = window.LOGWISE_EX_DESCS;` + `getExDesc` helper (inline kaldı, 5 satır). Eski 56 satırlık EX_DESCS inline tanımı kaldırıldı.
+Satır ~311     `const presetName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;` (helper inline kaldı)
+Satır ~312-313 `const EX_PREVIEW = window.LOGWISE_EX_PREVIEW;` + `getExPreview` helper (inline kaldı). Eski 262 satırlık EX_PREVIEW inline tanımı kaldırıldı.
+Satır ~314+    PRESET_PROGRAMS dizisi (6 hazır program şablonu: PPL, Upper/Lower, Güray's Hypertrophy No:1, Güray's Hypertrophy Max, Full Body, Bro Split) — Adım D'de data/presets-programs.js'e taşınacak
 Satır 242-245   RIRS, yardımcı fonksiyonlar (fmt, pD, gdow, storage keys, eDays)
 Satır 246-250   SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
 Satır 251-252   init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu
@@ -1669,4 +1673,82 @@ Sorun çıkarsa: `data/badges.js` ve `lib/badge-logic.js`'i sil, HTML'lerdeki ik
 - **Adım C:** `PRESET_EXERCISES` + `EX_DESCS` + `EX_PREVIEW` (en büyük veri bloğu).
 - **Adım D:** `PRESET_PROGRAMS`.
 - **Adım E:** Hesaplama yardımcıları + `checkBadges`/`calcBadgeStats`/`getNextBadge` bu adımda `badge-logic.js`'e taşınabilir (artık `calcStreak` ortak olacağı için).
+- **Adım F:** `migrateData` + `init`.
+
+---
+
+## Bölüm 30 — Refactor Aşama 1, Adım C: PRESET_EXERCISES + EX_DESCS + EX_PREVIEW Ayrıldı (2026-04-17)
+
+### Ne Yapıldı
+
+Aşama 1'in **en büyük tek adımı** tamamlandı. `index.html`'deki üç büyük veri bloğu — preset hareketler listesi, kısa açıklamaları ve önizleme verileri — `data/` klasöründe üç ayrı dosyaya taşındı. Toplam **484 satır** index.html'den düştü.
+
+**Yeni dosyalar (Seçenek 2: üç ayrı dosya):**
+- `data/presets-exercises.js` (176 satır) — `window.LOGWISE_PRESET_EXERCISES` olarak **55 preset hareket** (name, opsiyonel nameEN, categories). Kategoriler: Göğüs, Omuz, Triceps, Biceps, Bilek, Sırt, Bacak, Kalça, Kalf, Trapez, Karın, Kardiyo. Not: "Dead Hang" iki kez listede (orijinal davranış korundu).
+- `data/ex-descriptions.js` (59 satır) — `window.LOGWISE_EX_DESCS` olarak **54 anahtarlı map**: `{[hareketAdı]: [TR açıklama, EN açıklama]}`. Kısa (bir cümlelik) açıklamalar.
+- `data/ex-preview.js` (266 satır) — `window.LOGWISE_EX_PREVIEW` olarak **52 anahtarlı map**: `{[hareketAdı]: {gif, desc:[TR,EN], tips:[[TR,EN],...]}}`. Uzun açıklama + 3-5 adet form ipucu.
+
+### Neden Üç Ayrı Dosya (Seçenek 2)?
+
+- `EX_PREVIEW` en aktif değişen kısım (yeni gif/tips eklendiğinde); ayrıştırılmış halde sadece o dosya değişir, cache invalidation diğer ikisini etkilemez.
+- Preset hareket yapısı (`PRESET_EXERCISES`) ve kısa açıklamaları (`EX_DESCS`) görece stabil; preview'dan bağımsız değişir.
+- HTTP overhead minimum: SW precache üç dosyayı da ilk ziyarette alıyor; sonraki yüklemeler cache'ten.
+
+### Helper Fonksiyonlar
+
+`getExDesc`, `presetName`, `getExPreview` helper'ları **index.html içinde inline kaldı** — thin wrapper'lar (1-5 satır) olduğu için taşıma marjinal getiri sağlar. Bu fonksiyonlar artık `window.LOGWISE_*` global'lerinden okuyan `const EX_DESCS = window.LOGWISE_EX_DESCS` tanımları üzerinden çalışıyor.
+
+### Script Yükleme Sırası
+
+`index.html` <head> güncel sıra:
+```html
+<script crossorigin src="https://.../react.production.min.js"></script>
+<script crossorigin src="https://.../react-dom.production.min.js"></script>
+<script src="https://.../@supabase/supabase-js@2"></script>
+<script src="https://.../chart.js@4.4.4/.../chart.umd.min.js"></script>
+<script src="data/i18n-tr.js"></script>
+<script src="data/i18n-en.js"></script>
+<script src="data/badges.js"></script>
+<script src="lib/badge-logic.js"></script>
+<script src="data/presets-exercises.js"></script>   <!-- Adım C -->
+<script src="data/ex-descriptions.js"></script>     <!-- Adım C -->
+<script src="data/ex-preview.js"></script>          <!-- Adım C -->
+```
+
+`profile.html` etkilenmedi — bu üç sabit orada zaten yoktu.
+
+### HTML İçinde Yeni Satırlar
+
+Eski 3 büyük blok yerine 5 satır (3 yönlendirme + 2 helper):
+```js
+const PRESET_EXERCISES = window.LOGWISE_PRESET_EXERCISES;
+const EX_DESCS = window.LOGWISE_EX_DESCS;
+const getExDesc = (name, lang) => { const d = EX_DESCS[name]; if (!d) return null; return lang === "en" ? d[1] : d[0]; };
+const presetName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;
+const EX_PREVIEW = window.LOGWISE_EX_PREVIEW;
+const getExPreview = exName => EX_PREVIEW[exName] || null;
+```
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+- `index.html`: 10,457 → **9,973** (-484)
+- `data/presets-exercises.js`: 0 → **176** (yeni)
+- `data/ex-descriptions.js`: 0 → **59** (yeni)
+- `data/ex-preview.js`: 0 → **266** (yeni)
+
+**Kümülatif (Adım A+B+C sonu):** index.html **11,161 → 9,973** = -1,188 satır (%10.6 küçülme).
+
+### Doğrulama
+- `node --check` tüm yeni dosyaları ve `sw.js`'i onayladı.
+- Runtime test: 55 preset, 54 desc, 52 preview yüklendi; ilk/son kayıtlar birebir; 12 ana kategori doğru dağıldı; `Deadlift.tips` 5 adet.
+- Bracket dengesi: `(`=`)`=4682, `{`=`}`=2687 — kusursuz.
+
+### Service Worker Güncellemesi
+`sw.js` — `CACHE_NAME` `'logwise-v7'` → `'logwise-v8'`. `PRECACHE_URLS`'e `/data/presets-exercises.js`, `/data/ex-descriptions.js`, `/data/ex-preview.js` eklendi.
+
+### Geri Alma
+Sorun çıkarsa: üç `data/ex-*.js` + `data/presets-exercises.js`'i sil, HTML'deki üç script tag'ini ve üç `window.LOGWISE_*` yönlendirme satırını git HEAD'den restore et. Git revert temiz çalışır çünkü helper'lar zaten inline.
+
+### Sonraki Adımlar
+- **Adım D:** `PRESET_PROGRAMS` (~6 hazır program şablonu; büyük veri bloğu).
+- **Adım E:** Hesaplama yardımcıları (`calc1RM`, `calcBrzycki`, `calcStreak`, vs.) + `checkBadges`/`calcBadgeStats`/`getNextBadge`'in `lib/badge-logic.js`'e taşınması.
 - **Adım F:** `migrateData` + `init`.
