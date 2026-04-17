@@ -1,0 +1,155 @@
+// LogWise — Rozet Tanımları
+// BADGES: Kazanılabilir rozetlerin listesi (id, icon, kategori, eşik değer)
+// index.html ve profile.html tarafından ortak kullanılır.
+// Kategoriler: workout, streak, pr, volume, sets, variety
+window.LOGWISE_BADGES = [{
+  id: "first_workout",
+  icon: "🏋️",
+  cat: "workout",
+  val: 1
+}, {
+  id: "workouts_10",
+  icon: "💪",
+  cat: "workout",
+  val: 10
+}, {
+  id: "workouts_25",
+  icon: "🔥",
+  cat: "workout",
+  val: 25
+}, {
+  id: "workouts_50",
+  icon: "⭐",
+  cat: "workout",
+  val: 50
+}, {
+  id: "workouts_100",
+  icon: "💯",
+  cat: "workout",
+  val: 100
+}, {
+  id: "workouts_200",
+  icon: "🏅",
+  cat: "workout",
+  val: 200
+}, {
+  id: "workouts_365",
+  icon: "🏆",
+  cat: "workout",
+  val: 365
+}, {
+  id: "streak_3",
+  icon: "📅",
+  cat: "streak",
+  val: 3
+}, {
+  id: "streak_7",
+  icon: "🔗",
+  cat: "streak",
+  val: 7
+}, {
+  id: "streak_14",
+  icon: "⚡",
+  cat: "streak",
+  val: 14
+}, {
+  id: "streak_30",
+  icon: "💎",
+  cat: "streak",
+  val: 30
+}, {
+  id: "streak_60",
+  icon: "🌟",
+  cat: "streak",
+  val: 60
+}, {
+  id: "streak_90",
+  icon: "👑",
+  cat: "streak",
+  val: 90
+}, {
+  id: "pr_60",
+  icon: "🎯",
+  cat: "pr",
+  val: 60
+}, {
+  id: "pr_100",
+  icon: "💥",
+  cat: "pr",
+  val: 100
+}, {
+  id: "pr_140",
+  icon: "🦾",
+  cat: "pr",
+  val: 140
+}, {
+  id: "pr_180",
+  icon: "🚀",
+  cat: "pr",
+  val: 180
+}, {
+  id: "pr_200",
+  icon: "🔱",
+  cat: "pr",
+  val: 200
+}, {
+  id: "volume_10k",
+  icon: "📊",
+  cat: "volume",
+  val: 10000
+}, {
+  id: "volume_50k",
+  icon: "📈",
+  cat: "volume",
+  val: 50000
+}, {
+  id: "volume_100k",
+  icon: "🌋",
+  cat: "volume",
+  val: 100000
+}, {
+  id: "volume_500k",
+  icon: "⚜️",
+  cat: "volume",
+  val: 500000
+}, {
+  id: "volume_1m",
+  icon: "💫",
+  cat: "volume",
+  val: 1000000
+}, {
+  id: "sets_100",
+  icon: "✅",
+  cat: "sets",
+  val: 100
+}, {
+  id: "sets_500",
+  icon: "🎖️",
+  cat: "sets",
+  val: 500
+}, {
+  id: "sets_1000",
+  icon: "🏵️",
+  cat: "sets",
+  val: 1000
+}, {
+  id: "sets_5000",
+  icon: "💠",
+  cat: "sets",
+  val: 5000
+}, {
+  id: "variety_5",
+  icon: "🎨",
+  cat: "variety",
+  val: 5
+}, {
+  id: "variety_10",
+  icon: "🧩",
+  cat: "variety",
+  val: 10
+}, {
+  id: "variety_20",
+  icon: "🌈",
+  cat: "variety",
+  val: 20
+}];

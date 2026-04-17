@@ -22,13 +22,16 @@ LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıc
 
 ```
 LogWise/
-├── data/                   ← Refactor Aşama 1 ile eklenen veri/sabit klasörü (bkz. Bölüm 28)
+├── data/                   ← Refactor Aşama 1 ile eklenen veri/sabit klasörü (bkz. Bölüm 28, 29)
 │   ├── i18n-tr.js          ← window.LOGWISE_TR — index.html için Türkçe çeviri anahtarları
 │   ├── i18n-en.js          ← window.LOGWISE_EN — index.html için İngilizce çeviri anahtarları
 │   ├── i18n-tr-profile.js  ← window.LOGWISE_TR_PROFILE — profile.html için Türkçe
-│   └── i18n-en-profile.js  ← window.LOGWISE_EN_PROFILE — profile.html için İngilizce
-├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN artık data/ klasöründen yükleniyor)
-├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN data/ klasöründen)
+│   ├── i18n-en-profile.js  ← window.LOGWISE_EN_PROFILE — profile.html için İngilizce
+│   └── badges.js           ← window.LOGWISE_BADGES — 30 rozet tanımı (Adım B)
+├── lib/                    ← Refactor Aşama 1 — yardımcı fonksiyonlar klasörü (bkz. Bölüm 29)
+│   └── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — getBadgeName + getBadgeCatLabel
+├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES artık data/ ve lib/'ten yükleniyor)
+├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
 ├── 404.html                ← 404 sayfası
 ├── _redirects              ← Cloudflare Pages redirect & rewrite kuralları
@@ -507,8 +510,9 @@ Satır 242-245   RIRS, yardımcı fonksiyonlar (fmt, pD, gdow, storage keys, eDa
 Satır 246-250   SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
 Satır 251-252   init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu
 Satır 253-260   Dashboard + program yardımcı fonksiyonları (calc1RM, calcBrzycki, calcStreak, calcWeekFreq, calcMonthFreq, getAllPRs, calcCompliance)
-Satır 261-268   BADGES sabiti (30 rozet), getBadgeName, getBadgeCatLabel, calcBadgeStats, checkBadges, getNextBadge fonksiyonları
-Satır 1305-1306 `const TR = window.LOGWISE_TR; const EN = window.LOGWISE_EN;` — çeviriler data/i18n-tr.js ve data/i18n-en.js dosyalarından yükleniyor (Refactor Aşama 1, Adım A — bkz. Bölüm 28). Eski 538 satırlık inline tanım kaldırıldı.
+Satır ~1071-1073 `const BADGES = window.LOGWISE_BADGES; const getBadgeName = window.LOGWISE_BADGE_LOGIC.getBadgeName; const getBadgeCatLabel = window.LOGWISE_BADGE_LOGIC.getBadgeCatLabel;` — BADGES ve iki ortak fonksiyon data/badges.js ve lib/badge-logic.js dosyalarından yükleniyor (Refactor Aşama 1, Adım B — bkz. Bölüm 29). Eski 173 satırlık inline tanım kaldırıldı.
+Satır ~1074+    calcBadgeStats, checkBadges, getNextBadge — hâlâ inline (calcStreak + fmt bağımlılığı var; Adım E'de taşınacak)
+Satır ~1305-1306 `const TR = window.LOGWISE_TR; const EN = window.LOGWISE_EN;` — çeviriler data/i18n-tr.js ve data/i18n-en.js dosyalarından yükleniyor (Refactor Aşama 1, Adım A — bkz. Bölüm 28). Eski 538 satırlık inline tanım kaldırıldı.
 Satır 264-284   DashChart bileşeni (Chart.js canvas yönetimi)
 Satır 286-366   AuthScreen bileşeni (login/register/forgot modal, Google OAuth)
 Satır 368-~1500 App bileşeni (ana uygulama):
@@ -1060,9 +1064,9 @@ Takipçi/takip listelerinin görüntülenebilmesi için herkese açık okuma izn
 
 #### Yeni Global Sabitler (ProfileApp fonksiyonundan önce)
 
-- `BADGES` — 30 rozet dizisi (index.html'den kopyalandı)
-- `getBadgeName(b, lang)` — rozet adı lokalizasyonu
-- `getBadgeCatLabel(cat, lang)` — rozet kategori etiketi
+- `BADGES` — 30 rozet dizisi → **artık `window.LOGWISE_BADGES`'ten alınıyor** (ortak; bkz. Bölüm 29)
+- `getBadgeName(b, lang)` — rozet adı lokalizasyonu → **artık `window.LOGWISE_BADGE_LOGIC.getBadgeName`**
+- `getBadgeCatLabel(cat, lang)` — rozet kategori etiketi → **artık `window.LOGWISE_BADGE_LOGIC.getBadgeCatLabel`**
 - `MEASURE_LABELS_TR / MEASURE_LABELS_EN` — ölçüm alan isimleri
 - `MEASURE_UNITS` — ölçüm birimleri (kg, cm, %)
 
@@ -1583,3 +1587,86 @@ Eğer sorun çıkarsa: `data/` klasörünü sil, `index.html` ve `profile.html`'
 - **Adım F:** `migrateData` + `init`.
 
 Her adımda Ali test edip onay verir, git commit yapar, sonraki adıma geçilir.
+
+---
+
+## Bölüm 29 — Refactor Aşama 1, Adım B: BADGES ve Rozet Yardımcıları Ayrıldı (2026-04-17)
+
+### Ne Yapıldı
+
+`BADGES` sabit listesi ve iki adet dublikasyonu giderilmiş rozet yardımcı fonksiyonu, `index.html` ve `profile.html`'den çıkarılıp ortak dosyalara taşındı. Toplamda iki HTML dosyasından **340 satır** düştü (her biri -170 satır).
+
+**Yeni dosyalar:**
+- `data/badges.js` (155 satır) — `window.LOGWISE_BADGES` olarak **30 adet** rozet tanımı (id, icon, kategori, eşik değer). Kategoriler: `workout` (7), `streak` (6), `pr` (5), `volume` (5), `sets` (4), `variety` (3).
+- `lib/badge-logic.js` (43 satır) — `window.LOGWISE_BADGE_LOGIC` IIFE'si; şu anda **iki ortak fonksiyonu** export ediyor:
+  - `getBadgeName(badge, lang)` — rozet adının TR/EN versiyonu (örn. `"50K Hacim"` / `"50K Volume"`)
+  - `getBadgeCatLabel(cat, lang)` — kategori etiketinin TR/EN versiyonu (örn. `"Ağırlık PR"` / `"Weight PR"`)
+
+### Neden Sadece İki Fonksiyon?
+
+`checkBadges`, `calcBadgeStats`, `getNextBadge` üçlüsü **yalnızca index.html tarafından çağrılıyor** ve `calcStreak` + `fmt` bağımlılıkları var (bunlar hâlâ `index.html` inline script'inde). Dublikasyon yok, bu yüzden taşımanın marjinal getirisi az ve bağımlılık enjeksiyonu istiyor. Şimdilik index.html içinde bıraktık; **Adım E**'de `lib/calculations.js` oluşturulduğunda `calcStreak` de ortak dosyaya çıkacak ve bu üç fonksiyon o zaman `lib/badge-logic.js`'e taşınabilir (daha temiz bir gruplama). profile.html bu üç fonksiyonu zaten hiç kullanmıyor.
+
+### Script Yükleme Sırası
+
+`index.html` <head>:
+```html
+<script src="https://.../react.production.min.js"></script>
+<script src="https://.../react-dom.production.min.js"></script>
+<script src="https://.../@supabase/supabase-js@2"></script>
+<script src="https://.../chart.js@4.4.4/.../chart.umd.min.js"></script>
+<script src="data/i18n-tr.js"></script>
+<script src="data/i18n-en.js"></script>
+<script src="data/badges.js"></script>         <!-- Adım B -->
+<script src="lib/badge-logic.js"></script>     <!-- Adım B -->
+```
+
+`profile.html` <head> (Chart.js yok, Supabase'den sonra i18n):
+```html
+<script src="data/i18n-tr-profile.js"></script>
+<script src="data/i18n-en-profile.js"></script>
+<script src="data/badges.js"></script>         <!-- Adım B -->
+<script src="lib/badge-logic.js"></script>     <!-- Adım B -->
+```
+
+**NOT:** `data/badges.js` önce yüklenmeli çünkü `lib/badge-logic.js` onu **okumaz** (fonksiyon gövdesi `window.LOGWISE_BADGES` referansını çağrı anında alır), ama `const BADGES = window.LOGWISE_BADGES` satırı HTML inline script'te çalıştığında mevcut olmalı.
+
+### HTML İçinde Yeni Satırlar
+
+`index.html` (kaldırılan 149 + 13 + 11 = 173 satırın yerine 4 satır; 3 satır eski `const BADGES = [...]; const getBadgeName = ...; const getBadgeCatLabel = ...;` bloğunu temsil eden yeni yönlendirmeler, +1 script yükleme sonucu bölünmesi):
+```js
+const BADGES = window.LOGWISE_BADGES;
+const getBadgeName = window.LOGWISE_BADGE_LOGIC.getBadgeName;
+const getBadgeCatLabel = window.LOGWISE_BADGE_LOGIC.getBadgeCatLabel;
+const calcBadgeStats = data => { ... }  // olduğu gibi kaldı
+```
+
+`profile.html`:
+```js
+const BADGES = window.LOGWISE_BADGES;
+const getBadgeName = window.LOGWISE_BADGE_LOGIC.getBadgeName;
+const getBadgeCatLabel = window.LOGWISE_BADGE_LOGIC.getBadgeCatLabel;
+```
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+- `index.html`: 10,627 → **10,457** (-170)
+- `profile.html`: 3,677 → **3,507** (-170)
+- `data/badges.js`: 0 → **155** (yeni)
+- `lib/badge-logic.js`: 0 → **43** (yeni)
+- **Toplam işlenen satır:** 340 temizlendi, 198 ayrı dosyalara taşındı — net -142 satır (dublikasyon ortadan kalktı).
+
+### Doğrulama
+- `node --check` tüm yeni dosyaları ve `sw.js`'i onayladı.
+- Runtime test (headless Node + `global.window`): 30 badge yüklendi, fonksiyonlar orijinal davranışını birebir koruyor.
+- Bracket dengesi: her iki HTML'de **tam denge** (`(` = `)`, `{` = `}`). Adım A'da tespit edilen küçük parantez farkı bu adımda ortadan kalktı (template literal + regex literal içi `{}`'ler taşındığı için).
+
+### Service Worker Güncellemesi
+`sw.js` — `CACHE_NAME` `'logwise-v6'` → `'logwise-v7'`. `PRECACHE_URLS`'e `/data/badges.js` ve `/lib/badge-logic.js` eklendi.
+
+### Geri Alma
+Sorun çıkarsa: `data/badges.js` ve `lib/badge-logic.js`'i sil, HTML'lerdeki iki script tag'ini ve `const BADGES = window...` üçlüsünü geri çevir. Git revert bu commit için temiz çalışır.
+
+### Sonraki Adımlar
+- **Adım C:** `PRESET_EXERCISES` + `EX_DESCS` + `EX_PREVIEW` (en büyük veri bloğu).
+- **Adım D:** `PRESET_PROGRAMS`.
+- **Adım E:** Hesaplama yardımcıları + `checkBadges`/`calcBadgeStats`/`getNextBadge` bu adımda `badge-logic.js`'e taşınabilir (artık `calcStreak` ortak olacağı için).
+- **Adım F:** `migrateData` + `init`.

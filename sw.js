@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v6';
+const CACHE_NAME = 'logwise-v7';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -9,6 +9,8 @@ const PRECACHE_URLS = [
   '/apple-touch-icon.png',
   '/data/i18n-tr.js',
   '/data/i18n-en.js',
+  '/data/badges.js',
+  '/lib/badge-logic.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js',
   'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2',
