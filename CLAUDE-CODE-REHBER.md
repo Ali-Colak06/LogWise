@@ -12,8 +12,8 @@ LOG WISE, tek sayfalık (SPA) bir antrenman takip web uygulamasıdır. Kullanıc
 
 - **Canlı URL**: https://logwise.fit/ (Cloudflare Pages deploy, custom domain)
 - **Eski URL**: https://incomparable-starburst-f7802c.netlify.app/
-- **Teknoloji**: React 18, önceden derlenmiş JSX (`compile.js` + `@babel/preset-react`), Supabase (auth + veritabanı), Cloudflare R2 (resim depolama), Cloudflare Workers (resim API), Chart.js 4.4.4
-- **Ana dosya**: `index.html` (ana uygulama; React çıktısı `React.createElement()` olarak derlenmiş tek dosya)
+- **Teknoloji**: React 18, `React.createElement()` çağrıları doğrudan `.html` dosyalarında (derleme adımı yok — bkz. Bölüm 27), Supabase (auth + veritabanı), Cloudflare R2 (resim depolama), Cloudflare Workers (resim API), Chart.js 4.4.4
+- **Ana dosya**: `index.html` (ana uygulama; tüm UI `React.createElement()` çağrılarıyla yazılır, JSX yok)
 - **Font**: Google Fonts — Space Mono (body), Archivo Black (logo)
 
 ---
@@ -40,13 +40,7 @@ LogWise/
 ├── local-server.bat        ← Yerel sunucu başlatma scripti
 ├── local-server-mobile.bat ← Mobil test için yerel sunucu
 ├── .gitignore              ← Git ignore kuralları
-├── compile.js              ← JSX önceden derleme scripti (git'e gitmez, sadece yerel)
-├── package.json            ← Babel bağımlılıkları (git'e gitmez, sadece yerel)
-├── index.html.babel-backup ← index.html kaynak JSX (git'e gitmez, sadece yerel)
-├── profile.html.babel-backup ← profile.html kaynak JSX (git'e gitmez, sadece yerel)
-├── share.html.babel-backup ← share.html kaynak JSX (git'e gitmez, sadece yerel)
 ├── program.html            ← Program paylaşım sayfası (public, base64 URL ile veri)
-├── program.html.babel-backup ← program.html kaynak JSX (git'e gitmez, sadece yerel)
 ├── PRESET_PROGRAM_ONERILERI.md ← Yeni preset program fikirleri, etiketler ve haftalık taslaklar
 ├── PRESET_PROGRAM_ONERILERI_READABLE.html ← Program önerisi belgesinin okunabilir HTML versiyonu
 ├── PRESET_PROGRAM_ONERILERI.pdf ← Program önerisi belgesinin okunabilir PDF export'u
@@ -63,7 +57,7 @@ LogWise/
 
 ### 3.1 Tek Dosya Uygulaması
 
-Tüm uygulama mantığı ağırlıklı olarak `index.html` içinde. Runtime'da Babel Standalone kullanılmıyor; JSX yerelde `compile.js` ile önceden derlenip düz `React.createElement()` çıktısına çevriliyor. Kod değiştirirken kaynak dosya `*.babel-backup`, deploy edilen çıktı ise ilgili `.html` dosyasıdır. CDN'lerden yüklenen kütüphaneler:
+Tüm uygulama mantığı ağırlıklı olarak `index.html` içinde. Runtime'da Babel Standalone kullanılmıyor; kod doğrudan `React.createElement()` çağrılarıyla yazılır, derleme adımı yoktur. Kod değiştirirken `.html` dosyasında doğrudan çalışılır. JSX kullanılmaz. **Geçmişte** `*.babel-backup` kaynak JSX + `compile.js` derleyici kullanılıyordu; bu sistem 2026-04-17'de kaldırıldı (bkz. Bölüm 27). CDN'lerden yüklenen kütüphaneler:
 
 - React 18.3.1 (production)
 - ReactDOM 18.3.1
@@ -646,7 +640,7 @@ Proje daha önce Netlify'da hostlanıyordu. Deploy limiti (ayda 500) ve depolama
 
 2. **Tek dosya uygulaması** — Tüm CSS, JS, React tek `index.html` içinde. Ayrı dosyalara bölme.
 
-3. **JSX önceden derlenmiş** — Babel Standalone kaldırıldı (2026-04-10). `index.html`, `profile.html`, `share.html`, `program.html` artık `<script type="text/babel">` içermiyor; JSX yerelde `compile.js` ile düz `React.createElement()` çağrılarına derlenir. Kaynak JSX dosyaları `*.babel-backup` uzantısıyla saklanır. Değişiklik akışı: `.babel-backup` düzenle → `node compile.js` çalıştır → çıktı HTML'leri kontrol et.
+3. **JSX yok, derleme adımı yok** — Kod doğrudan `.html` dosyalarında `React.createElement()` syntax'ıyla yazılır. `index.html`, `profile.html`, `share.html`, `program.html` — hepsi bu biçimde. `<script type="text/babel">` yok, `*.babel-backup` yok, `compile.js` yok. Değişiklik akışı: `.html` dosyasını doğrudan düzenle → yerel sunucuda test et → git push. (Geçmiş akış için bkz. Bölüm 27.)
 
 4. **Edit çok dikkatli yapılmalı** — Dosya kesintisi beyaz ekrana sebep olur. Her edit sonrası:
    - `tail -5 index.html` ile dosya sonunu kontrol et
@@ -728,7 +722,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 ### Kategori 7: Teknik / Altyapı ✅ TAMAMLANDI
 - ✅ **PWA offline desteği** — `sw.js` Service Worker: cache-first strateji, app shell precache (index.html, CDN libs, ikonlar), Supabase API için network-first, offline fallback. SW kaydı index.html'de plain JS ile. `netlify.toml`'da sw.js için no-cache header.
 - ✅ **Performans iyileştirmeleri** — Preconnect/dns-prefetch (fonts.gstatic.com, cdnjs, jsdelivr, supabase), loading skeleton (LOG WISE logo + animasyonlu progress bar, React mount öncesi gösterilir)
-- ✅ **Babel Standalone kaldırıldı** (2026-04-10) — ~1.4 MB CDN indirmesi ve runtime JSX derleme yükü ortadan kalktı. `index.html`, `profile.html`, `share.html` artık önceden derlenmiş düz JavaScript içeriyor. Derleme aracı: `compile.js` + `@babel/preset-react`. Kaynak JSX dosyaları `*.babel-backup` olarak yerel tutulur. Değişiklik akışı: `.babel-backup` düzenle → `node compile.js` → deploy.
+- ✅ **Babel Standalone kaldırıldı** (2026-04-10) — ~1.4 MB CDN indirmesi ve runtime JSX derleme yükü ortadan kalktı. `index.html`, `profile.html`, `share.html` artık düz JavaScript (`React.createElement` çağrıları) içeriyor. **Not**: 2026-04-17'de `compile.js` ve `*.babel-backup` akışı da tamamen kaldırıldı; kod artık doğrudan `.html` dosyalarında yazılır (bkz. Bölüm 27).
 - ✅ **Erişilebilirlik (a11y)** — Skip-to-content linki, `role="banner/navigation/main/dialog"`, `aria-label` tüm icon button'larda (menü, ay gezinme, tema, FAB), `aria-modal="true"` tüm modallarda, tüm input'lara `aria-label`, Escape tuşu ile tüm modalları kapatma (`useEffect` ile consolidated handler), TR/EN çeviri anahtarları (ariaMenu, ariaPrevMonth, ariaNextMonth, ariaToggleTheme, ariaAddExercise, ariaCloseModal, ariaNavigation, ariaMainContent)
 - ✅ **Error boundary** — `ErrorBoundary` class component (React.Component), `getDerivedStateFromError` + `componentDidCatch`, iki katmanlı koruma (dış: Root etrafında, iç: App etrafında), tema-uyumlu kurtarma UI'ı (hata detayı, "Tekrar Dene" / "Sayfayı Yenile" butonları), TR/EN dil desteği (localStorage'dan lang okur)
 
@@ -798,7 +792,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 
 ### Değişiklik 1: Geçmiş günlerde sadece tamamlanan hareketler gösterilir
 
-**Etkilenen fonksiyon**: `getEff(ds)` (index.html.babel-backup)
+**Etkilenen fonksiyon**: `getEff(ds)` (index.html)
 
 `getEff` fonksiyonuna `if(ds<today)return m;` kontrolü eklendi. Artık tarih bugünden önceyse program hareket listesine hiç bakılmıyor; yalnızca `data.workouts[ds]` içinde gerçekten kayıtlı (set girilmiş) hareketler döndürülüyor. Boş set temizliği (`prevViewRef` effect'i) zaten gün görünümünden çıkınca 0 kg/0 tekrar setlerini siliyor; dolayısıyla geçmiş günlerde `data.workouts` içinde kalan her hareket en az bir geçerli setle tamamlanmış demektir.
 
@@ -825,7 +819,7 @@ Supabase Dashboard → SQL Editor'da `supabase_setup.sql` çalıştırılarak ta
 
 ### Değişiklik 1: Ağırlık ve Tekrar Üst Limitleri (Clamp)
 
-**Etkilenen fonksiyon**: `updSet` (index.html.babel-backup)
+**Etkilenen fonksiyon**: `updSet` (index.html)
 
 `updSet` içinde `newVal` hesaplandıktan sonra clamp eklendi:
 - `f==="weight"` → `Math.min(newVal, 500)` (max 500 kg)
@@ -1249,7 +1243,9 @@ const decoded = JSON.parse(decodeURIComponent(escape(atob(d))));
 /program      /program.html   200
 ```
 
-### compile.js Güncellemesi
+### compile.js Güncellemesi (TARİHSEL — ARTIK GEÇERSİZ)
+
+> **Not (2026-04-17)**: `compile.js` ve `*.babel-backup` sistemi kaldırıldı. Aşağıdaki blok tarihsel referans içindir. Bugün `program.html` doğrudan düzenlenir. Detay için bkz. Bölüm 27.
 
 `files` dizisine `program.html` eklendi:
 ```js
@@ -1344,7 +1340,7 @@ isMobile && React.createElement("div", {
 
 ### Değişiklik 3: Profile.html Avatar Upload
 
-`profile.html.babel-backup` değişiklikleri:
+`profile.html` değişiklikleri (o zamanki kaynak: `profile.html.babel-backup`; 2026-04-17 sonrası doğrudan `profile.html`):
 - `WORKER_URL` sabiti eklendi
 - `uploadingAvatar` state, `avatarFileRef` ref eklendi
 - `uploadAvatarPhoto(e)` fonksiyonu eklendi: Supabase session token alır → `PUT /avatars/<userId>/avatar_<timestamp>.<ext>` isteği → dönen URL `saveAvatar(url)` ile kaydedilir
@@ -1353,17 +1349,17 @@ isMobile && React.createElement("div", {
 
 ### Değişiklik 4: URL Avatar Render Desteği
 
-Avatar değeri `http` ile başlıyorsa `<img>` tag'iyle, emoji/metin ise doğrudan render edilir. Bu kontrol şu tüm konumlarda uygulandı:
+Avatar değeri `http` ile başlıyorsa `<img>` tag'iyle, emoji/metin ise doğrudan render edilir. Bu kontrol şu tüm konumlarda uygulandı (o tarihte `.babel-backup` dosyaları düzenleniyordu; bugün karşılıkları doğrudan `.html` içinde):
 
-| Dosya | Konum |
+| Dosya (bugünkü) | Konum |
 |---|---|
-| `profile.html.babel-backup` | Kendi profil dairesi (88px) |
-| `profile.html.babel-backup` | Başka kullanıcı profil dairesi (88px) |
-| `profile.html.babel-backup` | Follow/follower listesi (40px) — 2 adet |
-| `index.html.babel-backup` | Sosyal feed post kartları (36px) |
-| `index.html.babel-backup` | Liderlik tablosu (28px) |
-| `index.html.babel-backup` | Kullanıcı arama sonuçları (44px) |
-| `index.html.babel-backup` | Sidebar kullanıcı kartı (36px) |
+| `profile.html` | Kendi profil dairesi (88px) |
+| `profile.html` | Başka kullanıcı profil dairesi (88px) |
+| `profile.html` | Follow/follower listesi (40px) — 2 adet |
+| `index.html` | Sosyal feed post kartları (36px) |
+| `index.html` | Liderlik tablosu (28px) |
+| `index.html` | Kullanıcı arama sonuçları (44px) |
+| `index.html` | Sidebar kullanıcı kartı (36px) |
 
 **Sidebar Kullanıcı Kartı Özel Notu**: Bu kısımda `avatar_url` (Google OAuth) ve `avatar` (custom upload URL) iki farklı kaynaktan gelebilir. Kontrol sırası: `avatar_url` varsa veya `avatar` http ile başlıyorsa `<img>` göster; yoksa emoji ya da baş harf göster.
 
@@ -1371,10 +1367,116 @@ Avatar değeri `http` ile başlıyorsa `<img>` tag'iyle, emoji/metin ise doğrud
 
 Avatar dairesine tıklayınca fotoğraf büyüyerek gösterilir.
 
-- **`photoModal` state** eklendi (`null` veya URL string) — `profile.html.babel-backup`
+- **`photoModal` state** eklendi (`null` veya URL string) — `profile.html` (o tarihte: `.babel-backup`)
 - **Kendi profil dairesi**: Avatar URL'yse tıklayınca lightbox açılır; emoji/baş harfse picker açılır. ✏️ butonu her durumda picker'ı açar (`e.stopPropagation()` ile ayrıştırıldı).
 - **Başka kullanıcı profil dairesi** (`vp.avatar`): URL'yse tıklayınca lightbox açılır.
 - **Lightbox modal**: Siyah transparan overlay (`rgba(0,0,0,.85)`), ortalanmış büyük resim, sağ üstte ✕ butonu. Overlay'e veya ✕'e tıklayınca kapanır.
 - **Önemli**: `profile.html`'de iki ayrı `return()` bloğu var — biri kendi profili, biri `viewUserProfile` (başka kullanıcı). Lightbox modal **her iki bloğa da** ayrı ayrı eklenmelidir. Sadece birine eklenirse diğer blokta state set edilir ama modal render edilmez (görünmez).
 
-Derleme: `node compile.js` (tüm dosyalar)
+---
+
+## Bölüm 27 — Babel/Compile Sistemi Kaldırıldı (2026-04-17)
+
+### Özet
+
+`*.babel-backup` kaynak dosyaları, `compile.js` derleyicisi ve Babel bağımlılıkları (`@babel/core`, `@babel/preset-react`) projeden tamamen kaldırıldı. Artık `index.html`, `profile.html`, `share.html`, `program.html` doğrudan düzenlenir; derleme adımı yoktur. Kod `React.createElement()` syntax'ıyla yazılır, JSX kullanılmaz.
+
+### Arka Plan: Neden Kaldırıldı?
+
+2026-04-10'da Babel Standalone CDN (~1.4 MB runtime yükü) kaldırıldığında `compile.js` + `*.babel-backup` hibrit sistemi kuruldu: kaynak JSX yerelde derlenir, deploy edilen `.html`'ler düz JavaScript içerir. Ancak pratikte bu akış sürdürülmedi:
+
+- Günlük geliştirme doğrudan derlenmiş `.html` dosyalarında yapılıyordu (hem manuel düzenlemelerde hem AI araçlarıyla çalışırken)
+- `.babel-backup` dosyaları zamanla geride kaldı; son kez 2026-04-12/14/16 tarihlerinde güncellendi ama aynı tarihlerde `.html`'lerde onlarca commit daha yapıldı
+- Paralel araçlarla çalışma (Claude Cowork + Codex) sırasında `node compile.js` yanlışlıkla çalıştırılırsa **eski `.babel-backup`'tan yeni `.html`'i ezip tüm güncel değişiklikleri siliyordu** (2026-04-16'da bu yaşandı)
+- Rehber `.babel-backup → .html` akışını anlatıyordu ama gerçek akış buna uymuyordu — dokümantasyon-kod drift'i
+
+### Yapılan Değişiklikler
+
+**1. Silinen dosyalar (yerel disk, git'te takip edilmiyordu):**
+- `index.html.babel-backup`
+- `profile.html.babel-backup`
+- `share.html.babel-backup`
+- `program.html.babel-backup`
+- `compile.js`
+- `package.json`
+- `package-lock.json`
+- `node_modules/` (16 MB)
+- `index.html.backup-before-restore` (16 Nisan restore artefaktı)
+
+**2. Arşiv:**
+Silinen dosyaların tam kopyası `_archived_babel_system_2026-04-17/` klasörüne alındı. Bu klasör `.gitignore`'da, deploy edilmez ve git'e gitmez. Bir süre bekledikten sonra güvenle silinebilir.
+
+**3. `.gitignore` temizlendi:**
+`node_modules/`, `package.json`, `package-lock.json`, `compile.js`, `*.babel-backup` satırları kaldırıldı (artık bu dosyalar yok). Yerine `_archived_babel_system_*/` eklendi.
+
+**4. Rehber güncellendi:**
+- Bölüm 1 — teknoloji açıklaması
+- Bölüm 2 — dosya yapısı (4 eski dosya girişi kaldırıldı)
+- Bölüm 3.1 — tek dosya uygulaması mimarisi
+- Bölüm 7 Kategori 7 — "Babel Standalone kaldırıldı" kaydı
+- Bölüm 12 Madde 3 — JSX kuralı
+- Bölüm 19, 20 — `.babel-backup` referansları `.html`'e güncellendi
+- Bölüm 24 — compile.js güncellemesi bloğu "TARİHSEL" olarak işaretlendi
+- Bölüm 26 — değişiklik tabloları bugünkü dosyalara güncellendi
+
+### Yeni Geliştirme Akışı
+
+**Eski akış (artık geçersiz):**
+```
+.html.babel-backup düzenle → node compile.js → .html üret → deploy
+```
+
+**Yeni akış:**
+```
+.html dosyasını doğrudan düzenle → yerel sunucuda test et (local-server.bat) → git push
+```
+
+Yerel test sırasında `http://localhost:PORT/` üzerinden çalışır; Cloudflare Pages `main` branch'e push ile otomatik deploy eder.
+
+### Kod Yazım Kuralı
+
+Tüm React bileşenleri `React.createElement()` çağrılarıyla yazılır:
+
+```js
+// Doğru — bugün kullanılan syntax
+React.createElement("div", { className: "card" },
+  React.createElement("h2", null, "Başlık"),
+  React.createElement(Button, { onClick: handleClick }, "Tıkla")
+)
+
+// Yanlış — JSX çalışmaz (Babel yok)
+<div className="card">
+  <h2>Başlık</h2>
+  <Button onClick={handleClick}>Tıkla</Button>
+</div>
+```
+
+### İşleyişte Nelerin Değiştiği
+
+**Değişmedi (önemli):**
+- Production deploy akışı: `git push` → Cloudflare Pages otomatik yayın
+- Cloudflare Pages ayarları (build command yok, output root `/`)
+- Runtime davranış: Tarayıcıda çalışan kod birebir aynı (`.html`'lerin içeriği değişmedi)
+- Kullanıcı deneyimi: site tamamen aynı çalışır, hiçbir kullanıcı etkisi yoktur
+- `logwise-worker/` klasörü, Supabase, R2, PWA, SW — hiçbiri etkilenmedi
+
+**Değişti:**
+- Yerel geliştirme: artık `.html` doğrudan düzenlenir; `node compile.js` gereksiz (zaten yok)
+- Node.js bağımlılığı kalktı (yerelde artık `npm install` gerekmez)
+- Disk temizlendi: `node_modules` (~16 MB) gitti
+- Dosya sayısı azaldı: 4 `.babel-backup` + 3 node/babel dosyası = 7 dosya eksildi
+- Yanlışlıkla compile.js çalıştırıp iş kaybetme riski ortadan kalktı (2026-04-16'da yaşanan sorun bir daha tekrarlayamaz)
+- Dokümantasyon-kod tutarsızlığı giderildi (rehber artık gerçek akışı anlatıyor)
+
+### Riskler / Geri Dönüş Planı
+
+Eğer ileride "JSX ile yazmak istiyorum" dersen `_archived_babel_system_2026-04-17/` klasöründen tüm orijinal dosyalar geri getirilebilir. Ancak:
+- Geri dönersen aynı drift problemi tekrarlayacaktır (tek kişi + tek akış değilse)
+- Babel CDN Standalone kullanma seçeneği de var ama ~1.4 MB performans yükü geri gelir
+- Modern bir yol: Vite/esbuild ile proper bir build pipeline kurmak. Ama bu, proje mimarisini kökten değiştirir ve Cloudflare Pages ayarlarında build step gerektirir.
+
+Şu anki karar: **Sade, derleme-siz, doğrudan düzenleme.** Proje boyutu (~11k satır index.html) için JSX olmadan da makul şekilde yönetilebilir. Ancak index.html'i veri/sabit dosyalara bölme refactor'ı (Aşama 1) bu dosyayı daha yönetilebilir hale getirecek.
+
+### `.babel-backup` Referanslarının Rehberde Kalma Nedeni
+
+Bölüm 18, 19, 20, 22, 23, 24, 26'da tarihsel değişiklik notlarında `.babel-backup` referansları yer alıyordu. Bunların çoğu bugünkü dosya adlarına güncellendi. Bazıları "tarihsel" olarak işaretlendi (örn. Bölüm 24'teki compile.js güncellemesi bloğu). Bu referansları tamamen silmedim çünkü **o tarihteki commit geçmişinde** gerçekten `.babel-backup` düzenlenmişti — tarihsel doğruluk korundu. Bugün kod değişikliği yaparken bu notlara bakanların kafa karıştırmaması için "o tarihte `.babel-backup`, bugün `.html`" şeklinde anotasyon eklendi.
