@@ -34,7 +34,8 @@ LogWise/
 │   └── presets-programs.js ← window.LOGWISE_PRESET_PROGRAMS — 4 hazır program şablonu (Adım D)
 ├── lib/                    ← Refactor Aşama 1 — yardımcı fonksiyonlar klasörü (bkz. Bölüm 29)
 │   ├── calc.js             ← window.LOGWISE_CALC — 11 saf hesaplama/tarih fonksiyonu (Adım E-1)
-│   └── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — rozet adı/etiket + calcBadgeStats/checkBadges/getNextBadge (Adım E-2)
+│   ├── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — rozet adı/etiket + calcBadgeStats/checkBadges/getNextBadge (Adım E-2)
+│   └── data-schema.js      ← window.LOGWISE_SCHEMA — init + migrateData (Adım F)
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
@@ -515,7 +516,7 @@ Satır ~315     `const PRESET_PROGRAMS = window.LOGWISE_PRESET_PROGRAMS;` — 4 
 Satır ~318     `const { fmt, pD, gdow, eDays, calc1RM, calcBrzycki, calcStreak, calcWeekFreq, calcMonthFreq, getAllPRs, calcCompliance } = window.LOGWISE_CALC;` — 11 saf hesaplama/tarih fonksiyonu lib/calc.js'ten yükleniyor (Refactor Aşama 1, Adım E-1 — bkz. Bölüm 32). Eski ~180 satırlık inline tanım kaldırıldı. `calcWeekFreq`/`calcMonthFreq` artık `CATS` parametresi alıyor (API değişikliği).
 Satır ~319-322 storage keys (SK, TK, LK, UK, FK), IS_LOCAL_STATIC, BRAND_LOGO_SRC, profileRoute, shareRoute
 Satır ~323-330 SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
-Satır ~331-380 init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu — Adım F'de taşınacak
+Satır ~349     `const { init, migrateData } = window.LOGWISE_SCHEMA;` — init() ve migrateData() lib/data-schema.js'ten yükleniyor (Refactor Aşama 1, Adım F — bkz. Bölüm 33). Eski ~33 satırlık inline tanım kaldırıldı.
 Satır ~382     `const BADGES = window.LOGWISE_BADGES;` — 30 rozet tanımı data/badges.js'ten (Adım B).
 Satır ~383     `const { getBadgeName, getBadgeCatLabel, calcBadgeStats, checkBadges, getNextBadge } = window.LOGWISE_BADGE_LOGIC;` — 5 rozet fonksiyonu lib/badge-logic.js'ten yükleniyor (Refactor Aşama 1, Adım B + E-2 — bkz. Bölüm 29 ve 32). Eski ~60 satırlık inline badge fonksiyonları kaldırıldı (calcBadgeStats/checkBadges/getNextBadge artık lib/'de).
 Satır ~1305-1306 `const TR = window.LOGWISE_TR; const EN = window.LOGWISE_EN;` — çeviriler data/i18n-tr.js ve data/i18n-en.js dosyalarından yükleniyor (Refactor Aşama 1, Adım A — bkz. Bölüm 28). Eski 538 satırlık inline tanım kaldırıldı.
@@ -1946,5 +1947,134 @@ E-2 sonrası Ali'nin tarayıcısında `TypeError: checkBadges is not a function`
 
 ### Sonraki Adımlar
 
-- **Adım F:** `migrateData` + `init` (son adım — veri migration + state initialization mantığı).
-- **Opsiyonel:** `catLabel`, `normalizeUsername`, `isValidUsername`, `defaultDisplayName`, `defaultAvatar`, `buildProfileRow` — bunlar hesaplama değil, profile/UI utility'si. İstenirse `lib/profile-utils.js` dosyası açılabilir.
+- **Adım F:** `migrateData` + `init` — bkz. Bölüm 33.
+- **Opsiyonel (gelecek aşamalar):** `catLabel`, `normalizeUsername`, `isValidUsername`, `defaultDisplayName`, `defaultAvatar`, `buildProfileRow` — bunlar hesaplama değil, profile/UI utility'si. İstenirse `lib/profile-utils.js` dosyası açılabilir.
+
+---
+
+## Bölüm 33 — Refactor Aşama 1, Adım F: init + migrateData Ayrıldı & Aşama 1 Kapanışı (2026-04-18)
+
+Aşama 1'in **son adımı**. `init()` ve `migrateData()` — iki küçük ama kritik saf fonksiyon — `lib/data-schema.js` dosyasına taşındı. Aşama 1 böylece kapanıyor.
+
+### Ne Yapıldı
+
+**Yeni dosya:**
+- `lib/data-schema.js` (54 satır) — `window.LOGWISE_SCHEMA` olarak **2 fonksiyon**:
+  - `init()` — Boş/varsayılan kullanıcı verisi şablonu (11 anahtar: `exercises`, `workouts`, `programs`, `dailyPrograms`, `activeProgram`, `durations`, `measurements`, `dayNotes`, `exerciseNotes`, `programMeta`, `badges`).
+  - `migrateData(d)` — Eski şemadan yeni şemaya güvenli, idempotent geçiş. Eski `category` → yeni `categories: [category]` dönüşümü ve eksik default objelerin doldurulması.
+
+### HTML'de Tek Satır Redirection
+
+```js
+const { init, migrateData } = window.LOGWISE_SCHEMA;
+```
+
+6 çağrı noktası (4x `init()`, 2x `migrateData()`) değişmeden kaldı — destructuring binding sayesinde identifier'lar aynen çalışıyor.
+
+### Neden Ayrı Dosya (calc.js'te Değil)?
+
+- **Farklı domain:** `calc.js` hesaplama, `data-schema.js` veri yapısı kontratı. Karıştırmamak ileride bakım için daha temiz.
+- **Versiyonlama potansiyeli:** Şema değişirse (yeni alanlar eklenirse) migration fonksiyonları büyüyebilir. İzole bir dosyada olması büyümeyi kısıtlar.
+- **Bağımsız:** `data-schema.js` hiçbir şeye bağımlı değil, sıfır import'lu saf fonksiyonlar.
+
+### Script Yükleme Sırası
+
+```html
+<script src="data/badges.js"></script>
+<script src="lib/calc.js"></script>
+<script src="lib/badge-logic.js"></script>
+<script src="lib/data-schema.js"></script>    <!-- Adım F — bağımsız, her yere konabilir -->
+<script src="data/presets-exercises.js"></script>
+...
+```
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+- `index.html`: 9,706 → **9,674** (-32 satır)
+- `lib/data-schema.js`: 0 → **54** (yeni)
+
+### Doğrulama
+
+- `node --check lib/data-schema.js` ✅
+- Runtime: `init()` 11 anahtarlı obje, `activeProgram: null` ✅
+- `migrateData(null)` ve `migrateData(undefined)` aynen döndü (null-safe) ✅
+- Eski `{category: "Göğüs"}` → `{category:"Göğüs", categories:["Göğüs"]}` ✅
+- Zaten migrate edilmiş veri bozulmadan döndü (idempotent) ✅
+- 4 namespace birlikte yüklendi: `LOGWISE_BADGES`, `LOGWISE_CALC`, `LOGWISE_BADGE_LOGIC`, `LOGWISE_SCHEMA` ✅
+- Bracket balance (`index.html`): `(`=`)`=4514, `{`=`}`=2614 ✅
+
+### Service Worker Güncellemesi
+
+`sw.js` — `CACHE_NAME` `'logwise-v11'` → `'logwise-v12'`. `/lib/data-schema.js` PRECACHE_URLS'e eklendi.
+
+### Geri Alma
+
+`lib/data-schema.js`'i sil, `index.html`'deki script tag'ini ve `const { init, migrateData } = window.LOGWISE_SCHEMA;` satırını git HEAD'den restore et. Çağrı noktaları (6 adet) değişmedi.
+
+---
+
+## Aşama 1 Kapanış Bilançosu
+
+Tüm adımlar tamamlandı: **A → B → C → D → E (E-1, E-2) → F**.
+
+### Toplam Satır Etkisi
+
+| Adım | Dosya(lar) | index.html | profile.html |
+|---|---|---|---|
+| A | `data/i18n-tr.js`, `data/i18n-en.js`, `data/i18n-tr-profile.js`, `data/i18n-en-profile.js` | -538 | -163 |
+| B | `data/badges.js`, `lib/badge-logic.js` | -173 | (script tag eklendi) |
+| C | `data/presets-exercises.js`, `data/ex-descriptions.js`, `data/ex-preview.js` | -484 | — |
+| D | `data/presets-programs.js` | -55 | — |
+| E-1 | `lib/calc.js` | -150 | -18 (duplike temizliği) |
+| E-2 | `lib/badge-logic.js` (genişletildi) | -62 | — |
+| F | `lib/data-schema.js` | -32 | — |
+| **Toplam** | **11 yeni dosya** | **-1,494** | **-181** |
+
+### Önce/Sonra
+
+**Önce (Aşama 1 başlangıcı):**
+- `index.html`: **11,161 satır** (tüm data + lib + UI monolit)
+- `profile.html`: **3,833 satır** (duplike helper'lar dahil)
+- `data/` ve `lib/` klasörleri yok.
+
+**Sonra (Aşama 1 sonu):**
+- `index.html`: **9,674 satır** (%13.3 küçülme)
+- `profile.html`: **3,490 satır** (%9.0 küçülme, duplikasyon yok)
+- `data/` (9 dosya): 4 i18n + 1 badges + 4 exercise/program data = ~860 satır
+- `lib/` (3 dosya): calc.js + badge-logic.js + data-schema.js = ~370 satır
+
+### Global Namespace'ler
+
+Aşama 1 sonunda `window` üzerine eklenen namespace'ler:
+- `LOGWISE_TR`, `LOGWISE_EN` (index.html çevirileri)
+- `LOGWISE_TR_PROFILE`, `LOGWISE_EN_PROFILE` (profile.html çevirileri)
+- `LOGWISE_BADGES` (rozet tanımları)
+- `LOGWISE_PRESET_EXERCISES`, `LOGWISE_EX_DESCS`, `LOGWISE_EX_PREVIEW`, `LOGWISE_PRESET_PROGRAMS` (hazır içerik)
+- `LOGWISE_CALC` (hesaplama fonksiyonları)
+- `LOGWISE_BADGE_LOGIC` (rozet mantığı)
+- `LOGWISE_SCHEMA` (veri şeması)
+
+### Mimari Kazanımlar
+
+1. **Single source of truth** — her sabit/fonksiyon tek bir yerde. Duplikasyon yok.
+2. **Cache invalidation granülaritesi** — bir çeviri değişirse sadece `i18n-*.js` cache kırılır, diğer dosyalar cache'ten servislenir.
+3. **İnceleme kolaylığı** — eski 11k+ satırlık tek dosya yerine, her dosyanın tek bir sorumluluğu var.
+4. **Test edilebilirlik** — `lib/` fonksiyonları Node'da `global.window = {}` ile test edilebilir (nitekim her adımda yapıldı).
+5. **Build step yok** — hâlâ klasik `<script src>` tag'leri, Babel yok, bundler yok. PWA + SW basit kalıyor.
+
+### Sonraki Fazlar (Opsiyonel)
+
+Bu adımlar kullanıcı talep ederse ayrı bir "Aşama 2" olarak yapılabilir:
+
+- **Profile utilities çıkarımı:** `lib/profile-utils.js` — `catLabel`, `normalizeUsername`, `isValidUsername`, `defaultDisplayName`, `defaultAvatar`, `buildProfileRow`.
+- **React bileşen ayrıştırma:** `BrandMark`, `ErrorBoundary`, `DashChart` gibi izole bileşenler ayrı dosyalara çıkarılabilir. Ancak JSX kullanılmadığı için (`React.createElement()`) sadeleştirme kazancı sınırlı.
+- **Supabase client wrapper:** DB çağrılarını `lib/db.js`'e toplamak. İleride ek backend eklemeleri için esneklik.
+- **CSS ayrıştırma:** `<style>` bloğu büyük, `styles.css`'e çıkartılabilir.
+
+### Öğrenilen Dersler
+
+1. **SW cache invalidation** — `CACHE_NAME` bump her zaman yeterli değil; kullanıcılara hard refresh/unregister talimatı vermek gerekiyor (bkz. E-2 gotcha'sı).
+2. **Büyük blok taşımalarında Python regex** — 200+ satırlık blokları `Edit` tool ile değiştirmek pratik değil; tek Python `re.sub` çağrısı daha hızlı ve güvenli.
+3. **Bracket balance + node --check + runtime test** — üçünün her adımda birlikte yapılması bug'sız refactor için yeterli.
+4. **Bağımlılık sırası** — `lib/badge-logic.js`'in `lib/calc.js`'e bağımlı hale gelmesi script yükleme sırasını zorunlu kıldı. İleride bu sırayı karıştıran bir değişiklik yapılırsa IIFE başındaki destructuring fail olur.
+5. **Duplikasyon temizliği bonus** — `profile.html`'de `calc1RM` ve `calcStreak` duplike duruyordu; E-1'de çıkınca tek kanonik versiyon kaldı.
