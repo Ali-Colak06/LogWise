@@ -33,7 +33,8 @@ LogWise/
 │   ├── ex-preview.js       ← window.LOGWISE_EX_PREVIEW — hareket önizleme (gif/uzun desc/tips) (Adım C)
 │   └── presets-programs.js ← window.LOGWISE_PRESET_PROGRAMS — 4 hazır program şablonu (Adım D)
 ├── lib/                    ← Refactor Aşama 1 — yardımcı fonksiyonlar klasörü (bkz. Bölüm 29)
-│   └── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — getBadgeName + getBadgeCatLabel
+│   ├── calc.js             ← window.LOGWISE_CALC — 11 saf hesaplama/tarih fonksiyonu (Adım E-1)
+│   └── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — rozet adı/etiket + calcBadgeStats/checkBadges/getNextBadge (Adım E-2)
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
@@ -511,12 +512,12 @@ Satır ~305-310 `const EX_DESCS = window.LOGWISE_EX_DESCS;` + `getExDesc` helper
 Satır ~311     `const presetName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;` (helper inline kaldı)
 Satır ~312-313 `const EX_PREVIEW = window.LOGWISE_EX_PREVIEW;` + `getExPreview` helper (inline kaldı). Eski 262 satırlık EX_PREVIEW inline tanımı kaldırıldı.
 Satır ~315     `const PRESET_PROGRAMS = window.LOGWISE_PRESET_PROGRAMS;` — 4 hazır program şablonu (PPL, Upper/Lower, Full Body, Bro Split) data/presets-programs.js'ten yükleniyor (Refactor Aşama 1, Adım D — bkz. Bölüm 31). Eski 57 satırlık inline tanım kaldırıldı.
-Satır 242-245   RIRS, yardımcı fonksiyonlar (fmt, pD, gdow, storage keys, eDays)
-Satır 246-250   SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
-Satır 251-252   init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu
-Satır 253-260   Dashboard + program yardımcı fonksiyonları (calc1RM, calcBrzycki, calcStreak, calcWeekFreq, calcMonthFreq, getAllPRs, calcCompliance)
-Satır ~1071-1073 `const BADGES = window.LOGWISE_BADGES; const getBadgeName = window.LOGWISE_BADGE_LOGIC.getBadgeName; const getBadgeCatLabel = window.LOGWISE_BADGE_LOGIC.getBadgeCatLabel;` — BADGES ve iki ortak fonksiyon data/badges.js ve lib/badge-logic.js dosyalarından yükleniyor (Refactor Aşama 1, Adım B — bkz. Bölüm 29). Eski 173 satırlık inline tanım kaldırıldı.
-Satır ~1074+    calcBadgeStats, checkBadges, getNextBadge — hâlâ inline (calcStreak + fmt bağımlılığı var; Adım E'de taşınacak)
+Satır ~318     `const { fmt, pD, gdow, eDays, calc1RM, calcBrzycki, calcStreak, calcWeekFreq, calcMonthFreq, getAllPRs, calcCompliance } = window.LOGWISE_CALC;` — 11 saf hesaplama/tarih fonksiyonu lib/calc.js'ten yükleniyor (Refactor Aşama 1, Adım E-1 — bkz. Bölüm 32). Eski ~180 satırlık inline tanım kaldırıldı. `calcWeekFreq`/`calcMonthFreq` artık `CATS` parametresi alıyor (API değişikliği).
+Satır ~319-322 storage keys (SK, TK, LK, UK, FK), IS_LOCAL_STATIC, BRAND_LOGO_SRC, profileRoute, shareRoute
+Satır ~323-330 SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
+Satır ~331-380 init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu — Adım F'de taşınacak
+Satır ~382     `const BADGES = window.LOGWISE_BADGES;` — 30 rozet tanımı data/badges.js'ten (Adım B).
+Satır ~383     `const { getBadgeName, getBadgeCatLabel, calcBadgeStats, checkBadges, getNextBadge } = window.LOGWISE_BADGE_LOGIC;` — 5 rozet fonksiyonu lib/badge-logic.js'ten yükleniyor (Refactor Aşama 1, Adım B + E-2 — bkz. Bölüm 29 ve 32). Eski ~60 satırlık inline badge fonksiyonları kaldırıldı (calcBadgeStats/checkBadges/getNextBadge artık lib/'de).
 Satır ~1305-1306 `const TR = window.LOGWISE_TR; const EN = window.LOGWISE_EN;` — çeviriler data/i18n-tr.js ve data/i18n-en.js dosyalarından yükleniyor (Refactor Aşama 1, Adım A — bkz. Bölüm 28). Eski 538 satırlık inline tanım kaldırıldı.
 Satır 264-284   DashChart bileşeni (Chart.js canvas yönetimi)
 Satır 286-366   AuthScreen bileşeni (login/register/forgot modal, Google OAuth)
@@ -1806,5 +1807,144 @@ const PRESET_PROGRAMS = window.LOGWISE_PRESET_PROGRAMS;
 Sorun çıkarsa: `data/presets-programs.js`'i sil, `index.html`'deki script tag'ini ve `const PRESET_PROGRAMS = window.LOGWISE_PRESET_PROGRAMS;` satırını git HEAD'den restore et. `PRESET_PROGRAMS` sadece bir değişkendir, kullanım noktası (satır ~7650 `PRESET_PROGRAMS.map(...)`) değişmedi.
 
 ### Sonraki Adımlar
-- **Adım E:** Hesaplama yardımcıları (`calc1RM`, `calcBrzycki`, `calcStreak`, vs.) + `checkBadges`/`calcBadgeStats`/`getNextBadge`'in `lib/badge-logic.js`'e taşınması.
+- **Adım E:** Hesaplama yardımcıları + badge fonksiyonları — bkz. Bölüm 32.
 - **Adım F:** `migrateData` + `init`.
+
+---
+
+## Bölüm 32 — Refactor Aşama 1, Adım E: Hesaplama ve Badge Fonksiyonları lib/'e Taşındı (2026-04-18)
+
+Bu adım **iki ayrı commit** halinde yapıldı. E-1 önce (calc.js), sonra E-2 (badge fonksiyonları calc bağımlılıklarını kullanır hale geldi).
+
+### Adım E-1: `lib/calc.js` Oluşturuldu
+
+#### Ne Yapıldı
+
+`index.html`'deki tüm saf hesaplama ve tarih fonksiyonları tek bir dosyada toplandı. **11 fonksiyon** `window.LOGWISE_CALC` namespace'inde:
+
+**Tarih yardımcıları:**
+- `fmt(date)` — Date → "YYYY-MM-DD" (yerel saat)
+- `pD(str)` — "YYYY-MM-DD" → Date
+- `gdow(date)` — Pazartesi=0 ... Pazar=6 (LogWise konvansiyonu)
+- `eDays()` — Boş haftalık günler objesi `{"0":[], ..., "6":[]}`
+
+**Hesaplamalar:**
+- `calc1RM(w, r)` — Epley formülü
+- `calcBrzycki(w, r)` — Brzycki formülü
+- `calcStreak(workouts)` — Ardışık antrenman günleri
+- `calcWeekFreq(workouts, exercises, cats)` — Son 7 gün kategori sıklığı
+- `calcMonthFreq(workouts, exercises, cats)` — Son 30 gün kategori sıklığı
+- `getAllPRs(workouts, exercises)` — Tüm PR'lar (maxWeight, maxVolume, est1RM)
+- `calcCompliance(pgId, workouts, programs, programMeta)` — Program uyum oranı
+
+#### API Değişikliği
+
+**⚠️ `calcWeekFreq` ve `calcMonthFreq`** artık 3. parametre olarak `cats` alıyor. Eskiden `CATS` globaline bağımlıydılar, şimdi dışarıdan alıyor. Tek çağrı noktası (Dashboard frekans grafiği) güncellendi:
+
+```js
+// Eski:
+calcWeekFreq(data.workouts, data.exercises)
+// Yeni:
+calcWeekFreq(data.workouts, data.exercises, CATS)
+```
+
+Diğer 9 fonksiyonun imzası aynı kaldı.
+
+#### profile.html Duplikasyon Temizliği
+
+`profile.html`'de duplike halinde duran `calc1RM` ve `calcStreak` tanımları silindi, tek destructuring'e çevrildi:
+
+```js
+const { calc1RM, calcStreak } = window.LOGWISE_CALC;
+```
+
+Not: `profile.html`'deki eski `calcStreak` `fmt` yerine inline template literal kullanıyordu (aynı sonucu veren farklı yazım). Artık tek kanonik versiyon `lib/calc.js`'te.
+
+#### Script Yükleme Sırası (Kritik)
+
+`calc.js` **`badge-logic.js`'ten önce** yüklenmeli (çünkü E-2'de badge-logic calc'a bağımlı hale geldi):
+
+```html
+<script src="data/badges.js"></script>
+<script src="lib/calc.js"></script>            <!-- Adım E-1 -->
+<script src="lib/badge-logic.js"></script>     <!-- Adım B + E-2 -->
+```
+
+### Adım E-2: Badge Fonksiyonları lib/badge-logic.js'e Taşındı
+
+#### Ne Yapıldı
+
+`lib/badge-logic.js` artık 5 fonksiyon export ediyor (önceden 2):
+
+**Yeni eklenenler:**
+- `calcBadgeStats(data)` — Kullanıcının verisinden rozet istatistiklerini hesaplar
+- `checkBadges(data)` — Yeni açılacak rozetleri ve geri alınacakları belirler
+- `getNextBadge(data)` — Kullanıcının ilerleyebileceği bir sonraki rozeti döndürür
+
+**Eski (korundu):**
+- `getBadgeName(b, lang)`
+- `getBadgeCatLabel(cat, lang)`
+
+#### Neden Adım B'de Değil Adım E'de?
+
+Adım B'de bu 3 fonksiyon **`calcStreak` ve `fmt` bağımlılıkları** yüzünden taşınmamıştı — o zamanlar bu helper'lar `index.html` içinde inline'dı ve `lib/badge-logic.js` içinden erişilemiyordu. Adım E-1'den sonra bu helper'lar `window.LOGWISE_CALC`'a taşındı, böylece E-2'de badge fonksiyonları IIFE'nin başında şöyle alabiliyor:
+
+```js
+window.LOGWISE_BADGE_LOGIC = (function () {
+  const { calcStreak, fmt } = window.LOGWISE_CALC;
+  // ... calcBadgeStats, checkBadges, getNextBadge tanımları
+})();
+```
+
+#### BADGES Erişim Stratejisi
+
+`checkBadges` ve `getNextBadge` artık `BADGES` sabitini IIFE başında değil, fonksiyon içinde okuyor (`const BADGES = window.LOGWISE_BADGES;`). Bu, yükleme sırası güvenliği sağlar — fonksiyon çağrıldığında `window.LOGWISE_BADGES` mutlaka hazırdır.
+
+#### HTML'de Tek Destructuring Satırı
+
+`index.html`'de eski 5 satır (2 redirection + 3 inline fonksiyon) tek destructuring'e toplandı:
+
+```js
+const { getBadgeName, getBadgeCatLabel, calcBadgeStats, checkBadges, getNextBadge } = window.LOGWISE_BADGE_LOGIC;
+```
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+| Dosya | Adım E-1 | Adım E-2 | Toplam |
+|---|---|---|---|
+| `index.html` | 9,918 → 9,768 (-150) | 9,768 → 9,706 (-62) | **-212** |
+| `profile.html` | 3,508 → 3,490 (-18, duplike temizliği) | — | **-18** |
+| `lib/calc.js` | 0 → 200 (yeni) | — | **+200** |
+| `lib/badge-logic.js` | — | 43 → 118 (+75) | **+75** |
+
+**Kümülatif (Adım A+B+C+D+E sonu):** `index.html` **11,161 → 9,706** = **-1,455 satır (%13.0 küçülme)**.
+
+### Doğrulama
+
+- `node --check lib/calc.js` ve `node --check lib/badge-logic.js` ✅
+- Runtime test (`lib/calc.js`): `fmt`, `pD`, `gdow`, `calc1RM(100,5)=116.7`, `calcBrzycki(100,10)=133.3`, `calcBrzycki(100,40)=200` (2w sınırı), `calcStreak({})=0`, mock veriyle `calcCompliance` ✅
+- Integration test: `calcStreak` 3 günlük veri üzerinde 3 döndü, `getAllPRs` maxWeight=100/maxVolume=720 doğru, `calcWeekFreq` kategori bazında doğru sıklık verdi ✅
+- Runtime test (`lib/badge-logic.js` + dependencies): `calcBadgeStats` istatistikleri doğru, `checkBadges` fresh+revoke doğru ayrıştı, `getNextBadge` doğru progress% döndü ✅
+- Bracket dengesi (`index.html`): `(`=`)`=4526, `{`=`}`=2632 ✅
+
+### Service Worker Güncellemesi
+
+Her commit sonrası SW bump'landı:
+- E-1: `CACHE_NAME` `'logwise-v9'` → `'logwise-v10'`, `/lib/calc.js` PRECACHE_URLS'e eklendi.
+- E-2: `'logwise-v10'` → `'logwise-v11'` (badge-logic.js içeriği değişti; PRECACHE listesi aynı kaldı).
+
+### Bilinen Gotcha: SW Cache
+
+E-2 sonrası Ali'nin tarayıcısında `TypeError: checkBadges is not a function` hatası çıktı. Sebep: eski SW (`logwise-v10`) hâlâ aktifti ve eski `badge-logic.js`'i (sadece `getBadgeName`+`getBadgeCatLabel` içeren) servis ediyordu. Çözüm: DevTools → Application → Service Workers → **Unregister** + **Clear site data** + hard refresh. Incognito'da sorunsuz çalıştı.
+
+**Ders:** İki ayrı commit halinde deploy ederken SW bump yeterli olmayabilir — install olmuş eski SW aktifken Ctrl+Shift+R bile yeterli olmayabiliyor. Her büyük refactor commit'inde kullanıcıya "SW'yi unregister edip hard refresh yap" talimatı vermek lazım.
+
+### Geri Alma
+
+- **E-2'yi geri al:** `lib/badge-logic.js`'i HEAD~1'e döndür, `index.html` destructuring satırını eski 5 satıra (2 redirection + 3 inline fonksiyon) aç. `calcBadgeStats`/`checkBadges`/`getNextBadge` `calcStreak` ve `fmt`'e erişebilir çünkü bunlar inline scope'ta.
+- **E-1'i geri al:** `lib/calc.js`'i sil, `calcWeekFreq`/`calcMonthFreq` çağrısından `CATS` argümanını kaldır, 11 inline tanımı geri getir, `profile.html`'deki duplike tanımları restore et.
+
+### Sonraki Adımlar
+
+- **Adım F:** `migrateData` + `init` (son adım — veri migration + state initialization mantığı).
+- **Opsiyonel:** `catLabel`, `normalizeUsername`, `isValidUsername`, `defaultDisplayName`, `defaultAvatar`, `buildProfileRow` — bunlar hesaplama değil, profile/UI utility'si. İstenirse `lib/profile-utils.js` dosyası açılabilir.
