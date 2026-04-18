@@ -42,7 +42,8 @@ LogWise/
 ├── components/             ← Refactor Aşama 2 Faz 2C — React bileşenleri (window.LOGWISE_COMPONENTS namespace)
 │   ├── error-boundary.js   ← LOGWISE_COMPONENTS.ErrorBoundary — class component, en dış hata yakalayıcı (Faz 2C-1, Bölüm 36)
 │   ├── brand-mark.js       ← LOGWISE_COMPONENTS.BrandMark — saf sunumsal logo bileşeni, props: size/pad/radius/style (Faz 2C-2, Bölüm 37)
-│   └── dash-chart.js       ← LOGWISE_COMPONENTS.DashChart — Chart.js line chart, canvas ref'leri dışarıdan alır (Faz 2C-3, Bölüm 38)
+│   ├── dash-chart.js       ← LOGWISE_COMPONENTS.DashChart — Chart.js line chart, canvas ref'leri dışarıdan alır (Faz 2C-3, Bölüm 38)
+│   └── ex-preview-modal.js ← LOGWISE_COMPONENTS.ExPreviewModal — egzersiz önizleme modalı (GIF/desc/tips), catLabel prop alır (Faz 2C-4, Bölüm 39)
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
@@ -2483,5 +2484,95 @@ DashChart kendi `ref`'ini yaratmıyor — `chartRef` ve `chartInstanceRef` paren
 1. `<script src="components/dash-chart.js"></script>` satırını kaldır
 2. `function DashChart(...)` tanımını `syncProfileRecord`'un sonrasına geri al (`useEffect` olarak, `React.useEffect` değil)
 3. Destructuring'i `const { ErrorBoundary, BrandMark } = window.LOGWISE_COMPONENTS;`'a daralt
+
+Tek kullanım yeri aynen çalışmaya devam eder.
+
+---
+
+## Bölüm 39 — Refactor Aşama 2, Faz 2C-4: ExPreviewModal Ayrıldı (2026-04-18)
+
+C1 alt-adım 4: egzersiz önizleme modalı `ExPreviewModal` (260 satır) `components/ex-preview-modal.js`'e taşındı. **En uzun bileşen** — kategori renk paleti, GIF image fallback, tips listesi ve açıklama bölümlerini içerir.
+
+### Yeni Dosya
+
+- `components/ex-preview-modal.js` (293 satır) — `window.LOGWISE_COMPONENTS.ExPreviewModal`
+- IIFE üst seviyesinde paylaşılan sabitler:
+  - `CAT_COLORS` — 26 kategori × renk eşleşmesi (TR+EN anahtarlar)
+  - `getCatColor(c)` — renk arama fonksiyonu
+
+### Bağımlılık Stratejisi
+
+Bileşen 4 dış bağımlılığı şu şekilde çözdü:
+
+| Bağımlılık | Çözüm |
+|---|---|
+| `React.useState`, `React.createElement` | `React` global CDN, doğrudan namespace'ten |
+| `TR`, `EN` i18n | Runtime'da `window.LOGWISE_TR` / `window.LOGWISE_EN` |
+| `EX_PREVIEW` data | Runtime'da `window.LOGWISE_EX_PREVIEW`, inline: `(EX_PREVIEW[ex.name] \|\| null)` |
+| `catLabel(cat, lang)` | **Prop olarak** geçilir — `CAT_LABELS_EN` index.html'de kaldığı için (2A kararı) |
+
+### Neden `catLabel` Prop
+
+`catLabel` index.html inline scope'taki `CAT_LABELS_EN` sabitine bağımlı. 2A'da bu sabit ve fonksiyon yerinde bırakıldı (CAT_LABELS_EN sadece index.html'de kullanılıyor, duplicate etmeye değmiyor). Bileşen dosyası window.* yoluyla erişse pattern tutarsızlığı yaratırdı; prop en temiz çözüm.
+
+### HTML'de Destructuring + Prop Güncellendi
+
+```js
+const { ErrorBoundary, BrandMark, DashChart, ExPreviewModal } = window.LOGWISE_COMPONENTS;
+```
+
+Kullanım sitesi (tek yer):
+```js
+React.createElement(ExPreviewModal, {
+  ex: previewEx,
+  onClose: () => setPreviewEx(null),
+  lang: lang,
+  catLabel: catLabel   // ← C1-4'te eklendi
+})
+```
+
+### Script Yükleme Sırası
+
+```html
+<script src="components/dash-chart.js"></script>
+<script src="components/ex-preview-modal.js"></script>   <!-- C1-4 -->
+```
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+- `index.html`: 9,332 → **9,073** (-259 satır) — C1'in en büyük tek-adım kazancı
+- `components/ex-preview-modal.js`: 0 → **293** (yeni, yorum + CAT_COLORS + defensive init dahil)
+
+### Doğrulama
+
+- `node --check components/ex-preview-modal.js` ✅
+- Runtime testleri:
+  - `window.LOGWISE_COMPONENTS.ExPreviewModal` fonksiyon olarak export edildi ✅
+  - Preview mevcut (gif var) → img render edilir, setImgErr çağrılabilir ✅
+  - Preview mevcut değil → placeholder (💪 ikonu) + `L.exPreviewNoContent` mesajı ✅
+  - Tips array'i → numaralandırılmış listede TR/EN doğru seçilir ✅
+  - Kategori rozeti → `CAT_COLORS` fallback `#a0a8b8` ✅
+  - Backdrop click → `onClose` tetiklenir, modal content click → `stopPropagation` çalışır ✅
+- Defensive init fresh-load testi: namespace yoksa açıldı, varsa mevcut key'ler korundu ✅
+- `node --check` index.html inline JS ✅
+- Bracket balance (`ex-preview-modal.js`): `(`=0 `{`=0 `[`=0 ✅
+- `ExPreviewModal` index.html'de 2 yerde (1 destructure + 1 createElement) ✅
+- `CAT_COLORS` index.html'de 0 kalıntı ✅ (temizlendi, sadece bileşende)
+
+### Service Worker Güncellemesi
+
+`sw.js` — `CACHE_NAME` `'logwise-v17'` → `'logwise-v18'`. `/components/ex-preview-modal.js` PRECACHE_URLS'e eklendi.
+
+### Mimari Not: Prop-Driven Dependency Injection
+
+`catLabel`'i prop olarak geçmek, test edilebilirliği dramatik artırır. Bileşen artık index.html inline scope'una hiçbir şekilde bağımlı değil — tek dış temas noktası `window.LOGWISE_*` namespace'leri (dokümante edilmiş, tek yönlü veri bağımlılığı). C1-5 (AuthScreen) aynı pattern'i Supabase client için kullanacak (`sb` prop veya `window.LOGWISE_DB`).
+
+### Geri Alma
+
+`components/ex-preview-modal.js`'i sil; `index.html`'de:
+1. `<script src="components/ex-preview-modal.js"></script>` satırını kaldır
+2. `function ExPreviewModal(...)` tanımını DashChart'ın silinmesinden kalan boşluğa (line 197 sonrası) geri al (`useState` olarak, `React.useState` değil)
+3. Destructuring'i `const { ErrorBoundary, BrandMark, DashChart } = window.LOGWISE_COMPONENTS;`'a daralt
+4. Kullanım sitesinden `catLabel: catLabel` prop'unu kaldır
 
 Tek kullanım yeri aynen çalışmaya devam eder.
