@@ -39,6 +39,7 @@
 <script src="lib/data-schema.js"></script>
 <script src="lib/profile-utils.js"></script>
 <script src="components/error-boundary.js"></script>
+<script src="components/brand-mark.js"></script>
 <script src="data/presets-exercises.js"></script>
 <script src="data/ex-descriptions.js"></script>
 <script src="data/ex-preview.js"></script>
@@ -89,7 +90,7 @@ const {
   useMemo,
   useRef
 } = React;
-const { ErrorBoundary } = window.LOGWISE_COMPONENTS;
+const { ErrorBoundary, BrandMark } = window.LOGWISE_COMPONENTS;
 const D = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
 const DF = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
 const MO = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
@@ -145,7 +146,6 @@ const SK = "gym-log-v3",
   UK = "gym-log-user",
   FK = "gym-log-feedback";
 const IS_LOCAL_STATIC = window.location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(window.location.hostname);
-const BRAND_LOGO_SRC = "/Site_Logo180.svg";
 const profileRoute = id => `${IS_LOCAL_STATIC ? "/profile.html" : "/profile"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;
 const shareRoute = id => `${IS_LOCAL_STATIC ? "/share.html" : "/share"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;
 const SET_TYPES = ["working", "warmup", "drop", "superset"];
@@ -175,39 +175,6 @@ const TR = window.LOGWISE_TR;
 const EN = window.LOGWISE_EN;
 const catLabel = (cat, lang) => lang === "en" ? CAT_LABELS_EN[cat] || cat : cat;
 const { normalizeUsername, isValidUsername, defaultDisplayName, defaultAvatar, buildProfileRow } = window.LOGWISE_PROFILE_UTILS;
-function BrandMark({
-  size = 72,
-  pad = 8,
-  radius = 20,
-  style = {}
-}) {
-  return React.createElement("div", {
-    style: {
-      width: size,
-      height: size,
-      padding: pad,
-      borderRadius: radius,
-      background: "var(--bg3)",
-      border: "1px solid var(--brd)",
-      display: "inline-flex",
-      alignItems: "center",
-      justifyContent: "center",
-      boxShadow: "var(--shadow2)",
-      ...style
-    }
-  }, React.createElement("img", {
-    src: BRAND_LOGO_SRC,
-    alt: "",
-    "aria-hidden": "true",
-    style: {
-      width: "100%",
-      height: "100%",
-      display: "block",
-      objectFit: "contain",
-      borderRadius: Math.max(radius - pad, 8)
-    }
-  }));
-}
 const syncProfileRecord = async (user, overrides = {}) => {
   if (!user?.id) return {
     data: null,

@@ -40,7 +40,8 @@ LogWise/
 ├── styles/                 ← Refactor Aşama 2 Faz 2B — paylaşılan CSS (Bölüm 35)
 │   └── base.css            ← reset + scrollbar + :root (46 değişken superset) + [data-theme=light] + .sr-only + ortak @keyframes (fadeIn/scaleIn/toastIn/toastOut/countUp/shine)
 ├── components/             ← Refactor Aşama 2 Faz 2C — React bileşenleri (window.LOGWISE_COMPONENTS namespace)
-│   └── error-boundary.js   ← LOGWISE_COMPONENTS.ErrorBoundary — class component, en dış hata yakalayıcı (Faz 2C-1, Bölüm 36)
+│   ├── error-boundary.js   ← LOGWISE_COMPONENTS.ErrorBoundary — class component, en dış hata yakalayıcı (Faz 2C-1, Bölüm 36)
+│   └── brand-mark.js       ← LOGWISE_COMPONENTS.BrandMark — saf sunumsal logo bileşeni, props: size/pad/radius/style (Faz 2C-2, Bölüm 37)
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
@@ -2321,3 +2322,72 @@ ErrorBoundary `React.Component` extends ediyor, bu yüzden React CDN'inden **son
 ### Geri Alma
 
 `components/error-boundary.js`'i sil; `index.html`'deki script tag'ini ve `const { ErrorBoundary } = window.LOGWISE_COMPONENTS;` satırını git HEAD'den restore et. Class tanımı geri gelir, 2 kullanım yeri bozulmadan çalışır.
+
+---
+
+## Bölüm 37 — Refactor Aşama 2, Faz 2C-2: BrandMark Ayrıldı (2026-04-18)
+
+C1 alt-adım 2: marka logosu gösteren küçük sunumsal bileşen `BrandMark` `components/brand-mark.js`'e taşındı. **Bonus:** `BRAND_LOGO_SRC` sabiti (sadece BrandMark içinde kullanılıyordu) bileşenin yanına gömüldü, `index.html`'den tamamen silindi.
+
+### Yeni Dosya
+
+- `components/brand-mark.js` (49 satır) — `window.LOGWISE_COMPONENTS.BrandMark`
+- Bağımlılıklar: `React.createElement`, `/Site_Logo180.svg` (public root'tan servis)
+- Props: `{ size=72, pad=8, radius=20, style={} }`
+
+### `BRAND_LOGO_SRC` Neden Bileşene Gömüldü?
+
+`grep -c BRAND_LOGO_SRC index.html` → 2 sonuç (tanım + tek kullanım yeri). Sabit BrandMark dışında hiçbir yerde kullanılmıyordu. Ayrı bir global olarak tutmak yerine bileşen dosyasının başına `const BRAND_LOGO_SRC = "/Site_Logo180.svg";` olarak konuldu — encapsulation kazanıldı, `index.html`'den 1 satır daha eksildi.
+
+### HTML'de Destructuring Güncellendi
+
+```js
+const { ErrorBoundary, BrandMark } = window.LOGWISE_COMPONENTS;
+```
+
+C1-1'den kalan tek-key destructuring iki-key'e genişletildi. 3 kullanım yeri (AuthScreen header, onboarding step 0, Root header) aynen kaldı.
+
+### Script Yükleme Sırası
+
+```html
+<script src="components/error-boundary.js"></script>
+<script src="components/brand-mark.js"></script>     <!-- C1-2 -->
+```
+
+Defensive init pattern sayesinde bu iki script arasında sıkı bağımlılık sırası yok — her ikisi de `window.LOGWISE_COMPONENTS = window.LOGWISE_COMPONENTS || {}` yapıyor, hangisi önce yüklenirse namespace'i o açar.
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+- `index.html`: 9,481 → **9,448** (-33 satır)
+- `components/brand-mark.js`: 0 → **49** (yeni)
+
+### Doğrulama
+
+- `node --check components/brand-mark.js` ✅
+- Runtime testleri:
+  - Default props (size=72, pad=8, radius=20) → outer width 72, inner borderRadius 12 (Math.max(20-8,8)) ✅
+  - Custom props (size=120, pad=10, radius=30, style={margin:4}) → outer width 120, inner borderRadius 20, style spread çalışıyor ✅
+  - Edge: pad>=radius (radius=10, pad=8 → 10-8=2 < 8 clamp) → 8 ✅
+- Defensive init fresh-load testi: boş namespace'te `BrandMark` doğru key ile eklendi ✅
+- `node --check` index.html inline JS ✅
+- Bracket balance: `(`=0 `{`=0 `[`=0 ✅
+- `BrandMark` index.html'de 4 yerde (1 destructuring + 3 createElement) ✅
+- `BRAND_LOGO_SRC` index.html'de **0 kalıntı** ✅ (tam temizlik)
+
+### Service Worker Güncellemesi
+
+`sw.js` — `CACHE_NAME` `'logwise-v15'` → `'logwise-v16'`. `/components/brand-mark.js` PRECACHE_URLS'e eklendi.
+
+### Mimari Not: Defensive Init Pattern Doğrulandı
+
+C1-1'de tasarlanan `window.LOGWISE_COMPONENTS = window.LOGWISE_COMPONENTS || {}` pattern'i ilk kez gerçek kullanımda test edildi: ikinci dosya namespace'i bozmadan eklendi. Bu, sonraki C1-3..C1-5 adımlarının da script sırasından bağımsız çalışacağını garanti ediyor.
+
+### Geri Alma
+
+`components/brand-mark.js`'i sil; `index.html`'de:
+1. Script tag'ini geri al
+2. `BRAND_LOGO_SRC` sabitini IS_LOCAL_STATIC'in altına geri koy
+3. BrandMark function tanımını syncProfileRecord'un üstüne geri al
+4. Destructuring'i `const { ErrorBoundary } = window.LOGWISE_COMPONENTS;`'a daralt
+
+3 kullanım yeri aynen çalışmaya devam eder.
