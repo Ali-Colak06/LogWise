@@ -30,7 +30,8 @@ LogWise/
 │   ├── badges.js           ← window.LOGWISE_BADGES — 30 rozet tanımı (Adım B)
 │   ├── presets-exercises.js ← window.LOGWISE_PRESET_EXERCISES — 55 hazır hareket (Adım C)
 │   ├── ex-descriptions.js  ← window.LOGWISE_EX_DESCS — hareket kısa açıklamaları (TR/EN) (Adım C)
-│   └── ex-preview.js       ← window.LOGWISE_EX_PREVIEW — hareket önizleme (gif/uzun desc/tips) (Adım C)
+│   ├── ex-preview.js       ← window.LOGWISE_EX_PREVIEW — hareket önizleme (gif/uzun desc/tips) (Adım C)
+│   └── presets-programs.js ← window.LOGWISE_PRESET_PROGRAMS — 4 hazır program şablonu (Adım D)
 ├── lib/                    ← Refactor Aşama 1 — yardımcı fonksiyonlar klasörü (bkz. Bölüm 29)
 │   └── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — getBadgeName + getBadgeCatLabel
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
@@ -509,7 +510,7 @@ Satır ~304     `const PRESET_EXERCISES = window.LOGWISE_PRESET_EXERCISES;` — 
 Satır ~305-310 `const EX_DESCS = window.LOGWISE_EX_DESCS;` + `getExDesc` helper (inline kaldı, 5 satır). Eski 56 satırlık EX_DESCS inline tanımı kaldırıldı.
 Satır ~311     `const presetName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;` (helper inline kaldı)
 Satır ~312-313 `const EX_PREVIEW = window.LOGWISE_EX_PREVIEW;` + `getExPreview` helper (inline kaldı). Eski 262 satırlık EX_PREVIEW inline tanımı kaldırıldı.
-Satır ~314+    PRESET_PROGRAMS dizisi (6 hazır program şablonu: PPL, Upper/Lower, Güray's Hypertrophy No:1, Güray's Hypertrophy Max, Full Body, Bro Split) — Adım D'de data/presets-programs.js'e taşınacak
+Satır ~315     `const PRESET_PROGRAMS = window.LOGWISE_PRESET_PROGRAMS;` — 4 hazır program şablonu (PPL, Upper/Lower, Full Body, Bro Split) data/presets-programs.js'ten yükleniyor (Refactor Aşama 1, Adım D — bkz. Bölüm 31). Eski 57 satırlık inline tanım kaldırıldı.
 Satır 242-245   RIRS, yardımcı fonksiyonlar (fmt, pD, gdow, storage keys, eDays)
 Satır 246-250   SET_TYPES, ST_LABELS_TR/EN, ST_COLORS, REST_PRESETS sabitleri
 Satır 251-252   init() fonksiyonu (programMeta dahil), migrateData() fonksiyonu
@@ -1749,6 +1750,61 @@ const getExPreview = exName => EX_PREVIEW[exName] || null;
 Sorun çıkarsa: üç `data/ex-*.js` + `data/presets-exercises.js`'i sil, HTML'deki üç script tag'ini ve üç `window.LOGWISE_*` yönlendirme satırını git HEAD'den restore et. Git revert temiz çalışır çünkü helper'lar zaten inline.
 
 ### Sonraki Adımlar
-- **Adım D:** `PRESET_PROGRAMS` (~6 hazır program şablonu; büyük veri bloğu).
+- **Adım D:** `PRESET_PROGRAMS` (4 hazır program şablonu) — bkz. Bölüm 31.
+- **Adım E:** Hesaplama yardımcıları (`calc1RM`, `calcBrzycki`, `calcStreak`, vs.) + `checkBadges`/`calcBadgeStats`/`getNextBadge`'in `lib/badge-logic.js`'e taşınması.
+- **Adım F:** `migrateData` + `init`.
+
+---
+
+## Bölüm 31 — Refactor Aşama 1, Adım D: PRESET_PROGRAMS Ayrıldı (2026-04-18)
+
+### Ne Yapıldı
+
+`index.html`'deki 4 hazır program şablonu (`PRESET_PROGRAMS` dizisi) yeni bir dosyaya taşındı. Küçük ama temiz bir adım — önceki adımlardaki deseni birebir izledi.
+
+**Yeni dosya:**
+- `data/presets-programs.js` (60 satır) — `window.LOGWISE_PRESET_PROGRAMS` olarak **4 hazır program**: Push Pull Legs (PPL), Üst/Alt Bölünme (Upper/Lower), Full Body, Bro Split (5 Gün). Her program `{name, nameEN, desc, descEN, days: {"0"-"6": [hareketAdi...]}}` şemasına uyuyor. Günler 0=Pzt ... 6=Paz.
+
+Not: REFACTOR_HANDOFF.md'de "6 program" olarak tahmin edilmişti; gerçek sayı 4. Güray's Hypertrophy programları henüz eklenmemiş.
+
+### Script Yükleme Sırası
+
+`index.html` <head> güncel sıra (Adım D eklemesi en altta):
+```html
+<script src="data/badges.js"></script>
+<script src="lib/badge-logic.js"></script>
+<script src="data/presets-exercises.js"></script>
+<script src="data/ex-descriptions.js"></script>
+<script src="data/ex-preview.js"></script>
+<script src="data/presets-programs.js"></script>   <!-- Adım D -->
+```
+
+`profile.html` etkilenmedi — `PRESET_PROGRAMS` orada zaten yoktu.
+
+### HTML İçinde Yeni Satır
+
+Eski 57 satırlık blok yerine 1 satır:
+```js
+const PRESET_PROGRAMS = window.LOGWISE_PRESET_PROGRAMS;
+```
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+- `index.html`: 9,973 → **9,918** (-55)
+- `data/presets-programs.js`: 0 → **60** (yeni)
+
+**Kümülatif (Adım A+B+C+D sonu):** index.html **11,161 → 9,918** = -1,243 satır (%11.1 küçülme).
+
+### Doğrulama
+- `node --check data/presets-programs.js` ✅
+- Runtime test: `LOGWISE_PRESET_PROGRAMS.length === 4`, tüm programlar 7 günlü (`"0"`-`"6"`), PPL 1. gün 5 hareket ✅
+- Bracket dengesi (`index.html`): `(`=`)`=4678, `{`=`}`=2679 — kusursuz. (Önceki `4682/2687` rakamlarına göre fark beklenen seviyede — 4 program `{...}` + içindeki `days` objeleri azaldı.)
+
+### Service Worker Güncellemesi
+`sw.js` — `CACHE_NAME` `'logwise-v8'` → `'logwise-v9'`. `PRECACHE_URLS`'e `/data/presets-programs.js` eklendi.
+
+### Geri Alma
+Sorun çıkarsa: `data/presets-programs.js`'i sil, `index.html`'deki script tag'ini ve `const PRESET_PROGRAMS = window.LOGWISE_PRESET_PROGRAMS;` satırını git HEAD'den restore et. `PRESET_PROGRAMS` sadece bir değişkendir, kullanım noktası (satır ~7650 `PRESET_PROGRAMS.map(...)`) değişmedi.
+
+### Sonraki Adımlar
 - **Adım E:** Hesaplama yardımcıları (`calc1RM`, `calcBrzycki`, `calcStreak`, vs.) + `checkBadges`/`calcBadgeStats`/`getNextBadge`'in `lib/badge-logic.js`'e taşınması.
 - **Adım F:** `migrateData` + `init`.
