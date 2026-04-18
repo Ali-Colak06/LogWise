@@ -37,6 +37,8 @@ LogWise/
 │   ├── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — rozet adı/etiket + calcBadgeStats/checkBadges/getNextBadge (Adım E-2)
 │   ├── data-schema.js      ← window.LOGWISE_SCHEMA — init + migrateData (Adım F)
 │   └── profile-utils.js    ← window.LOGWISE_PROFILE_UTILS — normalizeUsername/isValidUsername/defaultDisplayName/defaultAvatar/buildProfileRow (Faz 2A, Bölüm 34)
+├── styles/                 ← Refactor Aşama 2 Faz 2B — paylaşılan CSS (Bölüm 35)
+│   └── base.css            ← reset + scrollbar + :root (46 değişken superset) + [data-theme=light] + .sr-only + ortak @keyframes (fadeIn/scaleIn/toastIn/toastOut/countUp/shine)
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
@@ -2167,3 +2169,83 @@ Toplam HTML küçülmesi modest (-14 satır), ama mimari kazanç bir o kadar de�
 ### Geri Alma
 
 `lib/profile-utils.js`'i sil; `index.html` ve `profile.html`'deki yeni script tag'lerini ve destructuring satırlarını git HEAD'den restore et. Tüm çağrı noktaları aynen kaldı, eski tanımlar geri gelir.
+
+---
+
+## Bölüm 35 — Refactor Aşama 2, Faz 2B: Ortak CSS `styles/base.css`'e Ayrıldı (2026-04-18)
+
+Aşama 2'nin ikinci fazı. **4 ana HTML sayfasının (index, profile, share, program)** `<style>` bloklarındaki ortak kısımlar `styles/base.css` dosyasına taşındı; sayfa-spesifik kurallar her HTML'in kendi (artık çok daha küçük) inline `<style>` bloğunda kaldı. **404.html** dokunulmadı (kendi minimal hard-coded stilleri var, paylaşılan tema gerektirmiyor).
+
+### Strateji: Hibrit (base + sayfa-spesifik)
+
+Tek bir mega `main.css` yerine **hibrit** yaklaşım seçildi:
+- `styles/base.css` → reset + scrollbar + focus + `:root` (superset 46 değişken) + `[data-theme="light"]` + `.sr-only` + ortak `@keyframes` (fadeIn, scaleIn, toastIn, toastOut, countUp, shine)
+- Her HTML'in kendi `<style>` → o sayfaya özgü kural ve animasyonlar
+
+Avantaj: ortak tema/değişkenler tek kaynak (DRY), ama sayfa-spesifik kuralın bozulması diğer sayfalara sıçramaz.
+
+### `:root` Superset Yaklaşımı
+
+Sayfalar arasında değişken setleri farklıydı (index 46, profile 36, share 27, program 24 unique değişken). Her sayfa için ayrı subset taşımak yerine `base.css` **index.html'in tüm 46 değişkenini içeriyor** — diğer sayfalara birkaç KB ekstra geliyor ama tek source of truth korunuyor. Light/dark theme renklerini değiştirmek için artık tek yere bakılır.
+
+### Yeni Dosya
+
+- `styles/base.css` (81 satır) — paylaşılan temel CSS
+
+### HTML Değişiklikleri
+
+Her 4 sayfada:
+1. `<style>` bloğunun hemen üstüne `<link rel="stylesheet" href="styles/base.css"/>` eklendi
+2. `<style>` bloğundan ortak kurallar (reset, scrollbar, focus, `:root`, `[data-theme="light"]`, `.sr-only`, ortak keyframes) silindi
+3. Sayfa-spesifik kurallar yorum bloğuyla işaretlendi: `/* Ortak ... için styles/base.css'e bak. */`
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+| Dosya | Önce | Sonra | Fark |
+|---|---|---|---|
+| `index.html` | 9,660 | **9,604** | -56 |
+| `profile.html` | 3,490 | **3,443** | -47 |
+| `share.html` | 869 | **835** | -34 |
+| `program.html` | 715 | **682** | -33 |
+| `404.html` | 32 | 32 | 0 (dokunulmadı) |
+| **HTML toplam** | 14,766 | **14,596** | **-170** |
+| `styles/base.css` | — | +81 | +81 |
+| **NET** | — | — | **-89 satır** |
+
+Satır kazancı modest gibi görünse de asıl kazanç **mimari**: tema değişkeni tek yerde, paralel evrim riski yok.
+
+### Yükleme Sırası — Kritik Nokta
+
+`<link>` her sayfada `<style>` bloğundan **ÖNCE** olmalı, çünkü inline `<style>` blokları `var(--blue)`, `var(--scroll)` gibi base.css'te tanımlı değişkenleri kullanıyor. Doğrulama yapıldı:
+- index.html: link 45, style 46 ✅
+- profile.html: link 25, style 26 ✅
+- share.html: link 17, style 18 ✅
+- program.html: link 17, style 18 ✅
+
+Eğer ileride Cloudflare Pages "blocking CSS" optimization yapsa bile, browser bu dosyaları paralel indirir ama parse sırası HTML'deki `<link>`/`<style>` sırasını izler. CSS source order gereği sıra korunur.
+
+### `_headers` Notu
+
+`_headers` dosyasına CSS için MIME type kuralı eklenmedi — Cloudflare Pages `.css` uzantılarını otomatik `text/css` olarak servis ediyor. Cache-control da default olarak yeterli (SW bump ile her cache invalidation tetikleniyor zaten). İleride CDN cache süresini özelleştirmek istenirse buraya eklenebilir.
+
+### Doğrulama
+
+- `styles/base.css` brace balance: `{` = `}` ✅
+- 4 HTML'in inline `<style>` brace balance: hepsi 0 ✅
+- index.html ve profile.html inline JS syntax: `node --check` ✅ (JS değişmedi ama kontrol)
+- Her sayfada tam **1 adet** `<link styles/base.css>` ✅
+- 404.html dokunulmadı ✅
+- `<link>` her sayfada `<style>`'dan önce ✅
+
+### Service Worker Güncellemesi
+
+`sw.js` — `CACHE_NAME` `'logwise-v13'` → `'logwise-v14'`. `/styles/base.css` PRECACHE_URLS'e eklendi (statik varlıklar bölümünde).
+
+### Ne Taşınmadı, Neden
+
+- **404.html**: 8 satır CSS, hard-coded renkler (`#0a0a0a`, `#f0c040`), CSS değişken paletine ihtiyaç duymuyor. Tek başına çalışıyor, paylaşımlı dosyaya gerek yok.
+- **Sayfa-spesifik animasyonlar** (`badgeUnlock`, `confetti`, `pulseGlow`, `daySlideFromLeft` vb.): sadece bir sayfada kullanılıyor, base.css'i şişirmemek için yerinde bırakıldı.
+
+### Geri Alma
+
+`styles/base.css` ve `styles/` klasörünü sil. 4 HTML'i git HEAD'den restore et. SW cache adını v13'e düşür. Tüm değişiklik 5 dosyada izole.

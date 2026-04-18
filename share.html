@@ -14,44 +14,10 @@
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" href="styles/base.css"/>
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html,body,#root{height:100%;overflow:hidden}
-body{font-family:'Space Mono',monospace;transition:background .3s,color .3s}
-::-webkit-scrollbar{width:6px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--scroll);border-radius:8px}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-:root{
-  --bg:#0a0a0a;--bg2:#111;--bg3:#1a1a1a;--bgH:#222;
-  --t1:#e0e0e0;--t2:#888;--t3:#555;--t4:#333;
-  --brd:#222;--brd2:#333;
-  --blue:#f0c040;--blueH:#ffd060;--blueL:#2a2210;--blueL2:#3a3218;
-  --green:#8fbc8f;--greenL:#1a2a1a;
-  --red:#ff6060;--redL:#2a1515;
-  --orange:#ffa040;--orangeL:#2a2010;
-  --purple:#d7aefb;--purpleL:#2a1a3a;
-  --scroll:#333;
-  --shadow:0 2px 8px rgba(0,0,0,.6);
-  --shadow2:0 1px 4px rgba(0,0,0,.4);
-  --accent:#f0c040;--accentT:#000;
-}
-[data-theme="light"]{
-  --bg:#f5f2ec;--bg2:#fff;--bg3:#f0ede6;--bgH:#e8e4dc;
-  --t1:#1a1a1a;--t2:#666;--t3:#999;--t4:#ccc;
-  --brd:#d0cdc6;--brd2:#bbb8b0;
-  --blue:#c8960a;--blueH:#a07808;--blueL:#f5ecd0;--blueL2:#e8dfc0;
-  --green:#2d7a2d;--greenL:#edf5ed;
-  --red:#d44040;--redL:#fce8e6;
-  --orange:#e37400;--orangeL:#fef7e0;
-  --purple:#9334e6;--purpleL:#f3e8fd;
-  --scroll:#d0cdc6;
-  --shadow:0 2px 8px rgba(0,0,0,.15);
-  --shadow2:0 1px 4px rgba(0,0,0,.1);
-  --accent:#c8960a;--accentT:#fff;
-}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* Sayfa-spesifik: share.html egzersiz kartı animasyonları.
+ * Ortak reset / :root / :light / ortak @keyframes için styles/base.css'e bak. */
 .ex-card{animation:countUp .4s ease both}
 .ex-card:nth-child(2){animation-delay:.05s}.ex-card:nth-child(3){animation-delay:.1s}
 .ex-card:nth-child(4){animation-delay:.15s}.ex-card:nth-child(5){animation-delay:.2s}
