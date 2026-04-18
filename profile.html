@@ -21,6 +21,7 @@
 <script src="data/badges.js"></script>
 <script src="lib/calc.js"></script>
 <script src="lib/badge-logic.js"></script>
+<script src="lib/profile-utils.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body,#root{height:100%;overflow:hidden}
@@ -95,8 +96,7 @@ const {
 const TK = "gym-log-theme",
   LK = "gym-log-lang",
   SK = "gym-log-v3";
-const normalizeUsername = v => String(v || "").trim().toLowerCase();
-const isValidUsername = v => /^[a-z0-9_]{3,20}$/.test(v);
+const { normalizeUsername, isValidUsername } = window.LOGWISE_PROFILE_UTILS;
 const IS_LOCAL_STATIC = window.location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(window.location.hostname);
 const profileRoute = id => `${IS_LOCAL_STATIC ? "/profile.html" : "/profile"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;
 const shareRoute = id => `${IS_LOCAL_STATIC ? "/share.html" : "/share"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;

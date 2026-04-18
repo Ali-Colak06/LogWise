@@ -35,7 +35,8 @@ LogWise/
 ├── lib/                    ← Refactor Aşama 1 — yardımcı fonksiyonlar klasörü (bkz. Bölüm 29)
 │   ├── calc.js             ← window.LOGWISE_CALC — 11 saf hesaplama/tarih fonksiyonu (Adım E-1)
 │   ├── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — rozet adı/etiket + calcBadgeStats/checkBadges/getNextBadge (Adım E-2)
-│   └── data-schema.js      ← window.LOGWISE_SCHEMA — init + migrateData (Adım F)
+│   ├── data-schema.js      ← window.LOGWISE_SCHEMA — init + migrateData (Adım F)
+│   └── profile-utils.js    ← window.LOGWISE_PROFILE_UTILS — normalizeUsername/isValidUsername/defaultDisplayName/defaultAvatar/buildProfileRow (Faz 2A, Bölüm 34)
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
@@ -2078,3 +2079,91 @@ Bu adımlar kullanıcı talep ederse ayrı bir "Aşama 2" olarak yapılabilir:
 3. **Bracket balance + node --check + runtime test** — üçünün her adımda birlikte yapılması bug'sız refactor için yeterli.
 4. **Bağımlılık sırası** — `lib/badge-logic.js`'in `lib/calc.js`'e bağımlı hale gelmesi script yükleme sırasını zorunlu kıldı. İleride bu sırayı karıştıran bir değişiklik yapılırsa IIFE başındaki destructuring fail olur.
 5. **Duplikasyon temizliği bonus** — `profile.html`'de `calc1RM` ve `calcStreak` duplike duruyordu; E-1'de çıkınca tek kanonik versiyon kaldı.
+
+---
+
+## Bölüm 34 — Refactor Aşama 2, Faz 2A: Profile/User Yardımcıları Ayrıldı (2026-04-18)
+
+Aşama 2'nin **ilk fazı**. `index.html` ve `profile.html`'de paylaşılan kullanıcı/profil yardımcı fonksiyonları `lib/profile-utils.js` dosyasına taşındı; bu sırada `profile.html`'deki duplike `normalizeUsername`/`isValidUsername` tanımları temizlendi.
+
+### Ne Yapıldı
+
+**Yeni dosya:**
+- `lib/profile-utils.js` (36 satır) — `window.LOGWISE_PROFILE_UTILS` olarak **5 fonksiyon**:
+  - `normalizeUsername(v)` — `String(v||'').trim().toLowerCase()`. Null-safe.
+  - `isValidUsername(v)` — `^[a-z0-9_]{3,20}$` regex testi. Case-sensitive (büyük harf reddedilir).
+  - `defaultDisplayName(user)` — `full_name` → `email`'in @ öncesi → `"User"` fallback zinciri.
+  - `defaultAvatar(user)` — `user_metadata.avatar` veya boş string.
+  - `buildProfileRow(user, existing, overrides)` — `profiles` tablosu için satır objesi üretir; override > existing > default önceliğiyle `username`, `display_name`, `bio`, `avatar`, `is_public` doldurur.
+
+### `catLabel` Neden Taşınmadı?
+
+`catLabel` `index.html`-spesifik bir `CAT_LABELS_EN` sözlüğüne bağımlı. Onu da `profile-utils.js`'e taşımak için ya `CAT_LABELS_EN`'ı global'e bağlamak (mimari kirlilik) ya da fonksiyon imzasını değiştirip 11 çağrı noktasını tek tek güncellemek gerekirdi. Aşama 1'in "her dosya sıfır bağımlılık" prensibine sadık kalmak için `catLabel` index.html'de yerinde bırakıldı. Profile-utils sıfır bağımlılıklı saf modül olarak kaldı.
+
+### HTML'de Tek Satır Redirection
+
+`index.html`:
+```js
+const { normalizeUsername, isValidUsername, defaultDisplayName, defaultAvatar, buildProfileRow } = window.LOGWISE_PROFILE_UTILS;
+```
+
+`profile.html` (sadece kullanılan 2 fonksiyon — diğerlerine ihtiyaç yok):
+```js
+const { normalizeUsername, isValidUsername } = window.LOGWISE_PROFILE_UTILS;
+```
+
+### Bonus Duplikasyon Temizliği
+
+`profile.html` satır 98-99'da `normalizeUsername` ve `isValidUsername` tanımları **birebir duplike** olarak duruyordu (index.html'deki tanımlarla aynı). Faz 2A bu duplikasyonu kaldırdı — artık tek kanonik kaynak `lib/profile-utils.js`. (E-1'de `calc1RM`/`calcStreak` için yapılan temizliğin aynısı.)
+
+### Script Yükleme Sırası
+
+`index.html`:
+```html
+<script src="lib/data-schema.js"></script>
+<script src="lib/profile-utils.js"></script>    <!-- Faz 2A — bağımsız, her yere konabilir -->
+<script src="data/presets-exercises.js"></script>
+```
+
+`profile.html`:
+```html
+<script src="lib/badge-logic.js"></script>
+<script src="lib/profile-utils.js"></script>    <!-- Faz 2A -->
+<style>...</style>
+```
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+- `index.html`: 9,674 → **9,660** (-14 satır)
+- `profile.html`: 3,490 → **3,490** (net 0 — 2 satır silindi, 2 satır eklendi: 1 script tag + 1 destructuring)
+- `lib/profile-utils.js`: 0 → **36** (yeni)
+
+Toplam HTML küçülmesi modest (-14 satır), ama mimari kazanç bir o kadar değerli: **single source of truth** — username regex artık iki yerde paralel evrim göstermez.
+
+### Doğrulama
+
+- `node --check lib/profile-utils.js` ✅
+- `node --check` index.html ve profile.html inline JS ✅ (geçici `.cjs` dosyalarına extract edilip kontrol)
+- Runtime testleri:
+  - `normalizeUsername("  ALI  ")` → `"ali"` ✅
+  - `normalizeUsername(null/undefined)` → `""` ✅ (null-safe)
+  - `isValidUsername("ali")` → true; `"al"` (kısa), `"Ali"` (büyük harf), `"ali!"` (özel karakter), 21 karakter → false ✅
+  - `defaultDisplayName({email:"foo@bar.com"})` → `"foo"` ✅
+  - `defaultDisplayName({user_metadata:{full_name:"Ali Çolak"}})` → `"Ali Çolak"` ✅
+  - `defaultDisplayName({})` → `"User"` ✅
+  - `defaultAvatar({user_metadata:{avatar:"🐺"}})` → `"🐺"` ✅
+  - `buildProfileRow` override/existing/default önceliği doğru ✅
+- Bracket balance (`profile-utils.js`): `(`/`)` = 0, `{`/`}` = 0, `[`/`]` = 0 ✅
+
+### Service Worker Güncellemesi
+
+`sw.js` — `CACHE_NAME` `'logwise-v12'` → `'logwise-v13'`. `/lib/profile-utils.js` PRECACHE_URLS'e eklendi.
+
+### Aşama 1'den Farklı Notlar
+
+- **Local shadowing korundu:** `index.html` satır 4629'daki `const catLabel = lang === "en" ? L.cats[...] : cat;` (heatmap render'ı içindeki local değişken) refactor'dan etkilenmedi. Top-level `catLabel`'a hiç dokunmadık zaten.
+- **Profile.html selektif destructuring:** Profile sadece 2 fonksiyon kullanıyor, ölü import yapmamak için sadece o ikisini destructure ettik.
+
+### Geri Alma
+
+`lib/profile-utils.js`'i sil; `index.html` ve `profile.html`'deki yeni script tag'lerini ve destructuring satırlarını git HEAD'den restore et. Tüm çağrı noktaları aynen kaldı, eski tanımlar geri gelir.
