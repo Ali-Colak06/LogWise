@@ -39,6 +39,8 @@ LogWise/
 │   └── profile-utils.js    ← window.LOGWISE_PROFILE_UTILS — normalizeUsername/isValidUsername/defaultDisplayName/defaultAvatar/buildProfileRow (Faz 2A, Bölüm 34)
 ├── styles/                 ← Refactor Aşama 2 Faz 2B — paylaşılan CSS (Bölüm 35)
 │   └── base.css            ← reset + scrollbar + :root (46 değişken superset) + [data-theme=light] + .sr-only + ortak @keyframes (fadeIn/scaleIn/toastIn/toastOut/countUp/shine)
+├── components/             ← Refactor Aşama 2 Faz 2C — React bileşenleri (window.LOGWISE_COMPONENTS namespace)
+│   └── error-boundary.js   ← LOGWISE_COMPONENTS.ErrorBoundary — class component, en dış hata yakalayıcı (Faz 2C-1, Bölüm 36)
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
@@ -2249,3 +2251,73 @@ Eğer ileride Cloudflare Pages "blocking CSS" optimization yapsa bile, browser b
 ### Geri Alma
 
 `styles/base.css` ve `styles/` klasörünü sil. 4 HTML'i git HEAD'den restore et. SW cache adını v13'e düşür. Tüm değişiklik 5 dosyada izole.
+
+---
+
+## Bölüm 36 — Refactor Aşama 2, Faz 2C-1: ErrorBoundary Ayrıldı (2026-04-18)
+
+Aşama 2 Faz 2C (React bileşenleri ayrıştırması) başladı. **C1 stratejisi** seçildi (izole bileşenleri tek tek çıkar), C2 (feature bazlı) Aşama 3'e bırakıldı. C1'in ilk adımı: **ErrorBoundary**.
+
+### Neden C1, Neden ErrorBoundary İlk
+
+- **C1** düşük riskli — 5 aday bileşenin (ErrorBoundary, BrandMark, DashChart, ExPreviewModal, AuthScreen) tamamı closure-free ve props-only; App'in kapasitenin 30+ useState'ine hiç değmiyor.
+- **C2 yapılmadı** çünkü App (8,342 satır monolit) 8 `view === "..."` conditional render ile tek return ağacına sıkışmış. View'ları çıkarmak 20-40 prop transfer gerektirir veya Context mimarisi gerektirir — Aşama 3 işi.
+- **ErrorBoundary** ilk tercih çünkü en az bağımlı (sadece `React.Component`, `React.createElement`, `localStorage`) ve class component pattern'i yeni bir namespace başlatmak için temiz bir başlangıç.
+
+### Yeni Dosya ve Namespace
+
+- `components/error-boundary.js` (139 satır) — `window.LOGWISE_COMPONENTS.ErrorBoundary`
+- Yeni klasör: `components/` ve yeni namespace: `window.LOGWISE_COMPONENTS`
+
+**Defensive init pattern:**
+```js
+window.LOGWISE_COMPONENTS = window.LOGWISE_COMPONENTS || {};
+window.LOGWISE_COMPONENTS.ErrorBoundary = ErrorBoundary;
+```
+
+Bu pattern sonraki bileşen dosyalarının (C1-2..C1-5) script sıralamasından bağımsız yüklenebilmesini sağlıyor — namespace objesi yoksa yaratılır, varsa üzerine key eklenir.
+
+### HTML'de Tek Satır Redirection
+
+```js
+const { ErrorBoundary } = window.LOGWISE_COMPONENTS;
+```
+
+Kullanım yerleri (Root.js fragment ve ReactDOM.createRoot çağrısı) aynen kaldı.
+
+### Script Yükleme Sırası
+
+```html
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/...js"></script>
+...
+<script src="lib/profile-utils.js"></script>
+<script src="components/error-boundary.js"></script>  <!-- C1-1 -->
+<script src="data/presets-exercises.js"></script>
+```
+
+ErrorBoundary `React.Component` extends ediyor, bu yüzden React CDN'inden **sonra** yüklenmek zorunda. lib/'in hemen altı güvenli konum.
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+- `index.html`: 9,604 → **9,481** (-123 satır) — tek taşıma için büyük kazanç
+- `components/error-boundary.js`: 0 → **139** (yeni, yorum + defensive init dahil)
+
+### Doğrulama
+
+- `node --check components/error-boundary.js` ✅
+- Runtime (React mock + localStorage mock):
+  - `new ErrorBoundary({children:'OK'}).render()` → `'OK'` (hasError=false path) ✅
+  - `state={hasError:true,error:new Error()}`, `render()` → `{type:'div', ...}` React element ✅
+  - `getDerivedStateFromError(err)` → `{hasError:true, error:err}` ✅
+  - `prototype instanceof React.Component` → true ✅
+- `node --check` index.html inline JS ✅
+- Bracket balance (`error-boundary.js`): `(`=0 `{`=0 `[`=0 ✅
+- İki kullanım yeri (Root fragment + ReactDOM render) korundu ✅
+
+### Service Worker Güncellemesi
+
+`sw.js` — `CACHE_NAME` `'logwise-v14'` → `'logwise-v15'`. `/components/error-boundary.js` PRECACHE_URLS'e eklendi.
+
+### Geri Alma
+
+`components/error-boundary.js`'i sil; `index.html`'deki script tag'ini ve `const { ErrorBoundary } = window.LOGWISE_COMPONENTS;` satırını git HEAD'den restore et. Class tanımı geri gelir, 2 kullanım yeri bozulmadan çalışır.
