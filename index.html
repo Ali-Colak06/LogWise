@@ -34,6 +34,7 @@
 <script src="data/i18n-tr.js"></script>
 <script src="data/i18n-en.js"></script>
 <script src="data/badges.js"></script>
+<script src="lib/calc.js"></script>
 <script src="lib/badge-logic.js"></script>
 <script src="data/presets-exercises.js"></script>
 <script src="data/ex-descriptions.js"></script>
@@ -314,15 +315,7 @@ const EX_PREVIEW = window.LOGWISE_EX_PREVIEW;
 const getExPreview = exName => EX_PREVIEW[exName] || null;
 const PRESET_PROGRAMS = window.LOGWISE_PRESET_PROGRAMS;
 const RIRS = ["-", "0", "1", "2", "3", "4+"];
-const fmt = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-const pD = s => {
-  const [y, m, d] = s.split("-").map(Number);
-  return new Date(y, m - 1, d);
-};
-const gdow = d => {
-  const v = d.getDay();
-  return v === 0 ? 6 : v - 1;
-};
+const { fmt, pD, gdow, eDays, calc1RM, calcBrzycki, calcStreak, calcWeekFreq, calcMonthFreq, getAllPRs, calcCompliance } = window.LOGWISE_CALC;
 const SK = "gym-log-v3",
   TK = "gym-log-theme",
   LK = "gym-log-lang",
@@ -332,15 +325,6 @@ const IS_LOCAL_STATIC = window.location.protocol === "file:" || ["localhost", "1
 const BRAND_LOGO_SRC = "/Site_Logo180.svg";
 const profileRoute = id => `${IS_LOCAL_STATIC ? "/profile.html" : "/profile"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;
 const shareRoute = id => `${IS_LOCAL_STATIC ? "/share.html" : "/share"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;
-const eDays = () => ({
-  "0": [],
-  "1": [],
-  "2": [],
-  "3": [],
-  "4": [],
-  "5": [],
-  "6": []
-});
 const SET_TYPES = ["working", "warmup", "drop", "superset"];
 const ST_LABELS_TR = {
   working: "Normal",
@@ -394,140 +378,6 @@ const migrateData = d => {
   if (!d.programMeta) d.programMeta = {};
   if (!d.badges) d.badges = [];
   return d;
-};
-const calc1RM = (w, r) => {
-  if (!w || !r || r <= 0) return 0;
-  if (r === 1) return w;
-  return Math.round(w * (1 + r / 30) * 10) / 10;
-};
-const calcBrzycki = (w, r) => {
-  if (!w || !r || r <= 0) return 0;
-  if (r === 1) return w;
-  if (r >= 37) return w * 2;
-  return Math.round(w * (36 / (37 - r)) * 10) / 10;
-};
-const calcStreak = workouts => {
-  let streak = 0;
-  const t = new Date();
-  t.setHours(0, 0, 0, 0);
-  for (let i = 0; i < 365; i++) {
-    const d = new Date(t);
-    d.setDate(d.getDate() - i);
-    const k = fmt(d);
-    if (workouts[k] && workouts[k].some(w => w.sets && w.sets.length > 0)) {
-      streak++;
-    } else if (i > 0) break;
-  }
-  return streak;
-};
-const calcWeekFreq = (workouts, exercises) => {
-  const now = new Date();
-  const freq = {};
-  CATS.forEach(c => freq[c] = 0);
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(now);
-    d.setDate(d.getDate() - i);
-    const k = fmt(d);
-    const ws = workouts[k] || [];
-    ws.forEach(w => {
-      if (w.sets && w.sets.length > 0) {
-        const ex = exercises.find(e => e.id === w.exerciseId);
-        if (ex) {
-          (ex.categories || []).forEach(c => {
-            freq[c] = (freq[c] || 0) + 1;
-          });
-        }
-      }
-    });
-  }
-  return freq;
-};
-const calcMonthFreq = (workouts, exercises) => {
-  const now = new Date();
-  const freq = {};
-  CATS.forEach(c => freq[c] = 0);
-  for (let i = 0; i < 30; i++) {
-    const d = new Date(now);
-    d.setDate(d.getDate() - i);
-    const k = fmt(d);
-    const ws = workouts[k] || [];
-    ws.forEach(w => {
-      if (w.sets && w.sets.length > 0) {
-        const ex = exercises.find(e => e.id === w.exerciseId);
-        if (ex) {
-          (ex.categories || []).forEach(c => {
-            freq[c] = (freq[c] || 0) + 1;
-          });
-        }
-      }
-    });
-  }
-  return freq;
-};
-const getAllPRs = (workouts, exercises) => {
-  const prs = {};
-  exercises.forEach(ex => {
-    let maxW = 0,
-      maxVol = 0,
-      max1RM = 0;
-    Object.values(workouts).forEach(dayW => {
-      const f = dayW.find(w => w.exerciseId === ex.id);
-      if (f) f.sets.forEach(s => {
-        if (s.weight > maxW) maxW = s.weight;
-        const vol = s.weight * s.reps;
-        if (vol > maxVol) maxVol = vol;
-        const rm = calc1RM(s.weight, s.reps);
-        if (rm > max1RM) max1RM = rm;
-      });
-    });
-    if (maxW > 0) prs[ex.id] = {
-      maxWeight: maxW,
-      maxVolume: maxVol,
-      est1RM: Math.round(max1RM)
-    };
-  });
-  return prs;
-};
-const calcCompliance = (pgId, workouts, programs, programMeta) => {
-  const meta = (programMeta || {})[pgId];
-  if (!meta || !meta.activatedAt) return null;
-  const pg = programs[pgId];
-  if (!pg) return null;
-  const start = pD(meta.activatedAt);
-  const tod = new Date();
-  tod.setHours(0, 0, 0, 0);
-  const daysDiff = Math.floor((tod - start) / (1000 * 60 * 60 * 24));
-  if (daysDiff < 0) return {
-    week: 1,
-    rate: 0,
-    done: 0,
-    total: 0,
-    isDeload: false
-  };
-  const week = Math.floor(daysDiff / 7) + 1;
-  let total = 0,
-    done = 0;
-  for (let i = 0; i <= daysDiff; i++) {
-    const dd = new Date(start);
-    dd.setDate(dd.getDate() + i);
-    const di = gdow(dd);
-    const pgExs = pg.days[String(di)] || [];
-    const pgOff = pg.offDays || [];
-    if (pgOff.includes(String(di)) || pgExs.length === 0) continue;
-    total++;
-    const dk = fmt(dd);
-    const ws = workouts[dk] || [];
-    if (pgExs.some(eid => ws.some(w => w.exerciseId === eid && w.sets && w.sets.length > 0))) done++;
-  }
-  const deloadEvery = meta.deloadEvery || 0;
-  const isDeload = deloadEvery > 0 && week % deloadEvery === 0;
-  return {
-    week,
-    rate: total > 0 ? Math.round(done / total * 100) : 0,
-    done,
-    total,
-    isDeload
-  };
 };
 const BADGES = window.LOGWISE_BADGES;
 const getBadgeName = window.LOGWISE_BADGE_LOGIC.getBadgeName;
@@ -4453,7 +4303,7 @@ function App({
     const totalVol = wKeys.reduce((a, k) => a + data.workouts[k].reduce((b, w) => b + w.sets.reduce((c, s) => c + s.weight * s.reps, 0), 0), 0);
     const streak = calcStreak(data.workouts);
     const prs = getAllPRs(data.workouts, data.exercises);
-    const freqData = dashFreqPeriod === "week" ? calcWeekFreq(data.workouts, data.exercises) : calcMonthFreq(data.workouts, data.exercises);
+    const freqData = dashFreqPeriod === "week" ? calcWeekFreq(data.workouts, data.exercises, CATS) : calcMonthFreq(data.workouts, data.exercises, CATS);
     const maxFreq = Math.max(...Object.values(freqData), 1);
     const sortedPRs = Object.entries(prs).map(([eid, p]) => ({
       eid,
