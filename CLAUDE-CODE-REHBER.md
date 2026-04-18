@@ -41,7 +41,8 @@ LogWise/
 │   └── base.css            ← reset + scrollbar + :root (46 değişken superset) + [data-theme=light] + .sr-only + ortak @keyframes (fadeIn/scaleIn/toastIn/toastOut/countUp/shine)
 ├── components/             ← Refactor Aşama 2 Faz 2C — React bileşenleri (window.LOGWISE_COMPONENTS namespace)
 │   ├── error-boundary.js   ← LOGWISE_COMPONENTS.ErrorBoundary — class component, en dış hata yakalayıcı (Faz 2C-1, Bölüm 36)
-│   └── brand-mark.js       ← LOGWISE_COMPONENTS.BrandMark — saf sunumsal logo bileşeni, props: size/pad/radius/style (Faz 2C-2, Bölüm 37)
+│   ├── brand-mark.js       ← LOGWISE_COMPONENTS.BrandMark — saf sunumsal logo bileşeni, props: size/pad/radius/style (Faz 2C-2, Bölüm 37)
+│   └── dash-chart.js       ← LOGWISE_COMPONENTS.DashChart — Chart.js line chart, canvas ref'leri dışarıdan alır (Faz 2C-3, Bölüm 38)
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
@@ -2391,3 +2392,96 @@ C1-1'de tasarlanan `window.LOGWISE_COMPONENTS = window.LOGWISE_COMPONENTS || {}`
 4. Destructuring'i `const { ErrorBoundary } = window.LOGWISE_COMPONENTS;`'a daralt
 
 3 kullanım yeri aynen çalışmaya devam eder.
+
+---
+
+## Bölüm 38 — Refactor Aşama 2, Faz 2C-3: DashChart Ayrıldı (2026-04-18)
+
+C1 alt-adım 3: dashboard görünümünün Chart.js line chart bileşeni `DashChart` (~117 satır) `components/dash-chart.js`'e taşındı. C1'in **en uzun** ve **en çok bağımlılıklı** bileşeni — Chart.js canvas lifecycle ve React ref yönetimi içeriyor.
+
+### Yeni Dosya
+
+- `components/dash-chart.js` (137 satır) — `window.LOGWISE_COMPONENTS.DashChart`
+- Bağımlılıklar (runtime'da çözülür):
+  - `React.useEffect`, `React.createElement` — React CDN
+  - `Chart` — chart.js CDN (global)
+  - `window.LOGWISE_CALC.pD` — useEffect gövdesi içinde destructure (çağrıldığında yüklü)
+
+### Neden `useEffect` Yerine `React.useEffect`
+
+index.html'deki inline scope'ta `const { useEffect } = React;` destructure'u var ama bu isim bileşen dosyasına taşınamaz. Alternatifler:
+1. Bileşen dosyasında kendi destructure'ı yap — IIFE üst seviyesinde çalışır ama React global yüklenmeden tetiklenirse patlar
+2. `React.useEffect` olarak adlandır — `BrandMark`'ın `React.createElement` pattern'ine uyumlu, hiç extra destructure yok
+
+Opsiyon 2 seçildi: tutarlı ve en az karmaşa.
+
+### `LOGWISE_CALC.pD` Runtime Çözümü
+
+IIFE üst seviyesinde değil, `useEffect` gövdesi içinde çözülür:
+
+```js
+React.useEffect(() => {
+  if (!chartRef.current || !chartHist.length) return;
+  // ...
+  const { pD } = window.LOGWISE_CALC;  // runtime'da, sadece mount edildiğinde
+  // ...
+}, [chartHist, mode, theme]);
+```
+
+Neden? IIFE hemen çalışır; eğer bir sebepten `lib/calc.js` sonradan yüklenirse patlar. useEffect ise sadece bileşen render edildiğinde çalışır — o zamana kadar tüm script'ler yüklenmiş olur.
+
+### HTML'de Destructuring Güncellendi
+
+```js
+const { ErrorBoundary, BrandMark, DashChart } = window.LOGWISE_COMPONENTS;
+```
+
+Tek kullanım yeri (dashboard view'de `React.createElement(DashChart, {...})`) aynen kaldı.
+
+### Script Yükleme Sırası
+
+```html
+<script src="components/error-boundary.js"></script>
+<script src="components/brand-mark.js"></script>
+<script src="components/dash-chart.js"></script>     <!-- C1-3 -->
+```
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+- `index.html`: 9,448 → **9,331** (-117 satır) — en büyük tek-adım kazanç
+- `components/dash-chart.js`: 0 → **137** (yeni, yorum + defensive init + Chart config dahil)
+
+### Doğrulama
+
+- `node --check components/dash-chart.js` ✅
+- Runtime testleri:
+  - `window.LOGWISE_COMPONENTS.DashChart` fonksiyon olarak export edildi ✅
+  - Mock props (chartRef, chartInstanceRef, chartHist=[], mode="weight", theme="dark", L={}, lang="tr") ile çağrı → canvas element döndü, useEffect early-return (empty hist) tetiklendi ✅
+  - `chartHist.length > 0` ile çağrı: `new Chart(...)` çağrıldı, `chartInstanceRef.current` Chart instance'ı tutuyor ✅
+  - Cleanup: `chartInstanceRef.current.destroy()` çağrıldı, `.current = null` oldu ✅
+  - Mode değişimi: weight → volume → onerm'de borderColor/bgColor/dataPoints doğru switch'lendi ✅
+- Defensive init fresh-load testi: önce dash-chart.js yüklendi, `window.LOGWISE_COMPONENTS.DashChart` düzgün tanımlandı ✅
+- `node --check` index.html inline JS ✅
+- Bracket balance (`dash-chart.js`): `(`=0 `{`=0 `[`=0 ✅
+- `DashChart` index.html'de 2 yerde (1 destructuring + 1 createElement) ✅
+- `useEffect(` (standalone) index.html inline'da tek DashChart bağlamında silindi, diğer 30+ useEffect kullanımı korundu ✅
+
+### Service Worker Güncellemesi
+
+`sw.js` — `CACHE_NAME` `'logwise-v16'` → `'logwise-v17'`. `/components/dash-chart.js` PRECACHE_URLS'e eklendi.
+
+### Mimari Not: Canvas Ref Lifecycle Dışarıdan Yönetiliyor
+
+DashChart kendi `ref`'ini yaratmıyor — `chartRef` ve `chartInstanceRef` parent'tan (App) geliyor. Bu sayede:
+- App, chart instance'ı mount/unmount dışında da manipüle edebilir (tema değişiminde vs.)
+- Component saf "render hedefi" rolünde, state taşımıyor — C1 stratejisine uyumlu
+- `useRef` hook'larını App'e bırakmak, bileşeni çok daha basit tutuyor
+
+### Geri Alma
+
+`components/dash-chart.js`'i sil; `index.html`'de:
+1. `<script src="components/dash-chart.js"></script>` satırını kaldır
+2. `function DashChart(...)` tanımını `syncProfileRecord`'un sonrasına geri al (`useEffect` olarak, `React.useEffect` değil)
+3. Destructuring'i `const { ErrorBoundary, BrandMark } = window.LOGWISE_COMPONENTS;`'a daralt
+
+Tek kullanım yeri aynen çalışmaya devam eder.
