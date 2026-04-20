@@ -55,9 +55,17 @@
     const EN = window.LOGWISE_EN;
     const L = lang === "tr" ? TR : EN;
     const EX_PREVIEW = window.LOGWISE_EX_PREVIEW || {};
-    // Faz EX-ID: önce ex.id ile, yoksa ex.name ile (kullanıcı verisi backward compat) slug'a çöz.
+    // Faz EX-ID: ex.id kullanıcı verisinde Date.now() (numerik) olabilir — slug değil.
+    // O yüzden id + name iki adayı sırayla deneriz; biri preview/desc Map'inde varsa onu seçeriz.
     const utils = window.LOGWISE_EX_UTILS;
-    const lookupKey = utils ? utils.resolveKey(ex.id || ex.name) : ex.name;
+    const candidates = [ex.id, ex.name].filter(Boolean);
+    let lookupKey = null;
+    for (const c of candidates) {
+      const k = utils ? utils.resolveKey(c) : c;
+      if (EX_PREVIEW[k]) { lookupKey = k; break; }
+    }
+    // Hiç eşleşme yoksa name (varsa) ile son bir deneme — desc varsa modal yine de açıklama gösterir
+    if (!lookupKey) lookupKey = utils ? utils.resolveKey(ex.name || ex.id) : (ex.name || ex.id);
     const preview = EX_PREVIEW[lookupKey] || null;
     const desc = preview ? lang === "tr" ? preview.desc[0] : preview.desc[1] : null;
     const tips = preview ? preview.tips : null;
