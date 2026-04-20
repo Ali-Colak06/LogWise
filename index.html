@@ -5608,7 +5608,7 @@ function App({
         onClick: e => {
           e.stopPropagation();
           setPreviewEx({
-            id: "preset-" + p.idx,
+            id: p.id,
             name: p.displayName,
             categories: p.categories
           });
