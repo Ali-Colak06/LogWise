@@ -1,6 +1,13 @@
-# LOG WISE — Tam Proje Rehberi (Claude Code İçin)
+# LOG WISE — Refactor Geçmişi ve Tam Proje Rehberi
 
-Bu doküman, LOG WISE projesinin kuruluşundan güncel haline kadar her şeyi açıklar. Claude Code'a bu dosyayı okutarak projeye hakim olması sağlanır.
+> ⚠️ **ÖNEMLİ — AI araçları için okuma sırası:**
+> Bu dosya projenin **tarihsel refactor kaydı** ve kapsamlı referans kılavuzudur (40+ Bölüm). Büyük ve kapsamlıdır.
+>
+> **Aktif kurallar, seans check-list'i, dosya haritası ve "nereye bakayım?" yönlendirmeleri için ÖNCE [`AGENTS.md`](AGENTS.md) dosyasını oku.** Görev-tipi reçeteler için [`docs/`](docs/) klasörüne bak.
+>
+> Bu dosya, yalnızca bir refactor aşamasına veya tarihsel bir karara ihtiyacın olduğunda referans amacıyla okunmalıdır. Öncesinde dosya adı `CLAUDE-CODE-REHBER.md` idi; 2026-04-20 tarihinde DOC-1 altyapısıyla birlikte `REFACTOR-GECMISI.md`'ye yeniden adlandırıldı.
+
+Bu doküman, LOG WISE projesinin kuruluşundan güncel haline kadar her şeyi açıklar. AI araçları bu dosyayı referans olarak kullanır.
 
 ```
 
@@ -68,7 +75,13 @@ LogWise/
 ├── PRESET_PROGRAM_ONERILERI.md ← Yeni preset program fikirleri, etiketler ve haftalık taslaklar
 ├── PRESET_PROGRAM_ONERILERI_READABLE.html ← Program önerisi belgesinin okunabilir HTML versiyonu
 ├── PRESET_PROGRAM_ONERILERI.pdf ← Program önerisi belgesinin okunabilir PDF export'u
-├── CLAUDE-CODE-REHBER.md   ← Bu dosya
+├── AGENTS.md               ← AI araçları için giriş noktası — kurallar, dosya haritası, seans check-list (DOC-1, Bölüm 42)
+├── REFACTOR-GECMISI.md     ← Bu dosya — refactor tarihsel kaydı (eski ad: CLAUDE-CODE-REHBER.md)
+├── docs/                   ← Görev-tipi reçeteler (DOC-1, Bölüm 42)
+│   ├── PRESET-EXERCISE-EKLEME.md  ← Yeni hareket ekleme reçetesi
+│   ├── PRESET-PROGRAM-EKLEME.md   ← Yeni program ekleme reçetesi
+│   ├── YENI-COMPONENT.md          ← React bileşeni ekleme pattern'i
+│   └── SW-VERSION-BUMP.md         ← Service Worker versiyon bump kuralları
 └── logwise-worker/         ← Cloudflare Worker (resim upload/serve API)
     ├── src/
     │   └── worker.js       ← Worker kaynak kodu
@@ -2845,4 +2858,79 @@ Aşama 2, Aşama 1'in (veri/sabit/saf fonksiyon ayrıştırması) üzerine **ren
 ### Sonraki — Aşama 3 (Opsiyonel)
 
 Aşama 3 **view extraction** olacaktır: `App` monolit'inden dashboard/history/stats/programs/exercises/settings/share view'ları ayrı component dosyalarına taşınır. Bu, state paylaşımı için Context API veya prop-drilling kararı gerektirir ve App içindeki inline `sb.from(...)` çağrılarının sarmalanmasıyla eşzamanlı yapılması daha temiz olur. Tahmini 6-10 seans. Kullanıcı pratik performansı baz alarak bu aşamaya geçip geçmeyeceğine karar verecek.
+
+---
+
+## Bölüm 42 — DOC-1: Dokümantasyon Altyapısı (2026-04-20)
+
+Aşama 2 kapandıktan sonra, projede iki AI aracı (Claude + Codex) farklı seanslarda çalışırken koordineli ve tutarlı davranabilmesi için **dokümantasyon altyapısı** ayrıldı. Kod değişikliği yok; tamamen MD dosyası düzenlemeleri.
+
+### Neden Gerekti?
+
+Proje "rehber" olarak tek büyük dosya (`CLAUDE-CODE-REHBER.md`, ~2,700 satır) kullanıyordu. Problemler:
+1. **Ad araç-özgülü:** "CLAUDE-CODE-REHBER" Codex'e "bu sana değil" mesajı veriyordu.
+2. **Tek dosya, çok amaçlı:** Aktif kurallar + tarihsel refactor kaydı + "nasıl yaparım?" reçeteleri tek yerde iç içeydi.
+3. **Seans giriş noktası yok:** AI seansı başladığında "ilk önce ne oku?" net değildi.
+4. **Görev-tipi reçete yok:** "Preset hareket nasıl eklenir?" sorusunun cevabı 2,700 satır içinde dağınıktı.
+
+### Yapılanlar
+
+#### 1. `AGENTS.md` oluşturuldu (~180 satır, kök dizin)
+Her AI seansının ilk okuduğu dosya. İçeriği:
+- Proje özeti
+- Seans öncesi kontrol listesi
+- Mutlak kurallar (JSX yasak, window.LOGWISE_* namespace, i18n zorunlu, sw.js bump, commit hijyeni, ...)
+- Dosya yapısı haritası
+- "Ne için nereye bak?" tablosu
+- Seans sonu kontrol listesi
+- Yasak listesi
+- Refactor durumu özeti
+- Bu dosyayı güncelleme kuralları
+
+#### 2. `CLAUDE-CODE-REHBER.md` → `REFACTOR-GECMISI.md` yeniden adlandırıldı
+- `git mv` ile rename — history korundu.
+- Başına uyarı bloğu eklendi: "Bu tarihsel kayıttır; aktif kurallar için `AGENTS.md`'yi oku."
+- Ad araç-agnostik oldu; hem Claude hem Codex rahatça okuyabilir.
+
+#### 3. `docs/` klasörü oluşturuldu — görev-tipi reçeteler
+Her biri 60-200 satır arasında, tek iş tipine odaklı:
+
+| Dosya | İçerik |
+|---|---|
+| `docs/PRESET-EXERCISE-EKLEME.md` | Yeni hareket ekleme: `presets-exercises.js` + `ex-descriptions.js` + `ex-preview.js` şemaları, tam örnek, kontrol listesi |
+| `docs/PRESET-PROGRAM-EKLEME.md` | Yeni program ekleme: `presets-programs.js` şeması, gün anahtarları, tam örnek |
+| `docs/YENI-COMPONENT.md` | React bileşeni ekleme pattern'i (Faz 2C'den çıkan standart): IIFE, defensive init, runtime deps, sw.js + index.html entegrasyonu |
+| `docs/SW-VERSION-BUMP.md` | Servis worker versiyon bump: ne zaman gerekli, prosedür, yaygın hatalar |
+
+### İki-Katmanlı Yaklaşım
+
+- **Üst katman (`AGENTS.md`):** Kısa, sözleşme niteliğinde, her seans okunur.
+- **Alt katman (`docs/*.md`):** Görev-özgü, sadece ilgili iş yapılırken okunur.
+- **Arşiv katmanı (`REFACTOR-GECMISI.md`):** Tarihsel; refactor kararlarına referans için.
+
+Sonuç: Hangi iş olursa olsun AI'nın okuyacağı materyal **hedeflenmiş** ve **asgari** olur.
+
+### Dosya Durum Değişiklikleri
+
+- **Yeni:** `AGENTS.md`, `docs/PRESET-EXERCISE-EKLEME.md`, `docs/PRESET-PROGRAM-EKLEME.md`, `docs/YENI-COMPONENT.md`, `docs/SW-VERSION-BUMP.md`
+- **Rename:** `CLAUDE-CODE-REHBER.md` → `REFACTOR-GECMISI.md`
+- **İçerik güncellemesi:** `REFACTOR-GECMISI.md` başına uyarı bloğu + bu Bölüm 42
+
+### Kod Değişikliği
+
+**Hiç yok.** Bu faz saf dokümantasyon. Kullanıcı-yüzlü hiçbir şey etkilenmedi. `sw.js` bump GEREKSİZ (hiçbir statik asset eklenmedi/silinmedi).
+
+### Neden "DOC-1"?
+
+Bu faz "Aşama 3" olarak etiketlenmedi çünkü Aşama 3 kod refactor'ü için saklanıyor. Doküman altyapısı ayrı bir "meta" iş; numaralandırma olarak `DOC-1` (Documentation, birinci ada) kullanıldı. İleride `DOC-2` (örneğin yeni bir `docs/API-KULLANIMI.md` gerektiğinde) bu çizgide gelebilir.
+
+### Gelecekteki Sahiplik
+
+- **AGENTS.md'yi her iki AI de okur.** Yeni bir kural/yasak eklerken AGENTS.md'ye eklenir, tarihi yenilenir.
+- **docs/ reçeteleri** hangi iş tipinde yapılan değişiklikleri geri yansıtacak şekilde güncellenir (örn. Faz EX-ID geldiğinde `PRESET-EXERCISE-EKLEME.md`'ye ID kuralı eklenir).
+- **REFACTOR-GECMISI.md** büyük iş bittikçe yeni Bölüm eklenir.
+
+### Sonraki — Faz EX-ID (Opsiyonel, Aşama 3'ten Bağımsız)
+
+Kullanıcı onayladı: preset hareketlere **slug ID sistemi** eklenecek (kebab-case, örn. `bench-press`). Strateji A seçildi: kullanıcı verisine dokunma, sadece dosyalar arası bağlantı ID'ye çevrilir. Detay planı Faz EX-ID başlamadan önce ayrıca yapılacak.
 

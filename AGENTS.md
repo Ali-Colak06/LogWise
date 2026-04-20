@@ -1,0 +1,193 @@
+# AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
+
+<!-- SON GÜNCELLEME: 2026-04-20 — DOC-1 -->
+
+Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
+
+---
+
+## 1. Proje Özeti
+
+LogWise — React 18 + Supabase tabanlı, Cloudflare Pages üzerinde yayınlanan bir antrenman takip PWA'sı. Build step yok. React, doğrudan `React.createElement()` çağrılarıyla kullanılır; JSX yoktur. Stil `styles/base.css` + sayfa-özel inline CSS. Dil desteği: Türkçe + İngilizce (varsayılan TR).
+
+Prod URL: https://logwise.fit
+
+---
+
+## 2. Seans Öncesi Kontrol Listesi
+
+Her AI seansı başlamadan **önce**:
+
+1. Bu dosyayı (`AGENTS.md`) oku.
+2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 42).
+4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
+   - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
+   - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
+   - **Yeni React bileşeni** → `docs/YENI-COMPONENT.md`
+   - **sw.js versiyon bump** → `docs/SW-VERSION-BUMP.md`
+
+---
+
+## 3. Mutlak Kurallar (İhlal Edilemez)
+
+### 3.1 Kod
+- **JSX yasak.** Her React render `React.createElement(...)` ile yazılır. Build aracı yok, tarayıcı script tag'leri ile çalışır.
+- **Babel kaldırıldı** (bkz. REFACTOR-GECMISI.md Bölüm 27). Hiçbir dosyada JSX syntax veya Babel yönergesi olmamalı.
+- **Global namespace:** Tüm yeniden-kullanılabilir modüller `window.LOGWISE_*` altında yaşar. Her yeni modül kendi isim uzayını alır.
+- **Component pattern:** Her React bileşeni IIFE içinde tanımlanır, defensive init pattern'iyle `window.LOGWISE_COMPONENTS`'a bağlanır. Detay: `docs/YENI-COMPONENT.md`.
+- **i18n zorunlu:** Kullanıcıya görünen her string TR+EN çift dillidir. `window.LOGWISE_TR` / `window.LOGWISE_EN` sözlüklerinden çözülür. Hardcode Türkçe veya İngilizce yasak.
+
+### 3.2 Dosya Mimarisi
+- `data/` — yalnızca sabit veri + i18n sözlükleri (React bağımlılığı yok).
+- `lib/` — saf fonksiyonlar, DB layer, utility'ler (React bağımlılığı yok).
+- `components/` — React bileşenleri (`window.LOGWISE_COMPONENTS`).
+- `styles/base.css` — paylaşılan CSS. Yeni ortak CSS buraya yazılır.
+- `index.html` / `profile.html` / `share.html` / `program.html` — sayfa dosyaları. `index.html` hâlâ App + Root monolit'ini barındırır (Aşama 3'e kadar böyle).
+
+### 3.3 PWA / Service Worker
+- **Yeni `data/`, `lib/` veya `components/` dosyası eklediğinde** `sw.js`'de iki değişiklik zorunlu: `CACHE_NAME` bump + `PRECACHE_URLS`'e yeni dosyayı ekle. Detay: `docs/SW-VERSION-BUMP.md`.
+- `CACHE_NAME` bump unutulursa eski kullanıcıların tarayıcısı yeni dosyayı **almaz**; site kırılabilir.
+
+### 3.4 Git / Commit
+- Her commit mantıksal bir birim içerir (bir bileşen, bir bölüm, bir fix). Dev commit'leri yok.
+- `Co-Authored-By:` satırı AI'yı belirtir (Claude için: `Co-Authored-By: Claude <noreply@anthropic.com>`; Codex için eşdeğer satır).
+- Sensitive dosyalar (`.env`, credentials) commit'e girmez. `git add .` yerine dosyaları ismen ekle.
+- `main` branch'i deploy'dur; büyük işler önce feature branch'te geliştirilir (opsiyonel).
+
+---
+
+## 4. Dosya Yapısı Haritası
+
+```
+LogWise/
+├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-42+)
+├── docs/                      ← Görev-tipi reçeteler
+│   ├── PRESET-EXERCISE-EKLEME.md
+│   ├── PRESET-PROGRAM-EKLEME.md
+│   ├── YENI-COMPONENT.md
+│   └── SW-VERSION-BUMP.md
+├── data/                      ← Sabit veri + i18n (Aşama 1)
+│   ├── i18n-tr.js             ← window.LOGWISE_TR
+│   ├── i18n-en.js             ← window.LOGWISE_EN
+│   ├── i18n-tr-profile.js     ← window.LOGWISE_TR_PROFILE
+│   ├── i18n-en-profile.js     ← window.LOGWISE_EN_PROFILE
+│   ├── badges.js              ← window.LOGWISE_BADGES (30 rozet)
+│   ├── presets-exercises.js   ← window.LOGWISE_PRESET_EXERCISES (~56 hareket)
+│   ├── ex-descriptions.js     ← window.LOGWISE_EX_DESCS (kısa açıklamalar)
+│   ├── ex-preview.js          ← window.LOGWISE_EX_PREVIEW (gif + uzun desc + tips)
+│   └── presets-programs.js    ← window.LOGWISE_PRESET_PROGRAMS (4 program)
+├── lib/                       ← Saf fonksiyonlar + DB (Aşama 1-2)
+│   ├── calc.js                ← window.LOGWISE_CALC
+│   ├── badge-logic.js         ← window.LOGWISE_BADGE_LOGIC
+│   ├── data-schema.js         ← window.LOGWISE_SCHEMA (init + migrateData)
+│   ├── profile-utils.js       ← window.LOGWISE_PROFILE_UTILS
+│   └── db.js                  ← window.LOGWISE_DB (Supabase client + profil senkronu)
+├── styles/
+│   └── base.css               ← Paylaşılan CSS (reset, :root, @keyframes)
+├── components/                ← React bileşenleri (Aşama 2C)
+│   ├── error-boundary.js      ← ErrorBoundary
+│   ├── brand-mark.js          ← BrandMark
+│   ├── dash-chart.js          ← DashChart
+│   ├── ex-preview-modal.js    ← ExPreviewModal
+│   └── auth-screen.js         ← AuthScreen
+├── index.html                 ← Ana uygulama (App + Root monolit)
+├── profile.html               ← Profil sayfası
+├── share.html                 ← Paylaşım sayfası
+├── program.html               ← Program paylaşım sayfası
+├── 404.html                   ← 404
+├── sw.js                      ← Service Worker (PWA)
+├── manifest.json              ← PWA manifest
+├── _redirects, _headers       ← Cloudflare Pages konfigürasyonu
+├── supabase_setup.sql         ← Supabase tablo şemaları + RLS
+└── logwise-worker/            ← Cloudflare Worker (resim API)
+    ├── src/worker.js
+    └── wrangler.toml
+```
+
+---
+
+## 5. Ne Yapacaksın? → Nereye Bakacaksın?
+
+| İş Tipi | Bak |
+|---|---|
+| Yeni preset hareket eklemek | `docs/PRESET-EXERCISE-EKLEME.md` |
+| Yeni preset program eklemek | `docs/PRESET-PROGRAM-EKLEME.md` |
+| Yeni React bileşeni eklemek | `docs/YENI-COMPONENT.md` |
+| Mevcut bileşeni değiştirmek | `components/*.js` + ilgili REFACTOR-GECMISI.md bölümü |
+| Yeni i18n metni eklemek | `data/i18n-tr.js` + `data/i18n-en.js` (ikisine de eşzamanlı) |
+| Yeni rozet eklemek | `data/badges.js` + `lib/badge-logic.js` kontrol |
+| Supabase sorgusu eklemek | `lib/db.js` veya `index.html` App scope'u (Aşama 3'te sarmalanacak) |
+| Ortak CSS eklemek | `styles/base.css` |
+| Sayfa-özel CSS eklemek | `index.html` / `profile.html` inline `<style>` |
+| sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
+| Yeni sayfa eklemek | `.html` dosyası + `_redirects` güncellemesi + sw.js PRECACHE |
+
+---
+
+## 6. Seans Sonu Kontrol Listesi
+
+İşi bitirmeden **önce** şunları geç:
+
+1. **Syntax kontrol:** Yeni/değişen her `.js` dosyası için `node --check <path>`.
+2. **Inline script kontrol:** `index.html` içi script değiştiyse, inline kısmı ayıklayıp `node --check` yap.
+3. **Bracket balance:** Büyük component dosyalarında `(` `{` `[` dengesi 0 olmalı.
+4. **sw.js güncel mi?** Yeni statik dosya eklediysen → `CACHE_NAME` bump + `PRECACHE_URLS` ekle.
+5. **i18n senkron mu?** Yeni TR string eklediysen EN karşılığını da ekledin mi?
+6. **REFACTOR-GECMISI.md** — büyük bir iş (yeni dosya, yeni pattern, mimari karar) yaptıysan yeni bir Bölüm ekle.
+7. **AGENTS.md dosya haritası** — yeni dosya/klasör eklediysen haritayı güncelle + `SON GÜNCELLEME` tarihini yenile.
+8. **Çalıştırma testi:** mümkünse tarayıcıda aç, en az etkilenen view'ı render et.
+9. **Commit disiplini:** `git add <dosyalar>` ismen; mesaj kısa ama anlamlı; `Co-Authored-By:` satırı.
+
+---
+
+## 7. Yasak Listesi
+
+- ❌ JSX kullanmak
+- ❌ Babel veya herhangi bir build aracı eklemek
+- ❌ `index.html`'e inline CSS eklerken `styles/base.css`'e koyulabilecek bir şeyi inline yapmak
+- ❌ Yeni klasör açmadan önce bu dosyayı güncellemeden açmak
+- ❌ Kullanıcıya görünen metinleri TR veya EN'den sadece birini yazmak
+- ❌ `data/`, `lib/`, `components/` altına React-dışı / namespace-dışı dosya eklemek
+- ❌ `window.LOGWISE_*` dışında global değişken oluşturmak
+- ❌ `sw.js` `CACHE_NAME` bump'ını unutarak yeni statik dosya eklemek
+- ❌ Supabase `SUPABASE_URL` / `SUPABASE_ANON_KEY` gibi sabitleri `lib/db.js` dışında duplicate etmek
+- ❌ Commit'e sensitive dosya (.env, credentials) eklemek
+- ❌ `git push --force` main'e atmak
+
+---
+
+## 8. Proje Refactor Durumu (Özet)
+
+- **Aşama 1** (Bölüm 28-33): Veri/sabit/saf fonksiyon ayrıştırması ✅
+- **Aşama 2** (Bölüm 34-41): DB + Stil + React bileşenleri ayrıştırması ✅
+- **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
+
+Detay için `REFACTOR-GECMISI.md`'ye bak.
+
+---
+
+## 9. İletişim ve Çakışma Önleme
+
+Bu projede iki AI aracı (Claude + Codex) **farklı seanslarda, ayrı ayrı** çalışır. Çakışma engellemek için:
+
+- Büyük refactor işleri → Claude
+- Küçük fix + preset ekleme → Codex (veya Claude, sen karar verirsin)
+- Her seansta ilk iş: `git pull` sonra bu dosyayı oku
+- Seans sonunda: `git push` + (büyük işse) REFACTOR-GECMISI.md'ye Bölüm ekle
+- Eğer yarım iş bırakıyorsan: `git commit` yap, mesaja "WIP:" ön ek koy; diğer AI bunu görüp üstüne inşa etmez
+
+---
+
+## 10. Bu Dosyayı Güncelleme Kuralları
+
+`AGENTS.md` **yaşayan bir sözleşmedir**. Şu durumlarda güncellenir:
+
+- Yeni bir mutlak kural kabul edildiğinde (§3'e ekle)
+- Yeni bir klasör açıldığında (§4 dosya haritasını güncelle)
+- Yeni bir görev-tipi reçetesi `docs/` altına eklendiğinde (§5'e satır ekle)
+- Yeni bir yasak belirlendiğinde (§7'ye ekle)
+- Refactor aşaması bittiğinde (§8'i güncelle)
+
+Güncelleme sonrası **her zaman** üstteki `SON GÜNCELLEME` yorumunu ve tarih satırını yenile.
