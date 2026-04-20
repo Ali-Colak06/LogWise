@@ -3068,9 +3068,67 @@ Eğer gelecekte "kullanıcı verisini de id'ye taşı" adımı istenirse (Faz EX
 
 ### sw.js Durumu
 
-- `CACHE_NAME` bump: `v20` → `v21` (yeni `lib/exercise-utils.js` eklendi)
+- `CACHE_NAME` bump: `v20` → `v21` (yeni `lib/exercise-utils.js` eklendi); hotfix'lerle birlikte v23'e çıktı (aşağı bkz)
 - PRECACHE_URLS'e eklendi: `/lib/exercise-utils.js`
 - Mevcut statikler değişmedi (sadece içerik migrasyonu), ama cache isim bump'ı yine de zorunlu (yeni dosya eklendi)
+
+### Hotfix'ler (Deploy Sonrası, 2026-04-20)
+
+Faz EX-ID'nin ana commit'i deploy edildikten sonra canlı testte iki bug yakalandı; aynı gün ardışık iki fix commit'i atıldı.
+
+#### Hotfix 1 — `setPreviewEx({ id: "preset-" + p.idx, ... })` (Sahte Slug)
+
+**Semptom:** "Hareket Ekle → Preset" listesinde hareketin info düğmesine tıklayınca modal açılıyordu ama açıklama/ipuçları boş geliyordu ("Bu hareket için içerik henüz eklenmemiş").
+
+**Sebep:** `index.html` line 5611 civarında, preset listede info butonu `setPreviewEx({ id: "preset-" + p.idx, name: p.displayName, ... })` çağırıyordu. `"preset-0"` gibi sahte bir id geçiriliyordu — Faz EX-ID öncesi sadece React key ihtiyacı içindi, gerçek bir slug değildi. Faz EX-ID sonrası modal `resolveKey(ex.id || ex.name)` yapıyor; truthy id varken name'e fallback yapmıyor, `EX_PREVIEW["preset-0"]` undefined dönüyordu.
+
+**Fix:** `id: "preset-" + p.idx` → `id: p.id`. `p` zaten `PRESET_EXERCISES.map(...)` sonucu olduğu için `p.id` gerçek slug ('bench-press' vs.).
+
+**Commit:** "Faz EX-ID fix: preset hareket preview modal ex.id slug kullansın"
+
+#### Hotfix 2 — Kullanıcı Hareketinde `ex.id = Date.now()` (Numerik, Slug Değil)
+
+**Semptom:** "Hareketlerim" listesinde, kullanıcı bir hareketi (preset'ten eklenmiş bile olsa) info ile açtığında modal yine boş geliyordu. Hatta hareketi silip preset'ten yeniden ekleyince de aynı durum.
+
+**Sebep:** `addExercise` ve `addPresetExercises` fonksiyonları, kullanıcı verisindeki her hareket için `id: Date.now().toString()` kaydediyor (örn. `"1729456789123"`). Bu numerik string slug **değil**, kullanıcı kaydının tanımlayıcısı. Modal yine `resolveKey(ex.id || ex.name)` yapıyor; numerik id truthy olduğu için name'e düşmüyor, `resolveKey` tanımadığı string'i passthrough döndürüyor → lookup fail.
+
+Aynı problem ileride başka noktalarda da çıkabilir çünkü kullanıcı veri şeması `id` alanını farklı bir anlamla kullanıyor. Slug ile kullanıcı id'si **aynı alan adını paylaşan farklı kavramlar**.
+
+**Fix iki katmanda:**
+
+1. **`components/ex-preview-modal.js`** — modal artık `[ex.id, ex.name]` adaylarını **sırayla** dener; `EX_PREVIEW` Map'inde hangisi varsa onu seçer. İlk aday (numerik id) fail olunca otomatik name'e geçer.
+
+   ```js
+   const candidates = [ex.id, ex.name].filter(Boolean);
+   let lookupKey = null;
+   for (const c of candidates) {
+     const k = utils ? utils.resolveKey(c) : c;
+     if (EX_PREVIEW[k]) { lookupKey = k; break; }
+   }
+   if (!lookupKey) lookupKey = utils ? utils.resolveKey(ex.name || ex.id) : (ex.name || ex.id);
+   ```
+
+2. **`lib/exercise-utils.js → resolveKey`** — fallback katmanları güçlendirildi. Önce sadece `_byId.get` + `_byName.get` (case-sensitive) idi; şimdi 5 katmanlı:
+   - Tam slug eşleşmesi
+   - Tam name eşleşmesi (case-sensitive)
+   - Case-insensitive name eşleşmesi
+   - On-the-fly Türkçe→slug normalize (`İ→i`, `ş→s`, `ü→u`, `ç→c`, `ğ→g`, `ı→i`, `ö→o`)
+   - Passthrough (legacy/custom adlar için)
+
+   Test: "Bench Press", "bench press", "BENCH PRESS", `bench-press`, "Şınav", "Push Up" hepsi doğru slug'a düşüyor.
+
+**Commit:** "Faz EX-ID fix: modal id+name iki aday sırayla dene"
+
+**sw.js bump:** v21 → v22 (resolveKey güncellemesi) → v23 (modal fix). Bileşen davranışı değişiminde cache invalidate kritikti; aksi halde eski cache'teki modal kodu kullanıcıda kalır ve fix görünmezdi. Bu deneyim `docs/SW-VERSION-BUMP.md`'ye "Bump TERCİH EDİLİR (davranış değişti)" maddesi olarak eklendi.
+
+#### Çıkarılan Ders
+
+- **`id` alanı global anlam taşımıyor.** Aynı isimde iki ayrı kavram var:
+  - Preset hareketlerde `id` = slug (`"bench-press"`)
+  - Kullanıcı verisinde `id` = kaydın tanımlayıcısı (`Date.now().toString()`)
+  Modal/helper'lar her iki durumu da handle etmeli; "id varsa kesin slug" varsayımı yanlış.
+- **Fallback zinciri katmanlı tasarlanmalı.** `resolveKey`'in tek-katmanlı versiyonu (sadece exact match) gerçek dünyada yetmedi; case farkı, Türkçe karakter farkı, sahte id varyantları hep failure noktası oluyordu.
+- **Bileşen mantığı değiştiyse sw.js bump et.** SW-VERSION-BUMP.md'deki "sadece içerik" istisnası yanıltıcıydı; Cloudflare ETag her zaman tetiklemiyor, kullanıcı cache'inde eski modal kalabiliyor.
 
 ### Kullanıcı-Yüzlü Davranış Değişiklikleri
 

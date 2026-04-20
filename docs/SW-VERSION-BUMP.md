@@ -1,6 +1,6 @@
 # Service Worker (sw.js) Versiyon Bump Kuralları
 
-<!-- SON GÜNCELLEME: 2026-04-20 — DOC-1 -->
+<!-- SON GÜNCELLEME: 2026-04-20 — Faz EX-ID -->
 
 Bu belge, LogWise'ın `sw.js` Service Worker'ını ne zaman, nasıl ve neden güncelleyeceğini anlatır.
 
@@ -20,13 +20,13 @@ Bu belge, LogWise'ın `sw.js` Service Worker'ını ne zaman, nasıl ve neden gü
 `sw.js` dosyasında:
 
 ```js
-const CACHE_NAME = 'logwise-v20';
+const CACHE_NAME = 'logwise-v23';
 ```
 
 Bu isim, tarayıcının cache storage'ındaki bir "klasör" gibidir. Değişmediğinde tarayıcı **eski cache'i kullanmaya devam eder** — yani eklediğin yeni `.js` dosyasını **almaz**.
 
 Versiyon bump ettiğinde:
-1. Tarayıcı eski cache'i (örn. `logwise-v19`) temizler.
+1. Tarayıcı eski cache'i (örn. `logwise-v22`) temizler.
 2. Yeni `PRECACHE_URLS` listesini baştan çeker.
 3. Kullanıcı bir sonraki ziyaretinde yeni dosyaları görür.
 
@@ -42,13 +42,18 @@ Versiyon bump ettiğinde:
 - Bu dizinlerden bir dosya **silindiğinde** (eski cache'te kaldığı için eski kullanıcılara 404 dönebilir)
 - `sw.js` davranışı/fetch stratejisi değiştiğinde
 
-**Bump GEREKMEZ** (sadece içerik değişti, URL aynı):
-- Mevcut bir `data/*.js` dosyasının içeriği değişti (yeni preset ekleme, i18n düzenleme)
-- Mevcut bir `lib/*.js` veya `components/*.js` dosyasının içeriği değişti
+**Bump GEREKMEZ** (sadece içerik değişti, URL aynı, davranış aynı):
+- Mevcut bir `data/*.js` dosyasının içeriği eklendi/değişti (yeni preset, i18n metni)
 - `styles/base.css` içinde kurala ekleme/değiştirme
 - `index.html`, `profile.html`, vb. sayfalar (network-first → her zaman taze)
 
-**Özet kural:** Dosya **listesi** değişiyorsa → bump. Dosya **içeriği** değişiyorsa → cache-bust tarayıcı tarafından HTTP header ile zaten yapılıyor (Cloudflare Pages ETag ile yönetiyor), sw.js'nin bump'ına gerek yok.
+**Bump TERCİH EDİLİR** (URL aynı ama davranış kritik değişti):
+- Mevcut `lib/*.js` veya `components/*.js` dosyasının **bug fix**'i veya **lookup mantığı** değişti — eski cache'teki versiyon kullanıcıda kalırsa hâlâ hatalı davranır. Cloudflare ETag çoğu kez tetikler ama SW cache-first stratejisi nedeniyle bazı kullanıcılarda gecikebilir; bump kesin invalidate sağlar.
+
+**Özet kural:**
+- Dosya **listesi** değişiyorsa → bump **zorunlu**
+- Sadece statik veri değişiyorsa → bump gerekmez
+- Bileşen/kütüphane mantığı değiştiyse → bump **tercih edilir** (özellikle hotfix'lerde)
 
 ---
 
@@ -56,10 +61,10 @@ Versiyon bump ettiğinde:
 
 ### Adım 1 — Versiyon Numarasını Arttır
 
-Basit monotonik artış: `v19` → `v20` → `v21` ...
+Basit monotonik artış: `v22` → `v23` → `v24` ...
 
 ```js
-const CACHE_NAME = 'logwise-v20';  // ← bu sayıyı +1 yap
+const CACHE_NAME = 'logwise-v23';  // ← bu sayıyı +1 yap
 ```
 
 Ondalık veya anlam ayrımı yok. Her bump +1.
@@ -87,7 +92,7 @@ Lokal test için (tarayıcı DevTools):
 1. Application → Service Workers → eski SW'yi Unregister
 2. Application → Storage → Clear site data
 3. Sayfayı yenile
-4. Network tab'ında `logwise-v20` cache yazıyorsa başarılı
+4. Application → Cache Storage'da `logwise-v23` (güncel sürüm) yazıyorsa başarılı
 
 ---
 
@@ -96,9 +101,9 @@ Lokal test için (tarayıcı DevTools):
 Cloudflare Pages deploy'dan sonra:
 1. Mevcut kullanıcı siteyi açar
 2. `sw.js` network-first stratejisiyle yeni sürümü çeker
-3. Yeni sürümde `CACHE_NAME = 'logwise-v20'` gördüğünde
+3. Yeni sürümde `CACHE_NAME = 'logwise-v23'` gördüğünde
 4. `install` event'inde yeni cache'i hazırlar
-5. `activate` event'inde eski cache'leri siler (`CACHE_NAME !== 'logwise-v20'`)
+5. `activate` event'inde eski cache'leri siler (`CACHE_NAME !== 'logwise-v23'`)
 6. `activate` içinde açık sekmelere `SW_UPDATED` mesajı postalar
 7. Tarayıcı auto-reload yapar (`index.html` içindeki SW register logic'i)
 8. Kullanıcı yeni sürümü görür

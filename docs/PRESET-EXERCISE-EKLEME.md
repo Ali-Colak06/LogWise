@@ -210,7 +210,16 @@ Slug listesini önce hazırlamak, Türkçe karakter tutarsızlıklarını ve tek
 
 ## 8. Eski Veriler ve Backward Compat
 
-Kullanıcı verisi (Supabase `workouts` tablosu, localStorage) hâlâ `name` (Türkçe isim) saklıyor — Faz EX-ID kullanıcı verisine dokunmadı.
+Kullanıcı verisi (Supabase `workouts` tablosu, localStorage) hâlâ `name` (Türkçe isim) saklıyor — Faz EX-ID kullanıcı verisine dokunmadı. Kullanıcı hareket objesinde de bir `id` alanı vardır ama bu slug **değil**, `Date.now().toString()` gibi numerik bir string'dir (kullanıcı kaydının tanımlayıcısı). Slug lookup'ı modalda `[ex.id, ex.name]` sırayla denenir — numerik id EX_PREVIEW/EX_DESCS'te bulunamadığı için name'e düşer, `resolveKey` onu slug'a çevirir.
+
+`lib/exercise-utils.js → resolveKey(nameOrId)` 5 katmanlı fallback yapar:
+1. Tam slug eşleşmesi (id Map'i)
+2. Tam name eşleşmesi (case-sensitive)
+3. Case-insensitive name eşleşmesi
+4. On-the-fly Türkçe→slug normalize (İ→i, ş→s, …)
+5. Passthrough (bilinmeyen custom ad için)
+
+Bu sayede "Bench Press", "bench press", "BENCH PRESS", `bench-press` hepsi aynı slug'a düşer.
 
 Yeni preset eklerken bunu unutma:
 - Yeni hareket için **eski kullanıcılar zaten yok** (henüz seçemediler), o yüzden backward compat sorunu olmaz.

@@ -1,6 +1,6 @@
 # Yeni React Bileşeni Ekleme Reçetesi
 
-<!-- SON GÜNCELLEME: 2026-04-20 — DOC-1 -->
+<!-- SON GÜNCELLEME: 2026-04-20 — Faz EX-ID -->
 
 Bu belge, LogWise'a yeni bir React bileşeni eklerken kullanılacak standart pattern'i açıklar. Pattern, Faz 2C (1-5) sırasında 5 bileşenin çıkarılmasıyla kristalize oldu.
 
@@ -155,7 +155,7 @@ React.createElement(YeniBilesen, { prop1: ..., prop2: ... })
 
 Bkz. [`SW-VERSION-BUMP.md`](SW-VERSION-BUMP.md). İki değişiklik:
 
-1. `CACHE_NAME` bir sonraki versiyona bump (örn. `v20` → `v21`).
+1. `CACHE_NAME` bir sonraki versiyona bump (örn. `v23` → `v24`).
 2. `PRECACHE_URLS` dizisine yeni dosya:
    ```js
    '/components/yeni-bilesenin.js',
