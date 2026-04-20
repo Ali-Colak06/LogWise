@@ -36,14 +36,16 @@ LogWise/
 │   ├── calc.js             ← window.LOGWISE_CALC — 11 saf hesaplama/tarih fonksiyonu (Adım E-1)
 │   ├── badge-logic.js      ← window.LOGWISE_BADGE_LOGIC — rozet adı/etiket + calcBadgeStats/checkBadges/getNextBadge (Adım E-2)
 │   ├── data-schema.js      ← window.LOGWISE_SCHEMA — init + migrateData (Adım F)
-│   └── profile-utils.js    ← window.LOGWISE_PROFILE_UTILS — normalizeUsername/isValidUsername/defaultDisplayName/defaultAvatar/buildProfileRow (Faz 2A, Bölüm 34)
+│   ├── profile-utils.js    ← window.LOGWISE_PROFILE_UTILS — normalizeUsername/isValidUsername/defaultDisplayName/defaultAvatar/buildProfileRow (Faz 2A, Bölüm 34)
+│   └── db.js               ← window.LOGWISE_DB — Supabase client + profileRoute + syncProfileRecord (Faz 2D, Bölüm 41)
 ├── styles/                 ← Refactor Aşama 2 Faz 2B — paylaşılan CSS (Bölüm 35)
 │   └── base.css            ← reset + scrollbar + :root (46 değişken superset) + [data-theme=light] + .sr-only + ortak @keyframes (fadeIn/scaleIn/toastIn/toastOut/countUp/shine)
 ├── components/             ← Refactor Aşama 2 Faz 2C — React bileşenleri (window.LOGWISE_COMPONENTS namespace)
 │   ├── error-boundary.js   ← LOGWISE_COMPONENTS.ErrorBoundary — class component, en dış hata yakalayıcı (Faz 2C-1, Bölüm 36)
 │   ├── brand-mark.js       ← LOGWISE_COMPONENTS.BrandMark — saf sunumsal logo bileşeni, props: size/pad/radius/style (Faz 2C-2, Bölüm 37)
 │   ├── dash-chart.js       ← LOGWISE_COMPONENTS.DashChart — Chart.js line chart, canvas ref'leri dışarıdan alır (Faz 2C-3, Bölüm 38)
-│   └── ex-preview-modal.js ← LOGWISE_COMPONENTS.ExPreviewModal — egzersiz önizleme modalı (GIF/desc/tips), catLabel prop alır (Faz 2C-4, Bölüm 39)
+│   ├── ex-preview-modal.js ← LOGWISE_COMPONENTS.ExPreviewModal — egzersiz önizleme modalı (GIF/desc/tips), catLabel prop alır (Faz 2C-4, Bölüm 39)
+│   └── auth-screen.js      ← LOGWISE_COMPONENTS.AuthScreen — login/register/forgot + Google OAuth, window.LOGWISE_DB'den sb/profileRoute/syncProfileRecord okur (Faz 2C-5/Bölüm 40; 2D'de bridge prop'lar kaldırıldı, Bölüm 41)
 ├── index.html              ← Ana uygulama (tüm CSS + JS + React; TR/EN + BADGES + presets artık data/ ve lib/'ten yükleniyor)
 ├── profile.html            ← Profil sayfası (ayrı sayfa, sosyal özellikler dahil; TR/EN + BADGES data/ ve lib/'ten)
 ├── share.html              ← Paylaşılan antrenman görüntüleme sayfası (public)
@@ -2576,3 +2578,271 @@ React.createElement(ExPreviewModal, {
 4. Kullanım sitesinden `catLabel: catLabel` prop'unu kaldır
 
 Tek kullanım yeri aynen çalışmaya devam eder.
+
+---
+
+## Bölüm 40 — Refactor Aşama 2, Faz 2C-5: AuthScreen Ayrıldı (C1 Kapatıldı, 2026-04-18)
+
+C1 alt-adım 5 (**son**): login/register/şifre-sıfırlama modal'ı `AuthScreen` (425 satır) `components/auth-screen.js`'e taşındı. **C1 (izole bileşen extraction) alt-fazı bu adımla kapatıldı** — 5 bileşenin tamamı `window.LOGWISE_COMPONENTS` namespace'ine ayrıldı.
+
+### Yeni Dosya
+
+- `components/auth-screen.js` (447 satır) — `window.LOGWISE_COMPONENTS.AuthScreen`
+
+### Bağımlılık Stratejisi — Runtime vs Prop
+
+Component 7 dış bağımlılığa sahip. Çözüm matrisi:
+
+| Bağımlılık | Çözüm | Gerekçe |
+|---|---|---|
+| `React.useState`, `React.createElement` | Doğrudan `React.*` | C1 ailesinin pattern'i |
+| `TR`, `EN` | Runtime: `window.LOGWISE_TR/EN` | Faz 1'den namespace'te |
+| `normalizeUsername` | Runtime: `window.LOGWISE_PROFILE_UTILS` | Faz 2A'dan |
+| `BrandMark` | Runtime: `window.LOGWISE_COMPONENTS` | Faz 2C-2'den |
+| `sb` (Supabase) | **Prop** | Faz 2D'ye kadar — `window.LOGWISE_DB` oluşturulunca prop kaldırılacak |
+| `profileRoute` | **Prop** | IS_LOCAL_STATIC'e bağlı, index.html-specific |
+| `syncProfileRecord` | **Prop** | sb kullanıyor, 2D'de LOGWISE_DB.saveProfile olacak |
+
+3 prop Supabase bağımlılıklı — **Faz 2D bu prop'ları tamamen kaldıracak** çünkü bileşen `window.LOGWISE_DB`'den doğrudan erişecek. Şu an bu 3 prop, 2D'ye köprü niteliğinde.
+
+### Kullanım Sitesi
+
+```js
+React.createElement(AuthScreen, {
+  onLogin: u => { setUser(u); setShowAuth(false); },
+  lang, setLang,
+  onClose: () => setShowAuth(false),
+  sb,                   // ← C1-5'te eklendi
+  profileRoute,         // ← C1-5'te eklendi
+  syncProfileRecord     // ← C1-5'te eklendi
+})
+```
+
+### Script Yükleme Sırası
+
+```html
+<script src="components/error-boundary.js"></script>
+<script src="components/brand-mark.js"></script>
+<script src="components/dash-chart.js"></script>
+<script src="components/ex-preview-modal.js"></script>
+<script src="components/auth-screen.js"></script>   <!-- C1-5 -->
+```
+
+`auth-screen.js` diğer 4 bileşenden **sonra** yüklenmeli çünkü içinde `window.LOGWISE_COMPONENTS.BrandMark`'a runtime'da erişiyor. Ancak defensive init sayesinde script sırası kritik değil — `BrandMark` render'da (App'in `React.createElement(AuthScreen,...)` çağırmasından sonra) çözülür, o noktada tüm bileşenler yüklenmiş olur.
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+- `index.html`: 9,074 → **8,649** (-425 satır) — C1'in 2. en büyük tek-adım kazancı
+- `components/auth-screen.js`: 0 → **447** (yeni, yorum + defensive init + form mantığı + Google SVG dahil)
+
+### Doğrulama
+
+- `node --check components/auth-screen.js` ✅
+- Runtime testleri:
+  - `window.LOGWISE_COMPONENTS.AuthScreen` fonksiyon olarak export ✅
+  - Login mode render — email/password input'ları, "Şifremi Unuttum" linki ✅
+  - Register mode — fullname/username/pw/pw2 input'ları, username regex filter ✅
+  - Forgot mode — sadece email input'u, Google button gizli, back-to-login linki ✅
+  - Google OAuth button click — `sb.auth.signInWithOAuth` çağrıldı ✅
+  - Form submit — mode'a göre doğru sb.auth metodu (signIn/signUp/resetPassword) ✅
+  - Username taken check — `sb.from("profiles").select` çağrıldı ✅
+  - Error/info state'leri doğru render ✅
+  - Language toggle button ✅
+- Defensive init 2/2 PASS — fresh load + mevcut namespace korundu ✅
+- `node --check` index.html inline JS ✅
+- Bracket balance (`auth-screen.js`): `(`=0 `{`=0 `[`=0 ✅
+- `AuthScreen` index.html'de 2 yerde (1 destructure + 1 createElement) ✅
+
+### Service Worker Güncellemesi
+
+`sw.js` — `CACHE_NAME` `'logwise-v18'` → `'logwise-v19'`. `/components/auth-screen.js` PRECACHE_URLS'e eklendi.
+
+### Mimari Not: Props-for-Supabase Bridge Pattern
+
+`sb`/`profileRoute`/`syncProfileRecord` prop olarak geçmek 2D'ye (DB layer ayrıştırması) geçiş köprüsüdür. Alternatifler:
+
+1. **`window.LOGWISE_SB = sb;` hemen şimdi** — IIFE içinde `const sb = window.LOGWISE_SB` olarak oku. Problem: `profileRoute`/`syncProfileRecord` hâlâ inline, tek taşıyla çözmek 2D'nin skopunu bulanıklaştırır
+2. **C1-5'i 2D'ye ertele** — pattern tutarlılığı bozulur (C1 zaten 5 bileşende)
+3. **Prop injection (seçilen)** — temiz köprü, 2D geldiğinde 3 prop kolayca temizlenir
+
+### C1 Alt-Fazı Kümülatif Etki
+
+5 bileşenin tamamı çıkarıldıktan sonra index.html'de toplam kazanç:
+
+| Adım | Bileşen | index.html Satır Δ | Component Satır |
+|---|---|---:|---:|
+| C1-1 | ErrorBoundary | -123 | 139 |
+| C1-2 | BrandMark | -33 | 49 |
+| C1-3 | DashChart | -116 | 139 |
+| C1-4 | ExPreviewModal | -258 | 284 |
+| C1-5 | AuthScreen | -425 | 447 |
+| **Toplam** | **5 bileşen** | **-955** | **1,058** |
+
+index.html: 9,604 (Faz 2B sonrası) → **8,649** (C1 sonrası)
+
+Bu, monolit dosyayı yaklaşık **%10 daralttı** ve tüm React bileşenlerini bağımsız, test edilebilir, yeniden-kullanılabilir birimlere ayrıştırdı.
+
+### Geri Alma
+
+`components/auth-screen.js`'i sil; `index.html`'de:
+1. `<script src="components/auth-screen.js"></script>` satırını kaldır
+2. `function AuthScreen(...)` tanımını `syncProfileRecord`'un sonrasına geri al (`useState` olarak, `React.useState` değil; window.*'ları destructure etmek yerine global kullan)
+3. Destructuring'i `const { ErrorBoundary, BrandMark, DashChart, ExPreviewModal } = window.LOGWISE_COMPONENTS;`'a daralt
+4. Kullanım sitesinden `sb`/`profileRoute`/`syncProfileRecord` prop'larını kaldır
+
+Tek kullanım yeri aynen çalışmaya devam eder.
+
+### Sonraki: Faz 2D — DB/Supabase Layer Ayrıştırması
+
+Faz 2D'nin kapsamı:
+- Yeni dosya: `lib/db.js` (`window.LOGWISE_DB`)
+- İçerik: `sb` client, `loadUserData/saveUserData`, `loadProfile/saveProfile`, `listFollowers/listFollowing`, realtime subscription helper'ları, auth state listener
+- AuthScreen'den 3 bridge prop'u (`sb`, `profileRoute`, `syncProfileRecord`) kaldırılır — component dosyası `window.LOGWISE_DB.*` kullanır
+- index.html inline scope'tan ~40-60 satır Supabase ilgili kod daha çıkar
+
+---
+
+## Bölüm 41 — Refactor Aşama 2, Faz 2D: DB Layer Ayrıldı (Aşama 2 Kapatıldı, 2026-04-20)
+
+Faz 2D: Supabase istemcisi ve profil senkron fonksiyonları `lib/db.js` dosyasına taşındı (`window.LOGWISE_DB` namespace). AuthScreen bileşeninden 3 bridge prop (`sb`, `profileRoute`, `syncProfileRecord`) kaldırıldı — component artık namespace'ten doğrudan okuyor. **Bu adımla Aşama 2 (yapısal ayrıştırma) tamamen kapatıldı.**
+
+### Yeni Dosya
+
+- `lib/db.js` (46 satır) — `window.LOGWISE_DB`:
+  - `sb` — Supabase client (URL + ANON_KEY dahili sabit)
+  - `SUPABASE_URL` — URL sabiti (dışarıda gerekirse)
+  - `profileRoute(id?)` — `/profile` veya `/profile.html` URL üretici (IS_LOCAL_STATIC ortam-algılı)
+  - `syncProfileRecord(user, overrides?)` — `profiles` tablosuna INSERT/UPDATE (maybeSingle + buildProfileRow)
+
+### Kapsam Kararı — Minimal vs Kapsamlı
+
+Faz 2D iki şekilde yapılabilirdi:
+
+1. **Kapsamlı (reddedildi):** App() içindeki 20+ inline `sb.from(...)` çağrısını tek tek sarmalayıp `LOGWISE_DB.loadUserData()`, `saveFeedback()`, `fetchLeaderboard()` vb. 15-20 fonksiyon yaratmak.
+2. **Minimal (seçildi):** Sadece `sb`, `profileRoute`, `syncProfileRecord` taşınır; App içindeki inline çağrılar dokunulmaz — `sb` yine aynı isimle scope'ta erişilebilir (destructure sayesinde).
+
+Gerekçe: Kapsamlı strateji, index.html'deki inline çağrıları dönüştürmek için App function body'sine girmeyi gerektirir ve view extraction (Aşama 3) olmadan erken soyutlama yaratır. Minimal strateji 2D'nin asıl amacını (DB client'ın dosyaya taşınması + AuthScreen bridge temizliği) tek seferde tamamlar; inline call sarmalaması Aşama 3'te view extraction ile birlikte yapılırsa çok daha doğru bölümlenir.
+
+### index.html Değişiklikleri
+
+Silinen inline kod (satır 86-88, 151, 179-197):
+```js
+// ÖNCE: 23 satır inline
+const SUPABASE_URL = "...";
+const SUPABASE_ANON_KEY = "...";
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+...
+const profileRoute = id => `${IS_LOCAL_STATIC ? "/profile.html" : "/profile"}${...}`;
+...
+const syncProfileRecord = async (user, overrides = {}) => { /* 19 satır */ };
+```
+
+Yerine (1 satır destructure):
+```js
+const { sb, profileRoute, syncProfileRecord } = window.LOGWISE_DB;
+```
+
+`IS_LOCAL_STATIC` kalıyor — `shareRoute` hâlâ kullanıyor.
+
+### AuthScreen Prop İmzası Sadeleştirme
+
+Faz 2C-5'te 7 prop vardı (onLogin, lang, setLang, onClose, sb, profileRoute, syncProfileRecord). 2D'den sonra 4 prop:
+
+```js
+// ÖNCE (2C-5 sonu)
+React.createElement(AuthScreen, {
+  onLogin, lang, setLang, onClose,
+  sb, profileRoute, syncProfileRecord
+})
+
+// SONRA (2D sonu)
+React.createElement(AuthScreen, {
+  onLogin, lang, setLang, onClose
+})
+```
+
+Component dosyası içinde:
+```js
+// components/auth-screen.js
+function AuthScreen({ onLogin, lang, setLang, onClose }) {
+  const { sb, profileRoute, syncProfileRecord } = window.LOGWISE_DB;
+  // ...
+}
+```
+
+Bu "bridge pattern" çözümü 2C-5'te tahmin edildiği gibi 2D'de temiz biçimde kapatıldı.
+
+### Script Yükleme Sırası
+
+```html
+<script src="lib/profile-utils.js"></script>
+<script src="lib/db.js"></script>                <!-- YENİ — Faz 2D -->
+<script src="components/error-boundary.js"></script>
+...
+<script src="components/auth-screen.js"></script>
+```
+
+`db.js` `profile-utils.js`'ten **sonra** çünkü `syncProfileRecord` içinde `buildProfileRow` (window.LOGWISE_PROFILE_UTILS'den) kullanılıyor; component script'lerinden **önce** çünkü `auth-screen.js` `window.LOGWISE_DB`'yi runtime'da okur.
+
+### Dosya Satır Sayıları (Öncesi → Sonrası)
+
+- `index.html`: 8,649 → **8,630** (-19 satır — 23 inline silindi, 1 destructure eklendi, 3 prop kaldırıldı)
+- `lib/db.js`: 0 → **46** (yeni)
+- `components/auth-screen.js`: 454 → **452** (-2 satır — 3 prop imzadan çıktı, 1 destructure eklendi, yorum bloğu güncellendi)
+
+### Doğrulama
+
+- `node --check lib/db.js` ✅
+- `node --check components/auth-screen.js` ✅
+- Bracket balance: `lib/db.js` (`(`=0 `{`=0 `[`=0) ✅
+- Runtime:
+  - `window.LOGWISE_DB.sb` — Supabase client instance ✅
+  - `window.LOGWISE_DB.profileRoute()` → `/profile` (prod) / `/profile.html` (local) ✅
+  - AuthScreen register akışı — `syncProfileRecord` namespace'ten çözülüyor ✅
+  - Login/logout — `sb.auth.*` çağrıları index.html scope'ta sorunsuz ✅
+  - Google OAuth redirectTo → `profileRoute()` ile URL üretiyor ✅
+
+### Service Worker Güncellemesi
+
+`sw.js` — `CACHE_NAME` `'logwise-v19'` → `'logwise-v20'`. `/lib/db.js` PRECACHE_URLS'e eklendi.
+
+### Geri Alma
+
+1. `lib/db.js` sil
+2. `index.html`'de `<script src="lib/db.js"></script>` satırını sil
+3. `const { sb, profileRoute, syncProfileRecord } = window.LOGWISE_DB;` satırını git HEAD'den restore et (SUPABASE sabitleri + sb init + profileRoute + syncProfileRecord fonksiyonu)
+4. AuthScreen kullanım sitesinde `sb, profileRoute, syncProfileRecord` prop'larını geri ekle
+5. `components/auth-screen.js` prop imzasını 7'ye genişlet, `const { sb, profileRoute, syncProfileRecord } = window.LOGWISE_DB;` satırını sil
+6. `sw.js` CACHE_NAME ve PRECACHE_URLS'i geri al
+
+### Aşama 2 Kapanış Özeti — Yapısal Ayrıştırma Tamam
+
+Aşama 2, Aşama 1'in (veri/sabit/saf fonksiyon ayrıştırması) üzerine **render, stil ve DB katmanını** ayırdı. Faz-faz:
+
+| Faz | Kapsam | Yeni Dosya(lar) | index.html Δ |
+|---|---|---|---:|
+| 2A | Profile utilities | `lib/profile-utils.js` | -~30 |
+| 2B | Ortak CSS | `styles/base.css` | -~100 |
+| 2C-1 | ErrorBoundary | `components/error-boundary.js` | -123 |
+| 2C-2 | BrandMark | `components/brand-mark.js` | -33 |
+| 2C-3 | DashChart | `components/dash-chart.js` | -116 |
+| 2C-4 | ExPreviewModal | `components/ex-preview-modal.js` | -258 |
+| 2C-5 | AuthScreen | `components/auth-screen.js` | -425 |
+| 2D | DB Layer | `lib/db.js` | -19 |
+| **Aşama 2 toplam** | **8 faz / 8 yeni dosya** | | **~-1,100 satır** |
+
+`index.html` başlangıç 9,700+ → Aşama 2 sonu **8,630** (~**%11 küçülme**). `window.LOGWISE_*` namespace ailesi 9 üyeye ulaştı: TR, EN, BADGES, PRESET_EXERCISES, EX_DESCS, EX_PREVIEW, PRESET_PROGRAMS, CALC, BADGE_LOGIC, SCHEMA, PROFILE_UTILS, DB + COMPONENTS (5 bileşen).
+
+### Aşama 2 Sonrası Durum
+
+- Veri/sabit katmanı: `data/` (Aşama 1)
+- Saf fonksiyon katmanı: `lib/calc.js`, `lib/badge-logic.js`, `lib/data-schema.js`, `lib/profile-utils.js`
+- DB katmanı: `lib/db.js` (Aşama 2D)
+- Stil katmanı: `styles/base.css` (Aşama 2B)
+- Bileşen katmanı: `components/*.js` (Aşama 2C, 5 bileşen)
+- `index.html`: App + Root monolit'i + 20+ inline `sb.from(...)` çağrısı
+
+### Sonraki — Aşama 3 (Opsiyonel)
+
+Aşama 3 **view extraction** olacaktır: `App` monolit'inden dashboard/history/stats/programs/exercises/settings/share view'ları ayrı component dosyalarına taşınır. Bu, state paylaşımı için Context API veya prop-drilling kararı gerektirir ve App içindeki inline `sb.from(...)` çağrılarının sarmalanmasıyla eşzamanlı yapılması daha temiz olur. Tahmini 6-10 seans. Kullanıcı pratik performansı baz alarak bu aşamaya geçip geçmeyeceğine karar verecek.
+

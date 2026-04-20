@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v18';
+const CACHE_NAME = 'logwise-v20';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -15,10 +15,12 @@ const PRECACHE_URLS = [
   '/lib/badge-logic.js',
   '/lib/data-schema.js',
   '/lib/profile-utils.js',
+  '/lib/db.js',
   '/components/error-boundary.js',
   '/components/brand-mark.js',
   '/components/dash-chart.js',
   '/components/ex-preview-modal.js',
+  '/components/auth-screen.js',
   '/data/presets-exercises.js',
   '/data/ex-descriptions.js',
   '/data/ex-preview.js',
