@@ -1,13 +1,16 @@
 // LogWise — ExPreviewModal
 // Refactor Aşama 2, Faz 2C-4 — egzersiz önizleme modalı (GIF, açıklama, ipuçları, kategori rozetleri).
+// Faz EX-ID güncellemesi: EX_PREVIEW artık slug ile anahtarlı; LOGWISE_EX_UTILS.resolveKey
+// hem id hem name'i (kullanıcı verisi backward compat) lookup için doğru key'e çevirir.
 // Bağımlılıklar (runtime'da çözülür):
 //   - React (CDN, global)            — React.useState, React.createElement
 //   - window.LOGWISE_TR              — TR i18n sözlüğü
 //   - window.LOGWISE_EN              — EN i18n sözlüğü
-//   - window.LOGWISE_EX_PREVIEW      — {exerciseName: {desc:[tr,en], tips:[[tr,en],...], gif}}
+//   - window.LOGWISE_EX_PREVIEW      — {slug: {desc:[tr,en], tips:[[tr,en],...], gif}}
+//   - window.LOGWISE_EX_UTILS        — resolveKey(nameOrId) helper'ı
 // Kullanım: window.LOGWISE_COMPONENTS.ExPreviewModal
 // Props:
-//   ex        — {name, categories?: string[]}  egzersiz objesi
+//   ex        — {id?, name, categories?: string[]}  egzersiz objesi
 //   onClose   — () => void                     modal kapatma callback'i
 //   lang      — "tr" | "en"
 //   catLabel  — (cat, lang) => string          kategori ismi yerelleştirici (index.html'den prop)
@@ -52,7 +55,10 @@
     const EN = window.LOGWISE_EN;
     const L = lang === "tr" ? TR : EN;
     const EX_PREVIEW = window.LOGWISE_EX_PREVIEW || {};
-    const preview = EX_PREVIEW[ex.name] || null;
+    // Faz EX-ID: önce ex.id ile, yoksa ex.name ile (kullanıcı verisi backward compat) slug'a çöz.
+    const utils = window.LOGWISE_EX_UTILS;
+    const lookupKey = utils ? utils.resolveKey(ex.id || ex.name) : ex.name;
+    const preview = EX_PREVIEW[lookupKey] || null;
     const desc = preview ? lang === "tr" ? preview.desc[0] : preview.desc[1] : null;
     const tips = preview ? preview.tips : null;
     const gif = preview ? preview.gif : null;

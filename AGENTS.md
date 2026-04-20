@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-04-20 — DOC-1 -->
+<!-- SON GÜNCELLEME: 2026-04-20 — Faz EX-ID -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -20,7 +20,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 42).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 43 — Faz EX-ID).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -74,16 +74,17 @@ LogWise/
 │   ├── i18n-tr-profile.js     ← window.LOGWISE_TR_PROFILE
 │   ├── i18n-en-profile.js     ← window.LOGWISE_EN_PROFILE
 │   ├── badges.js              ← window.LOGWISE_BADGES (30 rozet)
-│   ├── presets-exercises.js   ← window.LOGWISE_PRESET_EXERCISES (~56 hareket)
-│   ├── ex-descriptions.js     ← window.LOGWISE_EX_DESCS (kısa açıklamalar)
-│   ├── ex-preview.js          ← window.LOGWISE_EX_PREVIEW (gif + uzun desc + tips)
-│   └── presets-programs.js    ← window.LOGWISE_PRESET_PROGRAMS (4 program)
+│   ├── presets-exercises.js   ← window.LOGWISE_PRESET_EXERCISES (54 hareket, slug-id'li)
+│   ├── ex-descriptions.js     ← window.LOGWISE_EX_DESCS (slug-anahtarlı kısa açıklamalar)
+│   ├── ex-preview.js          ← window.LOGWISE_EX_PREVIEW (slug-anahtarlı gif + uzun desc + tips)
+│   └── presets-programs.js    ← window.LOGWISE_PRESET_PROGRAMS (4 program, slug referanslı)
 ├── lib/                       ← Saf fonksiyonlar + DB (Aşama 1-2)
 │   ├── calc.js                ← window.LOGWISE_CALC
 │   ├── badge-logic.js         ← window.LOGWISE_BADGE_LOGIC
 │   ├── data-schema.js         ← window.LOGWISE_SCHEMA (init + migrateData)
 │   ├── profile-utils.js       ← window.LOGWISE_PROFILE_UTILS
-│   └── db.js                  ← window.LOGWISE_DB (Supabase client + profil senkronu)
+│   ├── db.js                  ← window.LOGWISE_DB (Supabase client + profil senkronu)
+│   └── exercise-utils.js      ← window.LOGWISE_EX_UTILS (id/name lookup, resolveKey)
 ├── styles/
 │   └── base.css               ← Paylaşılan CSS (reset, :root, @keyframes)
 ├── components/                ← React bileşenleri (Aşama 2C)
@@ -162,6 +163,8 @@ LogWise/
 
 - **Aşama 1** (Bölüm 28-33): Veri/sabit/saf fonksiyon ayrıştırması ✅
 - **Aşama 2** (Bölüm 34-41): DB + Stil + React bileşenleri ayrıştırması ✅
+- **DOC-1** (Bölüm 42): Dokümantasyon altyapısı (AGENTS.md + docs/*) ✅
+- **Faz EX-ID** (Bölüm 43): Preset hareketlere slug `id` sistemi + Dead Hang deduplikasyonu + tüm referansların id'ye taşınması ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

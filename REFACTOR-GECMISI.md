@@ -2934,3 +2934,160 @@ Bu faz "Aşama 3" olarak etiketlenmedi çünkü Aşama 3 kod refactor'ü için s
 
 Kullanıcı onayladı: preset hareketlere **slug ID sistemi** eklenecek (kebab-case, örn. `bench-press`). Strateji A seçildi: kullanıcı verisine dokunma, sadece dosyalar arası bağlantı ID'ye çevrilir. Detay planı Faz EX-ID başlamadan önce ayrıca yapılacak.
 
+---
+
+## Bölüm 43 — Faz EX-ID: Preset Hareketlere Slug ID Sistemi (2026-04-20)
+
+### Hedef
+
+Preset hareketler arası referansları **Türkçe isim** yerine **slug id** ile yapmak. Önceki düzende `data/ex-descriptions.js`, `data/ex-preview.js` ve `data/presets-programs.js` dosyaları anahtar olarak Türkçe hareket ismini kullanıyordu (`"Bench Press"`, `"İncline Dumbell Press"`). Bu yapı iki problem doğuruyordu:
+
+1. **Kırılganlık:** Bir hareketin ismini değiştirmek isteyen, 3-4 dosyada senkron rename yapmak zorunda — yoksa lookup sessizce fail olur.
+2. **Türkçe karakter riski:** `İ`, `ş`, `ğ` anahtar içinde yanlış encode edilirse key mismatch olur.
+
+Strateji A (kullanıcı onaylı): kullanıcı verisi (Supabase `workouts` tablosu, localStorage) **değişmez** — hâlâ `name` saklar. Sadece preset dosyaları arası referanslar slug'a çevrildi.
+
+### Slug Kuralları
+
+- Format: `[a-z0-9-]+` (kebab-case, küçük harf + rakam + tire)
+- İngilizce ad varsa onun slug hâli; yoksa Türkçe ad transliterasyonu (İ→i, ş→s, ü→u, ç→c, ğ→g, ı→i, ö→o)
+- Global benzersiz (3 dosyada lookup key'i olarak kullanılır)
+
+Örnekler:
+- `Bench Press` → `bench-press`
+- `İncline Dumbell Press` / `Incline Dumbell Press` → `incline-dumbell-press`
+- `Şınav` / `Push Up` → `push-up`
+- `Yürüyüş Bandı` / `Treadmill` → `treadmill`
+
+### Dead Hang Deduplikasyonu (Ön Adım)
+
+`data/presets-exercises.js` orijinalinde `{ name: "Dead Hang", categories: ["Bilek"] }` iki kez listeleniyordu (tam duplicate). Kullanıcı onayıyla silindi: **55 → 54 hareket**.
+
+### Uygulanan Değişiklikler
+
+#### 1. `data/presets-exercises.js`
+
+Her hareket objesine `id: "slug"` alanı eklendi. Objelerin geri kalan yapısı aynen korundu (`name`, `nameEN`, `categories`).
+
+```js
+// Önce
+{ name: "Bench Press", categories: ["Göğüs"] }
+// Sonra
+{ id: "bench-press", name: "Bench Press", categories: ["Göğüs"] }
+```
+
+54 hareketin hepsi id aldı. Dead Hang duplicate kaldırıldı.
+
+#### 2. `lib/exercise-utils.js` (YENİ DOSYA)
+
+`window.LOGWISE_EX_UTILS` namespace'i. Lazy-built Map index'leri (`_byId`, `_byName`) ilk lookup'ta `LOGWISE_PRESET_EXERCISES` üzerinden kurulur.
+
+Public API:
+- `getExerciseById(id)` — slug'dan obje
+- `getExerciseByName(name)` — Türkçe isim / nameEN'den obje
+- `nameToId(name)` — sadece id getirir, yoksa `null`
+- `resolveKey(nameOrId)` — **kritik helper**: slug verilirse slug geri döner; Türkçe isim verilirse slug'a çevirir; hiçbiri bulunamazsa input'u aynen döner (backward compat için)
+
+`resolveKey` stratejisi sayesinde `getExDesc` / `getExPreview` / `ExPreviewModal` hem eski kullanıcı verisine (name ile kaydedilmiş) hem yeni preset referanslarına (slug) cevap verir.
+
+#### 3. `data/ex-descriptions.js` — Anahtar Migrasyonu
+
+Tüm 54 anahtar Türkçe isimden slug'a çevrildi. Değer formatı (`[TR, EN]` dizisi) korundu.
+
+```js
+// Önce
+"Bench Press": ["Düz bankta...", "Flat bench..."]
+// Sonra
+"bench-press": ["Düz bankta...", "Flat bench..."]
+```
+
+#### 4. `data/ex-preview.js` — Anahtar Migrasyonu
+
+52 preview girdisi (tüm hareketlerin preview'ı yok) aynı şekilde slug'a çevrildi. Değer formatı (`{gif, desc:[TR,EN], tips:[[TR,EN],...]}`) korundu.
+
+#### 5. `data/presets-programs.js` — Referans Migrasyonu
+
+4 programın `days["0"]..."6"]` dizilerindeki tüm hareket string'leri slug'a çevrildi.
+
+```js
+// Önce
+days: { "0": ["Bench Press", "Overhead Press", ...] }
+// Sonra
+days: { "0": ["bench-press", "overhead-press", ...] }
+```
+
+Cross-reference doğrulandı: tüm program slug'ları `presets-exercises.js`'teki `id` alanlarıyla birebir eşleşiyor (0 eksik).
+
+#### 6. `index.html` — Helper Güncellemeleri
+
+- `<script src="lib/exercise-utils.js"></script>` presets-programs.js'ten sonra eklendi
+- `getExDesc(nameOrId, lang)`: artık `LOGWISE_EX_UTILS.resolveKey(nameOrId)` ile key çözüyor
+- `getExPreview(nameOrId)`: aynı resolve pattern'i
+- `addPresetProgram` → `ensureEx(nameOrId)`: önce `p.id === nameOrId` ile arar, yoksa `p.name`/`p.nameEN` ile — yani hem slug-format (yeni) hem name-format (eski) referanslar çalışır; display name her zaman `presetName(pe, lang)` ile resmi isme döner
+
+#### 7. `components/ex-preview-modal.js`
+
+- Header yorumları Faz EX-ID için güncellendi
+- Modal `ex.id || ex.name` değerini `LOGWISE_EX_UTILS.resolveKey` ile slug'a çevirip `EX_PREVIEW[key]` lookup'u yapıyor
+- `ex.id` yoksa (eski kullanıcı antrenmanı objesi) fallback `ex.name` ile çalışır — bozulma yok
+
+#### 8. `sw.js` — PRECACHE Güncellemesi
+
+- `CACHE_NAME`: `'logwise-v20'` → `'logwise-v21'`
+- `PRECACHE_URLS`'e `/lib/exercise-utils.js` eklendi (lib/db.js'ten sonra)
+
+#### 9. Dokümantasyon Güncellemeleri
+
+- `docs/PRESET-EXERCISE-EKLEME.md` — tam yeniden yazıldı: slug üretme kuralları, `id` zorunluluğu, 3 dosyada aynı slug, backward compat notu
+- `docs/PRESET-PROGRAM-EKLEME.md` — tam yeniden yazıldı: artık slug referansları, Node cross-reference doğrulama scripti
+- `AGENTS.md` — §4 dosya haritası (54 hareket, slug-id notları, `lib/exercise-utils.js` satırı), §8 Faz EX-ID bölümü, SON GÜNCELLEME tarihi/etiketi
+
+### Backward Compat Stratejisi (Kritik)
+
+Kullanıcı verisi **olduğu gibi** kaldı — hiçbir migration yazılmadı, hiçbir veri dokunulmadı:
+
+- Supabase `workouts` tablosu: `{ name, sets, ... }` — `name` Türkçe isim saklanmaya devam ediyor
+- localStorage `logwise-data.entries[].workouts[]` aynı
+- `activeProgram` de `{ name, ... }` üzerinden çalışır
+
+Tüm "fix" noktası tek bir helper: `resolveKey(nameOrId)`. Bu helper hem eski `name`-temelli değerleri hem yeni `id`-temelli değerleri doğru `EX_DESCS` / `EX_PREVIEW` anahtarına çevirir. Dolayısıyla:
+
+- Eski kullanıcılar açtıklarında `name` geçerli → resolveKey name→id map'inden slug'a çevirir → preview bulunur
+- Yeni kullanıcılar programdan hareket eklerse yine `name` ile display edilir (display name hep `name`), ama arka planda slug'a çözümlenebilir
+
+Eğer gelecekte "kullanıcı verisini de id'ye taşı" adımı istenirse (Faz EX-ID Aşama 2), o iş ayrı bir migration olarak düşünülmeli.
+
+### Doğrulama
+
+- Tüm değişen `.js` dosyalarında `node --check` ✅
+- `data/presets-exercises.js`: 54 hareket, her birinde `id` alanı var, id'ler benzersiz (Set size == array length)
+- `data/ex-descriptions.js`: 54 slug key, hepsi `presets-exercises.js`'te var
+- `data/ex-preview.js`: 52 slug key, hepsi `presets-exercises.js`'te var
+- `data/presets-programs.js`: 4 programda toplam N slug referansı; hepsi `presets-exercises.js`'te var (eksik 0)
+- `lib/exercise-utils.js`: `resolveKey(slug)` === slug; `resolveKey(tr-name)` === slug; `resolveKey(bogus)` === bogus
+
+### sw.js Durumu
+
+- `CACHE_NAME` bump: `v20` → `v21` (yeni `lib/exercise-utils.js` eklendi)
+- PRECACHE_URLS'e eklendi: `/lib/exercise-utils.js`
+- Mevcut statikler değişmedi (sadece içerik migrasyonu), ama cache isim bump'ı yine de zorunlu (yeni dosya eklendi)
+
+### Kullanıcı-Yüzlü Davranış Değişiklikleri
+
+**Hiç yok.** Bu faz saf bir yeniden yapılandırma. Kullanıcı bakış açısından:
+
+- Hareket listesi aynı (sadece Dead Hang bir kez görünür artık, önce iki kezdi → görünmez bir iyileşme)
+- Preset programlar aynı hareketleri içerir (slug→name çözümü ile display)
+- Preview modal açılışı aynı (resolveKey transparent çalışır)
+- Eski kullanıcı kayıtları aynen gösterilir (name ile kaydedilmiş; resolveKey name→slug çözerek EX_DESCS/EX_PREVIEW'e ulaşır)
+
+### Neden "Faz EX-ID"?
+
+- **"Faz"** çünkü bu bir refactor fazı (Aşama 1/2/3 düzleminin dışında, bağımsız bir yapı değişikliği)
+- **"EX-ID"** çünkü konu exercise'a id eklemek. "Aşama 3" için ayrılmış slot; bu faz yeni bir doğrusal aşama oluşturmuyor.
+
+### Gelecekteki Muhtemel Adımlar (Opsiyonel)
+
+- **Faz EX-ID Aşama 2**: Kullanıcı verisini de slug'a taşı (Supabase migration + localStorage migrateData güncellemesi). Şu an gerek yok; name temelli veri hâlâ doğru render ediliyor.
+- **Aşama 3**: View extraction — `index.html` App monoliti'ten dashboard/history/stats/programs/exercises/settings view'larını ayrı component'lara taşı.
+

@@ -48,6 +48,7 @@
 <script src="data/ex-descriptions.js"></script>
 <script src="data/ex-preview.js"></script>
 <script src="data/presets-programs.js"></script>
+<script src="lib/exercise-utils.js"></script>
 <link rel="stylesheet" href="styles/base.css"/>
 <style>
 /* Sayfa-spesifik: index.html dashboard + rozet + slide animasyonları.
@@ -131,14 +132,20 @@ const CC = {
 };
 const PRESET_EXERCISES = window.LOGWISE_PRESET_EXERCISES;
 const EX_DESCS = window.LOGWISE_EX_DESCS;
-const getExDesc = (name, lang) => {
-  const d = EX_DESCS[name];
+// Faz EX-ID: EX_DESCS / EX_PREVIEW artık slug (id) ile anahtarlı.
+// Helper'lar hem id hem name kabul eder — LOGWISE_EX_UTILS.resolveKey backward compat sağlar.
+const getExDesc = (nameOrId, lang) => {
+  const key = window.LOGWISE_EX_UTILS.resolveKey(nameOrId);
+  const d = EX_DESCS[key];
   if (!d) return null;
   return lang === "en" ? d[1] : d[0];
 };
 const presetName = (p, lang) => lang === "en" && p.nameEN ? p.nameEN : p.name;
 const EX_PREVIEW = window.LOGWISE_EX_PREVIEW;
-const getExPreview = exName => EX_PREVIEW[exName] || null;
+const getExPreview = nameOrId => {
+  const key = window.LOGWISE_EX_UTILS.resolveKey(nameOrId);
+  return EX_PREVIEW[key] || null;
+};
 const PRESET_PROGRAMS = window.LOGWISE_PRESET_PROGRAMS;
 const RIRS = ["-", "0", "1", "2", "3", "4+"];
 const { fmt, pD, gdow, eDays, calc1RM, calcBrzycki, calcStreak, calcWeekFreq, calcMonthFreq, getAllPRs, calcCompliance } = window.LOGWISE_CALC;
@@ -1117,13 +1124,14 @@ function App({
     });
     let newExs = [...d.exercises];
     let addedCount = 0;
-    const ensureEx = name => {
-      const key = name.toLowerCase();
+    const ensureEx = nameOrId => {
+      const key = nameOrId.toLowerCase();
       if (nameMap[key]) return nameMap[key];
-      const pe = PRESET_EXERCISES.find(p => p.name === name || p.nameEN === name);
+      // Faz EX-ID: program günleri artık slug taşıyor; eski/manuel akış hâlâ name verebilir.
+      const pe = PRESET_EXERCISES.find(p => p.id === nameOrId || p.name === nameOrId || p.nameEN === nameOrId);
       const id = Date.now().toString() + Math.random().toString(36).slice(2, 6);
       const cats = pe ? [...pe.categories] : ["Diğer"];
-      const displayName = pe ? presetName(pe, lang) : name;
+      const displayName = pe ? presetName(pe, lang) : nameOrId;
       newExs.push({
         id,
         name: displayName,
