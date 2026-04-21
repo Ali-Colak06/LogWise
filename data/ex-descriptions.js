@@ -112,5 +112,20 @@ window.LOGWISE_EX_DESCS = {
   "hollow-body-hold": ["Hollow hold. Calisthenics core temeli.", "Hollow hold. Calisthenics core staple."],
   "arch-hold": ["Yüzüstü arch tutuşu. Arka zincir aktivasyonu.", "Prone arch hold. Posterior-chain activation."],
   "toes-to-bar": ["Ayakları bara değdirme. İleri seviye core.", "Toes to bar. Advanced core."],
-  "l-sit": ["L pozisyon oturuşu. Core ve kalça fleksörü.", "L-sit hold. Core and hip flexors."]
+  "l-sit": ["L pozisyon oturuşu. Core ve kalça fleksörü.", "L-sit hold. Core and hip flexors."],
+  "preacher-hammer-curl": ["Scott sehpasında hammer curl.", "Hammer curl on preacher bench."],
+  "cable-rear-delt-fly": ["Kablo arka omuz açışı. Sürekli gerilim.", "Cable rear-delt fly. Constant tension."],
+  "lean-away-lateral-raise": ["Yana eğimli lateral raise. Uzun menzil.", "Lean-away lateral raise. Longer range."],
+  "jm-press": ["JM press. Triceps odaklı press.", "JM press. Triceps-focused press."],
+  "overhead-cable-triceps-extension": ["Kablo baş üstü triceps uzatma.", "Overhead cable triceps extension."],
+  "machine-preacher-curl": ["Makinede preacher curl. Sabit izolasyon.", "Machine preacher curl. Stable isolation."],
+  "chest-supported-row": ["Göğüs destekli row. Bel yükü düşük.", "Chest-supported row. Lower back-friendly."],
+  "seal-row": ["Bench üstü seal row. Momentum çok az.", "Seal row on bench. Very little momentum."],
+  "standing-ab-wheel": ["Ayakta ab wheel rollout. İleri seviye core.", "Standing ab-wheel rollout. Advanced core."],
+  "hanging-knee-raise": ["Asılı diz çekişi. Başlangıç dostu core.", "Hanging knee raise. Beginner-friendly core."],
+  "dragon-flag": ["Dragon flag. Çok ileri seviye karın.", "Dragon flag. Very advanced abs."],
+  "ring-row": ["Ring row. Stabilite isteyen yatay çekiş.", "Ring row. Stability-demanding horizontal pull."],
+  "ring-push-up": ["Ring push-up. Göğüs ve denge.", "Ring push-up. Chest and stability."],
+  "pseudo-planche-push-up": ["Pseudo planche şınavı. İleri itiş varyasyonu.", "Pseudo planche push-up. Advanced pressing variation."],
+  "wall-handstand-hold": ["Duvarda handstand tutuşu.", "Wall handstand hold."]
 };
