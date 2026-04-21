@@ -40,8 +40,16 @@ window.LOGWISE_PRESET_EXERCISES = [{
   nameEN: "Incline Bench Press",
   categories: ["Göğüs"]
 }, {
+  id: "close-grip-bench-press",
+  name: "Close-Grip Bench Press",
+  categories: ["Göğüs", "Triceps"]
+}, {
   id: "cable-crossover",
   name: "Cable Crossover",
+  categories: ["Göğüs"]
+}, {
+  id: "pec-deck",
+  name: "Pec Deck",
   categories: ["Göğüs"]
 }, {
   id: "overhead-press",
@@ -50,6 +58,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
 }, {
   id: "shoulder-press",
   name: "Shoulder Press",
+  categories: ["Omuz"]
+}, {
+  id: "arnold-press",
+  name: "Arnold Press",
   categories: ["Omuz"]
 }, {
   id: "lateral-raise",
@@ -63,6 +75,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   id: "rear-delt-fly",
   name: "Rear Delt Fly",
   categories: ["Omuz"]
+}, {
+  id: "face-pull",
+  name: "Face Pull",
+  categories: ["Omuz", "Trapez"]
 }, {
   id: "push-up",
   name: "Şınav",
@@ -129,6 +145,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Pull Up",
   categories: ["Sırt", "Biceps"]
 }, {
+  id: "chin-up",
+  name: "Chin Up",
+  categories: ["Sırt", "Biceps"]
+}, {
   id: "dumbell-row",
   name: "Dumbell Row",
   categories: ["Sırt", "Biceps"]
@@ -153,6 +173,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Deadlift",
   categories: ["Sırt", "Bacak", "Kalça"]
 }, {
+  id: "romanian-deadlift",
+  name: "Romanian Deadlift",
+  categories: ["Bacak", "Kalça"]
+}, {
   id: "squat",
   name: "Squat",
   categories: ["Bacak", "Kalça"]
@@ -163,6 +187,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
 }, {
   id: "lunge",
   name: "Lunge",
+  categories: ["Bacak", "Kalça"]
+}, {
+  id: "bulgarian-split-squat",
+  name: "Bulgarian Split Squat",
   categories: ["Bacak", "Kalça"]
 }, {
   id: "leg-curl",
@@ -177,6 +205,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Calf Raise",
   categories: ["Kalf"]
 }, {
+  id: "seated-calf-raise",
+  name: "Seated Calf Raise",
+  categories: ["Kalf"]
+}, {
   id: "shrug",
   name: "Shrug",
   categories: ["Trapez"]
@@ -187,6 +219,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
 }, {
   id: "glute-bridge",
   name: "Glute Bridge",
+  categories: ["Kalça"]
+}, {
+  id: "hip-abduction-machine",
+  name: "Hip Abduction Machine",
   categories: ["Kalça"]
 }, {
   id: "plank",
@@ -203,6 +239,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
 }, {
   id: "russian-twist",
   name: "Russian Twist",
+  categories: ["Karın"]
+}, {
+  id: "hanging-leg-raise",
+  name: "Hanging Leg Raise",
   categories: ["Karın"]
 }, {
   id: "mountain-climber",
@@ -225,6 +265,14 @@ window.LOGWISE_PRESET_EXERCISES = [{
   id: "cycling",
   name: "Bisiklet",
   nameEN: "Cycling",
+  categories: ["Kardiyo"]
+}, {
+  id: "stair-climber",
+  name: "Stair Climber",
+  categories: ["Kardiyo"]
+}, {
+  id: "rowing-machine",
+  name: "Rowing Machine",
   categories: ["Kardiyo"]
 }, {
   id: "moonwalk",

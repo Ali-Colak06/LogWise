@@ -266,5 +266,65 @@ window.LOGWISE_EX_PREVIEW = {
     gif: null,
     desc: ["Makinede göğüs press. Sabit hareket yolu ve destekli pozisyon sayesinde güvenlidir. Başlangıç seviyesi için ideal bir göğüs egzersizi.", "Machine chest press. Safe due to its fixed movement path and supported position. Ideal chest exercise for beginners."],
     tips: [["Koltuk ve sırtlık yüksekliğini ayarla — kollar omuz hizasında başlamalı.", "Adjust seat and back pad — arms should start at shoulder height."], ["Kontrollü geri çekil — makinenin ağırlığını aniden bırakma.", "Return slowly — don't let the machine's weight snap back."], ["Hareketin başında ve sonunda göğsü kasılı hissetmeye çalış.", "Focus on feeling the chest squeeze at the start and end of each rep."]]
+  },
+  "romanian-deadlift": {
+    gif: null,
+    desc: ["Kalça menteşesi odaklı barbell veya dumbbell hareketi. Hamstring ve glute kaslarını yoğun biçimde çalıştırır, alt sırt stabilizasyonunu da geliştirir. Deadlift ailesinin en değerli posterior chain varyasyonlarından biridir.", "A hip-hinge focused movement with barbell or dumbbells. Heavily trains the hamstrings and glutes while improving lower-back stability. One of the most valuable posterior-chain variations in the deadlift family."],
+    tips: [["Dizleri hafif kır ve hareket boyunca açıyı büyük ölçüde koru.", "Keep a soft bend in the knees and maintain roughly the same angle throughout."], ["Barı bacaklara yakın indir; kalçayı geriye göndererek menteşe yap.", "Lower the bar close to the legs and hinge by pushing the hips back."], ["Alt noktada sırtı yuvarlama; hamstring gerilimi kaybolmadan dön.", "Do not round the back at the bottom; return when hamstring tension is still present."]]
+  },
+  "bulgarian-split-squat": {
+    gif: null,
+    desc: ["Arka ayağın yükseltildiği tek taraflı squat varyasyonu. Quadriceps, glute ve denge becerisini aynı anda geliştirir. Sağ-sol kuvvet farklarını görmek ve kapatmak için çok etkilidir.", "A unilateral squat variation with the rear foot elevated. Builds quads, glutes, and balance at the same time. Very effective for identifying and correcting left-right strength imbalances."],
+    tips: [["Ön ayağı yeterince ileri yerleştir ki diz ve kalça rahat bir çizgide çalışsın.", "Place the front foot far enough forward so the knee and hip move comfortably."], ["Gövdeyi hafif öne eğebilirsin ama belini sabit ve kontrollü tut.", "A slight forward torso lean is fine, but keep the lower back stable and controlled."], ["Ön bacağın topuğundan iterek yukarı çık; arka ayak sadece destek olsun.", "Drive up through the front heel; let the rear foot act mostly as support."]]
+  },
+  "chin-up": {
+    gif: null,
+    desc: ["Avuç içleri sana bakacak şekilde yapılan barfiks varyasyonu. Lat kaslarıyla birlikte biceps daha fazla yük alır ve birçok kullanıcı için klasik pull-up'tan biraz daha ulaşılabilirdir. Üst vücut çekiş gücü için temel hareketlerden biridir.", "A pull-up variation performed with palms facing you. It places more emphasis on the biceps while still heavily training the lats, and is slightly more accessible than a standard pull-up for many lifters. It is a foundational upper-body pulling exercise."],
+    tips: [["Tam asılı başlangıçtan çık ve tepe noktada çeneyi barın üstüne getir.", "Start from a full dead hang and bring the chin clearly above the bar at the top."], ["Dirsekleri aşağı ve geriye çekmeyi düşün; sadece ellerinle asılma.", "Think about pulling elbows down and back rather than hanging only from the hands."], ["Sallanma yerine kontrollü tempo kullan; inişi de aktif yap.", "Use a controlled tempo instead of swinging, and make the descent active as well."]]
+  },
+  "face-pull": {
+    gif: null,
+    desc: ["Kablo ve halatla yüze doğru çekilen üst sırt hareketi. Arka omuz, orta-üst trapez ve dış rotatörleri çalıştırarak postürü destekler. Press odaklı programlarda omuz dengesini korumak için çok faydalıdır.", "An upper-back cable movement where the rope is pulled toward the face. It trains the rear delts, mid-upper traps, and external rotators, helping support posture. It is especially useful for maintaining shoulder balance in press-heavy programs."],
+    tips: [["Halatı yüz hizasına çek ve bitişte elleri hafif dışa aç.", "Pull the rope toward face level and slightly separate the hands at the finish."], ["Dirsekler omuz çizgisine yakın kalsın; çok aşağıdan çekme.", "Keep the elbows near shoulder height instead of pulling too low."], ["Ağırlığı değil, kürek kemiği ve arka omuz hissini kovala.", "Prioritize scapular and rear-delt feel over heavy weight."]]
+  },
+  "seated-calf-raise": {
+    gif: null,
+    desc: ["Oturarak yapılan baldır kaldırma varyasyonu. Diz bükülü olduğu için soleus kasını ayaktaki calf raise'e göre daha fazla vurgular. Alt bacak gelişimini tamamlamak için standing calf raise ile iyi eşleşir.", "A seated calf raise variation. Because the knees stay bent, it emphasizes the soleus more than standing calf raises do. It pairs well with standing calf raises for fuller lower-leg development."],
+    tips: [["Alt noktada topukları iyice aşağı bırakıp baldırı esnet.", "Let the heels drop fully at the bottom to stretch the calves."], ["Tepe noktada kısa bir duraklama ekle; hızlı sekme yapma.", "Pause briefly at the top instead of bouncing through reps."], ["Kalf kasları yüksek tekrar ve kontrollü tempo ile iyi cevap verir.", "Calves respond well to higher reps and a controlled tempo."]]
+  },
+  "hanging-leg-raise": {
+    gif: null,
+    desc: ["Barfiks barında asılı pozisyonda yapılan core hareketi. Alt karın, kalça fleksörleri ve kavrama gücünü birlikte zorlar. Vücut ağırlığıyla yapılan en güçlü karın varyasyonlarından biridir.", "A core movement performed while hanging from a pull-up bar. It challenges the lower abs, hip flexors, and grip strength together. It is one of the most powerful bodyweight ab variations."],
+    tips: [["Bacakları savurmak yerine kontrollü kaldır; salınımı minimumda tut.", "Raise the legs under control rather than swinging them up."], ["Belini hafifçe kıvırıp pelvisi içeri almak karın aktivasyonunu artırır.", "Slightly curling the pelvis under increases abdominal involvement."], ["Düz bacak çok zorsa önce diz çekiş varyasyonuyla başla.", "If straight-leg reps are too hard, start with knee raises first."]]
+  },
+  "pec-deck": {
+    gif: null,
+    desc: ["Makinede yapılan göğüs izolasyon hareketi. Sabit yol sayesinde denge ihtiyacını azaltır ve göğüs kasına odaklanmayı kolaylaştırır. Press hareketlerinden sonra kası sıkıştırmak için çok kullanışlıdır.", "A machine-based chest isolation movement. The fixed path reduces balance demands and makes it easier to focus on the chest. It is very useful for squeezing the pecs after pressing work."],
+    tips: [["Kol pedleri veya tutacaklar omuzlarına uygun yükseklikte olsun.", "Set the pads or handles so they align comfortably with your shoulders."], ["Hareket sonunda göğsü bilinçli şekilde sık ve kısa durakla.", "Actively squeeze the chest at the end of each rep and pause briefly."], ["Omuzları öne yuvarlama; kürek kemiklerini kontrollü tut.", "Do not roll the shoulders forward; keep the shoulder blades controlled."]]
+  },
+  "arnold-press": {
+    gif: null,
+    desc: ["Dumbbell ile yapılan döner omuz press varyasyonu. Hareketin alt kısmındaki rotasyon sayesinde ön ve yan deltoidlere geniş bir çalışma açısı sunar. Omuz hipertrofisi için klasik shoulder press'e iyi bir alternatiftir.", "A rotating dumbbell shoulder-press variation. The rotation in the lower portion gives the front and side delts a broad working arc. It is a strong hypertrophy alternative to the classic shoulder press."],
+    tips: [["Alt noktada avuç içleri sana baksın, yukarı çıkarken dışa döndür.", "Start with palms facing you at the bottom and rotate outward as you press up."], ["Hareketi akıcı yap; dönüş ve press tek parça gibi ilerlesin.", "Make the movement fluid so the rotation and press feel like one motion."], ["Aşırı ağır gitme; kontrollü tempo omuz konforu için önemlidir.", "Do not go excessively heavy; controlled tempo matters for shoulder comfort."]]
+  },
+  "close-grip-bench-press": {
+    gif: null,
+    desc: ["Dar tutuşla yapılan bench press varyasyonu. Triceps yükünü artırırken göğüs ve ön omuzları da çalıştırır. Press gücünü desteklemek ve kol hacmi kazanmak için çok etkilidir.", "A close-grip bench-press variation. It shifts more load to the triceps while still training the chest and front delts. It is very effective for improving pressing strength and adding arm size."],
+    tips: [["Tutuşu aşırı dar yapma; bilek ve dirsek rahat kalacak bir genişlik seç.", "Do not go excessively narrow; choose a grip width that keeps wrists and elbows comfortable."], ["Barı alt göğüs-sternum hattına indirerek dirsekleri gövdeye yakın tut.", "Lower the bar toward the lower chest/sternum while keeping elbows relatively close to the torso."], ["Bench press gibi omuzları bankta sıkıştır ama kilidi tricepsle tamamla.", "Set the shoulders like a normal bench press, then finish the lockout with the triceps."]]
+  },
+  "hip-abduction-machine": {
+    gif: null,
+    desc: ["Kalçayı dışa açma makinesi. Glute medius ve kalça çevresi stabilizatörlerini hedef alır. Özellikle alt vücut programlarında kalça stabilitesi ve yan kalça gelişimi için yararlıdır.", "A machine for moving the legs outward against resistance. It targets the glute medius and hip stabilizers. It is helpful for hip stability and lateral glute development in lower-body programs."],
+    tips: [["Hareket boyunca belden savrulmak yerine kalçadan açmaya odaklan.", "Focus on opening from the hips rather than swinging from the lower back."], ["Tepe noktada kısa bir sıkışma eklemek yan kalça hissini artırır.", "Adding a brief squeeze at the top increases lateral glute engagement."], ["Ağırlık çok yükselirse momentum başlar; kontrolü bozmayacak seviyede kal.", "If the weight gets too high, momentum takes over; stay in a controllable range."]]
+  },
+  "stair-climber": {
+    gif: null,
+    desc: ["Merdiven çıkışını taklit eden yoğun kardiyo cihazı. Kalp atışını hızlı yükseltir, aynı zamanda quadriceps ve glute kaslarını da yorar. Kısa sürede yüksek efor isteyen kondisyon çalışmaları için idealdir.", "A high-intensity cardio machine that mimics climbing stairs. It elevates heart rate quickly while also taxing the quads and glutes. It is ideal for conditioning sessions that need a lot of effort in limited time."],
+    tips: [["Kollara aşırı yük verme; tutacakları sadece denge için hafif kullan.", "Do not lean heavily on the handles; use them lightly for balance only."], ["Adımları tam basarak çık; parmak ucunda minik adımlara kaçma.", "Step fully onto each step instead of taking tiny tiptoe steps."], ["Başlangıçta kısa bloklarla çalış; cihaz düşündüğünden daha sert olabilir.", "Start with short work blocks; the machine can be harder than it looks."]]
+  },
+  "rowing-machine": {
+    gif: null,
+    desc: ["Kürek ergometresinde yapılan tam vücut kardiyo egzersizi. Bacak itişi, gövde salınımı ve kol çekişini tek ritimde birleştirir. Hem kondisyon hem de iş kapasitesi geliştirmek için çok verimlidir.", "A full-body cardio exercise performed on a rowing ergometer. It combines leg drive, torso swing, and arm pull in one rhythm. It is highly efficient for building conditioning and work capacity."],
+    tips: [["Çekiş sırası bacak-gövde-kol; dönüş sırası kol-gövde-bacak olsun.", "Drive in the order legs-torso-arms, then return arms-torso-legs."], ["Belden kamburlaşma; gövde salınımını kontrollü ve nötr omurgayla yap.", "Avoid rounding the lower back; keep the torso swing controlled with a neutral spine."], ["Dakika başına çok hızlı değil, güçlü ve ritmik çekişler hedefle.", "Aim for strong rhythmic strokes rather than simply rushing the stroke rate."]]
   }
 };

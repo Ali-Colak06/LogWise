@@ -59,5 +59,17 @@ window.LOGWISE_EX_DESCS = {
   "jumping-jack": ["Zıplama. Kardiyo.", "Jumping jack. Cardio."],
   "treadmill": ["Koşu bandında yürüyüş/koşu.", "Treadmill walking/running."],
   "cycling": ["Bisiklet kardiyo.", "Cycling cardio."],
-  "moonwalk": ["Eliptik/özel yürüyüş.", "Elliptical/special walk."]
+  "moonwalk": ["Eliptik/özel yürüyüş.", "Elliptical/special walk."],
+  "romanian-deadlift": ["Kalça menteşesi. Hamstring ve glute odaklı.", "Hip hinge. Hamstring and glute focused."],
+  "bulgarian-split-squat": ["Arka ayak yükseltili tek bacak squat.", "Rear-foot-elevated single leg squat."],
+  "chin-up": ["Ters tutuş barfiks. Biceps vurgusu yüksek.", "Supinated pull-up. More biceps emphasis."],
+  "face-pull": ["Yüze çekiş. Arka omuz ve üst sırt.", "Pull to the face. Rear delts and upper back."],
+  "seated-calf-raise": ["Oturarak baldır kaldırma. Soleus vurgusu.", "Seated calf raise. More soleus emphasis."],
+  "hanging-leg-raise": ["Asılı bacak kaldırma. Alt karın ve core.", "Hanging leg raise. Lower abs and core."],
+  "pec-deck": ["Pec deck makinesi. Göğüs izolasyonu.", "Pec deck machine. Chest isolation."],
+  "arnold-press": ["Döner omuz press. Ön ve yan deltoid.", "Rotational shoulder press. Front and side delts."],
+  "close-grip-bench-press": ["Dar tutuş bench press. Triceps odaklı.", "Close-grip bench press. Triceps focused."],
+  "hip-abduction-machine": ["Kalça dışa açış makinesi. Glute medius.", "Hip abduction machine. Glute medius focus."],
+  "stair-climber": ["Merdiven simülasyonu. Yoğun kardiyo.", "Stair-climbing simulation. Intense cardio."],
+  "rowing-machine": ["Kürek ergometresi. Tüm vücut kardiyo.", "Rowing ergometer. Full-body cardio."]
 };
