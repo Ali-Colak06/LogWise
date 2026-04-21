@@ -49,59 +49,87 @@
     const [expandedReplies, setExpandedReplies] = React.useState({}); // { parentId: true }
     const [posting, setPosting] = React.useState(false);
 
-    // Yorumları yükle
-    const loadComments = React.useCallback(async () => {
-      if (!sb || !postId) return;
-      setLoading(true);
-      try {
-        const { data: rows, error } = await sb
-          .from("shared_workout_comments")
-          .select("*")
-          .eq("post_id", postId)
-          .order("created_at", { ascending: true });
-        if (error) throw error;
-        const list = rows || [];
-        setComments(list);
-        if (onCountChange) onCountChange(list.length);
+    // Stabil referanslar — parent her render'da yeni onCountChange geçerse sonsuz döngüye
+    // düşmemek için ref'le kilitliyoruz. user objesi de Supabase tarafından yeni referansla
+    // dönebilir; user.id'yi primitive olarak izliyoruz.
+    const userId = user && user.id || null;
+    const onCountChangeRef = React.useRef(onCountChange);
+    React.useEffect(() => { onCountChangeRef.current = onCountChange; }, [onCountChange]);
+    const lastCountRef = React.useRef(-1);
 
-        // Profil bilgilerini topla
-        const uids = [...new Set(list.map(c => c.user_id))];
-        if (uids.length > 0) {
-          const { data: profs } = await sb
-            .from("profiles")
-            .select("user_id,username,display_name,avatar")
-            .in("user_id", uids);
-          const pmap = {};
-          (profs || []).forEach(p => { pmap[p.user_id] = p; });
-          setProfiles(pmap);
+    // Yorumları yükle — stabil fonksiyon, yalnızca postId/userId değiştiğinde yeniden çalışır
+    const reloadRef = React.useRef(null);
+    React.useEffect(() => {
+      let cancelled = false;
+      const run = async () => {
+        if (!sb || !postId) return;
+        setLoading(true);
+        try {
+          const { data: rows, error } = await sb
+            .from("shared_workout_comments")
+            .select("*")
+            .eq("post_id", postId)
+            .order("created_at", { ascending: true });
+          if (cancelled) return;
+          if (error) throw error;
+          const list = rows || [];
+          setComments(list);
+          // Parent'taki count'u yalnızca değiştiyse güncelle (stale render önler)
+          if (onCountChangeRef.current && lastCountRef.current !== list.length) {
+            lastCountRef.current = list.length;
+            onCountChangeRef.current(list.length);
+          }
+
+          // Profil bilgilerini topla
+          const uids = [...new Set(list.map(c => c.user_id))];
+          if (uids.length > 0) {
+            const { data: profs } = await sb
+              .from("profiles")
+              .select("user_id,username,display_name,avatar")
+              .in("user_id", uids);
+            if (cancelled) return;
+            const pmap = {};
+            (profs || []).forEach(p => { pmap[p.user_id] = p; });
+            setProfiles(pmap);
+          } else {
+            setProfiles({});
+          }
+
+          // Beğenileri topla
+          if (list.length > 0) {
+            const cids = list.map(c => c.id);
+            const { data: lks } = await sb
+              .from("comment_likes")
+              .select("comment_id,user_id")
+              .in("comment_id", cids);
+            if (cancelled) return;
+            const lmap = {};
+            cids.forEach(cid => { lmap[cid] = { count: 0, liked: false }; });
+            (lks || []).forEach(l => {
+              if (!lmap[l.comment_id]) lmap[l.comment_id] = { count: 0, liked: false };
+              lmap[l.comment_id].count++;
+              if (userId && l.user_id === userId) lmap[l.comment_id].liked = true;
+            });
+            setLikes(lmap);
+          } else {
+            setLikes({});
+          }
+        } catch (e) {
+          if (!cancelled) console.error("loadComments:", e);
+        } finally {
+          if (!cancelled) setLoading(false);
         }
+      };
+      reloadRef.current = run;
+      run();
+      return () => { cancelled = true; };
+    }, [postId, userId, sb]);
 
-        // Beğenileri topla
-        if (list.length > 0) {
-          const cids = list.map(c => c.id);
-          const { data: lks } = await sb
-            .from("comment_likes")
-            .select("comment_id,user_id")
-            .in("comment_id", cids);
-          const lmap = {};
-          cids.forEach(cid => { lmap[cid] = { count: 0, liked: false }; });
-          (lks || []).forEach(l => {
-            if (!lmap[l.comment_id]) lmap[l.comment_id] = { count: 0, liked: false };
-            lmap[l.comment_id].count++;
-            if (user && l.user_id === user.id) lmap[l.comment_id].liked = true;
-          });
-          setLikes(lmap);
-        } else {
-          setLikes({});
-        }
-      } catch (e) {
-        console.error("loadComments:", e);
-      } finally {
-        setLoading(false);
-      }
-    }, [postId, user, onCountChange, sb]);
-
-    React.useEffect(() => { loadComments(); }, [loadComments]);
+    // Yorumdan sonra çağrılacak yeniden yükleyici — efektin en son `run`'una işaret eder.
+    // async döner, çağıran yer await edebilir.
+    const loadComments = async () => {
+      if (reloadRef.current) await reloadRef.current();
+    };
 
     // Yorum ekle (parent_id ile reply de destekli)
     const postComment = async (text, parentId) => {
