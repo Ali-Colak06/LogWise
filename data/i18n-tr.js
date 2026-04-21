@@ -277,5 +277,24 @@ window.LOGWISE_TR = {
   exPreviewDesc: "Açıklama",
   exPreviewTips: "Teknik İpuçları",
   exPreviewNoContent: "Bu hareket için içerik henüz eklenmemiş.",
-  exPreviewImgSoon: "Görsel yakında eklenecek"
+  exPreviewImgSoon: "Görsel yakında eklenecek",
+  // --- Yorumlar (Bölüm 44) ---
+  comments: "Yorumlar",
+  commentsNone: "Henüz yorum yok. İlk yorumu sen yap!",
+  commentsLoading: "Yorumlar yükleniyor...",
+  commentsAddPlaceholder: "Yorum yaz...",
+  commentsReplyPlaceholder: "Yanıtla...",
+  commentsPost: "Gönder",
+  commentsReply: "Yanıtla",
+  commentsEdit: "Düzenle",
+  commentsDelete: "Sil",
+  commentsEdited: "düzenlendi",
+  commentsSave: "Kaydet",
+  commentsCancel: "İptal",
+  commentsLike: "Beğen",
+  commentsShowReplies: "{n} yanıtı göster",
+  commentsHideReplies: "Yanıtları gizle",
+  commentsDeleteConfirm: "Bu yorumu silmek istediğine emin misin?",
+  commentsLoginRequired: "Yorum yapmak için giriş yapmalısın.",
+  commentsTooLong: "Yorum 500 karakterden uzun olamaz."
 };

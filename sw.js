@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v23';
+const CACHE_NAME = 'logwise-v24';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -22,6 +22,7 @@ const PRECACHE_URLS = [
   '/components/dash-chart.js',
   '/components/ex-preview-modal.js',
   '/components/auth-screen.js',
+  '/components/comment-section.js',
   '/data/presets-exercises.js',
   '/data/ex-descriptions.js',
   '/data/ex-preview.js',

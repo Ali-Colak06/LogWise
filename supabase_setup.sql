@@ -204,3 +204,81 @@ create policy "user_data_select_public" on user_data
 drop policy if exists "follows_select" on follows;
 create policy "follows_select" on follows
   for select using (true);
+
+-- ============================================================
+-- YORUM SİSTEMİ — Bölüm 44
+-- Paylaşılan antrenmanlara yorum yapma + beğenme + yanıtlama
+-- ============================================================
+
+-- 7. Paylaşım yorumları (tek seviye thread destekli)
+create table if not exists shared_workout_comments (
+  id text primary key,
+  post_id text not null references shared_workouts(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  parent_id text references shared_workout_comments(id) on delete cascade,
+  content text not null,
+  edited boolean default false,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+-- Performans index'leri
+create index if not exists comments_post_idx on shared_workout_comments(post_id, created_at desc);
+create index if not exists comments_parent_idx on shared_workout_comments(parent_id);
+create index if not exists comments_user_idx on shared_workout_comments(user_id);
+
+-- 8. Yorum beğenileri (composite primary key — bir kullanıcı bir yorumu sadece 1 kez beğenebilir)
+create table if not exists comment_likes (
+  comment_id text not null references shared_workout_comments(id) on delete cascade,
+  user_id uuid not null references auth.users(id) on delete cascade,
+  created_at timestamptz default now(),
+  primary key (comment_id, user_id)
+);
+
+create index if not exists comment_likes_comment_idx on comment_likes(comment_id);
+
+-- ============================================================
+-- Yorum Tabloları — Row Level Security
+-- ============================================================
+
+alter table shared_workout_comments enable row level security;
+alter table comment_likes enable row level security;
+
+-- shared_workout_comments: herkes okuyabilir (public feed),
+-- sadece giriş yapmış kullanıcılar yazabilir,
+-- yorum sahibi düzenleyebilir/silebilir,
+-- paylaşım sahibi de kendi paylaşımındaki yorumları silebilir
+create policy "comments_select" on shared_workout_comments
+  for select using (true);
+
+create policy "comments_insert" on shared_workout_comments
+  for insert with check (auth.uid() = user_id);
+
+create policy "comments_update" on shared_workout_comments
+  for update using (auth.uid() = user_id);
+
+create policy "comments_delete" on shared_workout_comments
+  for delete using (
+    auth.uid() = user_id
+    or exists (
+      select 1 from shared_workouts sw
+      where sw.id = shared_workout_comments.post_id
+      and sw.user_id = auth.uid()
+    )
+  );
+
+-- comment_likes: herkes okuyabilir (beğeni sayısı için),
+-- sadece giriş yapmış kullanıcı kendi beğenisini ekleyebilir/silebilir
+create policy "comment_likes_select" on comment_likes
+  for select using (true);
+
+create policy "comment_likes_insert" on comment_likes
+  for insert with check (auth.uid() = user_id);
+
+create policy "comment_likes_delete" on comment_likes
+  for delete using (auth.uid() = user_id);
+
+-- Düzenleme izi için updated_at otomatik güncelleme
+create trigger shared_workout_comments_updated_at
+  before update on shared_workout_comments
+  for each row execute function update_updated_at();

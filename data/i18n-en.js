@@ -278,5 +278,24 @@ window.LOGWISE_EN = {
   exPreviewDesc: "Description",
   exPreviewTips: "Technique Tips",
   exPreviewNoContent: "No content available for this exercise yet.",
-  exPreviewImgSoon: "Visual coming soon"
+  exPreviewImgSoon: "Visual coming soon",
+  // --- Comments (Bölüm 44) ---
+  comments: "Comments",
+  commentsNone: "No comments yet. Be the first to comment!",
+  commentsLoading: "Loading comments...",
+  commentsAddPlaceholder: "Write a comment...",
+  commentsReplyPlaceholder: "Reply...",
+  commentsPost: "Post",
+  commentsReply: "Reply",
+  commentsEdit: "Edit",
+  commentsDelete: "Delete",
+  commentsEdited: "edited",
+  commentsSave: "Save",
+  commentsCancel: "Cancel",
+  commentsLike: "Like",
+  commentsShowReplies: "Show {n} replies",
+  commentsHideReplies: "Hide replies",
+  commentsDeleteConfirm: "Are you sure you want to delete this comment?",
+  commentsLoginRequired: "You need to log in to comment.",
+  commentsTooLong: "Comment cannot exceed 500 characters."
 };

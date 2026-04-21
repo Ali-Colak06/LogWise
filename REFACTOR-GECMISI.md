@@ -3149,3 +3149,153 @@ Aynı problem ileride başka noktalarda da çıkabilir çünkü kullanıcı veri
 - **Faz EX-ID Aşama 2**: Kullanıcı verisini de slug'a taşı (Supabase migration + localStorage migrateData güncellemesi). Şu an gerek yok; name temelli veri hâlâ doğru render ediliyor.
 - **Aşama 3**: View extraction — `index.html` App monoliti'ten dashboard/history/stats/programs/exercises/settings view'larını ayrı component'lara taşı.
 
+---
+
+## Bölüm 44 — Sosyal Akışta Kendi Paylaşımları + Yorum Sistemi (2026-04-21)
+
+### Motivasyon
+
+İki kullanıcı geri bildirimi:
+
+1. **Bug**: "Bir paylaşım yaptığımda o paylaşımı sosyal kısmında göremiyorum. Sadece başka kullanıcılar göründü." → `loadFeed()` yalnızca `following_id`'lere göre filtreliyor, kullanıcının kendi post'larını dahil etmiyordu.
+2. **Özellik**: "Paylaşımların altına yorum yapma mekaniği ekleyelim; aynı sosyal medya gibi." → Post-başı yorum zinciri + beğeni + yanıt.
+
+### Yapılan Değişiklikler
+
+#### 1) Feed bug fix — kendi paylaşımlar dahil
+
+`index.html` içindeki `loadFeed()`:
+
+```js
+const fids = (fols || []).map(f => f.following_id);
+const feedUids = [...new Set([...fids, user.id])];
+const { data: posts } = await sb.from("shared_workouts")
+  .select("*").in("user_id", feedUids)
+  .order("created_at",{ascending:false}).limit(30);
+```
+
+"Takip yoksa erken dön" branch'i kaldırıldı; yeni kullanıcı bile kendi akışını görür.
+
+#### 2) Kendi post'u UI işaretleri
+
+Feed kart render bloğunda:
+
+- `isOwnPost = !isGuest && user && post.user_id === user.id`
+- Kart border'ı: `var(--blue)` + hafif glow boxShadow
+- Kullanıcı adı yanında "Sen" / "You" rozeti (chip, `--blueL` bg + `--blue` border)
+- Aksiyon satırında kırmızı sil butonu (🗑) → `deleteSharedPost(post.id)` (RLS: sadece sahibi silebilir, zaten mevcut)
+
+`deleteSharedPost` helper `loadFeed`'in hemen altına eklendi; onay modalı + optimistik state güncellemesi + toast.
+
+#### 3) Supabase şeması — `supabase_setup.sql`
+
+İki yeni tablo eklendi:
+
+```sql
+create table shared_workout_comments (
+  id text primary key,
+  post_id text references shared_workouts(id) on delete cascade,
+  user_id uuid references auth.users(id) on delete cascade,
+  parent_id text references shared_workout_comments(id) on delete cascade,
+  content text not null,
+  edited boolean default false,
+  created_at timestamptz default now(),
+  updated_at timestamptz default now()
+);
+
+create table comment_likes (
+  comment_id text references shared_workout_comments(id) on delete cascade,
+  user_id uuid references auth.users(id) on delete cascade,
+  primary key (comment_id, user_id)
+);
+```
+
+İndeksler: `(post_id, created_at desc)`, `parent_id`, `user_id`, `comment_id`.
+
+RLS politikaları:
+
+- `comments_select` = `true` (public feed)
+- `comments_insert`/`update` = `auth.uid() = user_id`
+- `comments_delete` = yorum sahibi **veya** paylaşım sahibi (nested `exists(select 1 from shared_workouts where id=post_id and user_id=auth.uid())`)
+- `comment_likes_select` = `true`
+- `comment_likes_insert/delete` = `auth.uid() = user_id`
+
+#### 4) Yeni bileşen — `components/comment-section.js`
+
+`window.LOGWISE_COMPONENTS.CommentSection`. Tek IIFE, React.createElement.
+
+Props: `{ postId, postOwnerId, user, isGuest, lang, S, setToast, onCountChange? }`.
+
+Özellikler:
+
+- İlk mount'ta hem yorumları hem profilleri (display_name, avatar, username) hem beğeni durumunu (current user liked? count) çeker.
+- Top-level yorum + tek seviye reply thread (parent_id).
+- Yorum ekleme: Enter tuşu veya Gönder butonu. 500 karakter sınırı client-side.
+- Düzenleme (sahip): inline textarea + Kaydet/İptal; `edited=true` flag'i UI'da "düzenlendi"/"edited" italic chip olarak gösterilir.
+- Silme: yorum sahibi **veya** paylaşım sahibi; confirm → RLS policy izin verir.
+- Beğeni: toggle, optimistik update (hata olursa geri alır). Kalp ikonu + sayı.
+- Thread aç/kapa: top-level yorum altında "{n} yanıtı göster" butonu; açılınca replies görünür, kapatılınca gizlenir.
+- Göreceli zaman: şimdi / dk / sa / g / tarih.
+- Misafir kullanıcılar: yorumları okur, input görmez; yerine "Yorum yapmak için giriş yapmalısın." bilgi kutusu.
+
+Bileşen `window.LOGWISE_DB.sb` üzerinden Supabase'e erişir — index.html'den prop geçmek yerine tek doğru source DB katmanı.
+
+#### 5) Feed kart entegrasyonu
+
+`index.html`:
+
+- Script tag: `<script src="components/comment-section.js"></script>` (auth-screen'den sonra)
+- Destructure: `const { ..., CommentSection } = window.LOGWISE_COMPONENTS;`
+- Yeni state: `feedCommentCounts` (post_id → N, badge için), `feedOpenComments` (post_id → bool, akordeon aç/kapa)
+- `loadFeed()` sonuna: 30 post için tek `select("post_id").in(...)` sorgusu, client-side group-by → `feedCommentCounts`
+- Kart aksiyon satırına 💬 N butonu (toggle açar/kapar; sayı 0 ise sadece ikon)
+- Kart alt kısmına (exercise-pill container'dan sonra, kart divinin son çocuğu olarak) `feedOpenComments[post.id] && React.createElement(CommentSection, {...})` — açılınca CommentSection yüklenir, `onCountChange` prop'u badge'i canlı günceller
+
+#### 6) i18n — `data/i18n-tr.js` + `data/i18n-en.js`
+
+Yorum sistemiyle ilgili 19 anahtar TR + EN olarak eklendi:
+
+```
+comments, commentsNone, commentsLoading, commentsAddPlaceholder,
+commentsReplyPlaceholder, commentsPost, commentsReply, commentsEdit,
+commentsDelete, commentsEdited, commentsSave, commentsCancel, commentsLike,
+commentsShowReplies (format: {n}), commentsHideReplies,
+commentsDeleteConfirm, commentsLoginRequired, commentsTooLong
+```
+
+#### 7) Service Worker bump
+
+`sw.js`:
+
+- `CACHE_NAME: 'logwise-v23' → 'logwise-v24'`
+- `PRECACHE_URLS` listesine `/components/comment-section.js` eklendi
+
+Kural: yeni `components/*.js` dosyası eklendi → `docs/SW-VERSION-BUMP.md` gereği bump zorunlu.
+
+#### 8) AGENTS.md güncelleme
+
+- §4 dosya haritasına `comment-section.js` satırı eklendi
+- `SON GÜNCELLEME` satırı `2026-04-21 — Bölüm 44` olarak güncellendi
+
+### Neden tek seviye reply?
+
+Sonsuz nesting (reddit tarzı) UX olarak taşar. Instagram/Twitter tarzı tek seviye yeterli; tüm replies ortak parent'a "flatten" edilir. DB şeması `parent_id` ile gerçek tree destekler; UI şu an sadece iki seviyeyi (top-level + direct replies) render eder. İleride istenirse UI değişikliğiyle nested thread açılabilir, migration gerekmez.
+
+### RLS Tehlike Noktaları
+
+1. `comments_delete` policy'sinde nested `exists` — paylaşım sahibinin başkalarının yorumunu silebilmesi için gerekli. Test: başka kullanıcıyla yorum yap → paylaşımı sen sahipsen sil (yalnızca paylaşım sahibi silebilmeli, random 3. kişi silememeli).
+2. `comment_likes` primary key `(comment_id, user_id)` — aynı kullanıcı aynı yorumu 2 kez beğenemez (DB seviyesinde garanti). Double-click race condition'ları insert error yerine update'siz geçer; UI optimistik update hata alırsa state'i eski haline döndürür.
+3. `on delete cascade` — paylaşım silinince tüm yorumlar + beğeniler düşer. `deleteSharedPost` toast mesajı bunu kullanıcıya uyarır.
+
+### Geriye Dönük Uyumluluk
+
+- Eski paylaşımlar: yorum sayısı 0 → 💬 butonu ikon-only, açılınca "henüz yorum yok" gösterir.
+- Misafir kullanıcılar: hiçbir şey kırılmaz; sadece "login gerekli" bilgisi görür.
+- Offline kullanıcılar: SW v24 cache update'i önceki SW lifecycle'ında olacak; activate sonrası yeni cache. İlk yorum query'si online gerektirir (akış zaten network-bound).
+
+### Gelecekteki Muhtemel Adımlar
+
+- **Bildirimler**: Biri yorumunu beğendi / biri yanıt verdi → inbox (DB: `notifications` tablosu). Bu bölümün kapsamı dışı.
+- **Mention** (`@username`): yorum içinde kullanıcı adı tag'le → profile linki + notification. Parser + autocomplete gerekir.
+- **Sonsuz scroll**: Akış şu an son 30 post ile sınırlı; cursor-based pagination ile genişletilebilir.
+

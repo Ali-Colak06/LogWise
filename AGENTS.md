@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-04-20 — Faz EX-ID -->
+<!-- SON GÜNCELLEME: 2026-04-21 — Bölüm 44: Yorum sistemi + feed kendi-paylaşımı -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -92,7 +92,8 @@ LogWise/
 │   ├── brand-mark.js          ← BrandMark
 │   ├── dash-chart.js          ← DashChart
 │   ├── ex-preview-modal.js    ← ExPreviewModal
-│   └── auth-screen.js         ← AuthScreen
+│   ├── auth-screen.js         ← AuthScreen
+│   └── comment-section.js     ← CommentSection (Bölüm 44)
 ├── index.html                 ← Ana uygulama (App + Root monolit)
 ├── profile.html               ← Profil sayfası
 ├── share.html                 ← Paylaşım sayfası

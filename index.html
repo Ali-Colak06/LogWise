@@ -44,6 +44,7 @@
 <script src="components/dash-chart.js"></script>
 <script src="components/ex-preview-modal.js"></script>
 <script src="components/auth-screen.js"></script>
+<script src="components/comment-section.js"></script>
 <script src="data/presets-exercises.js"></script>
 <script src="data/ex-descriptions.js"></script>
 <script src="data/ex-preview.js"></script>
@@ -93,7 +94,7 @@ const {
   useMemo,
   useRef
 } = React;
-const { ErrorBoundary, BrandMark, DashChart, ExPreviewModal, AuthScreen } = window.LOGWISE_COMPONENTS;
+const { ErrorBoundary, BrandMark, DashChart, ExPreviewModal, AuthScreen, CommentSection } = window.LOGWISE_COMPONENTS;
 const D = ["Pzt", "Sal", "Çar", "Per", "Cum", "Cmt", "Paz"];
 const DF = ["Pazartesi", "Salı", "Çarşamba", "Perşembe", "Cuma", "Cumartesi", "Pazar"];
 const MO = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
@@ -297,6 +298,8 @@ function App({
   const [lbLoading, setLbLoading] = useState(false);
   const [feedData, setFeedData] = useState([]);
   const [feedLoading, setFeedLoading] = useState(false);
+  const [feedCommentCounts, setFeedCommentCounts] = useState({}); // { postId: count }
+  const [feedOpenComments, setFeedOpenComments] = useState({}); // { postId: bool }
   const [userSearch, setUserSearch] = useState("");
   const [userSearchResults, setUserSearchResults] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
@@ -1645,16 +1648,14 @@ function App({
       } = await sb.from("follows").select("following_id").eq("follower_id", user.id);
       const fids = (fols || []).map(f => f.following_id);
       setFollowingIds(fids);
-      if (!fids.length) {
-        setFeedData([]);
-        setFeedLoading(false);
-        return;
-      }
+      // Feed kapsamı: takip edilenler + kullanıcının kendisi. Hiç takip edilen yoksa bile
+      // kullanıcı kendi paylaşımlarını görmelidir (ör. yeni kayıtlı kullanıcı, test akışı).
+      const feedUids = [...new Set([...fids, user.id])];
       const {
         data: posts
-      } = await sb.from("shared_workouts").select("*").in("user_id", fids).order("created_at", {
+      } = await sb.from("shared_workouts").select("*").in("user_id", feedUids).order("created_at", {
         ascending: false
-      }).limit(20);
+      }).limit(30);
       if (!posts || !posts.length) {
         setFeedData([]);
         setFeedLoading(false);
@@ -1673,9 +1674,32 @@ function App({
           avatar: ""
         }
       })));
+      // Yorum sayılarını (badge için) topla — tek sorgu, client-side group-by
+      const postIds = posts.map(p => p.id);
+      const {
+        data: cmtRows
+      } = await sb.from("shared_workout_comments").select("post_id").in("post_id", postIds);
+      const cnt = {};
+      postIds.forEach(pid => { cnt[pid] = 0; });
+      (cmtRows || []).forEach(r => { cnt[r.post_id] = (cnt[r.post_id] || 0) + 1; });
+      setFeedCommentCounts(cnt);
     } finally {
       setFeedLoading(false);
     }
+  };
+  const deleteSharedPost = async postId => {
+    if (isGuest || !user) return;
+    const confirmMsg = lang === "tr"
+      ? "Bu paylaşımı silmek istediğine emin misin? Tüm yorumlar ve beğeniler de silinecek."
+      : "Are you sure you want to delete this post? All comments and likes will also be removed.";
+    if (!window.confirm(confirmMsg)) return;
+    const { error } = await sb.from("shared_workouts").delete().eq("id", postId).eq("user_id", user.id);
+    if (error) {
+      setToast("Error: " + error.message);
+      return;
+    }
+    setFeedData(fd => fd.filter(p => p.id !== postId));
+    setToast(lang === "tr" ? "Paylaşım silindi" : "Post deleted");
   };
   const searchUsersFn = async q => {
     if (!q.trim()) {
@@ -7527,14 +7551,16 @@ function App({
     }
   }, "\uD83D\uDD0D ", L.searchUsers.split("...")[0])), !feedLoading && feedData.map(post => {
     const exNames = typeof post.exercise_names === "string" ? JSON.parse(post.exercise_names) : post.exercise_names || [];
+    const isOwnPost = !isGuest && user && post.user_id === user.id;
     return React.createElement("div", {
       key: post.id,
       style: {
         background: "var(--bg2)",
-        border: "1px solid var(--brd)",
+        border: isOwnPost ? "1px solid var(--blue)" : "1px solid var(--brd)",
         borderRadius: 12,
         padding: 16,
-        marginBottom: 12
+        marginBottom: 12,
+        boxShadow: isOwnPost ? "0 0 0 1px rgba(240,192,64,.12)" : "none"
       }
     }, React.createElement("div", {
       style: {
@@ -7588,7 +7614,20 @@ function App({
         color: "var(--t3)",
         marginLeft: 4
       }
-    }, "@", post.profile.username), React.createElement("span", {
+    }, "@", post.profile.username), isOwnPost && React.createElement("span", {
+      style: {
+        fontSize: 10,
+        fontWeight: 700,
+        marginLeft: 6,
+        padding: "2px 6px",
+        borderRadius: 4,
+        background: "var(--blueL)",
+        color: "var(--blue)",
+        border: "1px solid var(--blue)",
+        letterSpacing: ".5px",
+        textTransform: "uppercase"
+      }
+    }, lang === "tr" ? "Sen" : "You"), React.createElement("span", {
       style: {
         fontSize: 12,
         color: "var(--t3)",
@@ -7617,7 +7656,18 @@ function App({
         borderRadius: 8
       },
       title: lang === "tr" ? "Görüntüle" : "View"
-    }, "\uD83D\uDC41\uFE0F"), !isGuest && React.createElement("button", {
+    }, "\uD83D\uDC41\uFE0F"), React.createElement("button", {
+      onClick: () => setFeedOpenComments(s => ({ ...s, [post.id]: !s[post.id] })),
+      style: {
+        ...S.sec,
+        fontSize: 11,
+        padding: "4px 10px",
+        borderRadius: 8,
+        color: feedOpenComments[post.id] ? "var(--blue)" : "var(--t1)",
+        borderColor: feedOpenComments[post.id] ? "var(--blue)" : "var(--brd)"
+      },
+      title: L.comments
+    }, "\uD83D\uDCAC", (feedCommentCounts[post.id] || 0) > 0 ? " " + feedCommentCounts[post.id] : ""), !isGuest && React.createElement("button", {
       onClick: () => {
         setCopyFeedModal({
           ...post,
@@ -7634,7 +7684,18 @@ function App({
         borderColor: "var(--blue)"
       },
       title: lang === "tr" ? "Antrenmanı kopyala" : "Copy workout"
-    }, "\uD83D\uDCCB"))), React.createElement("div", {
+    }, "\uD83D\uDCCB"), isOwnPost && React.createElement("button", {
+      onClick: () => deleteSharedPost(post.id),
+      style: {
+        ...S.sec,
+        fontSize: 11,
+        padding: "4px 10px",
+        borderRadius: 8,
+        color: "var(--red)",
+        borderColor: "var(--red)"
+      },
+      title: lang === "tr" ? "Paylaşımı sil" : "Delete post"
+    }, "\uD83D\uDDD1\uFE0F"))), React.createElement("div", {
       style: {
         fontSize: 14,
         fontWeight: 600,
@@ -7670,7 +7731,16 @@ function App({
         color: "var(--t3)",
         padding: "3px 4px"
       }
-    }, "+", exNames.length - 5)));
+    }, "+", exNames.length - 5)), feedOpenComments[post.id] && CommentSection && React.createElement(CommentSection, {
+      postId: post.id,
+      postOwnerId: post.user_id,
+      user: user,
+      isGuest: isGuest,
+      lang: lang,
+      S: S,
+      setToast: setToast,
+      onCountChange: n => setFeedCommentCounts(c => ({ ...c, [post.id]: n }))
+    }));
   })), socialTab === "search" && React.createElement("div", null, React.createElement("div", {
     style: {
       background: "var(--bg2)",
