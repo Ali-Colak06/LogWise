@@ -27,6 +27,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   nameEN: "Incline Dumbell Press",
   categories: ["Göğüs"]
 }, {
+  id: "decline-push-up",
+  name: "Decline Push Up",
+  categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
   id: "dumbell-fly",
   name: "Dumbell Fly",
   categories: ["Göğüs"]
@@ -84,9 +88,17 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Front Raise",
   categories: ["Omuz"]
 }, {
+  id: "cable-front-raise",
+  name: "Cable Front Raise",
+  categories: ["Omuz"]
+}, {
   id: "rear-delt-fly",
   name: "Rear Delt Fly",
   categories: ["Omuz"]
+}, {
+  id: "reverse-pec-deck",
+  name: "Reverse Pec Deck",
+  categories: ["Omuz", "Trapez"]
 }, {
   id: "face-pull",
   name: "Face Pull",
@@ -105,9 +117,17 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Pike Push Up",
   categories: ["Omuz", "Triceps"]
 }, {
+  id: "diamond-push-up",
+  name: "Diamond Push Up",
+  categories: ["Göğüs", "Triceps"]
+}, {
   id: "dips",
   name: "Dips",
   categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  id: "bench-dips",
+  name: "Bench Dips",
+  categories: ["Triceps"]
 }, {
   id: "triceps-pushdown",
   name: "Triceps Pushdown",
@@ -133,12 +153,24 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Hammer Curl",
   categories: ["Biceps"]
 }, {
+  id: "rope-hammer-curl",
+  name: "Rope Hammer Curl",
+  categories: ["Biceps", "Bilek"]
+}, {
   id: "one-arm-cable-curl",
   name: "One Arm Cable Curl",
   categories: ["Biceps"]
 }, {
   id: "preacher-curl",
   name: "Preacher Curl",
+  categories: ["Biceps"]
+}, {
+  id: "incline-dumbell-curl",
+  name: "Incline Dumbell Curl",
+  categories: ["Biceps"]
+}, {
+  id: "concentration-curl",
+  name: "Concentration Curl",
   categories: ["Biceps"]
 }, {
   id: "reverse-curl",
@@ -173,12 +205,24 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Pull Up",
   categories: ["Sırt", "Biceps"]
 }, {
+  id: "scapular-pull-up",
+  name: "Scapular Pull Up",
+  categories: ["Sırt"]
+}, {
   id: "chin-up",
   name: "Chin Up",
   categories: ["Sırt", "Biceps"]
 }, {
+  id: "chin-up-hold",
+  name: "Chin Up Hold",
+  categories: ["Sırt", "Biceps"]
+}, {
   id: "assisted-pull-up",
   name: "Assisted Pull Up",
+  categories: ["Sırt", "Biceps"]
+}, {
+  id: "australian-pull-up",
+  name: "Australian Pull Up",
   categories: ["Sırt", "Biceps"]
 }, {
   id: "dumbell-row",
@@ -261,6 +305,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Seated Leg Curl",
   categories: ["Bacak"]
 }, {
+  id: "leg-adduction-machine",
+  name: "Leg Adduction Machine",
+  categories: ["Bacak", "Kalça"]
+}, {
   id: "leg-extension",
   name: "Leg Extension",
   categories: ["Bacak"]
@@ -271,6 +319,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
 }, {
   id: "seated-calf-raise",
   name: "Seated Calf Raise",
+  categories: ["Kalf"]
+}, {
+  id: "donkey-calf-raise",
+  name: "Donkey Calf Raise",
   categories: ["Kalf"]
 }, {
   id: "shrug",
@@ -301,8 +353,16 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Back Extension",
   categories: ["Sırt", "Kalça"]
 }, {
+  id: "arch-hold",
+  name: "Arch Hold",
+  categories: ["Sırt", "Kalça"]
+}, {
   id: "plank",
   name: "Plank",
+  categories: ["Karın"]
+}, {
+  id: "hollow-body-hold",
+  name: "Hollow Body Hold",
   categories: ["Karın"]
 }, {
   id: "side-plank",
@@ -311,6 +371,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
 }, {
   id: "crunch",
   name: "Crunch",
+  categories: ["Karın"]
+}, {
+  id: "reverse-crunch",
+  name: "Reverse Crunch",
   categories: ["Karın"]
 }, {
   id: "cable-crunch",
@@ -332,6 +396,14 @@ window.LOGWISE_PRESET_EXERCISES = [{
   id: "hanging-leg-raise",
   name: "Hanging Leg Raise",
   categories: ["Karın"]
+}, {
+  id: "toes-to-bar",
+  name: "Toes To Bar",
+  categories: ["Karın", "Sırt"]
+}, {
+  id: "l-sit",
+  name: "L-Sit",
+  categories: ["Karın", "Kalça"]
 }, {
   id: "mountain-climber",
   name: "Mountain Climber",
