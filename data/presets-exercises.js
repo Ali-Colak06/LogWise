@@ -31,6 +31,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Dumbell Fly",
   categories: ["Göğüs"]
 }, {
+  id: "incline-dumbell-fly",
+  name: "Incline Dumbell Fly",
+  categories: ["Göğüs"]
+}, {
   id: "bench-press",
   name: "Bench Press",
   categories: ["Göğüs"]
@@ -60,12 +64,20 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Shoulder Press",
   categories: ["Omuz"]
 }, {
+  id: "machine-shoulder-press",
+  name: "Machine Shoulder Press",
+  categories: ["Omuz"]
+}, {
   id: "arnold-press",
   name: "Arnold Press",
   categories: ["Omuz"]
 }, {
   id: "lateral-raise",
   name: "Lateral Raise",
+  categories: ["Omuz"]
+}, {
+  id: "cable-lateral-raise",
+  name: "Cable Lateral Raise",
   categories: ["Omuz"]
 }, {
   id: "front-raise",
@@ -80,10 +92,18 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Face Pull",
   categories: ["Omuz", "Trapez"]
 }, {
+  id: "upright-row",
+  name: "Upright Row",
+  categories: ["Omuz", "Trapez"]
+}, {
   id: "push-up",
   name: "Şınav",
   nameEN: "Push Up",
   categories: ["Göğüs", "Omuz", "Triceps"]
+}, {
+  id: "pike-push-up",
+  name: "Pike Push Up",
+  categories: ["Omuz", "Triceps"]
 }, {
   id: "dips",
   name: "Dips",
@@ -129,6 +149,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Dead Hang",
   categories: ["Bilek"]
 }, {
+  id: "farmer-carry",
+  name: "Farmer Carry",
+  categories: ["Bilek", "Trapez", "Karın"]
+}, {
   id: "wrist-extensions",
   name: "Wrist Extensions",
   categories: ["Bilek"]
@@ -141,6 +165,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Lat Pulldown",
   categories: ["Sırt", "Biceps"]
 }, {
+  id: "straight-arm-pulldown",
+  name: "Straight Arm Pulldown",
+  categories: ["Sırt"]
+}, {
   id: "pull-up",
   name: "Pull Up",
   categories: ["Sırt", "Biceps"]
@@ -149,12 +177,24 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Chin Up",
   categories: ["Sırt", "Biceps"]
 }, {
+  id: "assisted-pull-up",
+  name: "Assisted Pull Up",
+  categories: ["Sırt", "Biceps"]
+}, {
   id: "dumbell-row",
   name: "Dumbell Row",
   categories: ["Sırt", "Biceps"]
 }, {
   id: "cable-row",
   name: "Cable Row",
+  categories: ["Sırt", "Biceps"]
+}, {
+  id: "machine-row",
+  name: "Machine Row",
+  categories: ["Sırt", "Biceps"]
+}, {
+  id: "single-arm-row-machine",
+  name: "Single Arm Row Machine",
   categories: ["Sırt", "Biceps"]
 }, {
   id: "barbell-row",
@@ -181,6 +221,18 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Squat",
   categories: ["Bacak", "Kalça"]
 }, {
+  id: "goblet-squat",
+  name: "Goblet Squat",
+  categories: ["Bacak", "Kalça"]
+}, {
+  id: "hack-squat",
+  name: "Hack Squat",
+  categories: ["Bacak"]
+}, {
+  id: "smith-machine-squat",
+  name: "Smith Machine Squat",
+  categories: ["Bacak", "Kalça"]
+}, {
   id: "leg-press",
   name: "Leg Press",
   categories: ["Bacak", "Kalça"]
@@ -189,12 +241,24 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Lunge",
   categories: ["Bacak", "Kalça"]
 }, {
+  id: "walking-lunge",
+  name: "Walking Lunge",
+  categories: ["Bacak", "Kalça"]
+}, {
   id: "bulgarian-split-squat",
   name: "Bulgarian Split Squat",
   categories: ["Bacak", "Kalça"]
 }, {
+  id: "step-up",
+  name: "Step Up",
+  categories: ["Bacak", "Kalça"]
+}, {
   id: "leg-curl",
   name: "Leg Curl",
+  categories: ["Bacak"]
+}, {
+  id: "seated-leg-curl",
+  name: "Seated Leg Curl",
   categories: ["Bacak"]
 }, {
   id: "leg-extension",
@@ -221,12 +285,28 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Glute Bridge",
   categories: ["Kalça"]
 }, {
+  id: "glute-kickback",
+  name: "Glute Kickback",
+  categories: ["Kalça"]
+}, {
+  id: "cable-kickback",
+  name: "Cable Kickback",
+  categories: ["Kalça"]
+}, {
   id: "hip-abduction-machine",
   name: "Hip Abduction Machine",
   categories: ["Kalça"]
 }, {
+  id: "back-extension",
+  name: "Back Extension",
+  categories: ["Sırt", "Kalça"]
+}, {
   id: "plank",
   name: "Plank",
+  categories: ["Karın"]
+}, {
+  id: "side-plank",
+  name: "Side Plank",
   categories: ["Karın"]
 }, {
   id: "crunch",
@@ -237,8 +317,16 @@ window.LOGWISE_PRESET_EXERCISES = [{
   name: "Cable Crunch",
   categories: ["Karın"]
 }, {
+  id: "ab-wheel",
+  name: "Ab Wheel",
+  categories: ["Karın"]
+}, {
   id: "russian-twist",
   name: "Russian Twist",
+  categories: ["Karın"]
+}, {
+  id: "cable-woodchopper",
+  name: "Cable Woodchopper",
   categories: ["Karın"]
 }, {
   id: "hanging-leg-raise",
@@ -274,6 +362,10 @@ window.LOGWISE_PRESET_EXERCISES = [{
   id: "rowing-machine",
   name: "Rowing Machine",
   categories: ["Kardiyo"]
+}, {
+  id: "superman",
+  name: "Superman",
+  categories: ["Sırt"]
 }, {
   id: "moonwalk",
   name: "Ay Yürüyüşü",

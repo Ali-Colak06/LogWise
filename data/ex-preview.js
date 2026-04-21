@@ -326,5 +326,120 @@ window.LOGWISE_EX_PREVIEW = {
     gif: null,
     desc: ["Kürek ergometresinde yapılan tam vücut kardiyo egzersizi. Bacak itişi, gövde salınımı ve kol çekişini tek ritimde birleştirir. Hem kondisyon hem de iş kapasitesi geliştirmek için çok verimlidir.", "A full-body cardio exercise performed on a rowing ergometer. It combines leg drive, torso swing, and arm pull in one rhythm. It is highly efficient for building conditioning and work capacity."],
     tips: [["Çekiş sırası bacak-gövde-kol; dönüş sırası kol-gövde-bacak olsun.", "Drive in the order legs-torso-arms, then return arms-torso-legs."], ["Belden kamburlaşma; gövde salınımını kontrollü ve nötr omurgayla yap.", "Avoid rounding the lower back; keep the torso swing controlled with a neutral spine."], ["Dakika başına çok hızlı değil, güçlü ve ritmik çekişler hedefle.", "Aim for strong rhythmic strokes rather than simply rushing the stroke rate."]]
+  },
+  "seated-leg-curl": {
+    gif: null,
+    desc: ["Oturarak yapılan hamstring curl varyasyonu. Kalça bükülü pozisyonda olduğu için hamstringleri uzamış halde yükler ve arka bacak gelişimini destekler. Alt vücut programlarında squat ve hinge hareketlerini iyi tamamlar.", "A seated hamstring-curl variation. Because the hips stay flexed, it loads the hamstrings in a lengthened position and supports posterior-leg development. It complements squats and hinge movements very well in lower-body programs."],
+    tips: [["Alt noktada dizleri tam açmaya yakın getirerek hamstring gerilimini hisset.", "At the bottom, approach full knee extension to feel the hamstring stretch."], ["Kalçanı koltuktan kaldırmadan pedin altında kontrollü çekiş yap.", "Curl under control without lifting the hips from the seat."], ["Eksantrik kısmı yavaşlatmak hamstring hissini belirgin artırır.", "Slowing the eccentric phase greatly increases hamstring tension."]]
+  },
+  "walking-lunge": {
+    gif: null,
+    desc: ["İleriye doğru yürüyerek yapılan lunge varyasyonu. Quadriceps, glute ve dengeyi dinamik biçimde çalıştırır. Sabit lunge'a göre koordinasyon ve kondisyon talebi biraz daha yüksektir.", "A lunge variation performed while moving forward. It trains the quads, glutes, and balance dynamically. Compared with a stationary lunge, it demands a bit more coordination and conditioning."],
+    tips: [["Her adımda gövdeyi dik ve kontrollü tut; acele etme.", "Keep the torso upright and controlled on every step; do not rush."], ["Ön ayağın tüm tabanı yere bassın ve itişi oradan üret.", "Keep the whole front foot planted and drive from that base."], ["Adım uzunluğunu çok kısaltma; diz ve kalça rahat hareket etsin.", "Do not make the stride too short; allow the knee and hip to move comfortably."]]
+  },
+  "goblet-squat": {
+    gif: null,
+    desc: ["Dumbbell veya kettlebell göğüs önünde tutularak yapılan squat. Gövdeyi daha dik tutmayı öğretir ve yeni başlayanlar için squat formunu oturtmada çok etkilidir. Quadriceps, glute ve core aynı anda çalışır.", "A squat performed while holding a dumbbell or kettlebell in front of the chest. It teaches a more upright torso and is highly effective for learning squat mechanics. It trains the quads, glutes, and core together."],
+    tips: [["Ağırlığı göğse yakın tut; kollarla öne taşımaya çalışma.", "Keep the load close to the chest instead of reaching it forward."], ["Dirsekleri hafif aşağı yönlendirip göğsü açık tut.", "Angle the elbows slightly down and keep the chest open."], ["Alt noktada topukların yerde kaldığından emin ol.", "Make sure the heels stay grounded at the bottom."]]
+  },
+  "incline-dumbell-fly": {
+    gif: null,
+    desc: ["Eğik bankta yapılan dumbbell fly varyasyonu. Üst göğüs liflerine daha fazla vurgu yapar ve press hareketlerinden farklı bir gerilim açısı sunar. Kontrollü yapıldığında göğüs izolasyonu için çok etkilidir.", "A dumbbell-fly variation performed on an incline bench. It emphasizes the upper chest fibers more and provides a different tension angle than pressing movements. When controlled well, it is very effective for chest isolation."],
+    tips: [["Bank açısını çok dik yapma; 30-45 derece aralığı genelde iyi çalışır.", "Do not set the bench too steep; 30-45 degrees usually works well."], ["Dirsek açını sabit tutarak geniş bir yay çiz.", "Use a wide arc while keeping the elbow angle relatively fixed."], ["Alt noktada gereksiz derine zorlamadan göğüs gerilimini hisset.", "Feel the chest stretch at the bottom without forcing an excessive range."]]
+  },
+  "cable-lateral-raise": {
+    gif: null,
+    desc: ["Kabloyla yapılan yana kaldırma varyasyonu. Dumbbell'a göre hareket boyunca daha sürekli gerilim sağlayarak yan deltoidi hedefler. Omuz hipertrofisi için çok kullanışlı bir izolasyon hareketidir.", "A cable-based lateral-raise variation. Compared with dumbbells, it keeps more constant tension through the range and targets the side delts very directly. It is a very useful isolation exercise for shoulder hypertrophy."],
+    tips: [["Kabloyu hafif çapraz açıdan çekmek yan delti daha net hissettirebilir.", "Pulling from a slight cross-body angle can improve side-delt feel."], ["Omuz silkme yerine kolu dirsek önderliğinde yana kaldır.", "Lead with the elbow and avoid turning the rep into a shrug."], ["Ağırlığı düşük tutup formu bozmamak genelde daha iyi sonuç verir.", "Keeping the weight lighter and the form cleaner usually works better here."]]
+  },
+  "upright-row": {
+    gif: null,
+    desc: ["Barbell, dumbbell veya kabloyla yapılan dikey çekiş hareketi. Omuzların yan kısmı ile üst trapezi birlikte çalıştırır. Kontrollü yük ve uygun hareket açıklığıyla iyi bir aksesuar seçenek olabilir.", "A vertical-pulling movement done with a barbell, dumbbells, or cable. It trains the side delts together with the upper traps. With controlled loading and a sensible range of motion, it can be a strong accessory option."],
+    tips: [["Barı gövdeye yakın tut ve dirseklerin yukarı yönlenmesine izin ver.", "Keep the bar close to the body and let the elbows travel upward."], ["Omuzun rahatsız olduğu noktaya kadar zorlamadan çalış.", "Do not force the range beyond the point where the shoulders feel comfortable."], ["Momentum yerine yavaş ve kontrollü çekiş kullan.", "Use slow controlled pulls instead of momentum."]]
+  },
+  "single-arm-row-machine": {
+    gif: null,
+    desc: ["Tek kol kullanılan makine row varyasyonu. Sağ ve sol tarafı ayrı çalıştırarak kuvvet farklarını takip etmeyi kolaylaştırır. Sabit gövde desteği sayesinde sırt kasına odaklanmak daha rahattır.", "A single-arm machine row variation. By training each side separately, it makes it easier to spot and address strength imbalances. The fixed body support also makes it easier to focus directly on the back musculature."],
+    tips: [["Her tekrarın sonunda kürek kemiğini bilinçli şekilde geriye çek.", "Actively retract the shoulder blade at the end of each rep."], ["Gövdeyi döndürmeden tek taraflı çekiş yap.", "Perform the pull without twisting the torso."], ["Zayıf tarafı önce çalıştırmak denge kurmaya yardımcı olabilir.", "Training the weaker side first can help keep both sides balanced."]]
+  },
+  "straight-arm-pulldown": {
+    gif: null,
+    desc: ["Dirsek açısını büyük ölçüde sabit tutarak yapılan kablo lat çekişi. Lat kaslarını izole etmeye yardımcı olur ve çekiş hissini öğretmek için çok faydalıdır. Pull-up ve row hareketlerine iyi bir yardımcıdır.", "A cable lat movement performed while keeping the elbows mostly fixed. It helps isolate the lats and is very useful for learning how to engage them. It works well as an accessory to pull-ups and rows."],
+    tips: [["Dirsekleri çok bükmeden kolları yay gibi aşağı indir.", "Bring the arms down in an arc without turning it into an elbow flexion exercise."], ["Göğsü açık tutup latlarla koltuk altını kapatmayı düşün.", "Keep the chest open and think about closing the armpits with the lats."], ["Alt noktada kısa bir sıkışma eklemek hareketi daha verimli yapar.", "A brief squeeze at the bottom often makes the exercise more effective."]]
+  },
+  "back-extension": {
+    gif: null,
+    desc: ["Roman chair veya benzeri düzende yapılan arka zincir hareketi. Alt sırt, glute ve hamstringleri birlikte çalıştırır. Deadlift günü dışında posterior-chain hacmi eklemek için pratik bir seçenektir.", "A posterior-chain movement usually performed on a roman chair or similar setup. It trains the lower back, glutes, and hamstrings together. It is a practical way to add posterior-chain volume outside of deadlift work."],
+    tips: [["Belden aşırı kırılma yerine kalçadan menteşe düşün.", "Think hip hinge first instead of excessive spinal extension."], ["Üstte gövdeyi nötr hizaya getirmen yeterli; fazla hiperextensiyon gereksizdir.", "Reaching a neutral torso at the top is enough; excessive hyperextension is unnecessary."], ["Ağırlık eklemeden önce vücut ağırlığıyla kontrollü tekrarlar oturt.", "Own the bodyweight version before adding external load."]]
+  },
+  "ab-wheel": {
+    gif: null,
+    desc: ["Karın tekeriyle öne uzanıp geri dönülen ileri seviye core hareketi. Karın duvarını, omuz stabilitesini ve pelvis kontrolünü güçlü şekilde zorlar. Doğru uygulandığında core kuvveti için çok etkilidir.", "An advanced core movement where you roll forward on an ab wheel and return. It strongly challenges the abdominal wall, shoulder stability, and pelvic control. When done correctly, it is extremely effective for building core strength."],
+    tips: [["Bel çukurunu artırma; kaburgaları aşağıda tutup core'u kilitle.", "Do not let the lower back arch; keep the ribs down and the core braced."], ["İlk başta menzili kısa tutup zamanla uzat.", "Start with a shorter range and gradually increase it over time."], ["Kalçanın öne düşmesine izin verme; dönüşü karınla başlat.", "Do not let the hips collapse forward; initiate the return with the abs."]]
+  },
+  "cable-woodchopper": {
+    gif: null,
+    desc: ["Kabloyla çapraz yönde yapılan rotasyonel core hareketi. Oblikler, transversus abdominis ve gövde kontrolünü geliştirir. Sporda yön değiştirme ve kuvvet transferi için faydalı bir varyasyondur.", "A rotational core exercise performed diagonally with a cable. It develops the obliques, transverse abdominis, and trunk control. It is useful for change-of-direction and force transfer in sport."],
+    tips: [["Dönüşü sadece kollarla değil, gövdeyle birlikte yap.", "Rotate through the trunk instead of moving only the arms."], ["Kalçaları ve ayakları gerektiği kadar çevirerek doğal bir rota izle.", "Allow the hips and feet to turn naturally as needed."], ["Ağırlık arttıkça form bozuluyorsa tekrar düşmek daha iyi olur.", "If form breaks as the weight rises, reduce the load and keep the movement clean."]]
+  },
+  "farmer-carry": {
+    gif: null,
+    desc: ["İki elde yük taşıyarak yapılan fonksiyonel kuvvet hareketi. Kavrama gücü, üst trapez, core stabilitesi ve genel iş kapasitesini aynı anda geliştirir. Basit görünmesine rağmen çok yüksek sistemik talep oluşturur.", "A functional strength movement where load is carried in both hands. It develops grip strength, upper traps, core stability, and general work capacity all at once. Despite its simplicity, it creates a high systemic training demand."],
+    tips: [["Göğsü açık tut ve omuzları hafif aşağı-geride organize et.", "Keep the chest open and organize the shoulders slightly down and back."], ["Kısa, kontrollü adımlar kullan; yük seni yana çekmesin.", "Use short controlled steps and do not let the load pull you side to side."], ["Ağırlık taşırken karını aktif tutmak hareketin ana kısmıdır.", "Actively bracing the trunk during the walk is a core part of the movement."]]
+  },
+  "hack-squat": {
+    gif: null,
+    desc: ["Hack squat makinesinde yapılan alt vücut press varyasyonu. Quadriceps odaklı hacim oluşturmak için çok etkilidir ve denge ihtiyacını azaltır. Serbest squat sonrasında güvenli ek hacim vermek için sık kullanılır.", "A lower-body pressing variation performed on a hack squat machine. It is very effective for quad-focused volume and reduces balance demands. It is often used to add safer accessory volume after free-bar squats."],
+    tips: [["Ayak yerleşimi quad veya glute vurgusunu değiştirebilir; pozisyonla oyna.", "Foot placement can shift the emphasis between quads and glutes, so experiment a bit."], ["Belini pedden ayırmadan kontrollü derinlikte çalış.", "Work through a controlled depth without letting the lower back peel off the pad."], ["Dizleri kilitleyip makineye yaslanmak yerine her tekrar aktif kal.", "Stay active on every rep instead of locking out and hanging on the machine."]]
+  },
+  "smith-machine-squat": {
+    gif: null,
+    desc: ["Smith makinesinde yapılan squat varyasyonu. Bar yolu sabit olduğu için denge talebini azaltır ve bazı kullanıcılar için hareket öğrenimini kolaylaştırır. Serbest squat yerine geçmek zorunda değildir ama kontrollü hacim için işe yarayabilir.", "A squat variation performed in a Smith machine. The fixed bar path reduces balance demands and can make the movement easier to learn for some lifters. It is not a required replacement for free squats, but it can be useful for controlled volume."],
+    tips: [["Ayaklarını barın tam altı yerine biraz öne koymak çoğu kullanıcıya daha rahat gelir.", "Placing the feet slightly forward of the bar line often feels more natural for many lifters."], ["Makine yolu sabit olsa da core'u gevşetme; gövdeyi yine aktif tut.", "Even with the fixed track, keep the trunk active and braced."], ["Diz ve kalça çizgini rahat hissettiren stance'i seç.", "Choose the stance that lets the knees and hips move comfortably."]]
+  },
+  "assisted-pull-up": {
+    gif: null,
+    desc: ["Makine veya bant desteğiyle yapılan pull-up varyasyonu. Tam barfiks gücüne giden yolda hacim ve teknik pratiği sağlar. Latlar, biceps ve skapular kontrol aynı anda gelişir.", "A pull-up variation performed with machine or band assistance. It provides volume and technique practice on the way to full bodyweight pull-ups. The lats, biceps, and scapular control all improve together."],
+    tips: [["Destek miktarını zamanla azaltarak ilerle.", "Progress by gradually reducing the amount of assistance."], ["Her tekrarın dibinde tam uzama ve üstte aktif çekiş koru.", "Keep a full stretch at the bottom and an active pull at the top of every rep."], ["Kendini makineye bırakmak yerine inişi de kontrollü yap.", "Control the lowering phase instead of dropping into the assistance."]]
+  },
+  "machine-row": {
+    gif: null,
+    desc: ["Makinede yapılan sırt çekiş hareketi. Denge ihtiyacı düşük olduğu için sırt kasına daha direkt odaklanmayı sağlar. Özellikle sırt kalınlığı ve güvenli hacim biriktirmek için etkilidir.", "A machine-based back-row movement. Because balance demands are low, it allows more direct focus on the back muscles. It is especially effective for building back thickness and accumulating safe volume."],
+    tips: [["Göğsü pedde sabit tutarak dirsekleri geriye sür.", "Keep the chest fixed to the pad if available and drive the elbows back."], ["Bitişte kürek kemiklerini sık ama boynu kasma.", "Squeeze the shoulder blades at the end without tensing the neck."], ["Hareketi tam uzamadan başlatmak yerine gerilimli başlangıç kullan.", "Start from a full stretch so the row covers the full useful range."]]
+  },
+  "machine-shoulder-press": {
+    gif: null,
+    desc: ["Makinede yapılan omuz press hareketi. Sabit yol sayesinde denge ihtiyacını azaltır ve omuzlara kontrollü yük bindirir. Serbest ağırlık press'lerine destek olmak için iyi bir hypertrophy seçeneğidir.", "A shoulder-press movement performed on a machine. The fixed path reduces balance demands and applies load to the shoulders in a controlled way. It is a strong hypertrophy option to support free-weight pressing."],
+    tips: [["Koltuk yüksekliğini ayarlayıp ellerin omuz hattına uygun başladığından emin ol.", "Adjust the seat so the handles start in a comfortable line with the shoulders."], ["Dirsekleri tamamen kilitlemeden tekrarları akıcı sürdür.", "Keep the reps flowing instead of hard-locking the elbows each time."], ["Omuz konforu için aşırı derine zorlamadan çalış.", "Avoid forcing an excessively deep range if the shoulders do not like it."]]
+  },
+  "cable-kickback": {
+    gif: null,
+    desc: ["Ayak bileğine takılan aparatla yapılan glute odaklı kablo hareketi. Kalçayı geriye itme paternini izole eder ve özellikle glute bağlantısı kurmak için faydalıdır. Alt vücut günlerinde yardımcı egzersiz olarak iyi çalışır.", "A glute-focused cable movement usually done with an ankle attachment. It isolates hip extension and is especially useful for building a strong mind-muscle connection with the glutes. It works well as an accessory on lower-body days."],
+    tips: [["Belden savrulma yerine hareketi kalçadan üret.", "Drive the motion from the hip instead of swinging through the lower back."], ["Tepe noktada kısa bir duraklama eklemek glute hissini artırır.", "A short pause at the top increases the glute contraction."], ["Küçük ama kontrollü menzil çoğu zaman daha iyi sonuç verir.", "A smaller but controlled range often works better than an exaggerated swing."]]
+  },
+  "step-up": {
+    gif: null,
+    desc: ["Bir kutu ya da platform üzerine çıkılarak yapılan tek taraflı alt vücut hareketi. Quadriceps, glute ve dengeyi birlikte geliştirir. Evde veya salonda uygulanması kolay, çok işlevsel bir seçenektir.", "A unilateral lower-body movement performed by stepping onto a box or platform. It develops the quads, glutes, and balance together. It is a practical and highly functional choice at home or in the gym."],
+    tips: [["Yukarı çıkarken arka ayağın itişini minimumda tut; işi ön bacak yapsın.", "Minimize the push from the trailing leg so the lead leg does the work."], ["Platform yüksekliğini kontrolü bozmayacak seviyede seç.", "Choose a platform height that does not compromise control."], ["İnişi de kontrollü yaparak diz stabilitesini koru.", "Control the lowering phase as well to reinforce knee stability."]]
+  },
+  "pike-push-up": {
+    gif: null,
+    desc: ["Kalça yukarıda V pozisyonuna yakın yapılan vücut ağırlığı press hareketi. Omuzlara klasik push-up'tan daha fazla yük bindirir ve handstand press paternine hazırlık sağlar. Ev tipi antrenmanlar için güçlü bir omuz seçeneğidir.", "A bodyweight pressing movement performed with the hips high in a V-like position. It loads the shoulders more than a standard push-up and helps build toward handstand-press mechanics. It is a strong shoulder option for minimalist training."],
+    tips: [["Kalçayı yukarı taşıyarak gövde açısını omuz odaklı hale getir.", "Raise the hips high so the body angle shifts the work toward the shoulders."], ["Başını ellerin arasına değil, hafif önüne indir.", "Lower the head slightly in front of the hands rather than straight between them."], ["Zorsa elleri yükseltiye koyarak başlayabilirsin.", "If needed, start with the hands elevated to make the variation easier."]]
+  },
+  "superman": {
+    gif: null,
+    desc: ["Yüzüstü yerde yapılan basit arka zincir aktivasyon hareketi. Alt sırt, glute ve sırt üst kısmını hafif ama etkili biçimde devreye sokar. Özellikle ekipmansız antrenmanlarda destekleyici olarak kullanılır.", "A simple posterior-chain activation movement performed face down on the floor. It lightly but effectively engages the lower back, glutes, and upper back. It is especially useful as a supportive drill in equipment-free training."],
+    tips: [["Kolları ve bacakları kaldırırken boynu kasma; bakışı yere yakın tut.", "Do not crank the neck while lifting the arms and legs; keep the gaze down."], ["Çok yükseğe çıkmak yerine kontrollü sıkışma hedefle.", "Aim for a controlled contraction rather than trying to lift as high as possible."], ["Kısa duraklamalar hareketin verimini artırır.", "Short pauses at the top make the drill more effective."]]
+  },
+  "side-plank": {
+    gif: null,
+    desc: ["Yan destek pozisyonunda yapılan izometrik core hareketi. Oblikler, kalça yan zinciri ve omuz stabilitesini birlikte çalıştırır. Lateral core kuvveti için en temel hareketlerden biridir.", "An isometric core exercise performed in a side-support position. It trains the obliques, lateral hip chain, and shoulder stability together. It is one of the foundational exercises for lateral core strength."],
+    tips: [["Kulak-omuz-kalça-ayak çizgisini mümkün olduğunca düz tut.", "Keep the ear-shoulder-hip-foot line as straight as possible."], ["Alt belin çökmesine izin verme; kalçayı aktif yukarı taşı.", "Do not let the lower side sag; actively lift the hips."], ["Kolaylaştırmak için dizler bükülü versiyonla başlayabilirsin.", "You can start with a bent-knee version to make it easier."]]
+  },
+  "glute-kickback": {
+    gif: null,
+    desc: ["Vücut ağırlığı veya hafif dirençle yapılan kalçayı geriye itiş hareketi. Glute aktivasyonunu öğrenmek ve kalçayı hedefli çalıştırmak için basit ama etkili bir seçenektir. Isınma veya aksesuar bölümünde iyi çalışır.", "A hip-extension movement done with bodyweight or light resistance. It is a simple but effective way to learn glute activation and target the glutes directly. It works well in warm-ups or accessory work."],
+    tips: [["Belden değil kalçadan hareket etmeye odaklan.", "Focus on moving from the hip instead of the lower back."], ["Tepe noktada glute'u kısa süre bilinçli sık.", "Intentionally squeeze the glute briefly at the top."], ["Tekrarı yavaş yapmak hissi belirgin artırır.", "Performing the reps slowly usually improves the feel a lot."]]
   }
 };
