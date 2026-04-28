@@ -606,5 +606,120 @@ window.LOGWISE_EX_PREVIEW = {
     gif: null,
     desc: ["Duvardan destek alınarak yapılan handstand tutuşu. Omuz dayanıklılığı, core sıkılığı ve ters pozisyonda beden kontrolünü geliştirir. Handstand becerisine güvenli giriş için en pratik basamaklardan biridir.", "A handstand hold performed with wall support. It builds shoulder endurance, core tension, and body control while inverted. It is one of the most practical entry steps for learning the handstand safely."],
     tips: [["Kaburgaları dışarı itmeden core'u sıkı tut.", "Keep the core tight without flaring the ribs."], ["Omuzları aktif şekilde yukarı iterek kulaklara yaklaştır.", "Actively elevate the shoulders toward the ears by pushing tall."], ["Kısa kaliteli setler, uzun bozuk tutuşlardan daha değerlidir.", "Short high-quality holds are better than long sloppy ones."]]
+  },
+  "spider-curl": {
+    gif: null,
+    desc: ["Göğüs destekli eğimli pozisyonda yapılan biceps curl varyasyonu. Alt noktada momentum azalır, üst noktada ise biceps kasılmasını çok net hissettirir. Kol hipertrofisi için güçlü bir izolasyon hareketidir.", "A biceps curl variation performed in a chest-supported inclined position. Momentum is reduced at the bottom, while the top creates a very clear biceps contraction. It is a strong isolation move for arm hypertrophy."],
+    tips: [["Dirsekleri sabit tut ve omuzla çekme.", "Keep the elbows fixed and avoid pulling with the shoulders."], ["Üstte kısa sıkışma ekle.", "Add a brief squeeze at the top."], ["Ağırlıktan çok his odaklı gitmek daha iyi çalışır.", "Prioritizing feel over load often works better here."]]
+  },
+  "zottman-curl": {
+    gif: null,
+    desc: ["Yukarı çıkışta supinasyon, inişte pronasyon kullanılan curl varyasyonu. Biceps ve ön kolu tek sette birlikte zorlar. Kol gelişiminde çok verimli bir kombinasyon hareketidir.", "A curl variation that uses supination on the way up and pronation on the way down. It challenges the biceps and forearms in the same set. It is a very efficient combination move for arm development."],
+    tips: [["Dönüşleri kontrollü yap.", "Control the rotation phases."], ["İnişi yavaşlatmak ön kol hissini artırır.", "Slowing the lowering phase increases the forearm stimulus."], ["Temiz tekrarlar ağır yükten daha önemlidir.", "Clean reps matter more than heavy loading here."]]
+  },
+  "drag-curl": {
+    gif: null,
+    desc: ["Barı gövdeye yakın sürterek yapılan curl varyasyonu. Dirseklerin geriye gitmesi bicepsin farklı bir kasılma açısını öne çıkarır. Klasik curl'lere iyi bir çeşitlilik ekler.", "A curl variation performed by dragging the bar close to the torso. Letting the elbows move back emphasizes a different biceps contraction angle. It adds useful variety beside standard curls."],
+    tips: [["Barı gövdeden uzaklaştırma.", "Do not let the bar drift away from the torso."], ["Omuzları yükseltmeden dirsekleri geriye taşı.", "Move the elbows back without shrugging the shoulders."], ["Kısa ama sıkı menzil iyi çalışabilir.", "A slightly shorter but tighter range can work well."]]
+  },
+  "machine-lateral-raise": {
+    gif: null,
+    desc: ["Makinede yapılan yana kaldırma hareketi. Sabit yol sayesinde yan deltoide doğrudan yük bindirir ve denge ihtiyacını azaltır. Omuz hipertrofisi için çok anlaşılır bir izolasyon seçeneğidir.", "A lateral raise performed on a machine. The fixed path loads the side delts directly while reducing balance demands. It is a very straightforward isolation option for shoulder hypertrophy."],
+    tips: [["Omuz silkmeden yana aç.", "Raise out to the side without shrugging."], ["Tepe noktada kısa duraklama ekle.", "Add a short pause at the top."], ["Menzili temiz tutmak yükten daha değerlidir.", "Keeping the range clean is more valuable than load."]]
+  },
+  "y-raise": {
+    gif: null,
+    desc: ["Kolları Y açısında kaldırarak yapılan üst sırt ve omuz hareketi. Alt trapez, arka omuz ve skapular kontrolü destekleyen kasları çalıştırır. Postür ve omuz sağlığı için çok faydalıdır.", "An upper-back and shoulder movement performed by raising the arms in a Y angle. It trains the lower traps, rear delts, and muscles that support scapular control. It is very useful for posture and shoulder health."],
+    tips: [["Hafif ağırlık genelde daha doğrudur.", "Lighter loads are usually the better choice here."], ["Boynu sıkmadan kolları uzun tut.", "Keep the arms long without tensing the neck."], ["Amaç temiz skapula hareketidir.", "The goal is clean scapular motion."]]
+  },
+  "cross-body-triceps-extension": {
+    gif: null,
+    desc: ["Kabloyla tek kol çapraz triceps uzatma hareketi. Özellikle triceps uzun başını kontrollü şekilde hissettirmek için faydalıdır. Hafif-orta yüklerle çok iyi çalışır.", "A single-arm cross-body triceps extension performed on cable. It is especially useful for feeling the long head of the triceps under control. It works very well with light-to-moderate loads."],
+    tips: [["Üst kolu sabit tut.", "Keep the upper arm fixed."], ["Çapraz hatta ama kontrollü ilerle.", "Move across the body line, but under control."], ["Bitişte triceps sıkışmasını hisset.", "Feel the triceps squeeze at the finish."]]
+  },
+  "dip-machine": {
+    gif: null,
+    desc: ["Makinede yapılan dip benzeri press hareketi. Paralel bar dip'lerine göre daha kontrollü ve erişilebilir bir seçenek sunar. Göğüs ve triceps hacmi için kullanışlıdır.", "A machine pressing movement that mimics the dip pattern. It offers a more controlled and accessible option than parallel-bar dips. It is useful for chest and triceps volume."],
+    tips: [["Göğüs mü triceps mi istediğine göre gövde açını ayarla.", "Adjust torso angle depending on whether you want more chest or triceps."], ["Omuz konforunu koruyacak menzilde çalış.", "Work through a range that keeps the shoulders comfortable."], ["Kontrollü eksantrik hareketi daha verimli yapar.", "A controlled eccentric makes the movement more effective."]]
+  },
+  "incline-cable-fly": {
+    gif: null,
+    desc: ["Eğik bankta yapılan kablo fly varyasyonu. Üst göğüs liflerine sabit gerilim sağlar ve alt noktada da yük hissini korur. Göğüs hipertrofisi için iyi bir tamamlayıcıdır.", "A cable fly variation performed on an incline bench. It provides constant tension to the upper chest fibers and preserves load at the bottom. It is a strong complement for chest hypertrophy."],
+    tips: [["Bank açısını çok dik kurma.", "Do not set the bench too steep."], ["Dirsek açını sabit tutarak geniş yay çiz.", "Use a wide arc while keeping the elbow angle steady."], ["Üstte göğsü bilinçli sık.", "Actively squeeze the chest at the top."]]
+  },
+  "single-arm-lat-pulldown": {
+    gif: null,
+    desc: ["Tek kol yapılan lat pulldown varyasyonu. Her iki tarafı ayrı çalıştırarak lat hissini kuvvetlendirir ve asimetrileri fark etmeyi kolaylaştırır. Çekiş mekaniğini öğretmek için de çok faydalıdır.", "A single-arm lat pulldown variation. Training each side separately strengthens lat feel and makes asymmetries easier to notice. It is also very useful for teaching better pulling mechanics."],
+    tips: [["Dirseği kalçaya doğru çekmeyi düşün.", "Think about driving the elbow toward the hip."], ["Gövdeyi fazla döndürmeden çekiş yap.", "Pull without excessively rotating the torso."], ["Zayıf tarafı önce çalıştırmak faydalı olabilir.", "Training the weaker side first can be helpful."]]
+  },
+  "meadow-row": {
+    gif: null,
+    desc: ["Landmine düzenine benzer tek taraflı row varyasyonu. Lat ve üst sırtı yoğun biçimde çalıştırır, aynı zamanda farklı bir çekiş hattı sunar. Bodybuilding sırt günleri için etkilidir.", "A unilateral row variation similar to a landmine setup. It trains the lats and upper back intensely while adding a different pulling path. It is effective on bodybuilding-style back days."],
+    tips: [["Kalçayı ve gövde açını sabit tut.", "Keep the hip and torso angle stable."], ["Dirseği yukarı değil geriye/yanına sür.", "Drive the elbow back and toward the side rather than straight up."], ["Momentum yerine lat hissine odaklan.", "Focus on lat feel instead of momentum."]]
+  },
+  "active-hang": {
+    gif: null,
+    desc: ["Barfiks barında omuzları aktif tutarak yapılan asılı duruş. Dead hang'e göre skapular depresyon ve omuz pozisyonu daha kontrollüdür. Pull-up başlangıcı için çok iyi bir temel drill'dir.", "An active hang performed on a pull-up bar with the shoulders engaged. Compared with a dead hang, it uses more scapular depression and shoulder control. It is an excellent foundational drill for the start of a pull-up."],
+    tips: [["Omuzları kulağa bırakma.", "Do not let the shoulders collapse toward the ears."], ["Dirsekleri düz tut.", "Keep the elbows straight."], ["Kısa ama kaliteli tutuşlar daha değerlidir.", "Shorter high-quality holds are more valuable."]]
+  },
+  "support-hold": {
+    gif: null,
+    desc: ["Dip barlarında üst pozisyonda yapılan izometrik tutuş. Omuz stabilitesi, triceps gerginliği ve core kontrolünü birlikte geliştirir. Dips progresyonu için iyi bir başlangıçtır.", "An isometric top-position hold on dip bars. It develops shoulder stability, triceps tension, and core control together. It is a strong starting point for dip progressions."],
+    tips: [["Dirsekleri kilitlerken omuzları aktif tut.", "Keep the shoulders active while locking the elbows."], ["Gövdede sallanma olmasın.", "Do not allow the torso to sway."], ["Kısa setlerle kaliteli pozisyonu koru.", "Use short sets that preserve a clean position."]]
+  },
+  "archer-push-up": {
+    gif: null,
+    desc: ["Bir kolun daha baskın, diğer kolun daha destekleyici çalıştığı ileri seviye şınav varyasyonu. Tek kola giden itiş progresyonları için çok değerlidir. Göğüs, omuz ve tricepsi güçlü şekilde zorlar.", "An advanced push-up variation where one arm works more dominantly while the other assists. It is very valuable as a step toward one-arm pressing progressions. It heavily challenges the chest, shoulders, and triceps."],
+    tips: [["Bir tarafa giderken diğer kolu daha düz bırak.", "As you shift to one side, let the other arm stay more extended."], ["Kalçayı çevirmeden gövde çizgisini koru.", "Keep the body line steady without twisting the hips."], ["Menzili azaltıp formu korumak daha iyidir.", "Reducing the range to keep form is often better."]]
+  },
+  "deficit-push-up": {
+    gif: null,
+    desc: ["Eller yükselti üzerinde ya da derin menzile izin veren desteklerde yapılan şınav. Standart şınava göre alt noktada daha fazla esneme ve göğüs gerilimi sağlar. Vücut ağırlığıyla press menzilini artırmak için iyidir.", "A push-up performed on elevated handles or supports that allow deeper range. Compared with a standard push-up, it creates more stretch and chest tension at the bottom. It is good for increasing pressing range with bodyweight."],
+    tips: [["Alt noktada omuz konforunu gözet.", "Monitor shoulder comfort at the bottom."], ["Kalçayı düşürmeden derine in.", "Go deep without letting the hips sag."], ["Menzil arttıkça kontrollü tempo önem kazanır.", "As range increases, controlled tempo becomes even more important."]]
+  },
+  "typewriter-pull-up": {
+    gif: null,
+    desc: ["Üst pozisyonda sağa-sola kayarak yapılan ileri seviye barfiks varyasyonu. Çekiş kuvveti, tek taraflı kontrol ve omuz stabilitesini aynı anda zorlar. Çok ileri bir calisthenics çekiş hareketidir.", "An advanced pull-up variation where you shift side to side in the top position. It challenges pulling strength, unilateral control, and shoulder stability at the same time. It is a very advanced calisthenics pulling movement."],
+    tips: [["Önce güçlü standart ve archer pull-up tabanı kur.", "Build a strong base of standard and archer pull-ups first."], ["Üst pozisyonda kontrolü kaybetmeden yana geç.", "Shift side to side without losing top-position control."], ["Kısa tekrarlar bile çok zorlayıcı olabilir.", "Even short reps can be very challenging here."]]
+  },
+  "tuck-front-lever-row": {
+    gif: null,
+    desc: ["Tuck front lever pozisyonunda yapılan row hareketi. Core gerilimi ve yatay çekiş kuvvetini aynı anda geliştirir. Front lever progresyonları için çok güçlü bir basamaktır.", "A row performed in a tuck front lever position. It develops core tension and horizontal pulling strength at the same time. It is a very strong step in front-lever progressions."],
+    tips: [["Tuck pozisyonunu sıkı tut.", "Keep the tuck position tight."], ["Çekişte kalçanın düşmesine izin verme.", "Do not let the hips drop during the row."], ["Az tekrar bile yüksek kaliteyle çok değerlidir.", "Even low reps are very valuable when done cleanly."]]
+  },
+  "ring-support-hold": {
+    gif: null,
+    desc: ["Ring üzerinde üst destek pozisyonunda yapılan izometrik tutuş. Ring instabilitesi nedeniyle omuz, triceps ve core çok daha aktif çalışır. Ring dips ve muscle-up hazırlığı için faydalıdır.", "An isometric top-support hold performed on rings. Because of ring instability, the shoulders, triceps, and core work much harder. It is useful for ring dips and muscle-up preparation."],
+    tips: [["Ringleri vücuda yakın ve sabit tut.", "Keep the rings close to the body and stable."], ["Dirsekleri kilitle ama omuzları pasif bırakma.", "Lock the elbows without letting the shoulders go passive."], ["Kısa sürelerle başlayıp kaliteyi koru.", "Start with short durations and preserve quality."]]
+  },
+  "pike-handstand-press-negative": {
+    gif: null,
+    desc: ["Pike ya da yükseltili pozisyonda kontrollü iniş odaklı handstand press varyasyonu. Omuz gücü ve eksantrik kontrolü geliştirir. Handstand push-up progresyonunda mantıklı bir ara adımdır.", "A handstand-press variation focused on the lowering phase from a pike or elevated setup. It builds shoulder strength and eccentric control. It is a logical step in handstand push-up progressions."],
+    tips: [["İnişi mümkün olduğunca yavaş kontrol et.", "Control the descent as slowly as possible."], ["Başın ineceği hattı düzenli tut.", "Keep the line of descent consistent."], ["Gerekirse yükseklikle ölçekle.", "Scale by adjusting elevation if needed."]]
+  },
+  "nordic-curl": {
+    gif: null,
+    desc: ["Diz üstünden öne kontrollü düşüşle yapılan çok zorlayıcı hamstring hareketi. Eksantrik hamstring kuvvetini çok güçlü şekilde geliştirir. Alt vücut antrenmanlarında özel bir yeri vardır.", "A very demanding hamstring movement performed by lowering forward from the knees. It develops eccentric hamstring strength very strongly. It holds a special place in lower-body training."],
+    tips: [["İlk başta negatif odaklı çalışmak normaldir.", "Starting with eccentric-focused reps is normal here."], ["Kalçayı kırmadan beden hattını koru.", "Keep the body line solid without breaking at the hips."], ["Diz altı desteğini rahat kur.", "Set up comfortable support under the knees."]]
+  },
+  "reverse-nordic": {
+    gif: null,
+    desc: ["Diz üstünden gövdeyi geriye bırakarak yapılan quadriceps odaklı bodyweight hareket. Kalça uzatılmış kalırken quadler yoğun yük alır. Kontrollü uygulandığında etkili bir aksesuar olabilir.", "A quad-focused bodyweight movement performed by leaning the body backward from the knees. The hips stay extended while the quads take significant load. It can be an effective accessory when controlled well."],
+    tips: [["Kalçayı öne açık tut.", "Keep the hips extended forward."], ["Menzili ağrısız ve kontrollü bölgede tut.", "Work within a pain-free, controlled range."], ["İlk başta kısmi menzil yeterlidir.", "A partial range is plenty at first."]]
+  },
+  "cossack-squat": {
+    gif: null,
+    desc: ["Yana tek bacak ağırlık aktarımıyla yapılan squat varyasyonu. Adduktor mobilitesi, kalça kontrolü ve tek taraflı kuvveti birlikte geliştirir. Alt vücut hazırlığı için çok faydalıdır.", "A squat variation performed by shifting bodyweight to one leg side to side. It develops adductor mobility, hip control, and unilateral strength together. It is very useful for lower-body preparation."],
+    tips: [["Serbest kalan ayağın parmaklarını yukarı çekebilirsin.", "You can lift the toes on the non-working leg."], ["Derinlikten çok kontrollü ağırlık aktarımı hedefle.", "Prioritize controlled weight shift over maximal depth."], ["Her iki tarafta simetrik çalış.", "Train both sides symmetrically."]]
+  },
+  "single-leg-hip-thrust": {
+    gif: null,
+    desc: ["Tek bacakla yapılan hip thrust varyasyonu. Kalçayı unilateral yükleyerek denge ve glute aktivasyonunu artırır. Daha düşük ağırlıkla zorlayıcı glute çalışması sağlar.", "A single-leg hip thrust variation. By loading the glutes unilaterally, it increases balance demands and glute activation. It provides challenging glute work with less external load."],
+    tips: [["Çalışmayan bacağı sabit tut.", "Keep the non-working leg steady."], ["Tepe noktada kalçayı tam uzat.", "Fully extend the hips at the top."], ["Belden değil kalçadan it.", "Drive from the hips rather than the low back."]]
+  },
+  "sliding-leg-curl": {
+    gif: null,
+    desc: ["Topukların kaydığı zeminde yapılan hamstring curl varyasyonu. Vücut ağırlığıyla arka bacak ve kalçayı etkili biçimde çalıştırır. Ev tipi hamstring antrenmanı için çok mantıklıdır.", "A hamstring-curl variation performed on a sliding surface. It effectively trains the posterior legs and glutes using bodyweight. It is a very logical option for home-based hamstring work."],
+    tips: [["Kalçayı yukarıda tutarak çekiş yap.", "Keep the hips elevated while curling."], ["İnişi yavaşlatmak hareketi zorlaştırır.", "Slowing the return makes the movement harder."], ["İki bacakla başlayıp tek bacağa ilerleyebilirsin.", "You can start with two legs and progress to one."]]
   }
 };
