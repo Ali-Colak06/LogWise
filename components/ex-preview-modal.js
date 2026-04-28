@@ -69,7 +69,8 @@
     const preview = EX_PREVIEW[lookupKey] || null;
     const desc = preview ? lang === "tr" ? preview.desc[0] : preview.desc[1] : null;
     const tips = preview ? preview.tips : null;
-    const gif = preview ? preview.gif : null;
+    const EX_IMAGES = window.LOGWISE_EX_IMAGES || {};
+    const gif = EX_IMAGES[lookupKey] || (preview ? preview.gif : null);
     const [imgErr, setImgErr] = React.useState(false);
     const cats = ex.categories || [];
     const catLabels = cats.map(c => catLabel(c, lang));
