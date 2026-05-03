@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>LogWise — GIF Yönetimi</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;font-family:system-ui,sans-serif;background:#0d0f1a;color:#dde1f0}
+#app{display:flex;flex-direction:column;height:100vh}
+
+/* Top bar */
+#top{flex-shrink:0;background:#0a0c17;border-bottom:1px solid #1e2235;padding:9px 16px;
+     display:flex;align-items:center;gap:10px}
+#top h1{font-size:.92rem;color:#fff;white-space:nowrap}
+#top-stat{font-size:.72rem;color:#6b7280;white-space:nowrap}
+#lw-filter{padding:6px 10px;background:#131625;border:1px solid #1e2235;border-radius:7px;
+           color:#dde1f0;font-size:.78rem;outline:none;width:160px}
+#lw-filter:focus{border-color:#4f46e5}
+#lw-filter::placeholder{color:#4b5563}
+.btn-export{margin-left:auto;padding:7px 16px;background:#4f46e5;color:#fff;border:none;
+            border-radius:7px;cursor:pointer;font-size:.78rem;font-weight:700}
+.btn-export:hover{background:#4338ca}
+
+/* Body */
+#body{flex:1;display:flex;overflow:hidden}
+
+/* Left */
+#left{width:235px;flex-shrink:0;border-right:1px solid #1e2235;display:flex;flex-direction:column;background:#0a0c17;overflow:hidden}
+#left-stat{padding:6px 12px;font-size:.68rem;color:#4b5563;flex-shrink:0;border-bottom:1px solid #1e2235}
+#lw-list{flex:1;overflow-y:auto}
+.lw-item{padding:7px 12px;cursor:pointer;border-left:3px solid transparent;user-select:none}
+.lw-item:hover{background:#131625}
+.lw-item.active{background:#191c30;border-left-color:#4f46e5}
+.lw-item.has-gif{border-left-color:#16a34a}
+.lw-item.active.has-gif{border-left-color:#4ade80}
+.lw-name{font-size:.8rem;font-weight:600;color:#e2e8f0;line-height:1.3}
+.lw-cats{font-size:.63rem;color:#818cf8;margin-top:1px}
+.lw-badge{display:inline-block;font-size:.6rem;padding:1px 5px;border-radius:999px;
+          background:#14532d;color:#4ade80;margin-top:2px}
+
+/* Right */
+#right{flex:1;display:flex;flex-direction:column;overflow:hidden}
+
+/* Active header */
+#active-bar{flex-shrink:0;padding:10px 16px;border-bottom:1px solid #1e2235;
+            display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#active-name{font-size:.9rem;font-weight:700;color:#fff;flex:1;min-width:100px}
+#active-id{font-size:.68rem;color:#4b5563;font-family:monospace}
+
+/* Quick search buttons */
+#search-btns{flex-shrink:0;padding:8px 16px;border-bottom:1px solid #1e2235;
+             display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#search-btns span{font-size:.7rem;color:#6b7280;white-space:nowrap}
+.btn-site{padding:6px 12px;border:none;border-radius:7px;cursor:pointer;font-size:.75rem;font-weight:600;white-space:nowrap;text-decoration:none;display:inline-block}
+.btn-giphy{background:#1a1025;color:#a855f7;border:1px solid #4c1d95}
+.btn-giphy:hover{background:#2d1b4e}
+.btn-google{background:#0f1b2d;color:#60a5fa;border:1px solid #1e3a5f}
+.btn-google:hover{background:#1e3a5f}
+.btn-tenor{background:#1a1025;color:#f472b6;border:1px solid #831843}
+.btn-tenor:hover{background:#2d0f1e}
+
+/* URL input row */
+#url-row{flex-shrink:0;padding:10px 16px;border-bottom:1px solid #1e2235;display:flex;gap:8px;align-items:center}
+#url-input{flex:1;padding:8px 12px;background:#0a0c17;border:1px solid #1e2235;
+           border-radius:8px;color:#dde1f0;font-size:.82rem;outline:none}
+#url-input:focus{border-color:#4ade80}
+#url-input.has-val{border-color:#16a34a}
+#url-input::placeholder{color:#374151}
+.btn-save{padding:8px 16px;background:#15803d;color:#bbf7d0;border:none;border-radius:8px;
+          cursor:pointer;font-size:.8rem;font-weight:700;white-space:nowrap}
+.btn-save:hover{background:#166534}
+.btn-del{padding:8px 10px;background:#27272a;color:#71717a;border:none;border-radius:8px;cursor:pointer;font-size:.8rem}
+.btn-del:hover{background:#3f3f46;color:#ef4444}
+
+/* Hint */
+#hint{flex-shrink:0;padding:5px 16px;font-size:.7rem;color:#374151;border-bottom:1px solid #1e2235}
+
+/* Preview area */
+#preview{flex:1;overflow:hidden;display:flex;align-items:center;justify-content:center;
+         background:#0a0c17;position:relative}
+#preview-img{max-width:100%;max-height:100%;object-fit:contain;display:none}
+#preview-placeholder{text-align:center;color:#1f2937}
+#preview-placeholder .big{font-size:3rem;margin-bottom:8px}
+#preview-placeholder p{font-size:.8rem;line-height:1.8}
+#preview-placeholder em{color:#374151;font-style:normal;font-size:.72rem}
+
+/* Status */
+#status{flex-shrink:0;padding:5px 16px;font-size:.72rem;color:#6b7280;
+        border-top:1px solid #1e2235;background:#0a0c17;min-height:24px}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#1e2235;border-radius:2px}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="top">
+    <h1>LogWise — GIF Yönetimi</h1>
+    <span id="top-stat"></span>
+    <input id="lw-filter" type="text" placeholder="Egzersiz filtrele…">
+    <button class="btn-export" onclick="exportFile()">⬇ ex-images.js kaydet</button>
+  </div>
+
+  <div id="body">
+    <!-- Sol: liste -->
+    <div id="left">
+      <div id="left-stat"></div>
+      <div id="lw-list"></div>
+    </div>
+
+    <!-- Sağ: düzenleyici -->
+    <div id="right">
+      <div id="active-bar">
+        <span id="active-name">← Sol panelden egzersiz seç</span>
+        <span id="active-id"></span>
+      </div>
+
+      <div id="search-btns">
+        <span>Bul:</span>
+        <a id="btn-giphy" class="btn-site btn-giphy" href="#" target="_blank">🎞 Giphy</a>
+        <a id="btn-tenor" class="btn-site btn-tenor" href="#" target="_blank">📹 Tenor</a>
+        <a id="btn-google" class="btn-site btn-google" href="#" target="_blank">🔍 Google GIF</a>
+        <span style="margin-left:4px;font-size:.68rem;color:#4b5563">→ GIF'e sağ tık → Resmi kopyala → aşağıya yapıştır</span>
+      </div>
+
+      <div id="url-row">
+        <input id="url-input" type="text" placeholder="GIF veya resim URL'sini buraya yapıştır…" oninput="onUrlInput(this)">
+        <button class="btn-save" onclick="saveUrl()">✓ Kaydet</button>
+        <button class="btn-del" onclick="deleteUrl()" title="Bu egzersizin GIF atmasını kaldır">✕</button>
+      </div>
+
+      <div id="hint">💡 Giphy'de beğendiğin GIF'e <b>sağ tık → Resmin bağlantı adresini kopyala</b> → yukarıya yapıştır</div>
+
+      <div id="preview">
+        <img id="preview-img" alt="Önizleme">
+        <div id="preview-placeholder">
+          <div class="big">🏋️</div>
+          <p>Sol panelden egzersiz seç<br>URL yapıştırınca burada önizleme görürsün</p>
+          <em>Giphy · Tenor · Google Images · herhangi bir site</em>
+        </div>
+      </div>
+
+      <div id="status">Hazır.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const EXERCISES = [{"id":"chest-press","name":"Chest Press","nameEN":"Chest Press","cats":"Göğüs"},{"id":"chest-fly","name":"Chest Fly","nameEN":"Chest Fly","cats":"Göğüs"},{"id":"dumbell-press","name":"Dumbell Press","nameEN":"Dumbell Press","cats":"Göğüs"},{"id":"incline-dumbell-press","name":"İncline Dumbell Press","nameEN":"Incline Dumbell Press","cats":"Göğüs"},{"id":"decline-push-up","name":"Decline Push Up","nameEN":"Decline Push Up","cats":"Göğüs, Omuz, Triceps"},{"id":"dumbell-fly","name":"Dumbell Fly","nameEN":"Dumbell Fly","cats":"Göğüs"},{"id":"incline-dumbell-fly","name":"Incline Dumbell Fly","nameEN":"Incline Dumbell Fly","cats":"Göğüs"},{"id":"bench-press","name":"Bench Press","nameEN":"Bench Press","cats":"Göğüs"},{"id":"incline-bench-press","name":"İncline Bench Press","nameEN":"Incline Bench Press","cats":"Göğüs"},{"id":"close-grip-bench-press","name":"Close-Grip Bench Press","nameEN":"Close-Grip Bench Press","cats":"Göğüs, Triceps"},{"id":"cable-crossover","name":"Cable Crossover","nameEN":"Cable Crossover","cats":"Göğüs"},{"id":"pec-deck","name":"Pec Deck","nameEN":"Pec Deck","cats":"Göğüs"},{"id":"incline-cable-fly","name":"Incline Cable Fly","nameEN":"Incline Cable Fly","cats":"Göğüs"},{"id":"overhead-press","name":"Overhead Press","nameEN":"Overhead Press","cats":"Omuz"},{"id":"shoulder-press","name":"Shoulder Press","nameEN":"Shoulder Press","cats":"Omuz"},{"id":"machine-shoulder-press","name":"Machine Shoulder Press","nameEN":"Machine Shoulder Press","cats":"Omuz"},{"id":"arnold-press","name":"Arnold Press","nameEN":"Arnold Press","cats":"Omuz"},{"id":"lateral-raise","name":"Lateral Raise","nameEN":"Lateral Raise","cats":"Omuz"},{"id":"machine-lateral-raise","name":"Machine Lateral Raise","nameEN":"Machine Lateral Raise","cats":"Omuz"},{"id":"cable-lateral-raise","name":"Cable Lateral Raise","nameEN":"Cable Lateral Raise","cats":"Omuz"},{"id":"front-raise","name":"Front Raise","nameEN":"Front Raise","cats":"Omuz"},{"id":"cable-front-raise","name":"Cable Front Raise","nameEN":"Cable Front Raise","cats":"Omuz"},{"id":"lean-away-lateral-raise","name":"Lean Away Lateral Raise","nameEN":"Lean Away Lateral Raise","cats":"Omuz"},{"id":"y-raise","name":"Y-Raise","nameEN":"Y-Raise","cats":"Omuz, Trapez"},{"id":"rear-delt-fly","name":"Rear Delt Fly","nameEN":"Rear Delt Fly","cats":"Omuz"},{"id":"reverse-pec-deck","name":"Reverse Pec Deck","nameEN":"Reverse Pec Deck","cats":"Omuz, Trapez"},{"id":"cable-rear-delt-fly","name":"Cable Rear Delt Fly","nameEN":"Cable Rear Delt Fly","cats":"Omuz"},{"id":"face-pull","name":"Face Pull","nameEN":"Face Pull","cats":"Omuz, Trapez"},{"id":"upright-row","name":"Upright Row","nameEN":"Upright Row","cats":"Omuz, Trapez"},{"id":"push-up","name":"Şınav","nameEN":"Push Up","cats":"Göğüs, Omuz, Triceps"},{"id":"archer-push-up","name":"Archer Push Up","nameEN":"Archer Push Up","cats":"Göğüs, Omuz, Triceps"},{"id":"pike-push-up","name":"Pike Push Up","nameEN":"Pike Push Up","cats":"Omuz, Triceps"},{"id":"pike-handstand-press-negative","name":"Pike Handstand Press Negative","nameEN":"Pike Handstand Press Negative","cats":"Omuz, Karın"},{"id":"wall-handstand-hold","name":"Wall Handstand Hold","nameEN":"Wall Handstand Hold","cats":"Omuz, Karın"},{"id":"diamond-push-up","name":"Diamond Push Up","nameEN":"Diamond Push Up","cats":"Göğüs, Triceps"},{"id":"deficit-push-up","name":"Deficit Push Up","nameEN":"Deficit Push Up","cats":"Göğüs, Omuz, Triceps"},{"id":"dips","name":"Dips","nameEN":"Dips","cats":"Göğüs, Omuz, Triceps"},{"id":"dip-machine","name":"Dip Machine","nameEN":"Dip Machine","cats":"Göğüs, Triceps"},{"id":"bench-dips","name":"Bench Dips","nameEN":"Bench Dips","cats":"Triceps"},{"id":"ring-push-up","name":"Ring Push Up","nameEN":"Ring Push Up","cats":"Göğüs, Omuz, Triceps"},{"id":"pseudo-planche-push-up","name":"Pseudo Planche Push Up","nameEN":"Pseudo Planche Push Up","cats":"Göğüs, Omuz, Triceps"},{"id":"triceps-pushdown","name":"Triceps Pushdown","nameEN":"Triceps Pushdown","cats":"Triceps"},{"id":"cross-body-triceps-extension","name":"Cross Body Triceps Extension","nameEN":"Cross Body Triceps Extension","cats":"Triceps"},{"id":"jm-press","name":"JM Press","nameEN":"JM Press","cats":"Triceps, Göğüs"},{"id":"overhead-cable-triceps-extension","name":"Overhead Cable Triceps Extension","nameEN":"Overhead Cable Triceps Extension","cats":"Triceps"},{"id":"kickback","name":"Kickback","nameEN":"Kickback","cats":"Triceps"},{"id":"overhead-triceps-extension","name":"Overhead Triceps Extension","nameEN":"Overhead Triceps Extension","cats":"Triceps"},{"id":"skull-crusher","name":"Skull Crusher","nameEN":"Skull Crusher","cats":"Triceps"},{"id":"biceps-curl","name":"Biceps Curl","nameEN":"Biceps Curl","cats":"Biceps"},{"id":"spider-curl","name":"Spider Curl","nameEN":"Spider Curl","cats":"Biceps"},{"id":"hammer-curl","name":"Hammer Curl","nameEN":"Hammer Curl","cats":"Biceps"},{"id":"zottman-curl","name":"Zottman Curl","nameEN":"Zottman Curl","cats":"Biceps, Bilek"},{"id":"rope-hammer-curl","name":"Rope Hammer Curl","nameEN":"Rope Hammer Curl","cats":"Biceps, Bilek"},{"id":"one-arm-cable-curl","name":"One Arm Cable Curl","nameEN":"One Arm Cable Curl","cats":"Biceps"},{"id":"drag-curl","name":"Drag Curl","nameEN":"Drag Curl","cats":"Biceps"},{"id":"preacher-curl","name":"Preacher Curl","nameEN":"Preacher Curl","cats":"Biceps"},{"id":"machine-preacher-curl","name":"Machine Preacher Curl","nameEN":"Machine Preacher Curl","cats":"Biceps"},{"id":"preacher-hammer-curl","name":"Preacher Hammer Curl","nameEN":"Preacher Hammer Curl","cats":"Biceps, Bilek"},{"id":"incline-dumbell-curl","name":"Incline Dumbell Curl","nameEN":"Incline Dumbell Curl","cats":"Biceps"},{"id":"concentration-curl","name":"Concentration Curl","nameEN":"Concentration Curl","cats":"Biceps"},{"id":"reverse-curl","name":"Reverse Curl","nameEN":"Reverse Curl","cats":"Biceps, Bilek"},{"id":"dead-hang","name":"Dead Hang","nameEN":"Dead Hang","cats":"Bilek"},{"id":"active-hang","name":"Active Hang","nameEN":"Active Hang","cats":"Sırt, Bilek"},{"id":"farmer-carry","name":"Farmer Carry","nameEN":"Farmer Carry","cats":"Bilek, Trapez, Karın"},{"id":"wrist-extensions","name":"Wrist Extensions","nameEN":"Wrist Extensions","cats":"Bilek"},{"id":"wrist-curls","name":"Wrist Curls","nameEN":"Wrist Curls","cats":"Bilek"},{"id":"lat-pulldown","name":"Lat Pulldown","nameEN":"Lat Pulldown","cats":"Sırt, Biceps"},{"id":"single-arm-lat-pulldown","name":"Single Arm Lat Pulldown","nameEN":"Single Arm Lat Pulldown","cats":"Sırt, Biceps"},{"id":"straight-arm-pulldown","name":"Straight Arm Pulldown","nameEN":"Straight Arm Pulldown","cats":"Sırt"},{"id":"pull-up","name":"Pull Up","nameEN":"Pull Up","cats":"Sırt, Biceps"},{"id":"scapular-pull-up","name":"Scapular Pull Up","nameEN":"Scapular Pull Up","cats":"Sırt"},{"id":"chin-up","name":"Chin Up","nameEN":"Chin Up","cats":"Sırt, Biceps"},{"id":"chin-up-hold","name":"Chin Up Hold","nameEN":"Chin Up Hold","cats":"Sırt, Biceps"},{"id":"typewriter-pull-up","name":"Typewriter Pull Up","nameEN":"Typewriter Pull Up","cats":"Sırt, Biceps"},{"id":"assisted-pull-up","name":"Assisted Pull Up","nameEN":"Assisted Pull Up","cats":"Sırt, Biceps"},{"id":"australian-pull-up","name":"Australian Pull Up","nameEN":"Australian Pull Up","cats":"Sırt, Biceps"},{"id":"ring-row","name":"Ring Row","nameEN":"Ring Row","cats":"Sırt, Biceps"},{"id":"tuck-front-lever-row","name":"Tuck Front Lever Row","nameEN":"Tuck Front Lever Row","cats":"Sırt, Karın"},{"id":"dumbell-row","name":"Dumbell Row","nameEN":"Dumbell Row","cats":"Sırt, Biceps"},{"id":"cable-row","name":"Cable Row","nameEN":"Cable Row","cats":"Sırt, Biceps"},{"id":"machine-row","name":"Machine Row","nameEN":"Machine Row","cats":"Sırt, Biceps"},{"id":"chest-supported-row","name":"Chest Supported Row","nameEN":"Chest Supported Row","cats":"Sırt, Biceps"},{"id":"seal-row","name":"Seal Row","nameEN":"Seal Row","cats":"Sırt, Biceps"},{"id":"meadow-row","name":"Meadow Row","nameEN":"Meadow Row","cats":"Sırt, Biceps"},{"id":"single-arm-row-machine","name":"Single Arm Row Machine","nameEN":"Single Arm Row Machine","cats":"Sırt, Biceps"},{"id":"barbell-row","name":"Barbell Row","nameEN":"Barbell Row","cats":"Sırt, Biceps"},{"id":"t-bar-row","name":"T-Bar Row","nameEN":"T-Bar Row","cats":"Sırt, Biceps"},{"id":"pullover","name":"Pullover","nameEN":"Pullover","cats":"Sırt, Biceps"},{"id":"deadlift","name":"Deadlift","nameEN":"Deadlift","cats":"Sırt, Bacak, Kalça"},{"id":"romanian-deadlift","name":"Romanian Deadlift","nameEN":"Romanian Deadlift","cats":"Bacak, Kalça"},{"id":"squat","name":"Squat","nameEN":"Squat","cats":"Bacak, Kalça"},{"id":"goblet-squat","name":"Goblet Squat","nameEN":"Goblet Squat","cats":"Bacak, Kalça"},{"id":"hack-squat","name":"Hack Squat","nameEN":"Hack Squat","cats":"Bacak"},{"id":"smith-machine-squat","name":"Smith Machine Squat","nameEN":"Smith Machine Squat","cats":"Bacak, Kalça"},{"id":"leg-press","name":"Leg Press","nameEN":"Leg Press","cats":"Bacak, Kalça"},{"id":"lunge","name":"Lunge","nameEN":"Lunge","cats":"Bacak, Kalça"},{"id":"walking-lunge","name":"Walking Lunge","nameEN":"Walking Lunge","cats":"Bacak, Kalça"},{"id":"bulgarian-split-squat","name":"Bulgarian Split Squat","nameEN":"Bulgarian Split Squat","cats":"Bacak, Kalça"},{"id":"cossack-squat","name":"Cossack Squat","nameEN":"Cossack Squat","cats":"Bacak, Kalça"},{"id":"step-up","name":"Step Up","nameEN":"Step Up","cats":"Bacak, Kalça"},{"id":"leg-curl","name":"Leg Curl","nameEN":"Leg Curl","cats":"Bacak"},{"id":"seated-leg-curl","name":"Seated Leg Curl","nameEN":"Seated Leg Curl","cats":"Bacak"},{"id":"sliding-leg-curl","name":"Sliding Leg Curl","nameEN":"Sliding Leg Curl","cats":"Bacak, Kalça"},{"id":"nordic-curl","name":"Nordic Curl","nameEN":"Nordic Curl","cats":"Bacak"},{"id":"leg-adduction-machine","name":"Leg Adduction Machine","nameEN":"Leg Adduction Machine","cats":"Bacak, Kalça"},{"id":"leg-extension","name":"Leg Extension","nameEN":"Leg Extension","cats":"Bacak"},{"id":"reverse-nordic","name":"Reverse Nordic","nameEN":"Reverse Nordic","cats":"Bacak"},{"id":"calf-raise","name":"Calf Raise","nameEN":"Calf Raise","cats":"Kalf"},{"id":"seated-calf-raise","name":"Seated Calf Raise","nameEN":"Seated Calf Raise","cats":"Kalf"},{"id":"donkey-calf-raise","name":"Donkey Calf Raise","nameEN":"Donkey Calf Raise","cats":"Kalf"},{"id":"shrug","name":"Shrug","nameEN":"Shrug","cats":"Trapez"},{"id":"hip-thrust","name":"Hip Thrust","nameEN":"Hip Thrust","cats":"Kalça"},{"id":"single-leg-hip-thrust","name":"Single Leg Hip Thrust","nameEN":"Single Leg Hip Thrust","cats":"Kalça"},{"id":"glute-bridge","name":"Glute Bridge","nameEN":"Glute Bridge","cats":"Kalça"},{"id":"glute-kickback","name":"Glute Kickback","nameEN":"Glute Kickback","cats":"Kalça"},{"id":"cable-kickback","name":"Cable Kickback","nameEN":"Cable Kickback","cats":"Kalça"},{"id":"hip-abduction-machine","name":"Hip Abduction Machine","nameEN":"Hip Abduction Machine","cats":"Kalça"},{"id":"back-extension","name":"Back Extension","nameEN":"Back Extension","cats":"Sırt, Kalça"},{"id":"arch-hold","name":"Arch Hold","nameEN":"Arch Hold","cats":"Sırt, Kalça"},{"id":"support-hold","name":"Support Hold","nameEN":"Support Hold","cats":"Omuz, Triceps, Karın"},{"id":"ring-support-hold","name":"Ring Support Hold","nameEN":"Ring Support Hold","cats":"Omuz, Triceps, Karın"},{"id":"plank","name":"Plank","nameEN":"Plank","cats":"Karın"},{"id":"hollow-body-hold","name":"Hollow Body Hold","nameEN":"Hollow Body Hold","cats":"Karın"},{"id":"side-plank","name":"Side Plank","nameEN":"Side Plank","cats":"Karın"},{"id":"crunch","name":"Crunch","nameEN":"Crunch","cats":"Karın"},{"id":"reverse-crunch","name":"Reverse Crunch","nameEN":"Reverse Crunch","cats":"Karın"},{"id":"cable-crunch","name":"Cable Crunch","nameEN":"Cable Crunch","cats":"Karın"},{"id":"ab-wheel","name":"Ab Wheel","nameEN":"Ab Wheel","cats":"Karın"},{"id":"standing-ab-wheel","name":"Standing Ab Wheel","nameEN":"Standing Ab Wheel","cats":"Karın"},{"id":"russian-twist","name":"Russian Twist","nameEN":"Russian Twist","cats":"Karın"},{"id":"cable-woodchopper","name":"Cable Woodchopper","nameEN":"Cable Woodchopper","cats":"Karın"},{"id":"hanging-leg-raise","name":"Hanging Leg Raise","nameEN":"Hanging Leg Raise","cats":"Karın"},{"id":"hanging-knee-raise","name":"Hanging Knee Raise","nameEN":"Hanging Knee Raise","cats":"Karın"},{"id":"toes-to-bar","name":"Toes To Bar","nameEN":"Toes To Bar","cats":"Karın, Sırt"},{"id":"dragon-flag","name":"Dragon Flag","nameEN":"Dragon Flag","cats":"Karın"},{"id":"l-sit","name":"L-Sit","nameEN":"L-Sit","cats":"Karın, Kalça"},{"id":"mountain-climber","name":"Mountain Climber","nameEN":"Mountain Climber","cats":"Karın, Kardiyo"},{"id":"burpee","name":"Burpee","nameEN":"Burpee","cats":"Kardiyo"},{"id":"jumping-jack","name":"Jumping Jack","nameEN":"Jumping Jack","cats":"Kardiyo"},{"id":"treadmill","name":"Yürüyüş Bandı","nameEN":"Treadmill","cats":"Kardiyo"},{"id":"cycling","name":"Bisiklet","nameEN":"Cycling","cats":"Kardiyo"},{"id":"stair-climber","name":"Stair Climber","nameEN":"Stair Climber","cats":"Kardiyo"},{"id":"rowing-machine","name":"Rowing Machine","nameEN":"Rowing Machine","cats":"Kardiyo"},{"id":"superman","name":"Superman","nameEN":"Superman","cats":"Sırt"},{"id":"moonwalk","name":"Ay Yürüyüşü","nameEN":"Moonwalk","cats":"Kardiyo"}];
+const images    = {};
+let   activeId  = null;
+
+// ── Sol liste ─────────────────────────────────────────────────────────────────
+function stat() {
+  const n = EXERCISES.filter(e => images[e.id]).length;
+  const t = EXERCISES.length;
+  document.getElementById('top-stat').textContent  = n + ' / ' + t + ' atandı';
+  document.getElementById('left-stat').textContent = n + ' / ' + t + ' atandı';
+}
+
+function renderList() {
+  const q   = document.getElementById('lw-filter').value.toLowerCase();
+  const lst = document.getElementById('lw-list');
+  const arr = EXERCISES.filter(e =>
+    !q || e.name.toLowerCase().includes(q) || e.nameEN.toLowerCase().includes(q) || e.cats.toLowerCase().includes(q)
+  );
+  arr.sort((a, b) => {
+    const am = !!images[a.id], bm = !!images[b.id];
+    if (am !== bm) return am ? 1 : -1;
+    return a.name.localeCompare(b.name, 'tr');
+  });
+  lst.innerHTML = '';
+  arr.forEach(ex => {
+    const d = document.createElement('div');
+    d.className = 'lw-item' +
+      (images[ex.id] ? ' has-gif' : '') +
+      (activeId === ex.id ? ' active' : '');
+    d.innerHTML =
+      '<div class="lw-name">' + esc(ex.name) + '</div>' +
+      (ex.cats ? '<div class="lw-cats">' + esc(ex.cats) + '</div>' : '') +
+      (images[ex.id] ? '<span class="lw-badge">✓</span>' : '');
+    d.onclick = () => activate(ex.id);
+    lst.appendChild(d);
+  });
+}
+
+function activate(id) {
+  activeId = id;
+  const ex = EXERCISES.find(e => e.id === id);
+  document.getElementById('active-name').textContent = ex ? ex.name : '—';
+  document.getElementById('active-id').textContent   = id;
+
+  // URL kutusunu doldur
+  const url = images[id] || '';
+  const inp = document.getElementById('url-input');
+  inp.value = url;
+  inp.classList.toggle('has-val', !!url);
+
+  // Önizleme
+  showPreview(url);
+
+  // Arama linklerini güncelle
+  const q = encodeURIComponent((ex ? ex.nameEN : id) + ' exercise');
+  document.getElementById('btn-giphy').href  = 'https://giphy.com/search/' + q;
+  document.getElementById('btn-tenor').href  = 'https://tenor.com/search/' + encodeURIComponent((ex ? ex.nameEN : id) + '-exercise-gif');
+  document.getElementById('btn-google').href = 'https://www.google.com/search?q=' + q + '+gif&tbm=isch&tbs=itp:animated';
+
+  renderList();
+  setStatus(url ? 'Mevcut: ' + url : 'Henüz GIF atanmamış. Arama butonlarından birini kullan.');
+}
+
+// ── URL kutusu ────────────────────────────────────────────────────────────────
+function onUrlInput(inp) {
+  inp.classList.toggle('has-val', !!inp.value.trim());
+  showPreview(inp.value.trim());
+}
+
+function saveUrl() {
+  if (!activeId) { alert('Önce sol panelden egzersiz seç!'); return; }
+  const url = document.getElementById('url-input').value.trim();
+  if (!url) { deleteUrl(); return; }
+  images[activeId] = url;
+  renderList();
+  stat();
+  setStatus('✓ Kaydedildi.');
+  goNextUnmapped();
+}
+
+function deleteUrl() {
+  if (!activeId) return;
+  delete images[activeId];
+  document.getElementById('url-input').value = '';
+  document.getElementById('url-input').classList.remove('has-val');
+  showPreview('');
+  renderList();
+  stat();
+  setStatus('GIF kaldırıldı.');
+}
+
+function goNextUnmapped() {
+  const unmapped = EXERCISES.filter(e => !images[e.id]);
+  if (!unmapped.length) { setStatus('🎉 Tüm egzersizler tamamlandı!'); return; }
+  const cur  = EXERCISES.findIndex(e => e.id === activeId);
+  const next = unmapped.find(e => EXERCISES.indexOf(e) > cur) || unmapped[0];
+  if (next && next.id !== activeId) setTimeout(() => activate(next.id), 250);
+}
+
+// ── Önizleme ──────────────────────────────────────────────────────────────────
+function showPreview(url) {
+  const img = document.getElementById('preview-img');
+  const ph  = document.getElementById('preview-placeholder');
+  if (!url) {
+    img.style.display = 'none';
+    img.src = '';
+    ph.style.display  = '';
+    return;
+  }
+  img.style.display = 'none';
+  ph.style.display  = '';
+  img.onload  = () => { img.style.display = 'block'; ph.style.display = 'none'; };
+  img.onerror = () => { img.style.display = 'none'; ph.innerHTML = '<div class="big">⚠️</div><p style="color:#ef4444">Görüntü yüklenemedi<br><em style="color:#6b7280">' + esc(url) + '</em></p>'; };
+  img.src = url;
+}
+
+// ── Export ────────────────────────────────────────────────────────────────────
+function exportFile() {
+  const count  = Object.keys(images).length;
+  if (!count) { alert('Henüz hiçbir GIF atanmadı!'); return; }
+  const sorted  = Object.entries(images).sort(([a],[b]) => a.localeCompare(b));
+  const entries = sorted.map(([k,v]) => '  ' + JSON.stringify(k) + ': ' + JSON.stringify(v)).join(',\n');
+  const content =
+    "// LogWise — Egzersiz GIF/resim URL'leri\n" +
+    "// Yonetmek icin: scripts/gif-admin.html\n" +
+    "// Guncelleme: " + new Date().toISOString().slice(0,10) + " | Toplam: " + count + "\n" +
+    "window.LOGWISE_EX_IMAGES = {\n" + entries + "\n};\n";
+  const a = document.createElement('a');
+  a.href     = URL.createObjectURL(new Blob([content], {type:'text/javascript'}));
+  a.download = 'ex-images.js';
+  a.click();
+  setStatus('✓ ' + count + ' egzersiz — ex-images.js indirildi. data/ klasorune tasıyın.');
+}
+
+function setStatus(m) { document.getElementById('status').textContent = m; }
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Enter ile kaydet ──────────────────────────────────────────────────────────
+document.getElementById('url-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') saveUrl();
+});
+document.getElementById('lw-filter').addEventListener('input', renderList);
+
+stat();
+renderList();
+</script>
+</body>
+</html>

@@ -25,8 +25,19 @@ if (!fs.existsSync(mappingPath)) {
 const mapping = JSON.parse(fs.readFileSync(mappingPath, 'utf8'));
 const count   = Object.keys(mapping).length;
 
+// WorkoutX ID: kısa alfanümerik string (ör. "0028"), tam URL değil.
+// Tam URL'ler (https:// ile başlayanlar) yuhonas JPG'leri — olduğu gibi bırak.
+function toRuntimeUrl(v) {
+  if (!v) return v;
+  if (/^https?:\/\//.test(v)) return v;                 // tam URL — değiştirme
+  if (/^[a-zA-Z0-9_-]+$/.test(v)) {                    // WorkoutX ID
+    return `/.netlify/functions/gif?id=${v}`;
+  }
+  return v;
+}
+
 const entries = Object.entries(mapping)
-  .map(([k, v]) => `  ${JSON.stringify(k)}: ${JSON.stringify(v)}`)
+  .map(([k, v]) => `  ${JSON.stringify(k)}: ${JSON.stringify(toRuntimeUrl(v))}`)
   .join(',\n');
 
 const output = `// LogWise — Egzersiz görsel URL eşleştirmesi

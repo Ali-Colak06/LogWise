@@ -72,6 +72,13 @@
     const EX_IMAGES = window.LOGWISE_EX_IMAGES || {};
     const gif = EX_IMAGES[lookupKey] || (preview ? preview.gif : null);
     const [imgErr, setImgErr] = React.useState(false);
+    const isAnimated = Array.isArray(gif) && gif.length >= 2;
+    const [frame, setFrame] = React.useState(0);
+    React.useEffect(() => {
+      if (!isAnimated || imgErr) return;
+      const id = setInterval(() => setFrame(f => 1 - f), 1350);
+      return () => clearInterval(id);
+    }, [isAnimated, imgErr]);
     const cats = ex.categories || [];
     const catLabels = cats.map(c => catLabel(c, lang));
     const firstCatColor = cats.length > 0 ? getCatColor(catLabels[0]) : "#a0a8b8";
@@ -182,17 +189,40 @@
         justifyContent: "center",
         position: "relative"
       }
-    }, gif && !imgErr ? React.createElement("img", {
-      src: gif,
-      alt: ex.name,
-      onError: () => setImgErr(true),
-      style: {
-        width: "100%",
-        maxHeight: 260,
-        objectFit: "cover",
-        display: "block"
-      }
-    }) : React.createElement("div", {
+    }, gif && !imgErr
+      ? (isAnimated
+          ? React.createElement("div", {
+              style: { position: "relative", width: "100%", height: 220 }
+            }, gif.slice(0, 2).map((src, i) =>
+              React.createElement("img", {
+                key: i,
+                src: src,
+                alt: ex.name,
+                onError: () => setImgErr(true),
+                style: {
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  opacity: frame === i ? 1 : 0,
+                  transition: "opacity 0.35s ease"
+                }
+              })
+            ))
+          : React.createElement("img", {
+              src: gif,
+              alt: ex.name,
+              onError: () => setImgErr(true),
+              style: {
+                width: "100%",
+                maxHeight: 260,
+                objectFit: "cover",
+                display: "block"
+              }
+            }))
+      : React.createElement("div", {
       style: {
         padding: "32px 20px",
         textAlign: "center"
