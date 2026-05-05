@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8"/>
@@ -1090,12 +1090,29 @@ function App({
   const savePg = () => {
     const nm = pnRef.current.trim() || "Program " + (Object.keys(dRef.current.programs).length + 1);
     const id = peRef.current || Date.now().toString();
-    const nd = {};
     const cd = pdRef.current;
-    for (let i = 0; i < 7; i++) {
-      nd[String(i)] = [...(cd[String(i)] || cd[i] || [])];
-    }
     const d = dRef.current;
+    const existingIds = new Set(d.exercises.map(e => e.id));
+    const newExercises = [...d.exercises];
+    const idRemap = {};
+    let ts = Date.now();
+    for (let i = 0; i < 7; i++) {
+      for (const eid of (cd[String(i)] || cd[i] || [])) {
+        if (!existingIds.has(eid) && !idRemap[eid]) {
+          const preset = window.LOGWISE_EX_UTILS.getExerciseById(eid);
+          if (preset) {
+            const newId = (ts++).toString();
+            newExercises.push({ id: newId, name: presetName(preset, lang), categories: [...preset.categories], presetId: preset.id });
+            existingIds.add(newId);
+            idRemap[eid] = newId;
+          }
+        }
+      }
+    }
+    const nd = {};
+    for (let i = 0; i < 7; i++) {
+      nd[String(i)] = (cd[String(i)] || cd[i] || []).map(eid => idRemap[eid] || eid);
+    }
     const np = {
       ...d.programs,
       [id]: {
@@ -1112,12 +1129,7 @@ function App({
       cycleType: pgCycleType,
       deloadEvery: pgCycleType === "deload" ? pgDeloadEvery : 0
     };
-    const out = {
-      ...d,
-      programs: np,
-      programMeta: pm
-    };
-    save(out);
+    save({ ...d, exercises: newExercises, programs: np, programMeta: pm });
     setShowPgModal(false);
     resetPg();
   };
@@ -1318,14 +1330,17 @@ function App({
     });
     setShowDpPicker(false);
   };
-  const exN = id => (data || {
-    exercises: []
-  }).exercises.find(e => e.id === id)?.name || "?";
+  const exN = id => {
+    const ex = (data || { exercises: [] }).exercises.find(e => e.id === id);
+    if (ex) return ex.name;
+    const preset = window.LOGWISE_EX_UTILS.getExerciseById(id);
+    return preset ? presetName(preset, lang) : "?";
+  };
   const exCats = id => {
-    const ex = (data || {
-      exercises: []
-    }).exercises.find(e => e.id === id);
-    return ex?.categories || [ex?.category || "Diğer"];
+    const ex = (data || { exercises: [] }).exercises.find(e => e.id === id);
+    if (ex) return ex?.categories || [ex?.category || "Diğer"];
+    const preset = window.LOGWISE_EX_UTILS.getExerciseById(id);
+    return preset ? preset.categories : ["Diğer"];
   };
   const exC = id => exCats(id)[0] || "Diğer";
   const cl = id => CC[exC(id)] || "blue";
@@ -2091,7 +2106,16 @@ function App({
     }
   }, "Y\xFCkleniyor..."));
   const fEx = data.exercises.filter(e => e.name.toLowerCase().includes(sEx.toLowerCase())).sort((a, b) => a.name.localeCompare(b.name, lang === "tr" ? "tr" : "en"));
-  const fPgEx = data.exercises.filter(e => e.name.toLowerCase().includes(pgSrch.toLowerCase())).sort((a, b) => a.name.localeCompare(b.name, lang === "tr" ? "tr" : "en"));
+  const pgOwnedMatches = data.exercises.filter(e => e.name.toLowerCase().includes(pgSrch.toLowerCase())).sort((a, b) => a.name.localeCompare(b.name, lang === "tr" ? "tr" : "en"));
+  const _pgOwnedPresetIds = new Set(data.exercises.map(e => e.presetId).filter(Boolean));
+  const _pgOwnedNames = new Set(data.exercises.map(e => e.name.toLowerCase()));
+  const pgPresetMatches = PRESET_EXERCISES.filter(p => {
+    if (_pgOwnedPresetIds.has(p.id)) return false;
+    const pName = presetName(p, lang);
+    if (_pgOwnedNames.has(pName.toLowerCase())) return false;
+    return pName.toLowerCase().includes(pgSrch.toLowerCase());
+  }).sort((a, b) => presetName(a, lang).localeCompare(presetName(b, lang), lang === "tr" ? "tr" : "en")).map(p => ({ id: p.id, name: presetName(p, lang), categories: p.categories, presetId: p.id, _isUnowned: true }));
+  const fPgEx = [...pgOwnedMatches, ...pgPresetMatches];
   const aProg = data.activeProgram && data.programs[data.activeProgram] ? data.programs[data.activeProgram] : null;
   const Pill = ({
     eid,
@@ -6597,74 +6621,66 @@ function App({
       border: "1px solid var(--brd)",
       borderRadius: 8
     }
-  }, fPgEx.map(ex => {
-    const sel = (pgDays[String(pgDay)] || []).includes(ex.id);
-    const c = cl(ex.id);
-    const cats = ex.categories || [ex.category || "Diğer"];
-    return React.createElement("button", {
-      key: ex.id,
-      onClick: () => togPgEx(ex.id),
-      style: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        width: "100%",
-        padding: "8px 14px",
-        border: "none",
-        borderBottom: "1px solid var(--brd)",
-        cursor: "pointer",
-        background: sel ? `var(--${c}L)` : "var(--bg)",
-        fontFamily: "inherit",
-        fontSize: 13,
-        color: "var(--t1)"
-      },
-      onMouseEnter: e => e.currentTarget.style.background = sel ? `var(--${c}L)` : "var(--bg2)",
-      onMouseLeave: e => e.currentTarget.style.background = sel ? `var(--${c}L)` : "var(--bg)"
-    }, React.createElement("div", {
-      style: {
-        display: "flex",
-        alignItems: "center",
-        gap: 8
-      }
-    }, sel ? React.createElement(IcoCheck, {
-      c: `var(--${c})`
-    }) : React.createElement("div", {
-      style: {
-        width: 18,
-        height: 18,
-        border: "2px solid var(--brd)",
-        borderRadius: 3
-      }
-    }), React.createElement("span", {
-      style: {
-        fontWeight: 500
-      }
-    }, ex.name)), React.createElement("div", {
-      style: {
-        display: "flex",
-        gap: 3
-      }
-    }, cats.map((cat, ci) => {
-      const cc = CC[cat] || "blue";
-      return React.createElement("span", {
-        key: ci,
+  }, (() => {
+    const renderExBtn = ex => {
+      const sel = (pgDays[String(pgDay)] || []).includes(ex.id);
+      const c = cl(ex.id);
+      const cats = ex.categories || [ex.category || "Diğer"];
+      return React.createElement("button", {
+        key: ex.id,
+        onClick: () => togPgEx(ex.id),
         style: {
-          fontSize: 10,
-          color: `var(--${cc})`,
-          background: `var(--${cc}L)`,
-          padding: "1px 5px",
-          borderRadius: 6
-        }
-      }, catLabel(cat, lang));
-    })));
-  }), fPgEx.length === 0 && React.createElement("div", {
-    style: {
-      color: "var(--t3)",
-      fontSize: 12,
-      padding: 16,
-      textAlign: "center"
-    }
-  }, "Hareket bulunamad\u0131."))), React.createElement("div", {
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          width: "100%",
+          padding: "8px 14px",
+          border: "none",
+          borderBottom: "1px solid var(--brd)",
+          cursor: "pointer",
+          background: sel ? `var(--${c}L)` : "var(--bg)",
+          fontFamily: "inherit",
+          fontSize: 13,
+          color: "var(--t1)"
+        },
+        onMouseEnter: e => e.currentTarget.style.background = sel ? `var(--${c}L)` : "var(--bg2)",
+        onMouseLeave: e => e.currentTarget.style.background = sel ? `var(--${c}L)` : "var(--bg)"
+      }, React.createElement("div", {
+        style: { display: "flex", alignItems: "center", gap: 8 }
+      }, sel ? React.createElement(IcoCheck, { c: `var(--${c})` }) : React.createElement("div", {
+        style: { width: 18, height: 18, border: "2px solid var(--brd)", borderRadius: 3 }
+      }), React.createElement("span", { style: { fontWeight: 500 } }, ex.name),
+        ex._isUnowned && React.createElement("span", {
+          style: { fontSize: 10, color: "var(--t3)", fontStyle: "italic" }
+        }, lang === "tr" ? "(eklenecek)" : "(will be added)")
+      ), React.createElement("div", {
+        style: { display: "flex", gap: 3 }
+      }, cats.map((cat, ci) => {
+        const cc = CC[cat] || "blue";
+        return React.createElement("span", {
+          key: ci,
+          style: { fontSize: 10, color: `var(--${cc})`, background: `var(--${cc}L)`, padding: "1px 5px", borderRadius: 6 }
+        }, catLabel(cat, lang));
+      })));
+    };
+    const sectionHdr = (label, isPreset) => React.createElement("div", {
+      style: {
+        fontSize: 10, fontWeight: 700,
+        color: isPreset ? "var(--blue)" : "var(--t3)",
+        textTransform: "uppercase", letterSpacing: 1,
+        padding: "5px 14px 3px", background: "var(--bg3)",
+        borderBottom: "1px solid var(--brd)"
+      }
+    }, label);
+    const showHeaders = pgOwnedMatches.length > 0 && pgPresetMatches.length > 0;
+    return React.createElement(React.Fragment, null,
+      fPgEx.length === 0 && React.createElement("div", { style: { color: "var(--t3)", fontSize: 12, padding: 16, textAlign: "center" } }, lang === "tr" ? "Hareket bulunamadı." : "No exercises found."),
+      showHeaders && sectionHdr(lang === "tr" ? "Hareketlerim" : "My Exercises", false),
+      pgOwnedMatches.map(renderExBtn),
+      pgPresetMatches.length > 0 && sectionHdr(lang === "tr" ? "Hazır Hareketler" : "Preset Exercises", true),
+      pgPresetMatches.map(renderExBtn)
+    );
+  })()), React.createElement("div", {
     style: {
       borderTop: "1px solid var(--brd)",
       paddingTop: 12,
