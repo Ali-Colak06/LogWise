@@ -778,7 +778,8 @@ function App({
       return {
         id: (Date.now() + i).toString(),
         name: presetName(p, lang),
-        categories: [...p.categories]
+        categories: [...p.categories],
+        presetId: p.id
       };
     });
     save({
@@ -5697,6 +5698,7 @@ function App({
       const lm = h.length ? h[0].sets.reduce((m, s) => Math.max(m, s.weight), 0) : null;
       const cats = ex.categories || [ex.category || "Diğer"];
       const otherCats = cats.filter(c => c !== cat);
+      const isPreset = !!ex.presetId || !!window.LOGWISE_EX_UTILS.getExerciseByName(ex.name);
       return React.createElement("div", {
         key: ex.id,
         style: {
@@ -5729,7 +5731,19 @@ function App({
           fontSize: 14,
           fontWeight: 500
         }
-      }, ex.name), otherCats.map((oc, i) => {
+      }, ex.name), isPreset && React.createElement("span", {
+        style: {
+          fontSize: 10,
+          fontWeight: 700,
+          color: "var(--blue)",
+          background: "var(--blueL)",
+          border: "1px solid var(--blue)",
+          padding: "1px 6px",
+          borderRadius: 8,
+          letterSpacing: "0.3px",
+          flexShrink: 0
+        }
+      }, "Preset"), otherCats.map((oc, i) => {
         const occ = CC[oc] || "blue";
         return React.createElement("span", {
           key: i,
