@@ -327,6 +327,10 @@ function App({
   const [dpExIds, setDpExIds] = useState([]);
   const [dpSrch, setDpSrch] = useState("");
   const [showDpPicker, setShowDpPicker] = useState(false);
+  const [transferSrc, setTransferSrc] = useState(null);
+  const [transferTgt, setTransferTgt] = useState(null);
+  const [transferSrch, setTransferSrch] = useState("");
+  const [transferConflictChoice, setTransferConflictChoice] = useState("keepB");
   const [toast, setToast] = useState(null);
   const [feedbackMsg, setFeedbackMsg] = useState("");
   const [feedbackCat, setFeedbackCat] = useState("general");
@@ -858,6 +862,50 @@ function App({
       programs: np,
       dailyPrograms: ndp
     });
+  };
+  const transferExRecords = (srcId, tgtId, conflictChoice) => {
+    const d = dRef.current;
+    const nw = {};
+    Object.keys(d.workouts).forEach(date => {
+      const day = [...d.workouts[date]];
+      const aIdx = day.findIndex(e => e.exerciseId === srcId);
+      const bIdx = day.findIndex(e => e.exerciseId === tgtId);
+      if (aIdx === -1) { nw[date] = day; return; }
+      if (bIdx === -1) {
+        day[aIdx] = { ...day[aIdx], exerciseId: tgtId };
+        nw[date] = day;
+      } else {
+        if (conflictChoice === "keepA") {
+          const without = day.filter((_, i) => i !== bIdx);
+          const newAIdx = without.findIndex(e => e.exerciseId === srcId);
+          without[newAIdx] = { ...without[newAIdx], exerciseId: tgtId };
+          nw[date] = without;
+        } else {
+          nw[date] = day.filter((_, i) => i !== aIdx);
+        }
+      }
+    });
+    const newNotes = { ...(d.exerciseNotes || {}) };
+    if (newNotes[srcId]) {
+      if (!newNotes[tgtId] || conflictChoice === "keepA") newNotes[tgtId] = newNotes[srcId];
+      delete newNotes[srcId];
+    }
+    const np = {};
+    Object.keys(d.programs).forEach(pid => {
+      const pr = d.programs[pid];
+      const nd = {};
+      Object.keys(pr.days).forEach(di => { nd[di] = (pr.days[di] || []).map(e => e === srcId ? tgtId : e); });
+      np[pid] = { ...pr, days: nd };
+    });
+    const ndp = {};
+    Object.keys(d.dailyPrograms || {}).forEach(dpid => {
+      ndp[dpid] = { ...d.dailyPrograms[dpid], exercises: (d.dailyPrograms[dpid].exercises || []).map(e => e === srcId ? tgtId : e) };
+    });
+    save({ ...d, workouts: nw, exerciseNotes: newNotes, programs: np, dailyPrograms: ndp });
+    setTransferSrc(null);
+    setTransferTgt(null);
+    setTransferSrch("");
+    setTransferConflictChoice("keepB");
   };
   const makeEmptySet = eid => isCardioExerciseId(eid) ? {
     duration: 0
@@ -2355,6 +2403,10 @@ function App({
   }, React.createElement("path", {
     d: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
   }));
+  const IcoTransfer = ({ s = 16 }) => React.createElement("svg", {
+    width: s, height: s, viewBox: "0 0 24 24", fill: "none", stroke: "var(--t3)", strokeWidth: 2, strokeLinecap: "round", strokeLinejoin: "round"
+  }, React.createElement("path", { d: "M7 16V4m0 0L3 8m4-4l4 4" }),
+     React.createElement("path", { d: "M17 8v12m0 0l4-4m-4 4l-4-4" }));
   return React.createElement("div", {
     style: {
       height: "100vh",
@@ -5821,6 +5873,10 @@ function App({
       }, React.createElement(IcoHist, {
         s: 16
       })), React.createElement("button", {
+        onClick: () => { setTransferSrc(ex); setTransferTgt(null); setTransferSrch(""); setTransferConflictChoice("keepB"); },
+        style: { ...S.ib, width: 32, height: 32 },
+        title: lang === "tr" ? "Kayıtları Aktar" : "Transfer Records"
+      }, React.createElement(IcoTransfer, { s: 16 })), React.createElement("button", {
         onClick: () => removeExercise(ex.id),
         style: {
           ...S.ib,
@@ -7942,7 +7998,102 @@ function App({
     onClose: () => setPreviewEx(null),
     lang: lang,
     catLabel: catLabel
-  }), histId && (() => {
+  }), transferSrc && (() => {
+    const srcId = transferSrc.id;
+    const tgts = (data.exercises || []).filter(e => e.id !== srcId);
+    const filtered = tgts.filter(e => !transferSrch || e.name.toLowerCase().includes(transferSrch.toLowerCase()));
+    const allSrcDays = Object.keys(data.workouts || {}).filter(date => (data.workouts[date] || []).some(e => e.exerciseId === srcId));
+    const conflictDays = transferTgt ? allSrcDays.filter(date => (data.workouts[date] || []).some(e => e.exerciseId === transferTgt.id)) : [];
+    const cleanDays = allSrcDays.length - conflictDays.length;
+    return React.createElement("div", {
+      style: { position: "fixed", inset: 0, zIndex: 3000, background: "rgba(0,0,0,0.55)", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16 },
+      onClick: () => setTransferSrc(null)
+    }, React.createElement("div", {
+      style: { background: "var(--bg2)", borderRadius: 20, maxWidth: 460, width: "100%", maxHeight: "85vh", display: "flex", flexDirection: "column", boxShadow: "0 20px 60px rgba(0,0,0,0.4)" },
+      onClick: e => e.stopPropagation()
+    }, React.createElement("div", {
+      style: { padding: "18px 20px 14px", borderBottom: "1px solid var(--brd)", display: "flex", alignItems: "center", justifyContent: "space-between" }
+    }, React.createElement("div", null,
+      React.createElement("div", { style: { fontFamily: "'Space Mono',monospace", fontWeight: 700, fontSize: 15, color: "var(--t1)" } }, lang === "tr" ? "Kayıtları Aktar" : "Transfer Records"),
+      React.createElement("div", { style: { fontSize: 12, color: "var(--t3)", marginTop: 3 } },
+        React.createElement("span", { style: { color: "var(--t2)", fontWeight: 600 } }, transferSrc.name),
+        " → ",
+        transferTgt
+          ? React.createElement("span", { style: { color: "var(--blue)", fontWeight: 600 } }, transferTgt.name)
+          : React.createElement("span", null, lang === "tr" ? "seçiniz" : "select target")
+      )
+    ), React.createElement("button", {
+      onClick: () => setTransferSrc(null),
+      style: { background: "var(--bg3)", border: "none", borderRadius: 8, width: 32, height: 32, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }
+    }, React.createElement(IcoX, { s: 16 }))),
+    React.createElement("div", { style: { flex: 1, overflowY: "auto", padding: "16px 20px 20px" } },
+      React.createElement("div", { style: { marginBottom: 10 } },
+        React.createElement("input", {
+          type: "text",
+          placeholder: lang === "tr" ? "Hedef hareket ara..." : "Search target exercise...",
+          value: transferSrch,
+          onChange: e => { setTransferSrch(e.target.value); setTransferTgt(null); },
+          style: { width: "100%", padding: "8px 12px", borderRadius: 8, border: "1px solid var(--brd)", background: "var(--bg3)", color: "var(--t1)", fontSize: 13, outline: "none", boxSizing: "border-box" }
+        })
+      ),
+      React.createElement("div", { style: { maxHeight: 200, overflowY: "auto", border: "1px solid var(--brd)", borderRadius: 8, marginBottom: 16 } },
+        filtered.length === 0
+          ? React.createElement("div", { style: { padding: 16, textAlign: "center", color: "var(--t3)", fontSize: 13 } }, lang === "tr" ? "Hareket bulunamadı." : "No exercises found.")
+          : filtered.map(ex => {
+              const sel = !!(transferTgt && transferTgt.id === ex.id);
+              return React.createElement("button", {
+                key: ex.id,
+                onClick: () => setTransferTgt(ex),
+                style: { display: "flex", alignItems: "center", width: "100%", padding: "9px 12px", background: sel ? "var(--blueL)" : "transparent", border: "none", borderBottom: "1px solid var(--brd)", cursor: "pointer", textAlign: "left", gap: 8 }
+              },
+                sel
+                  ? React.createElement(IcoCheck, { c: "var(--blue)" })
+                  : React.createElement("div", { style: { width: 18, height: 18, border: "2px solid var(--brd)", borderRadius: "50%", flexShrink: 0 } }),
+                React.createElement("span", { style: { fontSize: 13, color: sel ? "var(--blue)" : "var(--t1)", fontWeight: sel ? 600 : 400 } }, ex.name)
+              );
+            })
+      ),
+      transferTgt && React.createElement("div", { style: { background: "var(--bg3)", borderRadius: 12, padding: 14, marginBottom: 16 } },
+        React.createElement("div", { style: { fontSize: 13, color: "var(--t2)", marginBottom: conflictDays.length > 0 ? 12 : 0 } },
+          allSrcDays.length === 0
+            ? React.createElement("div", { style: { color: "var(--t3)" } }, lang === "tr" ? "Bu harekete ait kayıt bulunamadı." : "No records found for this exercise.")
+            : React.createElement(React.Fragment, null,
+                cleanDays > 0 && React.createElement("div", { style: { marginBottom: 4 } },
+                  React.createElement("span", { style: { color: "var(--green)", fontWeight: 600 } }, cleanDays),
+                  " ", lang === "tr" ? "günlük kayıt aktarılacak." : "days of records will be transferred."
+                ),
+                conflictDays.length > 0 && React.createElement("div", null,
+                  React.createElement("span", { style: { color: "var(--orange)", fontWeight: 600 } }, conflictDays.length),
+                  " ", lang === "tr" ? "günde çakışma var (her iki harekette de kayıt mevcut)." : "days have conflicts (records exist for both exercises)."
+                )
+              )
+        ),
+        conflictDays.length > 0 && React.createElement("div", null,
+          React.createElement("div", { style: { fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "var(--t3)", marginBottom: 8, fontFamily: "'Space Mono',monospace" } },
+            lang === "tr" ? "Çakışan günlerde:" : "For conflicting days:"
+          ),
+          ["keepA", "keepB"].map(choice =>
+            React.createElement("button", {
+              key: choice,
+              onClick: () => setTransferConflictChoice(choice),
+              style: { display: "flex", alignItems: "center", gap: 8, width: "100%", padding: "8px 10px", marginBottom: 6, background: transferConflictChoice === choice ? "var(--blueL)" : "var(--bg2)", border: "1px solid " + (transferConflictChoice === choice ? "var(--blue)" : "var(--brd)"), borderRadius: 8, cursor: "pointer", textAlign: "left" }
+            },
+              React.createElement("div", { style: { width: 14, height: 14, borderRadius: "50%", border: "2px solid " + (transferConflictChoice === choice ? "var(--blue)" : "var(--brd)"), background: transferConflictChoice === choice ? "var(--blue)" : "transparent", flexShrink: 0 } }),
+              React.createElement("span", { style: { fontSize: 13, color: "var(--t1)" } },
+                choice === "keepA"
+                  ? (lang === "tr" ? transferSrc.name + " kayıtları kalsın" : "Keep " + transferSrc.name + " records")
+                  : (lang === "tr" ? transferTgt.name + " kayıtları kalsın" : "Keep " + transferTgt.name + " records")
+              )
+            )
+          )
+        )
+      ),
+      transferTgt && allSrcDays.length > 0 && React.createElement("button", {
+        onClick: () => transferExRecords(srcId, transferTgt.id, transferConflictChoice),
+        style: { ...S.pri, width: "100%" }
+      }, lang === "tr" ? "Aktarımı Onayla" : "Confirm Transfer")
+    )));
+  })(), histId && (() => {
     const hist = getH(histId);
     const nm = exN(histId);
     const c = cl(histId);
