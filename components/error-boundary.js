@@ -43,7 +43,7 @@
           color: "var(--t1,#e0e0e0)",
           padding: 24,
           textAlign: "center",
-          fontFamily: "'Space Mono',monospace"
+          fontFamily: "var(--font-body,'Inter',sans-serif)"
         }
       }, React.createElement("div", {
         style: {

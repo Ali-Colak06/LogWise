@@ -228,7 +228,7 @@
       }
     }), React.createElement("h1", {
       style: {
-        fontFamily: "'Archivo Black',sans-serif",
+        fontFamily: "var(--font-display)",
         fontSize: 26,
         color: "var(--accent)",
         marginBottom: 4

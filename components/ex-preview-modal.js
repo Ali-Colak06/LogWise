@@ -123,7 +123,7 @@
       }
     }, React.createElement("div", {
       style: {
-        fontFamily: "'Space Mono',monospace",
+        fontFamily: "var(--font-display)",
         fontWeight: 700,
         fontSize: 17,
         color: "var(--t1)",
@@ -243,8 +243,7 @@
     }, "\uD83D\uDCAA"), React.createElement("div", {
       style: {
         fontSize: 12,
-        color: "var(--t3)",
-        fontFamily: "'Space Mono',monospace"
+        color: "var(--t3)"
       }
     }, L.exPreviewImgSoon))), !preview && React.createElement("div", {
       style: {
@@ -267,7 +266,7 @@
         textTransform: "uppercase",
         color: "var(--t3)",
         marginBottom: 8,
-        fontFamily: "'Space Mono',monospace"
+        fontFamily: "var(--font-mono)"
       }
     }, L.exPreviewDesc), React.createElement("div", {
       style: {
@@ -283,7 +282,7 @@
         textTransform: "uppercase",
         color: "var(--t3)",
         marginBottom: 8,
-        fontFamily: "'Space Mono',monospace"
+        fontFamily: "var(--font-mono)"
       }
     }, L.exPreviewTips), React.createElement("div", {
       style: {
@@ -309,7 +308,7 @@
           fontSize: 11,
           fontWeight: 700,
           color: firstCatColor,
-          fontFamily: "'Space Mono',monospace",
+          fontFamily: "var(--font-mono)",
           flexShrink: 0,
           paddingTop: 1
         }

@@ -94,7 +94,7 @@
                 color: tickColor,
                 font: {
                   size: 10,
-                  family: "'Space Mono',monospace"
+                  family: "'JetBrains Mono',ui-monospace,monospace"
                 },
                 maxRotation: 0,
                 autoSkip: true,
@@ -109,7 +109,7 @@
                 color: tickColor,
                 font: {
                   size: 10,
-                  family: "'Space Mono',monospace"
+                  family: "'JetBrains Mono',ui-monospace,monospace"
                 }
               },
               beginAtZero: false

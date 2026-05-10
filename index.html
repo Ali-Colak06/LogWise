@@ -26,7 +26,7 @@
 <link rel="preconnect" href="https://cdnjs.cloudflare.com"/>
 <link rel="preconnect" href="https://cdn.jsdelivr.net"/>
 <link rel="dns-prefetch" href="https://czbxujioufhmvoajqwzp.supabase.co"/>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Archivo+Black&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -81,11 +81,11 @@
 <a href="#main-content" class="skip-link">Skip to content</a>
 <h1 class="sr-only">Log Wise — Free Workout Tracker & Strength Training App</h1>
 <noscript>
-  <div style="max-width:700px;margin:40px auto;padding:24px;font-family:'Space Mono',monospace;color:#e0e0e0;line-height:1.8">
+  <div style="max-width:700px;margin:40px auto;padding:24px;color:#e0e0e0;line-height:1.8">
     <p>Log Wise is a free workout tracker and strength training app. Log your sets and reps, build custom weekly programs or pick from ready-made routines, track your progress with detailed charts, estimate your 1RM, and see which muscle groups you're training most. Your entire training history in one place — start training smarter today.</p>
   </div>
 </noscript>
-<div id="root"><div style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0a0a;color:#e0e0e0;font-family:'Space Mono',monospace;gap:16px"><div style="width:78px;height:78px;padding:9px;border-radius:22px;background:#111;border:1px solid #222;display:flex;align-items:center;justify-content:center;animation:pulseGlow 1.5s ease infinite"><img src="/Site_Logo180.svg" alt="" aria-hidden="true" style="width:100%;height:100%;display:block;border-radius:14px"/></div><div style="font-size:18px;font-weight:700;letter-spacing:2px;color:#f0c040">LOG WISE</div><div style="width:120px;height:4px;background:#222;border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:#f0c040;border-radius:4px;animation:skeletonSlide 1.2s ease infinite"></div></div></div></div>
+<div id="root"><div style="height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#0a0a0a;color:#e0e0e0;gap:16px"><div style="width:78px;height:78px;padding:9px;border-radius:22px;background:#111;border:1px solid #222;display:flex;align-items:center;justify-content:center;animation:pulseGlow 1.5s ease infinite"><img src="/Site_Logo180.svg" alt="" aria-hidden="true" style="width:100%;height:100%;display:block;border-radius:14px"/></div><div style="font-size:18px;font-weight:700;letter-spacing:2px;color:#f0c040">LOG WISE</div><div style="width:120px;height:4px;background:#222;border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:#f0c040;border-radius:4px;animation:skeletonSlide 1.2s ease infinite"></div></div></div></div>
 <script>
 const { sb, profileRoute, syncProfileRecord } = window.LOGWISE_DB;
 const {
@@ -2844,7 +2844,7 @@ function App({
       textAlign: "center",
       fontSize: timerElapsed >= 3600 ? 28 : 32,
       fontWeight: 700,
-      fontFamily: "'Space Mono',monospace",
+      fontFamily: "var(--font-mono)",
       color: timerRunning ? "var(--accent)" : "var(--t1)",
       padding: "8px 0",
       letterSpacing: 2
@@ -4354,7 +4354,7 @@ function App({
       style: {
         fontSize: 36,
         fontWeight: 700,
-        fontFamily: "'Space Mono',monospace",
+        fontFamily: "var(--font-mono)",
         color: restTimerSecs <= 5 && restTimerSecs > 0 ? "var(--red)" : "var(--blue)"
       }
     }, fmtTime(restTimerSecs)), restTimerSecs === 0 && React.createElement("div", {
@@ -8014,7 +8014,7 @@ function App({
     }, React.createElement("div", {
       style: { padding: "18px 20px 14px", borderBottom: "1px solid var(--brd)", display: "flex", alignItems: "center", justifyContent: "space-between" }
     }, React.createElement("div", null,
-      React.createElement("div", { style: { fontFamily: "'Space Mono',monospace", fontWeight: 700, fontSize: 15, color: "var(--t1)" } }, lang === "tr" ? "Kayıtları Aktar" : "Transfer Records"),
+      React.createElement("div", { style: { fontWeight: 700, fontSize: 15, color: "var(--t1)" } }, lang === "tr" ? "Kayıtları Aktar" : "Transfer Records"),
       React.createElement("div", { style: { fontSize: 12, color: "var(--t3)", marginTop: 3 } },
         React.createElement("span", { style: { color: "var(--t2)", fontWeight: 600 } }, transferSrc.name),
         " → ",
@@ -8069,7 +8069,7 @@ function App({
               )
         ),
         conflictDays.length > 0 && React.createElement("div", null,
-          React.createElement("div", { style: { fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "var(--t3)", marginBottom: 8, fontFamily: "'Space Mono',monospace" } },
+          React.createElement("div", { style: { fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: "var(--t3)", marginBottom: 8, fontFamily: "var(--font-mono)" } },
             lang === "tr" ? "Çakışan günlerde:" : "For conflicting days:"
           ),
           ["keepA", "keepB"].map(choice =>
@@ -8560,7 +8560,7 @@ function App({
     }
   }, "\uD83C\uDFCB\uFE0F"), React.createElement("h2", {
     style: {
-      fontFamily: "'Archivo Black',sans-serif",
+      fontFamily: "var(--font-display)",
       fontSize: 22,
       color: "var(--accent)",
       marginBottom: 8
@@ -8829,8 +8829,7 @@ function Root() {
       flexDirection: "column",
       alignItems: "center",
       gap: 14,
-      fontSize: 18,
-      fontFamily: "'Space Mono',monospace"
+      fontSize: 18
     }
   }, React.createElement(BrandMark, {
     size: 74,
