@@ -3,10 +3,7 @@
 # index.php → kök dizine 301 yönlendirme
 /index.php    /   301
 
-# /app clean URL — app.html'i /app adresinde sun
-/app          /app.html       200
-
-# NOT: /profile, /share ve /program için kural YOK — Netlify, .html
+# NOT: /app, /profile, /share ve /program için kural YOK — Netlify, .html
 # dosyalarını otomatik olarak clean URL olarak sunuyor.
 # Burada kural eklemek redirect döngüsüne neden olur.
 
