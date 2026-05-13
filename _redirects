@@ -7,7 +7,10 @@
 # dosyalarını otomatik olarak clean URL olarak sunuyor.
 # Burada kural eklemek redirect döngüsüne neden olur.
 
-# SPA route'ları — React client-side routing
+# /app/* SPA route'ları — yeni URL şeması (wildcard)
+/app/*        /app.html       200
+
+# Eski SPA route'ları — geriye dönük uyumluluk
 /social       /app.html       200
 /dashboard    /app.html       200
 /exercises    /app.html       200

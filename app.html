@@ -200,12 +200,12 @@ function App({
   const [view, setView] = useState(() => {
     const p = window.location.pathname;
     const q = new URLSearchParams(window.location.search);
-    if (p === "/dashboard") return "dashboard";
-    if (p === "/exercises") return "exercises";
-    if (p === "/programs") return "programs";
-    if (p === "/feedback") return "feedback";
-    if (p === "/data") return "data";
-    if (p === "/social") return "social";
+    if (p === "/app/dashboard" || p === "/dashboard") return "dashboard";
+    if (p === "/app/exercises" || p === "/exercises") return "exercises";
+    if (p === "/app/programs"  || p === "/programs")  return "programs";
+    if (p === "/app/feedback"  || p === "/feedback")  return "feedback";
+    if (p === "/app/data"      || p === "/data")      return "data";
+    if (p === "/app/social"    || p === "/social")    return "social";
     if (q.get("date")) return "day";
     return "calendar";
   });
@@ -620,13 +620,13 @@ function App({
       isPopRef.current = false;
       return;
     }
-    const u = view === "dashboard" ? "/dashboard" : view === "exercises" ? "/exercises" : view === "programs" ? "/programs" : view === "feedback" ? "/feedback" : view === "data" ? "/data" : view === "social" ? "/social" : view === "day" && selDate ? `/?date=${fmt(selDate)}` : "/";
+    const u = view === "dashboard" ? "/app/dashboard" : view === "exercises" ? "/app/exercises" : view === "programs" ? "/app/programs" : view === "feedback" ? "/app/feedback" : view === "data" ? "/app/data" : view === "social" ? "/app/social" : view === "day" && selDate ? `/app?date=${fmt(selDate)}` : "/app";
     const cur = window.location.pathname + (window.location.search || "");
     if (cur !== u) history.pushState(null, "", u);
   }, [view]);
   useEffect(() => {
     if (view === "day" && selDate) {
-      const u = `/?date=${fmt(selDate)}`;
+      const u = `/app?date=${fmt(selDate)}`;
       const cur = window.location.pathname + (window.location.search || "");
       if (cur !== u) history.replaceState(null, "", u);
     }
@@ -637,7 +637,7 @@ function App({
       const p = window.location.pathname;
       const q = new URLSearchParams(window.location.search);
       const d = q.get("date");
-      if (p === "/dashboard") setView("dashboard");else if (p === "/exercises") setView("exercises");else if (p === "/programs") setView("programs");else if (p === "/feedback") setView("feedback");else if (p === "/data") setView("data");else if (p === "/social") setView("social");else if (d) {
+      if (p === "/app/dashboard" || p === "/dashboard") setView("dashboard");else if (p === "/app/exercises" || p === "/exercises") setView("exercises");else if (p === "/app/programs" || p === "/programs") setView("programs");else if (p === "/app/feedback" || p === "/feedback") setView("feedback");else if (p === "/app/data" || p === "/data") setView("data");else if (p === "/app/social" || p === "/social") setView("social");else if (d) {
         setSelDate(pD(d));
         setView("day");
       } else setView("calendar");

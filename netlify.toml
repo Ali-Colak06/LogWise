@@ -14,9 +14,14 @@
   status = 301
   force = true
 
-# /app clean URL — app.html'i /app adresinde sun
+# /app ve /app/* — uygulama giriş noktası + tüm SPA sub-route'ları
 [[redirects]]
   from = "/app"
+  to = "/app.html"
+  status = 200
+
+[[redirects]]
+  from = "/app/*"
   to = "/app.html"
   status = 200
 
