@@ -559,6 +559,62 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
 
 }
 
+/* =================== WORKOUT LOGGING MOCKUP — MOBILE PHONE FRAME =================== */
+@media (max-width: 640px) {
+
+  /* Telefon çerçevesi — daha küçük, daha gerçek */
+  .workout-logging-mockup {
+    width: min(100%, 256px) !important;
+    max-width: 256px !important;
+    margin: 0 auto !important;
+    padding: 8px 8px 12px !important;
+    border-radius: 38px !important;
+    background: linear-gradient(180deg, #1a1a1a, #080808) !important;
+    border: 1px solid rgba(255,255,255,.07) !important;
+    box-shadow:
+      0 2px 0 rgba(255,255,255,.04) inset,
+      0 28px 60px -24px rgba(0,0,0,.98),
+      0 16px 40px -28px rgba(240,192,64,.14) !important;
+    overflow: hidden !important;
+    position: relative !important;
+    max-height: none !important;
+  }
+
+  /* Speaker çubuğu — üstte notch detayı */
+  .workout-logging-mockup::before {
+    content: "" !important;
+    display: block !important;
+    position: absolute !important;
+    top: 13px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 52px !important;
+    height: 5px !important;
+    border-radius: 999px !important;
+    background: rgba(255,255,255,.09) !important;
+    z-index: 3 !important;
+  }
+
+  /* İç ekran görüntüsü */
+  .workout-logging-mockup img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    border-radius: 30px !important;
+    object-fit: contain !important;
+    object-position: top center !important;
+    margin-top: 14px !important;
+    max-height: none !important;
+  }
+
+  /* Feature kartı ile mockup arasındaki boşluğu dengele */
+  .feature-showcase .workout-logging-mockup,
+  .feature-showcase-alt .workout-logging-mockup {
+    margin-top: 4px !important;
+  }
+
+}
+
 </style>
 </head>
 <body>
