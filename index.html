@@ -331,6 +331,10 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
 .foot-col a:hover{color:var(--gold)}
 .foot-bottom{margin-top:48px;padding-top:24px;border-top:1px solid var(--brd);display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--t4);letter-spacing:.06em;flex-wrap:wrap;gap:12px;font-family:var(--font-mono);text-transform:uppercase}
 
+/* =================== Desktop / Mobile labels =================== */
+.mobile-label{display:none}
+@media (max-width:640px){.desktop-label{display:none}.mobile-label{display:inline}}
+
 /* =================== Responsive =================== */
 @media (max-width: 1024px){
   .hero h1{font-size:64px}
@@ -344,53 +348,108 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
   .programs-grid{grid-template-columns:repeat(2,1fr)}
   .charts-strip{grid-template-columns:1fr}
   .badges-grid{grid-template-columns:repeat(6,1fr)}
-}
-@media (max-width: 640px){
-  .shell{padding:0 20px}
-  .nav-links{display:none}
-  .hero{padding:56px 0 64px}
-  .hero h1{font-size:48px}
-  .feat-grid{grid-template-columns:1fr}
-  .feat{grid-column:span 1!important}
-  .programs-grid{grid-template-columns:1fr}
-  .badges-grid{grid-template-columns:repeat(4,1fr)}
-  .quote .q{font-size:36px}
-  .cta h2{font-size:48px}
-  .mock.card-pr{left:-12px;width:220px}
-  .mock.card-streak{right:-8px;width:160px}
-  .section-pad{padding:80px 0}
-}
-
-@media (max-width: 1024px){
   .feature-showcase{grid-template-columns:1fr;gap:36px;padding:28px}
   .feature-showcase-alt{grid-template-columns:1fr}
   .feature-showcase-alt .feature-mockup{order:2}
   .feature-showcase-alt .feature-copy{order:1;justify-self:start}
   .feature-copy{max-width:640px}
   .feature-copy h3{font-size:42px}
-}
-@media (max-width: 640px){
-  .features-showcase-section{padding:80px 0}
-  .features-intro{margin-bottom:36px}
-  .feature-showcase{padding:18px;border-radius:20px;gap:28px}
-  .feature-copy h3{font-size:34px}
-  .feature-copy p{font-size:15px}
-  .feature-points span{font-size:12px;padding:7px 10px}
-  .feature-mockup{border-radius:16px;padding:6px}
-  .feature-mockup img{border-radius:10px}
-}
-
-@media (max-width: 1024px){
   .app-card{grid-template-columns:1fr;gap:40px}
   .app-copy h2{font-size:48px}
   .app-visual{width:270px;height:520px}
 }
+
 @media (max-width: 640px){
+  /* Base */
+  html,body{overflow-x:hidden}
+  .shell{padding:0 20px}
+
+  /* Nav */
+  .nav-row{height:56px;gap:8px}
+  .nav-links{display:none}
+  .brand{gap:8px;min-width:0}
+  .brand-mark{width:32px;height:32px;flex:0 0 auto}
+  .brand-name{font-size:15px}
+  .nav-actions{gap:8px;flex-shrink:0}
+  .lang-switch{font-size:11px}
+  .lang-switch button{padding:5px 8px}
+  .nav-actions .btn-primary{padding:9px 12px;font-size:12px;white-space:nowrap;letter-spacing:.02em;min-width:0}
+
+  /* Hero */
+  .hero{padding:52px 0 60px}
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .tag{font-size:10px;letter-spacing:.08em;max-width:100%}
+  .hero h1{font-size:clamp(46px,12vw,58px);line-height:.98;letter-spacing:-.04em}
+  .hero p.lead{font-size:16px;max-width:100%}
+  .hero-ctas{flex-direction:column;gap:10px}
+  .hero-ctas .btn{width:100%;justify-content:center;padding:14px 18px}
+  .hero-meta{flex-wrap:wrap;gap:10px 16px;font-size:10px;overflow:hidden}
+  .hero-meta .dot{display:none}
+
+  /* Hero mockup */
+  .mock-stack{height:360px;overflow:hidden}
+  .mock.dash{transform:none;width:110%;left:-5%;right:auto}
+  .mock.card-pr,.mock.card-streak{display:none}
+
+  /* Marquee */
+  .strip-row{gap:36px;font-size:10px;padding:14px 0}
+
+  /* Section shared */
+  .section-pad{padding:80px 0}
+  .section-title{font-size:clamp(36px,10vw,48px);line-height:1.05}
+  .section-sub{font-size:15px}
+  .section-head{margin-bottom:32px}
+
+  /* Old feature grid + programs */
+  .feat-grid{grid-template-columns:1fr}
+  .feat{grid-column:span 1!important}
+  .programs-grid{grid-template-columns:1fr}
+
+  /* Feature showcase */
+  .features-showcase-section{padding:80px 0}
+  .features-intro{margin-bottom:32px}
+  .feature-showcase,.feature-showcase-alt{grid-template-columns:1fr;padding:20px;border-radius:22px;gap:28px}
+  .feature-showcase .feature-copy,.feature-showcase-alt .feature-copy{order:1;justify-self:start;max-width:100%}
+  .feature-showcase .feature-mockup,.feature-showcase-alt .feature-mockup,.feature-badge-panel{order:2}
+  .feature-label{font-size:10px;letter-spacing:.12em;margin-bottom:14px}
+  .feature-copy h3{font-size:clamp(34px,9.5vw,42px);line-height:1.05;letter-spacing:-.035em}
+  .feature-copy p{margin-top:18px;font-size:16px}
+  .feature-points{gap:8px;margin-top:20px;flex-wrap:wrap}
+  .feature-points span{font-size:13px;padding:8px 11px}
+  .feature-mockup{border-radius:18px;padding:6px;max-height:420px;width:100%;overflow:hidden}
+  .feature-mockup img{border-radius:12px;max-height:400px;width:100%;height:auto;object-fit:contain}
+  .feature-mockup-phone{max-width:260px;margin-inline:auto}
+  .feature-badge-panel{padding:18px;border-radius:18px;overflow:hidden}
+  .feature-badge-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .feature-badge-panel .badge{min-height:86px}
+
+  /* Badges band */
+  .badges-grid{grid-template-columns:repeat(4,1fr)}
+
+  /* App section */
   .app-section{padding:80px 0}
-  .app-card{padding:24px;border-radius:22px}
-  .app-copy h2{font-size:38px}
-  .app-copy p{font-size:15px}
-  .app-visual{width:240px;height:470px}
+  .app-card{grid-template-columns:1fr;padding:24px;border-radius:22px;gap:32px}
+  .app-copy h2{font-size:clamp(38px,10vw,52px);line-height:1.05}
+  .app-copy p{font-size:16px}
+  .app-meta span{font-size:13px;padding:8px 11px}
+  .app-visual{width:230px;height:450px;margin-inline:auto}
+
+  /* Quote */
+  .quote{padding:88px 0}
+  .quote .q{font-size:clamp(36px,10vw,50px);line-height:1.08}
+
+  /* CTA */
+  .cta{padding:90px 0}
+  .cta-mark{width:72px;height:72px;margin-bottom:24px}
+  .cta h2{font-size:clamp(44px,12vw,62px);line-height:1.02}
+  .cta p{font-size:15px}
+  .cta .ctas{flex-direction:column;align-items:center}
+  .cta .ctas .btn{width:100%;max-width:320px;justify-content:center}
+
+  /* Footer */
+  footer{padding:40px 0 52px}
+  .foot-row{gap:28px}
+  .foot-bottom{flex-direction:column;align-items:flex-start;gap:8px;line-height:1.6}
 }
 
 </style>
@@ -508,7 +567,7 @@ const Nav = ({lang,setLang,L}) => (
           <button className={lang==='tr'?'on':''} onClick={()=>setLang('tr')}>TR</button>
           <button className={lang==='en'?'on':''} onClick={()=>setLang('en')}>EN</button>
         </div>
-        <a href="/app" className="btn btn-primary">{L.open} →</a>
+        <a href="/app" className="btn btn-primary"><span className="desktop-label">{L.open}</span><span className="mobile-label">{lang==='tr'?'AÇ':'OPEN'}</span> →</a>
       </div>
     </div>
   </header>
