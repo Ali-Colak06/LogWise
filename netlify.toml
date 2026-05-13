@@ -1,7 +1,7 @@
 [build]
   publish = "."
 
-# index.html ve index.php -> kök dizine 301 yönlendirme (Accessible index page fix)
+# index.html ve index.php -> kök dizine 301 (landing page canonical URL)
 [[redirects]]
   from = "/index.html"
   to = "/"
@@ -13,6 +13,12 @@
   to = "/"
   status = 301
   force = true
+
+# /app clean URL — app.html'i /app adresinde sun
+[[redirects]]
+  from = "/app"
+  to = "/app.html"
+  status = 200
 
 # Profil sayfası — /profile URL'i profile.html dosyasını sunar
 [[redirects]]
@@ -29,32 +35,32 @@
 # SPA route'ları — React tarafında URL routing var
 [[redirects]]
   from = "/social"
-  to = "/index.html"
+  to = "/app.html"
   status = 200
 
 [[redirects]]
   from = "/dashboard"
-  to = "/index.html"
+  to = "/app.html"
   status = 200
 
 [[redirects]]
   from = "/exercises"
-  to = "/index.html"
+  to = "/app.html"
   status = 200
 
 [[redirects]]
   from = "/programs"
-  to = "/index.html"
+  to = "/app.html"
   status = 200
 
 [[redirects]]
   from = "/feedback"
-  to = "/index.html"
+  to = "/app.html"
   status = 200
 
 [[redirects]]
   from = "/data"
-  to = "/index.html"
+  to = "/app.html"
   status = 200
 
 # Var olmayan tüm sayfalar için 404 döndür (catch-all)
