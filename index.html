@@ -460,6 +460,105 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
   .foot-bottom{flex-direction:column;align-items:flex-start;gap:8px;line-height:1.6}
 }
 
+/* =================== FINAL MOBILE HOTFIX =================== */
+@media (max-width: 640px) {
+
+  /* SORUN 1 — Hero mockup tamamen gizle */
+  .hero .mock-stack {
+    display: none !important;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+  .hero {
+    padding-bottom: 64px !important;
+  }
+
+  /* SORUN 2 — Daily Workout Logging telefon mockup */
+  .workout-logging-mockup {
+    width: min(100%, 320px) !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    border-radius: 28px !important;
+    background: transparent !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: 0 24px 70px -34px rgba(240,192,64,.28) !important;
+  }
+  .workout-logging-mockup::before {
+    display: none !important;
+  }
+  .workout-logging-mockup img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: top center !important;
+    border-radius: 24px !important;
+    display: block !important;
+  }
+
+  /* SORUN 3 — App section telefon mockup */
+  .app-card {
+    gap: 28px !important;
+  }
+  .app-visual {
+    width: 220px !important;
+    height: 430px !important;
+    border-radius: 46px !important;
+    padding: 8px !important;
+    margin: 0 auto !important;
+  }
+  .app-screen {
+    border-radius: 38px !important;
+    padding: 52px 16px 28px !important;
+    overflow: hidden !important;
+  }
+  .app-status {
+    margin-bottom: 14px !important;
+    font-size: 10px !important;
+  }
+  .app-screen-title {
+    font-size: 18px !important;
+    line-height: 1.05 !important;
+  }
+  .app-screen-sub {
+    font-size: 12px !important;
+    margin-top: 6px !important;
+  }
+  .app-progress {
+    margin-top: 20px !important;
+    height: 8px !important;
+  }
+  .app-phone-list {
+    margin-top: 18px !important;
+    gap: 9px !important;
+  }
+  .app-phone-list span {
+    padding: 11px 12px !important;
+    border-radius: 15px !important;
+    font-size: 11px !important;
+  }
+  .app-phone-list b {
+    font-size: 12px !important;
+    line-height: 1.15 !important;
+  }
+  .app-phone-list em {
+    font-size: 11px !important;
+  }
+  .app-phone-list span:nth-child(3) {
+    display: none !important;
+  }
+  .app-home-indicator {
+    bottom: 12px !important;
+    width: 82px !important;
+    height: 3px !important;
+  }
+
+}
+
 </style>
 </head>
 <body>
