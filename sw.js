@@ -1,7 +1,9 @@
-const CACHE_NAME = 'logwise-v24';
+const CACHE_NAME = 'logwise-v25';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
+  '/app',
+  '/app.html',
   '/manifest.json',
   '/favicon.ico',
   '/icon-192.png',
@@ -84,7 +86,7 @@ self.addEventListener('fetch', (e) => {
         })
         .catch(() =>
           // Offline fallback — cache'den sun
-          caches.match(e.request).then(cached => cached || caches.match('/index.html'))
+          caches.match(e.request).then(cached => cached || caches.match('/app.html'))
         )
     );
     return;

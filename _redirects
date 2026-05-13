@@ -1,20 +1,22 @@
-# Cloudflare Pages — Redirect & Rewrite Kuralları
+# Netlify — Redirect & Rewrite Kuralları
 
-# index.html / index.php → kök dizine 301 yönlendirme
-/index.html   /   301
+# index.php → kök dizine 301 yönlendirme
 /index.php    /   301
 
-# NOT: /profile, /share ve /program için kural YOK — Cloudflare Pages, .html
+# /app clean URL — app.html'i /app adresinde sun
+/app          /app.html       200
+
+# NOT: /profile, /share ve /program için kural YOK — Netlify, .html
 # dosyalarını otomatik olarak clean URL olarak sunuyor.
 # Burada kural eklemek redirect döngüsüne neden olur.
 
 # SPA route'ları — React client-side routing
-/social       /index.html     200
-/dashboard    /index.html     200
-/exercises    /index.html     200
-/programs     /index.html     200
-/feedback     /index.html     200
-/data         /index.html     200
+/social       /app.html       200
+/dashboard    /app.html       200
+/exercises    /app.html       200
+/programs     /app.html       200
+/feedback     /app.html       200
+/data         /app.html       200
 
 # NOT: 404 sayfası için ayrı satır gerekmez.
-# Cloudflare Pages, kök dizindeki 404.html dosyasını otomatik olarak kullanır.
+# Netlify, kök dizindeki 404.html dosyasını otomatik olarak kullanır.
