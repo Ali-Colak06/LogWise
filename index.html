@@ -387,9 +387,14 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
   .hero-meta .dot{display:none}
 
   /* Hero mockup */
-  .mock-stack{height:360px;overflow:hidden}
-  .mock.dash{transform:none;width:110%;left:-5%;right:auto}
+  .mock-stack{height:320px;margin-top:24px;overflow:hidden}
+  .mock.dash{position:relative;width:100%;left:0;right:auto;top:0;transform:none;border-radius:18px;max-height:300px;overflow:hidden}
   .mock.card-pr,.mock.card-streak{display:none}
+  .dash-tabs{overflow:hidden}
+  .dash-tab{font-size:11px;padding:7px 10px}
+  .dash-body{padding:10px}
+  .chart-card-inner{padding:12px}
+  .dash-chart{height:120px}
 
   /* Marquee */
   .strip-row{gap:36px;font-size:10px;padding:14px 0}
@@ -418,7 +423,10 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
   .feature-points span{font-size:13px;padding:8px 11px}
   .feature-mockup{border-radius:18px;padding:6px;max-height:420px;width:100%;overflow:hidden}
   .feature-mockup img{border-radius:12px;max-height:400px;width:100%;height:auto;object-fit:contain}
-  .feature-mockup-phone{max-width:260px;margin-inline:auto}
+  .feature-mockup-phone{max-width:280px;margin-inline:auto}
+  .workout-logging-mockup{max-width:320px;padding:0;background:transparent;border-radius:24px;max-height:560px;overflow:hidden}
+  .workout-logging-mockup::before{display:none}
+  .workout-logging-mockup img{max-height:560px;width:100%;object-fit:cover;object-position:top center;border-radius:18px}
   .feature-badge-panel{padding:18px;border-radius:18px;overflow:hidden}
   .feature-badge-grid{grid-template-columns:repeat(3,1fr);gap:8px}
   .feature-badge-panel .badge{min-height:86px}
@@ -876,7 +884,7 @@ const Features = ({lang,L}) => {
               </div>
             </div>
 
-            <div className="feature-mockup feature-mockup-phone">
+            <div className="feature-mockup feature-mockup-phone workout-logging-mockup">
               <img src={PHONE_WORKOUT_MOCKUP_SRC} alt={f[2].alt} />
             </div>
           </article>
