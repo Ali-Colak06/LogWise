@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogWise Calendar Home Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="phone-shell" aria-label="LogWise calendar-first home screen prototype">
+    <div class="status-bar" aria-hidden="true">
+      <span>9:41</span>
+      <div class="status-icons">
+        <i class="signal"></i>
+        <i class="wifi"></i>
+        <i class="battery"></i>
+      </div>
+    </div>
+
+    <header class="app-bar">
+      <button class="profile-button" type="button" aria-label="Open profile">
+        <span></span>
+      </button>
+
+      <div class="month-title" aria-live="polite">
+        <h1>September</h1>
+        <p>2026</p>
+      </div>
+
+      <div class="top-actions">
+        <div class="view-control">
+          <button class="view-button" type="button" aria-expanded="false" aria-controls="view-menu">
+            Month
+            <span></span>
+          </button>
+          <div class="view-menu" id="view-menu">
+            <button class="selected" type="button">Month</button>
+            <button type="button">Week</button>
+            <button type="button">Day</button>
+          </div>
+        </div>
+
+        <button class="today-button" type="button" aria-label="Go to today">
+          <span class="mini-calendar">17</span>
+        </button>
+      </div>
+    </header>
+
+    <section class="calendar-area" aria-label="September 2026 workout calendar">
+      <div class="weekday-row" aria-hidden="true">
+        <span>Sun</span>
+        <span>Mon</span>
+        <span>Tue</span>
+        <span>Wed</span>
+        <span>Thu</span>
+        <span>Fri</span>
+        <span>Sat</span>
+      </div>
+
+      <div class="calendar-grid" id="calendar-grid"></div>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="active" type="button" aria-current="page">
+        <span class="icon calendar-icon"></span>
+        Calendar
+      </button>
+      <button type="button">
+        <span class="icon workout-icon"></span>
+        Workout
+      </button>
+      <button type="button">
+        <span class="icon dashboard-icon"></span>
+        Dashboard
+      </button>
+      <button type="button">
+        <span class="icon social-icon"></span>
+        Social
+      </button>
+      <button class="more-button" type="button" aria-expanded="false" aria-controls="more-menu">
+        <span class="icon more-icon"></span>
+        More
+      </button>
+    </nav>
+
+    <div class="more-menu" id="more-menu">
+      <button type="button">My Profile</button>
+      <button type="button">Settings</button>
+      <button type="button">Feedback</button>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

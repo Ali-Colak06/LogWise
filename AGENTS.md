@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-04-21 — Bölüm 44: Yorum sistemi + feed kendi-paylaşımı -->
+<!-- SON GÜNCELLEME: 2026-05-14 — Mobil tasarım sistemi yönergeleri -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -11,6 +11,8 @@ Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) 
 LogWise — React 18 + Supabase tabanlı, Cloudflare Pages üzerinde yayınlanan bir antrenman takip PWA'sı. Build step yok. React, doğrudan `React.createElement()` çağrılarıyla kullanılır; JSX yoktur. Stil `styles/base.css` + sayfa-özel inline CSS. Dil desteği: Türkçe + İngilizce (varsayılan TR).
 
 Prod URL: https://logwise.fit
+
+Gelecek hedef: mevcut web UI, React Native + Expo + TypeScript ile geliştirilecek mobil uygulama için marka ve UX yönü açısından kaynak gerçekliktir. Mobil tasarım sistemi çalışmaları mevcut uygulamayı yeniden yazmak için değil, görsel kimliği ve kullanım kalıplarını belgelemek için yapılır.
 
 ---
 
@@ -55,6 +57,15 @@ Her AI seansı başlamadan **önce**:
 - Sensitive dosyalar (`.env`, credentials) commit'e girmez. `git add .` yerine dosyaları ismen ekle.
 - `main` branch'i deploy'dur; büyük işler önce feature branch'te geliştirilir (opsiyonel).
 
+### 3.5 Mobil Tasarım Sistemi Görevleri
+- Mobil tasarım sistemi görevlerinde mevcut web uygulaması kaynak gerçekliktir: varsayım yapmadan önce gerçek dosyaları incele.
+- Mevcut uygulamayı, veritabanını, auth akışlarını, Supabase katmanını, deployment ayarlarını veya business logic'i değiştirme; kullanıcı açıkça istemedikçe tasarım sistemi işleri dokümantasyon/analiz kapsamındadır.
+- Design-system dosyaları oluşturulacaksa `docs/mobile-design-system/` altında tutulur.
+- React Native + Expo + TypeScript konvansiyonlarını hedefle; ancak kullanıcı açıkça istemedikçe mobil app kodu, scaffold veya runtime bağımlılığı oluşturma.
+- LogWise stil yönü: dark, minimal, premium, fitness-focused, pratik ve hızlı workout logging'e uygun.
+- Belirsiz noktaları tahmin ederek kesinleştirme; dokümanda "uncertain", "open question" veya "needs product decision" olarak işaretle.
+- Her görev sonunda değişen dosyaları kısa bir özetle bildir.
+
 ---
 
 ## 4. Dosya Yapısı Haritası
@@ -66,6 +77,7 @@ LogWise/
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
+│   ├── mobile-design-system/  ← Mobil tasarım sistemi dokümanları (gerektiğinde oluşturulur)
 │   ├── YENI-COMPONENT.md
 │   └── SW-VERSION-BUMP.md
 ├── data/                      ← Sabit veri + i18n (Aşama 1)
@@ -125,6 +137,7 @@ LogWise/
 | Sayfa-özel CSS eklemek | `index.html` / `profile.html` inline `<style>` |
 | sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
 | Yeni sayfa eklemek | `.html` dosyası + `_redirects` güncellemesi + sw.js PRECACHE |
+| Mobil tasarım sistemi analizi | Önce `styles/base.css`, `app.html`, `index.html`, `components/*.js`, logo/görsel asset'leri; çıktı gerekiyorsa `docs/mobile-design-system/` |
 
 ---
 
@@ -141,6 +154,7 @@ LogWise/
 7. **AGENTS.md dosya haritası** — yeni dosya/klasör eklediysen haritayı güncelle + `SON GÜNCELLEME` tarihini yenile.
 8. **Çalıştırma testi:** mümkünse tarayıcıda aç, en az etkilenen view'ı render et.
 9. **Commit disiplini:** `git add <dosyalar>` ismen; mesaj kısa ama anlamlı; `Co-Authored-By:` satırı.
+10. **Değişen dosya özeti:** Final yanıtta değişen dosyaları ve kapsamını özetle.
 
 ---
 
@@ -157,6 +171,8 @@ LogWise/
 - ❌ Supabase `SUPABASE_URL` / `SUPABASE_ANON_KEY` gibi sabitleri `lib/db.js` dışında duplicate etmek
 - ❌ Commit'e sensitive dosya (.env, credentials) eklemek
 - ❌ `git push --force` main'e atmak
+- ❌ Tasarım sistemi görevlerinde açık istek olmadan mevcut app kodunu, DB/auth/Supabase/deployment/business logic'i değiştirmek
+- ❌ Açık istek olmadan React Native / Expo mobil uygulama kodu veya scaffold oluşturmak
 
 ---
 
@@ -195,3 +211,25 @@ Bu projede iki AI aracı (Claude + Codex) **farklı seanslarda, ayrı ayrı** ç
 - Refactor aşaması bittiğinde (§8'i güncelle)
 
 Güncelleme sonrası **her zaman** üstteki `SON GÜNCELLEME` yorumunu ve tarih satırını yenile.
+
+---
+
+## 11. Mobil Tasarım Sistemi Çalışma Rehberi
+
+Mobil tasarım sistemi görevi geldiğinde amaç, mevcut LogWise web ürününün görsel kimliğini ve UX kalıplarını mobil uygulama için anlaşılır dokümana çevirmektir. Öncelik uygulama kodu yazmak değil, doğru gözlem ve tutarlı tasarım kararlarıdır.
+
+İncelenecek ana kaynaklar:
+- `styles/base.css` — renk token'ları, font rolleri, theme değişkenleri, focus/scrollbar/animasyon temelleri.
+- `app.html` — gerçek web app akışları, dashboard/day/program/exercise/social/data view kalıpları.
+- `index.html` — landing/demo anlatımı, marka sunumu ve pazarlama görselleri.
+- `components/*.js` — ayrıştırılmış component pattern'leri, inline style kararları, BrandMark/Auth/Chart/Modal/Comment kalıpları.
+- Logo ve görsel asset'ler — `Site_Logo180.svg`, icon PNG'leri ve workout mockup görselleri.
+
+Mobil tasarım sistemi çıktıları oluşturulursa `docs/mobile-design-system/` altında küçük, odaklı dosyalar tercih edilir. Örnek dosya sınırları: `visual-identity.md`, `tokens.md`, `components.md`, `navigation.md`, `screen-patterns.md`, `open-questions.md`.
+
+Dokümanlarda özellikle şunları yakala:
+- Renk, typography, spacing, border/radius, shadow, motion ve state token'ları.
+- Hızlı workout logging için primary action, set entry, rest/timer, history, PR/stat ve program kullanım kalıpları.
+- Dark mode varsayılanı; light mode varsa web ürünündeki mevcut token'lardan türetilmiş hali.
+- Mobil ergonomi: tek elle kullanım, yoğun bilgi alanları, hızlı veri girişi, hata önleme, offline/PWA alışkanlıklarından gelen beklentiler.
+- React Native + Expo + TypeScript'e çevrilebilir token/component isimlendirmeleri; fakat kod üretimi yalnızca ayrıca istendiğinde.

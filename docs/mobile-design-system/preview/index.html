@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogWise Mobile Design System Preview</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="page-hero">
+    <div class="hero-inner">
+      <div class="brand-row">
+        <div class="brand-mark">
+          <img src="../../../Site_Logo180.svg" alt="" aria-hidden="true">
+        </div>
+        <div>
+          <p class="eyebrow">Future React Native + Expo direction</p>
+          <h1>LogWise Mobile Design System</h1>
+        </div>
+      </div>
+      <p class="hero-copy">
+        A dark, minimal, premium workout logging system based on the current LogWise web product:
+        black surfaces, restrained gold accents, dense gym-friendly controls, and progress-first feedback.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">Tokens</p>
+        <h2>Color Palette</h2>
+        <p>Gold is reserved for primary actions, selected states, PRs, streaks, and brand moments.</p>
+      </div>
+      <div class="swatch-grid">
+        <article class="swatch"><span style="background:#0A0A0A"></span><b>Background</b><code>#0A0A0A</code></article>
+        <article class="swatch"><span style="background:#111111"></span><b>Surface</b><code>#111111</code></article>
+        <article class="swatch"><span style="background:#1A1A1A"></span><b>Elevated Surface</b><code>#1A1A1A</code></article>
+        <article class="swatch"><span style="background:#222222"></span><b>Border</b><code>#222222</code></article>
+        <article class="swatch"><span style="background:#E0E0E0"></span><b>Text Primary</b><code>#E0E0E0</code></article>
+        <article class="swatch"><span style="background:#888888"></span><b>Text Secondary</b><code>#888888</code></article>
+        <article class="swatch"><span style="background:#F0C040"></span><b>Accent Gold</b><code>#F0C040</code></article>
+        <article class="swatch"><span style="background:#8FBC8F"></span><b>Success</b><code>#8FBC8F</code></article>
+        <article class="swatch"><span style="background:#FF6060"></span><b>Danger</b><code>#FF6060</code></article>
+      </div>
+    </section>
+
+    <section class="section two-col">
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">Type</p>
+          <h2>Typography Examples</h2>
+          <p>System fonts are used in this preview. The hierarchy mirrors the proposed Inter, Space Grotesk, and JetBrains Mono roles.</p>
+        </div>
+        <div class="type-card">
+          <p class="type-label">Title</p>
+          <div class="type-title">Train smarter today</div>
+          <p class="type-label">Screen heading</p>
+          <div class="type-heading">Today, 14 May</div>
+          <p class="type-label">Body</p>
+          <p class="type-body">Log sets quickly, compare against last time, and keep the workout moving.</p>
+          <p class="type-label">Caption</p>
+          <p class="type-caption">Last workout: 82.5 kg x 6 reps</p>
+          <p class="type-label">Stat number</p>
+          <div class="type-stat">127<span>kg</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-head">
+          <p class="eyebrow">Components</p>
+          <h2>Core Building Blocks</h2>
+          <p>Buttons, inputs, cards, chips, states, and bottom navigation shown with final visual intent.</p>
+        </div>
+        <div class="component-board">
+          <div class="button-row">
+            <button class="btn primary">Start Workout</button>
+            <button class="btn secondary">Cancel</button>
+            <button class="btn danger">Delete</button>
+          </div>
+          <label class="field">
+            <span>Text input</span>
+            <input type="text" value="Bench Press">
+          </label>
+          <label class="field search-field">
+            <span>Search input</span>
+            <input type="search" value="squat">
+          </label>
+          <article class="card sample-card">
+            <div>
+              <p class="card-kicker">AppCard</p>
+              <h3>Premium dark surface</h3>
+              <p>Raised card, subtle border, calm spacing, one clear action.</p>
+            </div>
+            <button class="icon-btn" aria-label="More">...</button>
+          </article>
+          <article class="workout-card">
+            <div class="workout-accent"></div>
+            <div>
+              <p class="card-kicker">Workout card</p>
+              <h3>Push day</h3>
+              <p>5 exercises, 18 sets, 1 PR</p>
+            </div>
+            <span class="chip gold">Today</span>
+          </article>
+          <article class="exercise-card">
+            <div class="exercise-top">
+              <div>
+                <h3>Bench Press</h3>
+                <p>Last: 82.5 kg x 6</p>
+              </div>
+              <span class="chip blue">Chest</span>
+            </div>
+            <div class="mini-set-row">
+              <span>1</span><b>85</b><small>kg</small><b>5</b><small>reps</small>
+            </div>
+          </article>
+          <div class="stat-grid">
+            <article class="stat-card"><span>Streak</span><b>12</b><small>days</small></article>
+            <article class="stat-card"><span>Volume</span><b>8.4k</b><small>kg</small></article>
+          </div>
+          <div class="chip-row">
+            <span class="chip gold">Working</span>
+            <span class="chip warm">Warm-up</span>
+            <span class="chip purple">Superset</span>
+            <span class="chip muted">Badge</span>
+          </div>
+          <article class="empty-state">
+            <div class="state-icon">LW</div>
+            <h3>No workouts yet</h3>
+            <p>Log your first set to unlock the dashboard.</p>
+            <button class="btn primary">Add Exercise</button>
+          </article>
+          <article class="error-state">
+            <b>Could not save set</b>
+            <p>Check the connection and try again.</p>
+          </article>
+          <nav class="bottom-tabs mini-tabs" aria-label="Preview bottom navigation">
+            <span class="active"><i></i>Calendar</span>
+            <span><i></i>Stats</span>
+            <span><i></i>Exercises</span>
+            <span><i></i>Profile</span>
+          </nav>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <p class="eyebrow">Screens</p>
+        <h2>Mobile Screen Mockups</h2>
+        <p>Six phone-frame mockups showing hierarchy, spacing, color, and component behavior for the future app.</p>
+      </div>
+
+      <div class="phone-grid">
+        <article class="phone-frame">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="status-bar"><span>9:41</span><span>LW</span></div>
+              <header class="app-header">
+                <div>
+                  <p>Calendar</p>
+                  <h3>May 2026</h3>
+                </div>
+                <button class="icon-btn">T</button>
+              </header>
+              <div class="segmented">
+                <span class="active">Month</span><span>Week</span>
+              </div>
+              <div class="calendar-grid">
+                <b>M</b><b>T</b><b>W</b><b>T</b><b>F</b><b>S</b><b>S</b>
+                <span class="muted">27</span><span class="muted">28</span><span class="muted">29</span><span class="muted">30</span><span>1</span><span>2</span><span>3</span>
+                <span>4</span><span class="has-workout">5</span><span>6</span><span>7</span><span class="rest">8</span><span>9</span><span>10</span>
+                <span>11</span><span>12</span><span class="has-workout">13</span><span class="selected">14</span><span>15</span><span>16</span><span>17</span>
+                <span>18</span><span>19</span><span>20</span><span>21</span><span>22</span><span>23</span><span>24</span>
+              </div>
+              <article class="screen-card today-card">
+                <p class="card-kicker">Today</p>
+                <h4>Push day planned</h4>
+                <p>Bench, Incline Press, Triceps</p>
+                <button class="btn primary full">Log Workout</button>
+              </article>
+              <nav class="bottom-tabs"><span class="active">Cal</span><span>Dash</span><span>Ex</span><span>Prog</span></nav>
+            </div>
+          </div>
+          <h3>1. Calendar</h3>
+        </article>
+
+        <article class="phone-frame">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="status-bar"><span>9:41</span><span>LW</span></div>
+              <header class="app-header">
+                <button class="icon-btn">&lsaquo;</button>
+                <div>
+                  <p>Today</p>
+                  <h3>14 May</h3>
+                </div>
+                <button class="icon-btn">...</button>
+              </header>
+              <article class="timer-card">
+                <span>Rest timer</span>
+                <b>01:12</b>
+                <button class="btn secondary small">Skip</button>
+              </article>
+              <article class="screen-card exercise-block">
+                <div class="exercise-top">
+                  <div><h4>Bench Press</h4><p>Last: 82.5 kg x 6</p></div>
+                  <span class="chip blue">Chest</span>
+                </div>
+                <div class="set-row"><span>1</span><label>KG<b>85</b></label><label>REPS<b>5</b></label><label>RIR<b>1</b></label></div>
+                <div class="set-row"><span>2</span><label>KG<b>82.5</b></label><label>REPS<b>6</b></label><label>RIR<b>2</b></label></div>
+                <button class="btn secondary full">Add Set</button>
+              </article>
+              <article class="screen-card compact">
+                <div><h4>Incline DB Press</h4><p>3 sets planned</p></div>
+                <span class="chip muted">Next</span>
+              </article>
+              <button class="fab">+</button>
+            </div>
+          </div>
+          <h3>2. Day Detail</h3>
+        </article>
+
+        <article class="phone-frame">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="status-bar"><span>9:41</span><span>LW</span></div>
+              <header class="app-header">
+                <button class="icon-btn">&lsaquo;</button>
+                <div><p>Add</p><h3>Add Workout</h3></div>
+              </header>
+              <label class="phone-search"><span></span><input value="press" aria-label="Search exercises"></label>
+              <div class="chip-row">
+                <span class="chip gold">Program</span><span class="chip muted">Recent</span><span class="chip muted">Preset</span>
+              </div>
+              <article class="screen-card selectable selected-card">
+                <div><h4>Bench Press</h4><p>Program exercise</p></div>
+                <span class="checkmark"></span>
+              </article>
+              <article class="screen-card selectable">
+                <div><h4>Overhead Press</h4><p>Last used 3 days ago</p></div>
+                <span class="plus-small">+</span>
+              </article>
+              <article class="screen-card selectable">
+                <div><h4>Cable Fly</h4><p>Chest, accessory</p></div>
+                <span class="plus-small">+</span>
+              </article>
+              <div class="sticky-action">
+                <button class="btn primary full">Add 1 Exercise</button>
+              </div>
+            </div>
+          </div>
+          <h3>3. Add Workout</h3>
+        </article>
+
+        <article class="phone-frame">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="status-bar"><span>9:41</span><span>LW</span></div>
+              <header class="app-header">
+                <button class="icon-btn">&lsaquo;</button>
+                <div><p>Select</p><h3>Exercises</h3></div>
+              </header>
+              <label class="phone-search"><span></span><input value="squat" aria-label="Search exercises"></label>
+              <div class="chip-row scroll-row">
+                <span class="chip gold">All</span><span class="chip teal">Leg</span><span class="chip red">Core</span><span class="chip muted">Preset</span>
+              </div>
+              <article class="screen-card exercise-list-row">
+                <div><h4>Back Squat</h4><p>PR 127 kg - used last week</p></div>
+                <span class="chip teal">Leg</span>
+              </article>
+              <article class="screen-card exercise-list-row">
+                <div><h4>Front Squat</h4><p>Preset movement</p></div>
+                <span class="chip teal">Leg</span>
+              </article>
+              <article class="screen-card exercise-list-row">
+                <div><h4>Goblet Squat</h4><p>Beginner friendly</p></div>
+                <span class="chip muted">Preset</span>
+              </article>
+              <article class="empty-inline">
+                <h4>Need a custom exercise?</h4>
+                <button class="btn secondary full">Create Exercise</button>
+              </article>
+            </div>
+          </div>
+          <h3>4. Exercise Select</h3>
+        </article>
+
+        <article class="phone-frame">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="status-bar"><span>9:41</span><span>LW</span></div>
+              <header class="app-header">
+                <button class="icon-btn">&lsaquo;</button>
+                <div><p>Exercise</p><h3>Bench Press</h3></div>
+              </header>
+              <div class="media-panel">
+                <div class="barbell">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="chip-row"><span class="chip blue">Chest</span><span class="chip purple">Triceps</span></div>
+              <article class="stat-strip">
+                <div><span>PR</span><b>127 kg</b></div>
+                <div><span>Volume</span><b>8.4k</b></div>
+                <div><span>Sets</span><b>42</b></div>
+              </article>
+              <article class="screen-card">
+                <p class="card-kicker">Recent history</p>
+                <div class="history-line"><span>14 May</span><b>85 x 5</b></div>
+                <div class="history-line"><span>09 May</span><b>82.5 x 6</b></div>
+                <div class="history-line"><span>02 May</span><b>80 x 7</b></div>
+              </article>
+              <article class="screen-card note-card">
+                <h4>Tip</h4>
+                <p>Keep shoulder blades tight and control the descent.</p>
+              </article>
+            </div>
+          </div>
+          <h3>5. Exercise Detail</h3>
+        </article>
+
+        <article class="phone-frame">
+          <div class="phone">
+            <div class="phone-screen">
+              <div class="status-bar"><span>9:41</span><span>LW</span></div>
+              <header class="app-header">
+                <div><p>Progress</p><h3>Dashboard</h3></div>
+                <button class="icon-btn">...</button>
+              </header>
+              <div class="dash-stats">
+                <article><span>Streak</span><b>12</b><small>days</small></article>
+                <article><span>PR</span><b>127</b><small>kg</small></article>
+              </div>
+              <article class="screen-card chart-card">
+                <div class="card-line">
+                  <div><p class="card-kicker">Bench Press</p><h4>Estimated 1RM</h4></div>
+                  <span class="chip gold">+4%</span>
+                </div>
+                <div class="chart">
+                  <span style="height:35%"></span><span style="height:44%"></span><span style="height:52%"></span><span style="height:48%"></span><span style="height:72%"></span><span style="height:88%"></span>
+                </div>
+              </article>
+              <article class="screen-card">
+                <div class="card-line"><h4>Muscle frequency</h4><span class="card-kicker">Week</span></div>
+                <div class="freq-row"><span>Chest</span><i><b style="width:80%"></b></i></div>
+                <div class="freq-row"><span>Back</span><i><b style="width:62%"></b></i></div>
+                <div class="freq-row"><span>Leg</span><i><b style="width:48%"></b></i></div>
+              </article>
+              <article class="success-banner">
+                <b>New badge unlocked</b>
+                <span>Consistency III</span>
+              </article>
+            </div>
+          </div>
+          <h3>6. Dashboard Overview</h3>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
