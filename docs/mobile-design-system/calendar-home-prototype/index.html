@@ -36,7 +36,7 @@
           <div class="view-menu" id="view-menu">
             <button class="selected" type="button">Month</button>
             <button type="button">Week</button>
-            <button type="button">Day</button>
+            <button type="button">3 Day</button>
           </div>
         </div>
 
@@ -46,7 +46,7 @@
       </div>
     </header>
 
-    <section class="calendar-area" aria-label="September 2026 workout calendar">
+    <section class="calendar-area view-panel" id="month-view" aria-label="September 2026 workout calendar">
       <div class="weekday-row" aria-hidden="true">
         <span>Sun</span>
         <span>Mon</span>
@@ -59,6 +59,10 @@
 
       <div class="calendar-grid" id="calendar-grid"></div>
     </section>
+
+    <section class="week-view view-panel" id="week-view" aria-label="Selected week workout calendar" hidden></section>
+
+    <section class="three-day-view view-panel" id="three-day-view" aria-label="Selected three day workout calendar" hidden></section>
 
     <nav class="bottom-nav" aria-label="Main navigation">
       <button class="active" type="button" aria-current="page">

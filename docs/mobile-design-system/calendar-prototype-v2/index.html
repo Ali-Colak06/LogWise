@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogWise — Calendar Home v2.1 Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="page-hero">
+    <p class="eyebrow"><span class="dot"></span>LogWise mobile — calendar v2.1</p>
+    <h1>Calendar home — Month grid + <span class="gold">scrollable week feed</span>.</h1>
+    <p>Two views. Month keeps the original prototype's tight grid geometry (six equal-height rows, viewport-clamped event font, never "..."), only the palette is updated to LogWise muscle categories. Week is a single infinite vertical feed — each week stacks below the previous one, the top bar title syncs to the visible week as the user scrolls, and tapping a day expands it in place to reveal the full exercise list with last-time references.</p>
+  </header>
+
+  <main class="phone-grid">
+
+    <!-- =================================================================
+         1. MONTH VIEW
+         ================================================================= -->
+    <section class="phone-cell" aria-label="Calendar — Month view">
+      <div class="phone">
+        <div class="phone-screen">
+
+          <div class="status-bar">
+            <span>9:41</span>
+            <span class="status-icons">
+              <span class="signal" aria-hidden="true"></span>
+              <span class="wifi" aria-hidden="true"></span>
+              <span class="battery" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <header class="app-bar">
+            <button class="avatar-btn" type="button" aria-label="Profile">AC</button>
+            <div class="bar-title">
+              <h1>September</h1>
+              <span class="sub">2026</span>
+            </div>
+            <div class="bar-actions">
+              <button class="view-switch" type="button" aria-label="Switch to Week view" title="Switch to Week">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+              </button>
+              <button class="today-pill" type="button" aria-label="Go to today">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.4" fill="currentColor"></circle></svg>
+                Today
+              </button>
+            </div>
+          </header>
+
+          <div class="calendar-surface">
+            <div class="month-area">
+              <div class="weekday-row" aria-hidden="true">
+                <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+              </div>
+              <div class="month-grid" id="month-grid" role="grid"></div>
+            </div>
+          </div>
+
+          <nav class="bottom-nav" aria-label="Main navigation">
+            <button class="is-active" type="button" aria-current="page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span class="label">Calendar</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"></path><path d="M3 14l7-7"></path><path d="M14 3l7 7"></path><path d="M2 22l3-3"></path><path d="M19 19l3 3"></path><path d="M9 11l4 4"></path></svg>
+              <span class="label">Workout</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span class="label">Dashboard</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span class="label">Social</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle></svg>
+              <span class="label">More</span>
+            </button>
+          </nav>
+
+        </div>
+      </div>
+
+      <div class="phone-caption">
+        <span class="step">View 1</span>
+        <h2>Month</h2>
+        <p>Whole month in one grid. Geometry matches the previous prototype — six equal-height rows, mini event chips with clamped font; long names are clipped, never "...".</p>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         2. WEEK — DEFAULT (infinite scroll, no expanded day)
+         ================================================================= -->
+    <section class="phone-cell" aria-label="Calendar — Week view, default scroll">
+      <div class="phone">
+        <div class="phone-screen">
+
+          <div class="status-bar">
+            <span>9:41</span>
+            <span class="status-icons">
+              <span class="signal" aria-hidden="true"></span>
+              <span class="wifi" aria-hidden="true"></span>
+              <span class="battery" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <header class="app-bar">
+            <button class="avatar-btn" type="button" aria-label="Profile">AC</button>
+            <div class="bar-title">
+              <h1 id="week-title-2">Sep 13 — Sep 19</h1>
+              <span class="sub" id="week-sub-2">Week 38 · 2026</span>
+            </div>
+            <div class="bar-actions">
+              <button class="view-switch" type="button" aria-label="Switch to Month view" title="Switch to Month">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+              </button>
+              <button class="today-pill" type="button" aria-label="Go to today">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.4" fill="currentColor"></circle></svg>
+                Today
+              </button>
+            </div>
+          </header>
+
+          <div class="calendar-surface" id="week-surface-2" data-week-surface>
+            <div class="week-feed" id="week-feed-2"></div>
+          </div>
+
+          <nav class="bottom-nav" aria-label="Main navigation">
+            <button class="is-active" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span class="label">Calendar</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"></path><path d="M3 14l7-7"></path><path d="M14 3l7 7"></path><path d="M2 22l3-3"></path><path d="M19 19l3 3"></path><path d="M9 11l4 4"></path></svg>
+              <span class="label">Workout</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span class="label">Dashboard</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span class="label">Social</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle></svg>
+              <span class="label">More</span>
+            </button>
+          </nav>
+
+        </div>
+      </div>
+
+      <div class="phone-caption">
+        <span class="step">View 2 · Default</span>
+        <h2>Week (scroll)</h2>
+        <p>Single vertical feed — weeks stack endlessly. Each week gets a compact header. Scroll down for future weeks, up for past. The top-bar title and "Week N" sync to whatever week is in view.</p>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         3. WEEK — EXPANDED DAY (accordion open on a single day)
+         ================================================================= -->
+    <section class="phone-cell" aria-label="Calendar — Week view with expanded day">
+      <div class="phone">
+        <div class="phone-screen">
+
+          <div class="status-bar">
+            <span>9:41</span>
+            <span class="status-icons">
+              <span class="signal" aria-hidden="true"></span>
+              <span class="wifi" aria-hidden="true"></span>
+              <span class="battery" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <header class="app-bar">
+            <button class="avatar-btn" type="button" aria-label="Profile">AC</button>
+            <div class="bar-title">
+              <h1 id="week-title-3">Sep 13 — Sep 19</h1>
+              <span class="sub" id="week-sub-3">Week 38 · 2026</span>
+            </div>
+            <div class="bar-actions">
+              <button class="view-switch" type="button" aria-label="Switch to Month view" title="Switch to Month">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+              </button>
+              <button class="today-pill" type="button" aria-label="Go to today">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><circle cx="12" cy="12" r="2.4" fill="currentColor"></circle></svg>
+                Today
+              </button>
+            </div>
+          </header>
+
+          <div class="calendar-surface" id="week-surface-3" data-week-surface data-expanded="2026-09-15" data-timer-running="2026-09-14">
+            <div class="week-feed" id="week-feed-3"></div>
+          </div>
+
+          <nav class="bottom-nav" aria-label="Main navigation">
+            <button class="is-active" type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span class="label">Calendar</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"></path><path d="M3 14l7-7"></path><path d="M14 3l7 7"></path><path d="M2 22l3-3"></path><path d="M19 19l3 3"></path><path d="M9 11l4 4"></path></svg>
+              <span class="label">Workout</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span class="label">Dashboard</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span class="label">Social</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle></svg>
+              <span class="label">More</span>
+            </button>
+          </nav>
+
+        </div>
+      </div>
+      <div class="phone-caption">
+        <span class="step">View 2 · Workout state</span>
+        <h2>Week (day open + timer)</h2>
+        <p>Two days expanded so both states are visible: Mon 14 is mid-workout (timer running, Durdur/Bitir controls), Tue 15 is idle (Start workout + Open day). One row open at a time in production; here two are open for comparison.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

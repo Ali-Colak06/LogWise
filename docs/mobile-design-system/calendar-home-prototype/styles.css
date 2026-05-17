@@ -343,6 +343,10 @@ button {
   padding: 0 4px calc(76px + env(safe-area-inset-bottom));
 }
 
+.view-panel[hidden] {
+  display: none !important;
+}
+
 .weekday-row {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -483,6 +487,146 @@ button {
   border-color: var(--rest-border);
   color: var(--rest-text);
   background: var(--rest-bg);
+}
+
+.week-view,
+.three-day-view {
+  min-height: 0;
+  padding: 0 4px calc(76px + env(safe-area-inset-bottom));
+  overflow: hidden;
+}
+
+.week-strip {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 2px;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
+.three-day-grid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+  overflow: hidden;
+}
+
+.week-day-card {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 7px 3px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: rgba(10, 10, 10, 0.72);
+}
+
+.week-day-card.is-selected {
+  border-color: var(--gold);
+  background: linear-gradient(180deg, rgba(240, 192, 64, 0.14), rgba(42, 34, 16, 0.34));
+}
+
+.week-day-card.is-today {
+  border-color: rgba(240, 192, 64, 0.42);
+}
+
+.week-day-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 3px;
+}
+
+.week-day-name {
+  color: var(--muted);
+  font-size: clamp(7px, 1.7vw, 9px);
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.week-day-number {
+  width: 22px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 6px;
+  color: #aeb7c0;
+  font-family: var(--mono);
+  font-size: clamp(9px, 2vw, 11px);
+  font-weight: 900;
+}
+
+.week-day-card.is-selected .week-day-number {
+  color: #111111;
+  background: var(--gold);
+}
+
+.week-plan-title {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(10px, 2.25vw, 12px);
+  font-weight: 900;
+  line-height: 1.12;
+}
+
+.week-events {
+  display: grid;
+  align-content: start;
+  gap: clamp(4px, 0.85dvh, 8px);
+}
+
+.week-event {
+  min-height: clamp(34px, 5.8dvh, 48px);
+  display: block;
+  overflow: visible;
+  padding: 5px 3px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  font-size: clamp(8px, 2vw, 9.8px);
+  font-weight: 850;
+  line-height: 1.16;
+  text-overflow: clip;
+  white-space: normal;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+.three-day-view .week-day-card {
+  gap: 10px;
+  padding: 11px 8px;
+  border-radius: 8px;
+}
+
+.three-day-view .week-day-name {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+}
+
+.three-day-view .week-day-number {
+  width: 26px;
+  height: 22px;
+  font-size: 12px;
+}
+
+.three-day-view .week-plan-title {
+  font-size: 17px;
+}
+
+.three-day-view .week-events {
+  gap: clamp(7px, 1.05dvh, 11px);
+}
+
+.three-day-view .week-event {
+  min-height: clamp(48px, 7.2dvh, 62px);
+  padding: 8px 7px;
+  border-radius: 5px;
+  font-size: 14px;
+  line-height: 1.18;
 }
 
 .bottom-nav {
@@ -664,6 +808,37 @@ button {
     padding-right: 3px;
     padding-left: 3px;
     padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+
+  .week-view,
+  .three-day-view {
+    padding-right: 3px;
+    padding-left: 3px;
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+  }
+
+  .week-strip {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 1px;
+  }
+
+  .three-day-grid {
+    gap: 3px;
+  }
+
+  .week-day-card {
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+
+  .week-events {
+    gap: clamp(3px, 0.75dvh, 6px);
+  }
+
+  .week-event {
+    min-height: clamp(32px, 5.4dvh, 44px);
+    padding: 4px 2px;
+    font-size: clamp(7.6px, 2.05vw, 8.8px);
   }
 
   .calendar-grid {
