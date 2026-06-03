@@ -1,0 +1,55 @@
+{
+  "expo": {
+    "name": "LogWise",
+    "slug": "logwise-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "logwise",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "icon": "./assets/icon.png",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "fit.logwise.mobile"
+    },
+    "android": {
+      "package": "fit.logwise.mobile",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png",
+        "backgroundColor": "#000000"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-secure-store",
+      "expo-localization",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#000000",
+          "dark": {
+            "backgroundColor": "#000000"
+          }
+        }
+      ],
+      "@sentry/react-native"
+    ],
+    "extra": {
+      "supabaseUrl": "https://czbxujioufhmvoajqwzp.supabase.co",
+      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6Ynh1amlvdWZobXZvYWpxd3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDYzNTgsImV4cCI6MjA5MDA4MjM1OH0._juhkh6W8p0iP3WVSooi1fFfZFXT50LugDszPBubOgk",
+      "sentryDsn": "https://7d99a740f91e12690f622af22e0cb560@o4511488560529408.ingest.us.sentry.io/4511488571670528",
+      "resetPasswordRedirect": "https://logwise.fit/reset-password"
+    }
+  }
+}

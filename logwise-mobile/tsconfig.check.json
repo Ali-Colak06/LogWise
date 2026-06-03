@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "jsx": "react-native",
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "types": ["react", "react-native", "node"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["components/*"],
+      "@queries/*": ["queries/*"],
+      "@lib/*": ["lib/*"],
+      "@theme/*": ["theme/*"],
+      "@app-types/*": ["types/*"],
+      "@data/*": ["data/*"],
+      "@hooks/*": ["hooks/*"],
+      "@stores/*": ["stores/*"]
+    }
+  },
+  "include": ["app/**/*", "components/**/*", "lib/**/*", "queries/**/*", "theme/**/*", "types/**/*", "data/**/*", "hooks/**/*", "stores/**/*"],
+  "exclude": ["node_modules", ".expo", "**/*.test.ts", "**/*.test.tsx"]
+}

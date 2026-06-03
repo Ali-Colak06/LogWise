@@ -666,11 +666,21 @@ button { border: 0; background: transparent; cursor: pointer; }
 .cat-chip.cat-other    .dot { background: var(--cat-other); }
 
 .week-row .chev {
-  display: grid; place-items: center;
+  display: inline-flex; align-items: center; justify-content: center;
   align-self: center;
-  width: 22px; height: 22px;
-  color: var(--t-tertiary);
-  transition: transform 0.2s ease, color 0.15s ease;
+  width: 30px; height: 30px;
+  border: 1px solid var(--brd-subtle);
+  border-radius: var(--r-sm);
+  background: var(--bg-subtle);
+  color: var(--t-secondary);
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.week-row .chev:hover {
+  color: var(--accent);
+  border-color: rgba(240, 192, 64, 0.32);
+  background: var(--accent-muted);
 }
 
 .week-row .chev svg { width: 14px; height: 14px; }
@@ -693,8 +703,10 @@ button { border: 0; background: transparent; cursor: pointer; }
   font-size: 14px;
 }
 
-/* When expanded, layout becomes a vertical stack: header row on top, list below */
+/* When expanded, layout becomes a vertical stack: header row on top, list below.
+ * The chevron stays as a positioned toggle in the top-right corner. */
 .week-row.is-expanded {
+  position: relative;
   grid-template-columns: 1fr;
   padding: 12px 14px 14px;
   gap: 12px;
@@ -704,9 +716,17 @@ button { border: 0; background: transparent; cursor: pointer; }
 .expanded-only { display: none; }
 .week-row.is-expanded .expanded-only { display: block; }
 
+/* Chevron repositioned absolutely on expanded rows so it doesn't take a grid slot */
+.week-row.is-expanded .chev {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
 .week-row.is-expanded .week-head {
   display: flex; align-items: center; justify-content: space-between;
   gap: 10px;
+  padding-right: 38px; /* leave room for absolutely-positioned chevron toggle */
 }
 
 .week-row.is-expanded .week-head .dleft {

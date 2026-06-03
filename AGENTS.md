@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-05-14 — Mobil tasarım sistemi yönergeleri -->
+<!-- SON GÜNCELLEME: 2026-05-25 — 05-screen-specs.md rev 6: E1 More panel + F1 Dashboard placeholder + F2 Social placeholder eklendi; MVP screen listesi tamamlandı (15 ekran: A1-A5 + B1 + C1-C4 + D1-D3 + E1 + F1-F2); 03-mvp-decisions.md rev 15: §3.1'e E1 More panel kararları (bottom sheet, disabled placeholder satırlar, auth/guest varyantları) + F1+F2 PlaceholderScreen ortak component kararı yedirildi -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -21,13 +21,20 @@ Gelecek hedef: mevcut web UI, React Native + Expo + TypeScript ile geliştirilec
 Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
-2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 43 — Faz EX-ID).
-4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
+2. **Mobil app görevi mi?** Öyleyse şu üç dosyayı sırayla oku:
+   - `docs/mobile-design-system/03-mvp-decisions.md` — şimdiye kadar verilen tüm mobil kararların (stack, MVP scope, backend, auth, preset, şema, klasör yapısı, operasyonel) tek kaynağıdır. Yeni karar verilirse bu dosya güncellenir.
+   - `docs/mobile-design-system/04-user-journeys.md` — 5 ana kullanıcı yolculuğunun (Yeni, Tekrar açan, Program takipli, Misafir, Web'den gelen) adım adım akışı ve felsefe notları. Her UX kararının kaynağıdır.
+   - `docs/mobile-design-system/05-screen-specs.md` — MVP'deki her ekranın implementation-ready spec'i: layout, component breakdown, state varyantları, props (TS interface), interaction notes, edge cases, prototip referansı, açık sorular. Kapsam (rev 6 — TAMAM): A1-A5 (auth) + B1 (Calendar) + C1-C4 (Day Detail + Add Exercise) + D1-D3 (Library Exercises + Programs + Program Edit) + E1 (More panel) + F1-F2 (Dashboard + Social placeholder). **MVP screen listesi tamamlandı — 15 ekran.** Yeni ekran spec'leri buraya eklenir.
+3. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
+4. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 43 — Faz EX-ID).
+5. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
    - **Yeni React bileşeni** → `docs/YENI-COMPONENT.md`
    - **sw.js versiyon bump** → `docs/SW-VERSION-BUMP.md`
+   - **Mobil MVP kararları** → `docs/mobile-design-system/03-mvp-decisions.md`
+   - **Mobil kullanıcı yolculukları** → `docs/mobile-design-system/04-user-journeys.md`
+   - **Mobil ekran spec'leri** → `docs/mobile-design-system/05-screen-specs.md`
 
 ---
 
@@ -77,7 +84,18 @@ LogWise/
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
-│   ├── mobile-design-system/  ← Mobil tasarım sistemi dokümanları (gerektiğinde oluşturulur)
+│   ├── mobile-design-system/  ← Mobil tasarım sistemi dokümanları
+│   │   ├── 01-current-logwise-ui-audit.md
+│   │   ├── 02-mobile-design-system-proposal.md
+│   │   ├── 03-mvp-decisions.md       ← Tüm mobil kararların tek kaynağı (rev 15)
+│   │   ├── 04-user-journeys.md       ← 5 ana kullanıcı yolculuğu
+│   │   ├── 05-screen-specs.md        ← Implementation-ready ekran spec'leri — 15 ekran TAMAMLANDI (A1-A5 + B1 + C1-C4 + D1-D3 + E1 + F1-F2)
+│   │   ├── auth-prototype/           ← HTML/CSS prototip (Login, Register, Forgot, Verify)
+│   │   ├── calendar-prototype-v2/    ← HTML/CSS/JS prototip (Month + Week views)
+│   │   ├── day-prototype/            ← HTML/CSS/JS prototip (Day Detail)
+│   │   ├── workout-prototype/        ← HTML/CSS/JS prototip (Library: Exercises + Programs)
+│   │   ├── homepage-prototype-v2/    ← HTML/CSS marka dili referansı
+│   │   └── references/               ← Görsel referanslar
 │   ├── YENI-COMPONENT.md
 │   └── SW-VERSION-BUMP.md
 ├── data/                      ← Sabit veri + i18n (Aşama 1)
@@ -138,6 +156,7 @@ LogWise/
 | sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
 | Yeni sayfa eklemek | `.html` dosyası + `_redirects` güncellemesi + sw.js PRECACHE |
 | Mobil tasarım sistemi analizi | Önce `styles/base.css`, `app.html`, `index.html`, `components/*.js`, logo/görsel asset'leri; çıktı gerekiyorsa `docs/mobile-design-system/` |
+| Mobil ekran detayı / implementation prep | `docs/mobile-design-system/05-screen-specs.md` (her ekran için layout + component + state + props + interaction + edge case) |
 
 ---
 

@@ -348,14 +348,15 @@
           '</button>' +
         '</div>';
     } else {
-      // Idle state — Start workout (primary) + Open day (secondary, smaller)
+      // Idle state — single full-width Start workout primary button.
+      // Tapping the day row itself (anywhere except chevron) navigates
+      // to Day Detail; chevron toggles the accordion.
       ctaRow =
         '<div class="cta-row">' +
           '<button class="cta-primary" type="button">' +
             '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>' +
             'Start workout' +
           '</button>' +
-          '<button class="cta-secondary" type="button">Open day</button>' +
         '</div>';
     }
 
@@ -380,11 +381,12 @@
           '<span class="dnum">' + d.getDate() + '</span>' +
         '</div>' +
         '<div class="week-body compact-only">' + compactBody + '</div>' +
-        '<div class="chev compact-only" aria-hidden="true">' +
-          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">' +
+        '<button class="chev" type="button" data-toggle="expand" aria-label="' +
+          (isExpanded ? 'Collapse day' : 'Expand day') + '" aria-expanded="' + (isExpanded ? 'true' : 'false') + '">' +
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
             '<polyline points="6 9 12 15 18 9"></polyline>' +
           '</svg>' +
-        '</div>' +
+        '</button>' +
         expandedHTML +
       '</div>'
     );
@@ -458,21 +460,51 @@
     feedEl.addEventListener("click", function (ev) {
       var row = ev.target.closest(".week-row");
       if (!row) return;
-      var alreadyOpen = row.classList.contains("is-expanded");
-      var open = feedEl.querySelectorAll(".week-row.is-expanded");
-      for (var i = 0; i < open.length; i++) open[i].classList.remove("is-expanded");
-      if (!alreadyOpen) {
-        row.classList.add("is-expanded");
-        surfaceEl.dataset.expanded = row.getAttribute("data-key");
-      } else {
-        delete surfaceEl.dataset.expanded;
+
+      // Chevron handles expand/collapse exclusively.
+      var chev = ev.target.closest('[data-toggle="expand"]');
+      if (chev) {
+        ev.stopPropagation();
+        var alreadyOpen = row.classList.contains("is-expanded");
+        var open = feedEl.querySelectorAll(".week-row.is-expanded");
+        for (var i = 0; i < open.length; i++) open[i].classList.remove("is-expanded");
+        if (!alreadyOpen) {
+          row.classList.add("is-expanded");
+          surfaceEl.dataset.expanded = row.getAttribute("data-key");
+          chev.setAttribute("aria-expanded", "true");
+          chev.setAttribute("aria-label", "Collapse day");
+        } else {
+          delete surfaceEl.dataset.expanded;
+          chev.setAttribute("aria-expanded", "false");
+          chev.setAttribute("aria-label", "Expand day");
+        }
+        // Reset aria on the previously-open chevrons
+        var oldChevs = feedEl.querySelectorAll('.week-row:not(.is-expanded) [data-toggle="expand"]');
+        for (var ci = 0; ci < oldChevs.length; ci++) {
+          oldChevs[ci].setAttribute("aria-expanded", "false");
+          oldChevs[ci].setAttribute("aria-label", "Expand day");
+        }
+        return;
       }
+
+      // Anywhere else on the row → navigate to Day Detail screen.
+      // (Prototype-only: emit a custom event so demo code could log/route.)
+      surfaceEl.dispatchEvent(new CustomEvent("logwise:open-day", {
+        detail: { key: row.getAttribute("data-key") },
+        bubbles: true
+      }));
     });
 
     feedEl.addEventListener("keydown", function (ev) {
       if (ev.key !== "Enter" && ev.key !== " ") return;
+      var chev = ev.target.closest('[data-toggle="expand"]');
+      if (chev) {
+        ev.preventDefault();
+        chev.click();
+        return;
+      }
       var row = ev.target.closest(".week-row");
-      if (!row) return;
+      if (!row || row === ev.target.closest('[data-toggle="expand"]')) return;
       ev.preventDefault();
       row.click();
     });
@@ -533,25 +565,19 @@
   var surf2 = document.getElementById("week-surface-2");
   if (feed2 && surf2) {
     renderWeekFeed(feed2, { centerKey: SELECTED_KEY, pastWeeks: 4, futureWeeks: 4 });
-    bindAccordion(feed2, surf2);
     bindTitleSync(surf2, document.getElementById("week-title-2"), document.getElementById("week-sub-2"));
     var center2 = feed2.querySelector('[data-week="' + sundayOfWeek(SELECTED_KEY) + '"]');
     if (center2) {
-      requestAnimationFrame(function () {
-        surf2.scrollTop = center2.offsetTop - 6;
-      });
+      requestAnimationFrame(function () { surf2.scrollTop = center2.offsetTop - 6; });
     }
   }
 
-  // Week — pre-expanded day (phone 3)
+  // Week — pre-expanded day + timer (phone 3)
   var feed3 = document.getElementById("week-feed-3");
   var surf3 = document.getElementById("week-surface-3");
   if (feed3 && surf3) {
     renderWeekFeed(feed3, {
       centerKey:    SELECTED_KEY,
-      // Pre-expand two days side by side so both states are visible:
-      //   Mon 14 → workout in progress (timer running)
-      //   Tue 15 → idle (Start workout + Open day)
       expandedKeys: ["2026-09-14", "2026-09-15"],
       timerKey:     "2026-09-14",
       timerValue:   "00:24:18",
