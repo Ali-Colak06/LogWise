@@ -6,9 +6,9 @@
  *   - View switch tek icon button (calendar / grid) — tıklayınca month↔week
  *   - Today pill: gold-muted bg + gold border + Target icon + uppercase mono label
  */
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Linking, ScrollView, View, Pressable, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
+import { useFocusEffect, useRouter } from 'expo-router';
 import { Calendar as CalendarIcon, LayoutGrid, Target, ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { Screen, Text, Button, HStack, useToast } from '../../../../components/ui';
 import { useTheme } from '../../../../theme';
@@ -66,6 +66,20 @@ export default function CalendarScreen() {
   const workoutsQ = useWorkoutsByMonth(year, month);
   const activeProgQ = useActiveProgram();
   const createProgM = useCreateProgramFromPreset();
+
+  // Day Detail'de set girilince ya da D2'de program aktif edilince Calendar'a
+  // dönüldüğünde taze veri göster. refetchOnWindowFocus kapalı (query-client) olduğu
+  // için, ekran her odaklandığında (geri dönüş) ilgili query'leri elle yeniden çek.
+  // refetch referansları React Query'de stabildir → callback stabil; her zaman
+  // o an görüntülenen ayın query'sini tazeler.
+  const refetchWorkouts = workoutsQ.refetch;
+  const refetchActiveProg = activeProgQ.refetch;
+  useFocusEffect(
+    useCallback(() => {
+      refetchWorkouts();
+      refetchActiveProg();
+    }, [refetchWorkouts, refetchActiveProg]),
+  );
 
   const prefsQ = useProfilePreferences();
   const setPref = useSetProfilePreference();

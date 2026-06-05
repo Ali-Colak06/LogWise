@@ -18,6 +18,24 @@ export type CategoryKey =
   | 'chest' | 'back' | 'shoulder' | 'biceps' | 'triceps'
   | 'leg' | 'core' | 'cardio' | 'other';
 
+/**
+ * CategoryKey'lerin sıralı listesi — i18n `cats` dizisinin sırasıyla **birebir
+ * eşleşir** (chest=0, back=1, ..., other=8). Kategori chip etiketlerini
+ * `catLabel()` ile çözmek için indeks kaynağı.
+ */
+export const CATEGORY_KEYS: readonly CategoryKey[] = [
+  'chest', 'back', 'shoulder', 'biceps', 'triceps', 'leg', 'core', 'cardio', 'other',
+];
+
+/**
+ * Bir CategoryKey'i lokalize etiketine çevirir. `cats` = i18n `cats` dizisi
+ * (`useTranslations().cats` veya `getArray('cats')`). Bilinmeyen key → boş string.
+ */
+export function catLabel(c: CategoryKey, cats: readonly string[]): string {
+  const idx = CATEGORY_KEYS.indexOf(c);
+  return idx >= 0 ? (cats[idx] ?? '') : '';
+}
+
 /** Türkçe kategori adı → theme CategoryKey. */
 export function turkishCatToKey(cat: string): CategoryKey {
   switch (cat) {

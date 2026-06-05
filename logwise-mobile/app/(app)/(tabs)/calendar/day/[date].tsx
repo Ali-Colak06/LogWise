@@ -27,11 +27,9 @@ import {
   useDeleteSet,
   useDeleteWorkout,
   useSkipExerciseForDay,
-  useUsedExerciseRefs,
 } from '../../../../../queries/workouts';
 import { useActiveProgram, useProgramDays } from '../../../../../queries/programs';
 import { useCustomExercises } from '../../../../../queries/exercises';
-import { PRESET_EXERCISES } from '../../../../../data/presets-exercises';
 import { resolveExerciseRef, buildCustomMap, type ResolvedExercise } from '../../../../../lib/exercise-resolve';
 import { resolveProgramDay } from '../../../../../lib/program';
 import { totalVolume } from '../../../../../lib/calc';
@@ -83,13 +81,6 @@ export default function DayDetailScreen() {
   const dayMetaQ = useDayMeta(dateISO);
   const customQ = useCustomExercises();
   const customMap = useMemo(() => buildCustomMap(customQ.data ?? []), [customQ.data]);
-  const usedRefsQ = useUsedExerciseRefs();
-  const usedPresetSlugs = useMemo(() => {
-    const refs: string[] = usedRefsQ.data ?? [];
-    const presetIds = new Set(PRESET_EXERCISES.map((p) => p.id));
-    return refs.filter((r: string) => presetIds.has(r));
-  }, [usedRefsQ.data]);
-
   const activeProgQ = useActiveProgram();
   const activeProgram = activeProgQ.data ?? null;
   const programDaysQ = useProgramDays(activeProgram?.id);
@@ -317,7 +308,6 @@ export default function DayDetailScreen() {
         visible={addOpen}
         onClose={() => setAddOpen(false)}
         onAddRefs={onAddRefs}
-        usedPresetSlugs={usedPresetSlugs}
       />
       <ExPreviewModal
         visible={previewEx !== null}

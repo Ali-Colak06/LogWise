@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, TextInput, View } from 'react-native';
 import { AppBottomSheet, Text, Button } from '../ui';
 import { useTheme } from '../../theme';
-import { useT } from '../../lib/i18n';
+import { useT, useTranslations } from '../../lib/i18n';
+import { catLabel, turkishCatToKey } from '../../lib/exercise-resolve';
 import type { AppExercisesRow } from '../../types/database';
 
 const CAT_OPTIONS = ['Göğüs', 'Sırt', 'Omuz', 'Biceps', 'Triceps', 'Bacak', 'Karın', 'Kardiyo'] as const;
@@ -21,6 +22,7 @@ export interface CustomExerciseEditSheetProps {
 export default function CustomExerciseEditSheet({ visible, exercise, onCancel, onSave }: CustomExerciseEditSheetProps) {
   const { colors } = useTheme();
   const t = useT();
+  const dict = useTranslations();
   const [name, setName] = useState('');
   const [cats, setCats] = useState<Set<string>>(new Set());
   const [note, setNote] = useState('');
@@ -40,7 +42,7 @@ export default function CustomExerciseEditSheet({ visible, exercise, onCancel, o
   };
 
   return (
-    <AppBottomSheet visible={visible} onClose={onCancel} maxHeightRatio={0.7}>
+    <AppBottomSheet visible={visible} onClose={onCancel} maxHeightRatio={0.7} minHeightRatio={0.5}>
       <Text variant="sectionHeading">{t('library.edit')}</Text>
       <Text variant="caption" color="secondary" style={styles.label}>{t('dayExtra.newExName')}</Text>
       <TextInput
@@ -59,7 +61,7 @@ export default function CustomExerciseEditSheet({ visible, exercise, onCancel, o
               onPress={() => setCats((prev) => { const n = new Set(prev); if (n.has(c)) n.delete(c); else n.add(c); return n; })}
               style={[styles.chip, { borderColor: on ? colors.accent.gold : colors.border.subtle, backgroundColor: on ? colors.accent.goldMuted : 'transparent' }]}
             >
-              <Text variant="meta" color={on ? 'primary' : 'secondary'}>{c}</Text>
+              <Text variant="meta" color={on ? 'primary' : 'secondary'}>{catLabel(turkishCatToKey(c), dict.cats)}</Text>
             </Pressable>
           );
         })}

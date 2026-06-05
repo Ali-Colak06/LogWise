@@ -28,7 +28,7 @@ export default function ProgramActionSheet({
   const { colors } = useTheme();
   const t = useT();
   return (
-    <AppBottomSheet visible={visible} onClose={onClose} maxHeightRatio={0.5}>
+    <AppBottomSheet visible={visible} onClose={onClose} maxHeightRatio={0.6} minHeightRatio={0.5}>
       {program && (
         <View>
           <Text variant="sectionHeading" numberOfLines={2}>{program.name}</Text>

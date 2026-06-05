@@ -4,7 +4,7 @@
  * Preset: gif (MVP null) + uzun açıklama + tips (data/ex-preview.ts).
  * Custom: ad + kategoriler + not (gif yok — C4 açık sorusu kararı: custom gif yok).
  */
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { AppBottomSheet, Text } from '../ui';
 import { useTheme } from '../../theme';
 import { useLocaleStore } from '../../lib/i18n';
@@ -27,7 +27,7 @@ export default function ExPreviewModal({ visible, exercise, onClose }: ExPreview
   return (
     <AppBottomSheet visible={visible} onClose={onClose} maxHeightRatio={0.8}>
       {exercise && (
-        <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={{ minHeight: 360 }}>
           <Text variant="screenHeading">{exercise.name}</Text>
           <View style={styles.cats}>
             {exercise.rawCategories.map((c, i) => (
@@ -64,7 +64,7 @@ export default function ExPreviewModal({ visible, exercise, onClose }: ExPreview
             </Text>
           ) : null}
           <View style={{ height: 8 }} />
-        </ScrollView>
+        </View>
       )}
     </AppBottomSheet>
   );

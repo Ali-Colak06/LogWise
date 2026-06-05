@@ -297,11 +297,15 @@ export async function fetchWorkoutsByMonth(
     return rows as unknown as AppWorkoutsRow[];
   }
   if (!ctx.userId) return [];
-  // Postgres date range: YYYY-MM-01 to YYYY-MM-31 (string compare çalışır).
+  // workout_date `date` kolonu → literal date'e cast edilir. '...-32' geçersiz tarih
+  // (ERROR: date/time field value out of range) → sorgu patlardı. Exclusive üst sınır
+  // = SONRAKI ayın 1'i.
   const mm = month1to12.toString().padStart(2, '0');
   const yyyy = year.toString().padStart(4, '0');
   const lo = `${yyyy}-${mm}-01`;
-  const hi = `${yyyy}-${mm}-32`; // exclusive upper bound trick
+  const nextMonth = month1to12 === 12 ? 1 : month1to12 + 1;
+  const nextYear = month1to12 === 12 ? year + 1 : year;
+  const hi = `${nextYear.toString().padStart(4, '0')}-${nextMonth.toString().padStart(2, '0')}-01`;
   const { data, error } = await supabase
     .from('app_workouts')
     .select('*')
@@ -575,6 +579,43 @@ export async function addProgramDayExercise(
     position,
     exercise_ref: input.exerciseRef,
   });
+  if (error) throw error;
+}
+
+/**
+ * Bir güne **birden fazla** hareketi tek seferde ekler. `addProgramDayExercise`'i
+ * çoklu seçimde N kez paralel çağırmak position çakışmasına yol açar
+ * (PRIMARY KEY (program_id, day_index, position) ihlali → auth'ta kalan insert'ler
+ * sessizce düşer, guest'te AsyncStorage lost-write). Bu fonksiyon position'ları
+ * tek okumadan ardışık hesaplayıp tek yazımla ekler.
+ */
+export async function addProgramDayExercises(
+  ctx: DataCtx,
+  input: { programId: string; dayIndex: DayIndex; exerciseRefs: string[] },
+): Promise<void> {
+  if (input.exerciseRefs.length === 0) return;
+  if (ctx.mode === 'guest') {
+    // Sıralı await: her ekleme bir öncekinin yazdığı state'i görür → lost-write yok.
+    for (const ref of input.exerciseRefs) {
+      // eslint-disable-next-line no-await-in-loop
+      await gs.addGuestProgramDayExercise({
+        program_id: input.programId,
+        day_index: input.dayIndex,
+        exercise_ref: ref,
+      });
+    }
+    return;
+  }
+  const existing = await fetchProgramDays(ctx, input.programId);
+  const sameDay = existing.filter((d) => d.day_index === input.dayIndex);
+  const base = sameDay.length === 0 ? 0 : Math.max(...sameDay.map((d) => d.position)) + 1;
+  const rows = input.exerciseRefs.map((ref, i) => ({
+    program_id: input.programId,
+    day_index: input.dayIndex,
+    position: base + i,
+    exercise_ref: ref,
+  }));
+  const { error } = await supabase.from('app_program_days').insert(rows);
   if (error) throw error;
 }
 

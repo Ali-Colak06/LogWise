@@ -10,9 +10,9 @@
  * NOT (OPEN): drag/reorder yerine ⋮ menü "yukarı/aşağı taşı" (draggable-flatlist
  * paketi yüklü değil). Spec drag istiyor — ADIM 7 paket eklenince upgrade.
  */
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams, useNavigation, useRouter } from 'expo-router';
 import {
   ArrowLeft, ChevronDown, ChevronUp, X, Moon, Plus, MoreVertical,
 } from 'lucide-react-native';
@@ -27,17 +27,19 @@ import {
   useActivateProgram,
   useDeactivateProgram,
   useActiveProgram,
-  useAddProgramDayExercise,
+  useAddProgramDayExercises,
   useRemoveProgramDayExercise,
   useReorderProgramDay,
   useMoveProgramDayExercise,
   useClearProgramDay,
 } from '../../../../queries/programs';
 import { useCustomExercises } from '../../../../queries/exercises';
-import { resolveExerciseRef, buildCustomMap } from '../../../../lib/exercise-resolve';
+import { resolveExerciseRef, buildCustomMap, type ResolvedExercise } from '../../../../lib/exercise-resolve';
 import { totalProgramExercises } from '../../../../lib/program';
 import AddExerciseSheet from '../../../../components/day/AddExerciseSheet';
 import ConfirmModal from '../../../../components/workout/ConfirmModal';
+import DayExerciseActionSheet from '../../../../components/workout/DayExerciseActionSheet';
+import ExPreviewModal from '../../../../components/shared/ExPreviewModal';
 import type { AppProgramDaysRow, CycleType, DayIndex } from '../../../../types/database';
 
 const DELOAD_OPTS = [3, 4, 5, 6, 8];
@@ -65,7 +67,7 @@ export default function ProgramEditScreen() {
   const deleteProg = useDeleteProgram();
   const activateProg = useActivateProgram();
   const deactivateProg = useDeactivateProgram();
-  const addEx = useAddProgramDayExercise();
+  const addEx = useAddProgramDayExercises();
   const removeEx = useRemoveProgramDayExercise();
   const reorder = useReorderProgramDay();
   const moveEx = useMoveProgramDayExercise();
@@ -76,6 +78,32 @@ export default function ProgramEditScreen() {
   const [expanded, setExpanded] = useState<Set<number>>(() => new Set([(new Date().getDay() + 6) % 7]));
   const [addForDay, setAddForDay] = useState<DayIndex | null>(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [rowMenu, setRowMenu] = useState<{ di: DayIndex; ref: string; name: string } | null>(null);
+  const [previewEx, setPreviewEx] = useState<ResolvedExercise | null>(null);
+
+  // Boş program guard: hareketi olmayan program kaydedilemez (§ kullanıcı kararı).
+  // D2'den "yeni program" oluşturulunca DB'ye boş satır atılıyor; kullanıcı hiç
+  // hareket eklemeden çıkarsa bu satır silinir. Ekrandan ayrılırken (geri/kaydet/
+  // hardware back/swipe) gün verisi yüklenmiş VE toplam hareket 0 ise auto-delete.
+  const navigation = useNavigation();
+  const totalExRef = useRef(0);
+  const daysLoadedRef = useRef(false);
+  const skipAutoDeleteRef = useRef(false);
+  totalExRef.current = totalProgramExercises(days);
+  daysLoadedRef.current = !daysQ.isLoading;
+
+  useEffect(() => {
+    const unsub = navigation.addListener('beforeRemove', () => {
+      if (skipAutoDeleteRef.current) return;
+      if (programId && daysLoadedRef.current && totalExRef.current === 0) {
+        skipAutoDeleteRef.current = true;
+        deleteProg.mutate(programId);
+        toast.show({ message: t('programEdit.discardedEmpty'), variant: 'info' });
+      }
+    });
+    return unsub;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navigation, programId]);
 
   // İlk yüklemede local state'i doldur
   const nameVal = name ?? program?.name ?? '';
@@ -153,23 +181,19 @@ export default function ProgramEditScreen() {
   };
 
   const onAddRefs = (refs: string[]) => {
-    if (addForDay === null) return;
+    if (addForDay === null || refs.length === 0) return;
     const di = addForDay;
-    refs.forEach((ref) => addEx.mutate({ programId, dayIndex: di, exerciseRef: ref }));
+    addEx.mutate(
+      { programId, dayIndex: di, exerciseRefs: refs },
+      { onError: (e) => toast.show({ message: (e as Error).message, variant: 'danger' }) },
+    );
     setAddForDay(null);
   };
 
-  const onMoveExercise = (di: DayIndex, ref: string, name2: string) => {
-    const buttons = ([0, 1, 2, 3, 4, 5, 6] as DayIndex[])
-      .filter((d) => d !== di)
-      .map((d) => ({
-        text: dict.daysFull[d] ?? String(d),
-        onPress: () => moveEx.mutate({ programId, fromDay: di, toDay: d, exerciseRef: ref }),
-      }));
-    Alert.alert(t('programEdit.moveToDayTitle', { vars: { name: name2 } }), undefined, [
-      ...buttons,
-      { text: t('library.cancel'), style: 'cancel' },
-    ]);
+  const onMoveTo = (toDay: DayIndex) => {
+    if (!rowMenu) return;
+    moveEx.mutate({ programId, fromDay: rowMenu.di, toDay, exerciseRef: rowMenu.ref });
+    setRowMenu(null);
   };
 
   const onReorder = (di: DayIndex, ref: string, dir: -1 | 1) => {
@@ -320,7 +344,7 @@ export default function ProgramEditScreen() {
                               </Pressable>
                             </View>
                             <Text variant="body" style={{ flex: 1 }} numberOfLines={1}>{r.name}</Text>
-                            <Pressable onPress={() => onMoveExercise(di, ex.exercise_ref, r.name)} hitSlop={6} style={{ padding: 4 }}>
+                            <Pressable onPress={() => setRowMenu({ di, ref: ex.exercise_ref, name: r.name })} hitSlop={6} style={{ padding: 4 }}>
                               <MoreVertical size={16} color={colors.text.tertiary} />
                             </Pressable>
                             <Pressable onPress={() => removeEx.mutate({ programId, dayIndex: di, exerciseRef: ex.exercise_ref })} hitSlop={6} style={{ padding: 4 }}>
@@ -366,8 +390,25 @@ export default function ProgramEditScreen() {
         visible={addForDay !== null}
         onClose={() => setAddForDay(null)}
         onAddRefs={onAddRefs}
-        initialTab="presets"
+        initialTab="library"
       />
+      <DayExerciseActionSheet
+        visible={rowMenu !== null}
+        exerciseName={rowMenu?.name ?? ''}
+        currentDay={rowMenu?.di ?? null}
+        dayNames={dict.daysFull}
+        onClose={() => setRowMenu(null)}
+        onPreview={() => {
+          if (rowMenu) setPreviewEx(resolveExerciseRef(rowMenu.ref, customMap, locale));
+          setRowMenu(null);
+        }}
+        onMove={onMoveTo}
+        onRemove={() => {
+          if (rowMenu) removeEx.mutate({ programId, dayIndex: rowMenu.di, exerciseRef: rowMenu.ref });
+          setRowMenu(null);
+        }}
+      />
+      <ExPreviewModal visible={previewEx !== null} exercise={previewEx} onClose={() => setPreviewEx(null)} />
       <ConfirmModal
         visible={deleteOpen}
         title={t('library.deleteProgramTitle')}
@@ -377,6 +418,7 @@ export default function ProgramEditScreen() {
         danger
         onConfirm={() => {
           setDeleteOpen(false);
+          skipAutoDeleteRef.current = true; // explicit silme — auto-delete guard'ı atla
           if (program) deleteProg.mutate(program.id, { onSuccess: () => router.back() });
         }}
         onCancel={() => setDeleteOpen(false)}

@@ -12,7 +12,7 @@ import { useRouter } from 'expo-router';
 import { Menu, Search, Plus, ChevronRight, Dumbbell } from 'lucide-react-native';
 import { Screen, Text, Button, HStack, SegmentedTabs, useToast } from '../../../../components/ui';
 import { useTheme } from '../../../../theme';
-import { useT, useLocaleStore } from '../../../../lib/i18n';
+import { useT, useLocaleStore, useTranslations } from '../../../../lib/i18n';
 import { PRESET_EXERCISES, getPresetDisplayName } from '../../../../data/presets-exercises';
 import {
   useCustomExercises,
@@ -28,11 +28,12 @@ import {
   useDeactivateProgram,
   useDeleteProgram,
 } from '../../../../queries/programs';
-import { useAllWorkoutDates, useUsedExerciseRefs } from '../../../../queries/workouts';
+import { useAllWorkoutDates } from '../../../../queries/workouts';
 import {
   resolveExerciseRef,
   buildCustomMap,
   turkishCatToKey,
+  catLabel,
   type CategoryKey,
   type ResolvedExercise,
 } from '../../../../lib/exercise-resolve';
@@ -61,6 +62,7 @@ export default function WorkoutScreen() {
   const router = useRouter();
   const { colors } = useTheme();
   const t = useT();
+  const dict = useTranslations();
   const toast = useToast();
   const locale = useLocaleStore((s) => s.locale);
 
@@ -90,30 +92,19 @@ export default function WorkoutScreen() {
   const activeProgram = activeProgQ.data ?? null;
   const activeDaysQ = useProgramDays(activeProgram?.id);
   const workoutDatesQ = useAllWorkoutDates();
-  const usedRefsQ = useUsedExerciseRefs();
   const createEmpty = useCreateEmptyProgram();
   const activateProg = useActivateProgram();
   const deactivateProg = useDeactivateProgram();
   const deleteProg = useDeleteProgram();
 
-  // §8.8: Kütüphanem = custom (her zaman) + tarihçede kullanılmış preset slug'ları.
-  // Tarihçe henüz yüklenmediyse yalnızca custom gösterilir.
-  const usedPresetSlugs = useMemo(() => {
-    const refs: string[] = usedRefsQ.data ?? [];
-    const presetIds = new Set(PRESET_EXERCISES.map((p) => p.id));
-    return refs.filter((ref: string) => presetIds.has(ref));
-  }, [usedRefsQ.data]);
-
-  // D1 list: custom (her zaman) + tarihçede kullanılmış preset (§8.8 Kütüphanem)
+  // D1 list: custom hareketler + tüm preset hareketler, alfabetik
   const d1Rows = useMemo(() => {
     const out: Array<{ ref: string; name: string; cat: CategoryKey; isPreset: boolean }> = [];
     for (const c of customRows) {
       const r = resolveExerciseRef(c.id, customMap, locale);
       out.push({ ref: c.id, name: r.name, cat: r.categories[0] ?? 'other', isPreset: false });
     }
-    const usedSet = new Set(usedPresetSlugs);
     for (const p of PRESET_EXERCISES) {
-      if (!usedSet.has(p.id)) continue;
       out.push({
         ref: p.id,
         name: getPresetDisplayName(p.id, locale),
@@ -121,8 +112,8 @@ export default function WorkoutScreen() {
         isPreset: true,
       });
     }
-    return out;
-  }, [customRows, customMap, locale, usedPresetSlugs]);
+    return out.sort((a, b) => a.name.localeCompare(b.name, locale));
+  }, [customRows, customMap, locale]);
 
   const d1Filtered = useMemo(() => {
     const q = lc(query.trim());
@@ -257,7 +248,7 @@ export default function WorkoutScreen() {
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.catStrip} contentContainerStyle={{ gap: 6, paddingHorizontal: 8 }}>
             {CATS.map((c) => {
               const on = c === cat;
-              const label = c === 'all' ? t('dayExtra.catAll') : c;
+              const label = c === 'all' ? t('dayExtra.catAll') : catLabel(c, dict.cats);
               return (
                 <Pressable key={c} onPress={() => setCat(c)} style={[styles.catChip, { borderColor: on ? colors.accent.gold : colors.border.subtle, backgroundColor: on ? colors.accent.goldMuted : 'transparent' }]}>
                   <Text variant="meta" color={on ? 'primary' : 'secondary'}>{label}</Text>
@@ -266,7 +257,7 @@ export default function WorkoutScreen() {
             })}
           </ScrollView>
 
-          <ScrollView contentContainerStyle={{ paddingBottom: 96, paddingHorizontal: 8 }}>
+          <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: 96, paddingHorizontal: 8 }}>
             {d1Filtered.length === 0 ? (
               <View style={styles.empty}>
                 <Dumbbell size={48} color={colors.text.tertiary} />
@@ -286,7 +277,10 @@ export default function WorkoutScreen() {
                   <View style={{ flex: 1 }}>
                     <Text variant="body" numberOfLines={1}>{r.name}</Text>
                   </View>
-                  {!r.isPreset && <Text variant="meta" color="tertiary">{t('library.customBadge')}</Text>}
+                  {r.isPreset
+                    ? <Text variant="meta" color="tertiary">{t('library.presetBadge')}</Text>
+                    : <Text variant="meta" color="tertiary">{t('library.customBadge')}</Text>
+                  }
                   <ChevronRight size={16} color={colors.text.tertiary} />
                 </Pressable>
               ))

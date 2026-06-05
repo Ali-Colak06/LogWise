@@ -30,7 +30,7 @@ export default function NewProgramSheet({ visible, onCancel, onSubmit, submittin
   };
 
   return (
-    <AppBottomSheet visible={visible} onClose={onCancel} maxHeightRatio={0.6}>
+    <AppBottomSheet visible={visible} onClose={onCancel} maxHeightRatio={0.6} minHeightRatio={0.5}>
       <Text variant="sectionHeading">{t('library.newProgramTitle')}</Text>
       <Text variant="caption" color="secondary" style={styles.label}>{t('library.programNameLabel')}</Text>
       <TextInput

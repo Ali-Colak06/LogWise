@@ -15,13 +15,13 @@ import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native
 import { Search, X, Check } from 'lucide-react-native';
 import { AppBottomSheet, Button, SegmentedTabs, Text } from '../ui';
 import { useTheme } from '../../theme';
-import { useT, useLocaleStore } from '../../lib/i18n';
+import { useT, useLocaleStore, useTranslations } from '../../lib/i18n';
 import { PRESET_EXERCISES, getPresetDisplayName } from '../../data/presets-exercises';
 import { useCustomExercises, useAddCustomExercise } from '../../queries/exercises';
-import { resolveExerciseRef, buildCustomMap, turkishCatToKey } from '../../lib/exercise-resolve';
+import { resolveExerciseRef, buildCustomMap, turkishCatToKey, catLabel } from '../../lib/exercise-resolve';
 import type { CategoryKey } from '../../lib/exercise-resolve';
 
-type Tab = 'library' | 'presets' | 'new';
+type Tab = 'library' | 'new';
 
 export interface AddExerciseSheetProps {
   visible: boolean;
@@ -29,8 +29,6 @@ export interface AddExerciseSheetProps {
   /** Seçilen ref'leri ekle (1 veya N). */
   onAddRefs: (refs: string[]) => void;
   initialTab?: Tab;
-  /** Tarihçede kullanılmış preset slug'lar (Kütüphanem kapsamı — §8.8). */
-  usedPresetSlugs?: string[];
 }
 
 const CATS: Array<CategoryKey | 'all'> = [
@@ -53,10 +51,10 @@ export default function AddExerciseSheet({
   onClose,
   onAddRefs,
   initialTab = 'library',
-  usedPresetSlugs = [],
 }: AddExerciseSheetProps) {
   const { colors } = useTheme();
   const t = useT();
+  const dict = useTranslations();
   const locale = useLocaleStore((s) => s.locale);
   const [tab, setTab] = useState<Tab>(initialTab);
   const [query, setQuery] = useState('');
@@ -74,34 +72,24 @@ export default function AddExerciseSheet({
   const customRows = customQ.data ?? [];
   const customMap = useMemo(() => buildCustomMap(customRows), [customRows]);
 
-  const presetRows: Row[] = useMemo(
-    () =>
-      PRESET_EXERCISES.map((p) => ({
-        ref: p.id,
-        name: getPresetDisplayName(p.id, locale),
-        cat: p.categories[0] ? turkishCatToKey(p.categories[0]) : 'other',
-        isPreset: true,
-      })),
-    [locale],
-  );
-
   const libraryRows: Row[] = useMemo(() => {
     const out: Row[] = [];
     for (const c of customRows) {
       const r = resolveExerciseRef(c.id, customMap, locale);
       out.push({ ref: c.id, name: r.name, cat: r.categories[0] ?? 'other', isPreset: false });
     }
-    const seen = new Set<string>();
-    for (const slug of usedPresetSlugs) {
-      if (seen.has(slug)) continue;
-      seen.add(slug);
-      const r = resolveExerciseRef(slug, customMap, locale);
-      out.push({ ref: slug, name: r.name, cat: r.categories[0] ?? 'other', isPreset: true });
+    for (const p of PRESET_EXERCISES) {
+      out.push({
+        ref: p.id,
+        name: getPresetDisplayName(p.id, locale),
+        cat: p.categories[0] ? turkishCatToKey(p.categories[0]) : 'other',
+        isPreset: true,
+      });
     }
     return out.sort((a, b) => a.name.localeCompare(b.name, locale));
-  }, [customRows, customMap, usedPresetSlugs, locale]);
+  }, [customRows, customMap, locale]);
 
-  const activeRows = tab === 'presets' ? presetRows : libraryRows;
+  const activeRows = libraryRows;
   const filtered = useMemo(() => {
     const q = lc(query.trim());
     return activeRows
@@ -172,7 +160,22 @@ export default function AddExerciseSheet({
   };
 
   return (
-    <AppBottomSheet visible={visible} onClose={close} maxHeightRatio={0.9}>
+    <AppBottomSheet
+      visible={visible}
+      onClose={close}
+      maxHeightRatio={0.9}
+      footer={
+        multi ? (
+          <Button
+            variant="primary"
+            label={t('dayExtra.multiAddCta', { vars: { n: selected.size } })}
+            onPress={confirmMulti}
+            disabled={selected.size === 0}
+            fullWidth
+          />
+        ) : undefined
+      }
+    >
       {/* Header: search + close */}
       <View style={styles.headerRow}>
         {multi ? (
@@ -207,7 +210,6 @@ export default function AddExerciseSheet({
       <SegmentedTabs<Tab>
         options={[
           { key: 'library', label: t('dayExtra.tabLibrary') },
-          { key: 'presets', label: t('dayExtra.tabPresets') },
           { key: 'new', label: t('dayExtra.tabNew') },
         ]}
         value={tab}
@@ -215,7 +217,7 @@ export default function AddExerciseSheet({
       />
 
       {tab === 'new' ? (
-        <ScrollView keyboardShouldPersistTaps="handled" style={styles.body}>
+        <View style={styles.body}>
           <Text variant="caption" color="secondary" style={styles.label}>{t('dayExtra.newExName')}</Text>
           <TextInput
             value={newName}
@@ -240,7 +242,7 @@ export default function AddExerciseSheet({
                   }
                   style={[styles.catChip, { borderColor: on ? colors.accent.gold : colors.border.subtle, backgroundColor: on ? colors.accent.goldMuted : 'transparent' }]}
                 >
-                  <Text variant="meta" color={on ? 'primary' : 'secondary'}>{c}</Text>
+                  <Text variant="meta" color={on ? 'primary' : 'secondary'}>{catLabel(turkishCatToKey(c), dict.cats)}</Text>
                 </Pressable>
               );
             })}
@@ -258,14 +260,14 @@ export default function AddExerciseSheet({
           <Button variant="primary" label={t('dayExtra.createAndAdd')} onPress={() => submitNew(true)} fullWidth disabled={newName.trim() === ''} />
           <View style={{ height: 8 }} />
           <Button variant="ghost" label={t('dayExtra.libraryOnly')} onPress={() => submitNew(false)} fullWidth disabled={newName.trim() === ''} />
-        </ScrollView>
+        </View>
       ) : (
         <>
           {/* Category strip */}
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.catStrip} contentContainerStyle={{ gap: 6 }}>
             {CATS.map((c) => {
               const on = c === cat;
-              const label = c === 'all' ? t('dayExtra.catAll') : c;
+              const label = c === 'all' ? t('dayExtra.catAll') : catLabel(c, dict.cats);
               return (
                 <Pressable
                   key={c}
@@ -278,7 +280,7 @@ export default function AddExerciseSheet({
             })}
           </ScrollView>
 
-          <ScrollView style={styles.body} keyboardShouldPersistTaps="handled">
+          <View style={styles.body}>
             {filtered.length === 0 ? (
               <Text variant="body" color="secondary" align="center" style={{ paddingVertical: 24 }}>
                 {t('library.noResults')}
@@ -306,7 +308,9 @@ export default function AddExerciseSheet({
                     )}
                     <View style={[styles.catDot, { backgroundColor: colors.category[r.cat] }]} />
                     <Text variant="body" style={{ flex: 1 }}>{r.name}</Text>
-                    {!r.isPreset && (
+                    {r.isPreset ? (
+                      <Text variant="meta" color="tertiary">{t('library.presetBadge')}</Text>
+                    ) : (
                       <Text variant="meta" color="tertiary">{t('library.customBadge')}</Text>
                     )}
                   </Pressable>
@@ -314,17 +318,8 @@ export default function AddExerciseSheet({
               })
             )}
             <View style={{ height: 16 }} />
-          </ScrollView>
+          </View>
 
-          {multi && (
-            <Button
-              variant="primary"
-              label={t('dayExtra.multiAddCta', { vars: { n: selected.size } })}
-              onPress={confirmMulti}
-              disabled={selected.size === 0}
-              fullWidth
-            />
-          )}
         </>
       )}
     </AppBottomSheet>
@@ -344,7 +339,7 @@ const styles = StyleSheet.create({
     borderWidth: StyleSheet.hairlineWidth,
   },
   searchInput: { flex: 1, fontSize: 15, padding: 0 },
-  body: { marginTop: 8, maxHeight: 420 },
+  body: { marginTop: 8 },
   catStrip: { marginTop: 10, flexGrow: 0 },
   catWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, marginTop: 6 },
   catChip: {

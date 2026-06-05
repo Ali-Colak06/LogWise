@@ -465,6 +465,7 @@ export interface Translations {
     delete: string;
     presetReadonly: string;        // "Hazır hareket — düzenlenemez"
     customBadge: string;           // "(Özel)"
+    presetBadge: string;           // "(Preset)"
     deleteExTitle: string;
     deleteExBody: string;          // "Geçmiş antrenmanların etkilenmez..."
     deletedToast: string;          // "{name} silindi"
@@ -514,6 +515,8 @@ export interface Translations {
     offDayEmptyDesc: string;
     moveToDay: string;             // "Başka güne taşı"
     moveToDayTitle: string;        // "{name} hangi güne?" templated
+    removeExercise: string;        // "Çıkar" (⋮ menü)
+    discardedEmpty: string;        // "Boş program kaydedilmedi" (auto-delete toast)
     activateCta: string;           // "⚡ Programı Aktif Et"
     activeLabel: string;           // "✓ Aktif Program"
     activateDisabled: string;      // "Önce egzersiz ekle"
@@ -568,8 +571,7 @@ export interface Translations {
     deleteFromProgram: string;     // "Programdan"
     setTypeTitle: string;          // bottom sheet başlık
     addExerciseTitle: string;      // "Egzersiz Ekle"
-    tabLibrary: string;            // "Kütüphanem"
-    tabPresets: string;            // "Hazır Hareketler"
+    tabLibrary: string;            // "Hareketler"
     tabNew: string;                // "Yeni Özel"
     catAll: string;                // "Tümü"
     newExName: string;             // "Egzersiz adı"

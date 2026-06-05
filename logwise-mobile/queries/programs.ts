@@ -18,6 +18,7 @@ import {
   activateProgram,
   deactivateProgram,
   addProgramDayExercise,
+  addProgramDayExercises,
   removeProgramDayExercise,
   reorderProgramDay,
   moveProgramDayExercise,
@@ -148,6 +149,16 @@ export function useAddProgramDayExercise() {
   return useMutation({
     mutationFn: (input: { programId: string; dayIndex: DayIndex; exerciseRef: string }) =>
       addProgramDayExercise(ctx, input),
+    onSuccess: () => qc.invalidateQueries({ queryKey: pgKeys.all(ctx) }),
+  });
+}
+
+export function useAddProgramDayExercises() {
+  const ctx = useDataCtx();
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (input: { programId: string; dayIndex: DayIndex; exerciseRefs: string[] }) =>
+      addProgramDayExercises(ctx, input),
     onSuccess: () => qc.invalidateQueries({ queryKey: pgKeys.all(ctx) }),
   });
 }
