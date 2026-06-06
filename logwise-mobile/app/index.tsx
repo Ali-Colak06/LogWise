@@ -13,7 +13,6 @@ import { useAuthMode } from '@stores/auth-store';
 
 export default function RootIndex() {
   const mode = useAuthMode();
-  console.log('[RootIndex] mode=', mode);
   if (mode === 'auth' || mode === 'guest') {
     return <Redirect href="/(app)/calendar" />;
   }

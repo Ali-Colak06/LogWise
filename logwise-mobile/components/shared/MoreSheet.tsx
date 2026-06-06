@@ -185,13 +185,6 @@ export default function MoreSheet({ visible, onClose }: MoreSheetProps) {
 
       <View style={[styles.sep, { backgroundColor: colors.border.subtle }]} />
 
-      {/* Debug row — auth durumunu göstermek için (geçici, ADIM 8 bug fix) */}
-      <View style={styles.row}>
-        <Text variant="caption" color="tertiary" style={styles.rowLabel}>
-          mode={mode} · email={email || '(none)'}
-        </Text>
-      </View>
-
       {/* Logout (auth) vs Register (guest) — auth durumunda her zaman göster */}
       {mode === 'guest' ? (
         <Pressable style={styles.row} onPress={onRegister}>

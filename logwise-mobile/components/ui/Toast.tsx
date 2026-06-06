@@ -21,7 +21,7 @@
  */
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 import { useTheme } from '../../theme';
 import Text from './Text';
 
@@ -44,6 +44,18 @@ interface ToastContextValue {
 }
 
 const ToastContext = createContext<ToastContextValue | null>(null);
+
+/**
+ * Toast'ın o anki render state'i (mesaj + opacity). `ToastOutlet` bunu okuyup,
+ * RN <Modal> kullanan bileşenlerin (AppBottomSheet vb.) KENDİ native window'u
+ * içinde toast'ı tekrar render eder — böylece toast açık sheet'in üstünde görünür
+ * (root ağaçtaki overlay zIndex ile ayrı native window'un üstüne çıkamaz).
+ */
+interface ToastRenderValue {
+  toast: ToastState | null;
+  opacity: Animated.Value;
+}
+const ToastRenderContext = createContext<ToastRenderValue | null>(null);
 
 const DEFAULT_DURATION = 3000;
 const FADE_DURATION = 200;
@@ -96,11 +108,15 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const value = useMemo<ToastContextValue>(() => ({ show, hide }), [show, hide]);
+  const renderValue = useMemo<ToastRenderValue>(() => ({ toast, opacity }), [toast, opacity]);
 
   return (
     <ToastContext.Provider value={value}>
-      {children}
-      {toast ? <ToastView toast={toast} opacity={opacity} /> : null}
+      <ToastRenderContext.Provider value={renderValue}>
+        {children}
+        {/* Root toast — normal (Modal'sız) ekranlar için. */}
+        {toast ? <ToastView toast={toast} opacity={opacity} /> : null}
+      </ToastRenderContext.Provider>
     </ToastContext.Provider>
   );
 }
@@ -170,6 +186,19 @@ const styles = StyleSheet.create({
     zIndex: 60,
   },
 });
+
+/**
+ * ToastOutlet — RN <Modal> kullanan bileşenlerin (AppBottomSheet) modal ağacına
+ * yerleştirilir. Aktif toast'ı, sheet ile AYNI native window içinde render eder →
+ * toast sheet içeriğinin üstünde görünür. `ToastView` pointerEvents="none"
+ * olduğundan dokunmaları yutmaz (sheet kullanılabilir kalır). Provider yoksa /
+ * toast yoksa hiçbir şey çizmez.
+ */
+export function ToastOutlet() {
+  const render = useContext(ToastRenderContext);
+  if (!render || !render.toast) return null;
+  return <ToastView toast={render.toast} opacity={render.opacity} />;
+}
 
 export function useToast(): ToastContextValue {
   const ctx = useContext(ToastContext);

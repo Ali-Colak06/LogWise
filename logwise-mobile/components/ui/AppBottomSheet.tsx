@@ -42,6 +42,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../../theme';
+import { ToastOutlet } from './Toast';
 
 export interface AppBottomSheetProps {
   visible: boolean;
@@ -212,6 +213,11 @@ export default function AppBottomSheet({
             </Animated.View>
           </GestureDetector>
         </KeyboardAvoidingView>
+
+        {/* Toast outlet — sheet ile aynı native window'da; toast'ı sheet içeriğinin
+            üstünde gösterir (root toast ayrı window'da kaldığı için görünmezdi).
+            pointerEvents="none" → sheet kullanılabilir kalır. */}
+        <ToastOutlet />
       </GestureHandlerRootView>
     </Modal>
   );

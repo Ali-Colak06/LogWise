@@ -27,6 +27,7 @@ import CalendarMonth, { type DayWorkoutSummary, type CategoryKey } from '../../.
 import CalendarWeek, { type WeekDaySummary } from '../../../../components/calendar/CalendarWeek';
 import PresetProgramModal from '../../../../components/calendar/PresetProgramModal';
 import WebUserWelcomeModal from '../../../../components/auth/WebUserWelcomeModal';
+import ProfilePopover, { type AnchorRect } from '../../../../components/shared/ProfilePopover';
 import { computeOffDays, type PresetProgram } from '../../../../data/presets-programs';
 
 type ViewMode = 'month' | 'week';
@@ -51,6 +52,18 @@ export default function CalendarScreen() {
   const [weekAnchor, setWeekAnchor] = useState<Date>(() => new Date());
   const [presetOpen, setPresetOpen] = useState(false);
   const [webWelcomeOpen, setWebWelcomeOpen] = useState(false);
+
+  // Avatar tap → sol-üst profil popover. measureInWindow ile avatar'ın ekran
+  // konumunu alıp kartı tam altına yerleştiririz.
+  const avatarRef = useRef<View | null>(null);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const [avatarRect, setAvatarRect] = useState<AnchorRect | null>(null);
+  const openProfile = () => {
+    avatarRef.current?.measureInWindow((x, y, width, height) => {
+      setAvatarRect({ x, y, width, height });
+      setProfileOpen(true);
+    });
+  };
 
   // ADIM 8 fix: week view bugünkü haftaya auto-scroll için ScrollView ref
   const scrollRef = useRef<ScrollView | null>(null);
@@ -211,11 +224,18 @@ export default function CalendarScreen() {
     <Screen scroll={false} hPadding={0}>
       {/* ADIM 8 prototip sadakat — app-bar: avatar | 2-satır title | view-switch + today */}
       <View style={[styles.appBar, { borderBottomColor: colors.border.subtle }]}>
-        <View style={[styles.avatar, { borderColor: colors.border.subtle, backgroundColor: colors.background.subtle }]}>
+        <Pressable
+          ref={avatarRef}
+          onPress={openProfile}
+          hitSlop={6}
+          accessibilityRole="button"
+          accessibilityLabel={t('more.rowProfile')}
+          style={[styles.avatar, { borderColor: colors.border.subtle, backgroundColor: colors.background.subtle }]}
+        >
           <Text style={{ color: colors.accent.gold, fontFamily: tokens.fonts.displayBold, fontSize: 13 }}>
             {(activeProgQ.data?.name ?? 'LW').slice(0, 2).toUpperCase()}
           </Text>
-        </View>
+        </Pressable>
         <View style={styles.barTitle}>
           <View style={styles.barTitleRow}>
             {viewMode === 'month' && (
@@ -333,6 +353,12 @@ export default function CalendarScreen() {
         onDismiss={() => setPresetOpen(false)}
         onSelectPreset={onSelectPreset}
         isSubmitting={createProgM.isPending}
+      />
+
+      <ProfilePopover
+        visible={profileOpen}
+        anchor={avatarRect}
+        onClose={() => setProfileOpen(false)}
       />
 
       <WebUserWelcomeModal

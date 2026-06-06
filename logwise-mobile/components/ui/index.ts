@@ -22,7 +22,7 @@ export type { SpaceKey, BgKey, BorderKey } from './Stack';
 export { default as Input } from './Input';
 export type { InputProps, InputType } from './Input';
 
-export { ToastProvider, useToast } from './Toast';
+export { ToastProvider, ToastOutlet, useToast } from './Toast';
 export type { ToastOptions, ToastVariant } from './Toast';
 
 export { default as AppBottomSheet } from './AppBottomSheet';
