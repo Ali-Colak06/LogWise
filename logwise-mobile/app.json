@@ -49,7 +49,18 @@
       "supabaseUrl": "https://czbxujioufhmvoajqwzp.supabase.co",
       "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6Ynh1amlvdWZobXZvYWpxd3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDYzNTgsImV4cCI6MjA5MDA4MjM1OH0._juhkh6W8p0iP3WVSooi1fFfZFXT50LugDszPBubOgk",
       "sentryDsn": "https://7d99a740f91e12690f622af22e0cb560@o4511488560529408.ingest.us.sentry.io/4511488571670528",
-      "resetPasswordRedirect": "https://logwise.fit/reset-password"
+      "resetPasswordRedirect": "https://logwise.fit/reset-password",
+      "router": {},
+      "eas": {
+        "projectId": "2863f167-35c7-4f2d-8448-149a61ab7d53"
+      }
+    },
+    "owner": "logwise",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/2863f167-35c7-4f2d-8448-149a61ab7d53"
     }
   }
 }
