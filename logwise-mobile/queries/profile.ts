@@ -35,12 +35,17 @@ export function useSetProfilePreference() {
   });
 }
 
-/** §3.10 — auth kullanıcının web tarafında verisi var mı (user_data count > 0). */
-export function useWebUserCount() {
+/**
+ * §3.10 — auth kullanıcının web tarafında verisi var mı (user_data count > 0).
+ * FAZ 2.2: `enabled` param ile lazy — web-welcome modal mantığı gerekene kadar
+ * (prefs yüklendi + seen_web_welcome=false) çalışmaz; her Calendar açılışında
+ * gereksiz round-trip atmaz.
+ */
+export function useWebUserCount(enabled = true) {
   const ctx = useDataCtx();
   return useQuery<number>({
     queryKey: prefKeys.webCount(ctx),
     queryFn: () => countWebUserData(ctx),
-    enabled: ctx.mode === 'auth',
+    enabled: ctx.mode === 'auth' && enabled,
   });
 }

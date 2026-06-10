@@ -132,6 +132,39 @@ export async function fetchActiveProgram(ctx: DataCtx): Promise<AppProgramsRow |
   return (data as AppProgramsRow | null) ?? null;
 }
 
+/**
+ * FAZ 2.2 — Aktif programı GÜNLERİYLE BİRLİKTE tek round-trip'te çeker
+ * (activeProgram→programDays serial waterfall'ı kırar). Day Detail bunu kullanır;
+ * `fetchActiveProgram` + `fetchProgramDays` ayrı ayrı diğer ekranlarda kalır.
+ */
+export async function fetchActiveProgramWithDays(
+  ctx: DataCtx,
+): Promise<{ program: AppProgramsRow | null; days: AppProgramDaysRow[] }> {
+  if (ctx.mode === 'guest') {
+    const program = (await gs.getGuestActiveProgram()) as unknown as AppProgramsRow | null;
+    if (!program) return { program: null, days: [] };
+    const days = await gs.getGuestProgramDays(program.id);
+    return { program, days };
+  }
+  if (!ctx.userId) return { program: null, days: [] };
+  const { data, error } = await supabase
+    .from('app_programs')
+    .select('*, app_program_days(*)')
+    .eq('user_id', ctx.userId)
+    .not('activated_at', 'is', null)
+    .limit(1)
+    .maybeSingle();
+  if (error) throw error;
+  if (!data) return { program: null, days: [] };
+  const row = data as unknown as AppProgramsRow & { app_program_days?: AppProgramDaysRow[] };
+  const days = ((row.app_program_days as AppProgramDaysRow[] | undefined) ?? [])
+    .slice()
+    .sort((a, b) => a.day_index - b.day_index || a.position - b.position);
+  const program: AppProgramsRow = { ...row };
+  delete (program as { app_program_days?: unknown }).app_program_days;
+  return { program, days };
+}
+
 export async function fetchProgramDays(
   ctx: DataCtx,
   programId: string,
@@ -287,6 +320,19 @@ export async function fetchWorkoutsByDate(
   return (data as AppWorkoutsRow[] | null) ?? [];
 }
 
+// workout_date `date` kolonu → literal date'e cast edilir. '...-32' geçersiz tarih
+// (ERROR: date/time field value out of range) → sorgu patlardı. Exclusive üst sınır
+// = SONRAKI ayın 1'i.
+function monthRange(year: number, month1to12: number): { lo: string; hi: string } {
+  const mm = month1to12.toString().padStart(2, '0');
+  const yyyy = year.toString().padStart(4, '0');
+  const lo = `${yyyy}-${mm}-01`;
+  const nextMonth = month1to12 === 12 ? 1 : month1to12 + 1;
+  const nextYear = month1to12 === 12 ? year + 1 : year;
+  const hi = `${nextYear.toString().padStart(4, '0')}-${nextMonth.toString().padStart(2, '0')}-01`;
+  return { lo, hi };
+}
+
 export async function fetchWorkoutsByMonth(
   ctx: DataCtx,
   year: number,
@@ -297,15 +343,7 @@ export async function fetchWorkoutsByMonth(
     return rows as unknown as AppWorkoutsRow[];
   }
   if (!ctx.userId) return [];
-  // workout_date `date` kolonu → literal date'e cast edilir. '...-32' geçersiz tarih
-  // (ERROR: date/time field value out of range) → sorgu patlardı. Exclusive üst sınır
-  // = SONRAKI ayın 1'i.
-  const mm = month1to12.toString().padStart(2, '0');
-  const yyyy = year.toString().padStart(4, '0');
-  const lo = `${yyyy}-${mm}-01`;
-  const nextMonth = month1to12 === 12 ? 1 : month1to12 + 1;
-  const nextYear = month1to12 === 12 ? year + 1 : year;
-  const hi = `${nextYear.toString().padStart(4, '0')}-${nextMonth.toString().padStart(2, '0')}-01`;
+  const { lo, hi } = monthRange(year, month1to12);
   const { data, error } = await supabase
     .from('app_workouts')
     .select('*')
@@ -315,6 +353,52 @@ export async function fetchWorkoutsByMonth(
     .order('workout_date');
   if (error) throw error;
   return (data as AppWorkoutsRow[] | null) ?? [];
+}
+
+/** FAZ 2.5 — set + ait olduğu günün tarihi (seed cache satırı). */
+export type AppSetsRowWithDate = AppSetsRow & { workout_date: string };
+
+/**
+ * FAZ 2.5 — Ayın TÜM set'leri (workout_date ile birlikte). Calendar mount'ta çekilir
+ * ve gün açılışında `setsByDate` cache'inin SEED kaynağı olur: güne tıklayınca set'ler
+ * network beklenmeden render edilir. Hiçbir ekranda doğrudan gösterilmez.
+ */
+export async function fetchSetsByMonth(
+  ctx: DataCtx,
+  year: number,
+  month1to12: number,
+): Promise<AppSetsRowWithDate[]> {
+  if (ctx.mode === 'guest') {
+    const wks = await gs.getGuestWorkoutsByMonth(year, month1to12);
+    if (wks.length === 0) return [];
+    const dateById = new Map(wks.map((w) => [w.id, w.workout_date]));
+    const all = await gs.getGuestSets();
+    return all
+      .filter((s) => dateById.has(s.workout_id))
+      .map((s) => ({ ...s, workout_date: dateById.get(s.workout_id) as string }));
+  }
+  if (!ctx.userId) return [];
+  const { lo, hi } = monthRange(year, month1to12);
+  const { data, error } = await supabase
+    .from('app_sets')
+    .select('*, app_workouts!inner(workout_date, user_id)')
+    .eq('app_workouts.user_id', ctx.userId)
+    .gte('app_workouts.workout_date', lo)
+    .lt('app_workouts.workout_date', hi);
+  if (error) throw error;
+  const rows =
+    (data as unknown as Array<AppSetsRow & { app_workouts?: { workout_date?: string } }>) ?? [];
+  return rows.map((r) => ({
+    id: r.id,
+    workout_id: r.workout_id,
+    set_index: r.set_index,
+    set_type: r.set_type,
+    weight: r.weight,
+    reps: r.reps,
+    rir: r.rir,
+    created_at: r.created_at,
+    workout_date: r.app_workouts?.workout_date ?? '',
+  }));
 }
 
 /**
@@ -369,6 +453,41 @@ export async function fetchSetsForWorkouts(
     .in('workout_id', workoutIds);
   if (error) throw error;
   return (data as AppSetsRow[] | null) ?? [];
+}
+
+/**
+ * FAZ 2.1 — Bir günün TÜM set'lerini workout id'lerine bağlı OLMADAN, doğrudan
+ * tarihe göre çeker (workouts→sets serial waterfall'ı kırar; iki query paralel başlar).
+ * Auth: `app_sets` ⋈ `app_workouts!inner` (workout_date + user_id ile filtre).
+ * Guest: o günün workout id'leri üzerinden filtre. Her iki yol da düz AppSetsRow[] döner.
+ */
+export async function fetchSetsByDate(ctx: DataCtx, dateISO: string): Promise<AppSetsRow[]> {
+  if (ctx.mode === 'guest') {
+    const wks = await gs.getGuestWorkoutsByDate(dateISO);
+    if (wks.length === 0) return [];
+    const ids = new Set(wks.map((w) => w.id));
+    const all = await gs.getGuestSets();
+    return all.filter((s) => ids.has(s.workout_id));
+  }
+  if (!ctx.userId) return [];
+  const { data, error } = await supabase
+    .from('app_sets')
+    .select('*, app_workouts!inner(workout_date, user_id)')
+    .eq('app_workouts.user_id', ctx.userId)
+    .eq('app_workouts.workout_date', dateISO);
+  if (error) throw error;
+  const rows = (data as unknown as Array<AppSetsRow & { app_workouts?: unknown }>) ?? [];
+  // Embed'i sıyır → düz AppSetsRow (cache shape eski `fetchSetsForWorkouts` ile birebir).
+  return rows.map((r) => ({
+    id: r.id,
+    workout_id: r.workout_id,
+    set_index: r.set_index,
+    set_type: r.set_type,
+    weight: r.weight,
+    reps: r.reps,
+    rir: r.rir,
+    created_at: r.created_at,
+  }));
 }
 
 export async function addWorkoutSet(

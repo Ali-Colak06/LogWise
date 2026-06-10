@@ -8,6 +8,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   fetchActiveProgram,
+  fetchActiveProgramWithDays,
   fetchPrograms,
   fetchProgramDays,
   fetchProgramById,
@@ -32,6 +33,7 @@ export const pgKeys = {
   all: (ctx: DataCtx) => ['programs', ctx.mode, ctx.userId ?? 'guest'] as const,
   list: (ctx: DataCtx) => [...pgKeys.all(ctx), 'list'] as const,
   active: (ctx: DataCtx) => [...pgKeys.all(ctx), 'active'] as const,
+  activeWithDays: (ctx: DataCtx) => [...pgKeys.all(ctx), 'activeWithDays'] as const,
   one: (ctx: DataCtx, programId: string) => [...pgKeys.all(ctx), 'one', programId] as const,
   days: (ctx: DataCtx, programId: string) => [...pgKeys.all(ctx), 'days', programId] as const,
 };
@@ -49,6 +51,19 @@ export function useActiveProgram() {
   return useQuery<AppProgramsRow | null>({
     queryKey: pgKeys.active(ctx),
     queryFn: () => fetchActiveProgram(ctx),
+  });
+}
+
+/**
+ * FAZ 2.2 — Aktif program + günleri TEK round-trip (Day Detail için). activeProgram→
+ * programDays serial waterfall'ını kırar. `pgKeys.all` invalidation'ı kapsar (program
+ * aktifleştirme/düzenleme bu query'yi de tazeler).
+ */
+export function useActiveProgramWithDays() {
+  const ctx = useDataCtx();
+  return useQuery<{ program: AppProgramsRow | null; days: AppProgramDaysRow[] }>({
+    queryKey: pgKeys.activeWithDays(ctx),
+    queryFn: () => fetchActiveProgramWithDays(ctx),
   });
 }
 
