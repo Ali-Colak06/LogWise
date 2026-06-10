@@ -1,0 +1,30 @@
+[
+  {
+    "slug": "antrenman-gunlugu-neden-tutmalisin",
+    "title": "Antrenman Günlüğü Neden Tutmalısın? (ve Nasıl Başlarsın)",
+    "description": "Hafıza yanıltır, sayılar yanıltmaz. Antrenman günlüğü tutmanın gelişim üzerindeki somut etkisi ve 5 dakikada başlamanın yolu.",
+    "date": "2026-06-10",
+    "lang": "tr",
+    "tags": [
+      "antrenman",
+      "takip",
+      "başlangıç"
+    ],
+    "featured": true,
+    "readMins": 2
+  },
+  {
+    "slug": "progressive-overload-explained",
+    "title": "Progressive Overload, Explained Simply",
+    "description": "The one principle behind every successful training program — and how to apply it this week without overcomplicating things.",
+    "date": "2026-06-10",
+    "lang": "en",
+    "tags": [
+      "training",
+      "progress",
+      "basics"
+    ],
+    "featured": false,
+    "readMins": 2
+  }
+]

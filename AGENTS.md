@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-04-21 — Bölüm 44: Yorum sistemi + feed kendi-paylaşımı -->
+<!-- SON GÜNCELLEME: 2026-06-10 — Blog sistemi eklendi: blog-content/ (md kaynak) + scripts/build-blog.js (üretici) + blog/ (statik çıktı); landing'e Blog bölümü + nav/footer linkleri; reçete: docs/BLOG-YAZISI-EKLEME.md -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -67,7 +67,8 @@ LogWise/
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
 │   ├── YENI-COMPONENT.md
-│   └── SW-VERSION-BUMP.md
+│   ├── SW-VERSION-BUMP.md
+│   └── BLOG-YAZISI-EKLEME.md  ← Yeni blog yazısı ekleme reçetesi
 ├── data/                      ← Sabit veri + i18n (Aşama 1)
 │   ├── i18n-tr.js             ← window.LOGWISE_TR
 │   ├── i18n-en.js             ← window.LOGWISE_EN
@@ -94,6 +95,11 @@ LogWise/
 │   ├── ex-preview-modal.js    ← ExPreviewModal
 │   ├── auth-screen.js         ← AuthScreen
 │   └── comment-section.js     ← CommentSection (Bölüm 44)
+├── blog-content/              ← Blog yazıları — Markdown kaynak (frontmatter'lı)
+├── blog/                      ← Üretilmiş statik blog sayfaları + blog.css (elle) + posts.json
+├── scripts/
+│   ├── build-blog.js          ← blog-content/*.md → blog/*.html üretici (node ile çalıştır)
+│   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← Ana uygulama (App + Root monolit)
 ├── profile.html               ← Profil sayfası
 ├── share.html                 ← Paylaşım sayfası
@@ -124,6 +130,7 @@ LogWise/
 | Ortak CSS eklemek | `styles/base.css` |
 | Sayfa-özel CSS eklemek | `index.html` / `profile.html` inline `<style>` |
 | sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
+| Yeni blog yazısı eklemek | `docs/BLOG-YAZISI-EKLEME.md` |
 | Yeni sayfa eklemek | `.html` dosyası + `_redirects` güncellemesi + sw.js PRECACHE |
 
 ---

@@ -3299,3 +3299,52 @@ Sonsuz nesting (reddit tarzı) UX olarak taşar. Instagram/Twitter tarzı tek se
 - **Mention** (`@username`): yorum içinde kullanıcı adı tag'le → profile linki + notification. Parser + autocomplete gerekir.
 - **Sonsuz scroll**: Akış şu an son 30 post ile sınırlı; cursor-based pagination ile genişletilebilir.
 
+
+
+---
+
+## Bölüm 45 — Blog Sistemi: Markdown → Statik HTML + Landing Entegrasyonu (2026-06-10)
+
+### Amaç
+
+Landing page'den erişilebilen, SEO-dostu bir blog/bilgilendirici yazı bölümü. Blog, app'ten ve landing'den tamamen ayrı statik HTML olarak yaşar; landing yazılara nav, footer ve "Blog" bölümü üzerinden referans verir.
+
+### Mimari Kararlar
+
+- **Statik üretim, build-step yok (runtime'da):** Yazılar `blog-content/*.md` (frontmatter'lı Markdown) olarak yazılır; `node scripts/build-blog.js` bunları `blog/<slug>.html` + `blog/index.html`'e çevirir. Üretilen HTML commit'lenir — hosting tarafında build gerekmez, mevcut "statik dosya sun" modeli korunur.
+- **SEO öncelikli:** Yazı sayfaları düz HTML'dir (React yok). Her sayfada meta description, canonical, Open Graph, twitter:card ve JSON-LD `BlogPosting` şeması gömülüdür. `sitemap.xml` script tarafından tüm yazılarla yeniden üretilir.
+- **Karışık dil modeli:** Her yazı kendi dilindedir (`lang: tr|en` frontmatter alanı). Blog index'inde TÜMÜ/TR/EN dil filtresi (vanilla JS) vardır; landing bölümü aktif arayüz diline uyan yazıları öne alır.
+- **Landing entegrasyonu marker ile:** Script, landing `index.html` içindeki `/* BLOG-POSTS:START */ ... /* BLOG-POSTS:END */` bloğuna yazı manifestini (`BLOG_POSTS`) enjekte eder. Landing'deki yeni `BlogSection` component'i bu veriden ilk 3 kartı basar (featured > tarih sıralı, dil önceliği aktif dile göre).
+- **Vendored parser:** Markdown dönüşümü `scripts/vendor/marked.min.js` (UMD, tek dosya) ile yapılır; root'a package.json/npm bağımlılığı eklenmedi.
+- **Clean URL:** `blog/slug.html` → `/blog/slug` hosting tarafından otomatik sunulur; `_redirects`/`netlify.toml` değişikliği gerekmedi (catch-all 404 kuralı force'suz olduğu için dosyalar önceliklidir).
+- **SW etkisi yok:** Blog sayfaları PRECACHE'e eklenmedi (yalnızca `data/`, `lib/`, `components/` zorunlu); navigation network-first olduğu için CACHE_NAME bump gerekmez.
+
+### Yeni Dosyalar
+
+| Dosya | İçerik |
+|---|---|
+| `blog-content/*.md` | Yazı kaynakları (2 örnek yazı: TR günlük tutma + EN progressive overload) |
+| `scripts/build-blog.js` | Üretici script: frontmatter parse + marked + şablonlar + sitemap + landing enjeksiyonu |
+| `scripts/vendor/marked.min.js` | Vendored markdown parser (marked 12.0.2 UMD) |
+| `blog/blog.css` | Blog stilleri — elle yazılır, landing design token'larıyla aynı kimlik |
+| `blog/index.html`, `blog/<slug>.html`, `blog/posts.json` | Üretilen çıktılar (elle düzenlenmez) |
+| `docs/BLOG-YAZISI-EKLEME.md` | Görev reçetesi |
+
+### Landing (`index.html`) Değişiklikleri
+
+- Nav'daki ölü `#faq` linki kaldırıldı → üçüncü nav öğesi artık "Blog" (`/blog`). `COPY.tr/en.nav` güncellendi.
+- `COPY.tr` + `COPY.en`'e blog bölümü metinleri eklendi (`blogKicker/Title/Sub/All/Read/Min`) — i18n senkron.
+- Yeni `BlogSection` component'i (AppSection ile Quote arasında render edilir) + `.blog-grid/.blog-card` CSS bloğu.
+- Footer: `FOOT_HREFS` eşlemesiyle footer linkleri gerçek href aldı (`#features`, `#app`, `/blog` — önceden hepsi `href="#"` placeholder'dı); foot kolonlarına "Blog" eklendi.
+- `BLOG-POSTS:START/END` marker bloğu eklendi (script'in yazdığı alan).
+
+### Doğrulama
+
+- Landing inline JSX, Babel standalone (7.29.0) ile transform edilerek syntax doğrulandı.
+- Clean-URL davranışını taklit eden lokal sunucuyla smoke test: `/`, `/blog`, iki yazı sayfası, `blog.css`, `posts.json`, `sitemap.xml` → hepsi 200.
+
+### Gelecekteki Muhtemel Adımlar
+
+- Yazı görselleri için `blog/assets/` klasörü + frontmatter `cover:` alanı (og:image yazıya özel olur).
+- RSS/Atom feed üretimi (`blog/feed.xml`) — script'e kolayca eklenebilir.
+- Landing'in EN/TR dil tercihini blog index'ine taşıma (query param veya localStorage).
