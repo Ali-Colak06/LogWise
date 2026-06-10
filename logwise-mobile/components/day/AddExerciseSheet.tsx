@@ -10,8 +10,8 @@
  * NOT: @shopify/flash-list yüklü değil → ScrollView + map (54 preset + N custom kabul
  * edilebilir; virtualization ADIM 7'de eklenebilir).
  */
-import { useEffect, useMemo, useState } from 'react';
-import { InteractionManager, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { useMemo, useState } from 'react';
+import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { Search, X, Check } from 'lucide-react-native';
 import { AppBottomSheet, Button, SegmentedTabs, Text } from '../ui';
 import { useTheme } from '../../theme';
@@ -48,18 +48,12 @@ interface Row {
   isPreset: boolean;
 }
 
-// [PERF] geçici teşhis — tek seferlik mikro-bench bayrağı (perf turu bitince silinecek).
-let collatorBenchDone = false;
-
 export default function AddExerciseSheet({
   visible,
   onClose,
   onAddRefs,
   initialTab = 'library',
 }: AddExerciseSheetProps) {
-  // [PERF] geçici teşhis logu — sheet gövdesi Day push'unun render penceresinde çalışır;
-  // day-render→day-commit arasındaki sessiz boşluğu doldurur (perf turu bitince silinecek).
-  if (__DEV__) console.log(`[PERF][sheet-render] t=${Date.now()}`);
   const { colors } = useTheme();
   const t = useT();
   const dict = useTranslations();
@@ -86,8 +80,6 @@ export default function AddExerciseSheet({
   const collator = useMemo(() => new Intl.Collator(locale), [locale]);
 
   const libraryRows: Row[] = useMemo(() => {
-    // [PERF] geçici teşhis logu — sort süresi (perf turu bitince silinecek).
-    const t0 = __DEV__ ? Date.now() : 0;
     const out: Row[] = [];
     for (const c of customRows) {
       const r = resolveExerciseRef(c.id, customMap, locale);
@@ -104,7 +96,6 @@ export default function AddExerciseSheet({
       });
     }
     out.sort((a, b) => collator.compare(a.name, b.name));
-    if (__DEV__) console.log(`[PERF][sheet-rows] n=${out.length} dur=${Date.now() - t0}ms`);
     return out;
   }, [customRows, customMap, locale, collator]);
 
@@ -116,27 +107,6 @@ export default function AddExerciseSheet({
       .filter((r) => (cat === 'all' ? true : r.cat === cat))
       .filter((r) => (q === '' ? true : r.nameLc.includes(q)));
   }, [activeRows, cat, query]);
-
-  // [PERF] geçici teşhis — tek seferlik kanıt bench'i: per-çağrı localeCompare(locale)
-  // vs tek-Collator sort süresi. Etkileşimler bitince çalışır, ölçümü kirletmez.
-  // Perf turu bitince bu effect + collatorBenchDone bayrağı silinecek.
-  useEffect(() => {
-    if (!__DEV__ || collatorBenchDone) return;
-    collatorBenchDone = true;
-    const task = InteractionManager.runAfterInteractions(() => {
-      const names = PRESET_EXERCISES.map((p) => p.name);
-      const t0 = Date.now();
-      [...names].sort((a, b) => a.localeCompare(b, 'tr'));
-      const t1 = Date.now();
-      const coll = new Intl.Collator('tr');
-      [...names].sort((a, b) => coll.compare(a, b));
-      const t2 = Date.now();
-      console.log(
-        `[PERF][collator-bench] n=${names.length} localeCompare(locale)=${t1 - t0}ms tekCollator=${t2 - t1}ms`,
-      );
-    });
-    return () => task.cancel();
-  }, []);
 
   const reset = () => {
     setSelected(new Set());

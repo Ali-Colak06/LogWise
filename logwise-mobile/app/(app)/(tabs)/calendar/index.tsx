@@ -39,8 +39,6 @@ function todayIso(): string {
 }
 
 export default function CalendarScreen() {
-  // [PERF] geçici teşhis logu — push sırasında ekran gövdesi yeniden çalışıyor mu?
-  if (__DEV__) console.log(`[PERF][cal-render] t=${Date.now()}`);
   const router = useRouter();
   const { colors, tokens } = useTheme();
   const t = useT();
@@ -189,8 +187,6 @@ export default function CalendarScreen() {
   // PERF: memo'lu CalendarMonth/Week'e stabil referans gitsin (yoksa memo boşa düşer).
   const onDayPress = useCallback(
     (dateISO: string) => {
-      // [PERF] geçici teşhis logu — perf turu bitince silinecek.
-      if (__DEV__) console.log(`[PERF][tap-day] ${dateISO} t=${Date.now()}`);
       router.push(`/calendar/day/${dateISO}`);
     },
     [router],

@@ -10,7 +10,7 @@
  *   - FAB → AddExerciseSheet (C4)
  *   - Geçmiş program günü: lazy kart YOK (rev 12 §8.8)
  */
-import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Alert, InteractionManager, ScrollView, View, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Dumbbell, ChevronLeft, ChevronRight, ArrowLeft, Plus } from 'lucide-react-native';
@@ -75,19 +75,9 @@ export default function DayDetailScreen() {
   const [contentReady, setContentReady] = useState(false);
   useEffect(() => {
     const task = InteractionManager.runAfterInteractions(() => {
-      // [PERF] geçici teşhis logu — perf turu bitince silinecek.
-      if (__DEV__) console.log(`[PERF][day-content-mount] t=${Date.now()}`);
       setContentReady(true);
     });
     return () => task.cancel();
-  }, []);
-  useEffect(() => {
-    // [PERF] geçici teşhis logu — kabuğun commit anı (perf turu bitince silinecek).
-    if (__DEV__) console.log(`[PERF][day-shell-mounted] t=${Date.now()}`);
-  }, []);
-  useLayoutEffect(() => {
-    // [PERF] geçici teşhis logu — senkron commit anı (render→commit gecikmesini ayırır).
-    if (__DEV__) console.log(`[PERF][day-commit] t=${Date.now()}`);
   }, []);
 
   const today = todayIso();
@@ -107,16 +97,6 @@ export default function DayDetailScreen() {
   const activeProgQ = useActiveProgramWithDays();
   const activeProgram = activeProgQ.data?.program ?? null;
   const programDays = activeProgQ.data?.days ?? [];
-
-  // [PERF] geçici teşhis logu — her render'da query durumunu yaz (perf turu bitince silinecek).
-  // wk/sets "success" + (seed) ise cache'ten geldi demektir; "pending" ise seed ÇALIŞMADI.
-  if (__DEV__) {
-    console.log(
-      `[PERF][day-render] ${dateISO} wk:${workoutsQ.status}${workoutsQ.isFetching ? '(fetching)' : ''}` +
-        ` sets:${setsQ.status}${setsQ.isFetching ? '(fetching)' : ''}` +
-        ` prog:${activeProgQ.status} n=${workouts.length}w/${sets.length}s t=${Date.now()}`,
-    );
-  }
 
   const ensureAndAdd = useEnsureWorkoutAndAddSet();
   const addSet = useAddSet();

@@ -81,8 +81,6 @@ function CalendarMonth({
   selectedISO,
   restDayISOs,
 }: CalendarMonthProps) {
-  // [PERF] geçici teşhis logu — memo çalışıyorsa day push'unda BU SATIR GÖRÜNMEMELİ.
-  if (__DEV__) console.log(`[PERF][grid-render] t=${Date.now()}`);
   const { colors, tokens } = useTheme();
   const locale = useLocaleStore((s) => s.locale);
   const dict = useTranslations();
