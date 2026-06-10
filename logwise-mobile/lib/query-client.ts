@@ -35,4 +35,27 @@ export const queryClient = new QueryClient({
   },
 });
 
+// ----------------------------------------------------------------
+// [PERF] GEÇİCİ teşhis logger'ı (sadece dev) — perf turu bitince SİLİNECEK.
+// Her gerçek network fetch'ini başlangıç + süre ile Metro konsoluna yazar.
+// Amaç: "gün açılışı yavaş" şikayetinde network mü render mı ayırt etmek.
+// ----------------------------------------------------------------
+if (__DEV__) {
+  const started = new Map<string, number>();
+  queryClient.getQueryCache().subscribe((event) => {
+    if (event.type !== 'updated') return;
+    const key = JSON.stringify(event.query.queryKey);
+    if (event.action.type === 'fetch') {
+      started.set(key, Date.now());
+      console.log(`[PERF][fetch→] ${key}`);
+    } else if (event.action.type === 'success' || event.action.type === 'error') {
+      const t0 = started.get(key);
+      if (t0 !== undefined) {
+        started.delete(key);
+        console.log(`[PERF][fetch✓ ${Date.now() - t0}ms] ${key}`);
+      }
+    }
+  });
+}
+
 export default queryClient;

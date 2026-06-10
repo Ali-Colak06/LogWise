@@ -8,13 +8,14 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Linking, ScrollView, View, Pressable, StyleSheet } from 'react-native';
-import { useFocusEffect, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { Calendar as CalendarIcon, LayoutGrid, Target, ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { Screen, Text, Button, HStack, useToast } from '../../../../components/ui';
 import { useTheme } from '../../../../theme';
 import { useT, useTranslations } from '../../../../lib/i18n';
-import { useWorkoutsByMonth } from '../../../../queries/workouts';
-import { useActiveProgram, useCreateProgramFromPreset } from '../../../../queries/programs';
+import { useWorkoutsByMonth, useSetsByMonth } from '../../../../queries/workouts';
+import { useActiveProgramWithDays, useCreateProgramFromPreset } from '../../../../queries/programs';
+import { useCustomExercises } from '../../../../queries/exercises';
 import {
   useProfilePreferences,
   useSetProfilePreference,
@@ -38,6 +39,8 @@ function todayIso(): string {
 }
 
 export default function CalendarScreen() {
+  // [PERF] geçici teşhis logu — push sırasında ekran gövdesi yeniden çalışıyor mu?
+  if (__DEV__) console.log(`[PERF][cal-render] t=${Date.now()}`);
   const router = useRouter();
   const { colors, tokens } = useTheme();
   const t = useT();
@@ -77,29 +80,28 @@ export default function CalendarScreen() {
   const month = monthDate.getMonth() + 1;
 
   const workoutsQ = useWorkoutsByMonth(year, month);
-  const activeProgQ = useActiveProgram();
+  // FAZ 2.5 — seed query'ler: gune tiklayinca Day Detail network beklemeden acilsin.
+  // setsMonth → useSetsByDate seed'i; activeWithDays → Day ile AYNI query key (cache
+  // ortak); customExercises → customMap Day acilmadan once hazir.
+  useSetsByMonth(year, month);
+  useCustomExercises();
+  const activeProgQ = useActiveProgramWithDays();
   const createProgM = useCreateProgramFromPreset();
 
-  // Day Detail'de set girilince ya da D2'de program aktif edilince Calendar'a
-  // dönüldüğünde taze veri göster. refetchOnWindowFocus kapalı (query-client) olduğu
-  // için, ekran her odaklandığında (geri dönüş) ilgili query'leri elle yeniden çek.
-  // refetch referansları React Query'de stabildir → callback stabil; her zaman
-  // o an görüntülenen ayın query'sini tazeler.
-  const refetchWorkouts = workoutsQ.refetch;
-  const refetchActiveProg = activeProgQ.refetch;
-  useFocusEffect(
-    useCallback(() => {
-      refetchWorkouts();
-      refetchActiveProg();
-    }, [refetchWorkouts, refetchActiveProg]),
-  );
+  // FAZ 1.3: Eski blanket useFocusEffect refetch'i KALDIRILDI. Day Detail yazma
+  // hook'lari artik optimistic + hedefli cache guncellemesi yapiyor (queries/workouts.ts);
+  // month cache geri donuste zaten guncel. Program aktiflestirme mutation'lari da
+  // workouts ailesini invalidate ediyor (queries/programs.ts) → arka plandaki aktif
+  // query otomatik tazelenir. Boylece her tab donusunde gereksiz 2 round-trip onlenir.
 
   const prefsQ = useProfilePreferences();
   const setPref = useSetProfilePreference();
-  const webCountQ = useWebUserCount();
 
   const seenHintCard = prefsQ.data?.seen_hint_card === true;
   const seenWebWelcome = prefsQ.data?.seen_web_welcome === true;
+
+  // FAZ 2.2: webUserCount lazy — sadece prefs yuklendi + welcome henuz gorulmediyse cek.
+  const webCountQ = useWebUserCount(!prefsQ.isLoading && !seenWebWelcome);
 
   useEffect(() => {
     if (
@@ -184,7 +186,20 @@ export default function CalendarScreen() {
     return undefined;
   }, [viewMode]);
 
-  const onDayPress = (dateISO: string) => router.push(`/calendar/day/${dateISO}`);
+  // PERF: memo'lu CalendarMonth/Week'e stabil referans gitsin (yoksa memo boşa düşer).
+  const onDayPress = useCallback(
+    (dateISO: string) => {
+      // [PERF] geçici teşhis logu — perf turu bitince silinecek.
+      if (__DEV__) console.log(`[PERF][tap-day] ${dateISO} t=${Date.now()}`);
+      router.push(`/calendar/day/${dateISO}`);
+    },
+    [router],
+  );
+
+  const onTodayWeekLayout = useCallback((y: number) => {
+    todayWeekYRef.current = y;
+    scrollRef.current?.scrollTo({ y: Math.max(0, y - 4), animated: false });
+  }, []);
 
   const dismissHint = () => setPref.mutate({ key: 'seen_hint_card', value: true });
 
@@ -233,7 +248,7 @@ export default function CalendarScreen() {
           style={[styles.avatar, { borderColor: colors.border.subtle, backgroundColor: colors.background.subtle }]}
         >
           <Text style={{ color: colors.accent.gold, fontFamily: tokens.fonts.displayBold, fontSize: 13 }}>
-            {(activeProgQ.data?.name ?? 'LW').slice(0, 2).toUpperCase()}
+            {(activeProgQ.data?.program?.name ?? 'LW').slice(0, 2).toUpperCase()}
           </Text>
         </Pressable>
         <View style={styles.barTitle}>
@@ -318,10 +333,7 @@ export default function CalendarScreen() {
             summaryByDate={weekSummary}
             todayISO={today}
             onDayPress={onDayPress}
-            onTodayWeekLayout={(y) => {
-              todayWeekYRef.current = y;
-              scrollToTodayWeek(false);
-            }}
+            onTodayWeekLayout={onTodayWeekLayout}
           />
         </ScrollView>
       )}

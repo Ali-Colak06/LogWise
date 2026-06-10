@@ -10,8 +10,8 @@
  *   - FAB → AddExerciseSheet (C4)
  *   - Geçmiş program günü: lazy kart YOK (rev 12 §8.8)
  */
-import { useMemo, useState } from 'react';
-import { Alert, ScrollView, View, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
+import { useEffect, useLayoutEffect, useMemo, useState } from 'react';
+import { Alert, InteractionManager, ScrollView, View, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Dumbbell, ChevronLeft, ChevronRight, ArrowLeft, Plus } from 'lucide-react-native';
 import { Screen, Text, Button, VStack, HStack, useToast } from '../../../../../components/ui';
@@ -19,7 +19,7 @@ import { useTheme } from '../../../../../theme';
 import { useT, useLocaleStore, useTranslations } from '../../../../../lib/i18n';
 import {
   useWorkoutsByDate,
-  useSetsForWorkouts,
+  useSetsByDate,
   useDayMeta,
   useEnsureWorkoutAndAddSet,
   useAddSet,
@@ -28,7 +28,7 @@ import {
   useDeleteWorkout,
   useSkipExerciseForDay,
 } from '../../../../../queries/workouts';
-import { useActiveProgram, useProgramDays } from '../../../../../queries/programs';
+import { useActiveProgramWithDays } from '../../../../../queries/programs';
 import { useCustomExercises } from '../../../../../queries/exercises';
 import { resolveExerciseRef, buildCustomMap, type ResolvedExercise } from '../../../../../lib/exercise-resolve';
 import { resolveProgramDay } from '../../../../../lib/program';
@@ -69,22 +69,54 @@ export default function DayDetailScreen() {
   const [addOpen, setAddOpen] = useState(false);
   const [previewEx, setPreviewEx] = useState<ResolvedExercise | null>(null);
 
+  // PERF: iki fazlı mount — push geçişi ağır kart ağacını (TextInput'lu SetRow'lar)
+  // BEKLEMESİN. İlk commit hafif kabuk (app bar + stat şeridi) → geçiş anında başlar;
+  // kartlar etkileşimler/geçiş bittikten sonra mount edilir.
+  const [contentReady, setContentReady] = useState(false);
+  useEffect(() => {
+    const task = InteractionManager.runAfterInteractions(() => {
+      // [PERF] geçici teşhis logu — perf turu bitince silinecek.
+      if (__DEV__) console.log(`[PERF][day-content-mount] t=${Date.now()}`);
+      setContentReady(true);
+    });
+    return () => task.cancel();
+  }, []);
+  useEffect(() => {
+    // [PERF] geçici teşhis logu — kabuğun commit anı (perf turu bitince silinecek).
+    if (__DEV__) console.log(`[PERF][day-shell-mounted] t=${Date.now()}`);
+  }, []);
+  useLayoutEffect(() => {
+    // [PERF] geçici teşhis logu — senkron commit anı (render→commit gecikmesini ayırır).
+    if (__DEV__) console.log(`[PERF][day-commit] t=${Date.now()}`);
+  }, []);
+
   const today = todayIso();
   const isToday = dateISO === today;
   const isPast = dateISO < today;
 
+  // FAZ 2.1/2.2: workouts + sets + dayMeta + custom + activeProgram(+days) hepsi
+  // BAĞIMSIZ → paralel başlar (eski workouts→sets ve activeProgram→programDays serial
+  // waterfall'ları kırıldı).
   const workoutsQ = useWorkoutsByDate(dateISO);
   const workouts: AppWorkoutsRow[] = workoutsQ.data ?? [];
-  const workoutIds = workouts.map((w) => w.id);
-  const setsQ = useSetsForWorkouts(workoutIds);
+  const setsQ = useSetsByDate(dateISO);
   const sets: AppSetsRow[] = setsQ.data ?? [];
   const dayMetaQ = useDayMeta(dateISO);
   const customQ = useCustomExercises();
   const customMap = useMemo(() => buildCustomMap(customQ.data ?? []), [customQ.data]);
-  const activeProgQ = useActiveProgram();
-  const activeProgram = activeProgQ.data ?? null;
-  const programDaysQ = useProgramDays(activeProgram?.id);
-  const programDays = programDaysQ.data ?? [];
+  const activeProgQ = useActiveProgramWithDays();
+  const activeProgram = activeProgQ.data?.program ?? null;
+  const programDays = activeProgQ.data?.days ?? [];
+
+  // [PERF] geçici teşhis logu — her render'da query durumunu yaz (perf turu bitince silinecek).
+  // wk/sets "success" + (seed) ise cache'ten geldi demektir; "pending" ise seed ÇALIŞMADI.
+  if (__DEV__) {
+    console.log(
+      `[PERF][day-render] ${dateISO} wk:${workoutsQ.status}${workoutsQ.isFetching ? '(fetching)' : ''}` +
+        ` sets:${setsQ.status}${setsQ.isFetching ? '(fetching)' : ''}` +
+        ` prog:${activeProgQ.status} n=${workouts.length}w/${sets.length}s t=${Date.now()}`,
+    );
+  }
 
   const ensureAndAdd = useEnsureWorkoutAndAddSet();
   const addSet = useAddSet();
@@ -239,7 +271,7 @@ export default function DayDetailScreen() {
           </View>
         </HStack>
 
-        {isOffDay ? (
+        {!contentReady ? null : isOffDay ? (
           <RestDayBanner onAddAnyway={() => setAddOpen(true)} />
         ) : isEmpty ? (
           <VStack gap="md" align="center" style={styles.emptyBody}>

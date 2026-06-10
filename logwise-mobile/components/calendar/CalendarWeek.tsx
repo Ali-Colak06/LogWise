@@ -8,7 +8,7 @@
  *   - Rest gun: cyan border + bg (info)
  *   - MVP'de "sonsuz scroll" değil — anchor +/- 3 hafta (7 hafta toplam) gösterim
  */
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { useTheme } from '../../theme';
 import { Text, HStack } from '../ui';
@@ -61,7 +61,7 @@ function isoWeekNumber(d: Date): number {
   return 1 + Math.round((diff - 3 + ((firstThursday.getDay() + 6) % 7)) / 7);
 }
 
-export default function CalendarWeek({
+function CalendarWeek({
   anchorDate,
   summaryByDate,
   todayISO,
@@ -280,6 +280,9 @@ export default function CalendarWeek({
     </View>
   );
 }
+
+// PERF: 49 gün-satırlık feed, CalendarMonth ile aynı sebeple memo (push re-render'ı).
+export default memo(CalendarWeek);
 
 const styles = StyleSheet.create({
   feed: {

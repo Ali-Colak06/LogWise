@@ -10,7 +10,7 @@
  *   - Rest gun: info bg + border (cyan)
  *   - Pre/post month: visual parity (muted opacity yok)
  */
-import { useMemo } from 'react';
+import { memo, useMemo } from 'react';
 import { View, Pressable, StyleSheet } from 'react-native';
 import { useTheme } from '../../theme';
 import { Text } from '../ui';
@@ -73,7 +73,7 @@ function toIsoDate(d: Date): string {
   return `${y}-${m}-${day}`;
 }
 
-export default function CalendarMonth({
+function CalendarMonth({
   monthDate,
   workoutsByDate,
   todayISO,
@@ -81,6 +81,8 @@ export default function CalendarMonth({
   selectedISO,
   restDayISOs,
 }: CalendarMonthProps) {
+  // [PERF] geçici teşhis logu — memo çalışıyorsa day push'unda BU SATIR GÖRÜNMEMELİ.
+  if (__DEV__) console.log(`[PERF][grid-render] t=${Date.now()}`);
   const { colors, tokens } = useTheme();
   const locale = useLocaleStore((s) => s.locale);
   const dict = useTranslations();
@@ -247,6 +249,10 @@ export default function CalendarMonth({
     </View>
   );
 }
+
+// PERF: 42 hücrelik grid her navigasyon push'unda yeniden çiziliyordu (navigator
+// re-render'ı) ve push geçişini ~1.5s bloke ediyordu. Prop'lar değişmedikçe atla.
+export default memo(CalendarMonth);
 
 const styles = StyleSheet.create({
   root: {
