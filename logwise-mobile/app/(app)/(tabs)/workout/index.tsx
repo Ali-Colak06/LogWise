@@ -97,31 +97,37 @@ export default function WorkoutScreen() {
   const deactivateProg = useDeactivateProgram();
   const deleteProg = useDeleteProgram();
 
+  // Hermes'te locale parametreli `localeCompare` HER çağrıda yeni Intl.Collator kurar
+  // (yüzlerce çağrı → JS-thread donması). Tek Collator kur, sort'ta yeniden kullan.
+  const collator = useMemo(() => new Intl.Collator(locale), [locale]);
+
   // D1 list: custom hareketler + tüm preset hareketler, alfabetik
   const d1Rows = useMemo(() => {
-    const out: Array<{ ref: string; name: string; cat: CategoryKey; isPreset: boolean }> = [];
+    const out: Array<{ ref: string; name: string; nameLc: string; cat: CategoryKey; isPreset: boolean }> = [];
     for (const c of customRows) {
       const r = resolveExerciseRef(c.id, customMap, locale);
-      out.push({ ref: c.id, name: r.name, cat: r.categories[0] ?? 'other', isPreset: false });
+      out.push({ ref: c.id, name: r.name, nameLc: lc(r.name), cat: r.categories[0] ?? 'other', isPreset: false });
     }
     for (const p of PRESET_EXERCISES) {
+      const name = getPresetDisplayName(p.id, locale);
       out.push({
         ref: p.id,
-        name: getPresetDisplayName(p.id, locale),
+        name,
+        nameLc: lc(name),
         cat: p.categories[0] ? turkishCatToKey(p.categories[0]) : 'other',
         isPreset: true,
       });
     }
-    return out.sort((a, b) => a.name.localeCompare(b.name, locale));
-  }, [customRows, customMap, locale]);
+    return out.sort((a, b) => collator.compare(a.name, b.name));
+  }, [customRows, customMap, locale, collator]);
 
   const d1Filtered = useMemo(() => {
     const q = lc(query.trim());
+    // d1Rows zaten sıralı; filter sırayı korur → ikinci sort gereksiz.
     return d1Rows
       .filter((r) => (cat === 'all' ? true : r.cat === cat))
-      .filter((r) => (q === '' ? true : lc(r.name).includes(q)))
-      .sort((a, b) => a.name.localeCompare(b.name, locale));
-  }, [d1Rows, cat, query, locale]);
+      .filter((r) => (q === '' ? true : r.nameLc.includes(q)));
+  }, [d1Rows, cat, query]);
 
   const exerciseCount = customRows.length + PRESET_EXERCISES.length;
   const programCount = programs.length;

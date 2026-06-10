@@ -10,8 +10,8 @@
  * NOT: @shopify/flash-list yüklü değil → ScrollView + map (54 preset + N custom kabul
  * edilebilir; virtualization ADIM 7'de eklenebilir).
  */
-import { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { useEffect, useMemo, useState } from 'react';
+import { InteractionManager, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
 import { Search, X, Check } from 'lucide-react-native';
 import { AppBottomSheet, Button, SegmentedTabs, Text } from '../ui';
 import { useTheme } from '../../theme';
@@ -42,9 +42,14 @@ function lc(s: string): string {
 interface Row {
   ref: string;
   name: string;
+  /** Arama için önceden küçültülmüş ad (Hermes'te locale'li lowercase per-call pahalı). */
+  nameLc: string;
   cat: CategoryKey;
   isPreset: boolean;
 }
+
+// [PERF] geçici teşhis — tek seferlik mikro-bench bayrağı (perf turu bitince silinecek).
+let collatorBenchDone = false;
 
 export default function AddExerciseSheet({
   visible,
@@ -52,6 +57,9 @@ export default function AddExerciseSheet({
   onAddRefs,
   initialTab = 'library',
 }: AddExerciseSheetProps) {
+  // [PERF] geçici teşhis logu — sheet gövdesi Day push'unun render penceresinde çalışır;
+  // day-render→day-commit arasındaki sessiz boşluğu doldurur (perf turu bitince silinecek).
+  if (__DEV__) console.log(`[PERF][sheet-render] t=${Date.now()}`);
   const { colors } = useTheme();
   const t = useT();
   const dict = useTranslations();
@@ -72,31 +80,63 @@ export default function AddExerciseSheet({
   const customRows = customQ.data ?? [];
   const customMap = useMemo(() => buildCustomMap(customRows), [customRows]);
 
+  // Hermes'te locale parametreli `localeCompare` HER çağrıda yeni Intl.Collator kurar
+  // (54+ satırlık sort ≈ yüzlerce çağrı → saniye mertebesi JS-thread donması).
+  // Tek Collator kur, sort'ta yeniden kullan.
+  const collator = useMemo(() => new Intl.Collator(locale), [locale]);
+
   const libraryRows: Row[] = useMemo(() => {
+    // [PERF] geçici teşhis logu — sort süresi (perf turu bitince silinecek).
+    const t0 = __DEV__ ? Date.now() : 0;
     const out: Row[] = [];
     for (const c of customRows) {
       const r = resolveExerciseRef(c.id, customMap, locale);
-      out.push({ ref: c.id, name: r.name, cat: r.categories[0] ?? 'other', isPreset: false });
+      out.push({ ref: c.id, name: r.name, nameLc: lc(r.name), cat: r.categories[0] ?? 'other', isPreset: false });
     }
     for (const p of PRESET_EXERCISES) {
+      const name = getPresetDisplayName(p.id, locale);
       out.push({
         ref: p.id,
-        name: getPresetDisplayName(p.id, locale),
+        name,
+        nameLc: lc(name),
         cat: p.categories[0] ? turkishCatToKey(p.categories[0]) : 'other',
         isPreset: true,
       });
     }
-    return out.sort((a, b) => a.name.localeCompare(b.name, locale));
-  }, [customRows, customMap, locale]);
+    out.sort((a, b) => collator.compare(a.name, b.name));
+    if (__DEV__) console.log(`[PERF][sheet-rows] n=${out.length} dur=${Date.now() - t0}ms`);
+    return out;
+  }, [customRows, customMap, locale, collator]);
 
   const activeRows = libraryRows;
   const filtered = useMemo(() => {
     const q = lc(query.trim());
+    // libraryRows zaten sıralı; filter sırayı korur → ikinci sort gereksiz.
     return activeRows
       .filter((r) => (cat === 'all' ? true : r.cat === cat))
-      .filter((r) => (q === '' ? true : lc(r.name).includes(q)))
-      .sort((a, b) => a.name.localeCompare(b.name, locale));
-  }, [activeRows, cat, query, locale]);
+      .filter((r) => (q === '' ? true : r.nameLc.includes(q)));
+  }, [activeRows, cat, query]);
+
+  // [PERF] geçici teşhis — tek seferlik kanıt bench'i: per-çağrı localeCompare(locale)
+  // vs tek-Collator sort süresi. Etkileşimler bitince çalışır, ölçümü kirletmez.
+  // Perf turu bitince bu effect + collatorBenchDone bayrağı silinecek.
+  useEffect(() => {
+    if (!__DEV__ || collatorBenchDone) return;
+    collatorBenchDone = true;
+    const task = InteractionManager.runAfterInteractions(() => {
+      const names = PRESET_EXERCISES.map((p) => p.name);
+      const t0 = Date.now();
+      [...names].sort((a, b) => a.localeCompare(b, 'tr'));
+      const t1 = Date.now();
+      const coll = new Intl.Collator('tr');
+      [...names].sort((a, b) => coll.compare(a, b));
+      const t2 = Date.now();
+      console.log(
+        `[PERF][collator-bench] n=${names.length} localeCompare(locale)=${t1 - t0}ms tekCollator=${t2 - t1}ms`,
+      );
+    });
+    return () => task.cancel();
+  }, []);
 
   const reset = () => {
     setSelected(new Set());
