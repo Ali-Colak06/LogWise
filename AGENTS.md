@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-05-25 — 05-screen-specs.md rev 6: E1 More panel + F1 Dashboard placeholder + F2 Social placeholder eklendi; MVP screen listesi tamamlandı (15 ekran: A1-A5 + B1 + C1-C4 + D1-D3 + E1 + F1-F2); 03-mvp-decisions.md rev 15: §3.1'e E1 More panel kararları (bottom sheet, disabled placeholder satırlar, auth/guest varyantları) + F1+F2 PlaceholderScreen ortak component kararı yedirildi -->
+<!-- SON GÜNCELLEME: 2026-06-10 — Blog sistemi eklendi: blog-content/ (md kaynak) + scripts/build-blog.js (üretici) + blog/ (statik çıktı); landing'e Blog bölümü + nav/footer linkleri; reçete: docs/BLOG-YAZISI-EKLEME.md -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -97,7 +97,8 @@ LogWise/
 │   │   ├── homepage-prototype-v2/    ← HTML/CSS marka dili referansı
 │   │   └── references/               ← Görsel referanslar
 │   ├── YENI-COMPONENT.md
-│   └── SW-VERSION-BUMP.md
+│   ├── SW-VERSION-BUMP.md
+│   └── BLOG-YAZISI-EKLEME.md  ← Yeni blog yazısı ekleme reçetesi
 ├── data/                      ← Sabit veri + i18n (Aşama 1)
 │   ├── i18n-tr.js             ← window.LOGWISE_TR
 │   ├── i18n-en.js             ← window.LOGWISE_EN
@@ -124,6 +125,11 @@ LogWise/
 │   ├── ex-preview-modal.js    ← ExPreviewModal
 │   ├── auth-screen.js         ← AuthScreen
 │   └── comment-section.js     ← CommentSection (Bölüm 44)
+├── blog-content/              ← Blog yazıları — Markdown kaynak (frontmatter'lı)
+├── blog/                      ← Üretilmiş statik blog sayfaları + blog.css (elle) + posts.json
+├── scripts/
+│   ├── build-blog.js          ← blog-content/*.md → blog/*.html üretici (node ile çalıştır)
+│   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← Ana uygulama (App + Root monolit)
 ├── profile.html               ← Profil sayfası
 ├── share.html                 ← Paylaşım sayfası
@@ -154,6 +160,7 @@ LogWise/
 | Ortak CSS eklemek | `styles/base.css` |
 | Sayfa-özel CSS eklemek | `index.html` / `profile.html` inline `<style>` |
 | sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
+| Yeni blog yazısı eklemek | `docs/BLOG-YAZISI-EKLEME.md` |
 | Yeni sayfa eklemek | `.html` dosyası + `_redirects` güncellemesi + sw.js PRECACHE |
 | Mobil tasarım sistemi analizi | Önce `styles/base.css`, `app.html`, `index.html`, `components/*.js`, logo/görsel asset'leri; çıktı gerekiyorsa `docs/mobile-design-system/` |
 | Mobil ekran detayı / implementation prep | `docs/mobile-design-system/05-screen-specs.md` (her ekran için layout + component + state + props + interaction + edge case) |

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<!-- AUTO-GENERATED — scripts/build-blog.js tarafından üretildi; elle düzenleme. Kaynak: blog-content/ -->
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Blog — LogWise</title>
+<meta name="description" content="Antrenman, takip ve gelişim üzerine kısa, uygulanabilir yazılar. Short, practical reads on training, tracking and progress."/>
+<link rel="canonical" href="https://www.logwise.fit/blog"/>
+<link rel="icon" href="/favicon.ico"/>
+<meta property="og:site_name" content="LogWise"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Blog — LogWise"/>
+<meta property="og:description" content="Antrenman, takip ve gelişim üzerine kısa, uygulanabilir yazılar. Short, practical reads on training, tracking and progress."/>
+<meta property="og:url" content="https://www.logwise.fit/blog"/>
+<meta property="og:image" content="https://www.logwise.fit/icon-512.png"/>
+<meta property="og:locale" content="tr_TR"/>
+
+<meta name="twitter:card" content="summary"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/blog/blog.css"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","name":"LogWise Blog","url":"https://www.logwise.fit/blog","blogPost":[{"@type":"BlogPosting","headline":"Antrenman Günlüğü Neden Tutmalısın? (ve Nasıl Başlarsın)","url":"https://www.logwise.fit/blog/antrenman-gunlugu-neden-tutmalisin","datePublished":"2026-06-10","inLanguage":"tr"},{"@type":"BlogPosting","headline":"Progressive Overload, Explained Simply","url":"https://www.logwise.fit/blog/progressive-overload-explained","datePublished":"2026-06-10","inLanguage":"en"}]}</script>
+</head>
+<body>
+
+<header class="nav">
+  <div class="shell-wide nav-row">
+    <a href="/" class="brand">
+      <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo"/></span>
+      <span class="brand-name">LOG <b>WISE</b></span>
+    </a>
+    <div class="nav-actions">
+      <a href="/blog" class="brand-blog">BLOG</a>
+      <a href="/app" class="btn btn-primary">UYGULAMAYI AÇ →</a>
+    </div>
+  </div>
+</header>
+<main class="shell-wide">
+  <div class="blog-head">
+    <div class="kicker">LOGWISE BLOG</div>
+    <h1>Antrenmanı sadece yapma — <span style="color:var(--gold)">anla</span>.</h1>
+    <p>Antrenman, takip ve gelişim üzerine kısa, uygulanabilir yazılar. · Short, practical reads on training and progress.</p>
+    <div class="lang-filter" role="group" aria-label="Dil filtresi / Language filter">
+      <button class="on" data-f="all">TÜMÜ · ALL</button>
+      <button data-f="tr">TÜRKÇE</button>
+      <button data-f="en">ENGLISH</button>
+    </div>
+  </div>
+  <div class="post-list">
+    <a class="post-card" data-lang="tr" href="/blog/antrenman-gunlugu-neden-tutmalisin">
+      <div class="post-card-meta">
+        <span class="post-lang">TR</span>
+        <time datetime="2026-06-10">10 HAZIRAN 2026</time>
+      </div>
+      <h2>Antrenman Günlüğü Neden Tutmalısın? (ve Nasıl Başlarsın)</h2>
+      <p>Hafıza yanıltır, sayılar yanıltmaz. Antrenman günlüğü tutmanın gelişim üzerindeki somut etkisi ve 5 dakikada başlamanın yolu.</p>
+      <span class="read">2 DK OKUMA · OKU →</span>
+    </a>
+    <a class="post-card" data-lang="en" href="/blog/progressive-overload-explained">
+      <div class="post-card-meta">
+        <span class="post-lang">EN</span>
+        <time datetime="2026-06-10">JUNE 10, 2026</time>
+      </div>
+      <h2>Progressive Overload, Explained Simply</h2>
+      <p>The one principle behind every successful training program — and how to apply it this week without overcomplicating things.</p>
+      <span class="read">2 MIN READ · READ →</span>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="shell-wide foot-row">
+    <span>© 2026 LOG WISE</span>
+    <span><a href="/">logwise.fit</a> · <a href="/blog">BLOG</a> · <a href="/app">APP</a></span>
+  </div>
+</footer>
+<script>
+(function(){
+  var btns = document.querySelectorAll('.lang-filter button');
+  var cards = document.querySelectorAll('.post-card');
+  btns.forEach(function(b){
+    b.addEventListener('click', function(){
+      btns.forEach(function(x){ x.classList.remove('on'); });
+      b.classList.add('on');
+      var f = b.getAttribute('data-f');
+      cards.forEach(function(c){
+        c.style.display = (f === 'all' || c.getAttribute('data-lang') === f) ? '' : 'none';
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
