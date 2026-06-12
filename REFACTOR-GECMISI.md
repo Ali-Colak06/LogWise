@@ -3417,3 +3417,39 @@ Türkiye'den ~230-330ms warm RTT'ye sebep olan Oregon (us-west-2) Supabase proje
 - Warm TTFB (Türkiye'den `auth/v1/health`): Oregon ~313-329ms → Frankfurt ~153-160ms (~2×); cold 1.01s → 0.44s.
 - Auth config (Site URL, redirect URLs, Google OAuth client + yeni callback URI) dashboard'dan elle taşındı — Google Cloud Console'da eski callback geçiş dönemi boyunca silinmedi.
 - Eski proje pause edilmeden önce cutover sonrası canlı regresyon (login, share, profile, reset-password, sosyal akışlar) beklendi; pause kararı ayrı onayla.
+
+
+
+---
+
+## Bölüm 48 — SEO Evergreen Tool: One Rep Max Calculator (2026-06-12)
+
+### Amaç
+
+"one rep max calculator", "1RM calculator" ve benzeri yüksek niyetli aramalardan trafik alabilecek, build-step'siz, statik bir hesaplayıcı sayfası eklemek. Sayfa LogWise'ın antrenman takibi değer önerisine bağlanır ve CTA'ları `/app` uygulama shell'ine yönlendirir.
+
+### Mimari Kararlar
+
+- **Statik tool page:** `one-rep-max-calculator.html` kökte yaşar. Cloudflare Pages `.html` clean URL davranışıyla `/one-rep-max-calculator` olarak sunar; `_redirects` içine explicit kural eklenmedi.
+- **React/Babel yok:** Sayfa düz HTML + küçük vanilla JS kullanır. Hesaplama script'i sayfa sonunda çalışır; JSX veya build step yoktur.
+- **App ile aynı 1RM mantığı:** Sayfa `lib/calc.js` yükler ve `window.LOGWISE_CALC.calc1RM` (Epley) ile `calcBrzycki` fonksiyonlarını kullanır. Script tarafında sadece dosya yüklenemezse diye aynı formüllerin küçük fallback'i vardır.
+- **Ortak landing stili:** Yeni tool sayfası `styles/landing.css` kullanır. Sayfaya özel büyük inline CSS eklenmedi; tool page sınıfları landing CSS'e eklendi.
+- **Structured data:** Sayfa `WebPage`, `FAQPage` ve `BreadcrumbList` JSON-LD taşır. Tool için `WebApplication`/`SoftwareApplication` kullanılmadı.
+- **Sitemap kalıcılığı:** `scripts/build-blog.js`, blog yazıları yanında `STATIC_SITEMAP_PAGES` listesini de sitemap'e yazar. Böylece sonraki blog build'leri `/one-rep-max-calculator` URL'sini düşürmez.
+- **Service worker:** Yeni HTML sayfası `PRECACHE_URLS`'e eklenmedi. HTML navigation network-first olduğu için sayfa ilk online ziyarette taze gelir ve ziyaret edildikten sonra runtime cache'e alınır. `CACHE_NAME` bump gerekmedi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `one-rep-max-calculator.html` | EN statik 1RM calculator + SEO meta + JSON-LD + vanilla JS |
+| `styles/landing.css` | Statik tool page layout/form/table/FAQ stilleri |
+| `scripts/build-blog.js` | `STATIC_SITEMAP_PAGES` ile `/one-rep-max-calculator` sitemap kaydı |
+| `sitemap.xml` | `/one-rep-max-calculator` URL'si |
+| `AGENTS.md` | Dosya haritası + görev tipi + refactor özeti güncellendi |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-blog.js` ve inline calculator script syntax kontrolü yapılmalı.
+- `node scripts/build-blog.js` çalıştırıldığında sitemap, blog çıktıları ve landing blog kartları birlikte güncellenir.
+- Lokal smoke testte `/one-rep-max-calculator` clean URL, calculator formu ve CTA linkleri doğrulanmalı.

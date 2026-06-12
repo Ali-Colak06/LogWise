@@ -3,7 +3,7 @@
  * LogWise Blog Üretici
  * --------------------
  * blog-content/*.md  →  blog/<slug>.html + blog/index.html + blog/posts.json
- * Ayrıca: sitemap.xml'i yeniden üretir ve landing sayfalarındaki
+ * Ayrıca: sitemap.xml'i statik SEO sayfalarıyla birlikte yeniden üretir ve landing sayfalarındaki
  * BLOG-CARDS marker bloğuna öne çıkan yazı kartlarını enjekte eder.
  *
  * Kullanım:  node scripts/build-blog.js
@@ -41,6 +41,12 @@ const SITEMAP = path.join(ROOT, 'sitemap.xml');
 
 const SITE = 'https://logwise.fit';
 const OG_IMAGE = `${SITE}/icon-512.png`;
+const STATIC_SITEMAP_PAGES = [
+  { path: '/', changefreq: 'weekly', priority: '1.0' },
+  { path: '/tr', changefreq: 'weekly', priority: '0.9' },
+  { path: '/blog', changefreq: 'weekly', priority: '0.8' },
+  { path: '/one-rep-max-calculator', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' }
+];
 
 // ---------------------------------------------------------------- helpers
 
@@ -368,9 +374,9 @@ fs.writeFileSync(path.join(OUT_DIR, 'posts.json'), JSON.stringify(manifest, null
 // ---------------------------------------------------------------- sitemap.xml
 
 const sitemapEntries = [
-  `  <url>\n    <loc>${SITE}/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>`,
-  `  <url>\n    <loc>${SITE}/tr</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>`,
-  `  <url>\n    <loc>${SITE}/blog</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`,
+  ...STATIC_SITEMAP_PAGES.map(page =>
+    `  <url>\n    <loc>${SITE}${page.path}</loc>${page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : ''}\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>`
+  ),
   ...posts.map(p =>
     `  <url>\n    <loc>${SITE}/blog/${p.slug}</loc>\n    <lastmod>${p.date}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`)
 ];
@@ -389,8 +395,8 @@ function landingPostsFor(lang) {
   return posts
     .slice()
     .sort((a, b) =>
-      Number(b.featured) - Number(a.featured) ||
       (a.lang === lang ? 0 : 1) - (b.lang === lang ? 0 : 1) ||
+      Number(b.featured) - Number(a.featured) ||
       b.date.localeCompare(a.date) ||
       a.slug.localeCompare(b.slug)
     )

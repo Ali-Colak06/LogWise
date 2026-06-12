@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>One Rep Max Calculator - Estimate Your 1RM | LogWise</title>
+<meta name="description" content="Estimate your one rep max with Epley and Brzycki formulas, compare training loads, and start tracking your lifts in a free workout log."/>
+<link rel="canonical" href="https://logwise.fit/one-rep-max-calculator"/>
+<link rel="alternate" hreflang="en" href="https://logwise.fit/one-rep-max-calculator"/>
+<link rel="alternate" hreflang="x-default" href="https://logwise.fit/one-rep-max-calculator"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:site_name" content="LogWise"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="One Rep Max Calculator - Estimate Your 1RM | LogWise"/>
+<meta property="og:description" content="Estimate your one rep max with Epley and Brzycki formulas, compare training loads, and start tracking your lifts in a free workout log."/>
+<meta property="og:url" content="https://logwise.fit/one-rep-max-calculator"/>
+<meta property="og:image" content="https://logwise.fit/icon-512.png"/>
+<meta property="og:locale" content="en_US"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="One Rep Max Calculator - Estimate Your 1RM | LogWise"/>
+<meta name="twitter:description" content="Estimate your one rep max with Epley and Brzycki formulas, compare training loads, and start tracking your lifts in a free workout log."/>
+<meta name="twitter:image" content="https://logwise.fit/icon-512.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/styles/landing.css"/>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebPage","name":"One Rep Max Calculator","url":"https://logwise.fit/one-rep-max-calculator","description":"Estimate your one rep max with Epley and Brzycki formulas, compare training loads, and start tracking your lifts in a free workout log.","inLanguage":"en","datePublished":"2026-06-12","dateModified":"2026-06-12","isPartOf":{"@type":"WebSite","name":"LogWise","url":"https://logwise.fit"},"about":["one rep max calculator","1RM calculator","strength training","workout tracking"]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How accurate is a one rep max calculator?","acceptedAnswer":{"@type":"Answer","text":"A one rep max calculator gives an estimate, not a guaranteed max. It is usually most useful when the set has 2 to 10 clean reps and consistent technique."}},{"@type":"Question","name":"Which 1RM formula does LogWise use?","acceptedAnswer":{"@type":"Answer","text":"LogWise uses the Epley formula for estimated one rep max inside the app and shows Brzycki here as a comparison option."}},{"@type":"Question","name":"Should I test a true one rep max?","acceptedAnswer":{"@type":"Answer","text":"Most lifters can use estimated 1RM for planning without testing a true max often. Heavy max attempts should be done with appropriate experience, setup, and spotting."}}]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"LogWise","item":"https://logwise.fit/"},{"@type":"ListItem","position":2,"name":"One Rep Max Calculator","item":"https://logwise.fit/one-rep-max-calculator"}]}]</script>
+</head>
+<body>
+<header class="nav">
+  <div class="shell nav-row">
+    <a href="/" class="brand">
+      <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+      <span class="brand-name">LOG <b>WISE</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#calculator">Calculator</a>
+      <a href="#guide">Guide</a>
+      <a href="/blog">Blog</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="/app" class="btn btn-primary"><span class="desktop-label">START TRACKING</span><span class="mobile-label">OPEN</span> →</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="tool-hero">
+  <div class="shell tool-hero-grid">
+    <div class="tool-hero-copy">
+      <div class="tag"><span class="tag-dot"></span>Free strength training calculator</div>
+      <h1 class="display">One Rep Max <span class="gold">Calculator</span></h1>
+      <p class="lead">Estimate your 1RM from a recent set, compare Epley and Brzycki formulas, and turn the number into useful training loads.</p>
+      <div class="hero-ctas">
+        <a href="#calculator" class="btn btn-primary">CALCULATE 1RM</a>
+        <a href="/app" class="btn btn-ghost">START A FREE WORKOUT LOG →</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>EPLEY</b></span><span class="dot"></span><span><b>BRZYCKI</b></span><span class="dot"></span><span><b>KG OR LB</b></span>
+      </div>
+    </div>
+
+    <section id="calculator" class="tool-card" aria-label="One rep max calculator">
+      <div class="tool-card-head">
+        <div>
+          <div class="section-kicker">1RM ESTIMATE</div>
+          <h2>Enter your best clean set</h2>
+        </div>
+        <div class="unit-toggle" role="group" aria-label="Weight unit">
+          <button type="button" class="on" data-unit="kg">KG</button>
+          <button type="button" data-unit="lb">LB</button>
+        </div>
+      </div>
+
+      <form class="orm-form" id="orm-form">
+        <label>
+          <span>Weight lifted</span>
+          <input id="orm-weight" name="weight" type="number" min="1" max="999" step="0.5" value="100" inputmode="decimal"/>
+        </label>
+        <label>
+          <span>Reps completed</span>
+          <input id="orm-reps" name="reps" type="number" min="1" max="30" step="1" value="5" inputmode="numeric"/>
+        </label>
+        <label class="orm-form-wide">
+          <span>Formula</span>
+          <select id="orm-formula" name="formula">
+            <option value="epley">Epley - same estimate used in LogWise</option>
+            <option value="brzycki">Brzycki</option>
+            <option value="average">Average of Epley and Brzycki</option>
+          </select>
+        </label>
+      </form>
+
+      <div class="orm-output" aria-live="polite">
+        <span>Estimated one rep max</span>
+        <strong id="orm-result">116.7 kg</strong>
+        <small id="orm-note">Epley estimate from 100 kg x 5 reps.</small>
+      </div>
+
+      <div class="orm-tables">
+        <div>
+          <h3>Training loads</h3>
+          <div class="rm-row"><span>95%</span><b data-pct="95">110.8 kg</b></div>
+          <div class="rm-row"><span>90%</span><b data-pct="90">105 kg</b></div>
+          <div class="rm-row"><span>85%</span><b data-pct="85">99.2 kg</b></div>
+          <div class="rm-row"><span>80%</span><b data-pct="80">93.3 kg</b></div>
+          <div class="rm-row"><span>75%</span><b data-pct="75">87.5 kg</b></div>
+          <div class="rm-row"><span>70%</span><b data-pct="70">81.7 kg</b></div>
+        </div>
+        <div>
+          <h3>Rep max table</h3>
+          <div class="rm-row"><span>1 rep</span><b data-rep="1">116.7 kg</b></div>
+          <div class="rm-row"><span>3 reps</span><b data-rep="3">106.1 kg</b></div>
+          <div class="rm-row"><span>5 reps</span><b data-rep="5">100 kg</b></div>
+          <div class="rm-row"><span>8 reps</span><b data-rep="8">92.1 kg</b></div>
+          <div class="rm-row"><span>10 reps</span><b data-rep="10">87.5 kg</b></div>
+          <div class="rm-row"><span>12 reps</span><b data-rep="12">83.3 kg</b></div>
+        </div>
+      </div>
+
+      <a href="/app" class="tool-inline-cta">Track this lift in LogWise →</a>
+    </section>
+  </div>
+</section>
+
+<section id="guide" class="section-pad section-alt">
+  <div class="shell tool-content-grid">
+    <article class="tool-copy-block">
+      <div class="section-kicker">HOW TO USE IT</div>
+      <h2 class="section-title">Turn one hard set into a useful training number.</h2>
+      <p>Use a recent set where your form stayed consistent. Enter the weight and reps, then use the estimate to plan working sets, compare progress, or track PRs over time.</p>
+      <ol class="tool-steps">
+        <li><b>Pick a clean set.</b> Sets of 2 to 10 reps usually give the most useful estimate.</li>
+        <li><b>Choose the formula.</b> LogWise uses Epley in the app; Brzycki is included here for comparison.</li>
+        <li><b>Track the trend.</b> A single estimate is less important than whether your estimated 1RM rises over weeks.</li>
+      </ol>
+    </article>
+    <aside class="tool-note-panel">
+      <h3>1RM formula</h3>
+      <p><b>Epley:</b> 1RM = weight × (1 + reps / 30)</p>
+      <p><b>Brzycki:</b> 1RM = weight × 36 / (37 - reps)</p>
+      <p>All one rep max formulas are estimates. Use them to guide training, not as a guarantee of what you can safely lift today.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">WHY LOG IT</div>
+      <h2 class="section-title">A calculator is helpful. A workout log makes it compound.</h2>
+    </div>
+    <p class="section-sub">When every set is saved, estimated 1RM becomes a progress signal instead of a one-off number.</p>
+  </div>
+  <div class="shell tool-feature-grid">
+    <article>
+      <span>01</span>
+      <h3>See your last numbers</h3>
+      <p>Open the lift, check your previous sets, and know exactly what you are trying to beat today.</p>
+    </article>
+    <article>
+      <span>02</span>
+      <h3>Track PRs automatically</h3>
+      <p>LogWise surfaces best sets, estimated 1RM changes, and progress charts without spreadsheet setup.</p>
+    </article>
+    <article>
+      <span>03</span>
+      <h3>Review the trend</h3>
+      <p>If your estimated 1RM is climbing over weeks, your program is probably moving in the right direction.</p>
+    </article>
+  </div>
+</section>
+
+<section class="tool-faq section-alt">
+  <div class="shell tool-content-grid">
+    <div>
+      <div class="section-kicker">FAQ</div>
+      <h2 class="section-title">Common 1RM questions</h2>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary>How accurate is a one rep max calculator?</summary>
+        <p>It is an estimate. Accuracy depends on rep range, technique, fatigue, and how close the set was to failure. It is most useful as a trend over time.</p>
+      </details>
+      <details>
+        <summary>What rep range should I use?</summary>
+        <p>Use a challenging set of 2 to 10 clean reps when possible. Very high-rep sets can make estimates less reliable.</p>
+      </details>
+      <details>
+        <summary>Should I test a true max?</summary>
+        <p>You do not need to test a true max often to train well. Estimated 1RM is usually enough for planning, especially for general strength and hypertrophy training.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="shell">
+    <div class="cta-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></div>
+    <h2>Track the lift. <span class="gold">Watch the trend.</span></h2>
+    <p>Start a free workout log in LogWise and keep your sets, PRs, programs, and progress charts in one clean place.</p>
+    <div class="ctas">
+      <a href="/app" class="btn btn-primary">TRACK THIS LIFT IN LOGWISE →</a>
+      <a href="/blog" class="btn btn-ghost">READ TRAINING GUIDES</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="shell foot-row">
+    <div class="footer-brand-block">
+      <a href="/" class="brand">
+        <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+        <span class="brand-name">LOG <b>WISE</b></span>
+      </a>
+      <p class="foot-tagline">Free browser-based workout tracking for lifters who want clearer progress.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Tool</h5>
+      <a href="#calculator">Calculator</a>
+      <a href="#guide">Guide</a>
+      <a href="/app">Workout log</a>
+    </div>
+    <div class="foot-col">
+      <h5>LogWise</h5>
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/tr">Türkçe</a>
+    </div>
+  </div>
+  <div class="shell foot-bottom">
+    <span>© 2026 LOG WISE</span>
+    <span>ONE REP MAX CALCULATOR · LOGWISE.FIT</span>
+  </div>
+</footer>
+
+<script src="/lib/calc.js"></script>
+<script>
+(function () {
+  const $ = id => document.getElementById(id);
+  const weightInput = $('orm-weight');
+  const repsInput = $('orm-reps');
+  const formulaInput = $('orm-formula');
+  const resultEl = $('orm-result');
+  const noteEl = $('orm-note');
+  const pctEls = Array.from(document.querySelectorAll('[data-pct]'));
+  const repEls = Array.from(document.querySelectorAll('[data-rep]'));
+  const unitButtons = Array.from(document.querySelectorAll('[data-unit]'));
+  const calc = window.LOGWISE_CALC || {};
+  let unit = 'kg';
+
+  function fallbackEpley(weight, reps) {
+    if (!weight || !reps || reps <= 0) return 0;
+    if (reps === 1) return weight;
+    return Math.round(weight * (1 + reps / 30) * 10) / 10;
+  }
+
+  function fallbackBrzycki(weight, reps) {
+    if (!weight || !reps || reps <= 0) return 0;
+    if (reps === 1) return weight;
+    if (reps >= 37) return weight * 2;
+    return Math.round(weight * (36 / (37 - reps)) * 10) / 10;
+  }
+
+  function roundLoad(value) {
+    return Math.round(value * 10) / 10;
+  }
+
+  function formatLoad(value) {
+    const rounded = roundLoad(value);
+    const display = Number.isInteger(rounded) ? String(rounded) : rounded.toFixed(1);
+    return display + ' ' + unit;
+  }
+
+  function estimate(weight, reps, formula) {
+    const epley = (calc.calc1RM || fallbackEpley)(weight, reps);
+    const brzycki = (calc.calcBrzycki || fallbackBrzycki)(weight, reps);
+    if (formula === 'brzycki') return brzycki;
+    if (formula === 'average') return (epley + brzycki) / 2;
+    return epley;
+  }
+
+  function inverseLoad(oneRm, reps, formula) {
+    if (reps <= 1) return oneRm;
+    if (formula === 'brzycki') return oneRm * (37 - reps) / 36;
+    if (formula === 'average') {
+      const epley = oneRm / (1 + reps / 30);
+      const brzycki = oneRm * (37 - reps) / 36;
+      return (epley + brzycki) / 2;
+    }
+    return oneRm / (1 + reps / 30);
+  }
+
+  function update() {
+    const weight = Number(weightInput.value);
+    const rawReps = Number(repsInput.value);
+    const formula = formulaInput.value;
+
+    if (!weight || weight <= 0 || !rawReps || rawReps <= 0) {
+      resultEl.textContent = '--';
+      noteEl.textContent = 'Enter a weight and reps to estimate your one rep max.';
+      return;
+    }
+
+    const reps = Math.max(1, Math.min(30, Math.round(rawReps)));
+    if (document.activeElement !== repsInput || rawReps > 30 || rawReps % 1 !== 0) {
+      repsInput.value = String(reps);
+    }
+
+    const oneRm = estimate(weight, reps, formula);
+    const formulaName = formula === 'brzycki' ? 'Brzycki' : formula === 'average' ? 'Average' : 'Epley';
+    resultEl.textContent = formatLoad(oneRm);
+    noteEl.textContent = formulaName + ' estimate from ' + formatLoad(weight) + ' x ' + reps + ' reps.';
+
+    pctEls.forEach(el => {
+      const pct = Number(el.getAttribute('data-pct'));
+      el.textContent = formatLoad(oneRm * pct / 100);
+    });
+
+    repEls.forEach(el => {
+      const targetReps = Number(el.getAttribute('data-rep'));
+      el.textContent = formatLoad(inverseLoad(oneRm, targetReps, formula));
+    });
+  }
+
+  unitButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      unit = button.getAttribute('data-unit');
+      unitButtons.forEach(b => b.classList.toggle('on', b === button));
+      update();
+    });
+  });
+
+  [weightInput, repsInput, formulaInput].forEach(input => {
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>

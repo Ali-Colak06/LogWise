@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-12 — SEO statik landing eklendi: index.html EN + tr.html TR; styles/landing.css + assets/landing/; build-blog landing blog kartlarını statik enjekte eder. -->
+<!-- SON GÜNCELLEME: 2026-06-12 — SEO evergreen tool sayfası eklendi: one-rep-max-calculator.html; build-blog sitemap statik sayfa kayıtlarını da üretir. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -107,6 +107,7 @@ LogWise/
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← EN statik SEO landing
 ├── tr.html                    ← TR statik SEO landing
+├── one-rep-max-calculator.html ← EN statik SEO tool sayfası
 ├── app.html                   ← Ana uygulama (App + Root monolit)
 ├── profile.html               ← Profil sayfası
 ├── share.html                 ← Paylaşım sayfası
@@ -140,6 +141,7 @@ LogWise/
 | sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
 | Yeni blog yazısı eklemek | `docs/BLOG-YAZISI-EKLEME.md` |
 | Landing SEO/metin güncellemek | `index.html` + `tr.html` + `scripts/build-blog.js` marker enjeksiyonu |
+| Yeni SEO araç sayfası eklemek | `.html` dosyası + `styles/landing.css` + `scripts/build-blog.js` statik sitemap kaydı + sw.js değerlendirmesi |
 | Yeni sayfa eklemek | `.html` dosyası + gerekirse `_redirects` + sw.js PRECACHE |
 
 ---
@@ -184,6 +186,7 @@ LogWise/
 - **Faz EX-ID** (Bölüm 43): Preset hareketlere slug `id` sistemi + Dead Hang deduplikasyonu + tüm referansların id'ye taşınması ✅
 - **Blog sistemi** (Bölüm 45): Markdown kaynaklı statik blog + sitemap + landing blog entegrasyonu ✅
 - **SEO statik landing** (Bölüm 46): EN `/` + TR `/tr` statik landing, canonical apex domain, statik blog kart enjeksiyonu ✅
+- **SEO evergreen araç sayfaları** (Bölüm 48): `/one-rep-max-calculator` statik tool page + sitemap statik sayfa kaydı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

@@ -1,5 +1,33 @@
 [
   {
+    "slug": "antrenman-takip-uygulamasi-ne-kaydetmeli",
+    "title": "Antrenman Takip Uygulaması Ne Kaydetmeli?",
+    "description": "İyi bir antrenman takip uygulamasında hangi veriler olmalı? Set, tekrar, ağırlık, RIR, PR ve haftalık kontrol listesi.",
+    "date": "2026-06-12",
+    "lang": "tr",
+    "tags": [
+      "antrenman takip uygulaması",
+      "fitness günlüğü",
+      "gelişim"
+    ],
+    "featured": true,
+    "readMins": 2
+  },
+  {
+    "slug": "workout-tracker-app-guide",
+    "title": "Workout Tracker App: What to Log for Real Progress",
+    "description": "What a workout tracker app should record: exercises, sets, reps, weight, RIR, PRs, notes, and a simple review habit.",
+    "date": "2026-06-12",
+    "lang": "en",
+    "tags": [
+      "workout tracker app",
+      "training log",
+      "strength"
+    ],
+    "featured": true,
+    "readMins": 3
+  },
+  {
     "slug": "antrenman-gunlugu-neden-tutmalisin",
     "title": "Antrenman Günlüğü Neden Tutmalısın? (ve Nasıl Başlarsın)",
     "description": "Hafıza yanıltır, sayılar yanıltmaz. Antrenman günlüğü tutmanın gelişim üzerindeki somut etkisi ve 5 dakikada başlamanın yolu.",
