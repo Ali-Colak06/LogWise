@@ -3386,3 +3386,34 @@ Landing page'i Google'a JavaScript çalışmadan okunabilir, canonical sinyali t
 - `node scripts/build-blog.js` çalıştırıldığında blog sayfaları, `posts.json`, `sitemap.xml`, `index.html` ve `tr.html` birlikte güncellenir.
 - Blog post HTML'leri service worker precache listesine eklenmez; navigation network-first davranışı korunur.
 - Sonraki içerik büyüme fazı ayrı kalır: EN comparison yazıları, evergreen tool pages ve programmatic exercise/program sayfaları bu bölümün kapsamına dahil edilmedi.
+
+---
+
+## Bölüm 47 — Supabase Bölge Taşıması: us-west-2 → eu-central-1 Frankfurt (2026-06-12)
+
+### Amaç
+
+Türkiye'den ~230-330ms warm RTT'ye sebep olan Oregon (us-west-2) Supabase projesini Frankfurt'a (eu-central-1) taşıyarak web + mobil tüm istekleri ~2× hızlandırmak. Perf kampanyasının (FAZ 1-2-2.5 istemci optimizasyonları + donma fix'i) son adımı.
+
+### Mimari Kararlar
+
+- **Yeni proje:** Supabase bölge değişikliğini desteklemediği için yeni proje açıldı: `hfmqywyfnqmpvskkzksv` ("LogWise", eu-central-1). Eski proje `czbxujioufhmvoajqwzp` ("Workout Tracker") geri dönüş için PAUSE'da tutulur (silinmedi).
+- **Şema baştan, advisor-temiz kuruldu:** Tüm RLS policy'lerinde `auth.uid()` → `(select auth.uid())` (initplan fix); `user_data`'nın iki SELECT policy'si tek policy'de birleştirildi; 5 unindexed FK'ye covering index (`app_profiles.active_program_id`, `comment_likes.user_id`, `feedback.user_id`, `shared_workouts.user_id`, `follows.following_id`); fonksiyonlara `set search_path = ''`; `delete_own_account`'ın anon EXECUTE izni revoke edildi.
+- **Veri taşıma:** 15 public tablo + `auth.users` (16) + `auth.identities` (19, şifre hash'leri korunarak) MCP `execute_sql` + `jsonb_populate_recordset` ile taşındı; büyük `user_data` satırları yeni projede `http` extension ile eski projenin REST API'sinden server-side çekildi. Tablo bazında md5 checksum'lar iki projede birebir doğrulandı; login testi gerçek kullanıcı + eski şifreyle geçti.
+- **Realtime publication** (`user_data`, `feedback`) yeni projede aynen kuruldu.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `lib/db.js` | `SUPABASE_URL` + `SUPABASE_ANON_KEY` → Frankfurt |
+| `app.html` | dns-prefetch → Frankfurt |
+| `profile.html`, `program.html`, `share.html`, `reset-password.html` | Inline URL + anon key → Frankfurt |
+| `sw.js` | `logwise-v26` bump (Bölüm 46 ile birlikte v27 oldu) |
+| `logwise-mobile/app.json`, `.env.example`, `types/database*.ts` | URL/key swap + type regen (mobile-design-system branch) |
+
+### Doğrulama Notları
+
+- Warm TTFB (Türkiye'den `auth/v1/health`): Oregon ~313-329ms → Frankfurt ~153-160ms (~2×); cold 1.01s → 0.44s.
+- Auth config (Site URL, redirect URLs, Google OAuth client + yeni callback URI) dashboard'dan elle taşındı — Google Cloud Console'da eski callback geçiş dönemi boyunca silinmedi.
+- Eski proje pause edilmeden önce cutover sonrası canlı regresyon (login, share, profile, reset-password, sosyal akışlar) beklendi; pause kararı ayrı onayla.
