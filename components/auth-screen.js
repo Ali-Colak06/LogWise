@@ -23,7 +23,7 @@
     const TR = window.LOGWISE_TR;
     const EN = window.LOGWISE_EN;
     const { normalizeUsername } = window.LOGWISE_PROFILE_UTILS;
-    const { sb, profileRoute, syncProfileRecord } = window.LOGWISE_DB;
+    const { sb, profileRoute, appRoute, syncProfileRecord } = window.LOGWISE_DB;
     const { BrandMark } = window.LOGWISE_COMPONENTS;
     const L = lang === "tr" ? TR : EN;
     const [mode, setMode] = React.useState("login");
@@ -154,7 +154,8 @@
         } = await sb.auth.signInWithOAuth({
           provider: "google",
           options: {
-            redirectTo: window.location.origin
+            // "/" artık statik landing (Bölüm 46) — OAuth hash'ini sadece /app işleyebilir
+            redirectTo: window.location.origin + (appRoute ? appRoute() : "/app")
           }
         });
         if (error) setErr(error.message);

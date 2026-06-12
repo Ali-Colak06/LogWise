@@ -38,6 +38,7 @@ const TK = "gym-log-theme",
   LK = "gym-log-lang";
 const IS_LOCAL_STATIC = window.location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(window.location.hostname);
 const profileRoute = id => `${IS_LOCAL_STATIC ? "/profile.html" : "/profile"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;
+const appRoute = () => IS_LOCAL_STATIC ? "/app.html" : "/app"; // "/" artık statik landing — uygulama kökü /app
 const ST_COLORS = {
   working: "blue",
   warmup: "orange",
@@ -808,7 +809,7 @@ function ShareApp() {
       marginBottom: 12
     }
   }, lang === "tr" ? "Bu antrenmanı kopyalamak için giriş yapman gerekiyor." : "Log in to copy this workout."), React.createElement("button", {
-    onClick: () => window.location.href = "/",
+    onClick: () => window.location.href = appRoute(),
     style: {
       ...S.pri,
       marginBottom: 16

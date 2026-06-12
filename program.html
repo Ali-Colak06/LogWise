@@ -30,6 +30,7 @@
 <script>
 const SUPABASE_URL = "https://hfmqywyfnqmpvskkzksv.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmbXF5d3lmbnFtcHZza2t6a3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNTExNzIsImV4cCI6MjA5NjgyNzE3Mn0.qRdNSj4No6GI9NLEFG-w9FbtFH4SP3xZGwA2j6yWJHM";
+const appRoute = () => (window.location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(window.location.hostname)) ? "/app.html" : "/app"; // "/" artık statik landing — uygulama kökü /app
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const {
   useState,
@@ -532,7 +533,7 @@ function ProgramApp() {
       marginBottom: 8
     }
   }, lang === "tr" ? "Program kopyalandı!" : "Program copied!"), React.createElement("button", {
-    onClick: () => window.location.href = "/",
+    onClick: () => window.location.href = appRoute(),
     style: S.pri
   }, "\uD83C\uDFCB\uFE0F ", lang === "tr" ? "Programlarıma Git" : "Go to My Programs")) : React.createElement("div", null, React.createElement("button", {
     onClick: copyProgram,

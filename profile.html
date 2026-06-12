@@ -53,6 +53,7 @@ const { normalizeUsername, isValidUsername } = window.LOGWISE_PROFILE_UTILS;
 const IS_LOCAL_STATIC = window.location.protocol === "file:" || ["localhost", "127.0.0.1"].includes(window.location.hostname);
 const profileRoute = id => `${IS_LOCAL_STATIC ? "/profile.html" : "/profile"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;
 const shareRoute = id => `${IS_LOCAL_STATIC ? "/share.html" : "/share"}${id ? `?id=${encodeURIComponent(id)}` : ""}`;
+const appRoute = () => IS_LOCAL_STATIC ? "/app.html" : "/app"; // "/" artık statik landing — uygulama kökü /app
 const TR = window.LOGWISE_TR_PROFILE;
 const EN = window.LOGWISE_EN_PROFILE;
 const AVATARS = ["🏋️", "💪", "🔥", "⚡", "🎯", "🏆", "🦾", "🐺", "🦅", "🐉", "🧘", "🏃"];
@@ -614,7 +615,7 @@ function ProfileApp() {
       }
       if (isResetMode) {
         setToast(L.passwordResetDone);
-        setTimeout(() => window.location.href = "/", 2000);
+        setTimeout(() => window.location.href = appRoute(), 2000);
       } else {
         setToast(L.passwordChanged);
       }
@@ -2084,7 +2085,7 @@ function ProfileApp() {
       color: "var(--t2)"
     }
   }, lang === "tr" ? "Profili görüntülemek için giriş yapmalısın" : "You must be logged in to view your profile"), React.createElement("button", {
-    onClick: () => window.location.href = "/",
+    onClick: () => window.location.href = appRoute(),
     style: S.pri
   }, L.back));
   const displayName = fullName || user.email?.split("@")[0] || "User";
@@ -2206,7 +2207,7 @@ function ProfileApp() {
       background: "var(--bg)"
     }
   }, React.createElement("button", {
-    onClick: () => window.location.href = "/",
+    onClick: () => window.location.href = appRoute(),
     style: {
       ...S.sec,
       fontSize: 13,
