@@ -46,8 +46,8 @@
       "@sentry/react-native"
     ],
     "extra": {
-      "supabaseUrl": "https://czbxujioufhmvoajqwzp.supabase.co",
-      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImN6Ynh1amlvdWZobXZvYWpxd3pwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ1MDYzNTgsImV4cCI6MjA5MDA4MjM1OH0._juhkh6W8p0iP3WVSooi1fFfZFXT50LugDszPBubOgk",
+      "supabaseUrl": "https://hfmqywyfnqmpvskkzksv.supabase.co",
+      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmbXF5d3lmbnFtcHZza2t6a3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNTExNzIsImV4cCI6MjA5NjgyNzE3Mn0.qRdNSj4No6GI9NLEFG-w9FbtFH4SP3xZGwA2j6yWJHM",
       "sentryDsn": "https://7d99a740f91e12690f622af22e0cb560@o4511488560529408.ingest.us.sentry.io/4511488571670528",
       "resetPasswordRedirect": "https://logwise.fit/reset-password",
       "router": {},

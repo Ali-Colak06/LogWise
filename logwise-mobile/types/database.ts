@@ -16,7 +16,7 @@
  *
  * Auto-gen'i tekrar üretmek için:
  *   npx supabase gen types typescript \
- *     --project-id czbxujioufhmvoajqwzp \
+ *     --project-id hfmqywyfnqmpvskkzksv \
  *     --schema public \
  *     > types/database.generated.ts
  *

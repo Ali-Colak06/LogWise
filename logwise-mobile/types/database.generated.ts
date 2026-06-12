@@ -1,10 +1,10 @@
 /**
  * Supabase auto-generated types — DO NOT EDIT BY HAND.
  *
- * Kaynak: Supabase MCP `generate_typescript_types` (proje `czbxujioufhmvoajqwzp`)
+ * Kaynak: Supabase MCP `generate_typescript_types` (proje `hfmqywyfnqmpvskkzksv`)
  * Tekrar üretmek için (kullanıcı tarafı):
  *   npx supabase gen types typescript \
- *     --project-id czbxujioufhmvoajqwzp \
+ *     --project-id hfmqywyfnqmpvskkzksv \
  *     --schema public \
  *     > types/database.generated.ts
  *
@@ -26,7 +26,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.4"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
