@@ -140,7 +140,7 @@ LogWise/
 | sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
 | Yeni blog yazısı eklemek | `docs/BLOG-YAZISI-EKLEME.md` |
 | Landing SEO/metin güncellemek | `index.html` + `tr.html` + `scripts/build-blog.js` marker enjeksiyonu |
-| Yeni sayfa eklemek | `.html` dosyası + `_redirects` güncellemesi + sw.js PRECACHE |
+| Yeni sayfa eklemek | `.html` dosyası + gerekirse `_redirects` + sw.js PRECACHE |
 
 ---
 

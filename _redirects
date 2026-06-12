@@ -7,9 +7,9 @@
 # dosyalarını otomatik olarak clean URL olarak sunuyor.
 # Burada kural eklemek redirect döngüsüne neden olur.
 
-# Statik TR landing
-/tr           /tr.html        200
-/tr/          /tr.html        200
+# NOT: /tr için kural yok.
+# Cloudflare Pages, tr.html dosyasını otomatik olarak /tr clean URL'den sunar.
+# /tr -> /tr.html 200 kuralı, .html canonical redirect'iyle 307 döngüsü yaratır.
 
 # /app/* SPA route'ları — yeni URL şeması (wildcard)
 /app/*        /app.html       200

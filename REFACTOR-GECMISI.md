@@ -3377,7 +3377,7 @@ Landing page'i Google'a JavaScript çalışmadan okunabilir, canonical sinyali t
 | `styles/landing.css` | Landing CSS |
 | `assets/landing/*` | Landing mockup görselleri |
 | `scripts/build-blog.js` | Apex domain, `/tr` sitemap kaydı, statik landing blog kart enjeksiyonu |
-| `_redirects` | `/tr` ve `/tr/` clean URL rewrite |
+| `_redirects` | `/tr` için explicit rewrite yok; Cloudflare Pages `tr.html` → `/tr` clean URL'yi otomatik sunar |
 | `robots.txt` | Apex sitemap URL |
 | `sw.js` | `logwise-v27`; landing CSS, TR landing ve mockup asset precache |
 
