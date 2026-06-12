@@ -3453,3 +3453,41 @@ Türkiye'den ~230-330ms warm RTT'ye sebep olan Oregon (us-west-2) Supabase proje
 - `node --check scripts/build-blog.js` ve inline calculator script syntax kontrolü yapılmalı.
 - `node scripts/build-blog.js` çalıştırıldığında sitemap, blog çıktıları ve landing blog kartları birlikte güncellenir.
 - Lokal smoke testte `/one-rep-max-calculator` clean URL, calculator formu ve CTA linkleri doğrulanmalı.
+
+
+
+---
+
+## Bölüm 49 — SEO Evergreen Template: Workout Log Template (2026-06-12)
+
+### Amaç
+
+"workout log template", "printable workout log" ve "free workout log template" aramalarına yönelik, Google'ın JS çalıştırmadan okuyabileceği statik bir template/tool sayfası eklemek. Sayfa kullanıcıya hemen basılabilir bir antrenman günlüğü şablonu verir ve uzun vadeli takip için LogWise `/app` CTA'sına bağlanır.
+
+### Mimari Kararlar
+
+- **Statik template page:** `workout-log-template.html` kökte yaşar. Cloudflare Pages `.html` clean URL davranışıyla `/workout-log-template` olarak sunar; `_redirects` içine explicit kural eklenmedi.
+- **React/Babel yok:** Sayfa düz HTML + küçük vanilla JS kullanır. JS yalnızca şablona satır ekleme, örnek alanları temizleme ve `window.print()` tetikleme için vardır.
+- **Printable template:** Şablon içerikleri `contenteditable` alanlarla tarayıcı içinde düzenlenebilir. `styles/landing.css` içine print media kuralları eklendi; print sırasında nav/CTA/guide bölümleri gizlenir, şablon sade kağıt görünümünde basılır.
+- **Ortak tool tasarımı:** 1RM sayfasındaki `tool-*` sınıfları yeniden kullanıldı; template'e özel `template-*` ve `sheet-*` sınıfları aynı `styles/landing.css` içinde tutuldu. Inline büyük CSS eklenmedi.
+- **Structured data:** Sayfa `WebPage`, `HowTo`, `FAQPage` ve `BreadcrumbList` JSON-LD taşır. Template sayfası için `WebApplication`/`SoftwareApplication` kullanılmadı.
+- **Sitemap kalıcılığı:** `scripts/build-blog.js` içindeki `STATIC_SITEMAP_PAGES` listesine `/workout-log-template` eklendi. Sonraki blog build'leri bu URL'yi sitemap'ten düşürmez.
+- **Service worker:** `sw.js` `logwise-v28` → `logwise-v29` bump edildi. `PRECACHE_URLS` listesine `/one-rep-max-calculator`, `/one-rep-max-calculator.html`, `/workout-log-template`, `/workout-log-template.html` eklendi. Sebep: yeni tool/template stilleri `styles/landing.css` içinde ve bu dosya cache-first servis ediliyor; bump eski kullanıcılara güncel CSS'i kesin taşır.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `workout-log-template.html` | EN statik printable workout log template + SEO meta + JSON-LD + vanilla JS |
+| `styles/landing.css` | Template sheet, toolbar, print media stilleri |
+| `scripts/build-blog.js` | `STATIC_SITEMAP_PAGES` listesine `/workout-log-template` eklendi |
+| `sitemap.xml` | `/workout-log-template` URL'si |
+| `index.html`, `tr.html` | Footer iç linklerine workout log template eklendi |
+| `sw.js` | `logwise-v29` bump + tool/template URL precache |
+| `AGENTS.md` | Dosya haritası + refactor özeti güncellendi |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-blog.js`, `node --check sw.js` ve inline template script syntax kontrolü yapılmalı.
+- `node scripts/build-blog.js` çalıştırıldığında sitemap, blog çıktıları ve landing blog kartları birlikte güncellenir.
+- Lokal smoke testte `/workout-log-template` clean URL, add row / clear / print button varlığı, sitemap ve mobil taşma doğrulanmalı.
