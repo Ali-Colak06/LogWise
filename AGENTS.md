@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-10 — Blog sistemi eklendi: blog-content/ (md kaynak) + scripts/build-blog.js (üretici) + blog/ (statik çıktı); landing'e Blog bölümü + nav/footer linkleri; reçete: docs/BLOG-YAZISI-EKLEME.md -->
+<!-- SON GÜNCELLEME: 2026-06-12 — SEO statik landing eklendi: index.html EN + tr.html TR; styles/landing.css + assets/landing/; build-blog landing blog kartlarını statik enjekte eder. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -8,7 +8,7 @@ Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) 
 
 ## 1. Proje Özeti
 
-LogWise — React 18 + Supabase tabanlı, Cloudflare Pages üzerinde yayınlanan bir antrenman takip PWA'sı. Build step yok. React, doğrudan `React.createElement()` çağrılarıyla kullanılır; JSX yoktur. Stil `styles/base.css` + sayfa-özel inline CSS. Dil desteği: Türkçe + İngilizce (varsayılan TR).
+LogWise — React 18 + Supabase tabanlı, Cloudflare Pages üzerinde yayınlanan bir antrenman takip PWA'sı. Build step yok. Ürün uygulaması `/app`/`app.html` altında React ile çalışır; landing sayfaları (`/`, `/tr`) statik SEO HTML'dir. React, doğrudan `React.createElement()` çağrılarıyla kullanılır; JSX yoktur. Dil desteği: Türkçe + İngilizce.
 
 Prod URL: https://logwise.fit
 
@@ -20,7 +20,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 43 — Faz EX-ID).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 46 — SEO statik landing).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -42,8 +42,10 @@ Her AI seansı başlamadan **önce**:
 - `data/` — yalnızca sabit veri + i18n sözlükleri (React bağımlılığı yok).
 - `lib/` — saf fonksiyonlar, DB layer, utility'ler (React bağımlılığı yok).
 - `components/` — React bileşenleri (`window.LOGWISE_COMPONENTS`).
-- `styles/base.css` — paylaşılan CSS. Yeni ortak CSS buraya yazılır.
-- `index.html` / `profile.html` / `share.html` / `program.html` — sayfa dosyaları. `index.html` hâlâ App + Root monolit'ini barındırır (Aşama 3'e kadar böyle).
+- `styles/base.css` — uygulama paylaşılan CSS. Yeni ortak app CSS buraya yazılır.
+- `styles/landing.css` — statik landing ortak CSS (`index.html` + `tr.html`).
+- `index.html` / `tr.html` — statik SEO landing sayfaları (React/Babel yok).
+- `app.html` / `profile.html` / `share.html` / `program.html` — uygulama ve paylaşım sayfa dosyaları.
 
 ### 3.3 PWA / Service Worker
 - **Yeni `data/`, `lib/` veya `components/` dosyası eklediğinde** `sw.js`'de iki değişiklik zorunlu: `CACHE_NAME` bump + `PRECACHE_URLS`'e yeni dosyayı ekle. Detay: `docs/SW-VERSION-BUMP.md`.
@@ -69,6 +71,8 @@ LogWise/
 │   ├── YENI-COMPONENT.md
 │   ├── SW-VERSION-BUMP.md
 │   └── BLOG-YAZISI-EKLEME.md  ← Yeni blog yazısı ekleme reçetesi
+├── assets/
+│   └── landing/                ← Statik landing mockup görselleri
 ├── data/                      ← Sabit veri + i18n (Aşama 1)
 │   ├── i18n-tr.js             ← window.LOGWISE_TR
 │   ├── i18n-en.js             ← window.LOGWISE_EN
@@ -87,7 +91,8 @@ LogWise/
 │   ├── db.js                  ← window.LOGWISE_DB (Supabase client + profil senkronu)
 │   └── exercise-utils.js      ← window.LOGWISE_EX_UTILS (id/name lookup, resolveKey)
 ├── styles/
-│   └── base.css               ← Paylaşılan CSS (reset, :root, @keyframes)
+│   ├── base.css               ← App paylaşılan CSS (reset, :root, @keyframes)
+│   └── landing.css            ← Statik landing CSS (index.html + tr.html)
 ├── components/                ← React bileşenleri (Aşama 2C)
 │   ├── error-boundary.js      ← ErrorBoundary
 │   ├── brand-mark.js          ← BrandMark
@@ -98,9 +103,11 @@ LogWise/
 ├── blog-content/              ← Blog yazıları — Markdown kaynak (frontmatter'lı)
 ├── blog/                      ← Üretilmiş statik blog sayfaları + blog.css (elle) + posts.json
 ├── scripts/
-│   ├── build-blog.js          ← blog-content/*.md → blog/*.html üretici (node ile çalıştır)
+│   ├── build-blog.js          ← blog-content/*.md → blog/*.html üretici + landing blog kart enjeksiyonu
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
-├── index.html                 ← Ana uygulama (App + Root monolit)
+├── index.html                 ← EN statik SEO landing
+├── tr.html                    ← TR statik SEO landing
+├── app.html                   ← Ana uygulama (App + Root monolit)
 ├── profile.html               ← Profil sayfası
 ├── share.html                 ← Paylaşım sayfası
 ├── program.html               ← Program paylaşım sayfası
@@ -126,11 +133,13 @@ LogWise/
 | Mevcut bileşeni değiştirmek | `components/*.js` + ilgili REFACTOR-GECMISI.md bölümü |
 | Yeni i18n metni eklemek | `data/i18n-tr.js` + `data/i18n-en.js` (ikisine de eşzamanlı) |
 | Yeni rozet eklemek | `data/badges.js` + `lib/badge-logic.js` kontrol |
-| Supabase sorgusu eklemek | `lib/db.js` veya `index.html` App scope'u (Aşama 3'te sarmalanacak) |
+| Supabase sorgusu eklemek | `lib/db.js` veya `app.html` App scope'u (Aşama 3'te sarmalanacak) |
 | Ortak CSS eklemek | `styles/base.css` |
-| Sayfa-özel CSS eklemek | `index.html` / `profile.html` inline `<style>` |
+| Landing CSS değiştirmek | `styles/landing.css` |
+| Sayfa-özel CSS eklemek | `profile.html` / `share.html` / `program.html` inline `<style>` |
 | sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
 | Yeni blog yazısı eklemek | `docs/BLOG-YAZISI-EKLEME.md` |
+| Landing SEO/metin güncellemek | `index.html` + `tr.html` + `scripts/build-blog.js` marker enjeksiyonu |
 | Yeni sayfa eklemek | `.html` dosyası + `_redirects` güncellemesi + sw.js PRECACHE |
 
 ---
@@ -140,7 +149,7 @@ LogWise/
 İşi bitirmeden **önce** şunları geç:
 
 1. **Syntax kontrol:** Yeni/değişen her `.js` dosyası için `node --check <path>`.
-2. **Inline script kontrol:** `index.html` içi script değiştiyse, inline kısmı ayıklayıp `node --check` yap.
+2. **Inline script kontrol:** `app.html` veya diğer sayfalarda inline script değiştiyse, inline kısmı ayıklayıp `node --check` yap.
 3. **Bracket balance:** Büyük component dosyalarında `(` `{` `[` dengesi 0 olmalı.
 4. **sw.js güncel mi?** Yeni statik dosya eklediysen → `CACHE_NAME` bump + `PRECACHE_URLS` ekle.
 5. **i18n senkron mu?** Yeni TR string eklediysen EN karşılığını da ekledin mi?
@@ -155,7 +164,7 @@ LogWise/
 
 - ❌ JSX kullanmak
 - ❌ Babel veya herhangi bir build aracı eklemek
-- ❌ `index.html`'e inline CSS eklerken `styles/base.css`'e koyulabilecek bir şeyi inline yapmak
+- ❌ Landing CSS'i `styles/landing.css` dışında inline büyütmek
 - ❌ Yeni klasör açmadan önce bu dosyayı güncellemeden açmak
 - ❌ Kullanıcıya görünen metinleri TR veya EN'den sadece birini yazmak
 - ❌ `data/`, `lib/`, `components/` altına React-dışı / namespace-dışı dosya eklemek
@@ -173,6 +182,8 @@ LogWise/
 - **Aşama 2** (Bölüm 34-41): DB + Stil + React bileşenleri ayrıştırması ✅
 - **DOC-1** (Bölüm 42): Dokümantasyon altyapısı (AGENTS.md + docs/*) ✅
 - **Faz EX-ID** (Bölüm 43): Preset hareketlere slug `id` sistemi + Dead Hang deduplikasyonu + tüm referansların id'ye taşınması ✅
+- **Blog sistemi** (Bölüm 45): Markdown kaynaklı statik blog + sitemap + landing blog entegrasyonu ✅
+- **SEO statik landing** (Bölüm 46): EN `/` + TR `/tr` statik landing, canonical apex domain, statik blog kart enjeksiyonu ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

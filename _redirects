@@ -7,6 +7,10 @@
 # dosyalarını otomatik olarak clean URL olarak sunuyor.
 # Burada kural eklemek redirect döngüsüne neden olur.
 
+# Statik TR landing
+/tr           /tr.html        200
+/tr/          /tr.html        200
+
 # /app/* SPA route'ları — yeni URL şeması (wildcard)
 /app/*        /app.html       200
 

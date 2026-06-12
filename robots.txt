@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.logwise.fit/sitemap.xml
+Sitemap: https://logwise.fit/sitemap.xml

@@ -43,4 +43,4 @@ Overload is a comparison. No record, no comparison, no overload — just random 
 - **Confusing soreness with progress.** Soreness measures novelty, not growth. The log measures growth.
 - **Program hopping.** Any reasonable program works if the numbers go up. None work if they don't.
 
-Progressive overload is boring, slow and completely reliable — the opposite of most fitness content. Track your lifts, beat last week by a little, and let the months do the heavy lifting. If you want the tracking part to take seconds instead of spreadsheets, that's exactly what [LogWise](https://www.logwise.fit/app) is built for.
+Progressive overload is boring, slow and completely reliable — the opposite of most fitness content. Track your lifts, beat last week by a little, and let the months do the heavy lifting. If you want the tracking part to take seconds instead of spreadsheets, that's exactly what [LogWise](https://logwise.fit/app) is built for.

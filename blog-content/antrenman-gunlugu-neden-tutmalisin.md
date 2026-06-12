@@ -39,7 +39,7 @@ Veri varsa müdahale de net olur: hacmi artır, deload haftası ekle, hareketi d
 2. **Antrenman öncesi son kaydına bak** — bugünün hedefi, geçen seferin bir tık üstü.
 3. **Haftada bir grafiğe bak** — yükseliyor mu? Devam. Düz mü? Planı gözden geçir.
 
-Başlamak için mükemmel bir sistem gerekmez; defter bile çalışır. Ama telefon zaten cebinde ve [LogWise](https://www.logwise.fit/app) tam olarak bunun için var: set kaydı saniyeler sürer, grafikler ve PR takibi otomatik gelir.
+Başlamak için mükemmel bir sistem gerekmez; defter bile çalışır. Ama telefon zaten cebinde ve [LogWise](https://logwise.fit/app) tam olarak bunun için var: set kaydı saniyeler sürer, grafikler ve PR takibi otomatik gelir.
 
 > Antrenman günlüğü hatırlamak için değil — **kıyaslamak** içindir.
 

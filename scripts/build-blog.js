@@ -3,8 +3,8 @@
  * LogWise Blog Üretici
  * --------------------
  * blog-content/*.md  →  blog/<slug>.html + blog/index.html + blog/posts.json
- * Ayrıca: sitemap.xml'i yeniden üretir ve landing (index.html) içindeki
- * BLOG-POSTS marker bloğuna öne çıkan yazı verisini enjekte eder.
+ * Ayrıca: sitemap.xml'i yeniden üretir ve landing sayfalarındaki
+ * BLOG-CARDS marker bloğuna öne çıkan yazı kartlarını enjekte eder.
  *
  * Kullanım:  node scripts/build-blog.js
  * Bağımlılık: scripts/vendor/marked.min.js (vendored UMD — npm install gerekmez)
@@ -33,10 +33,13 @@ const marked = markedMod.marked || markedMod;
 const ROOT = path.join(__dirname, '..');
 const CONTENT_DIR = path.join(ROOT, 'blog-content');
 const OUT_DIR = path.join(ROOT, 'blog');
-const LANDING = path.join(ROOT, 'index.html');
+const LANDING_FILES = [
+  { file: path.join(ROOT, 'index.html'), lang: 'en' },
+  { file: path.join(ROOT, 'tr.html'), lang: 'tr' }
+];
 const SITEMAP = path.join(ROOT, 'sitemap.xml');
 
-const SITE = 'https://www.logwise.fit';
+const SITE = 'https://logwise.fit';
 const OG_IMAGE = `${SITE}/icon-512.png`;
 
 // ---------------------------------------------------------------- helpers
@@ -76,6 +79,13 @@ function fmtDate(iso, lang) {
   const d = new Date(iso + 'T00:00:00');
   return d.toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US', {
     day: 'numeric', month: 'long', year: 'numeric'
+  });
+}
+
+function fmtShortDate(iso, lang) {
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString(lang === 'tr' ? 'tr-TR' : 'en-US', {
+    day: 'numeric', month: 'short', year: 'numeric'
   });
 }
 
@@ -359,6 +369,7 @@ fs.writeFileSync(path.join(OUT_DIR, 'posts.json'), JSON.stringify(manifest, null
 
 const sitemapEntries = [
   `  <url>\n    <loc>${SITE}/</loc>\n    <changefreq>weekly</changefreq>\n    <priority>1.0</priority>\n  </url>`,
+  `  <url>\n    <loc>${SITE}/tr</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.9</priority>\n  </url>`,
   `  <url>\n    <loc>${SITE}/blog</loc>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`,
   ...posts.map(p =>
     `  <url>\n    <loc>${SITE}/blog/${p.slug}</loc>\n    <lastmod>${p.date}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`)
@@ -371,17 +382,53 @@ fs.writeFileSync(
 
 // ---------------------------------------------------------------- landing enjeksiyonu
 
-const START = '/* BLOG-POSTS:START */';
-const END = '/* BLOG-POSTS:END */';
-let landing = fs.readFileSync(LANDING, 'utf8');
-const si = landing.indexOf(START);
-const ei = landing.indexOf(END);
-if (si === -1 || ei === -1 || ei < si) {
-  console.warn(`UYARI: index.html içinde ${START} / ${END} marker'ları bulunamadı — landing güncellenmedi.`);
-} else {
-  const injected = `${START}\nconst BLOG_POSTS = ${jsonForScript(manifest)};\n${END}`;
-  landing = landing.slice(0, si) + injected + landing.slice(ei + END.length);
-  fs.writeFileSync(LANDING, landing, 'utf8');
+const LANDING_START = '<!-- BLOG-CARDS:START -->';
+const LANDING_END = '<!-- BLOG-CARDS:END -->';
+
+function landingPostsFor(lang) {
+  return posts
+    .slice()
+    .sort((a, b) =>
+      Number(b.featured) - Number(a.featured) ||
+      (a.lang === lang ? 0 : 1) - (b.lang === lang ? 0 : 1) ||
+      b.date.localeCompare(a.date) ||
+      a.slug.localeCompare(b.slug)
+    )
+    .slice(0, 3);
+}
+
+function landingCard(p, lang) {
+  const read = lang === 'tr' ? 'OKU' : 'READ';
+  const minRead = lang === 'tr' ? 'dk okuma' : 'min read';
+  return `      <a href="/blog/${p.slug}" class="blog-card">
+        <div class="blog-card-meta">
+          <span class="blog-lang">${p.lang.toUpperCase()}</span>
+          <time datetime="${p.date}">${fmtShortDate(p.date, lang).toUpperCase()}</time>
+        </div>
+        <h3>${esc(p.title)}</h3>
+        <p>${esc(p.description)}</p>
+        <span class="blog-card-read">${p.readMins} ${minRead} · ${read} →</span>
+      </a>`;
+}
+
+const landingUpdated = [];
+for (const target of LANDING_FILES) {
+  if (!fs.existsSync(target.file)) {
+    console.warn(`UYARI: ${path.basename(target.file)} bulunamadı; landing blog kartları enjekte edilmedi.`);
+    continue;
+  }
+  let html = fs.readFileSync(target.file, 'utf8');
+  const si = html.indexOf(LANDING_START);
+  const ei = html.indexOf(LANDING_END);
+  if (si === -1 || ei === -1 || ei < si) {
+    console.warn(`UYARI: ${path.basename(target.file)} içinde ${LANDING_START} / ${LANDING_END} marker'ları bulunamadı.`);
+    continue;
+  }
+  const cards = landingPostsFor(target.lang).map(p => landingCard(p, target.lang)).join('\n');
+  const injected = `${LANDING_START}\n${cards}\n      ${LANDING_END}`;
+  html = html.slice(0, si) + injected + html.slice(ei + LANDING_END.length);
+  fs.writeFileSync(target.file, html, 'utf8');
+  landingUpdated.push(path.basename(target.file));
 }
 
 // ---------------------------------------------------------------- özet
@@ -390,4 +437,7 @@ console.log(`Tamamlandı: ${posts.length} yazı üretildi.`);
 for (const p of posts) {
   console.log(`  /blog/${p.slug}  [${p.lang}] ${p.featured ? '★ featured' : ''}  ${p.date}  ${p.readMins} dk`);
 }
-console.log('Güncellendi: blog/index.html, blog/posts.json, sitemap.xml' + (si !== -1 ? ', index.html (BLOG_POSTS)' : ''));
+console.log(
+  'Güncellendi: blog/index.html, blog/posts.json, sitemap.xml' +
+  (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
+);

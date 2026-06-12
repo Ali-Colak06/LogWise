@@ -3348,3 +3348,41 @@ Landing page'den erişilebilen, SEO-dostu bir blog/bilgilendirici yazı bölüm�
 - Yazı görselleri için `blog/assets/` klasörü + frontmatter `cover:` alanı (og:image yazıya özel olur).
 - RSS/Atom feed üretimi (`blog/feed.xml`) — script'e kolayca eklenebilir.
 - Landing'in EN/TR dil tercihini blog index'ine taşıma (query param veya localStorage).
+
+
+
+---
+
+## Bölüm 46 — SEO Statik Landing + Canonical Domain Temizliği (2026-06-12)
+
+### Amaç
+
+Landing page'i Google'a JavaScript çalışmadan okunabilir, canonical sinyali temiz, hızlı statik HTML olarak sunmak. EN ana landing `/`, TR landing `/tr` oldu; ürün uygulaması `/app` altında kaldı.
+
+### Mimari Kararlar
+
+- **Landing React'ten ayrıldı:** `index.html` artık EN statik SEO landing; `tr.html` TR statik SEO landing. Landing tarafında React runtime, Babel standalone, `type="text/babel"` ve JSX yok.
+- **Uygulama shell'i korunur:** React uygulaması `app.html`/`/app` altında aynı üretim düzeniyle devam eder; landing değişikliği app state/DB katmanına dokunmaz.
+- **Ortak landing stili:** Eski inline landing CSS `styles/landing.css` dosyasına taşındı. `index.html` ve `tr.html` bu dosyayı kullanır.
+- **Mockup görselleri dosyalaştı:** Landing data URI görselleri `assets/landing/` altına çıkarıldı (`calendar`, `program`, `workout logging`, `progress chart`).
+- **Canonical apex domain:** `scripts/build-blog.js`, `robots.txt`, blog canonical/OG/JSON-LD ve sitemap üretimi `https://logwise.fit` kullanır; `www` canonical sinyali kaldırıldı.
+- **Statik blog kartları:** Blog üretici artık `BLOG_POSTS` JS const'u basmaz. `<!-- BLOG-CARDS:START -->` / `<!-- BLOG-CARDS:END -->` marker'ları arasına EN/TR landing için ilk 3 blog kartını statik HTML olarak enjekte eder.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `index.html` | EN statik landing + SEO meta + hreflang + JSON-LD |
+| `tr.html` | TR statik landing + SEO meta + hreflang + JSON-LD |
+| `styles/landing.css` | Landing CSS |
+| `assets/landing/*` | Landing mockup görselleri |
+| `scripts/build-blog.js` | Apex domain, `/tr` sitemap kaydı, statik landing blog kart enjeksiyonu |
+| `_redirects` | `/tr` ve `/tr/` clean URL rewrite |
+| `robots.txt` | Apex sitemap URL |
+| `sw.js` | `logwise-v27`; landing CSS, TR landing ve mockup asset precache |
+
+### Doğrulama Notları
+
+- `node scripts/build-blog.js` çalıştırıldığında blog sayfaları, `posts.json`, `sitemap.xml`, `index.html` ve `tr.html` birlikte güncellenir.
+- Blog post HTML'leri service worker precache listesine eklenmez; navigation network-first davranışı korunur.
+- Sonraki içerik büyüme fazı ayrı kalır: EN comparison yazıları, evergreen tool pages ve programmatic exercise/program sayfaları bu bölümün kapsamına dahil edilmedi.
