@@ -72,6 +72,7 @@
         </div>
         <div class="template-toolbar no-print">
           <button type="button" data-template-action="add">ADD ROW</button>
+          <button type="button" data-template-action="add-set">ADD SET</button>
           <button type="button" data-template-action="clear">CLEAR</button>
           <button type="button" class="on" data-template-action="print">PRINT</button>
         </div>
@@ -274,18 +275,43 @@
 <script>
 (function () {
   const body = document.getElementById('template-body');
+  const headerRow = document.querySelector('.template-table thead tr');
   const actions = document.querySelectorAll('[data-template-action]');
-  const blankCells = ['Exercise', '--', '--', '--', '--', '--', 'Notes'];
+
+  function setCount() {
+    return Array.from(headerRow.children).filter(cell => /^Set\s+\d+$/i.test(cell.textContent.trim())).length;
+  }
+
+  function rirIndex() {
+    return Array.from(headerRow.children).findIndex(cell => cell.textContent.trim().toUpperCase() === 'RIR');
+  }
+
+  function blankCells() {
+    return ['Exercise'].concat(Array.from({ length: setCount() }, () => '--'), ['--', 'Notes']);
+  }
 
   function addRow() {
     const row = document.createElement('tr');
-    blankCells.forEach(text => {
+    blankCells().forEach(text => {
       const cell = document.createElement('td');
       cell.contentEditable = 'true';
       cell.textContent = text;
       row.appendChild(cell);
     });
     body.appendChild(row);
+  }
+
+  function addSet() {
+    const insertAt = rirIndex();
+    const header = document.createElement('th');
+    header.textContent = 'Set ' + (setCount() + 1);
+    headerRow.insertBefore(header, headerRow.children[insertAt]);
+    Array.from(body.children).forEach(row => {
+      const cell = document.createElement('td');
+      cell.contentEditable = 'true';
+      cell.textContent = '--';
+      row.insertBefore(cell, row.children[insertAt]);
+    });
   }
 
   function clearTemplate() {
@@ -298,6 +324,7 @@
     button.addEventListener('click', () => {
       const action = button.getAttribute('data-template-action');
       if (action === 'add') addRow();
+      if (action === 'add-set') addSet();
       if (action === 'clear') clearTemplate();
       if (action === 'print') window.print();
     });

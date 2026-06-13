@@ -720,6 +720,8 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
 .template-table td{padding:9px;border-top:1px solid #d8ceb9;border-right:1px solid #d8ceb9;min-height:34px;outline:0}
 .template-table th:last-child,.template-table td:last-child{border-right:0}
 .template-table td:first-child{font-weight:700;min-width:130px}
+.template-table th:not(:first-child):not(:last-child),.template-table td:not(:first-child):not(:last-child){min-width:96px}
+.template-table th:last-child,.template-table td:last-child{min-width:220px}
 .sheet-notes{margin-top:12px}
 .sheet-notes p{min-height:54px;color:#17130a;font-size:13px;line-height:1.45;outline:0}
 @media (max-width:1024px){
