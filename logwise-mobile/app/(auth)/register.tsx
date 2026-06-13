@@ -1,65 +1,79 @@
 /**
- * A3 Register — ADIM 4 final + ADIM 5 migration entegrasyon.
+ * A3 Register — kayıt ekranı (email doğrulaması AÇIK akışı).
  *
  * Spec: 05-screen-specs.md §A4 Register.
  * Karar kaynakları:
- *   §3.3 — Username YOK (MVP); display_name (fullname) zorunlu
- *   §3.6 — Email confirmation KAPALI; signUp success -> session direkt doner -> calendar
- *   §3.9.1 — Misafir -> hesap migration (ADIM 5: gercek impl + overlay)
- *   §5    — Google OAuth YOK; email+password only
+ *   §3.3 — display_name (fullname) zorunlu. Username web paritesi için eklendi
+ *          (app_profiles.username UNIQUE; kayıttan önce RPC ile müsaitlik kontrolü).
+ *   Email doğrulaması AÇIK (proje geneli, web ile ortak) → signUp session DÖNDÜRMEZ.
+ *     Kayıt sonrası "mailini kontrol et" (Verify) ekranına gidilir; profil oluşturma
+ *     + misafir→hesap migration'ı doğrulama+ilk girişten sonra `(app)/_layout`'ta
+ *     yapılır (signup anında session yok → RLS engelliyor).
+ *   §5 — Google OAuth YOK; email+password only.
  */
 import { useState, useRef } from 'react';
-import { Mail, Lock, User, ChevronLeft, Globe } from 'lucide-react-native';
+import { Mail, Lock, User, AtSign } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
-import { TextInput as RNTextInput, KeyboardAvoidingView, Platform } from 'react-native';
+import { TextInput as RNTextInput, KeyboardAvoidingView, Keyboard, Platform } from 'react-native';
 import { Button, HStack, Icon, Input, Screen, Text, VStack, useToast } from '../../components/ui';
-import { useT, useLocaleStore } from '../../lib/i18n';
+import AuthHeader from '../../components/shared/AuthHeader';
+import AuthBrand from '../../components/shared/AuthBrand';
+import { useT } from '../../lib/i18n';
 import { useAuthSignUp } from '../../queries/auth';
 import { useAuthStore } from '../../stores/auth-store';
-import { migrateGuestToAccount } from '../../lib/migration';
-import { clearAllGuestData, writeGuestModeFlag } from '../../lib/guest-storage';
-import MigrationLoadingOverlay from '../../components/auth/MigrationLoadingOverlay';
+import { writePendingMigration } from '../../lib/guest-storage';
 
 function isValidEmail(s: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.trim());
 }
 
+// Web ile aynı kural: 3-20 karakter, harf/rakam/alt çizgi.
+const USERNAME_RE = /^[a-zA-Z0-9_]{3,20}$/;
+
 export default function RegisterScreen() {
   const t = useT();
   const router = useRouter();
   const toast = useToast();
-  const locale = useLocaleStore((s) => s.locale);
-  const setLocale = useLocaleStore((s) => s.setLocale);
   const guestMode = useAuthStore((s) => s.mode);
-  const exitGuest = useAuthStore((s) => s.exitGuest);
 
   const [fullname, setFullname] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPw, setConfirmPw] = useState('');
 
   const [fullnameErr, setFullnameErr] = useState<string | undefined>(undefined);
+  const [usernameErr, setUsernameErr] = useState<string | undefined>(undefined);
   const [emailErr, setEmailErr] = useState<string | undefined>(undefined);
   const [pwErr, setPwErr] = useState<string | undefined>(undefined);
   const [confirmErr, setConfirmErr] = useState<string | undefined>(undefined);
 
+  const usernameRef = useRef<RNTextInput | null>(null);
   const emailRef = useRef<RNTextInput | null>(null);
   const passwordRef = useRef<RNTextInput | null>(null);
   const confirmRef = useRef<RNTextInput | null>(null);
 
   const signUp = useAuthSignUp();
-  const [migrating, setMigrating] = useState(false);
 
   const onSubmit = () => {
     let ok = true;
     setFullnameErr(undefined);
+    setUsernameErr(undefined);
     setEmailErr(undefined);
     setPwErr(undefined);
     setConfirmErr(undefined);
 
     const trimmedName = fullname.trim();
+    const trimmedUsername = username.trim();
     if (trimmedName.length < 2) {
       setFullnameErr(t('auth.errFullnameTooShort'));
+      ok = false;
+    }
+    if (!trimmedUsername) {
+      setUsernameErr(t('auth.errUsernameRequired'));
+      ok = false;
+    } else if (!USERNAME_RE.test(trimmedUsername)) {
+      setUsernameErr(t('auth.errUsernameInvalid'));
       ok = false;
     }
     if (!email.trim()) {
@@ -82,34 +96,36 @@ export default function RegisterScreen() {
     }
     if (!ok) return;
 
+    // Toast ekran altında; klavye açıkken arkasında kalmasın diye submit'te kapat.
+    Keyboard.dismiss();
     signUp.mutate(
-      { email, password, fullname: trimmedName },
+      { email, password, fullname: trimmedName, username: trimmedUsername },
       {
         onSuccess: async (result) => {
-          toast.show({ message: t('auth.accountCreated'), variant: 'success' });
-
+          // Misafir verisi varsa: doğrulama + ilk girişten sonra (app)/_layout migrate eder.
           if (guestMode === 'guest') {
-            setMigrating(true);
-            const res = await migrateGuestToAccount(result.userId);
-            setMigrating(false);
-            if (res.ok) {
-              await clearAllGuestData();
-              const ex = res.counts.exercises;
-              const wk = res.counts.workouts;
-              const msg = t('migration.successToast')
-                .replace('%{ex}', String(ex))
-                .replace('%{wk}', String(wk));
-              toast.show({ message: msg, variant: 'success' });
-            } else {
-              console.warn('[register] migration fail', res.error);
-              toast.show({ message: t('migration.errorToast'), variant: 'danger' });
-            }
-            await writeGuestModeFlag(false);
-            exitGuest();
+            await writePendingMigration(true);
           }
+
+          // Email doğrulaması AÇIK → signUp session döndürmez → "mailini kontrol et".
+          if (!result.session) {
+            toast.show({ message: t('auth.verifyEmailSent'), variant: 'success' });
+            router.replace({ pathname: '/(auth)/verify', params: { email: email.trim() } });
+            return;
+          }
+
+          // Defansif: doğrulama kapalıysa session döner. Profil + migration ilk girişte
+          // (app)/_layout'ta işlenir; layout otomatik calendar'a yönlendirir.
+          toast.show({ message: t('auth.accountCreated'), variant: 'success' });
         },
         onError: (err) => {
-          const msg = err.message?.toLowerCase() ?? '';
+          const raw = err.message ?? '';
+          // Username alınmış → inline alan hatası (toast değil).
+          if (raw === 'USERNAME_TAKEN') {
+            setUsernameErr(t('auth.errUsernameTaken'));
+            return;
+          }
+          const msg = raw.toLowerCase();
           let key: 'errEmailTaken' | 'errWeakPassword' | 'errNetwork' | 'errRateLimit' = 'errEmailTaken';
           if (msg.includes('already') || msg.includes('registered') || msg.includes('exists')) {
             key = 'errEmailTaken';
@@ -130,36 +146,15 @@ export default function RegisterScreen() {
 
   return (
     <Screen variant="default" scroll={true}>
-      <HStack justify="space-between" align="center" paddingY="sm">
-        <Button
-          variant="ghost"
-          size="sm"
-          icon={<Icon component={ChevronLeft} size={22} color="secondary" />}
-          onPress={() => router.back()}
-          accessibilityLabel={t('auth.backToLogin')}
-        />
-        <Button
-          label={locale === 'tr' ? 'TR' : 'EN'}
-          variant="ghost"
-          size="sm"
-          icon={<Icon component={Globe} size={16} color="secondary" />}
-          onPress={() => setLocale(locale === 'tr' ? 'en' : 'tr')}
-        />
-      </HStack>
+      <AuthHeader backAccessibilityLabel={t('auth.backToLogin')} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{ flex: 1 }}
       >
         <VStack gap="2xl" align="center" paddingY="2xl">
-          <VStack gap="xs" align="center">
-            <Text variant="title" font="display" align="center">
-              LogWise
-            </Text>
-            <Text variant="body" color="secondary" align="center">
-              {t('auth.subheadRegister')}
-            </Text>
-          </VStack>
+          {/* Brand */}
+          <AuthBrand subhead={t('auth.subheadRegister')} />
 
           <VStack gap="md" width="100%">
             <Input
@@ -170,9 +165,22 @@ export default function RegisterScreen() {
               iconLeft={<Icon component={User} size={18} color="secondary" />}
               autoComplete="name"
               returnKeyType="next"
-              onSubmitEditing={() => emailRef.current?.focus()}
+              onSubmitEditing={() => usernameRef.current?.focus()}
               error={fullnameErr}
               testID="register-fullname"
+            />
+
+            <Input
+              ref={usernameRef}
+              value={username}
+              onChangeText={(v) => setUsername(v.replace(/[^a-zA-Z0-9_]/g, '').slice(0, 20))}
+              type="username"
+              placeholder={t('auth.username')}
+              iconLeft={<Icon component={AtSign} size={18} color="secondary" />}
+              returnKeyType="next"
+              onSubmitEditing={() => emailRef.current?.focus()}
+              error={usernameErr}
+              testID="register-username"
             />
 
             <Input
@@ -246,8 +254,6 @@ export default function RegisterScreen() {
           </Text>
         </VStack>
       </KeyboardAvoidingView>
-
-      <MigrationLoadingOverlay visible={migrating} />
     </Screen>
   );
 }

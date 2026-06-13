@@ -33,3 +33,6 @@ export type { SegmentedTabsProps, SegmentedTabOption } from './SegmentedTabs';
 
 export { default as BottomTabBar } from './BottomTabBar';
 export type { AppBottomTabBarProps } from './BottomTabBar';
+
+export { default as LangPill } from './LangPill';
+export type { LangPillProps } from './LangPill';

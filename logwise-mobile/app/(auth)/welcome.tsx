@@ -1,20 +1,21 @@
 /**
- * A1 Welcome — ADIM 4 final implementation.
+ * A1 Welcome — anonim kullanıcının ilk gerçek temas noktası.
  *
- * Spec: 05-screen-specs.md §A2 Welcome (anonim kullanıcının ilk gerçek temas noktası).
- * Karar kaynakları: §3.6 (auto-login), §3.9 (guest mode), §3.9.1 (guest -> hesap).
+ * Spec: 05-screen-specs.md §A2 Welcome. Karar kaynakları: §3.6, §3.9, §3.9.1.
  *
  * Akış:
- *   - Login butonu  → router.push('/login')        (A2)
- *   - Register butonu → router.push('/register')   (A3)
- *   - Misafir butonu → enterGuest() + writeGuestModeFlag(true) + router.replace('/(app)/calendar')
+ *   - Hesap Oluştur → /(auth)/register  (primary)
+ *   - Giriş Yap     → /(auth)/login     (secondary)
+ *   - Misafir       → enterGuest() + writeGuestModeFlag(true) + /(app)/calendar (tertiary)
  *
- * Layout (prototype'ta yok ama spec'te §A2 layout sketch'te tarif edildi):
- *   [Lang pill top-right] [BrandMark + Wordmark + Tagline center] [3 CTA buttons] [guest note]
+ * Marka bloğu (BrandMark + Wordmark) ve LangPill auth ekranlarında ortaktır.
  */
-import { Globe } from 'lucide-react-native';
+import { View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Button, HStack, Icon, Screen, Text, VStack } from '../../components/ui';
+import { Button, LangPill, Screen, Text, VStack } from '../../components/ui';
+import BrandMark from '../../components/shared/BrandMark';
+import Wordmark from '../../components/shared/Wordmark';
+import { space } from '../../theme/tokens';
 import { useT, useLocaleStore } from '../../lib/i18n';
 import { useAuthStore } from '../../stores/auth-store';
 import { writeGuestModeFlag } from '../../lib/guest-storage';
@@ -25,8 +26,6 @@ export default function WelcomeScreen() {
   const locale = useLocaleStore((s) => s.locale);
   const setLocale = useLocaleStore((s) => s.setLocale);
   const enterGuest = useAuthStore((s) => s.enterGuest);
-
-  const toggleLocale = () => setLocale(locale === 'tr' ? 'en' : 'tr');
 
   const handleGuest = async () => {
     enterGuest();
@@ -40,34 +39,21 @@ export default function WelcomeScreen() {
 
   return (
     <Screen variant="centered" scroll={false}>
-      {/* Top-right lang pill */}
-      <HStack
-        style={{
-          position: 'absolute',
-          top: 8,
-          right: 16,
-          zIndex: 10,
-        }}
-        gap="xs"
-      >
-        <Button
-          label={locale === 'tr' ? 'TR' : 'EN'}
-          variant="ghost"
-          size="sm"
-          icon={<Icon component={Globe} size={16} color="secondary" />}
-          onPress={toggleLocale}
-        />
-      </HStack>
+      {/* Üst sağ: segmented EN|TR */}
+      <View style={{ position: 'absolute', top: 8, right: 16, zIndex: 10 }}>
+        <LangPill value={locale} onChange={setLocale} />
+      </View>
 
       <VStack gap="4xl" align="center" width="100%" paddingY="4xl">
-        {/* Brand block */}
-        <VStack gap="sm" align="center">
-          <Text variant="title" font="display" align="center">
-            LogWise
-          </Text>
-          <Text variant="body" color="secondary" align="center">
-            {t('auth.tagline')}
-          </Text>
+        {/* Marka bloğu */}
+        <VStack gap="lg" align="center">
+          <BrandMark size={80} />
+          <VStack gap="xs" align="center">
+            <Wordmark size={26} />
+            <Text variant="body" color="secondary" align="center">
+              {t('auth.tagline')}
+            </Text>
+          </VStack>
         </VStack>
 
         {/* CTA stack */}
@@ -88,14 +74,15 @@ export default function WelcomeScreen() {
           />
           <Button
             label={t('guest.continueAsGuest')}
-            variant="secondary"
+            variant="ghost"
             size="md"
             fullWidth
             onPress={handleGuest}
+            style={{ marginTop: space.sm }}
           />
         </VStack>
 
-        {/* Guest note */}
+        {/* Misafir notu */}
         <Text variant="caption" color="tertiary" align="center">
           {t('guest.guestNote')}
         </Text>

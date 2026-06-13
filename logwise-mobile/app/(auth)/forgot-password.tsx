@@ -13,20 +13,15 @@
  *               + countdown ile "Yeniden gonder" (60sn)
  *               + back-link
  *   - Error (rate-limit / network) → toast
- *
- * MVP'de SUCCESS state'i:
- *   - Form alanı kalkar
- *   - Lock icon → MailCheck icon (gold)
- *   - "E-posta gönderildi." message
- *   - 60sn countdown + "Yeniden gönder"
- *   - Back-link (Login'e dön)
  */
 import { useEffect, useState } from 'react';
-import { Mail, Lock, MailCheck, ChevronLeft, ArrowLeft, Globe, Info } from 'lucide-react-native';
+import { Mail, Lock, MailCheck, ArrowLeft, Info } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Button, HStack, Icon, Input, Screen, Text, VStack, useToast } from '../../components/ui';
-import { useT, useLocaleStore } from '../../lib/i18n';
+import AuthHeader from '../../components/shared/AuthHeader';
+import AuthBrand from '../../components/shared/AuthBrand';
+import { useT } from '../../lib/i18n';
 import { useAuthResetPassword } from '../../queries/auth';
 
 function isValidEmail(s: string): boolean {
@@ -39,8 +34,6 @@ export default function ForgotPasswordScreen() {
   const t = useT();
   const router = useRouter();
   const toast = useToast();
-  const locale = useLocaleStore((s) => s.locale);
-  const setLocale = useLocaleStore((s) => s.setLocale);
 
   const [email, setEmail] = useState('');
   const [emailErr, setEmailErr] = useState<string | undefined>(undefined);
@@ -93,22 +86,7 @@ export default function ForgotPasswordScreen() {
 
   return (
     <Screen variant="default" scroll={true}>
-      <HStack justify="space-between" align="center" paddingY="sm">
-        <Button
-          variant="ghost"
-          size="sm"
-          icon={<Icon component={ChevronLeft} size={22} color="secondary" />}
-          onPress={() => router.back()}
-          accessibilityLabel={t('auth.backToLogin')}
-        />
-        <Button
-          label={locale === 'tr' ? 'TR' : 'EN'}
-          variant="ghost"
-          size="sm"
-          icon={<Icon component={Globe} size={16} color="secondary" />}
-          onPress={() => setLocale(locale === 'tr' ? 'en' : 'tr')}
-        />
-      </HStack>
+      <AuthHeader backAccessibilityLabel={t('auth.backToLogin')} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -116,9 +94,7 @@ export default function ForgotPasswordScreen() {
       >
         <VStack gap="2xl" align="center" paddingY="2xl">
           {/* Brand */}
-          <Text variant="title" font="display" align="center">
-            LogWise
-          </Text>
+          <AuthBrand />
 
           {/* Big icon + section title */}
           <VStack gap="md" align="center">

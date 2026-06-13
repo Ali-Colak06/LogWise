@@ -43,6 +43,7 @@ export interface Translations {
     email: string;
     password: string;
     fullname: string;
+    username: string;                 // "Username" / "Kullanıcı adı"
     confirmPw: string;
     noAccount: string;
     hasAccount: string;
@@ -68,6 +69,11 @@ export interface Translations {
     verifySubtitle: string;           // "We sent a verification link..."
     verifyContinue: string;           // "Email confirmation MVP'de kapali, Calendar'a git"
     goToCalendar: string;
+    verifyEmailSent: string;          // toast: kayit sonrasi "dogrulama maili gonderildi"
+    verifyAfterConfirm: string;       // "Onayladiktan sonra giris yapabilirsin"
+    verifyResend: string;             // "Yeniden gonder"
+    verifyResent: string;             // toast: "dogrulama maili tekrar gonderildi"
+    verifySpamTip: string;            // "spam/gereksiz klasorunu kontrol et" ipucu
     // Error messages
     errInvalidCredentials: string;    // "Email or password is wrong"
     errEmailTaken: string;            // "This email is already in use. Sign in."
@@ -79,6 +85,9 @@ export interface Translations {
     errFullnameTooShort: string;      // "Name must be at least 2 characters"
     errEmailRequired: string;         // "Email is required"
     errPasswordRequired: string;      // "Password is required"
+    errUsernameRequired: string;      // "Username is required"
+    errUsernameInvalid: string;       // "3-20 chars: letters, numbers and _"
+    errUsernameTaken: string;         // "This username is taken"
     // Toasts
     welcomeBack: string;              // "Welcome back!" / "Tekrar hosgeldin!"
     accountCreated: string;           // "Account created — welcome!"

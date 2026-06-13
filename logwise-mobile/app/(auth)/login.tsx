@@ -19,11 +19,13 @@
  *   Daha detaylı validation gerekirse (rate-limit, password policy) backend döner.
  */
 import { useState, useRef } from 'react';
-import { Mail, Lock, ChevronLeft, Globe } from 'lucide-react-native';
+import { Mail, Lock } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
-import { TextInput as RNTextInput, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { TextInput as RNTextInput, View, KeyboardAvoidingView, Keyboard, Platform } from 'react-native';
 import { Button, HStack, Icon, Input, Screen, Text, VStack, useToast } from '../../components/ui';
-import { useT, useLocaleStore } from '../../lib/i18n';
+import AuthHeader from '../../components/shared/AuthHeader';
+import AuthBrand from '../../components/shared/AuthBrand';
+import { useT } from '../../lib/i18n';
 import { useAuthSignIn } from '../../queries/auth';
 
 function isValidEmail(s: string): boolean {
@@ -34,8 +36,6 @@ export default function LoginScreen() {
   const t = useT();
   const router = useRouter();
   const toast = useToast();
-  const locale = useLocaleStore((s) => s.locale);
-  const setLocale = useLocaleStore((s) => s.setLocale);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -63,6 +63,8 @@ export default function LoginScreen() {
     }
     if (!ok) return;
 
+    // Toast ekran altında; klavye açıkken arkasında kalmasın diye submit'te kapat.
+    Keyboard.dismiss();
     signIn.mutate(
       { email, password },
       {
@@ -86,23 +88,7 @@ export default function LoginScreen() {
 
   return (
     <Screen variant="default" scroll={true}>
-      {/* Top bar: back + lang pill */}
-      <HStack justify="space-between" align="center" paddingY="sm">
-        <Button
-          variant="ghost"
-          size="sm"
-          icon={<Icon component={ChevronLeft} size={22} color="secondary" />}
-          onPress={() => router.back()}
-          accessibilityLabel={t('auth.backToLogin')}
-        />
-        <Button
-          label={locale === 'tr' ? 'TR' : 'EN'}
-          variant="ghost"
-          size="sm"
-          icon={<Icon component={Globe} size={16} color="secondary" />}
-          onPress={() => setLocale(locale === 'tr' ? 'en' : 'tr')}
-        />
-      </HStack>
+      <AuthHeader backAccessibilityLabel={t('auth.backToLogin')} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -110,14 +96,7 @@ export default function LoginScreen() {
       >
         <VStack gap="2xl" align="center" paddingY="2xl">
           {/* Brand */}
-          <VStack gap="xs" align="center">
-            <Text variant="title" font="display" align="center">
-              LogWise
-            </Text>
-            <Text variant="body" color="secondary" align="center">
-              {t('auth.subheadLogin')}
-            </Text>
-          </VStack>
+          <AuthBrand subhead={t('auth.subheadLogin')} />
 
           {/* Form */}
           <VStack gap="md" width="100%">

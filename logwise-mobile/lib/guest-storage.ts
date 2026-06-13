@@ -116,6 +116,26 @@ export async function writeGuestModeFlag(active: boolean): Promise<void> {
 }
 
 // ============================================================================
+// Bekleyen migration bayrağı (email doğrulaması AÇIK akışı)
+// ============================================================================
+// Misafir kullanıcı kayıt olduğunda doğrulama açık olduğu için signUp session
+// döndürmez → migration o an yapılamaz. Bu bayrak set edilir; kullanıcı maili
+// onaylayıp ilk kez giriş yapınca `(app)/_layout` migration'ı çalıştırır.
+// NOT: GUEST_PREFIX dışında bir anahtar → clearAllGuestData onu silmez; açıkça
+// `writePendingMigration(false)` ile temizlenir (migration başarılı olunca).
+
+const PENDING_MIGRATION_KEY = '@logwise/pending_migration';
+
+export async function readPendingMigration(): Promise<boolean> {
+  const v = await readGuest<boolean>(PENDING_MIGRATION_KEY);
+  return v === true;
+}
+
+export async function writePendingMigration(active: boolean): Promise<void> {
+  await writeGuest(PENDING_MIGRATION_KEY, active);
+}
+
+// ============================================================================
 // ADIM 5 — Tip iskeleti: misafir tablolari `app_*` Row sekline cok yakin
 // ============================================================================
 // Misafir tablolari Supabase'e gitmez ama migration sirasinda 1-1 map edilebilmesi

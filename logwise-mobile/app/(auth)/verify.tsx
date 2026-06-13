@@ -1,53 +1,71 @@
 /**
- * A5 Verify Email — ADIM 4 placeholder.
+ * A5 Verify Email — kayıt sonrası "mailini kontrol et" ekranı.
  *
- * Spec: auth-prototype/index.html Section 4 + 05-screen-specs.md §A5 referansi.
- * Karar kaynagi: §3.6 03-mvp — Email confirmation **KAPALI** MVP'de.
+ * Email doğrulaması AÇIK (proje geneli). signUp session döndürmediği için kayıt
+ * sonrası buraya yönlendirilir. Kullanıcı maildeki bağlantıyı (tarayıcıda) onaylar,
+ * sonra uygulamaya dönüp GİRİŞ yapar → `(app)/_layout` profil + migration'ı halleder.
  *
- * Bu route MVP'de pratikte hic mount edilmez — signUp dogrudan session doner ve
- * (auth)/_layout otomatik calendar'a yonlendirir. Yine de:
- *   - Supabase admin ayari yanlissa ve email_confirmed_at=null user donerse buraya
- *     yonlendirilebilir (defensive).
- *   - Future-proof: confirmation aktive edildiginde ekran zaten hazir.
- *
- * Su anki UI:
- *   - "E-posta dogrulamasi MVP'de kapali" mesaji
- *   - [Calendar'a git] CTA → /(app)/calendar replace
- *   - Back to login link
+ * Mobil deep link MVP'de yok → onay tarayıcıda olur, kullanıcı app'e dönüp login olur.
  */
-import { MailCheck, ChevronLeft, Globe } from 'lucide-react-native';
-import { useRouter } from 'expo-router';
-import { Button, HStack, Icon, Screen, Text, VStack } from '../../components/ui';
-import { useT, useLocaleStore } from '../../lib/i18n';
+import { useEffect, useState } from 'react';
+import { MailCheck, Info } from 'lucide-react-native';
+import { useRouter, useLocalSearchParams } from 'expo-router';
+import { Button, HStack, Icon, Screen, Text, VStack, useToast } from '../../components/ui';
+import AuthHeader from '../../components/shared/AuthHeader';
+import AuthBrand from '../../components/shared/AuthBrand';
+import { useT } from '../../lib/i18n';
+import { useAuthResendSignup } from '../../queries/auth';
+
+const RESEND_SECONDS = 60;
 
 export default function VerifyScreen() {
   const t = useT();
   const router = useRouter();
-  const locale = useLocaleStore((s) => s.locale);
-  const setLocale = useLocaleStore((s) => s.setLocale);
+  const toast = useToast();
+  const params = useLocalSearchParams<{ email?: string }>();
+  const email = typeof params.email === 'string' ? params.email : '';
+
+  const [countdown, setCountdown] = useState(RESEND_SECONDS);
+  const resend = useAuthResendSignup();
+
+  useEffect(() => {
+    if (countdown <= 0) return;
+    const id = setTimeout(() => setCountdown((c) => c - 1), 1000);
+    return () => clearTimeout(id);
+  }, [countdown]);
+
+  const onResend = () => {
+    if (!email) return;
+    resend.mutate(
+      { email },
+      {
+        onSuccess: () => {
+          setCountdown(RESEND_SECONDS);
+          toast.show({ message: t('auth.verifyResent'), variant: 'success' });
+        },
+        onError: (err) => {
+          const msg = err.message?.toLowerCase() ?? '';
+          const key = msg.includes('rate') || msg.includes('too many') ? 'errRateLimit' : 'errNetwork';
+          toast.show({ message: t(`auth.${key}`), variant: 'danger' });
+        },
+      },
+    );
+  };
+
+  const formatCountdown = (n: number) => `0:${n.toString().padStart(2, '0')}`;
+  const resendLabel =
+    countdown > 0 ? `${t('auth.verifyResend')} (${formatCountdown(countdown)})` : t('auth.verifyResend');
 
   return (
     <Screen variant="default" scroll={true}>
-      <HStack justify="space-between" align="center" paddingY="sm">
-        <Button
-          variant="ghost"
-          size="sm"
-          icon={<Icon component={ChevronLeft} size={22} color="secondary" />}
-          onPress={() => router.back()}
-        />
-        <Button
-          label={locale === 'tr' ? 'TR' : 'EN'}
-          variant="ghost"
-          size="sm"
-          icon={<Icon component={Globe} size={16} color="secondary" />}
-          onPress={() => setLocale(locale === 'tr' ? 'en' : 'tr')}
-        />
-      </HStack>
+      <AuthHeader
+        onBack={() => router.replace('/(auth)/login')}
+        backAccessibilityLabel={t('auth.backToLogin')}
+      />
 
-      <VStack gap="2xl" align="center" paddingY="4xl">
-        <Text variant="title" font="display" align="center">
-          LogWise
-        </Text>
+      <VStack gap="2xl" align="center" paddingY="2xl">
+        {/* Brand */}
+        <AuthBrand />
 
         <VStack gap="md" align="center">
           <Icon component={MailCheck} size={48} accent />
@@ -57,28 +75,43 @@ export default function VerifyScreen() {
           <Text variant="body" color="secondary" align="center">
             {t('auth.verifySubtitle')}
           </Text>
+          {email ? (
+            <Text variant="bodyStrong" color="primary" align="center">
+              {email}
+            </Text>
+          ) : null}
+          <Text variant="caption" color="tertiary" align="center">
+            {t('auth.verifyAfterConfirm')}
+          </Text>
         </VStack>
 
-        <Text variant="body" color="primary" align="center">
-          {t('auth.verifyContinue')}
-        </Text>
-
         <VStack gap="md" width="100%">
+          {/* Onaydan sonra giriş yap */}
           <Button
-            label={t('auth.goToCalendar')}
+            label={t('auth.login')}
             variant="primary"
             size="lg"
             fullWidth
-            onPress={() => router.replace('/(app)/calendar')}
-          />
-          <Button
-            label={t('auth.backToLogin')}
-            variant="ghost"
-            size="md"
-            fullWidth
             onPress={() => router.replace('/(auth)/login')}
           />
+          {/* Doğrulama mailini yeniden gönder (countdown) */}
+          <Button
+            label={resendLabel}
+            variant="secondary"
+            size="md"
+            fullWidth
+            disabled={countdown > 0 || resend.isPending || !email}
+            onPress={onResend}
+          />
         </VStack>
+
+        {/* Spam/gereksiz klasörü ipucu */}
+        <HStack gap="sm" align="flex-start" paddingX="sm">
+          <Icon component={Info} size={16} color="tertiary" />
+          <Text variant="caption" color="tertiary" style={{ flex: 1 }}>
+            {t('auth.verifySpamTip')}
+          </Text>
+        </HStack>
       </VStack>
     </Screen>
   );

@@ -59,6 +59,7 @@ export interface SignUpVars {
   email: string;
   password: string;
   fullname?: string;
+  username: string;
 }
 
 export interface SignUpResult {
@@ -69,21 +70,75 @@ export interface SignUpResult {
 
 export function useAuthSignUp() {
   return useMutation<SignUpResult, Error, SignUpVars>({
-    mutationFn: async ({ email, password, fullname }) => {
+    mutationFn: async ({ email, password, fullname, username }) => {
+      const uname = username.trim().toLowerCase();
+
+      // Username müsaitlik pre-check (RLS-safe RPC) — app_profiles "own only"
+      // olduğu için istemci başkalarının username'ini doğrudan göremez.
+      const { data: available, error: checkErr } = await supabase.rpc(
+        'check_app_username_available',
+        { p_username: uname },
+      );
+      if (checkErr) throw new Error(checkErr.message);
+      if (available === false) throw new Error('USERNAME_TAKEN');
+
       const { data, error } = await supabase.auth.signUp({
         email: email.trim(),
         password,
         options: {
-          data: fullname ? { display_name: fullname.trim() } : undefined,
+          data: {
+            ...(fullname ? { display_name: fullname.trim() } : {}),
+            username: uname,
+          },
         },
       });
       if (error) throw new Error(error.message);
       if (!data.user) throw new Error('User missing after signUp');
+
+      // app_profiles satırını username + display_name ile oluştur (auth.users'ta
+      // trigger yok). Email confirmation kapalı → session döner → RLS altında
+      // insert yetkili (auth.uid() = user_id).
+      if (data.session) {
+        const { error: profErr } = await supabase.from('app_profiles').upsert(
+          {
+            user_id: data.user.id,
+            username: uname,
+            display_name: fullname?.trim() ?? null,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: 'user_id' },
+        );
+        if (profErr) {
+          // Nadir yarış: pre-check ile insert arası başkası aldıysa unique violation
+          if (profErr.code === '23505' || /duplicate|unique|username/i.test(profErr.message)) {
+            throw new Error('USERNAME_TAKEN');
+          }
+          console.warn('[signUp] app_profiles upsert fail', profErr);
+        }
+      }
+
       return {
         session: data.session,
         userId: data.user.id,
         needsConfirmation: data.session === null,
       };
+    },
+  });
+}
+
+// ============================================================================
+// Resend signup confirmation (email doğrulaması maili tekrar gönder)
+// ============================================================================
+
+export interface ResendSignupVars {
+  email: string;
+}
+
+export function useAuthResendSignup() {
+  return useMutation<void, Error, ResendSignupVars>({
+    mutationFn: async ({ email }) => {
+      const { error } = await supabase.auth.resend({ type: 'signup', email: email.trim() });
+      if (error) throw new Error(error.message);
     },
   });
 }

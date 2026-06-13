@@ -39,7 +39,7 @@ import { useTheme } from '../../theme';
 import Text from './Text';
 import Icon from './Icon';
 
-export type InputType = 'text' | 'email' | 'password' | 'number';
+export type InputType = 'text' | 'email' | 'password' | 'number' | 'username';
 
 export interface InputProps {
   value: string;
@@ -115,6 +115,10 @@ const TextInputCmp = forwardRef<TextInput, InputProps>(function Input(
     autoCapitalize = 'none';
     autoComplete2 = autoComplete ?? 'password';
     textContentType2 = textContentType ?? 'password';
+  } else if (type === 'username') {
+    autoCapitalize = 'none';
+    autoComplete2 = autoComplete ?? 'username';
+    textContentType2 = textContentType ?? 'username';
   } else {
     autoCapitalize = 'sentences';
   }
@@ -159,7 +163,7 @@ const TextInputCmp = forwardRef<TextInput, InputProps>(function Input(
           secureTextEntry={secure}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
-          autoCorrect={type !== 'email' && type !== 'password'}
+          autoCorrect={type === 'text'}
           autoComplete={autoComplete2}
           textContentType={textContentType2}
           autoFocus={autoFocus}

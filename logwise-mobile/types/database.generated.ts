@@ -520,6 +520,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      check_app_username_available: {
+        Args: { p_username: string }
+        Returns: boolean
+      }
       delete_own_account: { Args: never; Returns: undefined }
     }
     Enums: {
