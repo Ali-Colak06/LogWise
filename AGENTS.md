@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-12 — SEO evergreen tool sayfaları eklendi: 1RM calculator + workout log template; build-blog sitemap statik sayfa kayıtlarını da üretir. -->
+<!-- SON GÜNCELLEME: 2026-06-13 — Blog sistemi translationKey ile TR/EN varyantlı yazı mimarisine taşındı; blog sayfaları hreflang üretir. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -100,10 +100,10 @@ LogWise/
 │   ├── ex-preview-modal.js    ← ExPreviewModal
 │   ├── auth-screen.js         ← AuthScreen
 │   └── comment-section.js     ← CommentSection (Bölüm 44)
-├── blog-content/              ← Blog yazıları — Markdown kaynak (frontmatter'lı)
+├── blog-content/              ← Blog yazıları — Markdown kaynak (TR/EN varyantlı, translationKey frontmatter'lı)
 ├── blog/                      ← Üretilmiş statik blog sayfaları + blog.css (elle) + posts.json
 ├── scripts/
-│   ├── build-blog.js          ← blog-content/*.md → blog/*.html üretici + landing blog kart enjeksiyonu
+│   ├── build-blog.js          ← blog-content/*.md → blog/*.html üretici + TR/EN hreflang + landing blog kart enjeksiyonu
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← EN statik SEO landing
 ├── tr.html                    ← TR statik SEO landing
@@ -140,7 +140,7 @@ LogWise/
 | Landing CSS değiştirmek | `styles/landing.css` |
 | Sayfa-özel CSS eklemek | `profile.html` / `share.html` / `program.html` inline `<style>` |
 | sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
-| Yeni blog yazısı eklemek | `docs/BLOG-YAZISI-EKLEME.md` |
+| Yeni blog yazısı eklemek | `docs/BLOG-YAZISI-EKLEME.md` (her konu TR+EN varyantlı, aynı `translationKey`) |
 | Landing SEO/metin güncellemek | `index.html` + `tr.html` + `scripts/build-blog.js` marker enjeksiyonu |
 | Yeni SEO araç sayfası eklemek | `.html` dosyası + `styles/landing.css` + `scripts/build-blog.js` statik sitemap kaydı + sw.js değerlendirmesi |
 | Yeni sayfa eklemek | `.html` dosyası + gerekirse `_redirects` + sw.js PRECACHE |
@@ -185,7 +185,7 @@ LogWise/
 - **Aşama 2** (Bölüm 34-41): DB + Stil + React bileşenleri ayrıştırması ✅
 - **DOC-1** (Bölüm 42): Dokümantasyon altyapısı (AGENTS.md + docs/*) ✅
 - **Faz EX-ID** (Bölüm 43): Preset hareketlere slug `id` sistemi + Dead Hang deduplikasyonu + tüm referansların id'ye taşınması ✅
-- **Blog sistemi** (Bölüm 45): Markdown kaynaklı statik blog + sitemap + landing blog entegrasyonu ✅
+- **Blog sistemi** (Bölüm 45, 51): Markdown kaynaklı statik blog + sitemap + landing blog entegrasyonu; her konu TR/EN varyantlı ve hreflang'li ✅
 - **SEO statik landing** (Bölüm 46): EN `/` + TR `/tr` statik landing, canonical apex domain, statik blog kart enjeksiyonu ✅
 - **SEO evergreen araç sayfaları** (Bölüm 48-49): `/one-rep-max-calculator` + `/workout-log-template` statik tool/template sayfaları + sitemap statik sayfa kaydı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.

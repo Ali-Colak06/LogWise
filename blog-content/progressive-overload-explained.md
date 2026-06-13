@@ -3,6 +3,7 @@ title: "Progressive Overload, Explained Simply"
 slug: progressive-overload-explained
 date: 2026-06-10
 lang: en
+translationKey: progressive-overload-basics
 description: The one principle behind every successful training program — and how to apply it this week without overcomplicating things.
 tags: training, progress, basics
 featured: false

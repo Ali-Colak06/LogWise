@@ -1,25 +1,25 @@
 #!/usr/bin/env node
 /**
- * LogWise Blog Üretici
- * --------------------
- * blog-content/*.md  →  blog/<slug>.html + blog/index.html + blog/posts.json
- * Ayrıca: sitemap.xml'i statik SEO sayfalarıyla birlikte yeniden üretir ve landing sayfalarındaki
- * BLOG-CARDS marker bloğuna öne çıkan yazı kartlarını enjekte eder.
+ * LogWise Blog Generator
+ * ----------------------
+ * blog-content/*.md -> blog/<slug>.html + blog/index.html + blog/posts.json
+ * Also rebuilds sitemap.xml and injects featured blog cards into static landing pages.
  *
- * Kullanım:  node scripts/build-blog.js
- * Bağımlılık: scripts/vendor/marked.min.js (vendored UMD — npm install gerekmez)
+ * Usage: node scripts/build-blog.js
+ * Dependency: scripts/vendor/marked.min.js (vendored UMD, no npm install required)
  *
- * Yazı formatı (blog-content/ornek.md):
+ * Post format (blog-content/example.md):
  *   ---
- *   title: Yazı Başlığı
- *   slug: yazi-basligi            (zorunlu, küçük harf + tire)
- *   date: 2026-06-10              (YYYY-MM-DD)
- *   lang: tr                      (tr | en)
- *   description: Meta açıklama (SEO + kart metni, ideal <160 karakter)
- *   tags: antrenman, takip        (virgülle ayrılmış)
- *   featured: true                (landing'de öncelik — opsiyonel)
+ *   title: Post Title
+ *   slug: post-title                  (required, lowercase + dash)
+ *   date: 2026-06-10                 (YYYY-MM-DD)
+ *   lang: en                         (tr | en)
+ *   translationKey: post-topic-key    (same value for TR + EN variants)
+ *   description: SEO/card description
+ *   tags: training, tracking
+ *   featured: true                   (optional landing priority)
  *   ---
- *   Markdown gövde...
+ *   Markdown body...
  */
 
 'use strict';
@@ -41,6 +41,7 @@ const SITEMAP = path.join(ROOT, 'sitemap.xml');
 
 const SITE = 'https://logwise.fit';
 const OG_IMAGE = `${SITE}/icon-512.png`;
+const LANG_ORDER = ['en', 'tr'];
 const STATIC_SITEMAP_PAGES = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/tr', changefreq: 'weekly', priority: '0.9' },
@@ -59,12 +60,12 @@ function esc(s) {
 
 function parseFrontmatter(raw, file) {
   const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
-  if (!m) throw new Error(`${file}: frontmatter bloğu (--- ... ---) bulunamadı`);
+  if (!m) throw new Error(`${file}: frontmatter block (--- ... ---) not found`);
   const meta = {};
   for (const line of m[1].split(/\r?\n/)) {
     if (!line.trim() || line.trim().startsWith('#')) continue;
     const kv = line.match(/^([A-Za-z_][\w-]*):\s*(.*)$/);
-    if (!kv) throw new Error(`${file}: frontmatter satırı çözümlenemedi: "${line}"`);
+    if (!kv) throw new Error(`${file}: frontmatter line could not be parsed: "${line}"`);
     let val = kv[2].trim();
     if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
       val = val.slice(1, -1);
@@ -97,58 +98,125 @@ function fmtShortDate(iso, lang) {
 }
 
 function jsonForScript(obj) {
-  // </script> kaçışı — inline <script> içine güvenli gömme
   return JSON.stringify(obj).replace(/</g, '\\u003c');
+}
+
+function postUrl(post) {
+  return `${SITE}/blog/${post.slug}`;
+}
+
+function sortedAlternates(post) {
+  return LANG_ORDER
+    .map(lang => post.alternates[lang])
+    .filter(Boolean);
+}
+
+function localeFor(lang) {
+  return lang === 'tr' ? 'tr_TR' : 'en_US';
+}
+
+function languageName(lang) {
+  return lang === 'tr' ? 'Türkçe' : 'English';
 }
 
 // ---------------------------------------------------------------- load posts
 
 if (!fs.existsSync(CONTENT_DIR)) {
-  console.error(`HATA: ${CONTENT_DIR} yok. Yazılar blog-content/ altına .md olarak konur.`);
+  console.error(`ERROR: ${CONTENT_DIR} does not exist. Put .md posts under blog-content/.`);
   process.exit(1);
 }
 
 const files = fs.readdirSync(CONTENT_DIR).filter(f => f.endsWith('.md'));
 if (!files.length) {
-  console.error('HATA: blog-content/ altında .md dosyası yok.');
+  console.error('ERROR: No .md files found under blog-content/.');
   process.exit(1);
 }
 
 const posts = [];
 const slugSeen = new Set();
+const groupsByKey = new Map();
 
 for (const file of files) {
   const raw = fs.readFileSync(path.join(CONTENT_DIR, file), 'utf8');
   const { meta, body } = parseFrontmatter(raw, file);
 
-  for (const req of ['title', 'slug', 'date', 'lang', 'description']) {
-    if (!meta[req]) throw new Error(`${file}: zorunlu alan eksik: ${req}`);
+  for (const req of ['title', 'slug', 'date', 'lang', 'translationKey', 'description']) {
+    if (!meta[req]) throw new Error(`${file}: missing required field: ${req}`);
   }
   if (!/^[a-z0-9][a-z0-9-]*$/.test(meta.slug)) {
-    throw new Error(`${file}: slug yalnızca küçük harf/rakam/tire olabilir: "${meta.slug}"`);
+    throw new Error(`${file}: slug can only contain lowercase letters, numbers, and dashes: "${meta.slug}"`);
   }
-  if (slugSeen.has(meta.slug)) throw new Error(`${file}: slug tekrar ediyor: "${meta.slug}"`);
+  if (slugSeen.has(meta.slug)) throw new Error(`${file}: duplicate slug: "${meta.slug}"`);
   slugSeen.add(meta.slug);
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date)) throw new Error(`${file}: date YYYY-MM-DD olmalı`);
-  if (meta.lang !== 'tr' && meta.lang !== 'en') throw new Error(`${file}: lang tr|en olmalı`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(meta.date)) throw new Error(`${file}: date must be YYYY-MM-DD`);
+  if (meta.lang !== 'tr' && meta.lang !== 'en') throw new Error(`${file}: lang must be tr|en`);
+  if (!/^[a-z0-9][a-z0-9-]*$/.test(meta.translationKey)) {
+    throw new Error(`${file}: translationKey can only contain lowercase letters, numbers, and dashes`);
+  }
   if (meta.description.length > 170) {
-    console.warn(`UYARI ${file}: description ${meta.description.length} karakter (SEO için <160 idealdir)`);
+    console.warn(`WARN ${file}: description is ${meta.description.length} chars (SEO ideal is <160)`);
   }
 
-  posts.push({
+  const post = {
     slug: meta.slug,
     title: meta.title,
     description: meta.description,
     date: meta.date,
     lang: meta.lang,
+    translationKey: meta.translationKey,
     tags: meta.tags ? meta.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
     featured: meta.featured === 'true',
     readMins: readingMinutes(body),
     html: marked.parse(body)
-  });
+  };
+
+  posts.push(post);
+
+  if (!groupsByKey.has(post.translationKey)) {
+    groupsByKey.set(post.translationKey, {
+      key: post.translationKey,
+      posts: [],
+      postsByLang: {}
+    });
+  }
+  const group = groupsByKey.get(post.translationKey);
+  if (group.postsByLang[post.lang]) {
+    throw new Error(`${file}: duplicate ${post.lang} variant for translationKey "${post.translationKey}"`);
+  }
+  group.posts.push(post);
+  group.postsByLang[post.lang] = post;
 }
 
 posts.sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
+
+const postGroups = Array.from(groupsByKey.values()).map(group => {
+  const missing = LANG_ORDER.filter(lang => !group.postsByLang[lang]);
+  if (missing.length) {
+    throw new Error(`translationKey "${group.key}" is missing variant(s): ${missing.join(', ')}`);
+  }
+
+  group.posts.sort((a, b) => b.date.localeCompare(a.date) || a.lang.localeCompare(b.lang));
+  group.sortDate = group.posts.reduce((latest, post) => post.date > latest ? post.date : latest, group.posts[0].date);
+  group.featured = group.posts.some(post => post.featured);
+
+  for (const post of group.posts) {
+    post.alternates = {};
+    for (const alt of group.posts) {
+      post.alternates[alt.lang] = {
+        lang: alt.lang,
+        slug: alt.slug,
+        title: alt.title,
+        url: postUrl(alt)
+      };
+    }
+  }
+
+  return group;
+}).sort((a, b) =>
+  Number(b.featured) - Number(a.featured) ||
+  b.sortDate.localeCompare(a.sortDate) ||
+  a.key.localeCompare(b.key)
+);
 
 // ---------------------------------------------------------------- templates
 
@@ -176,31 +244,42 @@ const FOOTER = `
 
 const STR = {
   tr: {
-    open: "UYGULAMAYI AÇ",
-    read: "OKU",
-    minRead: "DK OKUMA",
-    back: "← Tüm yazılar",
-    ctaH: "Antrenmanlarını LogWise ile takip et",
-    ctaP: "Set kaydı saniyeler sürer; grafikler ve PR takibi otomatik gelir. Ücretsiz, reklamsız.",
+    open: 'UYGULAMAYI AÇ',
+    read: 'OKU',
+    minRead: 'DK OKUMA',
+    back: '← Tüm yazılar',
+    language: 'Bu yazıyı oku:',
+    ctaH: 'Antrenmanlarını LogWise ile takip et',
+    ctaP: 'Set kaydı saniyeler sürer; grafikler ve PR takibi otomatik gelir. Ücretsiz, reklamsız.',
     ctaBtn: "LOGWISE'I AÇ →"
   },
   en: {
-    open: "OPEN APP",
-    read: "READ",
-    minRead: "MIN READ",
-    back: "← All posts",
-    ctaH: "Track your training with LogWise",
-    ctaP: "Logging a set takes seconds; charts and PR tracking come built-in. Free, no ads.",
-    ctaBtn: "OPEN LOGWISE →"
+    open: 'OPEN APP',
+    read: 'READ',
+    minRead: 'MIN READ',
+    back: '← All posts',
+    language: 'Read this article:',
+    ctaH: 'Track your training with LogWise',
+    ctaP: 'Logging a set takes seconds; charts and PR tracking come built-in. Free, no ads.',
+    ctaBtn: 'OPEN LOGWISE →'
   }
 };
 
-function headBlock({ title, description, url, lang, jsonLd, ogType, published }) {
+function headBlock({ title, description, url, lang, jsonLd, ogType, published, alternates = [] }) {
+  const hreflangs = alternates.length ? alternates.map(alt =>
+    `<link rel="alternate" hreflang="${alt.lang}" href="${alt.url}"/>`
+  ).join('\n') + `\n<link rel="alternate" hreflang="x-default" href="${(alternates.find(alt => alt.lang === 'en') || alternates[0]).url}"/>` : '';
+  const ogLocaleAlternates = alternates
+    .filter(alt => alt.lang !== lang)
+    .map(alt => `<meta property="og:locale:alternate" content="${localeFor(alt.lang)}"/>`)
+    .join('\n');
+
   return `<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}"/>
 <link rel="canonical" href="${url}"/>
+${hreflangs}
 <link rel="icon" href="/favicon.ico"/>
 <meta property="og:site_name" content="LogWise"/>
 <meta property="og:type" content="${ogType}"/>
@@ -208,9 +287,12 @@ function headBlock({ title, description, url, lang, jsonLd, ogType, published })
 <meta property="og:description" content="${esc(description)}"/>
 <meta property="og:url" content="${url}"/>
 <meta property="og:image" content="${OG_IMAGE}"/>
-<meta property="og:locale" content="${lang === 'tr' ? 'tr_TR' : 'en_US'}"/>
+<meta property="og:locale" content="${localeFor(lang)}"/>
+${ogLocaleAlternates}
 ${published ? `<meta property="article:published_time" content="${published}"/>` : ''}
 <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="${esc(title)}"/>
+<meta name="twitter:description" content="${esc(description)}"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -218,30 +300,61 @@ ${published ? `<meta property="article:published_time" content="${published}"/>`
 <script type="application/ld+json">${jsonLd}</script>`;
 }
 
-function postPage(p) {
-  const t = STR[p.lang];
-  const url = `${SITE}/blog/${p.slug}`;
+function postLanguageSwitch(post) {
+  const t = STR[post.lang];
+  const links = LANG_ORDER.map(lang => {
+    const alt = post.alternates[lang];
+    const active = lang === post.lang;
+    const attrs = [
+      `href="/blog/${alt.slug}"`,
+      `hreflang="${lang}"`,
+      `lang="${lang}"`,
+      `class="${active ? 'on' : ''}"`
+    ];
+    if (active) attrs.push('aria-current="page"');
+    return `<a ${attrs.join(' ')}>${languageName(lang)}</a>`;
+  }).join('');
+
+  return `<nav class="post-lang-switch" aria-label="${post.lang === 'tr' ? 'Yazı dili' : 'Article language'}">
+        <span>${t.language}</span>
+        <div>${links}</div>
+      </nav>`;
+}
+
+function postPage(post) {
+  const t = STR[post.lang];
+  const url = postUrl(post);
+  const alternates = sortedAlternates(post);
+  const otherTranslations = alternates
+    .filter(alt => alt.lang !== post.lang)
+    .map(alt => ({
+      '@type': 'BlogPosting',
+      headline: alt.title,
+      inLanguage: alt.lang,
+      url: alt.url
+    }));
   const jsonLd = jsonForScript({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    headline: p.title,
-    description: p.description,
-    datePublished: p.date,
-    dateModified: p.date,
-    inLanguage: p.lang,
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    inLanguage: post.lang,
     mainEntityOfPage: url,
     author: { '@type': 'Organization', name: 'LogWise', url: SITE },
     publisher: {
       '@type': 'Organization', name: 'LogWise',
       logo: { '@type': 'ImageObject', url: OG_IMAGE }
-    }
+    },
+    workTranslation: otherTranslations
   });
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED — scripts/build-blog.js tarafından üretildi; elle düzenleme. Kaynak: blog-content/ -->
-<html lang="${p.lang}">
+<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit blog/*.html manually. Source: blog-content/ -->
+<html lang="${post.lang}">
 <head>
-${headBlock({ title: `${p.title} — LogWise Blog`, description: p.description, url, lang: p.lang, jsonLd, ogType: 'article', published: p.date })}
+${headBlock({ title: `${post.title} — LogWise Blog`, description: post.description, url, lang: post.lang, jsonLd, ogType: 'article', published: post.date, alternates })}
 </head>
 <body>
 ${NAV.replace('__OPEN__', t.open)}
@@ -249,17 +362,17 @@ ${NAV.replace('__OPEN__', t.open)}
   <article>
     <div class="post-head">
       <div class="post-meta">
-        <span class="post-lang">${p.lang.toUpperCase()}</span>
-        <time datetime="${p.date}">${fmtDate(p.date, p.lang).toUpperCase()}</time>
+        <time datetime="${post.date}">${fmtDate(post.date, post.lang).toUpperCase()}</time>
         <span class="dot"></span>
-        <span>${p.readMins} ${t.minRead}</span>
+        <span>${post.readMins} ${t.minRead}</span>
       </div>
-      <h1>${esc(p.title)}</h1>
-      <p class="lead">${esc(p.description)}</p>
-      ${p.tags.length ? `<div class="post-tags">${p.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div>` : ''}
+      ${postLanguageSwitch(post)}
+      <h1>${esc(post.title)}</h1>
+      <p class="lead">${esc(post.description)}</p>
+      ${post.tags.length ? `<div class="post-tags">${post.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div>` : ''}
     </div>
     <div class="post-body">
-${p.html}
+${post.html}
       <div class="post-cta">
         <div>
           <h4>${t.ctaH}</h4>
@@ -279,77 +392,77 @@ ${FOOTER}
 `;
 }
 
-function indexPage(allPosts) {
+function indexCard(group) {
+  const en = group.postsByLang.en;
+  const tr = group.postsByLang.tr;
+  const primary = en;
+
+  return `    <article class="post-card topic-card" data-topic="${esc(group.key)}">
+      <div class="post-card-meta">
+        <span class="post-lang">EN/TR</span>
+        <time datetime="${group.sortDate}">${fmtShortDate(group.sortDate, 'en').toUpperCase()}</time>
+      </div>
+      <h2>${esc(primary.title)}</h2>
+      <p>${esc(primary.description)}</p>
+      <div class="topic-translation" lang="tr">
+        <span>TR</span>
+        <strong>${esc(tr.title)}</strong>
+      </div>
+      <div class="post-card-actions" aria-label="Read article language options">
+        <a class="read-link" href="/blog/${en.slug}" hreflang="en" lang="en">EN · ${en.readMins} ${STR.en.minRead} →</a>
+        <a class="read-link" href="/blog/${tr.slug}" hreflang="tr" lang="tr">TR · ${tr.readMins} ${STR.tr.minRead} →</a>
+      </div>
+    </article>`;
+}
+
+function indexPage(groups) {
   const url = `${SITE}/blog`;
   const title = 'Blog — LogWise';
-  const description = 'Antrenman, takip ve gelişim üzerine kısa, uygulanabilir yazılar. Short, practical reads on training, tracking and progress.';
+  const description = 'Short, practical reads on training, tracking and progress. Her yazı İngilizce ve Türkçe okunabilir.';
   const jsonLd = jsonForScript({
     '@context': 'https://schema.org',
     '@type': 'Blog',
     name: 'LogWise Blog',
     url,
-    blogPost: allPosts.map(p => ({
+    blogPost: posts.map(post => ({
       '@type': 'BlogPosting',
-      headline: p.title,
-      url: `${SITE}/blog/${p.slug}`,
-      datePublished: p.date,
-      inLanguage: p.lang
-    }))
+      headline: post.title,
+      url: postUrl(post),
+      datePublished: post.date,
+      inLanguage: post.lang,
+      translationOfWork: post.alternates.en && post.lang === 'tr' ? {
+        '@type': 'BlogPosting',
+        headline: post.alternates.en.title,
+        url: post.alternates.en.url,
+        inLanguage: 'en'
+      } : undefined
+    })).map(item => {
+      if (item.translationOfWork === undefined) delete item.translationOfWork;
+      return item;
+    })
   });
 
-  const cards = allPosts.map(p => {
-    const t = STR[p.lang];
-    return `    <a class="post-card" data-lang="${p.lang}" href="/blog/${p.slug}">
-      <div class="post-card-meta">
-        <span class="post-lang">${p.lang.toUpperCase()}</span>
-        <time datetime="${p.date}">${fmtDate(p.date, p.lang).toUpperCase()}</time>
-      </div>
-      <h2>${esc(p.title)}</h2>
-      <p>${esc(p.description)}</p>
-      <span class="read">${p.readMins} ${t.minRead} · ${t.read} →</span>
-    </a>`;
-  }).join('\n');
+  const cards = groups.map(indexCard).join('\n');
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED — scripts/build-blog.js tarafından üretildi; elle düzenleme. Kaynak: blog-content/ -->
-<html lang="tr">
+<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit blog/*.html manually. Source: blog-content/ -->
+<html lang="en">
 <head>
-${headBlock({ title, description, url, lang: 'tr', jsonLd, ogType: 'website' })}
+${headBlock({ title, description, url, lang: 'en', jsonLd, ogType: 'website' })}
 </head>
 <body>
-${NAV.replace('__OPEN__', 'UYGULAMAYI AÇ')}
+${NAV.replace('__OPEN__', 'OPEN APP')}
 <main class="shell-wide">
   <div class="blog-head">
     <div class="kicker">LOGWISE BLOG</div>
-    <h1>Antrenmanı sadece yapma — <span style="color:var(--gold)">anla</span>.</h1>
-    <p>Antrenman, takip ve gelişim üzerine kısa, uygulanabilir yazılar. · Short, practical reads on training and progress.</p>
-    <div class="lang-filter" role="group" aria-label="Dil filtresi / Language filter">
-      <button class="on" data-f="all">TÜMÜ · ALL</button>
-      <button data-f="tr">TÜRKÇE</button>
-      <button data-f="en">ENGLISH</button>
-    </div>
+    <h1>Training notes that work in <span style="color:var(--gold)">both languages</span>.</h1>
+    <p>Short, practical reads on training, tracking and progress. Her yazı İngilizce ve Türkçe okunabilir.</p>
   </div>
   <div class="post-list">
 ${cards}
   </div>
 </main>
 ${FOOTER}
-<script>
-(function(){
-  var btns = document.querySelectorAll('.lang-filter button');
-  var cards = document.querySelectorAll('.post-card');
-  btns.forEach(function(b){
-    b.addEventListener('click', function(){
-      btns.forEach(function(x){ x.classList.remove('on'); });
-      b.classList.add('on');
-      var f = b.getAttribute('data-f');
-      cards.forEach(function(c){
-        c.style.display = (f === 'all' || c.getAttribute('data-lang') === f) ? '' : 'none';
-      });
-    });
-  });
-})();
-</script>
 </body>
 </html>
 `;
@@ -359,92 +472,125 @@ ${FOOTER}
 
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
-// Eski üretilmiş post sayfalarını temizle (silinen yazılar artık yayınlanmasın)
 for (const f of fs.readdirSync(OUT_DIR)) {
   if (f.endsWith('.html')) fs.unlinkSync(path.join(OUT_DIR, f));
 }
 
-for (const p of posts) {
-  fs.writeFileSync(path.join(OUT_DIR, `${p.slug}.html`), postPage(p), 'utf8');
+for (const post of posts) {
+  fs.writeFileSync(path.join(OUT_DIR, `${post.slug}.html`), postPage(post), 'utf8');
 }
-fs.writeFileSync(path.join(OUT_DIR, 'index.html'), indexPage(posts), 'utf8');
+fs.writeFileSync(path.join(OUT_DIR, 'index.html'), indexPage(postGroups), 'utf8');
 
-const manifest = posts.map(({ html, ...rest }) => rest);
+const manifest = posts.map(post => ({
+  slug: post.slug,
+  title: post.title,
+  description: post.description,
+  date: post.date,
+  lang: post.lang,
+  translationKey: post.translationKey,
+  tags: post.tags,
+  featured: post.featured,
+  readMins: post.readMins,
+  url: `/blog/${post.slug}`,
+  alternates: LANG_ORDER.reduce((acc, lang) => {
+    const alt = post.alternates[lang];
+    if (alt) acc[lang] = { slug: alt.slug, title: alt.title, url: `/blog/${alt.slug}` };
+    return acc;
+  }, {})
+}));
 fs.writeFileSync(path.join(OUT_DIR, 'posts.json'), JSON.stringify(manifest, null, 2) + '\n', 'utf8');
 
 // ---------------------------------------------------------------- sitemap.xml
 
+function sitemapStaticEntry(page) {
+  return `  <url>\n    <loc>${SITE}${page.path}</loc>${page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : ''}\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>`;
+}
+
+function sitemapPostEntry(post) {
+  const alternates = sortedAlternates(post);
+  const xDefault = alternates.find(alt => alt.lang === 'en') || alternates[0];
+  const links = [
+    ...alternates.map(alt => `    <xhtml:link rel="alternate" hreflang="${alt.lang}" href="${alt.url}"/>`),
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="${xDefault.url}"/>`
+  ].join('\n');
+
+  return `  <url>\n    <loc>${postUrl(post)}</loc>\n${links}\n    <lastmod>${post.date}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`;
+}
+
 const sitemapEntries = [
-  ...STATIC_SITEMAP_PAGES.map(page =>
-    `  <url>\n    <loc>${SITE}${page.path}</loc>${page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : ''}\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>`
-  ),
-  ...posts.map(p =>
-    `  <url>\n    <loc>${SITE}/blog/${p.slug}</loc>\n    <lastmod>${p.date}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.7</priority>\n  </url>`)
+  ...STATIC_SITEMAP_PAGES.map(sitemapStaticEntry),
+  ...posts.map(sitemapPostEntry)
 ];
 fs.writeFileSync(
   SITEMAP,
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapEntries.join('\n')}\n</urlset>\n`,
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries.join('\n')}\n</urlset>\n`,
   'utf8'
 );
 
-// ---------------------------------------------------------------- landing enjeksiyonu
+// ---------------------------------------------------------------- landing injection
 
 const LANDING_START = '<!-- BLOG-CARDS:START -->';
 const LANDING_END = '<!-- BLOG-CARDS:END -->';
 
-function landingPostsFor(lang) {
-  return posts
-    .slice()
-    .sort((a, b) =>
-      (a.lang === lang ? 0 : 1) - (b.lang === lang ? 0 : 1) ||
-      Number(b.featured) - Number(a.featured) ||
-      b.date.localeCompare(a.date) ||
-      a.slug.localeCompare(b.slug)
-    )
-    .slice(0, 3);
+function groupPriorityForLang(group, lang) {
+  const local = group.postsByLang[lang];
+  if (local && local.featured) return 2;
+  return group.featured ? 1 : 0;
 }
 
-function landingCard(p, lang) {
+function landingPostsFor(lang) {
+  return postGroups
+    .slice()
+    .sort((a, b) =>
+      groupPriorityForLang(b, lang) - groupPriorityForLang(a, lang) ||
+      b.sortDate.localeCompare(a.sortDate) ||
+      a.key.localeCompare(b.key)
+    )
+    .slice(0, 3)
+    .map(group => group.postsByLang[lang] || group.postsByLang.en || group.postsByLang.tr);
+}
+
+function landingCard(post, lang) {
   const read = lang === 'tr' ? 'OKU' : 'READ';
   const minRead = lang === 'tr' ? 'dk okuma' : 'min read';
-  return `      <a href="/blog/${p.slug}" class="blog-card">
+  return `      <a href="/blog/${post.slug}" class="blog-card">
         <div class="blog-card-meta">
-          <span class="blog-lang">${p.lang.toUpperCase()}</span>
-          <time datetime="${p.date}">${fmtShortDate(p.date, lang).toUpperCase()}</time>
+          <span class="blog-lang">${post.lang.toUpperCase()}</span>
+          <time datetime="${post.date}">${fmtShortDate(post.date, lang).toUpperCase()}</time>
         </div>
-        <h3>${esc(p.title)}</h3>
-        <p>${esc(p.description)}</p>
-        <span class="blog-card-read">${p.readMins} ${minRead} · ${read} →</span>
+        <h3>${esc(post.title)}</h3>
+        <p>${esc(post.description)}</p>
+        <span class="blog-card-read">${post.readMins} ${minRead} · ${read} →</span>
       </a>`;
 }
 
 const landingUpdated = [];
 for (const target of LANDING_FILES) {
   if (!fs.existsSync(target.file)) {
-    console.warn(`UYARI: ${path.basename(target.file)} bulunamadı; landing blog kartları enjekte edilmedi.`);
+    console.warn(`WARN: ${path.basename(target.file)} was not found; landing blog cards were not injected.`);
     continue;
   }
   let html = fs.readFileSync(target.file, 'utf8');
   const si = html.indexOf(LANDING_START);
   const ei = html.indexOf(LANDING_END);
   if (si === -1 || ei === -1 || ei < si) {
-    console.warn(`UYARI: ${path.basename(target.file)} içinde ${LANDING_START} / ${LANDING_END} marker'ları bulunamadı.`);
+    console.warn(`WARN: ${path.basename(target.file)} does not contain ${LANDING_START} / ${LANDING_END} markers.`);
     continue;
   }
-  const cards = landingPostsFor(target.lang).map(p => landingCard(p, target.lang)).join('\n');
+  const cards = landingPostsFor(target.lang).map(post => landingCard(post, target.lang)).join('\n');
   const injected = `${LANDING_START}\n${cards}\n      ${LANDING_END}`;
   html = html.slice(0, si) + injected + html.slice(ei + LANDING_END.length);
   fs.writeFileSync(target.file, html, 'utf8');
   landingUpdated.push(path.basename(target.file));
 }
 
-// ---------------------------------------------------------------- özet
+// ---------------------------------------------------------------- summary
 
-console.log(`Tamamlandı: ${posts.length} yazı üretildi.`);
-for (const p of posts) {
-  console.log(`  /blog/${p.slug}  [${p.lang}] ${p.featured ? '★ featured' : ''}  ${p.date}  ${p.readMins} dk`);
+console.log(`Done: ${posts.length} language variants across ${postGroups.length} blog topics generated.`);
+for (const group of postGroups) {
+  console.log(`  ${group.key}  [en:/blog/${group.postsByLang.en.slug}] [tr:/blog/${group.postsByLang.tr.slug}]`);
 }
 console.log(
-  'Güncellendi: blog/index.html, blog/posts.json, sitemap.xml' +
+  'Updated: blog/index.html, blog/posts.json, sitemap.xml' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );

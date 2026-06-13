@@ -3,6 +3,7 @@ title: "Workout Tracker App: What to Log for Real Progress"
 slug: workout-tracker-app-guide
 date: 2026-06-12
 lang: en
+translationKey: workout-tracker-app-guide
 description: What a workout tracker app should record: exercises, sets, reps, weight, RIR, PRs, notes, and a simple review habit.
 tags: workout tracker app, training log, strength
 featured: true

@@ -3,6 +3,7 @@ title: Antrenman Takip Uygulaması Ne Kaydetmeli?
 slug: antrenman-takip-uygulamasi-ne-kaydetmeli
 date: 2026-06-12
 lang: tr
+translationKey: workout-tracker-app-guide
 description: İyi bir antrenman takip uygulamasında hangi veriler olmalı? Set, tekrar, ağırlık, RIR, PR ve haftalık kontrol listesi.
 tags: antrenman takip uygulaması, fitness günlüğü, gelişim
 featured: true

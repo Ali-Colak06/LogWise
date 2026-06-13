@@ -3,6 +3,7 @@ title: Antrenman Günlüğü Neden Tutmalısın? (ve Nasıl Başlarsın)
 slug: antrenman-gunlugu-neden-tutmalisin
 date: 2026-06-10
 lang: tr
+translationKey: workout-log-basics
 description: Hafıza yanıltır, sayılar yanıltmaz. Antrenman günlüğü tutmanın gelişim üzerindeki somut etkisi ve 5 dakikada başlamanın yolu.
 tags: antrenman, takip, başlangıç
 featured: true

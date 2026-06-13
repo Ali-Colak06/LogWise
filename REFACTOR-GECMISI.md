@@ -3516,3 +3516,39 @@ Yeni eklenen evergreen SEO tool sayfalarının yalnızca sitemap ve footer linkl
 
 - Yeni URL eklenmedi; sitemap değişmedi.
 - `_redirects` değişmedi; tool sayfaları hâlihazırda Cloudflare Pages `.html` clean URL davranışıyla sunuluyor.
+
+
+
+---
+
+## Bölüm 51 — Blog İki Dilli Varyant Mimarisi (2026-06-13)
+
+### Amaç
+
+Blog index'inde Türkçe ve İngilizce yazıların ayrı konular gibi çoğalmasını engellemek; her blog konusunu tek içerik grubu olarak sunup yazı içinde English/Türkçe geçişi vermek. Bu yapı hem kullanıcı keşfini sadeleştirir hem de Google'a canonical + hreflang sinyallerini daha net taşır.
+
+### Mimari Kararlar
+
+- **`translationKey` zorunlu:** `blog-content/*.md` frontmatter'ına `translationKey` eklendi. Aynı konunun `lang: en` ve `lang: tr` varyantları aynı key'i taşır.
+- **Eksik varyant hata:** `scripts/build-blog.js`, her `translationKey` için hem EN hem TR varyantı ister. Tek başına TR veya EN blog yazısı build'i geçmez.
+- **Post içi dil geçişi:** Üretilen her `blog/<slug>.html` sayfasında English/Türkçe dil switch'i bulunur.
+- **SEO alternates:** Post sayfaları canonical URL yanında `hreflang="en"`, `hreflang="tr"` ve `hreflang="x-default"` üretir. Sitemap post kayıtları da `xhtml:link` alternate kayıtlarıyla yazılır.
+- **Blog index tekil konu kartı:** `/blog` artık her dil varyantını ayrı kart olarak listelemez; konu başına tek kart gösterir ve kart içinde EN/TR okuma linkleri verir.
+- **Landing kartları aktif dile göre:** `index.html` EN varyantları, `tr.html` TR varyantları gösterir; aynı konu iki kez landing'e düşmez.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `scripts/build-blog.js` | `translationKey` gruplama, hreflang, sitemap alternate, tekil blog index kartları |
+| `blog-content/*.md` | Mevcut yazılara `translationKey` eklendi; eksik EN/TR varyantları tamamlandı |
+| `blog/blog.css` | Blog kartı dil seçenekleri + post içi dil switch stilleri |
+| `docs/BLOG-YAZISI-EKLEME.md` | Yeni iki dilli blog yazısı reçetesi |
+| `AGENTS.md` | Blog sistemi özeti ve yeni yazı kuralı güncellendi |
+| `sw.js` | `logwise-v32` → `logwise-v33` bump; sebep `blog/blog.css` runtime cache değişimi |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
+- `node scripts/build-blog.js` çıktısı her konuda EN/TR varyantı göstermeli.
+- Lokal smoke testte `/blog`, bir EN post ve karşılık gelen TR post açılıp dil switch'i ve hreflang meta'ları doğrulanmalı.
