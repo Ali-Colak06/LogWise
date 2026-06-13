@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-13 — Blog sistemi translationKey ile TR/EN varyantlı yazı mimarisine taşındı; blog sayfaları hreflang üretir. -->
+<!-- SON GÜNCELLEME: 2026-06-13 — Blog sistemi translationKey ile TR/EN varyantlıdır; blog UI aktif dil switch'iyle tek dil gösterir ve hreflang üretir. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -185,7 +185,7 @@ LogWise/
 - **Aşama 2** (Bölüm 34-41): DB + Stil + React bileşenleri ayrıştırması ✅
 - **DOC-1** (Bölüm 42): Dokümantasyon altyapısı (AGENTS.md + docs/*) ✅
 - **Faz EX-ID** (Bölüm 43): Preset hareketlere slug `id` sistemi + Dead Hang deduplikasyonu + tüm referansların id'ye taşınması ✅
-- **Blog sistemi** (Bölüm 45, 51): Markdown kaynaklı statik blog + sitemap + landing blog entegrasyonu; her konu TR/EN varyantlı ve hreflang'li ✅
+- **Blog sistemi** (Bölüm 45, 51-52): Markdown kaynaklı statik blog + sitemap + landing blog entegrasyonu; her konu TR/EN varyantlı, hreflang'li ve UI'da aktif dil switch'iyle tek dil gösterir ✅
 - **SEO statik landing** (Bölüm 46): EN `/` + TR `/tr` statik landing, canonical apex domain, statik blog kart enjeksiyonu ✅
 - **SEO evergreen araç sayfaları** (Bölüm 48-49): `/one-rep-max-calculator` + `/workout-log-template` statik tool/template sayfaları + sitemap statik sayfa kaydı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.

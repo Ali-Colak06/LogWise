@@ -65,14 +65,16 @@ Script eksik varyantı hata sayar; tek başına TR veya EN yazı bırakılmaz.
 
    Script şunları üretir/günceller (hepsi commit'lenir):
    - `blog/<slug>.html` — yazı sayfası (meta, OG, JSON-LD, hreflang dahil)
-   - `blog/index.html` — konu listesi; her kartta EN/TR okuma seçenekleri vardır
+   - `blog/index.html` — konu listesi; kartlar aktif blog dil switch'ine göre tek dilde görünür
    - `blog/posts.json` — makine-okur manifest (`translationKey` + `alternates`)
    - `sitemap.xml` — tüm yazılar ve hreflang alternate kayıtlarıyla yeniden üretilir
    - `index.html` / `tr.html` — `BLOG-CARDS:START/END` marker'ları arasına aktif dile uygun blog kartları enjekte edilir
 
 3. Kontrol:
    - `/blog` aynı konuyu iki kez listelememeli.
-   - Her yazı sayfasında English/Türkçe geçişi görünmeli.
+   - `/blog` üst switch'inde TR seçiliyken kart başlığı/açıklaması/okuma süresi TR, EN seçiliyken EN olmalı.
+   - Blog kartına tıklandığında aktif dilin yazı URL'si açılmalı.
+   - Yazı sayfasındaki üst switch eş yazıya geçmeli ve seçim `/blog` sayfasında da korunmalı.
    - Sayfa kaynağında `canonical`, `hreflang="en"`, `hreflang="tr"` ve `x-default` bulunmalı.
    - Landing'deki Blog bölümünde EN landing EN varyantları, TR landing TR varyantları göstermeli.
 

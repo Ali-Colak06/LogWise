@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="/blog/blog.css"/>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"Antrenman Takip Uygulaması Ne Kaydetmeli?","description":"İyi bir antrenman takip uygulamasında hangi veriler olmalı? Set, tekrar, ağırlık, RIR, PR ve haftalık kontrol listesi.","datePublished":"2026-06-12","dateModified":"2026-06-12","inLanguage":"tr","mainEntityOfPage":"https://logwise.fit/blog/antrenman-takip-uygulamasi-ne-kaydetmeli","author":{"@type":"Organization","name":"LogWise","url":"https://logwise.fit"},"publisher":{"@type":"Organization","name":"LogWise","logo":{"@type":"ImageObject","url":"https://logwise.fit/icon-512.png"}},"workTranslation":[{"@type":"BlogPosting","headline":"Workout Tracker App: What to Log for Real Progress","inLanguage":"en","url":"https://logwise.fit/blog/workout-tracker-app-guide"}]}</script>
 </head>
-<body>
+<body data-blog-page="post">
 
 <header class="nav">
   <div class="shell-wide nav-row">
@@ -39,7 +39,8 @@
     </a>
     <div class="nav-actions">
       <a href="/blog" class="brand-blog">BLOG</a>
-      <a href="/app" class="btn btn-primary">UYGULAMAYI AÇ →</a>
+      <div class="lang-switch blog-lang-switch" role="group" aria-label="Language"><button type="button" data-blog-lang-option="tr" aria-pressed="true" class="on" data-target-url="/blog/antrenman-takip-uygulamasi-ne-kaydetmeli">TR</button><button type="button" data-blog-lang-option="en" aria-pressed="false" class="" data-target-url="/blog/workout-tracker-app-guide">EN</button></div>
+      <a href="/app" class="btn btn-primary"><span data-blog-copy="open">UYGULAMAYI AÇ</span> →</a>
     </div>
   </div>
 </header>
@@ -51,10 +52,6 @@
         <span class="dot"></span>
         <span>2 DK OKUMA</span>
       </div>
-      <nav class="post-lang-switch" aria-label="Yazı dili">
-        <span>Bu yazıyı oku:</span>
-        <div><a href="/blog/workout-tracker-app-guide" hreflang="en" lang="en" class="">English</a><a href="/blog/antrenman-takip-uygulamasi-ne-kaydetmeli" hreflang="tr" lang="tr" class="on" aria-current="page">Türkçe</a></div>
-      </nav>
       <h1>Antrenman Takip Uygulaması Ne Kaydetmeli?</h1>
       <p class="lead">İyi bir antrenman takip uygulamasında hangi veriler olmalı? Set, tekrar, ağırlık, RIR, PR ve haftalık kontrol listesi.</p>
       <div class="post-tags"><span>antrenman takip uygulaması</span><span>fitness günlüğü</span><span>gelişim</span></div>
@@ -141,5 +138,123 @@
     <span><a href="/">logwise.fit</a> · <a href="/blog">BLOG</a> · <a href="/app">APP</a></span>
   </div>
 </footer>
+<script>
+(function(){
+  var STORAGE_KEY = 'logwise-blog-lang';
+  var COPY = {"en":{"open":"OPEN APP","blogTitle":"Training Blog","blogLead":"Practical guides on workout tracking, progressive overload, and strength progress."},"tr":{"open":"UYGULAMAYI AÇ","blogTitle":"Antrenman Blogu","blogLead":"Antrenman takibi, progressive overload ve güç gelişimi üzerine uygulanabilir rehberler."}};
+
+  function normalize(lang) {
+    return lang === 'tr' || lang === 'en' ? lang : '';
+  }
+
+  function readLang() {
+    try {
+      return normalize(window.localStorage.getItem(STORAGE_KEY));
+    } catch (err) {
+      return '';
+    }
+  }
+
+  function saveLang(lang) {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, lang);
+    } catch (err) {}
+  }
+
+  function setSwitch(lang) {
+    document.querySelectorAll('[data-blog-lang-option]').forEach(function(button) {
+      var active = button.getAttribute('data-blog-lang-option') === lang;
+      button.classList.toggle('on', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function setCopy(lang) {
+    var text = COPY[lang] || COPY.en;
+    document.querySelectorAll('[data-blog-copy]').forEach(function(node) {
+      var key = node.getAttribute('data-blog-copy');
+      if (text[key]) node.textContent = text[key];
+    });
+    var title = document.querySelector('[data-blog-title]');
+    var lead = document.querySelector('[data-blog-lead]');
+    if (title) title.textContent = text.blogTitle;
+    if (lead) lead.textContent = text.blogLead;
+  }
+
+  function topicData() {
+    var node = document.getElementById('blog-topic-data');
+    if (!node) return [];
+    try {
+      return JSON.parse(node.textContent || '[]');
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function applyIndexLang(lang) {
+    document.documentElement.lang = lang;
+    setSwitch(lang);
+    setCopy(lang);
+    topicData().forEach(function(topic) {
+      var post = topic.postsByLang[lang] || topic.postsByLang.en || topic.postsByLang.tr;
+      var card = document.querySelector('[data-topic="' + topic.key + '"]');
+      if (!post || !card) return;
+      card.setAttribute('href', '/blog/' + post.slug);
+      card.setAttribute('hreflang', lang);
+      card.setAttribute('lang', lang);
+      var langNode = card.querySelector('[data-card-lang]');
+      var dateNode = card.querySelector('[data-card-date]');
+      var titleNode = card.querySelector('[data-card-title]');
+      var descNode = card.querySelector('[data-card-description]');
+      var readNode = card.querySelector('[data-card-read]');
+      if (langNode) langNode.textContent = lang.toUpperCase();
+      if (dateNode) {
+        dateNode.setAttribute('datetime', post.date);
+        dateNode.textContent = post.dateLabel;
+      }
+      if (titleNode) titleNode.textContent = post.title;
+      if (descNode) descNode.textContent = post.description;
+      if (readNode) readNode.textContent = post.readLabel;
+    });
+  }
+
+  var page = document.body.getAttribute('data-blog-page') || '';
+  var currentLang = normalize(document.documentElement.lang) || 'en';
+  if (page === 'index') {
+    var requestedLang = '';
+    try {
+      requestedLang = normalize(new URLSearchParams(window.location.search).get('lang'));
+    } catch (err) {}
+    var initialLang = requestedLang || readLang() || 'en';
+    saveLang(initialLang);
+    applyIndexLang(initialLang);
+  } else {
+    saveLang(currentLang);
+    setSwitch(currentLang);
+    setCopy(currentLang);
+  }
+
+  document.querySelectorAll('[data-blog-lang-option]').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+      var lang = normalize(button.getAttribute('data-blog-lang-option'));
+      if (!lang) return;
+      saveLang(lang);
+      if (page === 'index') {
+        event.preventDefault();
+        applyIndexLang(lang);
+        return;
+      }
+      var target = button.getAttribute('data-target-url');
+      if (target && lang !== currentLang) {
+        event.preventDefault();
+        window.location.href = target;
+        return;
+      }
+      event.preventDefault();
+      setSwitch(lang);
+    });
+  });
+})();
+</script>
 </body>
 </html>

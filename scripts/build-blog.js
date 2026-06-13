@@ -42,6 +42,7 @@ const SITEMAP = path.join(ROOT, 'sitemap.xml');
 const SITE = 'https://logwise.fit';
 const OG_IMAGE = `${SITE}/icon-512.png`;
 const LANG_ORDER = ['en', 'tr'];
+const SWITCH_LANG_ORDER = ['tr', 'en'];
 const STATIC_SITEMAP_PAGES = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/tr', changefreq: 'weekly', priority: '0.9' },
@@ -113,10 +114,6 @@ function sortedAlternates(post) {
 
 function localeFor(lang) {
   return lang === 'tr' ? 'tr_TR' : 'en_US';
-}
-
-function languageName(lang) {
-  return lang === 'tr' ? 'Türkçe' : 'English';
 }
 
 // ---------------------------------------------------------------- load posts
@@ -229,7 +226,8 @@ const NAV = `
     </a>
     <div class="nav-actions">
       <a href="/blog" class="brand-blog">BLOG</a>
-      <a href="/app" class="btn btn-primary">__OPEN__ →</a>
+      __LANG_SWITCH__
+      <a href="/app" class="btn btn-primary"><span data-blog-copy="open">__OPEN__</span> →</a>
     </div>
   </div>
 </header>`;
@@ -248,7 +246,8 @@ const STR = {
     read: 'OKU',
     minRead: 'DK OKUMA',
     back: '← Tüm yazılar',
-    language: 'Bu yazıyı oku:',
+    blogTitle: 'Antrenman Blogu',
+    blogLead: 'Antrenman takibi, progressive overload ve güç gelişimi üzerine uygulanabilir rehberler.',
     ctaH: 'Antrenmanlarını LogWise ile takip et',
     ctaP: 'Set kaydı saniyeler sürer; grafikler ve PR takibi otomatik gelir. Ücretsiz, reklamsız.',
     ctaBtn: "LOGWISE'I AÇ →"
@@ -258,12 +257,35 @@ const STR = {
     read: 'READ',
     minRead: 'MIN READ',
     back: '← All posts',
-    language: 'Read this article:',
+    blogTitle: 'Training Blog',
+    blogLead: 'Practical guides on workout tracking, progressive overload, and strength progress.',
     ctaH: 'Track your training with LogWise',
     ctaP: 'Logging a set takes seconds; charts and PR tracking come built-in. Free, no ads.',
     ctaBtn: 'OPEN LOGWISE →'
   }
 };
+
+function languageSwitch(activeLang, alternates) {
+  const buttons = SWITCH_LANG_ORDER.map(lang => {
+    const alt = alternates && alternates[lang];
+    const attrs = [
+      'type="button"',
+      `data-blog-lang-option="${lang}"`,
+      `aria-pressed="${lang === activeLang ? 'true' : 'false'}"`,
+      `class="${lang === activeLang ? 'on' : ''}"`
+    ];
+    if (alt) attrs.push(`data-target-url="/blog/${alt.slug}"`);
+    return `<button ${attrs.join(' ')}>${lang.toUpperCase()}</button>`;
+  }).join('');
+
+  return `<div class="lang-switch blog-lang-switch" role="group" aria-label="Language">${buttons}</div>`;
+}
+
+function navFor(lang, alternates) {
+  return NAV
+    .replace('__LANG_SWITCH__', languageSwitch(lang, alternates))
+    .replace('__OPEN__', STR[lang].open);
+}
 
 function headBlock({ title, description, url, lang, jsonLd, ogType, published, alternates = [] }) {
   const hreflangs = alternates.length ? alternates.map(alt =>
@@ -300,25 +322,150 @@ ${published ? `<meta property="article:published_time" content="${published}"/>`
 <script type="application/ld+json">${jsonLd}</script>`;
 }
 
-function postLanguageSwitch(post) {
-  const t = STR[post.lang];
-  const links = LANG_ORDER.map(lang => {
-    const alt = post.alternates[lang];
-    const active = lang === post.lang;
-    const attrs = [
-      `href="/blog/${alt.slug}"`,
-      `hreflang="${lang}"`,
-      `lang="${lang}"`,
-      `class="${active ? 'on' : ''}"`
-    ];
-    if (active) attrs.push('aria-current="page"');
-    return `<a ${attrs.join(' ')}>${languageName(lang)}</a>`;
-  }).join('');
+function blogTopicDataScript(groups) {
+  const data = groups.map(group => ({
+    key: group.key,
+    postsByLang: LANG_ORDER.reduce((acc, lang) => {
+      const post = group.postsByLang[lang];
+      acc[lang] = {
+        slug: post.slug,
+        title: post.title,
+        description: post.description,
+        date: post.date,
+        dateLabel: fmtShortDate(post.date, lang).toUpperCase(),
+        readLabel: `${post.readMins} ${STR[lang].minRead} · ${STR[lang].read} →`
+      };
+      return acc;
+    }, {})
+  }));
 
-  return `<nav class="post-lang-switch" aria-label="${post.lang === 'tr' ? 'Yazı dili' : 'Article language'}">
-        <span>${t.language}</span>
-        <div>${links}</div>
-      </nav>`;
+  return `<script type="application/json" id="blog-topic-data">${jsonForScript(data)}</script>`;
+}
+
+function blogRuntimeScript() {
+  const copy = {
+    en: { open: STR.en.open, blogTitle: STR.en.blogTitle, blogLead: STR.en.blogLead },
+    tr: { open: STR.tr.open, blogTitle: STR.tr.blogTitle, blogLead: STR.tr.blogLead }
+  };
+
+  return `<script>
+(function(){
+  var STORAGE_KEY = 'logwise-blog-lang';
+  var COPY = ${jsonForScript(copy)};
+
+  function normalize(lang) {
+    return lang === 'tr' || lang === 'en' ? lang : '';
+  }
+
+  function readLang() {
+    try {
+      return normalize(window.localStorage.getItem(STORAGE_KEY));
+    } catch (err) {
+      return '';
+    }
+  }
+
+  function saveLang(lang) {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, lang);
+    } catch (err) {}
+  }
+
+  function setSwitch(lang) {
+    document.querySelectorAll('[data-blog-lang-option]').forEach(function(button) {
+      var active = button.getAttribute('data-blog-lang-option') === lang;
+      button.classList.toggle('on', active);
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+    });
+  }
+
+  function setCopy(lang) {
+    var text = COPY[lang] || COPY.en;
+    document.querySelectorAll('[data-blog-copy]').forEach(function(node) {
+      var key = node.getAttribute('data-blog-copy');
+      if (text[key]) node.textContent = text[key];
+    });
+    var title = document.querySelector('[data-blog-title]');
+    var lead = document.querySelector('[data-blog-lead]');
+    if (title) title.textContent = text.blogTitle;
+    if (lead) lead.textContent = text.blogLead;
+  }
+
+  function topicData() {
+    var node = document.getElementById('blog-topic-data');
+    if (!node) return [];
+    try {
+      return JSON.parse(node.textContent || '[]');
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function applyIndexLang(lang) {
+    document.documentElement.lang = lang;
+    setSwitch(lang);
+    setCopy(lang);
+    topicData().forEach(function(topic) {
+      var post = topic.postsByLang[lang] || topic.postsByLang.en || topic.postsByLang.tr;
+      var card = document.querySelector('[data-topic="' + topic.key + '"]');
+      if (!post || !card) return;
+      card.setAttribute('href', '/blog/' + post.slug);
+      card.setAttribute('hreflang', lang);
+      card.setAttribute('lang', lang);
+      var langNode = card.querySelector('[data-card-lang]');
+      var dateNode = card.querySelector('[data-card-date]');
+      var titleNode = card.querySelector('[data-card-title]');
+      var descNode = card.querySelector('[data-card-description]');
+      var readNode = card.querySelector('[data-card-read]');
+      if (langNode) langNode.textContent = lang.toUpperCase();
+      if (dateNode) {
+        dateNode.setAttribute('datetime', post.date);
+        dateNode.textContent = post.dateLabel;
+      }
+      if (titleNode) titleNode.textContent = post.title;
+      if (descNode) descNode.textContent = post.description;
+      if (readNode) readNode.textContent = post.readLabel;
+    });
+  }
+
+  var page = document.body.getAttribute('data-blog-page') || '';
+  var currentLang = normalize(document.documentElement.lang) || 'en';
+  if (page === 'index') {
+    var requestedLang = '';
+    try {
+      requestedLang = normalize(new URLSearchParams(window.location.search).get('lang'));
+    } catch (err) {}
+    var initialLang = requestedLang || readLang() || 'en';
+    saveLang(initialLang);
+    applyIndexLang(initialLang);
+  } else {
+    saveLang(currentLang);
+    setSwitch(currentLang);
+    setCopy(currentLang);
+  }
+
+  document.querySelectorAll('[data-blog-lang-option]').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+      var lang = normalize(button.getAttribute('data-blog-lang-option'));
+      if (!lang) return;
+      saveLang(lang);
+      if (page === 'index') {
+        event.preventDefault();
+        applyIndexLang(lang);
+        return;
+      }
+      var target = button.getAttribute('data-target-url');
+      if (target && lang !== currentLang) {
+        event.preventDefault();
+        window.location.href = target;
+        return;
+      }
+      event.preventDefault();
+      setSwitch(lang);
+    });
+  });
+})();
+</script>`;
 }
 
 function postPage(post) {
@@ -356,8 +503,8 @@ function postPage(post) {
 <head>
 ${headBlock({ title: `${post.title} — LogWise Blog`, description: post.description, url, lang: post.lang, jsonLd, ogType: 'article', published: post.date, alternates })}
 </head>
-<body>
-${NAV.replace('__OPEN__', t.open)}
+<body data-blog-page="post">
+${navFor(post.lang, post.alternates)}
 <main class="shell">
   <article>
     <div class="post-head">
@@ -366,7 +513,6 @@ ${NAV.replace('__OPEN__', t.open)}
         <span class="dot"></span>
         <span>${post.readMins} ${t.minRead}</span>
       </div>
-      ${postLanguageSwitch(post)}
       <h1>${esc(post.title)}</h1>
       <p class="lead">${esc(post.description)}</p>
       ${post.tags.length ? `<div class="post-tags">${post.tags.map(tag => `<span>${esc(tag)}</span>`).join('')}</div>` : ''}
@@ -387,6 +533,7 @@ ${post.html}
   </article>
 </main>
 ${FOOTER}
+${blogRuntimeScript()}
 </body>
 </html>
 `;
@@ -394,31 +541,21 @@ ${FOOTER}
 
 function indexCard(group) {
   const en = group.postsByLang.en;
-  const tr = group.postsByLang.tr;
-  const primary = en;
-
-  return `    <article class="post-card topic-card" data-topic="${esc(group.key)}">
+  return `    <a class="post-card topic-card" data-topic="${esc(group.key)}" href="/blog/${en.slug}" hreflang="en" lang="en">
       <div class="post-card-meta">
-        <span class="post-lang">EN/TR</span>
-        <time datetime="${group.sortDate}">${fmtShortDate(group.sortDate, 'en').toUpperCase()}</time>
+        <span class="post-lang" data-card-lang>EN</span>
+        <time datetime="${en.date}" data-card-date>${fmtShortDate(en.date, 'en').toUpperCase()}</time>
       </div>
-      <h2>${esc(primary.title)}</h2>
-      <p>${esc(primary.description)}</p>
-      <div class="topic-translation" lang="tr">
-        <span>TR</span>
-        <strong>${esc(tr.title)}</strong>
-      </div>
-      <div class="post-card-actions" aria-label="Read article language options">
-        <a class="read-link" href="/blog/${en.slug}" hreflang="en" lang="en">EN · ${en.readMins} ${STR.en.minRead} →</a>
-        <a class="read-link" href="/blog/${tr.slug}" hreflang="tr" lang="tr">TR · ${tr.readMins} ${STR.tr.minRead} →</a>
-      </div>
-    </article>`;
+      <h2 data-card-title>${esc(en.title)}</h2>
+      <p data-card-description>${esc(en.description)}</p>
+      <span class="read" data-card-read>${en.readMins} ${STR.en.minRead} · ${STR.en.read} →</span>
+    </a>`;
 }
 
 function indexPage(groups) {
   const url = `${SITE}/blog`;
   const title = 'Blog — LogWise';
-  const description = 'Short, practical reads on training, tracking and progress. Her yazı İngilizce ve Türkçe okunabilir.';
+  const description = STR.en.blogLead;
   const jsonLd = jsonForScript({
     '@context': 'https://schema.org',
     '@type': 'Blog',
@@ -450,19 +587,21 @@ function indexPage(groups) {
 <head>
 ${headBlock({ title, description, url, lang: 'en', jsonLd, ogType: 'website' })}
 </head>
-<body>
-${NAV.replace('__OPEN__', 'OPEN APP')}
+<body data-blog-page="index">
+${navFor('en')}
 <main class="shell-wide">
   <div class="blog-head">
     <div class="kicker">LOGWISE BLOG</div>
-    <h1>Training notes that work in <span style="color:var(--gold)">both languages</span>.</h1>
-    <p>Short, practical reads on training, tracking and progress. Her yazı İngilizce ve Türkçe okunabilir.</p>
+    <h1 data-blog-title>${esc(STR.en.blogTitle)}</h1>
+    <p data-blog-lead>${esc(STR.en.blogLead)}</p>
   </div>
   <div class="post-list">
 ${cards}
   </div>
 </main>
 ${FOOTER}
+${blogTopicDataScript(groups)}
+${blogRuntimeScript()}
 </body>
 </html>
 `;

@@ -3552,3 +3552,38 @@ Blog index'inde Türkçe ve İngilizce yazıların ayrı konular gibi çoğalmas
 - `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
 - `node scripts/build-blog.js` çıktısı her konuda EN/TR varyantı göstermeli.
 - Lokal smoke testte `/blog`, bir EN post ve karşılık gelen TR post açılıp dil switch'i ve hreflang meta'ları doğrulanmalı.
+
+
+
+---
+
+## Bölüm 52 — Blog Aktif Dil Switch UX (2026-06-13)
+
+### Amaç
+
+Bölüm 51'de eklenen iki dilli blog varyantlarını kullanıcı arayüzünde yan yana göstermeyi bırakmak. Blog index ve yazı sayfaları landing'deki dil switch mantığına benzer tek bir TR/EN switch kullanır; seçili dil neyse başlık, açıklama, okuma süresi, kart hedefi ve yazı sayfası o dile göre çalışır.
+
+### Mimari Kararlar
+
+- **URL yapısı korundu:** Her dil varyantı kendi `/blog/<slug>` URL'sinde kalır. Canonical ve hreflang sinyalleri Bölüm 51'deki gibi korunur.
+- **Blog index tek aktif dil gösterir:** `/blog` sayfası konu başına tek kart gösterir; kart içeriği `localStorage` içindeki `logwise-blog-lang` değerine göre EN veya TR olarak doldurulur.
+- **Kart hedefleri aktif dile göre değişir:** `/blog` üzerinde TR seçiliyken kartlar TR slug'larına, EN seçiliyken EN slug'larına gider.
+- **Post switch nav içine taşındı:** Yazı içindeki ayrı "Read this article / Bu yazıyı oku" bloğu kaldırıldı. TR/EN switch üst nav içinde görünür.
+- **Seçim senkron:** Yazı sayfasında dil değiştirildiğinde eş slug'a gidilir ve seçim `localStorage` ile `/blog` sayfasında da korunur. Direkt bir TR/EN yazı URL'si açılırsa mevcut sayfa dili yeni tercih olarak kaydedilir.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `scripts/build-blog.js` | Blog index kartları aktif dile göre dolduran inline runtime + nav dil switch'i |
+| `blog/blog.css` | Landing benzeri segmented switch stili; eski çift dilli kart/action stilleri kaldırıldı |
+| `blog/*.html`, `blog/posts.json`, `sitemap.xml` | Generator çıktıları yeniden üretildi |
+| `docs/BLOG-YAZISI-EKLEME.md` | Yeni switch UX kontrol adımları |
+| `AGENTS.md` | Blog sistemi özeti aktif dil switch davranışıyla güncellendi |
+| `sw.js` | `logwise-v33` → `logwise-v34` bump; sebep `blog/blog.css` runtime cache değişimi |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
+- `node scripts/build-blog.js` sonrası `/blog` default EN açılmalı; switch TR yapıldığında kartlar TR başlık/açıklama/okuma süresi ve TR URL taşımalı.
+- Bir post sayfasında switch ile diğer dile geçiş, sonra `/blog` dönüşünde aynı dilin korunması smoke test edilmeli.
