@@ -3491,3 +3491,28 @@ Türkiye'den ~230-330ms warm RTT'ye sebep olan Oregon (us-west-2) Supabase proje
 - `node --check scripts/build-blog.js`, `node --check sw.js` ve inline template script syntax kontrolü yapılmalı.
 - `node scripts/build-blog.js` çalıştırıldığında sitemap, blog çıktıları ve landing blog kartları birlikte güncellenir.
 - Lokal smoke testte `/workout-log-template` clean URL, add row / clear / print button varlığı, sitemap ve mobil taşma doğrulanmalı.
+
+
+
+---
+
+## Bölüm 50 — Landing Tool Discovery Entegrasyonu (2026-06-12)
+
+### Amaç
+
+Yeni eklenen evergreen SEO tool sayfalarının yalnızca sitemap ve footer linkleriyle kalmaması; ana landing ziyaretçilerinin 1RM calculator ve workout log template sayfalarını kolayca keşfetmesi.
+
+### Değişiklikler
+
+- `index.html` ve `tr.html` üst nav'a `Tools` / `Araçlar` linki eklendi.
+- Hero secondary CTA, features yerine yeni `#tools` bölümüne yönlendirildi (`FREE TOOLS` / `ÜCRETSİZ ARAÇLAR`).
+- App bölümünden sonra, Blog bölümünden önce iki kartlı `#tools` landing bölümü eklendi:
+  - `/one-rep-max-calculator`
+  - `/workout-log-template`
+- `styles/landing.css` içine `tools-section`, `tools-grid`, `tool-link-card` ve responsive stilleri eklendi.
+- `sw.js` `logwise-v29` → `logwise-v30` bump edildi. Sebep: yeni landing tool discovery stilleri `styles/landing.css` içinde ve CSS cache-first servis ediliyor.
+
+### Notlar
+
+- Yeni URL eklenmedi; sitemap değişmedi.
+- `_redirects` değişmedi; tool sayfaları hâlihazırda Cloudflare Pages `.html` clean URL davranışıyla sunuluyor.
