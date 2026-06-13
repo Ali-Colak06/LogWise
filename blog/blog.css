@@ -74,6 +74,8 @@ img,svg{display:block;max-width:100%}
 .post-body strong{color:var(--t1)}
 .post-body a{color:var(--gold);border-bottom:1px solid var(--goldL2);transition:border-color .15s}
 .post-body a:hover{border-color:var(--gold)}
+.post-body .btn-primary{color:#000;border-bottom:0}
+.post-body .btn-primary:hover{color:#000;border-bottom:0}
 .post-body ul,.post-body ol{margin:0 0 18px;padding-left:22px;color:#c9c9c9}
 .post-body li{margin-bottom:8px}
 .post-body blockquote{margin:28px 0;padding:18px 22px;border-left:3px solid var(--gold);background:var(--bg2);border-radius:0 12px 12px 0;color:var(--t1);font-family:var(--font-display);font-size:18px;line-height:1.5}
