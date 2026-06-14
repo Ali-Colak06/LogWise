@@ -1,23 +1,23 @@
 ---
-title: Antrenman Takip Uygulaması Ne Kaydetmeli?
-slug: antrenman-takip-uygulamasi-ne-kaydetmeli
+title: "Egzersiz Takip Uygulaması: Gerçek Gelişim İçin Neyi Takip Etmeli?"
+slug: egzersiz-takip-uygulamasi-ne-kaydetmeli
 date: 2026-06-12
 lang: tr
 translationKey: workout-tracker-app-guide
-description: İyi bir antrenman takip uygulamasında hangi veriler olmalı? Set, tekrar, ağırlık, RIR, PR ve haftalık kontrol listesi.
-tags: antrenman takip uygulaması, fitness günlüğü, gelişim
+description: İyi bir egzersiz takip uygulaması hangi verileri tutmalı? Set, tekrar, ağırlık, RIR, PR ve haftalık kontrol listesi.
+tags: egzersiz takip uygulaması, fitness günlüğü, gelişim
 featured: true
 ---
 
-İyi bir antrenman takip uygulaması, salonda daha fazla ekranla uğraştırmaz. Tam tersine, bir sonraki sette ne yapman gerektiğini daha hızlı gösterir.
+Bir egzersiz takip uygulaması, ancak bir sonraki setin için doğru kararlar almanı sağlıyorsa gerçekten işine yarar.
 
-Temel soru şudur: **Geçen antrenmanda ne yaptım ve bugün neyi geçmeye çalışacağım?**
+Karmaşık olmasına gerek yok. Sadece tek bir soruya hızlıca cevap vermesi gerekir: **Geçen antrenmanda ne yaptım ve bugün neyi geçmeye çalışacağım?**
 
-Bu soruya net cevap alamıyorsan, uygulama güzel görünüyor olabilir ama gelişimini yönetmiyordur.
+Eğer bu soruya doğru bir cevap verebiliyorsa progressive overload artık teoride kalan bir şey olmaktan çıkar; Gerçekten uygulanabilir hale gelir. Cevap veremiyorsa, o uygulama sadece verileri yığdığın başka bir karmaşa alanına dönüşür.
 
-## Önce olmazsa olmaz veriler
+## Egzersiz Takibi İçin Minimum Gereksinimler
 
-Kas ve kuvvet gelişimi için takip etmen gereken çekirdek veri çok basit:
+Güç kazanımı ve kas gelişimi için takip etmen gereken temel veriler aslında çok basit:
 
 - **Hareket** - hangi egzersizi yaptın?
 - **Set** - kaç çalışma seti tamamladın?
@@ -25,51 +25,43 @@ Kas ve kuvvet gelişimi için takip etmen gereken çekirdek veri çok basit:
 - **Ağırlık** - hangi kiloyu kullandın?
 - **Tarih** - bu antrenman ne zaman yapıldı?
 
-Bu beşli, progress overload için yeterli zemini kurar. Örneğin geçen hafta squat 80 kg ile 8, 8, 7 geldiyse bugün hedef bellidir: aynı kiloda 8, 8, 8 yapmak ya da form iyiyse küçük bir kilo artışı denemek.
+Bunlar, bir antrenmanı bir sonrakiyle karşılaştırmak için yeterlidir.
 
-Tahmin yerine kayıt varsa, hedef de net olur.
+Geçen hafta bench press’te 70 kg ile 8, 8, 7 tekrar yaptıysan, bugün hedefin bellidir: aynı kiloda 8, 8, 8’e ulaşmak. Eğer geçen antrenman kolay geldiyse, küçük bir ağırlık artışı denemek.
 
-## RIR neden işe yarar?
+En iyi egzersiz takp uygulaması, antrenman sırasında gerçekten kullanmaya devam ettiğindir. Bir seti kaydetmek fazla uzun sürüyorsa, salon kalabalıklaştığında bunu yapmayı bırakırsın.
 
-RIR, "yedekte kaç tekrar kaldı?" anlamına gelir. 10 tekrarlık bir seti 3 RIR ile bitirmek ile 0 RIR ile bitirmek aynı şey değildir.
+## Eklemeye Değer Alanlar
 
-Sadece kilo ve tekrar bakarsan bazı setler olduğundan iyi görünebilir. RIR veya efor notu eklemek, yükün gerçekten sürdürülebilir olup olmadığını anlamanı sağlar.
+Temel kayıtları tutmak kolaylaştıktan sonra, birkaç ek alan egzersiz takibini çok daha işe yarar hale getirir.
 
-Yeni başlayan biri için her sette RIR yazmak şart değildir. Ama ana hareketlerde kısa bir efor notu bile çok şey anlatır:
+### RIR veya zorlanma seviyesi
 
-- Kolay
-- Zor ama temiz
-- Son tekrar formu bozdu
-- Bir sonraki hafta aynı kiloda kal
+RIR, setin sonunda kaç temiz tekrar daha çıkarabileceğini tahmin etmektir. Yani “yedekte kalan tekrar” gibi düşünebilirsin.
 
-## PR takibi motivasyon değil, sinyaldir
+10 tekrar yaptığın bir sette hâlâ 3 tekrar daha çıkarabilecek durumdaysan bu başka bir şeydir; 10. tekrarı zar zor tamamladıysan bu bambaşka bir şeydir.
 
-PR görmek motive eder, evet. Ama PR takibinin asıl değeri motivasyon değil, trend okumaktır.
+Zorlanma seviyesini takip etmek, sahte ilerlemeyi fark etmene yardımcı olur. Belki ağırlık artmıştır, ama her set ölüm kalım savaşına dönmüştür. Bu da önemli bir veridir.
 
-Bir uygulama sana şunları gösterebilmeli:
+### PR veya Kişisel Rekor
 
-- En iyi setin
-- Tekrar rekorların
-- Tahmini 1RM değişimi
-- Hangi hareketlerde gelişimin hızlandı veya durdu
+Kişisel rekorlar motive eder, ama asıl değerleri antrenmanların nereye gittiğini göstermeleridir. İyi bir egzersiz takibi uygulaması; en iyi setlerini, tahmini kişisel rekor değişimlerini ve yeni rekorlarını sen aramak zorunda kalmadan önüne çıkarmalıdır.
 
-Her antrenmanda PR kovalamak gerekmez. Ama haftalar içinde sayılar yukarı gidiyorsa plan çalışıyor demektir.
+Amaç her antrenmanda kişisel rekor kovalamak değildir. Amaç, performansın gerçekten yukarı gidip gitmediğini görebilmektir.
 
-## Not alanını kısa tut
+### Notlar
 
-Notlar sayılarla açıklanamayan şeyler içindir:
+Notlar sayıların ifade edemediği şeyler içindir.
 
-- Uykusuzluk
-- Omuz veya diz rahatsızlığı
-- Yeni teknik ipucu
-- Farklı spor salonunda farklı makine
-- Deload haftası
-
-Not alanını günlük gibi kullanmak zorunda değilsin. Bir cümle çoğu zaman yeterlidir. Ama üç hafta sonra grafiğe baktığında, o gün neden düşük performans verdiğini hatırlatır.
+- Az uyku
+- Omuz rahatsızlığı
+- Yeni bir teknik ipucu
+- Farklı salonda farklı makine kullanmak
+- Deload veya yük azaltma haftası
 
 ## İlk günden her şeyi takip etmeye çalışma
 
-En yaygın hata, uygulamayı açar açmaz her şeyi ölçmeye çalışmaktır: tempo, dinlenme süresi, ısınma setleri, ruh hali, vücut ağırlığı, makro, ağrı, supplement, uyku skoru...
+İnsanların çoğu her şeyi takip etmeye çalıştıkları için ilk günden pes ediyor: tempo, dinlenme süresi, ısınma setleri, ruh hali, vücut ağırlığı, makro, ağrı, supplement, uyku skoru...
 
 Bunların bazıları ileri seviyede faydalı olabilir. Ama başlangıçta gereksiz yük yaratır.
 
@@ -80,15 +72,17 @@ Basit kural: **Bir veri bir sonraki antrenman kararını değiştirmeyecekse, ş
 Kayıt tutmak tek başına yeterli değildir. Haftada bir kısa kontrol yap:
 
 1. **Hangi hareketlerde ilerledim?** Daha fazla tekrar, daha yüksek kilo, daha temiz form.
-2. **Hangi hareketler durdu?** Aynı sayıların birkaç antrenman üst üste tekrar etmesi.
-3. **Toparlanma nasıl?** Her şey düşüyorsa sorun programdan önce uyku, hacim veya dinlenme olabilir.
+2. **Hangi hareketler duruldu?** Aynı sayıların birkaç antrenman üst üste tekrar etmesi.
+3. **Hangi hareketlerde toparlanmak uzun sürüyor?** Performans düşüşleri genelde motivasyon düşüşlerinden daha erken ortaya çıkar.
 
-Çoğu hareket ilerliyorsa planı bozma. Tek bir hareket durduysa o hareketi düzenle. Her şey durduysa tüm sistemi gözden geçir.
+Çoğu harekette ilerleme varsa planı bozma. Tek bir hareket durduysa o hareketi düzenle. Her şey durduysa tüm sistemi değiştirmeden önce uyku, sıklık ve iyileşmeyi gözden geçir.
 
-## LogWise bu yüzden var
+## Tablo, Defter ya da Uygulama
 
-Defter de çalışır, tablo da çalışır. Ama telefon zaten cebindeyse, antrenman takip uygulamasının avantajı hızdır.
+Bir defter de işe yarar. Bir hesap tablosu da işe yarar. Egzersiz takip uygulamasının avantajı ise hız ve kolay erişimdir.
 
-LogWise set kaydını saniyeler içinde yapman, önceki antrenmanını hızlı görmen, PR'ları ve gelişim grafiklerini otomatik takip etmen için tasarlandı.
+Spor salonundayken, en son verileri mümkün olduğunca sorunsuz bir şekilde elinizin altında görmek istersiniz. Spor salonundan çıktıktan sonra ise, formülleri kendiniz oluşturmak zorunda kalmadan grafiklere, kişisel rekorlarınıza ve egzersiz geçmişinize ulaşmak istersiniz.
 
-En iyi takip sistemi en kalabalık olan değil; bir sonraki setini daha bilinçli yaptırandır.
+LogWise işte bu amaçla tasarlandı: hızlı set kaydı, net ilerleme grafikleri, kişisel rekor takibi ve herhangi bir cihazdan açabileceğiniz tarayıcı tabanlı bir uygulama.
+
+En iyi kayıt, en ayrıntılı olan değildir. Bir sonraki seansınızı daha net hale getiren kayıttır.

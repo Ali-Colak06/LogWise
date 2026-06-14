@@ -53,8 +53,6 @@ Notes are for things numbers cannot explain:
 - Different machine at another gym
 - Deload week
 
-Keep notes short. They are context, not a diary.
-
 ## What not to track at first
 
 Many people quit tracking because they try to capture everything: tempo, rest time, warm-up sets, mood, body weight, macros, soreness, supplements, and ten different readiness scores.

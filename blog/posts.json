@@ -1,19 +1,19 @@
 [
   {
-    "slug": "antrenman-takip-uygulamasi-ne-kaydetmeli",
-    "title": "Antrenman Takip Uygulaması Ne Kaydetmeli?",
-    "description": "İyi bir antrenman takip uygulamasında hangi veriler olmalı? Set, tekrar, ağırlık, RIR, PR ve haftalık kontrol listesi.",
+    "slug": "egzersiz-takip-uygulamasi-ne-kaydetmeli",
+    "title": "Egzersiz Takip Uygulaması: Gerçek Gelişim İçin Neyi Takip Etmeli?",
+    "description": "İyi bir egzersiz takip uygulaması hangi verileri tutmalı? Set, tekrar, ağırlık, RIR, PR ve haftalık kontrol listesi.",
     "date": "2026-06-12",
     "lang": "tr",
     "translationKey": "workout-tracker-app-guide",
     "tags": [
-      "antrenman takip uygulaması",
+      "egzersiz takip uygulaması",
       "fitness günlüğü",
       "gelişim"
     ],
     "featured": true,
-    "readMins": 2,
-    "url": "/blog/antrenman-takip-uygulamasi-ne-kaydetmeli",
+    "readMins": 3,
+    "url": "/blog/egzersiz-takip-uygulamasi-ne-kaydetmeli",
     "alternates": {
       "en": {
         "slug": "workout-tracker-app-guide",
@@ -21,9 +21,9 @@
         "url": "/blog/workout-tracker-app-guide"
       },
       "tr": {
-        "slug": "antrenman-takip-uygulamasi-ne-kaydetmeli",
-        "title": "Antrenman Takip Uygulaması Ne Kaydetmeli?",
-        "url": "/blog/antrenman-takip-uygulamasi-ne-kaydetmeli"
+        "slug": "egzersiz-takip-uygulamasi-ne-kaydetmeli",
+        "title": "Egzersiz Takip Uygulaması: Gerçek Gelişim İçin Neyi Takip Etmeli?",
+        "url": "/blog/egzersiz-takip-uygulamasi-ne-kaydetmeli"
       }
     }
   },
@@ -49,9 +49,9 @@
         "url": "/blog/workout-tracker-app-guide"
       },
       "tr": {
-        "slug": "antrenman-takip-uygulamasi-ne-kaydetmeli",
-        "title": "Antrenman Takip Uygulaması Ne Kaydetmeli?",
-        "url": "/blog/antrenman-takip-uygulamasi-ne-kaydetmeli"
+        "slug": "egzersiz-takip-uygulamasi-ne-kaydetmeli",
+        "title": "Egzersiz Takip Uygulaması: Gerçek Gelişim İçin Neyi Takip Etmeli?",
+        "url": "/blog/egzersiz-takip-uygulamasi-ne-kaydetmeli"
       }
     }
   },
