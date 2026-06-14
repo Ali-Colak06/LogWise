@@ -735,6 +735,9 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
 .template-hero .template-sheet{padding:26px}
 .template-hero .template-table{min-width:960px}
 .template-card{max-width:760px}
+.volume-hero .tool-hero-grid{grid-template-columns:1fr;gap:48px;align-items:start}
+.volume-hero .tool-hero-copy{max-width:900px}
+.volume-hero .volume-card{max-width:none;width:100%;min-width:0}
 .template-toolbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
 .template-toolbar button{padding:8px 11px;border:1px solid var(--brd2);border-radius:10px;color:var(--t2);font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.08em}
 .template-toolbar button.on{background:var(--gold);border-color:var(--gold);color:#000}
