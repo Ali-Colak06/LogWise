@@ -9,34 +9,34 @@ tags: antrenman, takip, başlangıç
 featured: true
 ---
 
-Salona düzenli giden çoğu kişi aynı tuzağa düşer: her hafta antrenman yapar ama **geçen hafta ne kaldırdığını hatırlamaz**. "Bench'te 60 mı yapıyordum, 65 mi?" sorusunun cevabı tahmine kalırsa, gelişim de tahmine kalır.
+Düzenli olarak antrenman yapan çoğu kişi aynı tuzağa düşer: Her hafta spor salonuna giderler, ancak **geçen hafta tam olarak ne kadar ağırlık kaldırdıklarını** hatırlamazlar. “Bench press'im 60 kg mıydı, yoksa 65 kg mıydı?” sorusunun cevabı bir tahminse, ilerleme de bir tahmine dönüşür.
 
 ## Hafıza kötü bir antrenman partneridir
 
-Beynimiz set, tekrar ve kilo gibi detayları saklamak için tasarlanmamıştır. Araştırmalar, insanların geçmiş performanslarını sistematik olarak **olduğundan iyi hatırladığını** gösteriyor. Bu da şu anlama gelir: günlük tutmuyorsan, muhtemelen kendini gerçekte olduğundan daha hızlı gelişiyor sanıyorsun.
+Beyniniz her seti, her tekrarı ve her yükleme detayını hatırlayacak şekilde tasarlanmamıştır. Ayrıca, geçmiş performansınızı gerçekte olduğundan biraz daha iyi hatırlama eğilimindedir. Bu da, bir kayıt tutmazsanız, gerçekte olduğundan daha hızlı ilerlediğinizi düşünebileceğiniz anlamına gelir.
 
-Günlük tutmak bu yanılgıyı ortadan kaldırır. Sayı oradadır; ya arttı ya artmadı.
+Günlük tutmak bu yanılgıyı ortadan kaldırır. Sayı oradadır; ya artmıştır ya artmamıştır.
 
-## Progressive overload günlük olmadan çalışmaz
+## Progressive overload kayıt tutmadan çalışmaz
 
-Kas ve kuvvet gelişiminin temel prensibi basittir: vücuda **geçen seferkinden biraz daha fazla** yük bindir. Buna progressive overload denir.
+Güç ve kas kazanımının ardındaki temel kural basittir: Vücudunuzdan **geçen seferkinden biraz daha fazlasını** yapmasını isteyin. İşte progressive overload budur.
 
-Ama "geçen seferkinden fazla" diyebilmek için geçen seferi bilmek gerekir:
+Ancak “geçen seferkinden daha fazlası” ancak geçen sefer ne yaptığınızı biliyorsanız işe yarar:
 
-- Geçen hafta: Squat 80 kg × 8, 8, 7
-- Bu hafta hedef: 80 kg × 8, 8, **8** — ya da 82.5 kg'a geç
+- Geçen hafta: Squat 80 kg x 8, 8, 7
+- Bu hafta: 80 kg x 8, 8, **8** hedefleyin — ya da egzersiz size zor geldiyse 82,5 kg'a geçin
 
-Günlük olmadan bu karşılaştırma yapılamaz. Günlükle ise her antrenman, net bir hedefle başlar.
+Kayıt tutmazsanız, karşılaştırma imkansız hale gelir. Kayıt tutarsanız, her antrenman net bir hedefle başlar.
 
 ## Platoyu erken yakalarsın
 
-Gelişim hiçbir zaman düz bir çizgi değildir. Ama 3-4 haftadır aynı kiloda, aynı tekrar sayısında takılıp kaldığını **grafikte görmek** ile "sanki biraz durağanlaştım" hissi arasında büyük fark var.
+İlerleme asla düz bir çizgi şeklinde olmaz. Yine de, bir antrenman performansının dört haftadır sabit kaldığını görmekle, antrenmanların yavaşladığını belirsiz bir şekilde hissetmek arasında büyük bir fark vardır.
 
-Veri varsa müdahale de net olur: hacmi artır, deload haftası ekle, hareketi değiştir. Veri yoksa el yordamıyla ilerlersin.
+Elinizde veriler olduğunda, alacağınız önlemler somut olabilir: antrenman hacmini artırmak, yükü azaltmak, egzersiz varyasyonunu değiştirmek veya dinlenmeyi iyileştirmek gibi. Veriler olmadan ise, sadece tahminde bulunursunuz.
 
 ## Nasıl başlanır: 3 adım
 
-1. **Her seti kaydet** — hareket, kilo, tekrar. Hepsi bu. RIR (kaç tekrar yedekte bıraktığın) eklersen daha da iyi.
+1. **Her çalışma setini kaydet** — hareket, kilo, tekrar. Hepsi bu. RIR (kaç tekrar yedekte bıraktığın) eklersen daha da iyi.
 2. **Antrenman öncesi son kaydına bak** — bugünün hedefi, geçen seferin bir tık üstü.
 3. **Haftada bir grafiğe bak** — yükseliyor mu? Devam. Düz mü? Planı gözden geçir.
 

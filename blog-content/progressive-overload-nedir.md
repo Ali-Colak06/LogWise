@@ -9,39 +9,39 @@ tags: antrenman, gelişim, progressive overload
 featured: false
 ---
 
-Supplementleri, sosyal medya programlarını ve karmaşık periodizasyon tablolarını kenara koyduğunda çoğu başarılı antrenman planı tek bir motora dayanır: **progressive overload**. Geçen seferden biraz daha fazlasını yap, toparlan, tekrar et.
+Takviyeleri, influencerların rutinlerini ve karmaşık tablolarını bir kenara bırakırsak, neredeyse her başarılı antrenman programı tek bir ilkeye dayanır: **progressive overload**. Bir önceki seferden biraz daha fazlasını yap, dinlen, tekrarla.
 
 ## Aslında ne demek?
 
-Progressive overload, antrenmanda vücuduna verdiğin yükü zaman içinde kademeli artırmaktır. Kasların onlardan istediğin şeye uyum sağlar. Her hafta aynı şeyi istersen, büyümek veya güçlenmek için güçlü bir sebep kalmaz.
+Progressive overload, antrenman sırasında vücudunuza uygulanan yükün kademeli olarak artırılmasıdır. Kaslarınız, onlardan beklediğiniz şeye uyum sağlar — dolayısıyla her hafta aynı şeyi beklerseniz, büyümeleri için bir neden kalmaz.
 
-"Daha fazla" sadece daha fazla kilo demek değildir. Şunlarla da ilerleyebilirsin:
+“Daha fazla” demek sadece daha fazla ağırlık demek değildir. Aşağıdakileri ekleyerek ilerleme kaydedebilirsiniz:
 
-- **Kilo** — 60 kg → 62.5 kg
+- **Ağırlık** — 60 kg → 62,5 kg
 - **Tekrar** — 8, 8, 7 → 8, 8, 8
 - **Set** — 3 çalışma seti → 4
-- **Failure'a yakınlık** — aynı seti 3 RIR yerine 1 RIR ile bitirmek
-- **Kontrol** — aynı sayılarla daha temiz hareket açıklığı ve tempo
+- **Yedekteki tekrar sayısı** — aynı set, ancak 3 tekrar yerine 1 tekrar yedek bırakarak
+- **Kontrol** — aynı sayılar, daha iyi hareket aralığı ve tempo
 
-Bunların hepsi ilerleme sayılır. Hata, hepsini aynı anda kovalamaktır.
+Bunların herhangi biri önemlidir. Hata, hepsini aynı anda peşinde koşmaktır.
 
-## Neden önce kayıt gerekir?
+## Neden kayıt tutmak gerekir?
 
-Rahatsız edici gerçek şu: **Geçen sefer ne yaptığını bilmiyorsan progressive overload uygulayamazsın.**
+İşte rahatsız edici gerçek: **“Geçen sefer” ne olduğunu bilmiyorsanız, progressive overload uygulayamazsınız.**
 
-Overload bir karşılaştırmadır. Kayıt yoksa karşılaştırma yoktur; karşılaştırma yoksa overload yoktur. Sadece zor hissettiren rastgele antrenmanlar vardır. Antrenman günlüğü, "galiba güçleniyorum" hissini yukarı çıkan veya çıkmayan bir sayıya çevirir.
+Ağırlık artışı bir karşılaştırmadır. Kayıt yoksa, karşılaştırma da yok, ağırlık artışı da yok — sadece zor gelen rastgele antrenmanlar var. Bir antrenman günlüğü, “Sanırım güçleniyorum” hissini, ya artmış ya da artmamış bir sayıya dönüştürür.
 
-## Pratik haftalık yaklaşım
+## Pratik bir haftalık yaklaşım
 
-1. **Her hareket için tek bir ilerleme kolu seç.** Çoğu hareket için tekrar aralığının üstüne ulaşana kadar tekrar eklemek, sonra kilo artırmak yıllarca çalışır.
-2. **Antrenman öncesi son kaydına bak.** Hedefin oradadır: bir sayıyı mümkün olan en küçük farkla geç.
-3. **Her seans zorlamaya çalışma.** Bazı günler geçen haftayı eşitlemek yeterlidir. Önemli olan tek gün değil, trenddir.
-4. **4-6 haftada bir gözden geçir.** Bir hareket bir aydır düz gidiyorsa bilinçli bir değişiklik yap: hacim artır, deload ekle veya varyasyon değiştir.
+1. **Her egzersiz için bir ilerleme kriteri seçin.** Çoğu harekette, aralığın üst sınırına (örneğin 8–12) ulaşana kadar tekrar sayısını artırmak, ardından ağırlığı artırmak yıllarca işe yarar.
+2. **Her antrenmandan önce son antrenman günlüğünüzü kontrol edin.** Hedefiniz orada yazıyor: Bir rakamı mümkün olan en küçük farkla geçin.
+3. **Her seans zorlamayın.** Bazı günler sadece geçen haftaki performansı tekrarlayabilirsiniz. Sorun değil — önemli olan trend, o gün değil.
+4. **Her 4–6 haftada bir gözden geçirin.** Bir hareket bir aydır aynı seviyedeyse, bilinçli olarak bir şeyleri değiştirin: hacmi artırın, yükü azaltın veya varyasyon değiştirin.
 
 ## Yaygın hatalar
 
 - **Kiloyu çok hızlı artırmak.** Press hareketlerinde +2.5 kg bile büyük sıçramadır. Gerekirse mikro artış yap veya tekrar ekle.
-- **Ağrıyı gelişim sanmak.** Kas ağrısı yeniliği ölçer, büyümeyi değil. Büyümeyi kayıt ölçer.
+- **Ağrıyı gelişim sanmak.** Kas ağrısı gelişimin kesin bir ölçütü değildir. Gelişimi kayıt ölçer.
 - **Programdan programa atlamak.** Sayılar yükseliyorsa makul bir program çalışır. Yükselmiyorsa hiçbir program çalışmaz.
 
-Progressive overload sıkıcı, yavaş ve güvenilirdir; çoğu fitness içeriğinin tam tersidir. Kaldırışlarını takip et, geçen haftayı küçük bir farkla geç ve ayların işini yapmasına izin ver. Takip kısmının tablo değil de saniyeler sürmesini istiyorsan [LogWise](https://logwise.fit/app) tam bunun için var.
+Progressive overload sıkıcı, yavaş ve güvenilirdir; çoğu fitness içeriğinin tam tersidir. Egzersizlerini takip et, geçen haftayı küçük bir farkla geç ve zamanın işini yapmasına izin ver. Takip kısmının defter tutmanın aksine saniyeler içinde halledilmesini istiyorsan [LogWise](https://logwise.fit/app) tam bunun için var.
