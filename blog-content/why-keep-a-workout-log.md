@@ -42,6 +42,8 @@ When you have data, your response can be specific: add volume, take a deload, ch
 
 You do not need a perfect system to begin. A notebook works. A spreadsheet works. But your phone is already with you, and [LogWise](https://logwise.fit/app) is built for this exact job: fast set logging, automatic charts, and PR tracking without setup.
 
+If you want a paper version first, the [free workout log template](https://logwise.fit/workout-log-template) gives you a printable layout for exercises, sets, reps, weight, RIR, and notes.
+
 > A workout log is not for remembering. It is for **comparing**.
 
 Log your first set today. Three months from now, you will have evidence instead of a feeling.

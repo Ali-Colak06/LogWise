@@ -29,7 +29,9 @@ Bunlar, bir antrenmanı bir sonrakiyle karşılaştırmak için yeterlidir.
 
 Geçen hafta bench press’te 70 kg ile 8, 8, 7 tekrar yaptıysan, bugün hedefin bellidir: aynı kiloda 8, 8, 8’e ulaşmak. Eğer geçen antrenman kolay geldiyse, küçük bir ağırlık artışı denemek.
 
-En iyi egzersiz takp uygulaması, antrenman sırasında gerçekten kullanmaya devam ettiğindir. Bir seti kaydetmek fazla uzun sürüyorsa, salon kalabalıklaştığında bunu yapmayı bırakırsın.
+En iyi egzersiz takip uygulaması, antrenman sırasında gerçekten kullanmaya devam ettiğindir. Bir seti kaydetmek fazla uzun sürüyorsa, salon kalabalıklaştığında bunu yapmayı bırakırsın.
+
+Uygulamaya geçmeden önce kağıt üzerinde basit bir sistem kurmak istersen, [ücretsiz antrenman günlüğü şablonu](https://logwise.fit/workout-log-template) hareket, set, tekrar, ağırlık, RIR ve not alanlarını düzenli tutman için iyi bir başlangıç sağlar.
 
 ## Eklemeye Değer Alanlar
 
@@ -48,6 +50,8 @@ Zorlanma seviyesini takip etmek, sahte ilerlemeyi fark etmene yardımcı olur. B
 Kişisel rekorlar motive eder, ama asıl değerleri antrenmanların nereye gittiğini göstermeleridir. İyi bir egzersiz takibi uygulaması; en iyi setlerini, tahmini kişisel rekor değişimlerini ve yeni rekorlarını sen aramak zorunda kalmadan önüne çıkarmalıdır.
 
 Amaç her antrenmanda kişisel rekor kovalamak değildir. Amaç, performansın gerçekten yukarı gidip gitmediğini görebilmektir.
+
+Özellikle squat, bench press ve deadlift gibi ana hareketlerde hızlı bir referans istiyorsan [LogWise 1RM hesaplayıcı](https://logwise.fit/one-rep-max-calculator), yaptığın kilo ve tekrar üzerinden tahmini maksimumunu verir. Bu değeri zaman içinde takip etmek, gelişimin yönünü daha net gösterir.
 
 ### Notlar
 

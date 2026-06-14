@@ -42,6 +42,8 @@ Elinizde veriler olduğunda, alacağınız önlemler somut olabilir: antrenman h
 
 Başlamak için mükemmel bir sistem gerekmez; defter bile çalışır. Ama telefon zaten cebinde ve [LogWise](https://logwise.fit/app) tam olarak bunun için var: set kaydı saniyeler sürer, grafikler ve PR takibi otomatik gelir.
 
+Önce kağıt üzerinde sade bir düzen kurmak istersen [ücretsiz antrenman günlüğü şablonu](https://logwise.fit/workout-log-template), hareket, set, tekrar, ağırlık, RIR ve not alanlarını tek sayfada toplar.
+
 > Antrenman günlüğü hatırlamak için değil — **kıyaslamak** içindir.
 
 İlk setini bugün kaydet. Üç ay sonra geriye baktığında, tahmin değil **kanıt** göreceksin.

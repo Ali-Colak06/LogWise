@@ -27,6 +27,8 @@ That is enough to compare one session with the next. If you benched 70 kg for 8,
 
 The best tracker is the one you actually use while training. If logging a set takes too long, you will stop doing it when the gym gets busy.
 
+If you want a printable structure before moving everything into an app, start with the [free workout log template](https://logwise.fit/workout-log-template). It gives you a clean way to capture exercises, sets, reps, weight, RIR, and notes.
+
 ## The fields worth adding
 
 Once the basics are easy, a few extra fields make the log much more useful.
@@ -42,6 +44,8 @@ Tracking effort helps you avoid false progress. Maybe the weight went up, but ev
 PRs are motivating, but they also show where training is moving. A good workout tracker should surface best sets, estimated 1RM changes, and new rep records without making you hunt for them.
 
 The goal is not to chase a PR every session. The goal is to see when performance is trending up.
+
+For a quick strength benchmark, the [LogWise 1RM calculator](https://logwise.fit/one-rep-max-calculator) can estimate your one rep max from a recent set, which is useful to log alongside PRs on compound lifts.
 
 ### Notes
 

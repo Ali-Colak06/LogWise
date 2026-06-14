@@ -25,6 +25,8 @@ Progressive overload is the gradual increase of stress placed on your body durin
 
 Any of these counts. The mistake is chasing all of them at once.
 
+When a heavy set gives you a new benchmark, the [LogWise 1RM calculator](https://logwise.fit/one-rep-max-calculator) can estimate your one rep max from weight and reps, so the number is easier to compare over time.
+
 ## Why logging comes first
 
 Here's the uncomfortable truth: **you cannot apply progressive overload if you don't know what "last time" was.**

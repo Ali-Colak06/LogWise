@@ -25,6 +25,8 @@ Progressive overload, antrenman sırasında vücudunuza uygulanan yükün kademe
 
 Bunların herhangi biri önemlidir. Hata, hepsini aynı anda peşinde koşmaktır.
 
+Ağır bir set sana yeni bir referans veriyorsa, [LogWise 1RM hesaplayıcı](https://logwise.fit/one-rep-max-calculator) kilo ve tekrar bilgisiyle tahmini maksimumunu hesaplar; böylece bu sayıyı zaman içinde karşılaştırmak kolaylaşır.
+
 ## Neden kayıt tutmak gerekir?
 
 İşte rahatsız edici gerçek: **“Geçen sefer” ne olduğunu bilmiyorsanız, progressive overload uygulayamazsınız.**
