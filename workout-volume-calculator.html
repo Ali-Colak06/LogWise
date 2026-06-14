@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Workout Volume Calculator - Training Volume by Exercise | LogWise</title>
+<meta name="description" content="Calculate total workout volume from exercises, sets, reps, and weight. Add rows, switch kg/lb, and see exercise-by-exercise volume summaries."/>
+<link rel="canonical" href="https://logwise.fit/workout-volume-calculator"/>
+<link rel="alternate" hreflang="en" href="https://logwise.fit/workout-volume-calculator"/>
+<link rel="alternate" hreflang="x-default" href="https://logwise.fit/workout-volume-calculator"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:site_name" content="LogWise"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Workout Volume Calculator - Training Volume by Exercise | LogWise"/>
+<meta property="og:description" content="Calculate total workout volume from exercises, sets, reps, and weight. Add rows, switch kg/lb, and see exercise-by-exercise volume summaries."/>
+<meta property="og:url" content="https://logwise.fit/workout-volume-calculator"/>
+<meta property="og:image" content="https://logwise.fit/icon-512.png"/>
+<meta property="og:locale" content="en_US"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Workout Volume Calculator - Training Volume by Exercise | LogWise"/>
+<meta name="twitter:description" content="Calculate total workout volume from exercises, sets, reps, and weight. Add rows, switch kg/lb, and see exercise-by-exercise volume summaries."/>
+<meta name="twitter:image" content="https://logwise.fit/icon-512.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/styles/landing.css"/>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebPage","name":"Workout Volume Calculator","url":"https://logwise.fit/workout-volume-calculator","description":"Calculate total workout volume from exercises, sets, reps, and weight. Add rows, switch kg/lb, and see exercise-by-exercise volume summaries.","inLanguage":"en","datePublished":"2026-06-15","dateModified":"2026-06-15","isPartOf":{"@type":"WebSite","name":"LogWise","url":"https://logwise.fit"},"about":["workout volume calculator","training volume","sets reps weight","workout tracking"]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do you calculate workout volume?","acceptedAnswer":{"@type":"Answer","text":"Workout volume for a set is sets multiplied by reps multiplied by weight. Add the volume from each row to get total session volume."}},{"@type":"Question","name":"Should workout volume be tracked in kg or lb?","acceptedAnswer":{"@type":"Answer","text":"Use whichever unit you train with consistently. The calculator supports kg and lb labels so your weekly comparisons stay clear."}},{"@type":"Question","name":"Is more training volume always better?","acceptedAnswer":{"@type":"Answer","text":"No. Volume is useful for comparison, but recovery, exercise selection, effort, and performance trends matter too."}}]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"LogWise","item":"https://logwise.fit/"},{"@type":"ListItem","position":2,"name":"Workout Volume Calculator","item":"https://logwise.fit/workout-volume-calculator"}]}]</script>
+</head>
+<body>
+<header class="nav">
+  <div class="shell nav-row">
+    <a href="/" class="brand">
+      <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+      <span class="brand-name">LOG <b>WISE</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#calculator">Calculator</a>
+      <a href="#guide">Guide</a>
+      <a href="#tools">Tools</a>
+      <a href="/blog">Blog</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="/app" class="btn btn-primary"><span class="desktop-label">START TRACKING</span><span class="mobile-label">OPEN</span> &rarr;</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="tool-hero volume-hero">
+  <div class="shell tool-hero-grid">
+    <div class="tool-hero-copy">
+      <div class="tag"><span class="tag-dot"></span>Free training volume calculator</div>
+      <h1 class="display">Workout Volume <span class="gold">Calculator</span></h1>
+      <p class="lead">Add exercises, sets, reps, and weight to calculate total session volume and see which movements are doing the most work.</p>
+      <div class="hero-ctas">
+        <a href="/app" class="btn btn-primary">START A FREE WORKOUT LOG &rarr;</a>
+        <a href="/app" class="btn btn-ghost">TRACK VOLUME IN LOGWISE &rarr;</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>SETS</b></span><span class="dot"></span><span><b>REPS</b></span><span class="dot"></span><span><b>WEIGHT</b></span><span class="dot"></span><span><b>KG OR LB</b></span>
+      </div>
+    </div>
+
+    <section id="calculator" class="tool-card volume-card" aria-label="Workout volume calculator">
+      <div class="tool-card-head">
+        <div>
+          <div class="section-kicker">VOLUME TOTAL</div>
+          <h2>Enter your working sets</h2>
+        </div>
+        <div class="unit-toggle" role="group" aria-label="Weight unit">
+          <button type="button" class="on" data-unit="kg">KG</button>
+          <button type="button" data-unit="lb">LB</button>
+        </div>
+      </div>
+
+      <div class="volume-table-wrap">
+        <table class="volume-table">
+          <thead>
+            <tr>
+              <th>Exercise</th>
+              <th>Sets</th>
+              <th>Reps</th>
+              <th>Weight</th>
+              <th>Volume</th>
+            </tr>
+          </thead>
+          <tbody id="volume-body">
+            <tr data-volume-row>
+              <td><input type="text" value="Bench Press" aria-label="Exercise name"/></td>
+              <td><input type="number" min="0" step="1" value="3" inputmode="numeric" aria-label="Sets"/></td>
+              <td><input type="number" min="0" step="1" value="8" inputmode="numeric" aria-label="Reps"/></td>
+              <td><input type="number" min="0" step="0.5" value="80" inputmode="decimal" aria-label="Weight"/></td>
+              <td><strong data-row-volume>1,920 kg</strong></td>
+            </tr>
+            <tr data-volume-row>
+              <td><input type="text" value="Dumbbell Row" aria-label="Exercise name"/></td>
+              <td><input type="number" min="0" step="1" value="3" inputmode="numeric" aria-label="Sets"/></td>
+              <td><input type="number" min="0" step="1" value="10" inputmode="numeric" aria-label="Reps"/></td>
+              <td><input type="number" min="0" step="0.5" value="32" inputmode="decimal" aria-label="Weight"/></td>
+              <td><strong data-row-volume>960 kg</strong></td>
+            </tr>
+            <tr data-volume-row>
+              <td><input type="text" value="Romanian Deadlift" aria-label="Exercise name"/></td>
+              <td><input type="number" min="0" step="1" value="3" inputmode="numeric" aria-label="Sets"/></td>
+              <td><input type="number" min="0" step="1" value="8" inputmode="numeric" aria-label="Reps"/></td>
+              <td><input type="number" min="0" step="0.5" value="100" inputmode="decimal" aria-label="Weight"/></td>
+              <td><strong data-row-volume>2,400 kg</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="volume-actions">
+        <button type="button" data-volume-action="add">ADD ROW</button>
+        <button type="button" data-volume-action="clear">CLEAR</button>
+      </div>
+
+      <div class="orm-output volume-output" aria-live="polite">
+        <span>Total workout volume</span>
+        <strong id="volume-total">5,280 kg</strong>
+        <small id="volume-note">Across 9 working sets in 3 exercises.</small>
+      </div>
+
+      <div class="volume-summary-card">
+        <h3>Exercise summary</h3>
+        <div id="volume-summary-list" class="volume-summary-list"></div>
+      </div>
+
+      <a href="/app" class="tool-inline-cta">Track this workout in LogWise &rarr;</a>
+    </section>
+  </div>
+</section>
+
+<section id="guide" class="section-pad section-alt">
+  <div class="shell tool-content-grid">
+    <article class="tool-copy-block">
+      <div class="section-kicker">HOW TO USE IT</div>
+      <h2 class="section-title">Volume is the amount of work you repeat and recover from.</h2>
+      <p>Training volume is a useful signal when you compare the same exercise over time. A bigger number is not automatically better, but it helps explain why a week felt easy, productive, or too hard to recover from.</p>
+      <ol class="tool-steps">
+        <li><b>Use working sets.</b> Warm-ups can stay out unless you intentionally want them in your total.</li>
+        <li><b>Keep units consistent.</b> Compare kg weeks with kg weeks, or lb weeks with lb weeks.</li>
+        <li><b>Review by exercise.</b> Total session volume is helpful, but the per-exercise summary shows where the work actually went.</li>
+      </ol>
+    </article>
+    <aside class="tool-note-panel">
+      <h3>Volume formula</h3>
+      <p><b>Per row:</b> volume = sets x reps x weight</p>
+      <p><b>Total:</b> add every row's volume together.</p>
+      <p>Example: 3 sets x 8 reps x 80 kg = 1,920 kg of bench press volume.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">WHY LOG IT</div>
+      <h2 class="section-title">A volume number only matters when you can compare it.</h2>
+    </div>
+    <p class="section-sub">LogWise keeps your sessions searchable, so volume changes are tied to real exercises, dates, PRs, and notes.</p>
+  </div>
+  <div class="shell tool-feature-grid">
+    <article>
+      <span>01</span>
+      <h3>Spot workload jumps</h3>
+      <p>Big increases in sets or load are easier to catch before they turn into recovery problems.</p>
+    </article>
+    <article>
+      <span>02</span>
+      <h3>Compare exercises</h3>
+      <p>See whether your program is balanced across pushes, pulls, squats, hinges, and accessories.</p>
+    </article>
+    <article>
+      <span>03</span>
+      <h3>Connect volume to progress</h3>
+      <p>Review whether more work is producing stronger sets, better reps, or just more fatigue.</p>
+    </article>
+  </div>
+</section>
+
+<section id="tools" class="section-pad section-alt">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">SEE OTHER TOOLS</div>
+      <h2 class="section-title">Keep the numbers useful after you calculate them.</h2>
+    </div>
+    <p class="section-sub">Use these free LogWise tools with your workout volume totals.</p>
+  </div>
+  <div class="shell tool-related-grid">
+    <a href="/one-rep-max-calculator" class="tool-related-card">
+      <span>1RM</span>
+      <h3>One Rep Max Calculator</h3>
+      <p>Estimate your max from a recent set and turn it into training loads.</p>
+      <em>OPEN CALCULATOR &rarr;</em>
+    </a>
+    <a href="/workout-log-template" class="tool-related-card">
+      <span>TEMPLATE</span>
+      <h3>Workout Log Template</h3>
+      <p>Print or edit a simple sheet for exercises, sets, reps, weight, RIR, and notes.</p>
+      <em>OPEN TEMPLATE &rarr;</em>
+    </a>
+  </div>
+</section>
+
+<section class="tool-faq">
+  <div class="shell tool-content-grid">
+    <div>
+      <div class="section-kicker">FAQ</div>
+      <h2 class="section-title">Workout volume questions</h2>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary>How do you calculate workout volume?</summary>
+        <p>Multiply sets by reps by weight for each exercise row, then add the rows together. For example, 3 x 8 x 80 kg is 1,920 kg of volume.</p>
+      </details>
+      <details>
+        <summary>Should I include warm-up sets?</summary>
+        <p>Usually, no. Track working-set volume first because it is easier to compare. Include warm-ups only if you have a specific reason.</p>
+      </details>
+      <details>
+        <summary>Is more volume always better?</summary>
+        <p>No. More volume can help when you can recover from it and performance is improving. If reps, load, or energy drop, the volume may be too high.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="shell">
+    <div class="cta-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></div>
+    <h2>Calculate volume. <span class="gold">Then track the trend.</span></h2>
+    <p>Start a free workout log in LogWise and keep sets, reps, weights, PRs, and notes in one clean browser-based app.</p>
+    <div class="ctas">
+      <a href="/app" class="btn btn-primary">TRACK VOLUME IN LOGWISE &rarr;</a>
+      <a href="/app" class="btn btn-ghost">START A FREE WORKOUT LOG &rarr;</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="shell foot-row">
+    <div class="footer-brand-block">
+      <a href="/" class="brand">
+        <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+        <span class="brand-name">LOG <b>WISE</b></span>
+      </a>
+      <p class="foot-tagline">Free browser-based workout tracking for lifters who want clearer progress.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Tool</h5>
+      <a href="#calculator">Calculator</a>
+      <a href="#guide">Guide</a>
+      <a href="/app">Workout log</a>
+    </div>
+    <div class="foot-col">
+      <h5>More tools</h5>
+      <a href="/one-rep-max-calculator">1RM Calculator</a>
+      <a href="/workout-log-template">Workout Log Template</a>
+      <a href="/app">Log workouts</a>
+    </div>
+    <div class="foot-col">
+      <h5>LogWise</h5>
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/tr">T&uuml;rk&ccedil;e</a>
+    </div>
+  </div>
+  <div class="shell foot-bottom">
+    <span>&copy; 2026 LOG WISE</span>
+    <span>WORKOUT VOLUME CALCULATOR &middot; LOGWISE.FIT</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const body = document.getElementById('volume-body');
+  const totalEl = document.getElementById('volume-total');
+  const noteEl = document.getElementById('volume-note');
+  const summaryEl = document.getElementById('volume-summary-list');
+  const unitButtons = Array.from(document.querySelectorAll('[data-unit]'));
+  const actions = Array.from(document.querySelectorAll('[data-volume-action]'));
+  let unit = 'kg';
+
+  function numberFrom(input) {
+    const value = Number(input.value);
+    return Number.isFinite(value) && value > 0 ? value : 0;
+  }
+
+  function formatNumber(value) {
+    const rounded = Math.round(value * 10) / 10;
+    return new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: Number.isInteger(rounded) ? 0 : 1
+    }).format(rounded);
+  }
+
+  function formatVolume(value) {
+    return formatNumber(value) + ' ' + unit;
+  }
+
+  function rowValues(row) {
+    const inputs = row.querySelectorAll('input');
+    const exercise = inputs[0].value.trim() || 'Unnamed exercise';
+    const sets = numberFrom(inputs[1]);
+    const reps = numberFrom(inputs[2]);
+    const weight = numberFrom(inputs[3]);
+    return { exercise, sets, reps, weight, volume: sets * reps * weight };
+  }
+
+  function updateSummary(groups) {
+    summaryEl.textContent = '';
+    if (!groups.size) {
+      const empty = document.createElement('p');
+      empty.className = 'volume-empty';
+      empty.textContent = 'Add a row to see per-exercise volume.';
+      summaryEl.appendChild(empty);
+      return;
+    }
+
+    groups.forEach(group => {
+      const row = document.createElement('div');
+      row.className = 'volume-summary-row';
+      const name = document.createElement('span');
+      name.textContent = group.name;
+      const value = document.createElement('b');
+      value.textContent = formatVolume(group.volume);
+      row.append(name, value);
+      summaryEl.appendChild(row);
+    });
+  }
+
+  function update() {
+    const rows = Array.from(body.querySelectorAll('[data-volume-row]'));
+    const groups = new Map();
+    let total = 0;
+    let totalSets = 0;
+
+    rows.forEach(row => {
+      const values = rowValues(row);
+      row.querySelector('[data-row-volume]').textContent = formatVolume(values.volume);
+      total += values.volume;
+      totalSets += values.sets;
+      if (values.volume > 0) {
+        const key = values.exercise.toLowerCase();
+        const group = groups.get(key) || { name: values.exercise, volume: 0 };
+        group.volume += values.volume;
+        groups.set(key, group);
+      }
+    });
+
+    totalEl.textContent = formatVolume(total);
+    noteEl.textContent = 'Across ' + formatNumber(totalSets) + ' working sets in ' + groups.size + ' exercises.';
+    updateSummary(groups);
+  }
+
+  function makeRow(values) {
+    const row = document.createElement('tr');
+    row.setAttribute('data-volume-row', '');
+    [
+      { type: 'text', value: values.exercise, label: 'Exercise name' },
+      { type: 'number', value: values.sets, label: 'Sets', step: '1', min: '0', inputmode: 'numeric' },
+      { type: 'number', value: values.reps, label: 'Reps', step: '1', min: '0', inputmode: 'numeric' },
+      { type: 'number', value: values.weight, label: 'Weight', step: '0.5', min: '0', inputmode: 'decimal' }
+    ].forEach(field => {
+      const cell = document.createElement('td');
+      const input = document.createElement('input');
+      input.type = field.type;
+      input.value = field.value;
+      input.setAttribute('aria-label', field.label);
+      if (field.step) input.step = field.step;
+      if (field.min) input.min = field.min;
+      if (field.inputmode) input.setAttribute('inputmode', field.inputmode);
+      cell.appendChild(input);
+      row.appendChild(cell);
+    });
+    const volumeCell = document.createElement('td');
+    const volume = document.createElement('strong');
+    volume.setAttribute('data-row-volume', '');
+    volume.textContent = '0 ' + unit;
+    volumeCell.appendChild(volume);
+    row.appendChild(volumeCell);
+    return row;
+  }
+
+  function addRow() {
+    body.appendChild(makeRow({ exercise: '', sets: 3, reps: 10, weight: 0 }));
+    update();
+  }
+
+  function clearRows() {
+    body.textContent = '';
+    body.appendChild(makeRow({ exercise: '', sets: 0, reps: 0, weight: 0 }));
+    update();
+  }
+
+  body.addEventListener('input', update);
+  body.addEventListener('change', update);
+
+  unitButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      unit = button.getAttribute('data-unit');
+      unitButtons.forEach(b => b.classList.toggle('on', b === button));
+      update();
+    });
+  });
+
+  actions.forEach(button => {
+    button.addEventListener('click', () => {
+      const action = button.getAttribute('data-volume-action');
+      if (action === 'add') addRow();
+      if (action === 'clear') clearRows();
+    });
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v35';
+const CACHE_NAME = 'logwise-v36';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -8,6 +8,8 @@ const PRECACHE_URLS = [
   '/one-rep-max-calculator.html',
   '/workout-log-template',
   '/workout-log-template.html',
+  '/workout-volume-calculator',
+  '/workout-volume-calculator.html',
   '/app',
   '/app.html',
   '/manifest.json',

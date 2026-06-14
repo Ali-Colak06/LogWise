@@ -28,6 +28,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://logwise.fit/workout-volume-calculator</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://logwise.fit/blog/egzersiz-takip-uygulamasi-ne-kaydetmeli</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/blog/workout-tracker-app-guide"/>
     <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/blog/egzersiz-takip-uygulamasi-ne-kaydetmeli"/>

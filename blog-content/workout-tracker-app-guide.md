@@ -29,6 +29,8 @@ The best tracker is the one you actually use while training. If logging a set ta
 
 If you want a printable structure before moving everything into an app, start with the [free workout log template](https://logwise.fit/workout-log-template). It gives you a clean way to capture exercises, sets, reps, weight, RIR, and notes.
 
+To check how much work a session actually contains, use the [free workout volume calculator](https://logwise.fit/workout-volume-calculator). It totals sets x reps x weight by exercise, which makes weekly workload changes easier to spot.
+
 ## The fields worth adding
 
 Once the basics are easy, a few extra fields make the log much more useful.

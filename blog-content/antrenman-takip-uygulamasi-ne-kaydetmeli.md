@@ -33,6 +33,8 @@ En iyi egzersiz takip uygulaması, antrenman sırasında gerçekten kullanmaya d
 
 Uygulamaya geçmeden önce kağıt üzerinde basit bir sistem kurmak istersen, [ücretsiz antrenman günlüğü şablonu](https://logwise.fit/workout-log-template) hareket, set, tekrar, ağırlık, RIR ve not alanlarını düzenli tutman için iyi bir başlangıç sağlar.
 
+Bir seansın toplam iş yükünü görmek istersen [ücretsiz antrenman hacmi hesaplayıcı](https://logwise.fit/workout-volume-calculator), egzersiz bazında set x tekrar x ağırlık toplamını çıkarır. Böylece haftalık hacim değişimlerini daha kolay fark edersin.
+
 ## Eklemeye Değer Alanlar
 
 Temel kayıtları tutmak kolaylaştıktan sonra, birkaç ek alan egzersiz takibini çok daha işe yarar hale getirir.

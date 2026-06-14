@@ -3587,3 +3587,43 @@ Bölüm 51'de eklenen iki dilli blog varyantlarını kullanıcı arayüzünde ya
 - `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
 - `node scripts/build-blog.js` sonrası `/blog` default EN açılmalı; switch TR yapıldığında kartlar TR başlık/açıklama/okuma süresi ve TR URL taşımalı.
 - Bir post sayfasında switch ile diğer dile geçiş, sonra `/blog` dönüşünde aynı dilin korunması smoke test edilmeli.
+
+
+
+---
+
+## Bölüm 53 — SEO Evergreen Tool: Workout Volume Calculator (2026-06-15)
+
+### Amaç
+
+"workout volume calculator" ve training volume aramalarına yönelik, Google'ın JS çalıştırmadan okuyabileceği statik bir hesaplayıcı sayfası eklemek. Sayfa egzersiz, set, tekrar ve ağırlık satırlarından toplam hacim ve egzersiz bazlı özet üretir; uzun vadeli takip için LogWise `/app` CTA'sına bağlanır.
+
+### Mimari Kararlar
+
+- **Statik tool page:** `workout-volume-calculator.html` kökte yaşar. Mevcut tool sayfaları gibi Cloudflare Pages `.html` clean URL davranışıyla `/workout-volume-calculator` olarak sunulur; `_redirects` içine explicit kural eklenmedi.
+- **React/Babel yok:** Sayfa düz HTML + vanilla JS kullanır. Script yalnızca satır ekleme, temizleme, kg/lb etiketi ve hacim özetlerini güncelleme işini yapar.
+- **Ortak landing stili:** Yeni tool sayfası `styles/landing.css` kullanır. Volume table, summary ve related tools stilleri mevcut `tool-*` ailesine eklendi; büyük inline CSS eklenmedi.
+- **Tool discovery:** Ana EN/TR landing araç bölümüne üçüncü kart eklendi. 1RM ve workout log template sayfalarına da "See other tools" bölümü eklenerek yeni sayfaya iç link verildi.
+- **Blog iç linkleme:** Workout tracker guide ve progressive overload yazılarının EN/TR varyantlarına `/workout-volume-calculator` bağlantısı eklendi.
+- **Sitemap kalıcılığı:** `scripts/build-blog.js` içindeki `STATIC_SITEMAP_PAGES` listesine `/workout-volume-calculator` eklendi. Blog build'leri bu URL'yi sitemap'te tutar.
+- **Service worker:** `sw.js` `logwise-v35` → `logwise-v36` bump edildi. `PRECACHE_URLS` listesine `/workout-volume-calculator` ve `/workout-volume-calculator.html` eklendi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `workout-volume-calculator.html` | EN statik volume calculator + SEO meta + JSON-LD + vanilla JS |
+| `styles/landing.css` | Landing üçüncü tool kartı, volume calculator tablosu/özetleri, related tools kartları |
+| `index.html`, `tr.html` | Landing tools bölümüne workout volume calculator kartı + footer linki |
+| `one-rep-max-calculator.html`, `workout-log-template.html` | Yeni related tools bölümü + volume calculator iç linkleri |
+| `blog-content/*.md` | İlgili EN/TR blog yazılarına volume calculator iç linkleri |
+| `scripts/build-blog.js` | Statik sitemap listesine `/workout-volume-calculator` eklendi |
+| `sitemap.xml`, `blog/*.html`, `blog/posts.json` | Generator çıktıları yeniden üretildi |
+| `sw.js` | `logwise-v36` bump + yeni tool URL precache |
+| `AGENTS.md` | Dosya haritası ve evergreen SEO tool özeti güncellendi |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-blog.js`, `node --check sw.js` ve inline volume calculator script syntax kontrolü yapılmalı.
+- `node scripts/build-blog.js` sonrası sitemap, blog çıktıları ve landing blog kartları birlikte güncellenir.
+- Lokal smoke testte `/workout-volume-calculator`, add row / clear, kg/lb toggle, toplam hacim, egzersiz bazlı özet ve CTA linkleri doğrulanmalı.

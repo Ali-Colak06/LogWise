@@ -48,7 +48,8 @@ const STATIC_SITEMAP_PAGES = [
   { path: '/tr', changefreq: 'weekly', priority: '0.9' },
   { path: '/blog', changefreq: 'weekly', priority: '0.8' },
   { path: '/one-rep-max-calculator', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
-  { path: '/workout-log-template', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' }
+  { path: '/workout-log-template', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
+  { path: '/workout-volume-calculator', lastmod: '2026-06-15', changefreq: 'monthly', priority: '0.8' }
 ];
 
 // ---------------------------------------------------------------- helpers

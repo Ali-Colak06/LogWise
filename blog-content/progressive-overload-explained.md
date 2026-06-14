@@ -27,6 +27,8 @@ Any of these counts. The mistake is chasing all of them at once.
 
 When a heavy set gives you a new benchmark, the [LogWise 1RM calculator](https://logwise.fit/one-rep-max-calculator) can estimate your one rep max from weight and reps, so the number is easier to compare over time.
 
+If your progression lever is more sets or more total work, the [workout volume calculator](https://logwise.fit/workout-volume-calculator) can total sets x reps x weight by exercise before you decide whether to add more.
+
 ## Why logging comes first
 
 Here's the uncomfortable truth: **you cannot apply progressive overload if you don't know what "last time" was.**
