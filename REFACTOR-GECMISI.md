@@ -3750,3 +3750,41 @@ Programmatic SEO sayfalarını kök `/exercises/*` ve `/programs/*` yapısından
 - `node --check scripts/build-programmatic-seo.js`, `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
 - `node scripts/build-blog.js` sonrası `/guides`, nested guide sayfaları, sitemap ve blog çıktıları birlikte güncellenmeli.
 - Lokal smoke testte `/guides`, `/guides/exercises/bench-press`, `/guides/exercises/squat`, `/guides/exercises/deadlift`, `/guides/programs/push-pull-legs`, `/tools`, `/` ve `/tr` clean URL'leri doğrulanmalı.
+
+
+
+---
+
+## Bölüm 57 — Guide Dizin Sayfaları (2026-06-16)
+
+### Amaç
+
+`/guides` hub altında ayrı exercise ve program dizinleri oluşturmak. Kullanıcı `/guides/exercises` sayfasına gittiğinde LogWise içindeki preset egzersizleri kategori bazlı görebilmeli; `/guides/programs` sayfasında da preset program şablonlarını karşılaştırabilmeli.
+
+### Mimari Kararlar
+
+- **Canonical dizin URL'leri:** Yeni dizinler `/guides/exercises` ve `/guides/programs` canonical yapısında yaşar. Dosya çıktıları `guides/exercises.html` ve `guides/programs.html` olarak generator tarafından üretilir.
+- **Root alias yönlendirmeleri:** Çıplak `/exercises` ve `/programs` URL'leri artık eski app route rewrite'ı yerine yeni canonical guide dizinlerine 301 yönlenir. Uygulama içindeki yeni route'lar `/app/exercises` ve `/app/programs` olarak korunur.
+- **Veri kaynaklı dizin:** Exercise dizini `data/presets-exercises.js`, `data/ex-descriptions.js` ve `data/ex-preview.js` kaynaklarından 145 preset hareketi kategori bazlı listeler. Full guide'ı olan core lift kartları nested guide sayfalarına bağlanır.
+- **Program dizini:** Program dizini `data/presets-programs.js` kaynaklarından 4 preset programı listeler. Full guide'ı olan PPL kartı `/guides/programs/push-pull-legs` sayfasına bağlanır.
+- **Generator akışı:** `scripts/build-programmatic-seo.js`, artık guides hub + iki dizin sayfası + nested exercise/program guide sayfalarını üretir. `scripts/build-blog.js` aynı tek komutla sitemap ve generated HTML çıktısını günceller.
+- **Service worker:** `sw.js` `logwise-v41` → `logwise-v42` bump edildi. Yeni `/guides/exercises`, `/guides/exercises.html`, `/guides/programs`, `/guides/programs.html` URL'leri precache listesine eklendi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `scripts/build-programmatic-seo.js` | Exercise/program dizin sayfa şablonları + sitemap kayıtları + generator çıktısı |
+| `guides/exercises.html` | EN statik exercise library dizin çıktısı |
+| `guides/programs.html` | EN statik program library dizin çıktısı |
+| `_redirects` | `/exercises` ve `/programs` root alias'ları yeni guide dizinlerine 301 |
+| `styles/landing.css` | Dizin chip, kompakt kart grid'i ve program card stat stilleri |
+| `scripts/build-blog.js`, `sitemap.xml` | Programmatic SEO özet çıktısı ve sitemap güncellendi |
+| `sw.js` | `logwise-v42` bump + yeni dizin URL precache |
+| `AGENTS.md` | Dosya haritası ve programmatic SEO özeti güncellendi |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-programmatic-seo.js`, `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
+- `node scripts/build-blog.js` sonrası `/guides/exercises`, `/guides/programs`, nested guide sayfaları ve sitemap birlikte güncellenmeli.
+- Lokal smoke testte `/guides/exercises`, `/guides/programs`, `/exercises` → `/guides/exercises` 301 ve `/programs` → `/guides/programs` 301 doğrulanmalı.

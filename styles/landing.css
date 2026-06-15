@@ -810,12 +810,31 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
 .program-day-head b{font-family:var(--font-display);font-size:24px;line-height:1;color:var(--gold)}
 .program-day-card p{margin:0 0 12px;color:var(--t2);font-size:14px;line-height:1.55}
 .program-day-card ul{display:grid;gap:7px;padding-left:18px;color:var(--t2);font-size:14px}
+.directory-chip-row{display:flex;flex-wrap:wrap;gap:10px}
+.directory-chip-row a{border:1px solid var(--brd);border-radius:999px;background:var(--bg2);padding:10px 14px;font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;color:var(--t2);font-weight:700;text-transform:uppercase;transition:border-color .15s,color .15s,transform .15s}
+.directory-chip-row a:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-1px)}
+.directory-group{padding:28px 0 42px}
+.directory-group+.directory-group{border-top:1px solid var(--brd)}
+.directory-group-head{display:flex;justify-content:space-between;align-items:end;gap:24px;margin-bottom:18px}
+.directory-group-head h2{font-family:var(--font-display);font-size:38px;line-height:1.08;letter-spacing:-.025em}
+.directory-group-head>span{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--gold);font-weight:700;text-transform:uppercase}
+.directory-card-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.directory-card{min-height:178px;padding:18px;border-radius:12px;gap:10px}
+.directory-card h3{font-size:21px}
+.directory-card p{font-size:13px;line-height:1.55}
+.directory-card-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:2px}
+.directory-card-stats div{border:1px solid var(--brd);border-radius:10px;padding:10px;background:rgba(255,255,255,.018)}
+.directory-card-stats dt{font-family:var(--font-mono);font-size:10px;letter-spacing:.1em;color:var(--t3);text-transform:uppercase}
+.directory-card-stats dd{margin-top:4px;font-family:var(--font-display);font-size:24px;line-height:1;color:var(--t1);font-weight:700}
+.program-directory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.directory-program-card{min-height:260px}
 @media (max-width:1024px){
   .tool-hero-grid,.tool-content-grid,.guide-hero-grid,.guide-content-grid{grid-template-columns:1fr}
   .tool-hero-copy .display{font-size:58px}
   .guide-hero-copy .display{font-size:58px}
   .tool-feature-grid{grid-template-columns:1fr}
   .tool-related-grid,.guide-related-grid,.guide-card-grid{grid-template-columns:1fr}
+  .directory-card-grid,.program-directory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .guide-side{position:static}
   .template-hero .template-table{min-width:840px}
 }
@@ -828,6 +847,9 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
   .guide-facts-card dd{font-size:19px}
   .guide-block h2{font-size:clamp(32px,9vw,42px)}
   .guide-steps li{padding:16px 16px 16px 52px}
+  .directory-group-head{align-items:start;flex-direction:column}
+  .directory-group-head h2{font-size:32px}
+  .directory-card-grid,.program-directory-grid{grid-template-columns:1fr}
   .program-layout-grid{grid-template-columns:1fr}
   .tool-card{padding:20px;border-radius:18px}
   .tool-card-head{flex-direction:column}

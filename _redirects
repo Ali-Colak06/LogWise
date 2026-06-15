@@ -15,6 +15,8 @@
 /app/*        /app.html       200
 
 # Eski programmatic SEO URL'leri → yeni /guides bilgi mimarisi
+/exercises                    /guides/exercises                    301
+/programs                     /guides/programs                     301
 /exercises/bench-press        /guides/exercises/bench-press        301
 /exercises/squat              /guides/exercises/squat              301
 /exercises/deadlift           /guides/exercises/deadlift           301
@@ -23,8 +25,6 @@
 # Eski SPA route'ları — geriye dönük uyumluluk
 /social       /app.html       200
 /dashboard    /app.html       200
-/exercises    /app.html       200
-/programs     /app.html       200
 /feedback     /app.html       200
 /data         /app.html       200
 

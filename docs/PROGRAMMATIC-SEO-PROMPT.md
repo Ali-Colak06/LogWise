@@ -59,6 +59,10 @@ Beklenen strateji:
    - Buyuk string kopyalama yerine veri tabanli template kullan.
    - Build step yok; Node script repo icinde calisir, tarayici icin Babel/JSX yok.
 3. Ilk MVP kapsam:
+   - Guides hub ve dizin sayfalari:
+     - /guides
+     - /guides/exercises
+     - /guides/programs
    - Sadece 3 exercise sayfasi:
      - bench-press
      - squat
@@ -70,13 +74,20 @@ Beklenen strateji:
 URL ve dosya yapisi:
 - Clean URL hedefleri:
   - /guides
+  - /guides/exercises
+  - /guides/programs
   - /guides/exercises/bench-press
   - /guides/exercises/squat
   - /guides/exercises/deadlift
   - /guides/programs/push-pull-legs
 - Cloudflare Pages clean URL icin .html handling kullaniyorsa explicit redirect ekleme.
+- Root /exercises ve /programs kullanilacaksa canonical dizinlere 301 alias olarak ele al:
+  - /exercises -> /guides/exercises
+  - /programs -> /guides/programs
 - Dosya ciktilari icin mevcut mimariye uygun bir yapi oner ve uygula. Ornek:
   - guides.html
+  - guides/exercises.html
+  - guides/programs.html
   - guides/exercises/bench-press.html
   - guides/exercises/squat.html
   - guides/exercises/deadlift.html
@@ -201,6 +212,8 @@ Kontroller:
 - git diff --check
 - local HTTP smoke test:
   - /guides
+  - /guides/exercises
+  - /guides/programs
   - /guides/exercises/bench-press
   - /guides/exercises/squat
   - /guides/exercises/deadlift

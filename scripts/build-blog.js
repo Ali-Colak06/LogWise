@@ -745,4 +745,4 @@ console.log(
   'Updated: blog/index.html, blog/posts.json, sitemap.xml' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
-console.log(`Programmatic SEO: ${programmaticResult.guides} guides hub, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);
+console.log(`Programmatic SEO: ${programmaticResult.guides} guides hub, ${programmaticResult.directories} guide directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);

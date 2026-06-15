@@ -1,5 +1,5 @@
 // LogWise — Hazır Hareket (Preset Exercise) Listesi
-// 55 hareket; her biri için slug `id` (İngilizce kebab-case), Türkçe ad (name),
+// 145 hareket; her biri için slug `id` (İngilizce kebab-case), Türkçe ad (name),
 // opsiyonel İngilizce ad (nameEN) ve ait olduğu kategori(ler).
 // Kategori isimleri Türkçe kalıyor (CAT_LABELS_EN ile çevriliyor).
 // Kategoriler: Göğüs, Omuz, Triceps, Biceps, Bilek, Sırt, Bacak, Kalça, Kalf, Trapez, Karın, Kardiyo
