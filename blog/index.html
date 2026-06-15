@@ -36,6 +36,7 @@
       <span class="brand-name">LOG <b>WISE</b></span>
     </a>
     <div class="nav-actions">
+      <a href="/" class="brand-home" data-blog-copy="home">HOME</a>
       <a href="/blog" class="brand-blog">BLOG</a>
       <div class="lang-switch blog-lang-switch" role="group" aria-label="Language"><button type="button" data-blog-lang-option="tr" aria-pressed="false" class="">TR</button><button type="button" data-blog-lang-option="en" aria-pressed="true" class="on">EN</button></div>
       <a href="/app" class="btn btn-primary"><span data-blog-copy="open">OPEN APP</span> →</a>
@@ -89,7 +90,7 @@
 <script>
 (function(){
   var STORAGE_KEY = 'logwise-blog-lang';
-  var COPY = {"en":{"open":"OPEN APP","blogTitle":"Training Blog","blogLead":"Practical guides on workout tracking, progressive overload, and strength progress."},"tr":{"open":"UYGULAMAYI AÇ","blogTitle":"Antrenman Blogu","blogLead":"Antrenman takibi, progressive overload ve güç gelişimi üzerine uygulanabilir rehberler."}};
+  var COPY = {"en":{"home":"HOME","open":"OPEN APP","blogTitle":"Training Blog","blogLead":"Practical guides on workout tracking, progressive overload, and strength progress."},"tr":{"home":"ANA SAYFA","open":"UYGULAMAYI AÇ","blogTitle":"Antrenman Blogu","blogLead":"Antrenman takibi, progressive overload ve güç gelişimi üzerine uygulanabilir rehberler."}};
 
   function normalize(lang) {
     return lang === 'tr' || lang === 'en' ? lang : '';

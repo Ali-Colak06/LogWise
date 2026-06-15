@@ -227,6 +227,7 @@ const NAV = `
       <span class="brand-name">LOG <b>WISE</b></span>
     </a>
     <div class="nav-actions">
+      <a href="/" class="brand-home" data-blog-copy="home">__HOME__</a>
       <a href="/blog" class="brand-blog">BLOG</a>
       __LANG_SWITCH__
       <a href="/app" class="btn btn-primary"><span data-blog-copy="open">__OPEN__</span> →</a>
@@ -244,6 +245,7 @@ const FOOTER = `
 
 const STR = {
   tr: {
+    home: 'ANA SAYFA',
     open: 'UYGULAMAYI AÇ',
     read: 'OKU',
     minRead: 'DK OKUMA',
@@ -255,6 +257,7 @@ const STR = {
     ctaBtn: "LOGWISE'I AÇ →"
   },
   en: {
+    home: 'HOME',
     open: 'OPEN APP',
     read: 'READ',
     minRead: 'MIN READ',
@@ -286,6 +289,7 @@ function languageSwitch(activeLang, alternates) {
 function navFor(lang, alternates) {
   return NAV
     .replace('__LANG_SWITCH__', languageSwitch(lang, alternates))
+    .replace('__HOME__', STR[lang].home)
     .replace('__OPEN__', STR[lang].open);
 }
 
@@ -346,8 +350,8 @@ function blogTopicDataScript(groups) {
 
 function blogRuntimeScript() {
   const copy = {
-    en: { open: STR.en.open, blogTitle: STR.en.blogTitle, blogLead: STR.en.blogLead },
-    tr: { open: STR.tr.open, blogTitle: STR.tr.blogTitle, blogLead: STR.tr.blogLead }
+    en: { home: STR.en.home, open: STR.en.open, blogTitle: STR.en.blogTitle, blogLead: STR.en.blogLead },
+    tr: { home: STR.tr.home, open: STR.tr.open, blogTitle: STR.tr.blogTitle, blogLead: STR.tr.blogLead }
   };
 
   return `<script>
