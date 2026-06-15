@@ -1,0 +1,857 @@
+#!/usr/bin/env node
+/**
+ * LogWise Programmatic SEO Generator
+ * ----------------------------------
+ * data/*.js -> exercises/*.html + programs/*.html
+ *
+ * MVP scope:
+ *   /exercises/bench-press
+ *   /exercises/squat
+ *   /exercises/deadlift
+ *   /programs/push-pull-legs
+ */
+
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+const vm = require('vm');
+
+const DEFAULT_ROOT = path.join(__dirname, '..');
+const DEFAULT_SITE = 'https://logwise.fit';
+const LASTMOD = '2026-06-15';
+const OG_IMAGE = '/icon-512.png';
+
+const GENERATED_EXERCISES = ['bench-press', 'squat', 'deadlift'];
+const GENERATED_PROGRAMS = ['push-pull-legs'];
+
+const SITEMAP_PAGES = [
+  ...GENERATED_EXERCISES.map(slug => ({
+    path: `/exercises/${slug}`,
+    lastmod: LASTMOD,
+    changefreq: 'monthly',
+    priority: '0.7'
+  })),
+  ...GENERATED_PROGRAMS.map(slug => ({
+    path: `/programs/${slug}`,
+    lastmod: LASTMOD,
+    changefreq: 'monthly',
+    priority: '0.7'
+  }))
+];
+
+const CATEGORY_LABELS = {
+  'Göğüs': 'Chest',
+  'Omuz': 'Shoulders',
+  'Triceps': 'Triceps',
+  'Biceps': 'Biceps',
+  'Bilek': 'Forearms',
+  'Sırt': 'Back',
+  'Bacak': 'Legs',
+  'Kalça': 'Glutes',
+  'Kalf': 'Calves',
+  'Trapez': 'Traps',
+  'Karın': 'Core',
+  'Kardiyo': 'Cardio'
+};
+
+const EXERCISE_GUIDES = {
+  'bench-press': {
+    title: 'Bench Press',
+    metaTitle: 'Bench Press Guide: Form, Muscles, Mistakes & Progression | LogWise',
+    description: 'Learn how to bench press with cleaner form, avoid common mistakes, progress your sets, and track bench press workouts in LogWise.',
+    quickFacts: {
+      primaryMuscles: 'Chest, front delts, triceps',
+      equipment: 'Barbell, flat bench, rack',
+      pattern: 'Horizontal press',
+      bestFor: 'Upper-body strength and pressing volume'
+    },
+    howTo: [
+      'Set your eyes under the bar, plant your feet, and pull your shoulder blades back into the bench.',
+      'Grip the bar slightly wider than shoulder width and keep your wrists stacked over your elbows.',
+      'Unrack with control, lower the bar toward the mid-to-lower chest, and keep the elbows slightly tucked.',
+      'Touch the chest without bouncing, then press up and back until the bar is over the shoulders.',
+      'Keep your hips on the bench and repeat each rep with the same setup and bar path.'
+    ],
+    mistakes: [
+      'Bouncing the bar off the chest instead of controlling the bottom.',
+      'Letting the shoulders roll forward before or during the press.',
+      'Flaring the elbows straight out to the sides on every rep.',
+      'Lifting the hips off the bench to turn the set into a different movement.'
+    ],
+    progression: [
+      'Add reps inside a fixed range before adding load, such as 3 sets of 6-8.',
+      'Use small load jumps on pressing movements when possible.',
+      'Track working-set volume so extra bench work does not quietly outpace recovery.',
+      'Leave 1-3 reps in reserve on most sets and save true grinders for planned tests.'
+    ],
+    tracking: [
+      'Log each set with weight, reps, and RIR so your next target is obvious.',
+      'Add notes for grip width, pause reps, shoulder comfort, or spotter help.',
+      'Use estimated 1RM as a trend, not as a reason to max out every week.'
+    ],
+    related: ['incline-bench-press', 'close-grip-bench-press', 'dumbell-press']
+  },
+  squat: {
+    title: 'Squat',
+    metaTitle: 'Squat Guide: Form, Muscles, Mistakes & Progression | LogWise',
+    description: 'Learn how to squat with better form, track sets and volume, avoid common squat mistakes, and progress your lower-body training.',
+    quickFacts: {
+      primaryMuscles: 'Quads, glutes, hamstrings, core',
+      equipment: 'Barbell, rack, plates',
+      pattern: 'Squat',
+      bestFor: 'Lower-body strength, leg volume, full-body bracing'
+    },
+    howTo: [
+      'Set the bar securely on the upper back, brace your torso, and step out with a stable stance.',
+      'Keep your feet rooted and let the knees track in the same direction as the toes.',
+      'Sit down between your hips while keeping the chest tall and the midfoot balanced.',
+      'Reach a depth you can control, then drive the floor away to stand up.',
+      'Reset your breath and brace before each rep instead of rushing the set.'
+    ],
+    mistakes: [
+      'Letting the knees collapse inward as the load gets heavy.',
+      'Rising onto the toes and losing midfoot balance.',
+      'Relaxing the brace at the bottom of the rep.',
+      'Cutting depth shorter every week while counting it as progress.'
+    ],
+    progression: [
+      'Progress reps first, then load, while keeping depth consistent.',
+      'Use volume changes carefully because squat fatigue can affect the rest of the week.',
+      'Track RIR so a normal working set does not become an accidental max attempt.',
+      'If the lift stalls, adjust volume, pause work, or recovery before changing everything.'
+    ],
+    tracking: [
+      'Record stance notes, depth, belt use, and any form cues that changed the set.',
+      'Track total squat volume and compare it with leg press, lunges, and other leg work.',
+      'Review estimated 1RM over several weeks rather than reacting to one rough session.'
+    ],
+    related: ['goblet-squat', 'leg-press', 'bulgarian-split-squat']
+  },
+  deadlift: {
+    title: 'Deadlift',
+    metaTitle: 'Deadlift Guide: Form, Muscles, Mistakes & Progression | LogWise',
+    description: 'Learn how to deadlift with a stronger setup, avoid common mistakes, progress safely, and track deadlift workouts in LogWise.',
+    quickFacts: {
+      primaryMuscles: 'Back, glutes, hamstrings, quads, grip',
+      equipment: 'Barbell and plates',
+      pattern: 'Hip hinge and pull',
+      bestFor: 'Total-body strength and posterior-chain loading'
+    },
+    howTo: [
+      'Stand with the bar over the midfoot and place your feet around hip width.',
+      'Hinge down, grip the bar, and bring the shins to the bar without pushing it forward.',
+      'Brace hard, pull the slack out of the bar, and keep the chest proud.',
+      'Push the floor away while the bar stays close to the legs.',
+      'Lock out by driving the hips through, then lower the bar with control.'
+    ],
+    mistakes: [
+      'Starting with the bar too far from the body.',
+      'Rounding the back because the brace or setup was rushed.',
+      'Yanking the bar off the floor before tension is built.',
+      'Turning every deadlift session into a maximal test.'
+    ],
+    progression: [
+      'Progress deadlift volume conservatively because heavy pulls are expensive to recover from.',
+      'Use top sets plus back-off sets if straight heavy volume beats you up.',
+      'Track RIR and bar speed notes so you can tell a strong pull from a forced pull.',
+      'Rotate variations only when they solve a clear problem, not just because the lift feels hard.'
+    ],
+    tracking: [
+      'Log stance, grip, straps, belt use, and whether reps were touch-and-go or reset.',
+      'Track weekly pulling volume alongside rows, pull-ups, and Romanian deadlifts.',
+      'Use notes to separate technical misses from strength misses.'
+    ],
+    related: ['romanian-deadlift', 'barbell-row', 'back-extension']
+  }
+};
+
+const PROGRAM_GUIDES = {
+  'push-pull-legs': {
+    title: 'Push Pull Legs Program',
+    sourceNameEN: 'Push Pull Legs (PPL)',
+    metaTitle: 'Push Pull Legs Program: Weekly PPL Workout Layout | LogWise',
+    description: 'Use this Push Pull Legs program guide to understand the weekly PPL layout, exercises, progression, and how to track it in LogWise.',
+    overview: [
+      { label: 'Weekly frequency', value: '6 training days' },
+      { label: 'Day structure', value: 'Push, pull, legs, repeat' },
+      { label: 'Best for', value: 'Intermediate lifters who recover well' },
+      { label: 'Main goal', value: 'Balanced hypertrophy and strength practice' }
+    ],
+    layout: [
+      { day: 'Monday', type: 'Push', note: 'Chest, shoulders, triceps' },
+      { day: 'Tuesday', type: 'Pull', note: 'Back, rear delts, biceps' },
+      { day: 'Wednesday', type: 'Legs', note: 'Squat pattern, leg accessories' },
+      { day: 'Thursday', type: 'Push', note: 'Second pressing day' },
+      { day: 'Friday', type: 'Pull', note: 'Deadlift and pulling volume' },
+      { day: 'Saturday', type: 'Legs', note: 'Leg press, lunge, glute work' },
+      { day: 'Sunday', type: 'Rest', note: 'Recover and review the log' }
+    ],
+    progression: [
+      'Start with loads you can complete with 1-3 reps in reserve on most working sets.',
+      'Add reps first, then add weight once all sets reach the top of the target range.',
+      'Watch weekly volume by movement pattern so push, pull, and legs stay balanced.',
+      'If performance drops across several sessions, reduce volume or add recovery before adding more exercises.'
+    ],
+    relatedReading: [
+      {
+        title: 'Progressive Overload, Explained Simply',
+        url: '/blog/progressive-overload-explained'
+      },
+      {
+        title: 'Workout Tracker App: What to Log for Real Progress',
+        url: '/blog/workout-tracker-app-guide'
+      }
+    ]
+  }
+};
+
+const RELATED_TOOLS = [
+  {
+    eyebrow: '1RM',
+    title: 'One Rep Max Calculator',
+    description: 'Estimate max strength from a hard set and compare training loads.',
+    url: '/one-rep-max-calculator',
+    action: 'OPEN CALCULATOR'
+  },
+  {
+    eyebrow: 'VOLUME',
+    title: 'Workout Volume Calculator',
+    description: 'Total sets x reps x weight by exercise before changing your program.',
+    url: '/workout-volume-calculator',
+    action: 'OPEN CALCULATOR'
+  },
+  {
+    eyebrow: 'TEMPLATE',
+    title: 'Workout Log Template',
+    description: 'Use a simple sheet for exercises, sets, reps, weight, RIR, and notes.',
+    url: '/workout-log-template',
+    action: 'OPEN TEMPLATE'
+  }
+];
+
+function esc(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function jsonForScript(obj) {
+  return JSON.stringify(obj).replace(/</g, '\\u003c');
+}
+
+function sitemapPages() {
+  return SITEMAP_PAGES.map(page => Object.assign({}, page));
+}
+
+function loadWindowData(root) {
+  const ctx = { window: {} };
+  vm.createContext(ctx);
+
+  [
+    'data/presets-exercises.js',
+    'data/ex-descriptions.js',
+    'data/ex-preview.js',
+    'data/presets-programs.js'
+  ].forEach(file => {
+    vm.runInContext(fs.readFileSync(path.join(root, file), 'utf8'), ctx, { filename: file });
+  });
+
+  return ctx.window;
+}
+
+function exerciseName(exercise) {
+  return exercise.nameEN || exercise.name;
+}
+
+function buildLookups(windowData) {
+  return {
+    exercises: windowData.LOGWISE_PRESET_EXERCISES || [],
+    descriptions: windowData.LOGWISE_EX_DESCS || {},
+    previews: windowData.LOGWISE_EX_PREVIEW || {},
+    programs: windowData.LOGWISE_PRESET_PROGRAMS || [],
+    exerciseById: new Map((windowData.LOGWISE_PRESET_EXERCISES || []).map(ex => [ex.id, ex]))
+  };
+}
+
+function categoryList(exercise) {
+  return (exercise.categories || []).map(category => CATEGORY_LABELS[category] || category).join(', ');
+}
+
+function descriptionFor(data, id) {
+  const short = data.descriptions[id] && data.descriptions[id][1];
+  const long = data.previews[id] && data.previews[id].desc && data.previews[id].desc[1];
+  return short || long || '';
+}
+
+function sourceTips(data, id) {
+  const preview = data.previews[id];
+  if (!preview || !Array.isArray(preview.tips)) return [];
+  return preview.tips.map(tip => tip[1]).filter(Boolean).slice(0, 4);
+}
+
+function headBlock({ title, description, url, site, jsonLd }) {
+  return `<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(description)}"/>
+<link rel="canonical" href="${url}"/>
+<link rel="alternate" hreflang="en" href="${url}"/>
+<link rel="alternate" hreflang="x-default" href="${url}"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:site_name" content="LogWise"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="${esc(title)}"/>
+<meta property="og:description" content="${esc(description)}"/>
+<meta property="og:url" content="${url}"/>
+<meta property="og:image" content="${site}${OG_IMAGE}"/>
+<meta property="og:locale" content="en_US"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="${esc(title)}"/>
+<meta name="twitter:description" content="${esc(description)}"/>
+<meta name="twitter:image" content="${site}${OG_IMAGE}"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/styles/landing.css"/>
+<script type="application/ld+json">${jsonForScript(jsonLd)}</script>`;
+}
+
+function nav(linkSet) {
+  const links = linkSet.map(link => `<a href="${link.href}">${esc(link.label)}</a>`).join('\n      ');
+  return `<header class="nav">
+  <div class="shell nav-row">
+    <a href="/" class="brand">
+      <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+      <span class="brand-name">LOG <b>WISE</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      ${links}
+    </nav>
+    <div class="nav-actions">
+      <a href="/app" class="btn btn-primary"><span class="desktop-label">START TRACKING</span><span class="mobile-label">OPEN</span> &rarr;</a>
+    </div>
+  </div>
+</header>`;
+}
+
+function footer() {
+  return `<footer>
+  <div class="shell foot-row">
+    <div class="footer-brand-block">
+      <a href="/" class="brand">
+        <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+        <span class="brand-name">LOG <b>WISE</b></span>
+      </a>
+      <p class="foot-tagline">Free browser-based workout tracking for lifters who want clearer progress.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Exercise guides</h5>
+      <a href="/exercises/bench-press">Bench Press</a>
+      <a href="/exercises/squat">Squat</a>
+      <a href="/exercises/deadlift">Deadlift</a>
+    </div>
+    <div class="foot-col">
+      <h5>Programs</h5>
+      <a href="/programs/push-pull-legs">Push Pull Legs</a>
+      <a href="/app">Workout log app</a>
+      <a href="/tools">Free tools</a>
+    </div>
+    <div class="foot-col">
+      <h5>LogWise</h5>
+      <a href="/">Home</a>
+      <a href="/blog">Blog</a>
+      <a href="/tr">Turkish landing</a>
+    </div>
+  </div>
+  <div class="shell foot-bottom">
+    <span>&copy; 2026 LOG WISE</span>
+    <span>TRAINING GUIDES &middot; LOGWISE.FIT</span>
+  </div>
+</footer>`;
+}
+
+function listItems(items) {
+  return items.map(item => `        <li>${esc(item)}</li>`).join('\n');
+}
+
+function toolCards() {
+  return RELATED_TOOLS.map(tool => `<a href="${tool.url}" class="tool-related-card">
+      <span>${esc(tool.eyebrow)}</span>
+      <h3>${esc(tool.title)}</h3>
+      <p>${esc(tool.description)}</p>
+      <em>${esc(tool.action)} &rarr;</em>
+    </a>`).join('\n');
+}
+
+function relatedExerciseCard(data, id, generatedIds) {
+  const exercise = data.exerciseById.get(id);
+  if (!exercise) return '';
+  const name = exerciseName(exercise);
+  const description = descriptionFor(data, id) || `${name} is available in the LogWise exercise library.`;
+  const attrs = generatedIds.has(id)
+    ? `a href="/exercises/${id}" class="guide-link-card"`
+    : 'article class="guide-link-card guide-link-card-static"';
+  const closeTag = generatedIds.has(id) ? 'a' : 'article';
+  const action = generatedIds.has(id) ? '<em>OPEN GUIDE &rarr;</em>' : '<em>IN LOGWISE LIBRARY</em>';
+
+  return `    <${attrs}>
+      <span>${esc(categoryList(exercise))}</span>
+      <h3>${esc(name)}</h3>
+      <p>${esc(description)}</p>
+      ${action}
+    </${closeTag}>`;
+}
+
+function jsonLdBreadcrumb(site, parts) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: parts.map((part, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: part.name,
+      item: `${site}${part.path}`
+    }))
+  };
+}
+
+function exerciseJsonLd({ site, slug, guide }) {
+  const url = `${site}/exercises/${slug}`;
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: guide.title,
+      url,
+      description: guide.description,
+      inLanguage: 'en',
+      datePublished: LASTMOD,
+      dateModified: LASTMOD,
+      isPartOf: { '@type': 'WebSite', name: 'LogWise', url: site },
+      about: [guide.title, 'strength training', 'workout tracking']
+    },
+    jsonLdBreadcrumb(site, [
+      { name: 'LogWise', path: '/' },
+      { name: 'Exercise Guides', path: '/tools' },
+      { name: guide.title, path: `/exercises/${slug}` }
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'HowTo',
+      name: `How to do the ${guide.title}`,
+      description: guide.description,
+      step: guide.howTo.map((text, index) => ({
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: `Step ${index + 1}`,
+        text
+      }))
+    }
+  ];
+}
+
+function exercisePage(slug, data, site) {
+  const guide = EXERCISE_GUIDES[slug];
+  const exercise = data.exerciseById.get(slug);
+  if (!guide || !exercise) throw new Error(`Missing exercise guide or source data for ${slug}`);
+
+  const url = `${site}/exercises/${slug}`;
+  const generatedIds = new Set(GENERATED_EXERCISES);
+  const sourceCueItems = sourceTips(data, slug);
+  const sourceCueBlock = sourceCueItems.length ? `<div class="guide-side-box">
+        <h3>LogWise cues</h3>
+        <ul>
+${listItems(sourceCueItems)}
+        </ul>
+      </div>` : '';
+  const relatedCards = guide.related.map(id => relatedExerciseCard(data, id, generatedIds)).filter(Boolean).join('\n');
+
+  return `<!DOCTYPE html>
+<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit exercises/*.html manually. -->
+<html lang="en">
+<head>
+${headBlock({ title: guide.metaTitle, description: guide.description, url, site, jsonLd: exerciseJsonLd({ site, slug, guide }) })}
+</head>
+<body class="seo-guide-page">
+${nav([
+  { href: '#how-to', label: 'How to' },
+  { href: '#progress', label: 'Progress' },
+  { href: '/programs/push-pull-legs', label: 'PPL Program' },
+  { href: '/tools', label: 'Tools' }
+])}
+
+<main>
+<section class="guide-hero">
+  <div class="shell guide-hero-grid">
+    <div class="guide-hero-copy">
+      <div class="tag"><span class="tag-dot"></span>Exercise guide</div>
+      <h1 class="display">${esc(guide.title)} <span class="gold">Guide</span></h1>
+      <p class="lead">${esc(guide.description)}</p>
+      <div class="hero-ctas">
+        <a href="/app" class="btn btn-primary">TRACK THIS LIFT IN LOGWISE &rarr;</a>
+        <a href="/one-rep-max-calculator" class="btn btn-ghost">CALCULATE YOUR 1RM &rarr;</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>${esc(categoryList(exercise))}</b></span><span class="dot"></span><span><b>WORKING SETS</b></span><span class="dot"></span><span><b>RIR</b></span>
+      </div>
+    </div>
+    <aside class="guide-facts-card" aria-label="${esc(guide.title)} quick facts">
+      <div class="section-kicker">QUICK FACTS</div>
+      <dl>
+        <div><dt>Primary muscles</dt><dd>${esc(guide.quickFacts.primaryMuscles)}</dd></div>
+        <div><dt>Equipment</dt><dd>${esc(guide.quickFacts.equipment)}</dd></div>
+        <div><dt>Movement pattern</dt><dd>${esc(guide.quickFacts.pattern)}</dd></div>
+        <div><dt>Best for</dt><dd>${esc(guide.quickFacts.bestFor)}</dd></div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section id="how-to" class="section-pad">
+  <div class="shell guide-content-grid">
+    <article class="guide-main">
+      <section class="guide-block">
+        <div class="section-kicker">FORM GUIDE</div>
+        <h2>How to do the ${esc(guide.title)}</h2>
+        <ol class="guide-steps">
+${listItems(guide.howTo)}
+        </ol>
+      </section>
+      <section class="guide-block">
+        <div class="section-kicker">COMMON MISTAKES</div>
+        <h2>Keep the lift honest</h2>
+        <ul class="guide-list">
+${listItems(guide.mistakes)}
+        </ul>
+      </section>
+      <section id="progress" class="guide-block">
+        <div class="section-kicker">HOW TO PROGRESS</div>
+        <h2>Make progress measurable</h2>
+        <ul class="guide-list">
+${listItems(guide.progression)}
+        </ul>
+        <p class="guide-link-note">Use the <a href="/workout-volume-calculator">workout volume calculator</a> when sets, reps, or load change enough that recovery becomes harder to judge.</p>
+      </section>
+      <section class="guide-block">
+        <div class="section-kicker">TRACKING TIPS</div>
+        <h2>What to log in LogWise</h2>
+        <ul class="guide-list">
+${listItems(guide.tracking)}
+        </ul>
+        <p class="guide-link-note">If you want a paper structure first, the <a href="/workout-log-template">workout log template</a> captures the same basics: sets, reps, weight, RIR, and notes.</p>
+      </section>
+    </article>
+    <aside class="guide-side">
+      ${sourceCueBlock}
+      <div class="guide-side-box">
+        <h3>Track the useful numbers</h3>
+        <p>For this lift, the most useful history is simple: top set, back-off sets, total working volume, RIR, and short technique notes.</p>
+        <a href="/app" class="guide-side-link">OPEN LOGWISE &rarr;</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section-pad section-alt">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">RELATED TOOLS</div>
+      <h2 class="section-title">Turn this lift into better training decisions.</h2>
+    </div>
+    <p class="section-sub">Estimate strength, calculate workload, or start with a printable log before moving everything into LogWise.</p>
+  </div>
+  <div class="shell tool-related-grid guide-related-grid">
+${toolCards()}
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">RELATED EXERCISES</div>
+      <h2 class="section-title">Useful variations to keep in the same training log.</h2>
+    </div>
+    <p class="section-sub">These movements are already part of the LogWise exercise library and can be tracked with the same set, rep, weight, and RIR fields.</p>
+  </div>
+  <div class="shell guide-card-grid">
+${relatedCards}
+  </div>
+</section>
+
+<section class="cta">
+  <div class="shell">
+    <div class="cta-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></div>
+    <h2>Track the ${esc(guide.title)}. <span class="gold">Beat last time.</span></h2>
+    <p>LogWise keeps your sets, reps, weights, PRs, and notes in one clean browser-based workout log.</p>
+    <div class="ctas">
+      <a href="/app" class="btn btn-primary">TRACK THIS LIFT &rarr;</a>
+      <a href="/programs/push-pull-legs" class="btn btn-ghost">SEE THE PPL PROGRAM</a>
+    </div>
+  </div>
+</section>
+</main>
+
+${footer()}
+</body>
+</html>
+`;
+}
+
+function programJsonLd({ site, slug, guide, program, data }) {
+  const url = `${site}/programs/${slug}`;
+  const exerciseIds = Object.values(program.days).flat().filter(Boolean);
+  const seen = new Set();
+  const itemListElement = exerciseIds
+    .filter(id => {
+      if (seen.has(id)) return false;
+      seen.add(id);
+      return true;
+    })
+    .map((id, index) => {
+      const exercise = data.exerciseById.get(id);
+      const item = {
+        '@type': 'ListItem',
+        position: index + 1,
+        name: exercise ? exerciseName(exercise) : id
+      };
+      if (GENERATED_EXERCISES.includes(id)) item.url = `${site}/exercises/${id}`;
+      return item;
+    });
+
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: guide.title,
+      url,
+      description: guide.description,
+      inLanguage: 'en',
+      datePublished: LASTMOD,
+      dateModified: LASTMOD,
+      isPartOf: { '@type': 'WebSite', name: 'LogWise', url: site },
+      about: ['push pull legs program', 'workout program', 'workout tracking']
+    },
+    jsonLdBreadcrumb(site, [
+      { name: 'LogWise', path: '/' },
+      { name: 'Programs', path: '/tools' },
+      { name: guide.title, path: `/programs/${slug}` }
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: `${guide.title} exercise list`,
+      itemListElement
+    }
+  ];
+}
+
+function programDay(program, data, dayIndex) {
+  const ids = program.days[String(dayIndex)] || [];
+  const layout = PROGRAM_GUIDES['push-pull-legs'].layout[dayIndex];
+  const items = ids.length ? ids.map(id => {
+    const exercise = data.exerciseById.get(id);
+    const name = exercise ? exerciseName(exercise) : id;
+    if (GENERATED_EXERCISES.includes(id)) {
+      return `          <li><a href="/exercises/${id}">${esc(name)}</a></li>`;
+    }
+    return `          <li><span>${esc(name)}</span></li>`;
+  }).join('\n') : '          <li><span>Rest or light recovery work</span></li>';
+
+  return `    <article class="program-day-card">
+      <div class="program-day-head">
+        <span>${esc(layout.day)}</span>
+        <b>${esc(layout.type)}</b>
+      </div>
+      <p>${esc(layout.note)}</p>
+      <ul>
+${items}
+      </ul>
+    </article>`;
+}
+
+function programPage(slug, data, site) {
+  const guide = PROGRAM_GUIDES[slug];
+  if (!guide) throw new Error(`Missing program guide for ${slug}`);
+  const program = data.programs.find(item => item.nameEN === guide.sourceNameEN);
+  if (!program) throw new Error(`Missing source program for ${guide.sourceNameEN}`);
+
+  const url = `${site}/programs/${slug}`;
+  const overview = guide.overview.map(item => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join('\n        ');
+  const dayCards = guide.layout.map((_, index) => programDay(program, data, index)).join('\n');
+  const readingCards = guide.relatedReading.map(item => `<a href="${item.url}" class="guide-link-card">
+      <span>BLOG</span>
+      <h3>${esc(item.title)}</h3>
+      <p>Read the supporting guide, then bring the idea back into your workout log.</p>
+      <em>READ GUIDE &rarr;</em>
+    </a>`).join('\n');
+
+  return `<!DOCTYPE html>
+<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit programs/*.html manually. -->
+<html lang="en">
+<head>
+${headBlock({ title: guide.metaTitle, description: guide.description, url, site, jsonLd: programJsonLd({ site, slug, guide, program, data }) })}
+</head>
+<body class="seo-guide-page">
+${nav([
+  { href: '#overview', label: 'Overview' },
+  { href: '#layout', label: 'Weekly layout' },
+  { href: '/exercises/bench-press', label: 'Exercises' },
+  { href: '/tools', label: 'Tools' }
+])}
+
+<main>
+<section class="guide-hero">
+  <div class="shell guide-hero-grid">
+    <div class="guide-hero-copy">
+      <div class="tag"><span class="tag-dot"></span>Workout program guide</div>
+      <h1 class="display">Push Pull Legs <span class="gold">Program</span></h1>
+      <p class="lead">${esc(guide.description)}</p>
+      <div class="hero-ctas">
+        <a href="/app" class="btn btn-primary">START TRACKING THIS PROGRAM &rarr;</a>
+        <a href="#layout" class="btn btn-ghost">SEE WEEKLY LAYOUT &rarr;</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>6 DAYS</b></span><span class="dot"></span><span><b>PUSH</b></span><span class="dot"></span><span><b>PULL</b></span><span class="dot"></span><span><b>LEGS</b></span>
+      </div>
+    </div>
+    <aside class="guide-facts-card" aria-label="Push Pull Legs program quick facts">
+      <div class="section-kicker">PROGRAM OVERVIEW</div>
+      <dl>
+        ${overview}
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section id="overview" class="section-pad">
+  <div class="shell guide-content-grid">
+    <article class="guide-main">
+      <section class="guide-block">
+        <div class="section-kicker">WHO IT FITS</div>
+        <h2>A high-frequency split for lifters who can recover</h2>
+        <p>Push Pull Legs works because each training day has a clear job. Push days train pressing muscles, pull days train back and biceps, and leg days collect squat, leg press, hamstring, glute, and calf work.</p>
+        <p>This MVP page uses the preset LogWise PPL template as the source of truth, so the exercise list below matches the program available inside the app.</p>
+      </section>
+      <section id="layout" class="guide-block">
+        <div class="section-kicker">WEEKLY LAYOUT</div>
+        <h2>Push, pull, legs, then repeat</h2>
+        <div class="program-layout-grid">
+${dayCards}
+        </div>
+      </section>
+      <section class="guide-block">
+        <div class="section-kicker">HOW TO PROGRESS</div>
+        <h2>Progress the plan without turning every day into a max test</h2>
+        <ul class="guide-list">
+${listItems(guide.progression)}
+        </ul>
+        <p class="guide-link-note">The <a href="/workout-volume-calculator">workout volume calculator</a> is useful when you want to compare push, pull, and leg workload before changing the split.</p>
+      </section>
+    </article>
+    <aside class="guide-side">
+      <div class="guide-side-box">
+        <h3>What to track</h3>
+        <p>For each exercise, save sets, reps, weight, RIR, and short notes. For the program, review weekly volume and which lifts are moving.</p>
+        <a href="/app" class="guide-side-link">OPEN LOGWISE &rarr;</a>
+      </div>
+      <div class="guide-side-box">
+        <h3>Main lift guides</h3>
+        <ul>
+          <li><a href="/exercises/bench-press">Bench Press</a></li>
+          <li><a href="/exercises/squat">Squat</a></li>
+          <li><a href="/exercises/deadlift">Deadlift</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section-pad section-alt">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">RELATED TOOLS</div>
+      <h2 class="section-title">Use the program with better numbers.</h2>
+    </div>
+    <p class="section-sub">Estimate strength, total workload, and keep a clean log while you run the split.</p>
+  </div>
+  <div class="shell tool-related-grid guide-related-grid">
+${toolCards()}
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">RELATED READING</div>
+      <h2 class="section-title">The training ideas behind the split.</h2>
+    </div>
+    <p class="section-sub">Use these guides to decide when to add reps, load, volume, or recovery.</p>
+  </div>
+  <div class="shell guide-card-grid">
+${readingCards}
+  </div>
+</section>
+
+<section class="cta">
+  <div class="shell">
+    <div class="cta-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></div>
+    <h2>Run the program. <span class="gold">Keep the record.</span></h2>
+    <p>Start tracking the Push Pull Legs split in LogWise and keep sets, PRs, volume, and notes in one browser-based workout log.</p>
+    <div class="ctas">
+      <a href="/app" class="btn btn-primary">START TRACKING &rarr;</a>
+      <a href="/workout-log-template" class="btn btn-ghost">USE THE TEMPLATE</a>
+    </div>
+  </div>
+</section>
+</main>
+
+${footer()}
+</body>
+</html>
+`;
+}
+
+function buildProgrammaticSeo(options = {}) {
+  const root = options.root || DEFAULT_ROOT;
+  const site = options.site || DEFAULT_SITE;
+  const data = buildLookups(loadWindowData(root));
+  const exerciseDir = path.join(root, 'exercises');
+  const programDir = path.join(root, 'programs');
+
+  fs.mkdirSync(exerciseDir, { recursive: true });
+  fs.mkdirSync(programDir, { recursive: true });
+
+  for (const slug of GENERATED_EXERCISES) {
+    fs.writeFileSync(path.join(exerciseDir, `${slug}.html`), exercisePage(slug, data, site), 'utf8');
+  }
+
+  for (const slug of GENERATED_PROGRAMS) {
+    fs.writeFileSync(path.join(programDir, `${slug}.html`), programPage(slug, data, site), 'utf8');
+  }
+
+  return {
+    exercises: GENERATED_EXERCISES.length,
+    programs: GENERATED_PROGRAMS.length,
+    pages: sitemapPages()
+  };
+}
+
+if (require.main === module) {
+  const result = buildProgrammaticSeo();
+  console.log(`Done: ${result.exercises} exercise pages and ${result.programs} program pages generated.`);
+  for (const page of result.pages) {
+    console.log(`  ${page.path}`);
+  }
+}
+
+module.exports = {
+  buildProgrammaticSeo,
+  sitemapPages
+};

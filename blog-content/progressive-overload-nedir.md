@@ -29,6 +29,8 @@ Ağır bir set sana yeni bir referans veriyorsa, [LogWise 1RM hesaplayıcı](htt
 
 İlerleme kriterin daha fazla set veya daha fazla toplam iş ise [antrenman hacmi hesaplayıcı](https://logwise.fit/workout-volume-calculator), daha fazlasını eklemeden önce egzersiz bazında set x tekrar x ağırlık toplamını görmeni sağlar.
 
+Somut ana hareket örnekleri için [bench press rehberi](https://logwise.fit/exercises/bench-press), [squat rehberi](https://logwise.fit/exercises/squat) ve [deadlift rehberi](https://logwise.fit/exercises/deadlift) iyi başlangıç noktalarıdır. Aynı ilerleme mantığı geçerlidir, ama hacim eklemenin bedeli her harekette aynı değildir.
+
 ## Neden kayıt tutmak gerekir?
 
 İşte rahatsız edici gerçek: **“Geçen sefer” ne olduğunu bilmiyorsanız, progressive overload uygulayamazsınız.**

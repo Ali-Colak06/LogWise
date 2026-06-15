@@ -3666,3 +3666,47 @@ Mevcut evergreen tool sayfalarını tek bir statik keşif sayfasında toplamak: 
 - `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
 - `node scripts/build-blog.js` sonrası sitemap, blog çıktıları ve landing blog kartları birlikte güncellenir.
 - Lokal smoke testte `/tools`, üç tool sayfası, `/` ve `/tr` clean URL'leri doğrulanmalı.
+
+
+
+---
+
+## Bölüm 55 — Programmatic SEO MVP: Exercise ve Program Sayfaları (2026-06-15)
+
+### Amaç
+
+Programmatic SEO için küçük ve güvenli ilk dilimi eklemek: Google'ın JS çalıştırmadan okuyabileceği statik exercise ve program sayfaları üretmek. MVP kapsamı üç ana hareket (`bench-press`, `squat`, `deadlift`) ve bir hazır program (`push-pull-legs`) ile sınırlandı.
+
+### Mimari Kararlar
+
+- **Generator tabanlı çıktı:** Yeni `scripts/build-programmatic-seo.js`, `data/presets-exercises.js`, `data/ex-descriptions.js`, `data/ex-preview.js` ve `data/presets-programs.js` kaynaklarını Node `vm` içinde okuyup statik HTML üretir.
+- **Tek build komutu:** `scripts/build-blog.js`, programmatic SEO generator'ını çağırır. Böylece blog çıktıları, landing blog kartları, sitemap ve programmatic sayfalar yine tek komutla güncellenir.
+- **Clean URL yapısı:** Çıktılar `exercises/*.html` ve `programs/*.html` altında yaşar. Cloudflare Pages `.html` clean URL davranışıyla `/exercises/bench-press` ve `/programs/push-pull-legs` olarak sunulur; `_redirects` kuralı eklenmedi.
+- **EN-only MVP:** Sayfalar yalnızca İngilizce üretildi. `hreflang="en"` ve `x-default` var; sahte TR alternate eklenmedi.
+- **Ortak landing stili:** Sayfalar `styles/landing.css` kullanır. Yeni guide, facts, related-card ve program-layout stilleri burada tutuldu; inline CSS eklenmedi.
+- **Structured data:** Exercise sayfaları `WebPage`, `BreadcrumbList` ve görünür adımlarla uyumlu `HowTo` JSON-LD üretir. Program sayfası `WebPage`, `BreadcrumbList` ve exercise listesi için `ItemList` taşır.
+- **İç linkleme:** `/tools` sayfasına Training Guides bölümü eklendi. Progressive overload ve workout tracker blog kaynaklarına yeni exercise/program linkleri eklendi; generated blog HTML build ile güncellenir.
+- **Sitemap kalıcılığı:** Programmatic sayfalar `build-programmatic-seo.js` tarafından sitemap page listesi olarak export edilir ve `build-blog.js` sitemap'e ekler.
+- **Service worker:** `sw.js` `logwise-v39` → `logwise-v40` bump edildi. Yeni generated static SEO URL'leri ve `.html` karşılıkları `PRECACHE_URLS` listesine eklendi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `scripts/build-programmatic-seo.js` | Exercise/program static HTML generator + sitemap page export |
+| `scripts/build-blog.js` | Programmatic generator çağrısı + sitemap entegrasyonu |
+| `exercises/*.html` | Bench press, squat, deadlift EN statik guide çıktıları |
+| `programs/push-pull-legs.html` | Push Pull Legs EN statik program guide çıktısı |
+| `styles/landing.css` | Programmatic guide, quick facts, related cards ve PPL layout stilleri |
+| `tools.html` | Training Guides discovery bölümü |
+| `blog-content/*.md` | Progressive overload ve workout tracker EN/TR kaynaklarına doğal iç linkler |
+| `blog/*.html`, `blog/posts.json`, `sitemap.xml` | Generator çıktıları |
+| `sw.js` | `logwise-v40` bump + yeni SEO URL precache |
+| `AGENTS.md` | Yeni generated klasörler, generator ve refactor özeti güncellendi |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-programmatic-seo.js`, `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
+- `node scripts/build-blog.js` sonrası exercise/program sayfaları, sitemap ve blog çıktıları birlikte güncellenmeli.
+- Sitemap XML parse, `blog/posts.json` JSON parse ve local HTTP smoke test yapılmalı.
+- Lokal smoke testte `/exercises/bench-press`, `/exercises/squat`, `/exercises/deadlift`, `/programs/push-pull-legs`, `/tools`, tool sayfaları ve `/blog` clean URL'leri doğrulanmalı.

@@ -3,7 +3,7 @@
  * LogWise Blog Generator
  * ----------------------
  * blog-content/*.md -> blog/<slug>.html + blog/index.html + blog/posts.json
- * Also rebuilds sitemap.xml and injects featured blog cards into static landing pages.
+ * Also rebuilds sitemap.xml, programmatic SEO pages, and featured blog cards on static landing pages.
  *
  * Usage: node scripts/build-blog.js
  * Dependency: scripts/vendor/marked.min.js (vendored UMD, no npm install required)
@@ -29,6 +29,7 @@ const path = require('path');
 
 const markedMod = require('./vendor/marked.min.js');
 const marked = markedMod.marked || markedMod;
+const programmaticSeo = require('./build-programmatic-seo.js');
 
 const ROOT = path.join(__dirname, '..');
 const CONTENT_DIR = path.join(ROOT, 'blog-content');
@@ -50,7 +51,8 @@ const STATIC_SITEMAP_PAGES = [
   { path: '/tools', lastmod: '2026-06-15', changefreq: 'monthly', priority: '0.8' },
   { path: '/one-rep-max-calculator', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
   { path: '/workout-log-template', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
-  { path: '/workout-volume-calculator', lastmod: '2026-06-15', changefreq: 'monthly', priority: '0.8' }
+  { path: '/workout-volume-calculator', lastmod: '2026-06-15', changefreq: 'monthly', priority: '0.8' },
+  ...programmaticSeo.sitemapPages()
 ];
 
 // ---------------------------------------------------------------- helpers
@@ -645,6 +647,10 @@ const manifest = posts.map(post => ({
 }));
 fs.writeFileSync(path.join(OUT_DIR, 'posts.json'), JSON.stringify(manifest, null, 2) + '\n', 'utf8');
 
+// ---------------------------------------------------------------- programmatic SEO pages
+
+const programmaticResult = programmaticSeo.buildProgrammaticSeo({ root: ROOT, site: SITE });
+
 // ---------------------------------------------------------------- sitemap.xml
 
 function sitemapStaticEntry(page) {
@@ -739,3 +745,4 @@ console.log(
   'Updated: blog/index.html, blog/posts.json, sitemap.xml' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
+console.log(`Programmatic SEO: ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);
