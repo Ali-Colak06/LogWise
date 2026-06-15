@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-16 — Exercise/program guide dizin sayfaları eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-16 — Guides/Blog public adları Library/Learn olarak güncellendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -20,7 +20,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 57 — Guide dizin sayfaları).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 58 — Library/Learn URL adlandırması).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -64,13 +64,13 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-55)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-58)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
 │   ├── YENI-COMPONENT.md
 │   ├── SW-VERSION-BUMP.md
-│   ├── BLOG-YAZISI-EKLEME.md  ← Yeni blog yazısı ekleme reçetesi
+│   ├── BLOG-YAZISI-EKLEME.md  ← Yeni Learn yazısı ekleme reçetesi
 │   └── PROGRAMMATIC-SEO-PROMPT.md ← Programmatic SEO çalışma promptu
 ├── assets/
 │   └── landing/                ← Statik landing mockup görselleri
@@ -101,19 +101,19 @@ LogWise/
 │   ├── ex-preview-modal.js    ← ExPreviewModal
 │   ├── auth-screen.js         ← AuthScreen
 │   └── comment-section.js     ← CommentSection (Bölüm 44)
-├── blog-content/              ← Blog yazıları — Markdown kaynak (TR/EN varyantlı, translationKey frontmatter'lı)
-├── blog/                      ← Üretilmiş statik blog sayfaları + blog.css (elle) + posts.json
-├── guides/                    ← Üretilmiş statik guide dizinleri ve alt sayfaları (`/guides/exercises`, `/guides/programs`, nested rehberler)
+├── blog-content/              ← Learn yazıları — Markdown kaynak (TR/EN varyantlı, translationKey frontmatter'lı)
+├── learn/                     ← Üretilmiş statik Learn sayfaları + learn.css (elle) + posts.json
+├── library/                   ← Üretilmiş statik Library dizinleri ve alt sayfaları (`/library/exercises`, `/library/programs`, nested sayfalar)
 ├── scripts/
-│   ├── build-blog.js          ← blog-content/*.md → blog/*.html üretici + TR/EN hreflang + landing blog kart enjeksiyonu
-│   ├── build-programmatic-seo.js ← data/*.js → guides.html + guides/exercises.html + guides/programs.html + nested guide HTML üretici
+│   ├── build-blog.js          ← blog-content/*.md → learn/*.html üretici + TR/EN hreflang + landing Learn kart enjeksiyonu
+│   ├── build-programmatic-seo.js ← data/*.js → library.html + library/exercises.html + library/programs.html + nested Library HTML üretici
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← EN statik SEO landing
 ├── tr.html                    ← TR statik SEO landing
 ├── tools.html                 ← EN statik SEO tools hub sayfası
-├── guides.html                ← EN statik SEO guides hub sayfası
-├── guides/exercises.html      ← EN statik SEO exercise library dizin sayfası
-├── guides/programs.html       ← EN statik SEO program library dizin sayfası
+├── library.html               ← EN statik SEO Library hub sayfası
+├── library/exercises.html     ← EN statik SEO exercise library dizin sayfası
+├── library/programs.html      ← EN statik SEO program library dizin sayfası
 ├── one-rep-max-calculator.html ← EN statik SEO tool sayfası
 ├── workout-log-template.html  ← EN statik SEO printable template sayfası
 ├── workout-volume-calculator.html ← EN statik SEO workout volume calculator sayfası
@@ -148,7 +148,7 @@ LogWise/
 | Landing CSS değiştirmek | `styles/landing.css` |
 | Sayfa-özel CSS eklemek | `profile.html` / `share.html` / `program.html` inline `<style>` |
 | sw.js versiyon bump | `docs/SW-VERSION-BUMP.md` |
-| Yeni blog yazısı eklemek | `docs/BLOG-YAZISI-EKLEME.md` (her konu TR+EN varyantlı, aynı `translationKey`) |
+| Yeni Learn yazısı eklemek | `docs/BLOG-YAZISI-EKLEME.md` (her konu TR+EN varyantlı, aynı `translationKey`) |
 | Landing SEO/metin güncellemek | `index.html` + `tr.html` + `scripts/build-blog.js` marker enjeksiyonu |
 | Yeni SEO araç sayfası eklemek | `.html` dosyası + `styles/landing.css` + `scripts/build-blog.js` statik sitemap kaydı + sw.js değerlendirmesi |
 | Programmatic SEO sayfaları eklemek/genişletmek | `docs/PROGRAMMATIC-SEO-PROMPT.md` + `scripts/build-programmatic-seo.js` |
@@ -194,10 +194,10 @@ LogWise/
 - **Aşama 2** (Bölüm 34-41): DB + Stil + React bileşenleri ayrıştırması ✅
 - **DOC-1** (Bölüm 42): Dokümantasyon altyapısı (AGENTS.md + docs/*) ✅
 - **Faz EX-ID** (Bölüm 43): Preset hareketlere slug `id` sistemi + Dead Hang deduplikasyonu + tüm referansların id'ye taşınması ✅
-- **Blog sistemi** (Bölüm 45, 51-52): Markdown kaynaklı statik blog + sitemap + landing blog entegrasyonu; her konu TR/EN varyantlı, hreflang'li ve UI'da aktif dil switch'iyle tek dil gösterir ✅
-- **SEO statik landing** (Bölüm 46): EN `/` + TR `/tr` statik landing, canonical apex domain, statik blog kart enjeksiyonu ✅
+- **Learn sistemi** (Bölüm 45, 51-52, 58): Markdown kaynaklı statik Learn + sitemap + landing Learn entegrasyonu; her konu TR/EN varyantlı, hreflang'li ve UI'da aktif dil switch'iyle tek dil gösterir ✅
+- **SEO statik landing** (Bölüm 46): EN `/` + TR `/tr` statik landing, canonical apex domain, statik Learn kart enjeksiyonu ✅
 - **SEO evergreen araç sayfaları** (Bölüm 48-49, 53-54): `/tools` hub + `/one-rep-max-calculator` + `/workout-log-template` + `/workout-volume-calculator` statik tool/template sayfaları + sitemap statik sayfa kaydı ✅
-- **Programmatic SEO MVP** (Bölüm 55-57): `/guides` hub + `/guides/exercises` dizini + `/guides/programs` dizini + `/guides/exercises/bench-press`, `/guides/exercises/squat`, `/guides/exercises/deadlift`, `/guides/programs/push-pull-legs` statik generator çıktıları + sitemap/SW entegrasyonu ✅
+- **Programmatic SEO MVP** (Bölüm 55-58): `/library` hub + `/library/exercises` dizini + `/library/programs` dizini + `/library/exercises/bench-press`, `/library/exercises/squat`, `/library/exercises/deadlift`, `/library/programs/push-pull-legs` statik generator çıktıları + sitemap/SW entegrasyonu ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

@@ -29,7 +29,7 @@ Bunlar, bir antrenmanı bir sonrakiyle karşılaştırmak için yeterlidir.
 
 Geçen hafta bench press’te 70 kg ile 8, 8, 7 tekrar yaptıysan, bugün hedefin bellidir: aynı kiloda 8, 8, 8’e ulaşmak. Eğer geçen antrenman kolay geldiyse, küçük bir ağırlık artışı denemek.
 
-Bench press ana hareketlerinden biriyse, [bench press rehberi](https://logwise.fit/guides/exercises/bench-press) form, ilerleme ve not alanına yazılacak detaylar için temiz bir kontrol listesi verir.
+Bench press ana hareketlerinden biriyse, [bench press rehberi](https://logwise.fit/library/exercises/bench-press) form, ilerleme ve not alanına yazılacak detaylar için temiz bir kontrol listesi verir.
 
 En iyi egzersiz takip uygulaması, antrenman sırasında gerçekten kullanmaya devam ettiğindir. Bir seti kaydetmek fazla uzun sürüyorsa, salon kalabalıklaştığında bunu yapmayı bırakırsın.
 
@@ -37,7 +37,7 @@ Uygulamaya geçmeden önce kağıt üzerinde basit bir sistem kurmak istersen, [
 
 Bir seansın toplam iş yükünü görmek istersen [ücretsiz antrenman hacmi hesaplayıcı](https://logwise.fit/workout-volume-calculator), egzersiz bazında set x tekrar x ağırlık toplamını çıkarır. Böylece haftalık hacim değişimlerini daha kolay fark edersin.
 
-Hazır bir bölünmeyle ilerlemek istersen, [Push Pull Legs programı](https://logwise.fit/guides/programs/push-pull-legs) LogWise içindeki PPL haftasının nasıl organize edildiğini gösterir.
+Hazır bir bölünmeyle ilerlemek istersen, [Push Pull Legs programı](https://logwise.fit/library/programs/push-pull-legs) LogWise içindeki PPL haftasının nasıl organize edildiğini gösterir.
 
 ## Eklemeye Değer Alanlar
 

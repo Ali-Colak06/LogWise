@@ -1,32 +1,40 @@
-# Netlify — Redirect & Rewrite Kuralları
+# Netlify / Cloudflare Pages redirect and rewrite rules
 
-# index.php → kök dizine 301 yönlendirme
+# Legacy index.php -> root
 /index.php    /   301
 
-# NOT: /app, /profile, /share ve /program için kural YOK — Netlify, .html
-# dosyalarını otomatik olarak clean URL olarak sunuyor.
-# Burada kural eklemek redirect döngüsüne neden olur.
+# Do not add explicit clean-URL rules for /app, /profile, /share, /program, or /tr.
+# Cloudflare Pages serves matching .html files automatically; explicit .html rewrites can loop.
 
-# NOT: /tr için kural yok.
-# Cloudflare Pages, tr.html dosyasını otomatik olarak /tr clean URL'den sunar.
-# /tr -> /tr.html 200 kuralı, .html canonical redirect'iyle 307 döngüsü yaratır.
-
-# /app/* SPA route'ları — yeni URL şeması (wildcard)
+# App SPA routes
 /app/*        /app.html       200
 
-# Eski programmatic SEO URL'leri → yeni /guides bilgi mimarisi
-/exercises                    /guides/exercises                    301
-/programs                     /guides/programs                     301
-/exercises/bench-press        /guides/exercises/bench-press        301
-/exercises/squat              /guides/exercises/squat              301
-/exercises/deadlift           /guides/exercises/deadlift           301
-/programs/push-pull-legs      /guides/programs/push-pull-legs      301
+# Old blog/guides URLs -> new learn/library information architecture
+/blog                                                   /learn                                                   301
+/blog/workout-tracker-app-guide                        /learn/workout-tracker-app-guide                        301
+/blog/egzersiz-takip-uygulamasi-ne-kaydetmeli          /learn/egzersiz-takip-uygulamasi-ne-kaydetmeli          301
+/blog/why-keep-a-workout-log                           /learn/why-keep-a-workout-log                           301
+/blog/antrenman-gunlugu-neden-tutmalisin               /learn/antrenman-gunlugu-neden-tutmalisin               301
+/blog/progressive-overload-explained                   /learn/progressive-overload-explained                   301
+/blog/progressive-overload-nedir                       /learn/progressive-overload-nedir                       301
+/guides                                                /library                                                301
+/guides/exercises                                      /library/exercises                                      301
+/guides/programs                                       /library/programs                                       301
+/guides/exercises/bench-press                          /library/exercises/bench-press                          301
+/guides/exercises/squat                                /library/exercises/squat                                301
+/guides/exercises/deadlift                             /library/exercises/deadlift                             301
+/guides/programs/push-pull-legs                        /library/programs/push-pull-legs                        301
+/exercises                                             /library/exercises                                      301
+/programs                                              /library/programs                                       301
+/exercises/bench-press                                 /library/exercises/bench-press                          301
+/exercises/squat                                       /library/exercises/squat                                301
+/exercises/deadlift                                    /library/exercises/deadlift                             301
+/programs/push-pull-legs                               /library/programs/push-pull-legs                        301
 
-# Eski SPA route'ları — geriye dönük uyumluluk
+# Legacy SPA routes
 /social       /app.html       200
 /dashboard    /app.html       200
 /feedback     /app.html       200
 /data         /app.html       200
 
-# NOT: 404 sayfası için ayrı satır gerekmez.
-# Netlify, kök dizindeki 404.html dosyasını otomatik olarak kullanır.
+# 404.html is picked up automatically from the project root.

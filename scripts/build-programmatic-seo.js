@@ -2,16 +2,16 @@
 /**
  * LogWise Programmatic SEO Generator
  * ----------------------------------
- * data/*.js -> guides.html + guide directories + guides/exercises/*.html + guides/programs/*.html
+ * data/*.js -> library.html + library directories + library/exercises/*.html + library/programs/*.html
  *
  * MVP scope:
- *   /guides
- *   /guides/exercises
- *   /guides/programs
- *   /guides/exercises/bench-press
- *   /guides/exercises/squat
- *   /guides/exercises/deadlift
- *   /guides/programs/push-pull-legs
+ *   /library
+ *   /library/exercises
+ *   /library/programs
+ *   /library/exercises/bench-press
+ *   /library/exercises/squat
+ *   /library/exercises/deadlift
+ *   /library/programs/push-pull-legs
  */
 
 'use strict';
@@ -24,40 +24,40 @@ const DEFAULT_ROOT = path.join(__dirname, '..');
 const DEFAULT_SITE = 'https://logwise.fit';
 const LASTMOD = '2026-06-15';
 const OG_IMAGE = '/icon-512.png';
-const GUIDES_PATH = '/guides';
-const EXERCISE_GUIDES_PATH = '/guides/exercises';
-const PROGRAM_GUIDES_PATH = '/guides/programs';
+const LIBRARY_PATH = '/library';
+const EXERCISE_LIBRARY_PATH = '/library/exercises';
+const PROGRAM_LIBRARY_PATH = '/library/programs';
 
 const GENERATED_EXERCISES = ['bench-press', 'squat', 'deadlift'];
 const GENERATED_PROGRAMS = ['push-pull-legs'];
 
 const SITEMAP_PAGES = [
   {
-    path: GUIDES_PATH,
+    path: LIBRARY_PATH,
     lastmod: LASTMOD,
     changefreq: 'monthly',
     priority: '0.8'
   },
   {
-    path: EXERCISE_GUIDES_PATH,
+    path: EXERCISE_LIBRARY_PATH,
     lastmod: LASTMOD,
     changefreq: 'monthly',
     priority: '0.8'
   },
   {
-    path: PROGRAM_GUIDES_PATH,
+    path: PROGRAM_LIBRARY_PATH,
     lastmod: LASTMOD,
     changefreq: 'monthly',
     priority: '0.8'
   },
   ...GENERATED_EXERCISES.map(slug => ({
-    path: `${EXERCISE_GUIDES_PATH}/${slug}`,
+    path: `${EXERCISE_LIBRARY_PATH}/${slug}`,
     lastmod: LASTMOD,
     changefreq: 'monthly',
     priority: '0.7'
   })),
   ...GENERATED_PROGRAMS.map(slug => ({
-    path: `${PROGRAM_GUIDES_PATH}/${slug}`,
+    path: `${PROGRAM_LIBRARY_PATH}/${slug}`,
     lastmod: LASTMOD,
     changefreq: 'monthly',
     priority: '0.7'
@@ -220,11 +220,11 @@ const PROGRAM_GUIDES = {
     relatedReading: [
       {
         title: 'Progressive Overload, Explained Simply',
-        url: '/blog/progressive-overload-explained'
+        url: '/learn/progressive-overload-explained'
       },
       {
         title: 'Workout Tracker App: What to Log for Real Progress',
-        url: '/blog/workout-tracker-app-guide'
+        url: '/learn/workout-tracker-app-guide'
       }
     ]
   }
@@ -271,11 +271,11 @@ function siteUrl(site, pagePath) {
 }
 
 function exerciseGuidePath(slug) {
-  return `${EXERCISE_GUIDES_PATH}/${slug}`;
+  return `${EXERCISE_LIBRARY_PATH}/${slug}`;
 }
 
 function programGuidePath(slug) {
-  return `${PROGRAM_GUIDES_PATH}/${slug}`;
+  return `${PROGRAM_LIBRARY_PATH}/${slug}`;
 }
 
 function sitemapPages() {
@@ -388,30 +388,30 @@ function footer() {
       <p class="foot-tagline">Free browser-based workout tracking for lifters who want clearer progress.</p>
     </div>
     <div class="foot-col">
-      <h5>Exercise guides</h5>
-      <a href="/guides">All guides</a>
-      <a href="/guides/exercises">All exercises</a>
-      <a href="/guides/exercises/bench-press">Bench Press</a>
-      <a href="/guides/exercises/squat">Squat</a>
-      <a href="/guides/exercises/deadlift">Deadlift</a>
+      <h5>Library</h5>
+      <a href="/library">Overview</a>
+      <a href="/library/exercises">Exercises</a>
+      <a href="/library/exercises/bench-press">Bench Press</a>
+      <a href="/library/exercises/squat">Squat</a>
+      <a href="/library/exercises/deadlift">Deadlift</a>
     </div>
     <div class="foot-col">
       <h5>Programs</h5>
-      <a href="/guides/programs">All programs</a>
-      <a href="/guides/programs/push-pull-legs">Push Pull Legs</a>
+      <a href="/library/programs">All programs</a>
+      <a href="/library/programs/push-pull-legs">Push Pull Legs</a>
       <a href="/app">Workout log app</a>
       <a href="/tools">Free tools</a>
     </div>
     <div class="foot-col">
       <h5>LogWise</h5>
       <a href="/">Home</a>
-      <a href="/blog">Blog</a>
+      <a href="/learn">Learn</a>
       <a href="/tr">Turkish landing</a>
     </div>
   </div>
   <div class="shell foot-bottom">
     <span>&copy; 2026 LOG WISE</span>
-    <span>TRAINING GUIDES &middot; LOGWISE.FIT</span>
+    <span>TRAINING LIBRARY &middot; LOGWISE.FIT</span>
   </div>
 </footer>`;
 }
@@ -438,7 +438,7 @@ function relatedExerciseCard(data, id, generatedIds) {
     ? `a href="${exerciseGuidePath(id)}" class="guide-link-card"`
     : 'article class="guide-link-card guide-link-card-static"';
   const closeTag = generatedIds.has(id) ? 'a' : 'article';
-  const action = generatedIds.has(id) ? '<em>OPEN GUIDE &rarr;</em>' : '<em>IN LOGWISE LIBRARY</em>';
+  const action = generatedIds.has(id) ? '<em>OPEN EXERCISE &rarr;</em>' : '<em>IN LOGWISE LIBRARY</em>';
 
   return `    <${attrs}>
       <span>${esc(categoryList(exercise))}</span>
@@ -475,7 +475,7 @@ function exerciseDirectoryCard(data, exercise, generatedIds) {
         <span>${esc(categoryList(exercise))}</span>
         <h3>${esc(name)}</h3>
         <p>${esc(description)}</p>
-        <em>OPEN GUIDE &rarr;</em>
+        <em>OPEN EXERCISE &rarr;</em>
       </a>`;
   }
 
@@ -504,8 +504,8 @@ function programDirectoryCard(program, data) {
   const exerciseCount = uniqueProgramExercises(program).size;
   const activeDays = activeProgramDays(program);
   const href = slug ? programGuidePath(slug) : '/app';
-  const tag = slug ? 'PROGRAM GUIDE' : 'APP PRESET';
-  const action = slug ? 'OPEN PROGRAM GUIDE' : 'USE IN LOGWISE';
+  const tag = slug ? 'PROGRAM PAGE' : 'APP PRESET';
+  const action = slug ? 'OPEN PROGRAM' : 'USE IN LOGWISE';
   const cardTag = slug ? 'a' : 'article';
   const attrs = slug
     ? `href="${href}" class="guide-link-card directory-program-card"`
@@ -558,8 +558,8 @@ function exerciseJsonLd({ site, slug, guide }) {
     },
     jsonLdBreadcrumb(site, [
       { name: 'LogWise', path: '/' },
-      { name: 'Guides', path: GUIDES_PATH },
-      { name: 'Exercise Guides', path: EXERCISE_GUIDES_PATH },
+      { name: 'Library', path: LIBRARY_PATH },
+      { name: 'Exercises', path: EXERCISE_LIBRARY_PATH },
       { name: guide.title, path }
     ]),
     {
@@ -594,18 +594,17 @@ ${listItems(sourceCueItems)}
   const relatedCards = guide.related.map(id => relatedExerciseCard(data, id, generatedIds)).filter(Boolean).join('\n');
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit guides/exercises/*.html manually. -->
+<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit library/exercises/*.html manually. -->
 <html lang="en">
 <head>
 ${headBlock({ title: guide.metaTitle, description: guide.description, url, site, jsonLd: exerciseJsonLd({ site, slug, guide }) })}
 </head>
 <body class="seo-guide-page">
 ${nav([
-  { href: '#how-to', label: 'How to' },
-  { href: '#progress', label: 'Progress' },
-  { href: '/guides', label: 'Guides' },
-  { href: '/guides/programs/push-pull-legs', label: 'PPL Program' },
-  { href: '/tools', label: 'Tools' }
+  { href: '/', label: 'Home' },
+  { href: '/library', label: 'Library' },
+  { href: '/tools', label: 'Tools' },
+  { href: '/learn', label: 'Learn' }
 ])}
 
 <main>
@@ -713,7 +712,7 @@ ${relatedCards}
     <p>LogWise keeps your sets, reps, weights, PRs, and notes in one clean browser-based workout log.</p>
     <div class="ctas">
       <a href="/app" class="btn btn-primary">TRACK THIS LIFT &rarr;</a>
-      <a href="/guides/programs/push-pull-legs" class="btn btn-ghost">SEE THE PPL PROGRAM</a>
+      <a href="/library/programs/push-pull-legs" class="btn btn-ghost">SEE THE PPL PROGRAM</a>
     </div>
   </div>
 </section>
@@ -762,8 +761,8 @@ function programJsonLd({ site, slug, guide, program, data }) {
     },
     jsonLdBreadcrumb(site, [
       { name: 'LogWise', path: '/' },
-      { name: 'Guides', path: GUIDES_PATH },
-      { name: 'Program Guides', path: PROGRAM_GUIDES_PATH },
+      { name: 'Library', path: LIBRARY_PATH },
+      { name: 'Programs', path: PROGRAM_LIBRARY_PATH },
       { name: guide.title, path }
     ]),
     {
@@ -809,25 +808,24 @@ function programPage(slug, data, site) {
   const overview = guide.overview.map(item => `<div><dt>${esc(item.label)}</dt><dd>${esc(item.value)}</dd></div>`).join('\n        ');
   const dayCards = guide.layout.map((_, index) => programDay(program, data, index)).join('\n');
   const readingCards = guide.relatedReading.map(item => `<a href="${item.url}" class="guide-link-card">
-      <span>BLOG</span>
+      <span>LEARN</span>
       <h3>${esc(item.title)}</h3>
-      <p>Read the supporting guide, then bring the idea back into your workout log.</p>
-      <em>READ GUIDE &rarr;</em>
+      <p>Read the supporting article, then bring the idea back into your workout log.</p>
+      <em>READ ARTICLE &rarr;</em>
     </a>`).join('\n');
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit guides/programs/*.html manually. -->
+<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit library/programs/*.html manually. -->
 <html lang="en">
 <head>
 ${headBlock({ title: guide.metaTitle, description: guide.description, url, site, jsonLd: programJsonLd({ site, slug, guide, program, data }) })}
 </head>
 <body class="seo-guide-page">
 ${nav([
-  { href: '#overview', label: 'Overview' },
-  { href: '#layout', label: 'Weekly layout' },
-  { href: '/guides', label: 'Guides' },
-  { href: '/guides/exercises/bench-press', label: 'Exercises' },
-  { href: '/tools', label: 'Tools' }
+  { href: '/', label: 'Home' },
+  { href: '/library', label: 'Library' },
+  { href: '/tools', label: 'Tools' },
+  { href: '/learn', label: 'Learn' }
 ])}
 
 <main>
@@ -886,11 +884,11 @@ ${listItems(guide.progression)}
         <a href="/app" class="guide-side-link">OPEN LOGWISE &rarr;</a>
       </div>
       <div class="guide-side-box">
-        <h3>Main lift guides</h3>
+        <h3>Main lift pages</h3>
         <ul>
-          <li><a href="/guides/exercises/bench-press">Bench Press</a></li>
-          <li><a href="/guides/exercises/squat">Squat</a></li>
-          <li><a href="/guides/exercises/deadlift">Deadlift</a></li>
+          <li><a href="/library/exercises/bench-press">Bench Press</a></li>
+          <li><a href="/library/exercises/squat">Squat</a></li>
+          <li><a href="/library/exercises/deadlift">Deadlift</a></li>
         </ul>
       </div>
     </aside>
@@ -916,7 +914,7 @@ ${toolCards()}
       <div class="section-kicker">RELATED READING</div>
       <h2 class="section-title">The training ideas behind the split.</h2>
     </div>
-    <p class="section-sub">Use these guides to decide when to add reps, load, volume, or recovery.</p>
+    <p class="section-sub">Use these learn articles to decide when to add reps, load, volume, or recovery.</p>
   </div>
   <div class="shell guide-card-grid">
 ${readingCards}
@@ -948,7 +946,7 @@ function exerciseDirectoryJsonLd(data, site) {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       name: 'Exercise Library',
-      url: siteUrl(site, EXERCISE_GUIDES_PATH),
+      url: siteUrl(site, EXERCISE_LIBRARY_PATH),
       description: 'Browse the LogWise exercise library by muscle group, including bench press, squat, deadlift, rows, curls, presses, leg work, and core movements.',
       inLanguage: 'en',
       datePublished: LASTMOD,
@@ -958,8 +956,8 @@ function exerciseDirectoryJsonLd(data, site) {
     },
     jsonLdBreadcrumb(site, [
       { name: 'LogWise', path: '/' },
-      { name: 'Guides', path: GUIDES_PATH },
-      { name: 'Exercises', path: EXERCISE_GUIDES_PATH }
+      { name: 'Library', path: LIBRARY_PATH },
+      { name: 'Exercises', path: EXERCISE_LIBRARY_PATH }
     ]),
     {
       '@context': 'https://schema.org',
@@ -981,7 +979,7 @@ function exerciseDirectoryJsonLd(data, site) {
 function exercisesIndexPage(data, site) {
   const title = 'Exercise Library: Browse Workout Exercises | LogWise';
   const description = 'Browse the LogWise exercise library by muscle group, including bench press, squat, deadlift, rows, curls, presses, leg work, and core movements.';
-  const url = siteUrl(site, EXERCISE_GUIDES_PATH);
+  const url = siteUrl(site, EXERCISE_LIBRARY_PATH);
   const generatedIds = new Set(GENERATED_EXERCISES);
   const groups = exerciseDirectoryGroups(data);
   const categoryLinks = groups.map(group => `<a href="#${slugifyLabel(group.category)}">${esc(group.category)}</a>`).join('\n        ');
@@ -999,17 +997,17 @@ ${group.exercises.map(exercise => exerciseDirectoryCard(data, exercise, generate
 </section>`).join('\n\n');
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit guides/exercises.html manually. -->
+<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit library/exercises.html manually. -->
 <html lang="en">
 <head>
 ${headBlock({ title, description, url, site, jsonLd: exerciseDirectoryJsonLd(data, site) })}
 </head>
 <body class="seo-guide-page">
 ${nav([
-  { href: '/guides', label: 'Guides' },
-  { href: '/guides/programs', label: 'Programs' },
+  { href: '/', label: 'Home' },
+  { href: '/library', label: 'Library' },
   { href: '/tools', label: 'Tools' },
-  { href: '/blog', label: 'Blog' }
+  { href: '/learn', label: 'Learn' }
 ])}
 
 <main>
@@ -1018,13 +1016,13 @@ ${nav([
     <div class="guide-hero-copy">
       <div class="tag"><span class="tag-dot"></span>Exercise library</div>
       <h1 class="display">Browse Workout <span class="gold">Exercises</span></h1>
-      <p class="lead">See the preset exercises available in LogWise, grouped by primary muscle area. Open full guides for core lifts, or use the app to track any movement in your workout log.</p>
+      <p class="lead">See the preset exercises available in LogWise, grouped by primary muscle area. Open full library pages for core lifts, or use the app to track any movement in your workout log.</p>
       <div class="hero-ctas">
         <a href="/app" class="btn btn-primary">TRACK AN EXERCISE &rarr;</a>
-        <a href="/guides/programs" class="btn btn-ghost">SEE PROGRAMS &rarr;</a>
+        <a href="/library/programs" class="btn btn-ghost">SEE PROGRAMS &rarr;</a>
       </div>
       <div class="hero-meta">
-        <span><b>${data.exercises.length} EXERCISES</b></span><span class="dot"></span><span><b>${groups.length} GROUPS</b></span><span class="dot"></span><span><b>${GENERATED_EXERCISES.length} FULL GUIDES</b></span>
+        <span><b>${data.exercises.length} EXERCISES</b></span><span class="dot"></span><span><b>${groups.length} GROUPS</b></span><span class="dot"></span><span><b>${GENERATED_EXERCISES.length} FULL PAGES</b></span>
       </div>
     </div>
     <aside class="guide-facts-card" aria-label="Exercise library quick facts">
@@ -1032,7 +1030,7 @@ ${nav([
       <dl>
         <div><dt>Preset movements</dt><dd>${data.exercises.length}</dd></div>
         <div><dt>Muscle groups</dt><dd>${groups.length}</dd></div>
-        <div><dt>Full guides</dt><dd>${GENERATED_EXERCISES.map(slug => EXERCISE_GUIDES[slug].title).join(', ')}</dd></div>
+        <div><dt>Full pages</dt><dd>${GENERATED_EXERCISES.map(slug => EXERCISE_GUIDES[slug].title).join(', ')}</dd></div>
         <div><dt>Best next step</dt><dd>Track sets, reps, weight, and RIR</dd></div>
       </dl>
     </aside>
@@ -1061,7 +1059,7 @@ ${groupedSections}
     <p>LogWise keeps each set, rep, weight, RIR, PR, and note connected to the movement you trained.</p>
     <div class="ctas">
       <a href="/app" class="btn btn-primary">OPEN LOGWISE &rarr;</a>
-      <a href="/guides" class="btn btn-ghost">BACK TO GUIDES</a>
+      <a href="/library" class="btn btn-ghost">BACK TO LIBRARY</a>
     </div>
   </div>
 </section>
@@ -1079,7 +1077,7 @@ function programDirectoryJsonLd(data, site) {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
       name: 'Workout Programs',
-      url: siteUrl(site, PROGRAM_GUIDES_PATH),
+      url: siteUrl(site, PROGRAM_LIBRARY_PATH),
       description: 'Browse LogWise workout program templates, including Push Pull Legs, Upper Lower, Full Body, and Bro Split structures.',
       inLanguage: 'en',
       datePublished: LASTMOD,
@@ -1089,8 +1087,8 @@ function programDirectoryJsonLd(data, site) {
     },
     jsonLdBreadcrumb(site, [
       { name: 'LogWise', path: '/' },
-      { name: 'Guides', path: GUIDES_PATH },
-      { name: 'Programs', path: PROGRAM_GUIDES_PATH }
+      { name: 'Library', path: LIBRARY_PATH },
+      { name: 'Programs', path: PROGRAM_LIBRARY_PATH }
     ]),
     {
       '@context': 'https://schema.org',
@@ -1113,21 +1111,21 @@ function programDirectoryJsonLd(data, site) {
 function programsIndexPage(data, site) {
   const title = 'Workout Programs: Browse Training Splits | LogWise';
   const description = 'Browse LogWise workout program templates, including Push Pull Legs, Upper Lower, Full Body, and Bro Split structures.';
-  const url = siteUrl(site, PROGRAM_GUIDES_PATH);
+  const url = siteUrl(site, PROGRAM_LIBRARY_PATH);
   const programCards = data.programs.map(program => programDirectoryCard(program, data)).join('\n');
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit guides/programs.html manually. -->
+<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit library/programs.html manually. -->
 <html lang="en">
 <head>
 ${headBlock({ title, description, url, site, jsonLd: programDirectoryJsonLd(data, site) })}
 </head>
 <body class="seo-guide-page">
 ${nav([
-  { href: '/guides', label: 'Guides' },
-  { href: '/guides/exercises', label: 'Exercises' },
+  { href: '/', label: 'Home' },
+  { href: '/library', label: 'Library' },
   { href: '/tools', label: 'Tools' },
-  { href: '/blog', label: 'Blog' }
+  { href: '/learn', label: 'Learn' }
 ])}
 
 <main>
@@ -1139,7 +1137,7 @@ ${nav([
       <p class="lead">Compare the preset LogWise training splits, see how many days and exercises they use, then open the app to start logging the program.</p>
       <div class="hero-ctas">
         <a href="/app" class="btn btn-primary">START A PROGRAM &rarr;</a>
-        <a href="/guides/exercises" class="btn btn-ghost">BROWSE EXERCISES &rarr;</a>
+        <a href="/library/exercises" class="btn btn-ghost">BROWSE EXERCISES &rarr;</a>
       </div>
       <div class="hero-meta">
         <span><b>${data.programs.length} PROGRAMS</b></span><span class="dot"></span><span><b>PPL</b></span><span class="dot"></span><span><b>UPPER/LOWER</b></span><span class="dot"></span><span><b>FULL BODY</b></span>
@@ -1149,7 +1147,7 @@ ${nav([
       <div class="section-kicker">PROGRAM SNAPSHOT</div>
       <dl>
         <div><dt>Preset programs</dt><dd>${data.programs.length}</dd></div>
-        <div><dt>Full guide</dt><dd>Push Pull Legs</dd></div>
+        <div><dt>Full page</dt><dd>Push Pull Legs</dd></div>
         <div><dt>Tracking focus</dt><dd>Weekly volume and exercise progress</dd></div>
         <div><dt>Best next step</dt><dd>Pick a split you can repeat and review</dd></div>
       </dl>
@@ -1190,7 +1188,7 @@ ${toolCards()}
     <p>LogWise turns preset programs into a clean workout log with sets, reps, weight, PRs, and notes.</p>
     <div class="ctas">
       <a href="/app" class="btn btn-primary">OPEN LOGWISE &rarr;</a>
-      <a href="/guides/exercises" class="btn btn-ghost">SEE EXERCISES</a>
+      <a href="/library/exercises" class="btn btn-ghost">SEE EXERCISES</a>
     </div>
   </div>
 </section>
@@ -1202,7 +1200,7 @@ ${footer()}
 `;
 }
 
-function guidesHubJsonLd(site) {
+function libraryHubJsonLd(site) {
   const items = [
     ...GENERATED_EXERCISES.map((slug, index) => ({
       '@type': 'ListItem',
@@ -1222,32 +1220,32 @@ function guidesHubJsonLd(site) {
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
-      name: 'Workout Guides',
-      url: siteUrl(site, GUIDES_PATH),
-      description: 'Browse LogWise workout guides for key lifts, exercise tracking, and training programs.',
+      name: 'Workout Library',
+      url: siteUrl(site, LIBRARY_PATH),
+      description: 'Browse the LogWise workout library for exercises, programs, key lifts, and practical workout tracking.',
       inLanguage: 'en',
       datePublished: LASTMOD,
       dateModified: LASTMOD,
       isPartOf: { '@type': 'WebSite', name: 'LogWise', url: site },
-      about: ['workout guides', 'exercise guides', 'training programs']
+      about: ['workout library', 'exercise library', 'training programs']
     },
     jsonLdBreadcrumb(site, [
       { name: 'LogWise', path: '/' },
-      { name: 'Guides', path: GUIDES_PATH }
+      { name: 'Library', path: LIBRARY_PATH }
     ]),
     {
       '@context': 'https://schema.org',
       '@type': 'ItemList',
-      name: 'LogWise workout guides',
+      name: 'LogWise workout library',
       itemListElement: items
     }
   ];
 }
 
-function guidesHubPage(data, site) {
-  const title = 'Workout Guides: Exercise Guides & Training Programs | LogWise';
-  const description = 'Browse LogWise workout guides for bench press, squat, deadlift, Push Pull Legs, and practical workout tracking.';
-  const url = siteUrl(site, GUIDES_PATH);
+function libraryHubPage(data, site) {
+  const title = 'Workout Library: Exercises & Training Programs | LogWise';
+  const description = 'Browse the LogWise workout library for exercises, programs, bench press, squat, deadlift, Push Pull Legs, and practical tracking.';
+  const url = siteUrl(site, LIBRARY_PATH);
   const generatedIds = new Set(GENERATED_EXERCISES);
   const exerciseCards = GENERATED_EXERCISES
     .map(id => relatedExerciseCard(data, id, generatedIds))
@@ -1255,7 +1253,7 @@ function guidesHubPage(data, site) {
   const programCards = GENERATED_PROGRAMS.map(slug => {
     const guide = PROGRAM_GUIDES[slug];
     return `    <a href="${programGuidePath(slug)}" class="guide-link-card">
-      <span>PROGRAM GUIDE</span>
+      <span>PROGRAM PAGE</span>
       <h3>${esc(guide.title)}</h3>
       <p>${esc(guide.description)}</p>
       <em>OPEN PROGRAM &rarr;</em>
@@ -1263,39 +1261,40 @@ function guidesHubPage(data, site) {
   }).join('\n');
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit guides.html manually. -->
+<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit library.html manually. -->
 <html lang="en">
 <head>
-${headBlock({ title, description, url, site, jsonLd: guidesHubJsonLd(site) })}
+${headBlock({ title, description, url, site, jsonLd: libraryHubJsonLd(site) })}
 </head>
 <body class="seo-guide-page">
 ${nav([
-  { href: '/guides/exercises', label: 'Exercises' },
-  { href: '/guides/programs', label: 'Programs' },
+  { href: '/', label: 'Home' },
+  { href: '/library/exercises', label: 'Exercises' },
+  { href: '/library/programs', label: 'Programs' },
   { href: '/tools', label: 'Tools' },
-  { href: '/blog', label: 'Blog' }
+  { href: '/learn', label: 'Learn' }
 ])}
 
 <main>
 <section class="guide-hero">
   <div class="shell guide-hero-grid">
     <div class="guide-hero-copy">
-      <div class="tag"><span class="tag-dot"></span>Workout guides</div>
-      <h1 class="display">Exercise and Program <span class="gold">Guides</span></h1>
+      <div class="tag"><span class="tag-dot"></span>Workout library</div>
+      <h1 class="display">Exercise and Program <span class="gold">Library</span></h1>
       <p class="lead">Start with a lift or a program, then bring the sets, reps, weight, RIR, volume, and notes into LogWise.</p>
       <div class="hero-ctas">
-        <a href="/guides/exercises" class="btn btn-primary">BROWSE EXERCISES &rarr;</a>
-        <a href="/guides/programs" class="btn btn-ghost">SEE PROGRAMS &rarr;</a>
+        <a href="/library/exercises" class="btn btn-primary">BROWSE EXERCISES &rarr;</a>
+        <a href="/library/programs" class="btn btn-ghost">SEE PROGRAMS &rarr;</a>
       </div>
       <div class="hero-meta">
         <span><b>BENCH PRESS</b></span><span class="dot"></span><span><b>SQUAT</b></span><span class="dot"></span><span><b>DEADLIFT</b></span><span class="dot"></span><span><b>PPL</b></span>
       </div>
     </div>
-    <aside class="guide-facts-card" aria-label="Guides quick facts">
-      <div class="section-kicker">GUIDE LIBRARY</div>
+    <aside class="guide-facts-card" aria-label="Library quick facts">
+      <div class="section-kicker">LIBRARY</div>
       <dl>
-        <div><dt>Exercise guides</dt><dd>${GENERATED_EXERCISES.length} core lifts</dd></div>
-        <div><dt>Program guides</dt><dd>${GENERATED_PROGRAMS.length} starter split</dd></div>
+        <div><dt>Exercise pages</dt><dd>${GENERATED_EXERCISES.length} core lifts</dd></div>
+        <div><dt>Program pages</dt><dd>${GENERATED_PROGRAMS.length} starter split</dd></div>
         <div><dt>Related tools</dt><dd>1RM, volume, log template</dd></div>
         <div><dt>Best for</dt><dd>Turning training advice into logged progress</dd></div>
       </dl>
@@ -1306,11 +1305,11 @@ ${nav([
 <section id="exercises" class="section-pad">
   <div class="shell section-head">
     <div>
-      <div class="section-kicker">EXERCISE GUIDES</div>
+      <div class="section-kicker">EXERCISE LIBRARY</div>
       <h2 class="section-title">Learn the lift, then track the numbers that matter.</h2>
-      <a href="/guides/exercises" class="guide-side-link">SEE ALL EXERCISES &rarr;</a>
+      <a href="/library/exercises" class="guide-side-link">SEE ALL EXERCISES &rarr;</a>
     </div>
-    <p class="section-sub">Each guide connects form, progression, volume, and logging so the next workout has a clear target.</p>
+    <p class="section-sub">Each page connects form, progression, volume, and logging so the next workout has a clear target.</p>
   </div>
   <div class="shell guide-card-grid">
 ${exerciseCards}
@@ -1320,11 +1319,11 @@ ${exerciseCards}
 <section id="programs" class="section-pad section-alt">
   <div class="shell section-head">
     <div>
-      <div class="section-kicker">PROGRAM GUIDES</div>
+      <div class="section-kicker">PROGRAM LIBRARY</div>
       <h2 class="section-title">Use a split you can review, not just repeat.</h2>
-      <a href="/guides/programs" class="guide-side-link">SEE ALL PROGRAMS &rarr;</a>
+      <a href="/library/programs" class="guide-side-link">SEE ALL PROGRAMS &rarr;</a>
     </div>
-    <p class="section-sub">Program guides show the weekly structure and link back to LogWise tools for volume, strength estimates, and workout logging.</p>
+    <p class="section-sub">Program pages show the weekly structure and link back to LogWise tools for volume, strength estimates, and workout logging.</p>
   </div>
   <div class="shell guide-card-grid">
 ${programCards}
@@ -1335,7 +1334,7 @@ ${programCards}
   <div class="shell section-head">
     <div>
       <div class="section-kicker">RELATED TOOLS</div>
-      <h2 class="section-title">Use the guides with better training numbers.</h2>
+      <h2 class="section-title">Use the library with better training numbers.</h2>
     </div>
     <p class="section-sub">Estimate strength, calculate workload, or keep a simple workout log before moving everything into LogWise.</p>
   </div>
@@ -1347,7 +1346,7 @@ ${toolCards()}
 <section class="cta">
   <div class="shell">
     <div class="cta-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></div>
-    <h2>Read the guide. <span class="gold">Track the work.</span></h2>
+    <h2>Read the page. <span class="gold">Track the work.</span></h2>
     <p>LogWise keeps your sets, reps, weights, PRs, volume, programs, and notes in one clean browser-based workout log.</p>
     <div class="ctas">
       <a href="/app" class="btn btn-primary">START TRACKING &rarr;</a>
@@ -1367,17 +1366,17 @@ function buildProgrammaticSeo(options = {}) {
   const root = options.root || DEFAULT_ROOT;
   const site = options.site || DEFAULT_SITE;
   const data = buildLookups(loadWindowData(root));
-  const guideDir = path.join(root, 'guides');
-  const exerciseDir = path.join(guideDir, 'exercises');
-  const programDir = path.join(guideDir, 'programs');
+  const libraryDir = path.join(root, 'library');
+  const exerciseDir = path.join(libraryDir, 'exercises');
+  const programDir = path.join(libraryDir, 'programs');
 
-  fs.mkdirSync(guideDir, { recursive: true });
+  fs.mkdirSync(libraryDir, { recursive: true });
   fs.mkdirSync(exerciseDir, { recursive: true });
   fs.mkdirSync(programDir, { recursive: true });
 
-  fs.writeFileSync(path.join(root, 'guides.html'), guidesHubPage(data, site), 'utf8');
-  fs.writeFileSync(path.join(guideDir, 'exercises.html'), exercisesIndexPage(data, site), 'utf8');
-  fs.writeFileSync(path.join(guideDir, 'programs.html'), programsIndexPage(data, site), 'utf8');
+  fs.writeFileSync(path.join(root, 'library.html'), libraryHubPage(data, site), 'utf8');
+  fs.writeFileSync(path.join(libraryDir, 'exercises.html'), exercisesIndexPage(data, site), 'utf8');
+  fs.writeFileSync(path.join(libraryDir, 'programs.html'), programsIndexPage(data, site), 'utf8');
 
   for (const slug of GENERATED_EXERCISES) {
     fs.writeFileSync(path.join(exerciseDir, `${slug}.html`), exercisePage(slug, data, site), 'utf8');
@@ -1388,7 +1387,7 @@ function buildProgrammaticSeo(options = {}) {
   }
 
   return {
-    guides: 1,
+    library: 1,
     directories: 2,
     exercises: GENERATED_EXERCISES.length,
     programs: GENERATED_PROGRAMS.length,
@@ -1398,7 +1397,7 @@ function buildProgrammaticSeo(options = {}) {
 
 if (require.main === module) {
   const result = buildProgrammaticSeo();
-  console.log(`Done: ${result.guides} guides hub, ${result.directories} guide directories, ${result.exercises} exercise pages and ${result.programs} program pages generated.`);
+  console.log(`Done: ${result.library} library hub, ${result.directories} library directories, ${result.exercises} exercise pages and ${result.programs} program pages generated.`);
   for (const page of result.pages) {
     console.log(`  ${page.path}`);
   }

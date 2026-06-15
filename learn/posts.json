@@ -13,17 +13,17 @@
     ],
     "featured": true,
     "readMins": 4,
-    "url": "/blog/egzersiz-takip-uygulamasi-ne-kaydetmeli",
+    "url": "/learn/egzersiz-takip-uygulamasi-ne-kaydetmeli",
     "alternates": {
       "en": {
         "slug": "workout-tracker-app-guide",
         "title": "Workout Tracker App: What to Log for Real Progress",
-        "url": "/blog/workout-tracker-app-guide"
+        "url": "/learn/workout-tracker-app-guide"
       },
       "tr": {
         "slug": "egzersiz-takip-uygulamasi-ne-kaydetmeli",
         "title": "Egzersiz Takip Uygulaması: Gerçek Gelişim İçin Neyi Takip Etmeli?",
-        "url": "/blog/egzersiz-takip-uygulamasi-ne-kaydetmeli"
+        "url": "/learn/egzersiz-takip-uygulamasi-ne-kaydetmeli"
       }
     }
   },
@@ -41,17 +41,17 @@
     ],
     "featured": true,
     "readMins": 4,
-    "url": "/blog/workout-tracker-app-guide",
+    "url": "/learn/workout-tracker-app-guide",
     "alternates": {
       "en": {
         "slug": "workout-tracker-app-guide",
         "title": "Workout Tracker App: What to Log for Real Progress",
-        "url": "/blog/workout-tracker-app-guide"
+        "url": "/learn/workout-tracker-app-guide"
       },
       "tr": {
         "slug": "egzersiz-takip-uygulamasi-ne-kaydetmeli",
         "title": "Egzersiz Takip Uygulaması: Gerçek Gelişim İçin Neyi Takip Etmeli?",
-        "url": "/blog/egzersiz-takip-uygulamasi-ne-kaydetmeli"
+        "url": "/learn/egzersiz-takip-uygulamasi-ne-kaydetmeli"
       }
     }
   },
@@ -69,17 +69,17 @@
     ],
     "featured": true,
     "readMins": 2,
-    "url": "/blog/antrenman-gunlugu-neden-tutmalisin",
+    "url": "/learn/antrenman-gunlugu-neden-tutmalisin",
     "alternates": {
       "en": {
         "slug": "why-keep-a-workout-log",
         "title": "Why Keep a Workout Log? A Simple Start",
-        "url": "/blog/why-keep-a-workout-log"
+        "url": "/learn/why-keep-a-workout-log"
       },
       "tr": {
         "slug": "antrenman-gunlugu-neden-tutmalisin",
         "title": "Antrenman Günlüğü Neden Tutmalısın? (ve Nasıl Başlarsın)",
-        "url": "/blog/antrenman-gunlugu-neden-tutmalisin"
+        "url": "/learn/antrenman-gunlugu-neden-tutmalisin"
       }
     }
   },
@@ -97,17 +97,17 @@
     ],
     "featured": false,
     "readMins": 3,
-    "url": "/blog/progressive-overload-explained",
+    "url": "/learn/progressive-overload-explained",
     "alternates": {
       "en": {
         "slug": "progressive-overload-explained",
         "title": "Progressive Overload, Explained Simply",
-        "url": "/blog/progressive-overload-explained"
+        "url": "/learn/progressive-overload-explained"
       },
       "tr": {
         "slug": "progressive-overload-nedir",
         "title": "Progressive Overload Nedir? Basit Anlatım",
-        "url": "/blog/progressive-overload-nedir"
+        "url": "/learn/progressive-overload-nedir"
       }
     }
   },
@@ -125,17 +125,17 @@
     ],
     "featured": false,
     "readMins": 2,
-    "url": "/blog/progressive-overload-nedir",
+    "url": "/learn/progressive-overload-nedir",
     "alternates": {
       "en": {
         "slug": "progressive-overload-explained",
         "title": "Progressive Overload, Explained Simply",
-        "url": "/blog/progressive-overload-explained"
+        "url": "/learn/progressive-overload-explained"
       },
       "tr": {
         "slug": "progressive-overload-nedir",
         "title": "Progressive Overload Nedir? Basit Anlatım",
-        "url": "/blog/progressive-overload-nedir"
+        "url": "/learn/progressive-overload-nedir"
       }
     }
   },
@@ -153,17 +153,17 @@
     ],
     "featured": true,
     "readMins": 2,
-    "url": "/blog/why-keep-a-workout-log",
+    "url": "/learn/why-keep-a-workout-log",
     "alternates": {
       "en": {
         "slug": "why-keep-a-workout-log",
         "title": "Why Keep a Workout Log? A Simple Start",
-        "url": "/blog/why-keep-a-workout-log"
+        "url": "/learn/why-keep-a-workout-log"
       },
       "tr": {
         "slug": "antrenman-gunlugu-neden-tutmalisin",
         "title": "Antrenman Günlüğü Neden Tutmalısın? (ve Nasıl Başlarsın)",
-        "url": "/blog/antrenman-gunlugu-neden-tutmalisin"
+        "url": "/learn/antrenman-gunlugu-neden-tutmalisin"
       }
     }
   }

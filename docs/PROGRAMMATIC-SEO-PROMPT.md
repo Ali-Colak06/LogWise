@@ -23,8 +23,8 @@ Mevcut SEO durumu:
 - Canonical domain: https://logwise.fit
 - EN landing: /
 - TR landing: /tr
-- Blog sistemi: blog-content/*.md kaynaklarindan scripts/build-blog.js ile statik HTML uretiyor.
-- Blog sistemi TR/EN varyantli, translationKey ile eslesiyor.
+- Learn sistemi: blog-content/*.md kaynaklarindan scripts/build-blog.js ile statik HTML uretiyor.
+- Learn sistemi TR/EN varyantli, translationKey ile eslesiyor.
 - Tool sayfalari mevcut:
   - /tools
   - /one-rep-max-calculator
@@ -35,12 +35,12 @@ Mevcut SEO durumu:
 - www.logwise.fit -> logwise.fit 301 redirect Cloudflare tarafinda duzeltildi.
 
 Bu isin amaci:
-Programmatic SEO ile kullanici aramalarina cevap veren statik guide sayfalari uretmek:
-- /guides
-- /guides/exercises/bench-press
-- /guides/exercises/squat
-- /guides/exercises/deadlift
-- /guides/programs/push-pull-legs
+Programmatic SEO ile kullanici aramalarina cevap veren statik library sayfalari uretmek:
+- /library
+- /library/exercises/bench-press
+- /library/exercises/squat
+- /library/exercises/deadlift
+- /library/programs/push-pull-legs
 
 Onemli: Bu buyuk bir mimari is. Once mevcut veri kaynaklarini, sayfa kaliplarini, sitemap mantigini ve service worker etkisini incele. Sonra kucuk ve guvenli bir ilk dilim uygula.
 
@@ -59,10 +59,10 @@ Beklenen strateji:
    - Buyuk string kopyalama yerine veri tabanli template kullan.
    - Build step yok; Node script repo icinde calisir, tarayici icin Babel/JSX yok.
 3. Ilk MVP kapsam:
-   - Guides hub ve dizin sayfalari:
-     - /guides
-     - /guides/exercises
-     - /guides/programs
+   - Library hub ve dizin sayfalari:
+     - /library
+     - /library/exercises
+     - /library/programs
    - Sadece 3 exercise sayfasi:
      - bench-press
      - squat
@@ -73,25 +73,25 @@ Beklenen strateji:
 
 URL ve dosya yapisi:
 - Clean URL hedefleri:
-  - /guides
-  - /guides/exercises
-  - /guides/programs
-  - /guides/exercises/bench-press
-  - /guides/exercises/squat
-  - /guides/exercises/deadlift
-  - /guides/programs/push-pull-legs
+  - /library
+  - /library/exercises
+  - /library/programs
+  - /library/exercises/bench-press
+  - /library/exercises/squat
+  - /library/exercises/deadlift
+  - /library/programs/push-pull-legs
 - Cloudflare Pages clean URL icin .html handling kullaniyorsa explicit redirect ekleme.
 - Root /exercises ve /programs kullanilacaksa canonical dizinlere 301 alias olarak ele al:
-  - /exercises -> /guides/exercises
-  - /programs -> /guides/programs
+  - /exercises -> /library/exercises
+  - /programs -> /library/programs
 - Dosya ciktilari icin mevcut mimariye uygun bir yapi oner ve uygula. Ornek:
-  - guides.html
-  - guides/exercises.html
-  - guides/programs.html
-  - guides/exercises/bench-press.html
-  - guides/exercises/squat.html
-  - guides/exercises/deadlift.html
-  - guides/programs/push-pull-legs.html
+  - library.html
+  - library/exercises.html
+  - library/programs.html
+  - library/exercises/bench-press.html
+  - library/exercises/squat.html
+  - library/exercises/deadlift.html
+  - library/programs/push-pull-legs.html
 - Yeni klasor acilirsa AGENTS.md dosya haritasini guncelle.
 - Buyuk mimari karar oldugu icin REFACTOR-GECMISI.md yeni bolum ekle.
 
@@ -133,7 +133,7 @@ Her exercise sayfasi su bolumleri icersin:
   - MVP icin sadece mevcut 3 sayfa arasinda anlamli linkler kurmak yeterli olabilir.
 
 Program sayfasi icerigi:
-/guides/programs/push-pull-legs sayfasi su bolumleri icersin:
+/library/programs/push-pull-legs sayfasi su bolumleri icersin:
 - Hero:
   - Push Pull Legs programi
   - Kimler icin uygun
@@ -149,7 +149,7 @@ Program sayfasi icerigi:
   - tekrar eden gunler
 - Exercise list:
   - data/presets-programs.js icindeki push-pull-legs verisini kullan.
-  - Exercise linkleri varsa /guides/exercises/{slug} sayfalarina bagla.
+  - Exercise linkleri varsa /library/exercises/{slug} sayfalarina bagla.
   - Sayfasi olmayan exercise linkleri icin ya link verme ya da ileride eklenecekse dikkatli davran.
 - How to progress:
   - progressive overload
@@ -160,7 +160,7 @@ Program sayfasi icerigi:
   - /workout-log-template
   - /one-rep-max-calculator
 - Related reading:
-  - uygun blog yazilarina link ver.
+  - uygun Learn yazilarina link ver.
 
 SEO meta:
 Her sayfada:
@@ -185,12 +185,12 @@ Sitemap:
 - node scripts/build-blog.js veya yeni generator neyse calistirinca sitemap guncellenmeli.
 
 Navigasyon ve ic linkleme:
-- /tools sayfasindan programmatic sayfalara gerekirse "Training guides" veya "Popular lifts" bolumu ekle.
-- Landing sayfalarinda cok kalabalik yapma; gerekiyorsa sadece /tools veya blog uzerinden bagla.
-- Bloglardan dogal linkler ekle:
+- /tools sayfasindan programmatic sayfalara gerekirse "Training library" veya "Popular lifts" bolumu ekle.
+- Landing sayfalarinda cok kalabalik yapma; gerekiyorsa sadece /tools veya Learn uzerinden bagla.
+- Learn yazilarindan dogal linkler ekle:
   - progressive-overload EN/TR -> bench press/squat/deadlift veya volume calculator baglami
   - workout-tracker-app-guide EN/TR -> exercise tracking veya PPL program sayfasi
-- Blog kaynaklarini blog-content/*.md icinde duzenle; sonra generator calistir.
+- Learn kaynaklarini blog-content/*.md icinde duzenle; sonra generator calistir.
 
 PWA / sw.js:
 - Yeni statik HTML sayfalari eklenecek.
@@ -207,21 +207,21 @@ Kontroller:
 - Yeni generator script varsa node --check scripts/<generator>.js
 - node scripts/build-blog.js veya ilgili generator
 - sitemap.xml XML parse testi
-- blog/posts.json JSON parse testi
+- learn/posts.json JSON parse testi
 - Değişen HTML inline script varsa inline script syntax kontrolu
 - git diff --check
 - local HTTP smoke test:
-  - /guides
-  - /guides/exercises
-  - /guides/programs
-  - /guides/exercises/bench-press
-  - /guides/exercises/squat
-  - /guides/exercises/deadlift
-  - /guides/programs/push-pull-legs
+  - /library
+  - /library/exercises
+  - /library/programs
+  - /library/exercises/bench-press
+  - /library/exercises/squat
+  - /library/exercises/deadlift
+  - /library/programs/push-pull-legs
   - /tools
   - /one-rep-max-calculator
   - /workout-volume-calculator
-  - /blog
+  - /learn
 - Mumkunse browser smoke test/screenshot:
   - desktop ve mobile viewport
   - sayfalar bos degil

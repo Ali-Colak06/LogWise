@@ -1,24 +1,24 @@
-# Yeni Blog Yazısı Ekleme
+# Yeni Learn Yazisi Ekleme
 
-Blog, build-step'siz statik HTML olarak çalışır: yazılar Markdown kaynağından
-(`blog-content/`) bir Node script'iyle (`scripts/build-blog.js`) üretilir.
-Üretilen `blog/*.html` dosyaları commit'lenir; Cloudflare Pages bunları clean
-URL olarak sunar (`blog/slug.html` → `/blog/slug`). Ekstra config gerekmez.
+Learn, build-step'siz statik HTML olarak calisir: yazilar Markdown kaynagindan
+(`blog-content/`) bir Node script'iyle (`scripts/build-blog.js`) uretilir.
+Uretilen `learn/*.html` dosyalari commit'lenir; Cloudflare Pages bunlari clean
+URL olarak sunar (`learn/slug.html` -> `/learn/slug`). Ekstra config gerekmez.
 
-## İki Dilli Yazı Kuralı
+## Iki Dilli Yazi Kurali
 
-Her blog konusu iki ayrı Markdown dosyasıyla yayınlanır:
+Her Learn konusu iki ayri Markdown dosyasiyla yayinlanir:
 
-- bir `lang: en` varyantı
-- bir `lang: tr` varyantı
-- ikisinde de aynı `translationKey`
+- bir `lang: en` varyanti
+- bir `lang: tr` varyanti
+- ikisinde de ayni `translationKey`
 
-`translationKey`, aynı yazının İngilizce ve Türkçe varyantlarını eşleştirir.
-Script eksik varyantı hata sayar; tek başına TR veya EN yazı bırakılmaz.
+`translationKey`, ayni yazinin Ingilizce ve Turkce varyantlarini eslestirir.
+Script eksik varyanti hata sayar; tek basina TR veya EN yazi birakilmaz.
 
-## Adımlar
+## Adimlar
 
-1. Aynı konu için iki dosya oluştur:
+1. Ayni konu icin iki dosya olustur:
 
    ```markdown
    ---
@@ -27,7 +27,7 @@ Script eksik varyantı hata sayar; tek başına TR veya EN yazı bırakılmaz.
    date: 2026-06-15
    lang: en
    translationKey: post-topic-key
-   description: SEO meta açıklaması ve kart metni (ideal <160 karakter).
+   description: SEO meta aciklamasi ve kart metni (ideal <160 karakter).
    tags: training, tracking
    featured: false
    ---
@@ -37,57 +37,56 @@ Script eksik varyantı hata sayar; tek başına TR veya EN yazı bırakılmaz.
 
    ```markdown
    ---
-   title: Yazı Başlığı
+   title: Yazi Basligi
    slug: yazi-basligi
    date: 2026-06-15
    lang: tr
    translationKey: post-topic-key
-   description: SEO meta açıklaması ve kart metni (ideal <160 karakter).
+   description: SEO meta aciklamasi ve kart metni (ideal <160 karakter).
    tags: antrenman, takip
    featured: false
    ---
 
-   Markdown gövde...
+   Markdown govde...
    ```
 
    Kurallar:
-   - `slug`: yalnızca küçük harf, rakam, tire; tüm blog içinde benzersiz.
-   - `lang`: yalnızca `tr` veya `en`.
-   - `translationKey`: küçük harf, rakam, tire; aynı konunun TR+EN dosyalarında birebir aynı.
-   - `featured: true`: landing'deki "Blog" bölümünde konuya öncelik verir.
-   - `date`: `YYYY-MM-DD`. Konu sıralaması en güncel varyant tarihine göre yapılır.
+   - `slug`: yalnizca kucuk harf, rakam, tire; tum Learn icinde benzersiz.
+   - `lang`: yalnizca `tr` veya `en`.
+   - `translationKey`: kucuk harf, rakam, tire; ayni konunun TR+EN dosyalarinda birebir ayni.
+   - `featured: true`: landing'deki Learn bolumunde konuya oncelik verir.
+   - `date`: `YYYY-MM-DD`. Konu siralamasi en guncel varyant tarihine gore yapilir.
 
-2. Script'i çalıştır:
+2. Script'i calistir:
 
    ```powershell
    node scripts/build-blog.js
    ```
 
-   Script şunları üretir/günceller (hepsi commit'lenir):
-   - `blog/<slug>.html` — yazı sayfası (meta, OG, JSON-LD, hreflang dahil)
-   - `blog/index.html` — konu listesi; kartlar aktif blog dil switch'ine göre tek dilde görünür
-   - `blog/posts.json` — makine-okur manifest (`translationKey` + `alternates`)
-   - `sitemap.xml` — tüm yazılar ve hreflang alternate kayıtlarıyla yeniden üretilir
-   - `index.html` / `tr.html` — `BLOG-CARDS:START/END` marker'ları arasına aktif dile uygun blog kartları enjekte edilir
+   Script sunlari uretir/gunceller (hepsi commit'lenir):
+   - `learn/<slug>.html` - yazi sayfasi (meta, OG, JSON-LD, hreflang dahil)
+   - `learn/index.html` - konu listesi; kartlar aktif Learn dil switch'ine gore tek dilde gorunur
+   - `learn/posts.json` - makine-okur manifest (`translationKey` + `alternates`)
+   - `sitemap.xml` - tum yazilar ve hreflang alternate kayitlariyla yeniden uretilir
+   - `index.html` / `tr.html` - `BLOG-CARDS:START/END` marker'lari arasina aktif dile uygun Learn kartlari enjekte edilir
 
 3. Kontrol:
-   - `/blog` aynı konuyu iki kez listelememeli.
-   - `/blog` üst switch'inde TR seçiliyken kart başlığı/açıklaması/okuma süresi TR, EN seçiliyken EN olmalı.
-   - Blog kartına tıklandığında aktif dilin yazı URL'si açılmalı.
-   - Yazı sayfasındaki üst switch eş yazıya geçmeli ve seçim `/blog` sayfasında da korunmalı.
-   - Sayfa kaynağında `canonical`, `hreflang="en"`, `hreflang="tr"` ve `x-default` bulunmalı.
-   - Landing'deki Blog bölümünde EN landing EN varyantları, TR landing TR varyantları göstermeli.
+   - `/learn` ayni konuyu iki kez listelememeli.
+   - `/learn` ust switch'inde TR seciliyken kart basligi/aciklamasi/okuma suresi TR, EN seciliyken EN olmali.
+   - Learn kartina tiklandiginda aktif dilin yazi URL'si acilmali.
+   - Yazi sayfasindaki ust switch es yaziya gecmeli ve secim `/learn` sayfasinda da korunmali.
+   - Sayfa kaynaginda `canonical`, `hreflang="en"`, `hreflang="tr"` ve `x-default` bulunmali.
+   - Landing'deki Learn bolumunde EN landing EN varyantlari, TR landing TR varyantlari gostermeli.
 
-## Yazı Silme / Güncelleme
+## Yazi Silme / Guncelleme
 
-- Silme: Aynı `translationKey`'e ait iki varyantı birlikte sil → script'i çalıştır.
-- Güncelleme: İlgili `.md` dosyasını düzenle → script'i çalıştır.
-- `blog/*.html`, `blog/posts.json`, `sitemap.xml` ve landing marker bloğu **elle düzenlenmez**.
-- `blog/blog.css` elle yazılır (üretilmez) — blog görünümü buradan değişir.
+- Silme: Ayni `translationKey`'e ait iki varyanti birlikte sil -> script'i calistir.
+- Guncelleme: Ilgili `.md` dosyasini duzenle -> script'i calistir.
+- `learn/*.html`, `learn/posts.json`, `sitemap.xml` ve landing marker blogu **elle duzenlenmez**.
+- `learn/learn.css` elle yazilir (uretilmez) - Learn gorunumu buradan degisir.
 
 ## Notlar
 
-- Bağımlılık: `scripts/vendor/marked.min.js` (vendored, npm install yok).
-- Blog HTML sayfaları `sw.js` PRECACHE'ine girmez; navigation network-first olduğu için yalnızca yeni post eklemek için `CACHE_NAME` bump gerekmez.
-- `blog/blog.css` değişirse service worker runtime cache sebebiyle `CACHE_NAME` bump değerlendirilmeli.
-- Blog statik HTML'dir; React/JSX kullanılmaz (AGENTS.md §3.1 ile uyumlu).
+- Bagimlilik: `scripts/vendor/marked.min.js` (vendored, npm install yok).
+- Learn HTML sayfalari `sw.js` PRECACHE'ine girebilir; `learn/learn.css` veya public Learn URL yapisi degisirse `CACHE_NAME` bump kontrol edilir.
+- Learn statik HTML'dir; React/JSX kullanilmaz (AGENTS.md 3.1 ile uyumlu).

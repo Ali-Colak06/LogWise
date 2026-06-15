@@ -3788,3 +3788,38 @@ Programmatic SEO sayfalarını kök `/exercises/*` ve `/programs/*` yapısından
 - `node --check scripts/build-programmatic-seo.js`, `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
 - `node scripts/build-blog.js` sonrası `/guides/exercises`, `/guides/programs`, nested guide sayfaları ve sitemap birlikte güncellenmeli.
 - Lokal smoke testte `/guides/exercises`, `/guides/programs`, `/exercises` → `/guides/exercises` 301 ve `/programs` → `/guides/programs` 301 doğrulanmalı.
+
+---
+
+## Bolum 58 - Library / Learn Public URL Adlandirmasi (2026-06-16)
+
+### Amac
+
+Kullaniciya acik bilgi mimarisinde `guides` adini `library`, `blog` adini `learn` olarak netlestirmek. Library; egzersiz ve program sayfalarinin merkezi, Learn ise iki dilli egitim yazilarinin merkezi olarak konumlanir.
+
+### Mimari Kararlar
+
+- **Yeni canonical URL'ler:** `/guides` ve alt sayfalari artik `/library`; `/blog` ve yazilar artik `/learn` canonical yapisindadir.
+- **Eski URL 301'leri:** `_redirects`, eski `/blog/*`, `/guides/*`, `/exercises/*` ve `/programs/*` adreslerini yeni `/learn/*` ve `/library/*` adreslerine 301 tasir.
+- **Generator ciktilari:** `scripts/build-blog.js`, `learn/*.html`, `learn/index.html` ve `learn/posts.json` uretir. `scripts/build-programmatic-seo.js`, `library.html`, `library/exercises.html`, `library/programs.html` ve nested Library sayfalarini uretir.
+- **Ust navigasyon:** Home, Tools, Library ve Learn sayfalari yeni bilgi mimarisine gore sade nav linkleri kullanir.
+- **Service worker:** `sw.js` `logwise-v42` -> `logwise-v43` bump edildi. Eski guides precache kayitlari kaldirildi; yeni Library ve Learn URL'leri eklendi.
+
+### Dosya / Config Degisiklikleri
+
+| Dosya | Degisiklik |
+|---|---|
+| `scripts/build-blog.js` | Learn cikti klasoru, `/learn` canonical URL'leri, nav ve sitemap kayitlari |
+| `scripts/build-programmatic-seo.js` | Library hub/dizin/nested URL ve cikti yapisi |
+| `learn/learn.css` | Eski `blog/blog.css` stili Learn klasorune tasindi |
+| `index.html`, `tr.html`, `tools.html`, tool sayfalari | Ust nav ve ic linkler Library/Learn yapisina tasindi |
+| `blog-content/*.md` | Eski `/guides/...` ic linkleri `/library/...` canonical URL'lerine tasindi |
+| `_redirects` | `/blog` -> `/learn`, `/guides` -> `/library`, root exercise/program alias 301'leri |
+| `sw.js` | `logwise-v43` bump + Library/Learn precache |
+| `AGENTS.md`, `docs/*` | Public adlandirma ve generator ciktilari dokumante edildi |
+
+### Dogrulama Notlari
+
+- `node --check scripts/build-programmatic-seo.js`, `node --check scripts/build-blog.js` ve `node --check sw.js` calistirilmali.
+- `node scripts/build-blog.js` sonrasinda `/learn`, `/library`, nested Library sayfalari, sitemap ve landing Learn kartlari birlikte guncellenmeli.
+- Lokal smoke testte `/learn`, `/library`, `/library/exercises`, `/library/programs`, nested sayfalar ve eski `/blog`/`/guides` 301'leri dogrulanmali.

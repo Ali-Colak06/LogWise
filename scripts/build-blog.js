@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /**
- * LogWise Blog Generator
+ * LogWise Learn Generator
  * ----------------------
- * blog-content/*.md -> blog/<slug>.html + blog/index.html + blog/posts.json
- * Also rebuilds sitemap.xml, programmatic SEO pages, and featured blog cards on static landing pages.
+ * blog-content/*.md -> learn/<slug>.html + learn/index.html + learn/posts.json
+ * Also rebuilds sitemap.xml, programmatic SEO pages, and featured learn cards on static landing pages.
  *
  * Usage: node scripts/build-blog.js
  * Dependency: scripts/vendor/marked.min.js (vendored UMD, no npm install required)
@@ -33,7 +33,7 @@ const programmaticSeo = require('./build-programmatic-seo.js');
 
 const ROOT = path.join(__dirname, '..');
 const CONTENT_DIR = path.join(ROOT, 'blog-content');
-const OUT_DIR = path.join(ROOT, 'blog');
+const OUT_DIR = path.join(ROOT, 'learn');
 const LANDING_FILES = [
   { file: path.join(ROOT, 'index.html'), lang: 'en' },
   { file: path.join(ROOT, 'tr.html'), lang: 'tr' }
@@ -47,7 +47,7 @@ const SWITCH_LANG_ORDER = ['tr', 'en'];
 const STATIC_SITEMAP_PAGES = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/tr', changefreq: 'weekly', priority: '0.9' },
-  { path: '/blog', changefreq: 'weekly', priority: '0.8' },
+  { path: '/learn', changefreq: 'weekly', priority: '0.8' },
   { path: '/tools', lastmod: '2026-06-15', changefreq: 'monthly', priority: '0.8' },
   { path: '/one-rep-max-calculator', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
   { path: '/workout-log-template', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
@@ -107,7 +107,7 @@ function jsonForScript(obj) {
 }
 
 function postUrl(post) {
-  return `${SITE}/blog/${post.slug}`;
+  return `${SITE}/learn/${post.slug}`;
 }
 
 function sortedAlternates(post) {
@@ -228,9 +228,12 @@ const NAV = `
       <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo"/></span>
       <span class="brand-name">LOG <b>WISE</b></span>
     </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/" data-blog-copy="home">__HOME__</a>
+      <a href="/tools">Tools</a>
+      <a href="/library">Library</a>
+    </nav>
     <div class="nav-actions">
-      <a href="/" class="brand-home" data-blog-copy="home">__HOME__</a>
-      <a href="/blog" class="brand-blog">BLOG</a>
       __LANG_SWITCH__
       <a href="/app" class="btn btn-primary"><span data-blog-copy="open">__OPEN__</span> →</a>
     </div>
@@ -241,7 +244,7 @@ const FOOTER = `
 <footer>
   <div class="shell-wide foot-row">
     <span>© 2026 LOG WISE</span>
-    <span><a href="/">logwise.fit</a> · <a href="/blog">BLOG</a> · <a href="/app">APP</a></span>
+    <span><a href="/">logwise.fit</a> · <a href="/learn">LEARN</a> · <a href="/app">APP</a></span>
   </div>
 </footer>`;
 
@@ -252,8 +255,8 @@ const STR = {
     read: 'OKU',
     minRead: 'DK OKUMA',
     back: '← Tüm yazılar',
-    blogTitle: 'Antrenman Blogu',
-    blogLead: 'Antrenman takibi, progressive overload ve güç gelişimi üzerine uygulanabilir rehberler.',
+    blogTitle: 'Öğren',
+    blogLead: 'Antrenman takibi, progressive overload ve güç gelişimi üzerine uygulanabilir yazılar.',
     ctaH: 'Antrenmanlarını LogWise ile takip et',
     ctaP: 'Set kaydı saniyeler sürer; grafikler ve PR takibi otomatik gelir. Ücretsiz, reklamsız.',
     ctaBtn: "LOGWISE'I AÇ →"
@@ -263,9 +266,9 @@ const STR = {
     open: 'OPEN APP',
     read: 'READ',
     minRead: 'MIN READ',
-    back: '← All posts',
-    blogTitle: 'Training Blog',
-    blogLead: 'Practical guides on workout tracking, progressive overload, and strength progress.',
+    back: '← All articles',
+    blogTitle: 'Learn',
+    blogLead: 'Practical articles on workout tracking, progressive overload, and strength progress.',
     ctaH: 'Track your training with LogWise',
     ctaP: 'Logging a set takes seconds; charts and PR tracking come built-in. Free, no ads.',
     ctaBtn: 'OPEN LOGWISE →'
@@ -281,7 +284,7 @@ function languageSwitch(activeLang, alternates) {
       `aria-pressed="${lang === activeLang ? 'true' : 'false'}"`,
       `class="${lang === activeLang ? 'on' : ''}"`
     ];
-    if (alt) attrs.push(`data-target-url="/blog/${alt.slug}"`);
+    if (alt) attrs.push(`data-target-url="/learn/${alt.slug}"`);
     return `<button ${attrs.join(' ')}>${lang.toUpperCase()}</button>`;
   }).join('');
 
@@ -326,7 +329,7 @@ ${published ? `<meta property="article:published_time" content="${published}"/>`
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="/blog/blog.css"/>
+<link rel="stylesheet" href="/learn/learn.css"/>
 <script type="application/ld+json">${jsonLd}</script>`;
 }
 
@@ -417,7 +420,7 @@ function blogRuntimeScript() {
       var post = topic.postsByLang[lang] || topic.postsByLang.en || topic.postsByLang.tr;
       var card = document.querySelector('[data-topic="' + topic.key + '"]');
       if (!post || !card) return;
-      card.setAttribute('href', '/blog/' + post.slug);
+      card.setAttribute('href', '/learn/' + post.slug);
       card.setAttribute('hreflang', lang);
       card.setAttribute('lang', lang);
       var langNode = card.querySelector('[data-card-lang]');
@@ -483,14 +486,14 @@ function postPage(post) {
   const otherTranslations = alternates
     .filter(alt => alt.lang !== post.lang)
     .map(alt => ({
-      '@type': 'BlogPosting',
+      '@type': 'Article',
       headline: alt.title,
       inLanguage: alt.lang,
       url: alt.url
     }));
   const jsonLd = jsonForScript({
     '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
+    '@type': 'Article',
     headline: post.title,
     description: post.description,
     datePublished: post.date,
@@ -506,10 +509,10 @@ function postPage(post) {
   });
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit blog/*.html manually. Source: blog-content/ -->
+<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit learn/*.html manually. Source: blog-content/ -->
 <html lang="${post.lang}">
 <head>
-${headBlock({ title: `${post.title} — LogWise Blog`, description: post.description, url, lang: post.lang, jsonLd, ogType: 'article', published: post.date, alternates })}
+${headBlock({ title: `${post.title} — LogWise Learn`, description: post.description, url, lang: post.lang, jsonLd, ogType: 'article', published: post.date, alternates })}
 </head>
 <body data-blog-page="post">
 ${navFor(post.lang, post.alternates)}
@@ -536,7 +539,7 @@ ${post.html}
       </div>
     </div>
     <div class="post-foot">
-      <a href="/blog" class="back-link">${t.back}</a>
+      <a href="/learn" class="back-link">${t.back}</a>
     </div>
   </article>
 </main>
@@ -549,7 +552,7 @@ ${blogRuntimeScript()}
 
 function indexCard(group) {
   const en = group.postsByLang.en;
-  return `    <a class="post-card topic-card" data-topic="${esc(group.key)}" href="/blog/${en.slug}" hreflang="en" lang="en">
+  return `    <a class="post-card topic-card" data-topic="${esc(group.key)}" href="/learn/${en.slug}" hreflang="en" lang="en">
       <div class="post-card-meta">
         <span class="post-lang" data-card-lang>EN</span>
         <time datetime="${en.date}" data-card-date>${fmtShortDate(en.date, 'en').toUpperCase()}</time>
@@ -561,22 +564,22 @@ function indexCard(group) {
 }
 
 function indexPage(groups) {
-  const url = `${SITE}/blog`;
-  const title = 'Blog — LogWise';
+  const url = `${SITE}/learn`;
+  const title = 'Learn — LogWise';
   const description = STR.en.blogLead;
   const jsonLd = jsonForScript({
     '@context': 'https://schema.org',
-    '@type': 'Blog',
-    name: 'LogWise Blog',
+    '@type': 'CollectionPage',
+    name: 'LogWise Learn',
     url,
-    blogPost: posts.map(post => ({
-      '@type': 'BlogPosting',
+    mainEntity: posts.map(post => ({
+      '@type': 'Article',
       headline: post.title,
       url: postUrl(post),
       datePublished: post.date,
       inLanguage: post.lang,
       translationOfWork: post.alternates.en && post.lang === 'tr' ? {
-        '@type': 'BlogPosting',
+        '@type': 'Article',
         headline: post.alternates.en.title,
         url: post.alternates.en.url,
         inLanguage: 'en'
@@ -590,7 +593,7 @@ function indexPage(groups) {
   const cards = groups.map(indexCard).join('\n');
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit blog/*.html manually. Source: blog-content/ -->
+<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit learn/*.html manually. Source: blog-content/ -->
 <html lang="en">
 <head>
 ${headBlock({ title, description, url, lang: 'en', jsonLd, ogType: 'website' })}
@@ -599,7 +602,7 @@ ${headBlock({ title, description, url, lang: 'en', jsonLd, ogType: 'website' })}
 ${navFor('en')}
 <main class="shell-wide">
   <div class="blog-head">
-    <div class="kicker">LOGWISE BLOG</div>
+    <div class="kicker">LOGWISE LEARN</div>
     <h1 data-blog-title>${esc(STR.en.blogTitle)}</h1>
     <p data-blog-lead>${esc(STR.en.blogLead)}</p>
   </div>
@@ -615,7 +618,7 @@ ${blogRuntimeScript()}
 `;
 }
 
-// ---------------------------------------------------------------- write blog/
+// ---------------------------------------------------------------- write learn/
 
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
 
@@ -638,10 +641,10 @@ const manifest = posts.map(post => ({
   tags: post.tags,
   featured: post.featured,
   readMins: post.readMins,
-  url: `/blog/${post.slug}`,
+  url: `/learn/${post.slug}`,
   alternates: LANG_ORDER.reduce((acc, lang) => {
     const alt = post.alternates[lang];
-    if (alt) acc[lang] = { slug: alt.slug, title: alt.title, url: `/blog/${alt.slug}` };
+    if (alt) acc[lang] = { slug: alt.slug, title: alt.title, url: `/learn/${alt.slug}` };
     return acc;
   }, {})
 }));
@@ -704,7 +707,7 @@ function landingPostsFor(lang) {
 function landingCard(post, lang) {
   const read = lang === 'tr' ? 'OKU' : 'READ';
   const minRead = lang === 'tr' ? 'dk okuma' : 'min read';
-  return `      <a href="/blog/${post.slug}" class="blog-card">
+  return `      <a href="/learn/${post.slug}" class="blog-card">
         <div class="blog-card-meta">
           <span class="blog-lang">${post.lang.toUpperCase()}</span>
           <time datetime="${post.date}">${fmtShortDate(post.date, lang).toUpperCase()}</time>
@@ -718,7 +721,7 @@ function landingCard(post, lang) {
 const landingUpdated = [];
 for (const target of LANDING_FILES) {
   if (!fs.existsSync(target.file)) {
-    console.warn(`WARN: ${path.basename(target.file)} was not found; landing blog cards were not injected.`);
+    console.warn(`WARN: ${path.basename(target.file)} was not found; landing learn cards were not injected.`);
     continue;
   }
   let html = fs.readFileSync(target.file, 'utf8');
@@ -737,12 +740,12 @@ for (const target of LANDING_FILES) {
 
 // ---------------------------------------------------------------- summary
 
-console.log(`Done: ${posts.length} language variants across ${postGroups.length} blog topics generated.`);
+console.log(`Done: ${posts.length} language variants across ${postGroups.length} learn topics generated.`);
 for (const group of postGroups) {
-  console.log(`  ${group.key}  [en:/blog/${group.postsByLang.en.slug}] [tr:/blog/${group.postsByLang.tr.slug}]`);
+  console.log(`  ${group.key}  [en:/learn/${group.postsByLang.en.slug}] [tr:/learn/${group.postsByLang.tr.slug}]`);
 }
 console.log(
-  'Updated: blog/index.html, blog/posts.json, sitemap.xml' +
+  'Updated: learn/index.html, learn/posts.json, sitemap.xml' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
-console.log(`Programmatic SEO: ${programmaticResult.guides} guides hub, ${programmaticResult.directories} guide directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);
+console.log(`Programmatic SEO: ${programmaticResult.library} library hub, ${programmaticResult.directories} library directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);
