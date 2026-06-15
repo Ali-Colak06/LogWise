@@ -35,11 +35,12 @@ Mevcut SEO durumu:
 - www.logwise.fit -> logwise.fit 301 redirect Cloudflare tarafinda duzeltildi.
 
 Bu isin amaci:
-Programmatic SEO ile kullanici aramalarina cevap veren statik sayfalar uretmek:
-- /exercises/bench-press
-- /exercises/squat
-- /exercises/deadlift
-- /programs/push-pull-legs
+Programmatic SEO ile kullanici aramalarina cevap veren statik guide sayfalari uretmek:
+- /guides
+- /guides/exercises/bench-press
+- /guides/exercises/squat
+- /guides/exercises/deadlift
+- /guides/programs/push-pull-legs
 
 Onemli: Bu buyuk bir mimari is. Once mevcut veri kaynaklarini, sayfa kaliplarini, sitemap mantigini ve service worker etkisini incele. Sonra kucuk ve guvenli bir ilk dilim uygula.
 
@@ -68,16 +69,18 @@ Beklenen strateji:
 
 URL ve dosya yapisi:
 - Clean URL hedefleri:
-  - /exercises/bench-press
-  - /exercises/squat
-  - /exercises/deadlift
-  - /programs/push-pull-legs
+  - /guides
+  - /guides/exercises/bench-press
+  - /guides/exercises/squat
+  - /guides/exercises/deadlift
+  - /guides/programs/push-pull-legs
 - Cloudflare Pages clean URL icin .html handling kullaniyorsa explicit redirect ekleme.
 - Dosya ciktilari icin mevcut mimariye uygun bir yapi oner ve uygula. Ornek:
-  - exercises/bench-press.html
-  - exercises/squat.html
-  - exercises/deadlift.html
-  - programs/push-pull-legs.html
+  - guides.html
+  - guides/exercises/bench-press.html
+  - guides/exercises/squat.html
+  - guides/exercises/deadlift.html
+  - guides/programs/push-pull-legs.html
 - Yeni klasor acilirsa AGENTS.md dosya haritasini guncelle.
 - Buyuk mimari karar oldugu icin REFACTOR-GECMISI.md yeni bolum ekle.
 
@@ -119,7 +122,7 @@ Her exercise sayfasi su bolumleri icersin:
   - MVP icin sadece mevcut 3 sayfa arasinda anlamli linkler kurmak yeterli olabilir.
 
 Program sayfasi icerigi:
-/programs/push-pull-legs sayfasi su bolumleri icersin:
+/guides/programs/push-pull-legs sayfasi su bolumleri icersin:
 - Hero:
   - Push Pull Legs programi
   - Kimler icin uygun
@@ -135,7 +138,7 @@ Program sayfasi icerigi:
   - tekrar eden gunler
 - Exercise list:
   - data/presets-programs.js icindeki push-pull-legs verisini kullan.
-  - Exercise linkleri varsa /exercises/{slug} sayfalarina bagla.
+  - Exercise linkleri varsa /guides/exercises/{slug} sayfalarina bagla.
   - Sayfasi olmayan exercise linkleri icin ya link verme ya da ileride eklenecekse dikkatli davran.
 - How to progress:
   - progressive overload
@@ -197,10 +200,11 @@ Kontroller:
 - Değişen HTML inline script varsa inline script syntax kontrolu
 - git diff --check
 - local HTTP smoke test:
-  - /exercises/bench-press
-  - /exercises/squat
-  - /exercises/deadlift
-  - /programs/push-pull-legs
+  - /guides
+  - /guides/exercises/bench-press
+  - /guides/exercises/squat
+  - /guides/exercises/deadlift
+  - /guides/programs/push-pull-legs
   - /tools
   - /one-rep-max-calculator
   - /workout-volume-calculator

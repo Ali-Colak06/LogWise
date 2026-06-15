@@ -29,7 +29,7 @@ When a heavy set gives you a new benchmark, the [LogWise 1RM calculator](https:/
 
 If your progression lever is more sets or more total work, the [workout volume calculator](https://logwise.fit/workout-volume-calculator) can total sets x reps x weight by exercise before you decide whether to add more.
 
-For concrete lift examples, start with the [bench press guide](https://logwise.fit/exercises/bench-press), [squat guide](https://logwise.fit/exercises/squat), and [deadlift guide](https://logwise.fit/exercises/deadlift). The same progression idea applies, but the cost of adding volume is different for each lift.
+For concrete lift examples, start with the [bench press guide](https://logwise.fit/guides/exercises/bench-press), [squat guide](https://logwise.fit/guides/exercises/squat), and [deadlift guide](https://logwise.fit/guides/exercises/deadlift). The same progression idea applies, but the cost of adding volume is different for each lift.
 
 ## Why logging comes first
 

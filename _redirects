@@ -14,6 +14,12 @@
 # /app/* SPA route'ları — yeni URL şeması (wildcard)
 /app/*        /app.html       200
 
+# Eski programmatic SEO URL'leri → yeni /guides bilgi mimarisi
+/exercises/bench-press        /guides/exercises/bench-press        301
+/exercises/squat              /guides/exercises/squat              301
+/exercises/deadlift           /guides/exercises/deadlift           301
+/programs/push-pull-legs      /guides/programs/push-pull-legs      301
+
 # Eski SPA route'ları — geriye dönük uyumluluk
 /social       /app.html       200
 /dashboard    /app.html       200

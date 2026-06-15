@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-15 — Programmatic SEO MVP sayfaları eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-15 — Programmatic SEO sayfaları /guides altında toplandı. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -20,7 +20,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 55 — Programmatic SEO MVP).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 56 — Guides bilgi mimarisi).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -103,15 +103,15 @@ LogWise/
 │   └── comment-section.js     ← CommentSection (Bölüm 44)
 ├── blog-content/              ← Blog yazıları — Markdown kaynak (TR/EN varyantlı, translationKey frontmatter'lı)
 ├── blog/                      ← Üretilmiş statik blog sayfaları + blog.css (elle) + posts.json
-├── exercises/                 ← Üretilmiş statik exercise SEO sayfaları (`scripts/build-programmatic-seo.js`)
-├── programs/                  ← Üretilmiş statik program SEO sayfaları (`scripts/build-programmatic-seo.js`)
+├── guides/                    ← Üretilmiş statik guide alt sayfaları (`/guides/exercises/*`, `/guides/programs/*`)
 ├── scripts/
 │   ├── build-blog.js          ← blog-content/*.md → blog/*.html üretici + TR/EN hreflang + landing blog kart enjeksiyonu
-│   ├── build-programmatic-seo.js ← data/*.js → exercises/*.html + programs/*.html üretici
+│   ├── build-programmatic-seo.js ← data/*.js → guides.html + guides/**/*.html üretici
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← EN statik SEO landing
 ├── tr.html                    ← TR statik SEO landing
 ├── tools.html                 ← EN statik SEO tools hub sayfası
+├── guides.html                ← EN statik SEO guides hub sayfası
 ├── one-rep-max-calculator.html ← EN statik SEO tool sayfası
 ├── workout-log-template.html  ← EN statik SEO printable template sayfası
 ├── workout-volume-calculator.html ← EN statik SEO workout volume calculator sayfası
@@ -195,7 +195,7 @@ LogWise/
 - **Blog sistemi** (Bölüm 45, 51-52): Markdown kaynaklı statik blog + sitemap + landing blog entegrasyonu; her konu TR/EN varyantlı, hreflang'li ve UI'da aktif dil switch'iyle tek dil gösterir ✅
 - **SEO statik landing** (Bölüm 46): EN `/` + TR `/tr` statik landing, canonical apex domain, statik blog kart enjeksiyonu ✅
 - **SEO evergreen araç sayfaları** (Bölüm 48-49, 53-54): `/tools` hub + `/one-rep-max-calculator` + `/workout-log-template` + `/workout-volume-calculator` statik tool/template sayfaları + sitemap statik sayfa kaydı ✅
-- **Programmatic SEO MVP** (Bölüm 55): `/exercises/bench-press`, `/exercises/squat`, `/exercises/deadlift`, `/programs/push-pull-legs` statik generator çıktıları + sitemap/SW entegrasyonu ✅
+- **Programmatic SEO MVP** (Bölüm 55-56): `/guides` hub + `/guides/exercises/bench-press`, `/guides/exercises/squat`, `/guides/exercises/deadlift`, `/guides/programs/push-pull-legs` statik generator çıktıları + sitemap/SW entegrasyonu ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

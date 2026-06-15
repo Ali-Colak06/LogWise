@@ -25,7 +25,7 @@ For strength training and hypertrophy, the core data is simple:
 
 That is enough to compare one session with the next. If you benched 70 kg for 8, 8, 7 last week, your target today is clear: get 8, 8, 8 at the same weight, or make a small load jump if the work felt easy.
 
-If bench is one of your main lifts, the [bench press guide](https://logwise.fit/exercises/bench-press) gives a cleaner checklist for form, progression, and what to note in the log.
+If bench is one of your main lifts, the [bench press guide](https://logwise.fit/guides/exercises/bench-press) gives a cleaner checklist for form, progression, and what to note in the log.
 
 The best tracker is the one you actually use while training. If logging a set takes too long, you will stop doing it when the gym gets busy.
 
@@ -33,7 +33,7 @@ If you want a printable structure before moving everything into an app, start wi
 
 To check how much work a session actually contains, use the [free workout volume calculator](https://logwise.fit/workout-volume-calculator). It totals sets x reps x weight by exercise, which makes weekly workload changes easier to spot.
 
-If you prefer a ready-made split, the [Push Pull Legs program](https://logwise.fit/programs/push-pull-legs) shows how the preset LogWise PPL week is organized.
+If you prefer a ready-made split, the [Push Pull Legs program](https://logwise.fit/guides/programs/push-pull-legs) shows how the preset LogWise PPL week is organized.
 
 ## The fields worth adding
 

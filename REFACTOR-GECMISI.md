@@ -3710,3 +3710,43 @@ Programmatic SEO için küçük ve güvenli ilk dilimi eklemek: Google'ın JS ç
 - `node scripts/build-blog.js` sonrası exercise/program sayfaları, sitemap ve blog çıktıları birlikte güncellenmeli.
 - Sitemap XML parse, `blog/posts.json` JSON parse ve local HTTP smoke test yapılmalı.
 - Lokal smoke testte `/exercises/bench-press`, `/exercises/squat`, `/exercises/deadlift`, `/programs/push-pull-legs`, `/tools`, tool sayfaları ve `/blog` clean URL'leri doğrulanmalı.
+
+
+
+---
+
+## Bölüm 56 — Guides Bilgi Mimarisi (2026-06-15)
+
+### Amaç
+
+Programmatic SEO sayfalarını kök `/exercises/*` ve `/programs/*` yapısından çıkarıp tek bir statik rehber merkezi altında toplamak: `/guides`. Böylece ana rehber hub'ı, exercise rehberleri ve program rehberleri aynı bilgi mimarisi içinde yaşar.
+
+### Mimari Kararlar
+
+- **Guides hub:** Yeni `guides.html`, Cloudflare Pages clean URL davranışıyla `/guides` olarak sunulur. Exercise ve program rehberlerine merkezi keşif sayfası sağlar.
+- **Nested guide URL'leri:** Programmatic SEO çıktıları artık `guides/exercises/*.html` ve `guides/programs/*.html` altında üretilir. Canonical URL'ler `/guides/exercises/bench-press` ve `/guides/programs/push-pull-legs` formatındadır.
+- **Eski URL 301'leri:** İlk MVP'de açılan `/exercises/bench-press`, `/exercises/squat`, `/exercises/deadlift` ve `/programs/push-pull-legs` exact URL'leri `_redirects` içinde yeni `/guides/...` adreslerine 301 yönlenir. Çıplak `/exercises` ve `/programs` eski app route uyumluluğu korunur.
+- **Generator güncellemesi:** `scripts/build-programmatic-seo.js`, artık `guides.html` hub'ını ve nested guide çıktılarını üretir; `scripts/build-blog.js` aynı tek build akışında sitemap ve blog çıktılarını güncellemeye devam eder.
+- **İç linkleme:** Landing, tools hub ve blog kaynaklarındaki rehber linkleri yeni `/guides/...` canonical yapısına taşındı.
+- **Service worker:** `sw.js` `logwise-v40` → `logwise-v41` bump edildi. `/guides`, `guides.html` ve nested guide URL'leri precache listesine eklendi; eski programmatic URL'ler precache'den çıkarıldı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `scripts/build-programmatic-seo.js` | `/guides` hub + nested exercise/program generator çıktıları |
+| `guides.html` | EN statik guides hub çıktısı |
+| `guides/exercises/*.html` | Bench press, squat, deadlift yeni canonical guide çıktıları |
+| `guides/programs/push-pull-legs.html` | PPL program yeni canonical guide çıktısı |
+| `_redirects` | Eski programmatic URL'ler için exact 301 yönlendirmeler |
+| `index.html`, `tr.html`, `tools.html` | Rehber linkleri `/guides/...` yapısına taşındı; `/guides` hub bağlantıları eklendi |
+| `blog-content/*.md` | Blog içi rehber linkleri yeni canonical URL'lere taşındı |
+| `scripts/build-blog.js`, `sitemap.xml`, `blog/*.html`, `blog/posts.json` | Build sonrası yeni sitemap ve blog çıktıları |
+| `sw.js` | `logwise-v41` bump + yeni guides URL precache |
+| `AGENTS.md`, `docs/PROGRAMMATIC-SEO-PROMPT.md` | Yeni guides mimarisi dokümante edildi |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-programmatic-seo.js`, `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
+- `node scripts/build-blog.js` sonrası `/guides`, nested guide sayfaları, sitemap ve blog çıktıları birlikte güncellenmeli.
+- Lokal smoke testte `/guides`, `/guides/exercises/bench-press`, `/guides/exercises/squat`, `/guides/exercises/deadlift`, `/guides/programs/push-pull-legs`, `/tools`, `/` ve `/tr` clean URL'leri doğrulanmalı.
