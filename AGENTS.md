@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-15 — /workout-volume-calculator statik SEO tool sayfası eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-15 — /tools statik SEO tools hub sayfası eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-53)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-54)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -107,6 +107,7 @@ LogWise/
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← EN statik SEO landing
 ├── tr.html                    ← TR statik SEO landing
+├── tools.html                 ← EN statik SEO tools hub sayfası
 ├── one-rep-max-calculator.html ← EN statik SEO tool sayfası
 ├── workout-log-template.html  ← EN statik SEO printable template sayfası
 ├── workout-volume-calculator.html ← EN statik SEO workout volume calculator sayfası
@@ -188,7 +189,7 @@ LogWise/
 - **Faz EX-ID** (Bölüm 43): Preset hareketlere slug `id` sistemi + Dead Hang deduplikasyonu + tüm referansların id'ye taşınması ✅
 - **Blog sistemi** (Bölüm 45, 51-52): Markdown kaynaklı statik blog + sitemap + landing blog entegrasyonu; her konu TR/EN varyantlı, hreflang'li ve UI'da aktif dil switch'iyle tek dil gösterir ✅
 - **SEO statik landing** (Bölüm 46): EN `/` + TR `/tr` statik landing, canonical apex domain, statik blog kart enjeksiyonu ✅
-- **SEO evergreen araç sayfaları** (Bölüm 48-49, 53): `/one-rep-max-calculator` + `/workout-log-template` + `/workout-volume-calculator` statik tool/template sayfaları + sitemap statik sayfa kaydı ✅
+- **SEO evergreen araç sayfaları** (Bölüm 48-49, 53-54): `/tools` hub + `/one-rep-max-calculator` + `/workout-log-template` + `/workout-volume-calculator` statik tool/template sayfaları + sitemap statik sayfa kaydı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

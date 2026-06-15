@@ -3627,3 +3627,42 @@ Bölüm 51'de eklenen iki dilli blog varyantlarını kullanıcı arayüzünde ya
 - `node --check scripts/build-blog.js`, `node --check sw.js` ve inline volume calculator script syntax kontrolü yapılmalı.
 - `node scripts/build-blog.js` sonrası sitemap, blog çıktıları ve landing blog kartları birlikte güncellenir.
 - Lokal smoke testte `/workout-volume-calculator`, add row / clear, kg/lb toggle, toplam hacim, egzersiz bazlı özet ve CTA linkleri doğrulanmalı.
+
+
+
+---
+
+## Bölüm 54 — SEO Tools Hub Sayfası (2026-06-15)
+
+### Amaç
+
+Mevcut evergreen tool sayfalarını tek bir statik keşif sayfasında toplamak: `/tools`. Bu hub, ana landing ve tool sayfalarından merkezi bir "See other tools" hedefi olarak çalışır ve Google'ın JS çalıştırmadan okuyabileceği statik link yapısı sağlar.
+
+### Mimari Kararlar
+
+- **Statik hub page:** `tools.html` kökte yaşar. Cloudflare Pages `.html` clean URL davranışıyla `/tools` olarak sunulur; `_redirects` içine explicit kural eklenmedi.
+- **React/Babel yok:** Sayfa düz HTML ve mevcut `styles/landing.css` sınıflarıyla çalışır. Sayfaya özel JS yoktur.
+- **Ortak tasarım dili:** Hub, landing'deki `tool-link-card` kart dilini ve tool sayfalarındaki `tool-hero` / `cta` bloklarını yeniden kullanır. Küçük hub layout stilleri `styles/landing.css` içinde tutulur.
+- **Structured data:** Sayfa `WebPage`, `ItemList` ve `BreadcrumbList` JSON-LD taşır. ItemList üç tool URL'sini sıralı olarak listeler.
+- **İç linkleme:** `index.html` ve `tr.html` tools bölümünden `/tools` sayfasına link verildi. Tool sayfalarındaki hero "See other tools" CTA'ları `/tools` hedefli hale getirildi.
+- **Sitemap kalıcılığı:** `scripts/build-blog.js` içindeki `STATIC_SITEMAP_PAGES` listesine `/tools` eklendi.
+- **Service worker:** `sw.js` `logwise-v37` → `logwise-v38` bump edildi. `PRECACHE_URLS` listesine `/tools` ve `/tools.html` eklendi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `tools.html` | EN statik tools hub + SEO meta + JSON-LD |
+| `styles/landing.css` | Hub hero/grid ve landing "all tools" link stilleri |
+| `index.html`, `tr.html` | Tools bölümüne `/tools` bağlantısı |
+| `one-rep-max-calculator.html`, `workout-log-template.html`, `workout-volume-calculator.html` | Hero "See other tools" CTA'ları `/tools` hedefli |
+| `scripts/build-blog.js` | Statik sitemap listesine `/tools` eklendi |
+| `sitemap.xml`, `blog/index.html`, `blog/posts.json`, `blog/*.html` | Generator çıktıları yeniden üretildi |
+| `sw.js` | `logwise-v38` bump + tools hub URL precache |
+| `AGENTS.md` | Dosya haritası ve evergreen SEO tool özeti güncellendi |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
+- `node scripts/build-blog.js` sonrası sitemap, blog çıktıları ve landing blog kartları birlikte güncellenir.
+- Lokal smoke testte `/tools`, üç tool sayfası, `/` ve `/tr` clean URL'leri doğrulanmalı.
