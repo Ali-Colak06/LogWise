@@ -8,4 +8,5 @@ User-agent: *
 Allow: /
 
 Sitemap: https://logwise.fit/sitemap.xml
+Sitemap: https://logwise.fit/sitemap-basic.xml
 Sitemap: https://logwise.fit/sitemap.txt

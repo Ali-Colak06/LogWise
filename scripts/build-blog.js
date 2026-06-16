@@ -3,7 +3,7 @@
  * LogWise Learn Generator
  * ----------------------
  * blog-content/*.md -> learn/<slug>.html + ogren/<slug>.html + index pages + posts.json
- * Also rebuilds sitemap.xml/sitemap.txt, programmatic SEO pages, and featured learn cards on static landing pages.
+ * Also rebuilds sitemap.xml/sitemap-basic.xml/sitemap.txt, programmatic SEO pages, and featured learn cards on static landing pages.
  *
  * Usage: node scripts/build-blog.js
  * Dependency: scripts/vendor/marked.min.js (vendored UMD, no npm install required)
@@ -40,6 +40,7 @@ const LANDING_FILES = [
   { file: path.join(ROOT, 'tr.html'), lang: 'tr' }
 ];
 const SITEMAP = path.join(ROOT, 'sitemap.xml');
+const SITEMAP_BASIC = path.join(ROOT, 'sitemap-basic.xml');
 const SITEMAP_TXT = path.join(ROOT, 'sitemap.txt');
 
 const SITE = 'https://logwise.fit';
@@ -730,6 +731,11 @@ fs.writeFileSync(
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries.join('\n')}\n</urlset>\n`,
   'utf8'
 );
+fs.writeFileSync(
+  SITEMAP_BASIC,
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapTextUrls.map(url => `  <url>\n    <loc>${esc(url)}</loc>\n  </url>`).join('\n')}\n</urlset>\n`,
+  'utf8'
+);
 fs.writeFileSync(SITEMAP_TXT, sitemapTextUrls.join('\n') + '\n', 'utf8');
 
 // ---------------------------------------------------------------- landing injection
@@ -796,7 +802,7 @@ for (const group of postGroups) {
   console.log(`  ${group.key}  [en:/learn/${group.postsByLang.en.slug}] [tr:/ogren/${group.postsByLang.tr.slug}]`);
 }
 console.log(
-  'Updated: learn/index.html, ogren/index.html, learn/posts.json, sitemap.xml, sitemap.txt' +
+  'Updated: learn/index.html, ogren/index.html, learn/posts.json, sitemap.xml, sitemap-basic.xml, sitemap.txt' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
 console.log(`Programmatic SEO: ${programmaticResult.library} library hub, ${programmaticResult.directories} library directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);
