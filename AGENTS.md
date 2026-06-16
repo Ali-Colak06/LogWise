@@ -125,6 +125,7 @@ LogWise/
 ├── 404.html                   ← 404
 ├── robots.txt                 ← Arama motoru crawl yönergeleri + sitemap referansları
 ├── sitemap.xml                ← XML sitemap (hreflang destekli)
+├── sitemap_index.xml          ← Sitemap index fallback'i
 ├── sitemap-basic.xml          ← Minimal XML sitemap fallback'i
 ├── sitemap.txt                ← Düz metin sitemap fallback'i
 ├── sw.js                      ← Service Worker (PWA)
