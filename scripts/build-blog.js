@@ -3,7 +3,7 @@
  * LogWise Learn Generator
  * ----------------------
  * blog-content/*.md -> learn/<slug>.html + ogren/<slug>.html + index pages + posts.json
- * Also rebuilds sitemap.xml, programmatic SEO pages, and featured learn cards on static landing pages.
+ * Also rebuilds sitemap.xml/sitemap.txt, programmatic SEO pages, and featured learn cards on static landing pages.
  *
  * Usage: node scripts/build-blog.js
  * Dependency: scripts/vendor/marked.min.js (vendored UMD, no npm install required)
@@ -40,6 +40,7 @@ const LANDING_FILES = [
   { file: path.join(ROOT, 'tr.html'), lang: 'tr' }
 ];
 const SITEMAP = path.join(ROOT, 'sitemap.xml');
+const SITEMAP_TXT = path.join(ROOT, 'sitemap.txt');
 
 const SITE = 'https://logwise.fit';
 const OG_IMAGE = `${SITE}/icon-512.png`;
@@ -697,8 +698,12 @@ const programmaticResult = programmaticSeo.buildProgrammaticSeo({ root: ROOT, si
 
 // ---------------------------------------------------------------- sitemap.xml
 
+function sitemapUrlForPath(pathname) {
+  return `${SITE}${pathname}`;
+}
+
 function sitemapStaticEntry(page) {
-  return `  <url>\n    <loc>${SITE}${page.path}</loc>${page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : ''}\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>`;
+  return `  <url>\n    <loc>${sitemapUrlForPath(page.path)}</loc>${page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : ''}\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>`;
 }
 
 function sitemapPostEntry(post) {
@@ -716,11 +721,16 @@ const sitemapEntries = [
   ...STATIC_SITEMAP_PAGES.map(sitemapStaticEntry),
   ...posts.map(sitemapPostEntry)
 ];
+const sitemapTextUrls = [
+  ...STATIC_SITEMAP_PAGES.map(page => sitemapUrlForPath(page.path)),
+  ...posts.map(postUrl)
+];
 fs.writeFileSync(
   SITEMAP,
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries.join('\n')}\n</urlset>\n`,
   'utf8'
 );
+fs.writeFileSync(SITEMAP_TXT, sitemapTextUrls.join('\n') + '\n', 'utf8');
 
 // ---------------------------------------------------------------- landing injection
 
@@ -786,7 +796,7 @@ for (const group of postGroups) {
   console.log(`  ${group.key}  [en:/learn/${group.postsByLang.en.slug}] [tr:/ogren/${group.postsByLang.tr.slug}]`);
 }
 console.log(
-  'Updated: learn/index.html, ogren/index.html, learn/posts.json, sitemap.xml' +
+  'Updated: learn/index.html, ogren/index.html, learn/posts.json, sitemap.xml, sitemap.txt' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
 console.log(`Programmatic SEO: ${programmaticResult.library} library hub, ${programmaticResult.directories} library directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);

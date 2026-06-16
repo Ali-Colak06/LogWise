@@ -19,6 +19,17 @@
 /manifest.json
   Cache-Control: public, max-age=86400
 
+# Sitemap ve robots dosyaları arama motorları için her zaman taze servis edilir
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+  Cache-Control: no-cache, no-store, must-revalidate
+/sitemap.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: no-cache, no-store, must-revalidate
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: no-cache, no-store, must-revalidate
+
 # sw.js için cache kapatma — tarayıcı her zaman güncel SW'yi kontrol eder
 /sw.js
   Cache-Control: no-cache, no-store, must-revalidate

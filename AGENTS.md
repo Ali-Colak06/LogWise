@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-16 — TR Learn URL'leri /ogren altına taşındı. -->
+<!-- SON GÜNCELLEME: 2026-06-16 — TR Learn URL'leri /ogren altına taşındı; sitemap.txt eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -123,6 +123,9 @@ LogWise/
 ├── share.html                 ← Paylaşım sayfası
 ├── program.html               ← Program paylaşım sayfası
 ├── 404.html                   ← 404
+├── robots.txt                 ← Arama motoru crawl yönergeleri + sitemap referansları
+├── sitemap.xml                ← XML sitemap (hreflang destekli)
+├── sitemap.txt                ← Düz metin sitemap fallback'i
 ├── sw.js                      ← Service Worker (PWA)
 ├── manifest.json              ← PWA manifest
 ├── _redirects, _headers       ← Cloudflare Pages konfigürasyonu
