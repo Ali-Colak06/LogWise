@@ -13,7 +13,7 @@
     ],
     "featured": true,
     "readMins": 4,
-    "url": "/learn/egzersiz-takip-uygulamasi-ne-kaydetmeli",
+    "url": "/ogren/egzersiz-takip-uygulamasi-ne-kaydetmeli",
     "alternates": {
       "en": {
         "slug": "workout-tracker-app-guide",
@@ -23,7 +23,7 @@
       "tr": {
         "slug": "egzersiz-takip-uygulamasi-ne-kaydetmeli",
         "title": "Egzersiz Takip Uygulaması: Gerçek Gelişim İçin Neyi Takip Etmeli?",
-        "url": "/learn/egzersiz-takip-uygulamasi-ne-kaydetmeli"
+        "url": "/ogren/egzersiz-takip-uygulamasi-ne-kaydetmeli"
       }
     }
   },
@@ -51,7 +51,7 @@
       "tr": {
         "slug": "egzersiz-takip-uygulamasi-ne-kaydetmeli",
         "title": "Egzersiz Takip Uygulaması: Gerçek Gelişim İçin Neyi Takip Etmeli?",
-        "url": "/learn/egzersiz-takip-uygulamasi-ne-kaydetmeli"
+        "url": "/ogren/egzersiz-takip-uygulamasi-ne-kaydetmeli"
       }
     }
   },
@@ -69,7 +69,7 @@
     ],
     "featured": true,
     "readMins": 2,
-    "url": "/learn/antrenman-gunlugu-neden-tutmalisin",
+    "url": "/ogren/antrenman-gunlugu-neden-tutmalisin",
     "alternates": {
       "en": {
         "slug": "why-keep-a-workout-log",
@@ -79,7 +79,7 @@
       "tr": {
         "slug": "antrenman-gunlugu-neden-tutmalisin",
         "title": "Antrenman Günlüğü Neden Tutmalısın? (ve Nasıl Başlarsın)",
-        "url": "/learn/antrenman-gunlugu-neden-tutmalisin"
+        "url": "/ogren/antrenman-gunlugu-neden-tutmalisin"
       }
     }
   },
@@ -107,7 +107,7 @@
       "tr": {
         "slug": "progressive-overload-nedir",
         "title": "Progressive Overload Nedir? Basit Anlatım",
-        "url": "/learn/progressive-overload-nedir"
+        "url": "/ogren/progressive-overload-nedir"
       }
     }
   },
@@ -125,7 +125,7 @@
     ],
     "featured": false,
     "readMins": 2,
-    "url": "/learn/progressive-overload-nedir",
+    "url": "/ogren/progressive-overload-nedir",
     "alternates": {
       "en": {
         "slug": "progressive-overload-explained",
@@ -135,7 +135,7 @@
       "tr": {
         "slug": "progressive-overload-nedir",
         "title": "Progressive Overload Nedir? Basit Anlatım",
-        "url": "/learn/progressive-overload-nedir"
+        "url": "/ogren/progressive-overload-nedir"
       }
     }
   },
@@ -163,7 +163,7 @@
       "tr": {
         "slug": "antrenman-gunlugu-neden-tutmalisin",
         "title": "Antrenman Günlüğü Neden Tutmalısın? (ve Nasıl Başlarsın)",
-        "url": "/learn/antrenman-gunlugu-neden-tutmalisin"
+        "url": "/ogren/antrenman-gunlugu-neden-tutmalisin"
       }
     }
   }

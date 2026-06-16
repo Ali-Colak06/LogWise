@@ -84,6 +84,7 @@ URL ve dosya yapisi:
 - Root /exercises ve /programs kullanilacaksa canonical dizinlere 301 alias olarak ele al:
   - /exercises -> /library/exercises
   - /programs -> /library/programs
+- TR kullanici akisi icin `/kutuphane` ve alt URL'ler `/library` sayfalarina 200 alias olarak verilebilir; canonical, TR icerik uretilene kadar `/library` kalmali.
 - Dosya ciktilari icin mevcut mimariye uygun bir yapi oner ve uygula. Ornek:
   - library.html
   - library/exercises.html

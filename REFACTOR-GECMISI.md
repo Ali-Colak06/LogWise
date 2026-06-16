@@ -3823,3 +3823,40 @@ Kullaniciya acik bilgi mimarisinde `guides` adini `library`, `blog` adini `learn
 - `node --check scripts/build-programmatic-seo.js`, `node --check scripts/build-blog.js` ve `node --check sw.js` calistirilmali.
 - `node scripts/build-blog.js` sonrasinda `/learn`, `/library`, nested Library sayfalari, sitemap ve landing Learn kartlari birlikte guncellenmeli.
 - Lokal smoke testte `/learn`, `/library`, `/library/exercises`, `/library/programs`, nested sayfalar ve eski `/blog`/`/guides` 301'leri dogrulanmali.
+
+
+
+---
+
+## Bolum 59 - TR Learn URL Yerellestirmesi ve Kütüphane Alias'i (2026-06-16)
+
+### Amac
+
+TR kullanici akisini sadece ceviri metniyle degil, URL yapisiyla da yerellestirmek. Home landing icindeki `APP` nav linki de urun uygulamasina gitmek yerine landing'deki app tanitim bolumune kaymali.
+
+### Mimari Kararlar
+
+- **Home APP linki:** EN/TR landing ust nav'inda `APP` artik `/app` yerine `#app` anchor'ina gider. Uygulamayi acan CTA butonlari `/app` olarak kalir.
+- **TR Learn canonical:** TR Learn index ve TR yazilar artik `/ogren` ve `/ogren/<tr-slug>` canonical URL'lerinde uretilir. EN Learn `/learn` ve `/learn/<en-slug>` olarak kalir.
+- **Hreflang ayrimi:** Learn yazilarinda EN alternate `/learn/...`, TR alternate `/ogren/...`, x-default EN URL olacak sekilde generator guncellendi.
+- **Kütüphane alias'i:** Library sayfalari henuz EN icerik oldugu icin canonical `/library` kalir; TR landing ve TR Learn nav'i `/kutuphane` alias'ini kullanir. `_redirects` bu alias'i 200 rewrite ile `/library` sayfalarina baglar.
+- **Eski TR URL 301'leri:** Onceki `/learn/<tr-slug>` ve `/blog/<tr-slug>` URL'leri yeni `/ogren/<tr-slug>` adreslerine 301 tasindi.
+- **Service worker:** `sw.js` `logwise-v43` -> `logwise-v44` bump edildi. `/ogren` ve `/kutuphane` URL'leri precache listesine eklendi.
+
+### Dosya / Config Degisiklikleri
+
+| Dosya | Degisiklik |
+|---|---|
+| `scripts/build-blog.js` | EN Learn ve TR Ogren output ayrimi, hreflang, manifest, landing kart URL'leri |
+| `ogren/*.html` | TR Learn index ve yazi sayfalari |
+| `learn/*.html`, `learn/posts.json`, `sitemap.xml` | EN/TR canonical ayrimina gore yeniden uretildi |
+| `index.html`, `tr.html` | `APP` anchor fix'i; TR nav ve landing linkleri `Kütüphane`/`Öğren` akisi |
+| `_redirects` | Eski TR Learn URL 301'leri + `/kutuphane` 200 alias'lari |
+| `sw.js` | `logwise-v44` bump + `/ogren` ve `/kutuphane` precache |
+| `AGENTS.md`, `docs/BLOG-YAZISI-EKLEME.md` | Yeni TR URL yapisi dokumante edildi |
+
+### Dogrulama Notlari
+
+- `node --check scripts/build-blog.js` ve `node --check sw.js` calistirilmali.
+- `node scripts/build-blog.js` sonrasinda `/learn` EN, `/ogren` TR, post hreflang'leri ve landing kartlari dogrulanmali.
+- Lokal smoke testte `/learn/<en-slug>` <-> `/ogren/<tr-slug>` switch hedefleri, eski `/learn/<tr-slug>` 301'leri ve `/kutuphane` 200 alias'i dogrulanmali.

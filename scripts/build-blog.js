@@ -2,7 +2,7 @@
 /**
  * LogWise Learn Generator
  * ----------------------
- * blog-content/*.md -> learn/<slug>.html + learn/index.html + learn/posts.json
+ * blog-content/*.md -> learn/<slug>.html + ogren/<slug>.html + index pages + posts.json
  * Also rebuilds sitemap.xml, programmatic SEO pages, and featured learn cards on static landing pages.
  *
  * Usage: node scripts/build-blog.js
@@ -34,6 +34,7 @@ const programmaticSeo = require('./build-programmatic-seo.js');
 const ROOT = path.join(__dirname, '..');
 const CONTENT_DIR = path.join(ROOT, 'blog-content');
 const OUT_DIR = path.join(ROOT, 'learn');
+const TR_OUT_DIR = path.join(ROOT, 'ogren');
 const LANDING_FILES = [
   { file: path.join(ROOT, 'index.html'), lang: 'en' },
   { file: path.join(ROOT, 'tr.html'), lang: 'tr' }
@@ -48,6 +49,7 @@ const STATIC_SITEMAP_PAGES = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/tr', changefreq: 'weekly', priority: '0.9' },
   { path: '/learn', changefreq: 'weekly', priority: '0.8' },
+  { path: '/ogren', changefreq: 'weekly', priority: '0.8' },
   { path: '/tools', lastmod: '2026-06-15', changefreq: 'monthly', priority: '0.8' },
   { path: '/one-rep-max-calculator', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
   { path: '/workout-log-template', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
@@ -106,8 +108,20 @@ function jsonForScript(obj) {
   return JSON.stringify(obj).replace(/</g, '\\u003c');
 }
 
+function indexPathForLang(lang) {
+  return lang === 'tr' ? '/ogren' : '/learn';
+}
+
+function postPath(post) {
+  return `${indexPathForLang(post.lang)}/${post.slug}`;
+}
+
+function pathForLangSlug(lang, slug) {
+  return `${indexPathForLang(lang)}/${slug}`;
+}
+
 function postUrl(post) {
-  return `${SITE}/learn/${post.slug}`;
+  return `${SITE}${postPath(post)}`;
 }
 
 function sortedAlternates(post) {
@@ -230,8 +244,8 @@ const NAV = `
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/" data-blog-copy="home">__HOME__</a>
-      <a href="/tools">Tools</a>
-      <a href="/library">Library</a>
+      <a href="/tools" data-blog-copy="tools">__TOOLS__</a>
+      <a href="__LIBRARY_HREF__" data-blog-copy="library">__LIBRARY__</a>
     </nav>
     <div class="nav-actions">
       __LANG_SWITCH__
@@ -240,17 +254,23 @@ const NAV = `
   </div>
 </header>`;
 
-const FOOTER = `
+function footerFor(lang) {
+  const learnPath = indexPathForLang(lang);
+  const learnLabel = lang === 'tr' ? 'ÖĞREN' : 'LEARN';
+  return `
 <footer>
   <div class="shell-wide foot-row">
     <span>© 2026 LOG WISE</span>
-    <span><a href="/">logwise.fit</a> · <a href="/learn">LEARN</a> · <a href="/app">APP</a></span>
+    <span><a href="/">logwise.fit</a> · <a href="${learnPath}">${learnLabel}</a> · <a href="/app">APP</a></span>
   </div>
 </footer>`;
+}
 
 const STR = {
   tr: {
     home: 'ANA SAYFA',
+    tools: 'ARAÇLAR',
+    library: 'KÜTÜPHANE',
     open: 'UYGULAMAYI AÇ',
     read: 'OKU',
     minRead: 'DK OKUMA',
@@ -263,6 +283,8 @@ const STR = {
   },
   en: {
     home: 'HOME',
+    tools: 'Tools',
+    library: 'Library',
     open: 'OPEN APP',
     read: 'READ',
     minRead: 'MIN READ',
@@ -284,7 +306,7 @@ function languageSwitch(activeLang, alternates) {
       `aria-pressed="${lang === activeLang ? 'true' : 'false'}"`,
       `class="${lang === activeLang ? 'on' : ''}"`
     ];
-    if (alt) attrs.push(`data-target-url="/learn/${alt.slug}"`);
+    if (alt) attrs.push(`data-target-url="${pathForLangSlug(alt.lang, alt.slug)}"`);
     return `<button ${attrs.join(' ')}>${lang.toUpperCase()}</button>`;
   }).join('');
 
@@ -294,6 +316,9 @@ function languageSwitch(activeLang, alternates) {
 function navFor(lang, alternates) {
   return NAV
     .replace('__LANG_SWITCH__', languageSwitch(lang, alternates))
+    .replace('__TOOLS__', STR[lang].tools)
+    .replace('__LIBRARY__', STR[lang].library)
+    .replace('__LIBRARY_HREF__', lang === 'tr' ? '/kutuphane' : '/library')
     .replace('__HOME__', STR[lang].home)
     .replace('__OPEN__', STR[lang].open);
 }
@@ -355,8 +380,8 @@ function blogTopicDataScript(groups) {
 
 function blogRuntimeScript() {
   const copy = {
-    en: { home: STR.en.home, open: STR.en.open, blogTitle: STR.en.blogTitle, blogLead: STR.en.blogLead },
-    tr: { home: STR.tr.home, open: STR.tr.open, blogTitle: STR.tr.blogTitle, blogLead: STR.tr.blogLead }
+    en: { home: STR.en.home, tools: STR.en.tools, library: STR.en.library, open: STR.en.open, blogTitle: STR.en.blogTitle, blogLead: STR.en.blogLead },
+    tr: { home: STR.tr.home, tools: STR.tr.tools, library: STR.tr.library, open: STR.tr.open, blogTitle: STR.tr.blogTitle, blogLead: STR.tr.blogLead }
   };
 
   return `<script>
@@ -420,7 +445,7 @@ function blogRuntimeScript() {
       var post = topic.postsByLang[lang] || topic.postsByLang.en || topic.postsByLang.tr;
       var card = document.querySelector('[data-topic="' + topic.key + '"]');
       if (!post || !card) return;
-      card.setAttribute('href', '/learn/' + post.slug);
+      card.setAttribute('href', (lang === 'tr' ? '/ogren/' : '/learn/') + post.slug);
       card.setAttribute('hreflang', lang);
       card.setAttribute('lang', lang);
       var langNode = card.querySelector('[data-card-lang]');
@@ -446,7 +471,8 @@ function blogRuntimeScript() {
     try {
       requestedLang = normalize(new URLSearchParams(window.location.search).get('lang'));
     } catch (err) {}
-    var initialLang = requestedLang || readLang() || 'en';
+    var defaultLang = normalize(document.body.getAttribute('data-default-lang')) || 'en';
+    var initialLang = requestedLang || defaultLang;
     saveLang(initialLang);
     applyIndexLang(initialLang);
   } else {
@@ -462,6 +488,11 @@ function blogRuntimeScript() {
       saveLang(lang);
       if (page === 'index') {
         event.preventDefault();
+        var targetIndex = lang === 'tr' ? '/ogren' : '/learn';
+        if (window.location.pathname !== targetIndex) {
+          window.location.href = targetIndex;
+          return;
+        }
         applyIndexLang(lang);
         return;
       }
@@ -509,10 +540,10 @@ function postPage(post) {
   });
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit learn/*.html manually. Source: blog-content/ -->
+<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit learn/*.html or ogren/*.html manually. Source: blog-content/ -->
 <html lang="${post.lang}">
 <head>
-${headBlock({ title: `${post.title} — LogWise Learn`, description: post.description, url, lang: post.lang, jsonLd, ogType: 'article', published: post.date, alternates })}
+${headBlock({ title: `${post.title} — ${post.lang === 'tr' ? 'LogWise Öğren' : 'LogWise Learn'}`, description: post.description, url, lang: post.lang, jsonLd, ogType: 'article', published: post.date, alternates })}
 </head>
 <body data-blog-page="post">
 ${navFor(post.lang, post.alternates)}
@@ -539,34 +570,34 @@ ${post.html}
       </div>
     </div>
     <div class="post-foot">
-      <a href="/learn" class="back-link">${t.back}</a>
+      <a href="${indexPathForLang(post.lang)}" class="back-link">${t.back}</a>
     </div>
   </article>
 </main>
-${FOOTER}
+${footerFor(post.lang)}
 ${blogRuntimeScript()}
 </body>
 </html>
 `;
 }
 
-function indexCard(group) {
-  const en = group.postsByLang.en;
-  return `    <a class="post-card topic-card" data-topic="${esc(group.key)}" href="/learn/${en.slug}" hreflang="en" lang="en">
+function indexCard(group, lang) {
+  const post = group.postsByLang[lang] || group.postsByLang.en;
+  return `    <a class="post-card topic-card" data-topic="${esc(group.key)}" href="${postPath(post)}" hreflang="${post.lang}" lang="${post.lang}">
       <div class="post-card-meta">
-        <span class="post-lang" data-card-lang>EN</span>
-        <time datetime="${en.date}" data-card-date>${fmtShortDate(en.date, 'en').toUpperCase()}</time>
+        <span class="post-lang" data-card-lang>${post.lang.toUpperCase()}</span>
+        <time datetime="${post.date}" data-card-date>${fmtShortDate(post.date, post.lang).toUpperCase()}</time>
       </div>
-      <h2 data-card-title>${esc(en.title)}</h2>
-      <p data-card-description>${esc(en.description)}</p>
-      <span class="read" data-card-read>${en.readMins} ${STR.en.minRead} · ${STR.en.read} →</span>
+      <h2 data-card-title>${esc(post.title)}</h2>
+      <p data-card-description>${esc(post.description)}</p>
+      <span class="read" data-card-read>${post.readMins} ${STR[post.lang].minRead} · ${STR[post.lang].read} →</span>
     </a>`;
 }
 
-function indexPage(groups) {
-  const url = `${SITE}/learn`;
-  const title = 'Learn — LogWise';
-  const description = STR.en.blogLead;
+function indexPage(groups, lang) {
+  const url = `${SITE}${indexPathForLang(lang)}`;
+  const title = lang === 'tr' ? 'Öğren — LogWise' : 'Learn — LogWise';
+  const description = STR[lang].blogLead;
   const jsonLd = jsonForScript({
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -590,27 +621,31 @@ function indexPage(groups) {
     })
   });
 
-  const cards = groups.map(indexCard).join('\n');
+  const cards = groups.map(group => indexCard(group, lang)).join('\n');
+  const indexAlternates = [
+    { lang: 'en', url: `${SITE}/learn` },
+    { lang: 'tr', url: `${SITE}/ogren` }
+  ];
 
   return `<!DOCTYPE html>
-<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit learn/*.html manually. Source: blog-content/ -->
-<html lang="en">
+<!-- AUTO-GENERATED by scripts/build-blog.js. Do not edit learn/*.html or ogren/*.html manually. Source: blog-content/ -->
+<html lang="${lang}">
 <head>
-${headBlock({ title, description, url, lang: 'en', jsonLd, ogType: 'website' })}
+${headBlock({ title, description, url, lang, jsonLd, ogType: 'website', alternates: indexAlternates })}
 </head>
-<body data-blog-page="index">
-${navFor('en')}
+<body data-blog-page="index" data-default-lang="${lang}">
+${navFor(lang)}
 <main class="shell-wide">
   <div class="blog-head">
-    <div class="kicker">LOGWISE LEARN</div>
-    <h1 data-blog-title>${esc(STR.en.blogTitle)}</h1>
-    <p data-blog-lead>${esc(STR.en.blogLead)}</p>
+    <div class="kicker">${lang === 'tr' ? 'LOGWISE ÖĞREN' : 'LOGWISE LEARN'}</div>
+    <h1 data-blog-title>${esc(STR[lang].blogTitle)}</h1>
+    <p data-blog-lead>${esc(STR[lang].blogLead)}</p>
   </div>
   <div class="post-list">
 ${cards}
   </div>
 </main>
-${FOOTER}
+${footerFor(lang)}
 ${blogTopicDataScript(groups)}
 ${blogRuntimeScript()}
 </body>
@@ -618,18 +653,24 @@ ${blogRuntimeScript()}
 `;
 }
 
-// ---------------------------------------------------------------- write learn/
+// ---------------------------------------------------------------- write learn/ + ogren/
 
 if (!fs.existsSync(OUT_DIR)) fs.mkdirSync(OUT_DIR, { recursive: true });
+if (!fs.existsSync(TR_OUT_DIR)) fs.mkdirSync(TR_OUT_DIR, { recursive: true });
 
 for (const f of fs.readdirSync(OUT_DIR)) {
   if (f.endsWith('.html')) fs.unlinkSync(path.join(OUT_DIR, f));
 }
+for (const f of fs.readdirSync(TR_OUT_DIR)) {
+  if (f.endsWith('.html')) fs.unlinkSync(path.join(TR_OUT_DIR, f));
+}
 
 for (const post of posts) {
-  fs.writeFileSync(path.join(OUT_DIR, `${post.slug}.html`), postPage(post), 'utf8');
+  const targetDir = post.lang === 'tr' ? TR_OUT_DIR : OUT_DIR;
+  fs.writeFileSync(path.join(targetDir, `${post.slug}.html`), postPage(post), 'utf8');
 }
-fs.writeFileSync(path.join(OUT_DIR, 'index.html'), indexPage(postGroups), 'utf8');
+fs.writeFileSync(path.join(OUT_DIR, 'index.html'), indexPage(postGroups, 'en'), 'utf8');
+fs.writeFileSync(path.join(TR_OUT_DIR, 'index.html'), indexPage(postGroups, 'tr'), 'utf8');
 
 const manifest = posts.map(post => ({
   slug: post.slug,
@@ -641,10 +682,10 @@ const manifest = posts.map(post => ({
   tags: post.tags,
   featured: post.featured,
   readMins: post.readMins,
-  url: `/learn/${post.slug}`,
+  url: postPath(post),
   alternates: LANG_ORDER.reduce((acc, lang) => {
     const alt = post.alternates[lang];
-    if (alt) acc[lang] = { slug: alt.slug, title: alt.title, url: `/learn/${alt.slug}` };
+    if (alt) acc[lang] = { slug: alt.slug, title: alt.title, url: pathForLangSlug(alt.lang, alt.slug) };
     return acc;
   }, {})
 }));
@@ -707,7 +748,7 @@ function landingPostsFor(lang) {
 function landingCard(post, lang) {
   const read = lang === 'tr' ? 'OKU' : 'READ';
   const minRead = lang === 'tr' ? 'dk okuma' : 'min read';
-  return `      <a href="/learn/${post.slug}" class="blog-card">
+  return `      <a href="${postPath(post)}" class="blog-card">
         <div class="blog-card-meta">
           <span class="blog-lang">${post.lang.toUpperCase()}</span>
           <time datetime="${post.date}">${fmtShortDate(post.date, lang).toUpperCase()}</time>
@@ -742,10 +783,10 @@ for (const target of LANDING_FILES) {
 
 console.log(`Done: ${posts.length} language variants across ${postGroups.length} learn topics generated.`);
 for (const group of postGroups) {
-  console.log(`  ${group.key}  [en:/learn/${group.postsByLang.en.slug}] [tr:/learn/${group.postsByLang.tr.slug}]`);
+  console.log(`  ${group.key}  [en:/learn/${group.postsByLang.en.slug}] [tr:/ogren/${group.postsByLang.tr.slug}]`);
 }
 console.log(
-  'Updated: learn/index.html, learn/posts.json, sitemap.xml' +
+  'Updated: learn/index.html, ogren/index.html, learn/posts.json, sitemap.xml' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
 console.log(`Programmatic SEO: ${programmaticResult.library} library hub, ${programmaticResult.directories} library directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);

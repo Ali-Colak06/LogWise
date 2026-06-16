@@ -2,8 +2,9 @@
 
 Learn, build-step'siz statik HTML olarak calisir: yazilar Markdown kaynagindan
 (`blog-content/`) bir Node script'iyle (`scripts/build-blog.js`) uretilir.
-Uretilen `learn/*.html` dosyalari commit'lenir; Cloudflare Pages bunlari clean
-URL olarak sunar (`learn/slug.html` -> `/learn/slug`). Ekstra config gerekmez.
+Uretilen EN `learn/*.html` ve TR `ogren/*.html` dosyalari commit'lenir.
+Cloudflare Pages bunlari clean URL olarak sunar (`learn/slug.html` -> `/learn/slug`,
+`ogren/slug.html` -> `/ogren/slug`). Ekstra config gerekmez.
 
 ## Iki Dilli Yazi Kurali
 
@@ -64,17 +65,19 @@ Script eksik varyanti hata sayar; tek basina TR veya EN yazi birakilmaz.
    ```
 
    Script sunlari uretir/gunceller (hepsi commit'lenir):
-   - `learn/<slug>.html` - yazi sayfasi (meta, OG, JSON-LD, hreflang dahil)
-   - `learn/index.html` - konu listesi; kartlar aktif Learn dil switch'ine gore tek dilde gorunur
+   - `learn/<en-slug>.html` - EN yazi sayfasi (meta, OG, JSON-LD, hreflang dahil)
+   - `ogren/<tr-slug>.html` - TR yazi sayfasi (meta, OG, JSON-LD, hreflang dahil)
+   - `learn/index.html` - EN konu listesi
+   - `ogren/index.html` - TR konu listesi
    - `learn/posts.json` - makine-okur manifest (`translationKey` + `alternates`)
    - `sitemap.xml` - tum yazilar ve hreflang alternate kayitlariyla yeniden uretilir
    - `index.html` / `tr.html` - `BLOG-CARDS:START/END` marker'lari arasina aktif dile uygun Learn kartlari enjekte edilir
 
 3. Kontrol:
-   - `/learn` ayni konuyu iki kez listelememeli.
-   - `/learn` ust switch'inde TR seciliyken kart basligi/aciklamasi/okuma suresi TR, EN seciliyken EN olmali.
+   - `/learn` EN konu listesini, `/ogren` TR konu listesini gostermeli.
+   - Dil switch'i `/learn` <-> `/ogren` ve `/learn/<en-slug>` <-> `/ogren/<tr-slug>` arasinda URL degistirmeli.
    - Learn kartina tiklandiginda aktif dilin yazi URL'si acilmali.
-   - Yazi sayfasindaki ust switch es yaziya gecmeli ve secim `/learn` sayfasinda da korunmali.
+   - Yazi sayfasindaki ust switch es yaziya gecmeli.
    - Sayfa kaynaginda `canonical`, `hreflang="en"`, `hreflang="tr"` ve `x-default` bulunmali.
    - Landing'deki Learn bolumunde EN landing EN varyantlari, TR landing TR varyantlari gostermeli.
 
@@ -82,11 +85,11 @@ Script eksik varyanti hata sayar; tek basina TR veya EN yazi birakilmaz.
 
 - Silme: Ayni `translationKey`'e ait iki varyanti birlikte sil -> script'i calistir.
 - Guncelleme: Ilgili `.md` dosyasini duzenle -> script'i calistir.
-- `learn/*.html`, `learn/posts.json`, `sitemap.xml` ve landing marker blogu **elle duzenlenmez**.
+- `learn/*.html`, `ogren/*.html`, `learn/posts.json`, `sitemap.xml` ve landing marker blogu **elle duzenlenmez**.
 - `learn/learn.css` elle yazilir (uretilmez) - Learn gorunumu buradan degisir.
 
 ## Notlar
 
 - Bagimlilik: `scripts/vendor/marked.min.js` (vendored, npm install yok).
-- Learn HTML sayfalari `sw.js` PRECACHE'ine girebilir; `learn/learn.css` veya public Learn URL yapisi degisirse `CACHE_NAME` bump kontrol edilir.
+- Learn/Ogren HTML sayfalari `sw.js` PRECACHE'ine girebilir; `learn/learn.css` veya public URL yapisi degisirse `CACHE_NAME` bump kontrol edilir.
 - Learn statik HTML'dir; React/JSX kullanilmaz (AGENTS.md 3.1 ile uyumlu).
