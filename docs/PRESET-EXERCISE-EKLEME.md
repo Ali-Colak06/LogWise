@@ -1,6 +1,6 @@
 # Yeni Preset Hareket Ekleme Reçetesi
 
-<!-- SON GÜNCELLEME: 2026-04-20 — Faz EX-ID -->
+<!-- SON GÜNCELLEME: 2026-06-18 — Kanonik exercise guide kaydı zorunluluğu. -->
 
 Bu belge, LogWise'a yeni bir hazır hareket (preset exercise) nasıl eklenir adım adım anlatır.
 
@@ -10,15 +10,18 @@ Bu belge, LogWise'a yeni bir hazır hareket (preset exercise) nasıl eklenir ad�
 
 ## Etkilenen Dosyalar
 
-Bir hareket eklerken 1 zorunlu + 2 önerilen dosya vardır:
+Bir hareket eklerken 2 zorunlu + migration boyunca 2 önerilen dosya vardır:
 
 | Dosya | Zorunlu? | Amaç |
 |---|---|---|
 | `data/presets-exercises.js` | ✅ Zorunlu | Hareketin kendisi (id + name + kategori) |
+| `data/ex-guides.json` | ✅ Zorunlu | Ortak web/mobile guide kaydı ve readiness durumu |
 | `data/ex-descriptions.js` | Önerilir | Kısa açıklama (tek satır, TR+EN) |
-| `data/ex-preview.js` | Önerilir | Uzun açıklama + ipuçları + (varsa) gif |
+| `data/ex-preview.js` | Migration boyunca önerilir | Legacy web preview fallback'i |
 
-Üç dosyanın anahtarı: hareketin `id` alanıdır (slug). Üçünde de aynı slug kullanılır. `name` alanı sadece `presets-exercises.js`'tedir ve UI başlığı içindir.
+Bu içerik dosyalarının ortak anahtarı hareketin `id` alanıdır (slug). Hepsinde aynı slug kullanılır. `name` alanı sadece `presets-exercises.js`'tedir ve UI başlığı içindir.
+
+`scripts/build-ex-guides.js`, her preset için kanonik guide kaydı bulunmasını zorunlu kılar. Yeni hareketin tam içeriği hazır değilse bile `data/ex-guides.json` içine `publish: false`, `mediaReady: false` ve uygun readiness değerleriyle draft kayıt eklenir. Tam alan sözleşmesi için `docs/EXERCISE-GUIDE-SCHEMA.md` belgesine bak.
 
 ---
 
@@ -165,6 +168,7 @@ Omuz bloğunun içinde uygun yere ekle:
 Ekledikten sonra mutlaka:
 
 - [ ] `presets-exercises.js` giriş eklenmiş (`id` + `name` + `categories`)
+- [ ] `ex-guides.json` draft veya hazır guide kaydı aynı slug ile eklenmiş
 - [ ] `id` global benzersiz (mevcut listede çakışma yok)
 - [ ] `id` slug formatına uygun: `^[a-z0-9-]+$`
 - [ ] `ex-descriptions.js` ve `ex-preview.js` key'leri `presets-exercises.js`'teki `id` ile **birebir** aynı
@@ -172,6 +176,8 @@ Ekledikten sonra mutlaka:
 - [ ] `node --check data/presets-exercises.js` ✅
 - [ ] `node --check data/ex-descriptions.js` ✅
 - [ ] `node --check data/ex-preview.js` ✅
+- [ ] `node scripts/build-ex-guides.js --check` ✅
+- [ ] `node scripts/build-ex-guides.js` ile `data/ex-guides.js` wrapper'ı yenilenmiş
 - [ ] JSON obje sırasında virgül hatası yok (özellikle son giriş ve yeni girişin virgülü)
 - [ ] **`sw.js` bump GEREKLI DEĞİL** — bu dosyalar zaten PRECACHE'te. Sadece içerik değişti, URL yok.
 - [ ] Tarayıcıda dashboard → "Hazır Hareketler" altında yeni hareket görünüyor mu?
@@ -198,11 +204,12 @@ Birden fazla hareket eklerken:
 
 1. Önce slug listesi çıkar (yukarıdaki kurallara göre); kendi içinde benzersizliği kontrol et.
 2. `presets-exercises.js`'e tüm girişleri ekle (id + name + nameEN + categories).
-3. `ex-descriptions.js`'e aynı slug'larla açıklamaları ekle.
-4. `ex-preview.js`'e aynı slug'larla preview'ları ekle.
-5. Tüm `node --check`'leri geç.
-6. Çapraz referans testi: programlardan veya bu yeni hareketleri gerektiren bir yerden lookup başarısız oluyor mu?
-7. Tek commit: `"data: N yeni preset hareket ekle (kategori/grup)"`.
+3. `ex-guides.json` içine aynı slug'larla en az draft guide kayıtlarını ekle.
+4. Migration gerekiyorsa `ex-descriptions.js` ve `ex-preview.js` içine aynı slug'larla legacy fallback içeriğini ekle.
+5. `node scripts/build-ex-guides.js --check` ve tüm `node --check` kontrollerini geç.
+6. `node scripts/build-ex-guides.js` ile web wrapper'ını yeniden üret.
+7. Çapraz referans testi: programlardan veya bu yeni hareketleri gerektiren bir yerden lookup başarısız oluyor mu?
+8. Tek commit: `"data: N yeni preset hareket ekle (kategori/grup)"`.
 
 Slug listesini önce hazırlamak, Türkçe karakter tutarsızlıklarını ve tekrar slug'larını yakalamak için kritik.
 

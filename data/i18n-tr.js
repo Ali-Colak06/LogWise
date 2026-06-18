@@ -276,6 +276,8 @@ window.LOGWISE_TR = {
   exPreviewBtn: "Hareketi Görüntüle",
   exPreviewDesc: "Açıklama",
   exPreviewTips: "Teknik İpuçları",
+  exPreviewMuscles: "Çalışan Kaslar",
+  exPreviewFullGuide: "Tam Rehbere Git",
   exPreviewNoContent: "Bu hareket için içerik henüz eklenmemiş.",
   exPreviewImgSoon: "Görsel yakında eklenecek",
   // --- Yorumlar (Bölüm 44) ---

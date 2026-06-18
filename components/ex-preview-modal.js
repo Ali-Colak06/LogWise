@@ -6,7 +6,8 @@
 //   - React (CDN, global)            — React.useState, React.createElement
 //   - window.LOGWISE_TR              — TR i18n sözlüğü
 //   - window.LOGWISE_EN              — EN i18n sözlüğü
-//   - window.LOGWISE_EX_PREVIEW      — {slug: {desc:[tr,en], tips:[[tr,en],...], gif}}
+//   - window.LOGWISE_EX_GUIDES       — canonical shared guide source
+//   - window.LOGWISE_EX_PREVIEW      — legacy preview fallback during migration
 //   - window.LOGWISE_EX_UTILS        — resolveKey(nameOrId) helper'ı
 // Kullanım: window.LOGWISE_COMPONENTS.ExPreviewModal
 // Props:
@@ -54,6 +55,7 @@
     const TR = window.LOGWISE_TR;
     const EN = window.LOGWISE_EN;
     const L = lang === "tr" ? TR : EN;
+    const EX_GUIDES = window.LOGWISE_EX_GUIDES || {};
     const EX_PREVIEW = window.LOGWISE_EX_PREVIEW || {};
     // Faz EX-ID: ex.id kullanıcı verisinde Date.now() (numerik) olabilir — slug değil.
     // O yüzden id + name iki adayı sırayla deneriz; biri preview/desc Map'inde varsa onu seçeriz.
@@ -62,15 +64,26 @@
     let lookupKey = null;
     for (const c of candidates) {
       const k = utils ? utils.resolveKey(c) : c;
-      if (EX_PREVIEW[k]) { lookupKey = k; break; }
+      const canonicalReady = EX_GUIDES[k] && EX_GUIDES[k].previewReady;
+      if (canonicalReady || EX_PREVIEW[k]) { lookupKey = k; break; }
     }
     // Hiç eşleşme yoksa name (varsa) ile son bir deneme — desc varsa modal yine de açıklama gösterir
     if (!lookupKey) lookupKey = utils ? utils.resolveKey(ex.name || ex.id) : (ex.name || ex.id);
-    const preview = EX_PREVIEW[lookupKey] || null;
+    const guide = EX_GUIDES[lookupKey] || null;
+    const legacyPreview = EX_PREVIEW[lookupKey] || null;
+    const preview = guide && guide.previewReady
+      ? { desc: guide.description, tips: guide.tips }
+      : legacyPreview;
     const desc = preview ? lang === "tr" ? preview.desc[0] : preview.desc[1] : null;
     const tips = preview ? preview.tips : null;
+    const media = guide && guide.mediaReady ? guide.media : null;
+    const demoMedia = media && media.demoMp4 ? media : null;
+    const demoLabel = demoMedia
+      ? (lang === "tr" ? demoMedia.demoLabel[0] : demoMedia.demoLabel[1])
+      : ex.name;
     const EX_IMAGES = window.LOGWISE_EX_IMAGES || {};
-    const gif = EX_IMAGES[lookupKey] || (preview ? preview.gif : null);
+    const gif = EX_IMAGES[lookupKey] || (legacyPreview ? legacyPreview.gif : null);
+    const [mediaErr, setMediaErr] = React.useState(false);
     const [imgErr, setImgErr] = React.useState(false);
     const isAnimated = Array.isArray(gif) && gif.length >= 2;
     const [frame, setFrame] = React.useState(0);
@@ -96,6 +109,9 @@
       },
       onClick: onClose
     }, React.createElement("div", {
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-labelledby": "ex-preview-title",
       style: {
         background: "var(--bg2)",
         borderRadius: 20,
@@ -122,6 +138,7 @@
         minWidth: 0
       }
     }, React.createElement("div", {
+      id: "ex-preview-title",
       style: {
         fontFamily: "var(--font-display)",
         fontWeight: 700,
@@ -151,6 +168,8 @@
       }
     }, c)))), React.createElement("button", {
       onClick: onClose,
+      title: L.close,
+      "aria-label": L.ariaCloseModal,
       style: {
         background: "var(--bg3)",
         border: "none",
@@ -189,7 +208,32 @@
         justifyContent: "center",
         position: "relative"
       }
-    }, gif && !imgErr
+    }, demoMedia && !mediaErr
+      ? React.createElement("video", {
+          controls: true,
+          muted: true,
+          loop: true,
+          playsInline: true,
+          preload: "metadata",
+          poster: demoMedia.poster,
+          "aria-label": demoLabel,
+          onError: () => setMediaErr(true),
+          style: {
+            display: "block",
+            width: "100%",
+            aspectRatio: "16 / 9",
+            maxHeight: 300,
+            objectFit: "cover",
+            background: "#050505"
+          }
+        }, demoMedia.demoWebm && React.createElement("source", {
+          src: demoMedia.demoWebm,
+          type: "video/webm"
+        }), React.createElement("source", {
+          src: demoMedia.demoMp4,
+          type: "video/mp4"
+        }))
+      : gif && !imgErr
       ? (isAnimated
           ? React.createElement("div", {
               style: { position: "relative", width: "100%", height: 220 }
@@ -319,7 +363,52 @@
           lineHeight: 1.5
         }
       }, tipText));
-    }))))));
+    }))), media && media.muscleMap && React.createElement("div", {
+      style: {
+        marginTop: 20
+      }
+    }, React.createElement("div", {
+      style: {
+        fontSize: 11,
+        fontWeight: 700,
+        letterSpacing: "1px",
+        textTransform: "uppercase",
+        color: "var(--t3)",
+        marginBottom: 8,
+        fontFamily: "var(--font-mono)"
+      }
+    }, L.exPreviewMuscles), React.createElement("img", {
+      src: media.muscleMap,
+      alt: lang === "tr" ? media.muscleMapAlt[0] : media.muscleMapAlt[1],
+      loading: "lazy",
+      decoding: "async",
+      style: {
+        display: "block",
+        width: "100%",
+        height: "auto",
+        aspectRatio: "4 / 5",
+        objectFit: "contain",
+        borderRadius: 10,
+        border: "1px solid var(--brd)",
+        background: "var(--bg3)"
+      }
+    })), guide && guide.publish && React.createElement("a", {
+      href: guide.webGuideUrl,
+      style: {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        minHeight: 42,
+        marginTop: 20,
+        padding: "10px 16px",
+        borderRadius: 8,
+        background: "var(--accent)",
+        color: "var(--accentT)",
+        fontSize: 13,
+        fontWeight: 700,
+        textDecoration: "none"
+      }
+    }, L.exPreviewFullGuide))));
   }
 
   // Defensive init — C1 ailesinin ortak pattern'i.

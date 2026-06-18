@@ -1,6 +1,6 @@
 # Exercise Guide Ortak Veri ve Medya Sözleşmesi
 
-<!-- SON GÜNCELLEME: 2026-06-18 — JSON kanonik kaynak ve R2 medya sözleşmesi. -->
+<!-- SON GÜNCELLEME: 2026-06-18 — Tam preset kapsamı ve draft migration kuralları. -->
 
 Bu belge, statik Library sayfaları ile React Native / Expo istemcisinin paylaşacağı exercise-guide verisinin sözleşmesidir. Mobil kod bu repoda değiştirilmez; iki platform aynı `data/ex-guides.json` dosyasını kaynak kabul eder.
 
@@ -31,6 +31,8 @@ Web generator, guide kaydını yalnız `publish: true` olduğunda kanonik kaynak
 Yerelleştirilmiş her değer iki elemanlı `[TR, EN]` dizisidir. Otomatik karakter kesme yapılmaz; `summary` uygulama preview'ı için özel ve kısa yazılır. Liste maddeleri önem sırasına konur.
 
 Slug ve hareket adı kaynağı `data/presets-exercises.js` dosyasıdır. Guide anahtarları yeni isim üretmez ve mevcut slug'ları değiştirmez.
+
+Her preset slug için `data/ex-guides.json` içinde bir kayıt bulunmalıdır. Henüz tam guide içeriği veya medya hazırlanmamış kayıtlar `publish: false` ve `mediaReady: false` kalabilir; preview metni de eksikse `previewReady: false` kullanılır. Draft migration kayıtlarındaki `muscles` alanı `chest`, `back`, `legs` gibi geniş grup slug'ları taşıyabilir. Bir guide yayınlanmadan önce bu alanlar hareketin gerçek primary/secondary anatomik kas slug'larıyla rafine edilmelidir.
 
 ## URL Sözleşmesi
 

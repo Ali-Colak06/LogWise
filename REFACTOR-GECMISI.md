@@ -4006,3 +4006,45 @@ Bench Press, Squat ve Deadlift için web ile mobilin paylaşacağı tam iki dill
 - `node scripts/build-blog.js` sonrasında mevcut üç canlı guide dosyasının hash'leri değişmemeli.
 - Geçici publish-ready fixture ile kanonik metin, demo video, kas haritası ve sosyal poster markup'ı üretilmeli; publish olmayan diğer sayfalar legacy kalmalı.
 - Masaüstü ve 390 px mobil viewport'ta demo/kas haritası boyutları, içerik sırası ve yatay taşma kontrol edilmeli.
+
+---
+
+## Bölüm 64 — Tüm Preset Guide Kapsamı ve Web Preview Tüketimi (2026-06-18)
+
+### Amaç
+
+Kanonik exercise-guide kaynağını üç pilottan tüm preset kataloğuna genişletmek ve web PWA exercise preview modalını ortak veriyi doğrudan kullanan, migration boyunca legacy fallback'i koruyan yapıya geçirmek.
+
+### Mimari Kararlar
+
+- **Tam katalog kapsamı:** `data/ex-guides.json`, 145 preset slug'ın tamamı için kayıt taşır. Mevcut 143 legacy preview kaydı summary/description/tips alanlarına kayıpsız aktarıldı.
+- **Bilinçli readiness:** Legacy preview içeriği bulunmayan `chest-fly` ve `moonwalk`, uydurma içerik üretilmeden `previewReady: false` bırakıldı. Diğer 143 kayıt preview-ready'dir.
+- **Pilot koruması:** Bench Press, Squat ve Deadlift için Bölüm 63'te hazırlanan ayrıntılı form/mistake/progression/web içeriği aynen korundu.
+- **Draft kas grupları:** Henüz yayınlanmamış migration kayıtları preset kategori sırasından türetilen geniş kas grubu slug'ları taşır. Publish öncesinde anatomik primary/secondary slug'larla rafine edilir.
+- **Coverage validator:** Yeni bir preset eklenip kanonik guide kaydı unutulursa `scripts/build-ex-guides.js` artık build'i durdurur.
+- **Web runtime önceliği:** `ExPreviewModal`, `previewReady` kanonik guide'ı önce kullanır; hazır kayıt yoksa `LOGWISE_EX_PREVIEW` fallback'ine döner.
+- **Hazır medya davranışı:** `mediaReady` kayıtta MP4/WebM video ve muscle map gösterilir; `publish` kayıtta tam web rehberi bağlantısı eklenir.
+- **Erişilebilir modal:** Dialog semantiği, başlık ilişkisi ve iki dilli kapatma düğmesi adı eklendi.
+- **Service worker:** Kritik component lookup mantığının mevcut kullanıcılara kesin ulaşması için `logwise-v46` → `logwise-v47` bump edildi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | 145/145 kanonik guide kaydı; 143 preview-ready |
+| `data/ex-guides.js` | Tam katalogdan yeniden üretilen web wrapper |
+| `scripts/build-ex-guides.js` | Her preset için guide kaydı zorunluluğu |
+| `components/ex-preview-modal.js` | Kanonik öncelik, legacy fallback, video/kas haritası/link ve dialog semantiği |
+| `data/i18n-tr.js`, `data/i18n-en.js` | Kas haritası ve tam rehber etiketleri |
+| `docs/EXERCISE-GUIDE-SCHEMA.md` | Tam kapsam ve draft kas grubu kuralı |
+| `docs/PRESET-EXERCISE-EKLEME.md` | Yeni preset için kanonik guide kaydı zorunluluğu |
+| `sw.js` | `logwise-v47` cache bump |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+
+### Doğrulama Notları
+
+- Guide validator sonucu `145 total, 143 preview-ready, 0 media-ready, 0 published` olmalı.
+- JSON ile üretilmiş web wrapper byte-equivalent olmalı; legacy migration audit'i açıklama ve ipuçlarında kayıp bulmamalı.
+- Component runtime testinde kanonik öncelik, legacy fallback, media-ready video/kas haritası ve publish linki ayrı ayrı doğrulanmalı.
+- Gerçek `/app` akışında Bench Press kanonik metni, `Chest Fly` no-content durumu ve 390 × 844 mobil modal taşmasız görünüm doğrulanmalı.
+- Üç canlı Library guide HTML dosyası `publish: false` sırasında `HEAD` ile byte-for-byte aynı kalmalı.

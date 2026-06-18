@@ -151,6 +151,12 @@ function validateExerciseGuides(guides, presetIds) {
     fail(['Root value must be an object keyed by exercise slug.']);
   }
 
+  for (const presetId of presetIds) {
+    if (!Object.prototype.hasOwnProperty.call(guides, presetId)) {
+      errors.push(`guides.${presetId} is required for full preset coverage.`);
+    }
+  }
+
   for (const [slug, guide] of Object.entries(guides)) {
     const label = `guides.${slug}`;
     if (!SLUG_RE.test(slug)) errors.push(`${label} has an invalid slug key.`);

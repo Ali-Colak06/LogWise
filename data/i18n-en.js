@@ -277,6 +277,8 @@ window.LOGWISE_EN = {
   exPreviewBtn: "View Exercise",
   exPreviewDesc: "Description",
   exPreviewTips: "Technique Tips",
+  exPreviewMuscles: "Muscles Worked",
+  exPreviewFullGuide: "Open Full Guide",
   exPreviewNoContent: "No content available for this exercise yet.",
   exPreviewImgSoon: "Visual coming soon",
   // --- Comments (Bölüm 44) ---
