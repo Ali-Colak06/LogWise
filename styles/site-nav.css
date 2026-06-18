@@ -1,0 +1,47 @@
+/* Shared mobile navigation for public landing, tools, Library and Learn pages. */
+.site-menu-toggle,
+.site-menu-root{display:none}
+
+@media (max-width:760px){
+  body.site-menu-open{overflow:hidden}
+  .nav-links{display:none}
+  .nav-row{gap:8px}
+  .nav-row>.brand{min-width:0;margin-right:auto}
+  .site-menu-toggle{appearance:none;display:grid;place-items:center;width:40px;height:40px;flex:0 0 40px;padding:0;border:1px solid var(--brd2);border-radius:10px;background:#0b0b0b;color:var(--t1);cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+  .site-menu-toggle:hover,.site-menu-toggle:focus-visible{border-color:var(--gold);color:var(--gold);outline:none}
+  .site-menu-toggle svg,.site-menu-close svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+  .site-menu-root{display:block}
+  .site-menu-scrim{appearance:none;position:fixed;inset:0;z-index:90;width:100%;height:100%;padding:0;border:0;background:rgba(0,0,0,.68);backdrop-filter:blur(3px);opacity:0;visibility:hidden;pointer-events:none;cursor:pointer;transition:opacity .22s,visibility .22s}
+  .site-menu-drawer{position:fixed;inset:0 auto 0 0;z-index:91;display:flex;flex-direction:column;width:min(86vw,340px);height:100dvh;padding:20px;background:linear-gradient(160deg,#151515 0%,#0b0b0b 60%);border-right:1px solid var(--brd2);box-shadow:24px 0 60px rgba(0,0,0,.42);transform:translateX(-104%);visibility:hidden;transition:transform .24s cubic-bezier(.22,.8,.32,1),visibility .24s}
+  .site-menu-root.is-open .site-menu-scrim{opacity:1;visibility:visible;pointer-events:auto}
+  .site-menu-root.is-open .site-menu-drawer{transform:translateX(0);visibility:visible}
+  .site-menu-head{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-bottom:22px;border-bottom:1px solid var(--brd)}
+  .site-menu-brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:16px;font-weight:700;letter-spacing:-.01em}
+  .site-menu-brand b{color:var(--gold)}
+  .site-menu-brand-mark{width:34px;height:34px;overflow:hidden;border:1px solid var(--brd2);border-radius:9px;background:#0a0a0a}
+  .site-menu-brand-mark img{width:100%;height:100%;object-fit:contain}
+  .site-menu-close{appearance:none;display:grid;place-items:center;width:40px;height:40px;flex:0 0 40px;padding:0;border:1px solid var(--brd2);border-radius:10px;background:#111;color:var(--t2);cursor:pointer;transition:border-color .15s,color .15s}
+  .site-menu-close:hover,.site-menu-close:focus-visible{border-color:var(--gold);color:var(--gold);outline:none}
+  .site-menu-eyebrow{margin:34px 12px 10px;color:var(--t3);font-family:var(--font-mono);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+  .site-menu-links{display:flex;flex-direction:column;gap:5px}
+  .site-menu-link{position:relative;display:flex;align-items:center;gap:16px;min-height:54px;padding:0 14px;border:1px solid transparent;border-radius:11px;color:var(--t2);font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:-.015em;transition:color .15s,background .15s,border-color .15s}
+  .site-menu-link:hover,.site-menu-link:focus-visible{color:var(--t1);background:var(--bg3);border-color:var(--brd2);outline:none}
+  .site-menu-link.is-active{color:var(--gold);background:var(--goldL);border-color:var(--goldL2)}
+  .site-menu-link.is-active::before{content:"";position:absolute;left:-1px;top:14px;bottom:14px;width:2px;border-radius:2px;background:var(--gold)}
+  .site-menu-index{color:var(--t3);font-family:var(--font-mono);font-size:10px;letter-spacing:.08em}
+  .site-menu-link.is-active .site-menu-index{color:var(--gold-d)}
+  .site-menu-app{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding:15px 16px;border-radius:11px;background:var(--gold);color:#000;font-family:var(--font-display);font-size:14px;font-weight:700;letter-spacing:.01em;transition:background .15s}
+  .site-menu-app:hover,.site-menu-app:focus-visible{background:var(--gold2);outline:none}
+}
+
+@media (max-width:360px){
+  .nav-row>.brand .brand-name{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .site-menu-scrim,.site-menu-drawer{transition:none!important}
+}
+
+@media print{
+  .site-menu-toggle,.site-menu-root{display:none!important}
+}

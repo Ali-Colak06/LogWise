@@ -356,6 +356,8 @@ function headBlock({ title, description, url, site, jsonLd }) {
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="/styles/landing.css"/>
+<link rel="stylesheet" href="/styles/site-nav.css"/>
+<script src="/site-nav.js" defer></script>
 <script type="application/ld+json">${jsonForScript(jsonLd)}</script>`;
 }
 

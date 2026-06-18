@@ -3860,3 +3860,38 @@ TR kullanici akisini sadece ceviri metniyle degil, URL yapisiyla da yerellestirm
 - `node --check scripts/build-blog.js` ve `node --check sw.js` calistirilmali.
 - `node scripts/build-blog.js` sonrasinda `/learn` EN, `/ogren` TR, post hreflang'leri ve landing kartlari dogrulanmali.
 - Lokal smoke testte `/learn/<en-slug>` <-> `/ogren/<tr-slug>` switch hedefleri, eski `/learn/<tr-slug>` 301'leri ve `/kutuphane` 200 alias'i dogrulanmali.
+
+---
+
+## Bolum 60 - Mobil Public Side Panel Navigasyonu (2026-06-18)
+
+### Amac
+
+Mobil header alanini kalabaliklastirmadan Home, Tools, Library ve Learn sayfalari arasinda tutarli bir yonlendirme sunmak.
+
+### Mimari Kararlar
+
+- **Ortak public modul:** `/site-nav.js`, landing, tool, Library ve Learn sayfalarindaki mevcut header'a mobil menu butonu ve soldan acilan drawer ekler.
+- **Tek stil kaynagi:** `/styles/site-nav.css`, hem `landing.css` hem de `learn.css` kullanan sayfalarda ayni mobil panel gorunumunu saglar.
+- **Iki dilli rota seti:** EN menu `/`, `/tools`, `/library`, `/learn`; TR menu `/tr`, `/tools`, `/kutuphane`, `/ogren` hedeflerini kullanir.
+- **Aktif rota:** Tool alt sayfalari Tools, Library alt sayfalari Library, Learn/Ogren yazilari ilgili bilgi merkezi altinda vurgulanir.
+- **Erisilebilirlik:** Drawer `aria-expanded`, `aria-hidden`, focus trap, `Escape` ile kapatma, odak geri yukleme ve acikken arka icerigi `inert` yapma davranislarini uygular.
+- **Generator kaliciligi:** Learn ve Library generator head bloklari ortak CSS/JS dosyalarini yukler; yeniden uretim side panel entegrasyonunu korur.
+- **Service worker:** `sw.js` `logwise-v44` -> `logwise-v45` bump edildi; yeni CSS ve JS precache listesine eklendi.
+
+### Dosya / Config Degisiklikleri
+
+| Dosya | Degisiklik |
+|---|---|
+| `site-nav.js` | Iki dilli drawer, aktif rota ve erisilebilir klavye/focus davranisi |
+| `styles/site-nav.css` | Mobil toggle, scrim, soldan acilan panel ve aktif link stilleri |
+| `scripts/build-blog.js`, `scripts/build-programmatic-seo.js` | Generated sayfalara ortak nav asset yuklemesi |
+| Public/generated `*.html` sayfalari | Ortak nav CSS/JS referanslari |
+| `sw.js` | `logwise-v45` bump + yeni asset precache |
+| `AGENTS.md` | Dosya haritasi ve refactor ozeti |
+
+### Dogrulama Notlari
+
+- `node --check site-nav.js`, iki generator ve `sw.js` basariyla gecmeli.
+- `node scripts/build-blog.js` sonrasinda header kullanan tum public sayfalar `/site-nav.js` yuklemeli.
+- Mobil smoke testte EN/TR etiketleri, aktif rota, scrim/close/`Escape` kapanisi ve scroll kilidi dogrulanmali.

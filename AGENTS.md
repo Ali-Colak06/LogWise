@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-16 — TR Learn URL'leri /ogren altına taşındı; sitemap fallback'leri eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-18 — Statik public sayfalara ortak mobil side panel navigasyonu eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-59)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-60)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -93,7 +93,8 @@ LogWise/
 │   └── exercise-utils.js      ← window.LOGWISE_EX_UTILS (id/name lookup, resolveKey)
 ├── styles/
 │   ├── base.css               ← App paylaşılan CSS (reset, :root, @keyframes)
-│   └── landing.css            ← Statik landing CSS (index.html + tr.html)
+│   ├── landing.css            ← Statik landing CSS (index.html + tr.html)
+│   └── site-nav.css           ← Public statik sayfaların ortak mobil side panel stili
 ├── components/                ← React bileşenleri (Aşama 2C)
 │   ├── error-boundary.js      ← ErrorBoundary
 │   ├── brand-mark.js          ← BrandMark
@@ -111,6 +112,7 @@ LogWise/
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← EN statik SEO landing
 ├── tr.html                    ← TR statik SEO landing
+├── site-nav.js                ← Public statik sayfaların ortak mobil navigasyon davranışı
 ├── tools.html                 ← EN statik SEO tools hub sayfası
 ├── library.html               ← EN statik SEO Library hub sayfası
 ├── library/exercises.html     ← EN statik SEO exercise library dizin sayfası
@@ -204,6 +206,7 @@ LogWise/
 - **SEO statik landing** (Bölüm 46): EN `/` + TR `/tr` statik landing, canonical apex domain, statik Learn kart enjeksiyonu ✅
 - **SEO evergreen araç sayfaları** (Bölüm 48-49, 53-54): `/tools` hub + `/one-rep-max-calculator` + `/workout-log-template` + `/workout-volume-calculator` statik tool/template sayfaları + sitemap statik sayfa kaydı ✅
 - **Programmatic SEO MVP** (Bölüm 55-58): `/library` hub + `/library/exercises` dizini + `/library/programs` dizini + `/library/exercises/bench-press`, `/library/exercises/squat`, `/library/exercises/deadlift`, `/library/programs/push-pull-legs` statik generator çıktıları + sitemap/SW entegrasyonu ✅
+- **Mobil public navigasyon** (Bölüm 60): Home/Tools/Library/Learn için iki dilli, erişilebilir ve aktif rota vurgulu ortak side panel ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

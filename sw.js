@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v44';
+const CACHE_NAME = 'logwise-v45';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -60,6 +60,8 @@ const PRECACHE_URLS = [
   '/apple-touch-icon.png',
   '/styles/base.css',
   '/styles/landing.css',
+  '/styles/site-nav.css',
+  '/site-nav.js',
   '/assets/landing/calendar-mockup.png',
   '/assets/landing/program-mockup.png',
   '/assets/landing/workout-logging-phone.jpg',
