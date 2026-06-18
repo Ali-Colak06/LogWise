@@ -1,0 +1,302 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://logwise.fit/schemas/ex-guides.schema.json",
+  "title": "LogWise exercise guides",
+  "type": "object",
+  "patternProperties": {
+    "^[a-z0-9]+(?:-[a-z0-9]+)*$": {
+      "$ref": "#/$defs/guide"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "localizedText": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "localizedList": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/localizedText"
+      }
+    },
+    "nullableUrl": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "media": {
+      "type": "object",
+      "required": [
+        "demoMp4",
+        "demoWebm",
+        "poster",
+        "muscleMap",
+        "demoLabel",
+        "muscleMapAlt"
+      ],
+      "properties": {
+        "demoMp4": {
+          "$ref": "#/$defs/nullableUrl"
+        },
+        "demoWebm": {
+          "$ref": "#/$defs/nullableUrl"
+        },
+        "poster": {
+          "$ref": "#/$defs/nullableUrl"
+        },
+        "muscleMap": {
+          "$ref": "#/$defs/nullableUrl"
+        },
+        "demoLabel": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "muscleMapAlt": {
+          "$ref": "#/$defs/localizedText"
+        }
+      },
+      "additionalProperties": false
+    },
+    "quickFacts": {
+      "type": "object",
+      "required": [
+        "primaryMuscles",
+        "equipment",
+        "movementPattern",
+        "bestFor"
+      ],
+      "properties": {
+        "primaryMuscles": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "equipment": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "movementPattern": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "bestFor": {
+          "$ref": "#/$defs/localizedText"
+        }
+      },
+      "additionalProperties": false
+    },
+    "web": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "required": [
+        "metaTitle",
+        "metaDescription",
+        "quickFacts",
+        "tracking",
+        "related"
+      ],
+      "properties": {
+        "metaTitle": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "metaDescription": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "quickFacts": {
+          "$ref": "#/$defs/quickFacts"
+        },
+        "tracking": {
+          "$ref": "#/$defs/localizedList"
+        },
+        "related": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          },
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "guide": {
+      "type": "object",
+      "required": [
+        "publish",
+        "previewReady",
+        "mediaReady",
+        "webGuideUrl",
+        "summary",
+        "description",
+        "formSteps",
+        "mistakes",
+        "tips",
+        "progression",
+        "muscles",
+        "media",
+        "web"
+      ],
+      "properties": {
+        "publish": {
+          "type": "boolean"
+        },
+        "previewReady": {
+          "type": "boolean"
+        },
+        "mediaReady": {
+          "type": "boolean"
+        },
+        "webGuideUrl": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://logwise\\.fit/library/exercises/"
+        },
+        "summary": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "description": {
+          "$ref": "#/$defs/localizedText"
+        },
+        "formSteps": {
+          "$ref": "#/$defs/localizedList"
+        },
+        "mistakes": {
+          "$ref": "#/$defs/localizedList"
+        },
+        "tips": {
+          "$ref": "#/$defs/localizedList"
+        },
+        "progression": {
+          "$ref": "#/$defs/localizedList"
+        },
+        "muscles": {
+          "type": "object",
+          "required": [
+            "primary",
+            "secondary"
+          ],
+          "properties": {
+            "primary": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "minItems": 1,
+              "uniqueItems": true
+            },
+            "secondary": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+              },
+              "uniqueItems": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "media": {
+          "$ref": "#/$defs/media"
+        },
+        "web": {
+          "$ref": "#/$defs/web"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "previewReady": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "tips": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mediaReady": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "media": {
+                "properties": {
+                  "demoMp4": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "poster": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "publish": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "previewReady": {
+                "const": true
+              },
+              "mediaReady": {
+                "const": true
+              },
+              "formSteps": {
+                "minItems": 1
+              },
+              "mistakes": {
+                "minItems": 1
+              },
+              "progression": {
+                "minItems": 1
+              },
+              "web": {
+                "type": "object"
+              },
+              "media": {
+                "properties": {
+                  "muscleMap": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      ],
+      "additionalProperties": false
+    }
+  }
+}

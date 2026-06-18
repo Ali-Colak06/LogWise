@@ -3895,3 +3895,43 @@ Mobil header alanini kalabaliklastirmadan Home, Tools, Library ve Learn sayfalar
 - `node --check site-nav.js`, iki generator ve `sw.js` basariyla gecmeli.
 - `node scripts/build-blog.js` sonrasinda header kullanan tum public sayfalar `/site-nav.js` yuklemeli.
 - Mobil smoke testte EN/TR etiketleri, aktif rota, scrim/close/`Escape` kapanisi ve scroll kilidi dogrulanmali.
+
+---
+
+## Bölüm 61 — Ortak Exercise Guide Veri ve Medya Altyapısı (2026-06-18)
+
+### Amaç
+
+Library exercise guide sayfaları ile React Native / Expo istemcisinin aynı içerik ve medya sözleşmesini kullanabilmesi için platform-nötr, doğrulanabilir bir kanonik veri kaynağı oluşturmak. Bu bölüm yalnız ortak veri temelini kurar; mobil koda ve mevcut canlı Library exercise sayfalarının generator davranışına dokunmaz.
+
+### Mimari Kararlar
+
+- **Kanonik JSON:** `data/ex-guides.json` elle düzenlenen tek ortak kaynaktır. İlk pilot kayıtlar Bench Press, Squat ve Deadlift için preview metni ile kas kimliklerini taşır.
+- **Üretilmiş web wrapper:** `data/ex-guides.js`, `scripts/build-ex-guides.js` tarafından JSON'dan üretilir ve `window.LOGWISE_EX_GUIDES` globalini sağlar. Wrapper elle düzenlenmez.
+- **Readiness ayrımı:** `previewReady`, `mediaReady` ve `publish` birbirinden ayrıdır. `publish`, preview ve R2 medya hazır olmadan etkinleştirilemez.
+- **Atomik cutover:** Mevcut üç canlı Library guide sayfası medya yüklenene kadar legacy `EXERCISE_GUIDES` generator verisinden üretilmeye devam eder. JSON'a geçiş içerik + medya + generator birlikte hazır olduğunda yapılır.
+- **Legacy fallback:** `data/ex-preview.js` ve `data/ex-images.js` migration boyunca korunur. Yeni medya yalnız `mediaReady: true` olduğunda öncelik kazanacaktır.
+- **R2 sözleşmesi:** Production medya alanı `https://media.logwise.fit/exercises/{slug}/` olarak kilitlendi. MP4 H.264/Main/yuv420p/faststart/sessiz; URL'ler versiyonlu ve immutable cache uyumludur.
+- **Tek build akışı:** `scripts/build-blog.js`, programmatic sayfalardan önce guide doğrulamasını ve wrapper üretimini çalıştırır.
+- **Service worker:** `sw.js` `logwise-v45` → `logwise-v46` bump edildi. `ex-guides.json`, üretilmiş wrapper ve mevcut legacy `ex-images.js` precache listesine eklendi; remote R2 medyası precache edilmedi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Kanonik ortak guide verisi + üç preview-ready pilot hareket |
+| `data/ex-guides.js` | Üretilmiş `window.LOGWISE_EX_GUIDES` wrapper'ı |
+| `scripts/build-ex-guides.js` | Preset slug, i18n, readiness, URL ve medya dosya adı doğrulaması |
+| `docs/ex-guides.schema.json` | Makine-okunur JSON Schema |
+| `docs/EXERCISE-GUIDE-SCHEMA.md` | İçerik, MP4 encode, R2 ve migration sözleşmesi |
+| `scripts/build-blog.js` | Guide wrapper üretimini mevcut tek build akışına bağlama |
+| `app.html` | Üretilmiş `LOGWISE_EX_GUIDES` wrapper'ını web runtime'a yükleme |
+| `sw.js` | `logwise-v46` bump + yeni ortak data dosyaları precache |
+| `AGENTS.md` | Dosya haritası, görev yönlendirmesi ve refactor özeti |
+
+### Doğrulama Notları
+
+- `node --check scripts/build-ex-guides.js`, `node --check scripts/build-blog.js` ve `node --check sw.js` çalıştırılmalı.
+- `node scripts/build-ex-guides.js --check` readiness, i18n, slug ve URL sözleşmesini doğrulamalı.
+- `node scripts/build-blog.js` wrapper ile mevcut Learn/Library/sitemap çıktılarını birlikte üretmeli.
+- Build sonrasında mevcut `/library/exercises/bench-press`, `/squat` ve `/deadlift` HTML çıktıları medya gelmeden değişmemelidir.

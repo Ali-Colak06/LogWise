@@ -1,0 +1,196 @@
+{
+  "bench-press": {
+    "publish": false,
+    "previewReady": true,
+    "mediaReady": false,
+    "webGuideUrl": "https://logwise.fit/library/exercises/bench-press",
+    "summary": [
+      "Düz bankta barbell press. Temel bileşik hareket.",
+      "Barbell bench press. Fundamental compound."
+    ],
+    "description": [
+      "Düz bankta barbell press. Göğüs kasları, ön deltoid ve triceps aynı anda çalışır. Üst vücut kuvvetinin temel bileşik hareketidir.",
+      "Barbell press on a flat bench. Works the pectorals, front deltoids, and triceps together. A foundational compound lift for upper-body strength."
+    ],
+    "formSteps": [],
+    "mistakes": [],
+    "tips": [
+      [
+        "Omuz bıçaklarını bankta birbirine sıkıştır ve kilitli tut.",
+        "Retract and lock your shoulder blades into the bench before unracking."
+      ],
+      [
+        "Barı göğsünün orta-alt kısmına kontrollü biçimde indir; sektirme.",
+        "Lower the bar to the mid-to-lower chest with control; do not bounce it."
+      ],
+      [
+        "Ayaklar yere tam bassın; kalça banktan kalkmamalı.",
+        "Keep your feet planted and your hips on the bench."
+      ],
+      [
+        "Barı yaklaşık iki saniyede indir, ardından güçlü biçimde it.",
+        "Lower the bar for about two seconds, then press with intent."
+      ],
+      [
+        "Her tekrarda aynı kurulum ve bar yolunu koru.",
+        "Keep the same setup and bar path on every rep."
+      ]
+    ],
+    "progression": [],
+    "muscles": {
+      "primary": [
+        "pectoralis-major"
+      ],
+      "secondary": [
+        "anterior-deltoid",
+        "triceps-brachii"
+      ]
+    },
+    "media": {
+      "demoMp4": null,
+      "demoWebm": null,
+      "poster": null,
+      "muscleMap": null,
+      "demoLabel": [
+        "Bench press hareket formu gösterimi.",
+        "Bench press form demonstration."
+      ],
+      "muscleMapAlt": [
+        "Bench press sırasında çalışan göğüs, ön omuz ve triceps kasları.",
+        "Chest, front shoulder, and triceps muscles used during the bench press."
+      ]
+    },
+    "web": null
+  },
+  "squat": {
+    "publish": false,
+    "previewReady": true,
+    "mediaReady": false,
+    "webGuideUrl": "https://logwise.fit/library/exercises/squat",
+    "summary": [
+      "Barbell squat. Bacak bileşik hareketi.",
+      "Barbell squat. Lower-body compound lift."
+    ],
+    "description": [
+      "Barbell arka squat. Quadriceps, kalça, hamstring ve core kaslarını birlikte çalıştıran temel alt vücut hareketidir.",
+      "Barbell back squat. A foundational lower-body movement that trains the quads, glutes, hamstrings, and core together."
+    ],
+    "formSteps": [],
+    "mistakes": [],
+    "tips": [
+      [
+        "Dizler ayak parmaklarıyla aynı yönde ilerlesin; içe çökmesine izin verme.",
+        "Keep your knees tracking in the same direction as your toes; do not let them cave inward."
+      ],
+      [
+        "Ayak tabanını yerde sabit tut ve ağırlığı orta ayakta dengele.",
+        "Keep the whole foot planted and balance the load over the midfoot."
+      ],
+      [
+        "Yalnız kontrol edebildiğin ve pozisyonunu koruyabildiğin derinliğe in.",
+        "Descend only as far as you can control while maintaining position."
+      ],
+      [
+        "Her tekrardan önce nefes al ve gövdeni sıkıca sabitle.",
+        "Take a breath and brace your torso before every rep."
+      ],
+      [
+        "Yukarı çıkarken zemini ayaklarınla itmeye odaklan.",
+        "Focus on driving the floor away as you stand up."
+      ]
+    ],
+    "progression": [],
+    "muscles": {
+      "primary": [
+        "quadriceps",
+        "gluteus-maximus"
+      ],
+      "secondary": [
+        "hamstrings",
+        "erector-spinae",
+        "abdominals"
+      ]
+    },
+    "media": {
+      "demoMp4": null,
+      "demoWebm": null,
+      "poster": null,
+      "muscleMap": null,
+      "demoLabel": [
+        "Barbell squat hareket formu gösterimi.",
+        "Barbell squat form demonstration."
+      ],
+      "muscleMapAlt": [
+        "Squat sırasında çalışan ön bacak, kalça, arka bacak ve core kasları.",
+        "Quads, glutes, hamstrings, and core muscles used during the squat."
+      ]
+    },
+    "web": null
+  },
+  "deadlift": {
+    "publish": false,
+    "previewReady": true,
+    "mediaReady": false,
+    "webGuideUrl": "https://logwise.fit/library/exercises/deadlift",
+    "summary": [
+      "Yerden kaldırma. Temel bileşik güç hareketi.",
+      "Deadlift. Foundational compound strength lift."
+    ],
+    "description": [
+      "Yerden barbell kaldırma hareketi. Sırt, bacak, kalça, core ve kavrama kaslarını birlikte çalıştıran temel güç egzersizlerinden biridir.",
+      "Barbell lift from the floor. A foundational strength exercise that trains the back, legs, glutes, core, and grip together."
+    ],
+    "formSteps": [],
+    "mistakes": [],
+    "tips": [
+      [
+        "Barı ayak ortasının üzerinde konumlandır ve çekiş boyunca vücuduna yakın tut.",
+        "Position the bar over the midfoot and keep it close to your body throughout the pull."
+      ],
+      [
+        "Çekişten önce nefes al, gövdeni sabitle ve bardaki boşluğu gider.",
+        "Breathe, brace, and pull the slack out of the bar before lifting."
+      ],
+      [
+        "Zemini ayaklarınla it; kalçaların ve omuzların birlikte yükselsin.",
+        "Push the floor away and let your hips and shoulders rise together."
+      ],
+      [
+        "Üst pozisyonda geriye aşırı yaslanmadan kalçayı tamamen uzat.",
+        "Finish with full hip extension without leaning back excessively."
+      ],
+      [
+        "Ağır setleri aceleye getirme; her tekrarda kurulumunu yeniden kontrol et.",
+        "Do not rush heavy sets; reset and check your setup before each rep."
+      ]
+    ],
+    "progression": [],
+    "muscles": {
+      "primary": [
+        "gluteus-maximus",
+        "hamstrings",
+        "erector-spinae"
+      ],
+      "secondary": [
+        "quadriceps",
+        "latissimus-dorsi",
+        "forearms"
+      ]
+    },
+    "media": {
+      "demoMp4": null,
+      "demoWebm": null,
+      "poster": null,
+      "muscleMap": null,
+      "demoLabel": [
+        "Barbell deadlift hareket formu gösterimi.",
+        "Barbell deadlift form demonstration."
+      ],
+      "muscleMapAlt": [
+        "Deadlift sırasında çalışan kalça, arka bacak, sırt, ön bacak ve kavrama kasları.",
+        "Glutes, hamstrings, back, quads, and grip muscles used during the deadlift."
+      ]
+    },
+    "web": null
+  }
+}

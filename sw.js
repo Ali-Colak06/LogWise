@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v45';
+const CACHE_NAME = 'logwise-v46';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -84,6 +84,9 @@ const PRECACHE_URLS = [
   '/data/presets-exercises.js',
   '/data/ex-descriptions.js',
   '/data/ex-preview.js',
+  '/data/ex-images.js',
+  '/data/ex-guides.json',
+  '/data/ex-guides.js',
   '/data/presets-programs.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js',

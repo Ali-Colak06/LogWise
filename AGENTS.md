@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-18 — Statik public sayfalara ortak mobil side panel navigasyonu eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-18 — Ortak exercise guide JSON/veri sözleşmesi eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,14 +64,16 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-60)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-61)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
 │   ├── YENI-COMPONENT.md
 │   ├── SW-VERSION-BUMP.md
 │   ├── BLOG-YAZISI-EKLEME.md  ← Yeni Learn yazısı ekleme reçetesi
-│   └── PROGRAMMATIC-SEO-PROMPT.md ← Programmatic SEO çalışma promptu
+│   ├── PROGRAMMATIC-SEO-PROMPT.md ← Programmatic SEO çalışma promptu
+│   ├── EXERCISE-GUIDE-SCHEMA.md ← Ortak web/mobile guide ve medya sözleşmesi
+│   └── ex-guides.schema.json  ← Exercise guide makine-okunur JSON Schema
 ├── assets/
 │   └── landing/                ← Statik landing mockup görselleri
 ├── data/                      ← Sabit veri + i18n (Aşama 1)
@@ -83,6 +85,9 @@ LogWise/
 │   ├── presets-exercises.js   ← window.LOGWISE_PRESET_EXERCISES (145 hareket, slug-id'li)
 │   ├── ex-descriptions.js     ← window.LOGWISE_EX_DESCS (slug-anahtarlı kısa açıklamalar)
 │   ├── ex-preview.js          ← window.LOGWISE_EX_PREVIEW (slug-anahtarlı gif + uzun desc + tips)
+│   ├── ex-images.js           ← window.LOGWISE_EX_IMAGES (legacy harici görsel fallback'leri)
+│   ├── ex-guides.json         ← Kanonik platform-nötr exercise guide kaynağı
+│   ├── ex-guides.js           ← Üretilmiş window.LOGWISE_EX_GUIDES web wrapper'ı
 │   └── presets-programs.js    ← window.LOGWISE_PRESET_PROGRAMS (4 program, slug referanslı)
 ├── lib/                       ← Saf fonksiyonlar + DB (Aşama 1-2)
 │   ├── calc.js                ← window.LOGWISE_CALC
@@ -108,6 +113,7 @@ LogWise/
 ├── library/                   ← Üretilmiş statik Library dizinleri ve alt sayfaları (`/library/exercises`, `/library/programs`, nested sayfalar)
 ├── scripts/
 │   ├── build-blog.js          ← blog-content/*.md → learn/*.html + ogren/*.html üretici + TR/EN hreflang + landing Learn/Öğren kart enjeksiyonu
+│   ├── build-ex-guides.js     ← ex-guides.json doğrulama + ex-guides.js wrapper üretimi
 │   ├── build-programmatic-seo.js ← data/*.js → library.html + library/exercises.html + library/programs.html + nested Library HTML üretici
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← EN statik SEO landing
@@ -160,6 +166,7 @@ LogWise/
 | Landing SEO/metin güncellemek | `index.html` + `tr.html` + `scripts/build-blog.js` marker enjeksiyonu |
 | Yeni SEO araç sayfası eklemek | `.html` dosyası + `styles/landing.css` + `scripts/build-blog.js` statik sitemap kaydı + sw.js değerlendirmesi |
 | Programmatic SEO sayfaları eklemek/genişletmek | `docs/PROGRAMMATIC-SEO-PROMPT.md` + `scripts/build-programmatic-seo.js` |
+| Exercise guide ortak veri/medya eklemek | `docs/EXERCISE-GUIDE-SCHEMA.md` + `data/ex-guides.json` |
 | Yeni sayfa eklemek | `.html` dosyası + gerekirse `_redirects` + sw.js PRECACHE |
 
 ---
@@ -207,6 +214,7 @@ LogWise/
 - **SEO evergreen araç sayfaları** (Bölüm 48-49, 53-54): `/tools` hub + `/one-rep-max-calculator` + `/workout-log-template` + `/workout-volume-calculator` statik tool/template sayfaları + sitemap statik sayfa kaydı ✅
 - **Programmatic SEO MVP** (Bölüm 55-58): `/library` hub + `/library/exercises` dizini + `/library/programs` dizini + `/library/exercises/bench-press`, `/library/exercises/squat`, `/library/exercises/deadlift`, `/library/programs/push-pull-legs` statik generator çıktıları + sitemap/SW entegrasyonu ✅
 - **Mobil public navigasyon** (Bölüm 60): Home/Tools/Library/Learn için iki dilli, erişilebilir ve aktif rota vurgulu ortak side panel ✅
+- **Ortak exercise guide altyapısı** (Bölüm 61): Platform-nötr JSON kaynak, web wrapper üretimi, readiness/medya doğrulaması ve legacy fallback geçiş sözleşmesi ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

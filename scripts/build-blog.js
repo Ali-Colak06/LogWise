@@ -3,7 +3,8 @@
  * LogWise Learn Generator
  * ----------------------
  * blog-content/*.md -> learn/<slug>.html + ogren/<slug>.html + index pages + posts.json
- * Also rebuilds sitemap.xml/sitemap_index.xml/sitemap-basic.xml/sitemap.txt, programmatic SEO pages, and featured learn cards on static landing pages.
+ * Also rebuilds exercise-guide browser data, sitemap files, programmatic SEO pages,
+ * and featured learn cards on static landing pages.
  *
  * Usage: node scripts/build-blog.js
  * Dependency: scripts/vendor/marked.min.js (vendored UMD, no npm install required)
@@ -29,6 +30,7 @@ const path = require('path');
 
 const markedMod = require('./vendor/marked.min.js');
 const marked = markedMod.marked || markedMod;
+const exerciseGuides = require('./build-ex-guides.js');
 const programmaticSeo = require('./build-programmatic-seo.js');
 
 const ROOT = path.join(__dirname, '..');
@@ -698,6 +700,7 @@ fs.writeFileSync(path.join(OUT_DIR, 'posts.json'), JSON.stringify(manifest, null
 
 // ---------------------------------------------------------------- programmatic SEO pages
 
+const exerciseGuideResult = exerciseGuides.buildExerciseGuides({ root: ROOT });
 const programmaticResult = programmaticSeo.buildProgrammaticSeo({ root: ROOT, site: SITE });
 
 // ---------------------------------------------------------------- sitemap.xml
@@ -813,4 +816,5 @@ console.log(
   'Updated: learn/index.html, ogren/index.html, learn/posts.json, sitemap.xml, sitemap_index.xml, sitemap-basic.xml, sitemap.txt' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
+console.log(`Exercise guides: ${exerciseGuideResult.total} total, ${exerciseGuideResult.previewReady} preview-ready, ${exerciseGuideResult.mediaReady} media-ready, ${exerciseGuideResult.published} published.`);
 console.log(`Programmatic SEO: ${programmaticResult.library} library hub, ${programmaticResult.directories} library directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);
