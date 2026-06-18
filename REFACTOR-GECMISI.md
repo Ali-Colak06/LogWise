@@ -4048,3 +4048,51 @@ Kanonik exercise-guide kaynağını üç pilottan tüm preset kataloğuna geniş
 - Component runtime testinde kanonik öncelik, legacy fallback, media-ready video/kas haritası ve publish linki ayrı ayrı doğrulanmalı.
 - Gerçek `/app` akışında Bench Press kanonik metni, `Chest Fly` no-content durumu ve 390 × 844 mobil modal taşmasız görünüm doğrulanmalı.
 - Üç canlı Library guide HTML dosyası `publish: false` sırasında `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
+## Bölüm 65 — Exercise Guide Enrichment Batch 1 (2026-06-18)
+
+### Amaç
+
+Kanonik guide kataloğunda preview metninden tam rehber içeriğine geçişi başlatmak; yüksek değerli temel hareketleri medya tesliminden bağımsız olarak publish-ready metin ve anatomik kas verisi seviyesine getirmek.
+
+### Kapsam
+
+- Incline Bench Press
+- Overhead Press
+- Pull Up
+- Barbell Row
+- Romanian Deadlift
+- Hip Thrust
+- Leg Press
+
+### Mimari Kararlar
+
+- **Tam iki dilli içerik:** Yedi hareket için açıklama, form adımları, yaygın hatalar, teknik ipuçları ve progression alanları TR+EN olarak tamamlandı.
+- **Web metadata:** Her kayıt meta title/description, quick facts, tracking ve ilgili hareket slug'larını taşır.
+- **Anatomik kas verisi:** Draft kategori slug'ları hareket bazlı primary/secondary anatomik kas slug'larıyla değiştirildi.
+- **Türetilmiş readiness:** `contentReady` yeni bir JSON alanı değildir. Validator; dolu tam rehber alanları, `previewReady`, web nesnesi ve anatomik kas verisinden sayacı türetir.
+- **Publish güvenliği:** `publish: true` bir kayıt draft kas grupları taşıyorsa validator build'i durdurur.
+- **Migration düzeltmesi:** Bölüm 64'teki PowerShell encoding etkisi nedeniyle bazı Türkçe kategorilerde oluşan `full-body` fallback'leri Unicode-safe eşleme ile katalog genelinde düzeltildi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 10 content-ready, 0 media-ready, 0 published.
+- **Service worker:** `logwise-v47` bu feature branch'te henüz deploy edilmediği ve aynı merge içinde güncel guide wrapper'ını precache edeceği için ek cache bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi tam rehber + katalog geneli draft kas grubu düzeltmesi |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilmiş wrapper |
+| `scripts/build-ex-guides.js` | Türetilmiş content-ready sayacı ve publish kas verisi kontrolü |
+| `scripts/build-blog.js` | Build özetinde content-ready sayısı |
+| `docs/EXERCISE-GUIDE-SCHEMA.md` | Türetilmiş readiness sözleşmesi |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu tam olarak `145 total, 143 preview-ready, 10 content-ready, 0 media-ready, 0 published` olmalı.
+- Draft katalogda `full-body` fallback'i kalmamalı; yedi yeni kayıt ve üç pilot content-ready olmalı.
+- JSON ile üretilmiş wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Mevcut Bench Press, Squat ve Deadlift Library HTML dosyaları `publish: false` nedeniyle `HEAD` ile byte-for-byte aynı kalmalı.

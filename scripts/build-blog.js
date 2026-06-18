@@ -816,5 +816,5 @@ console.log(
   'Updated: learn/index.html, ogren/index.html, learn/posts.json, sitemap.xml, sitemap_index.xml, sitemap-basic.xml, sitemap.txt' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
-console.log(`Exercise guides: ${exerciseGuideResult.total} total, ${exerciseGuideResult.previewReady} preview-ready, ${exerciseGuideResult.mediaReady} media-ready, ${exerciseGuideResult.published} published.`);
+console.log(`Exercise guides: ${exerciseGuideResult.total} total, ${exerciseGuideResult.previewReady} preview-ready, ${exerciseGuideResult.contentReady} content-ready, ${exerciseGuideResult.mediaReady} media-ready, ${exerciseGuideResult.published} published.`);
 console.log(`Programmatic SEO: ${programmaticResult.library} library hub, ${programmaticResult.directories} library directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);

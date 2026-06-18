@@ -22,6 +22,17 @@ Bu belge, statik Library sayfaları ile React Native / Expo istemcisinin paylaş
 - `publish: true`, ayrıca form adımları, hatalar, progression, muscle map ve `web` alanlarını gerektirir.
 - Mobilde “Tam rehbere git” bağlantısı yalnız `publish: true` olduğunda gösterilmelidir.
 
+### Türetilmiş Content Readiness
+
+`contentReady` JSON içinde saklanan yeni bir bayrak değildir. `scripts/build-ex-guides.js`, aşağıdaki koşullardan türeterek raporlar:
+
+- `previewReady: true`
+- Dolu `formSteps`, `mistakes` ve `progression` listeleri
+- Tam `web` metadata/quick-facts/tracking/related nesnesi
+- `chest`, `back`, `legs`, `core` gibi migration grupları yerine anatomik kas slug'ları
+
+`publish: true` kayıtlar content-ready olmalıdır. Bu ayrım, metni bitmiş fakat R2 medyası henüz gelmemiş rehberlerin ilerlemesini `publish` veya `mediaReady` anlamını değiştirmeden takip eder.
+
 Mevcut Bench Press, Squat ve Deadlift sayfaları medya hazır olana kadar legacy generator ile yayında kalır. JSON cutover bu üç hareket için içerik, medya ve generator değişikliği birlikte hazır olduğunda atomik yapılır.
 
 Web generator, guide kaydını yalnız `publish: true` olduğunda kanonik kaynak olarak kullanır. `publish: false` iken JSON içinde tam içerik hazırlanabilir; canlı sayfa legacy guide verisinden byte-for-byte üretilmeye devam eder. Yayınlanan ve `mediaReady: true` olan kayıtlarda demo videosu ile kas haritası şablona otomatik eklenir.
@@ -32,7 +43,7 @@ Yerelleştirilmiş her değer iki elemanlı `[TR, EN]` dizisidir. Otomatik karak
 
 Slug ve hareket adı kaynağı `data/presets-exercises.js` dosyasıdır. Guide anahtarları yeni isim üretmez ve mevcut slug'ları değiştirmez.
 
-Her preset slug için `data/ex-guides.json` içinde bir kayıt bulunmalıdır. Henüz tam guide içeriği veya medya hazırlanmamış kayıtlar `publish: false` ve `mediaReady: false` kalabilir; preview metni de eksikse `previewReady: false` kullanılır. Draft migration kayıtlarındaki `muscles` alanı `chest`, `back`, `legs` gibi geniş grup slug'ları taşıyabilir. Bir guide yayınlanmadan önce bu alanlar hareketin gerçek primary/secondary anatomik kas slug'larıyla rafine edilmelidir.
+Her preset slug için `data/ex-guides.json` içinde bir kayıt bulunmalıdır. Henüz tam guide içeriği veya medya hazırlanmamış kayıtlar `publish: false` ve `mediaReady: false` kalabilir; preview metni de eksikse `previewReady: false` kullanılır. Draft migration kayıtlarındaki `muscles` alanı `chest`, `back`, `legs` gibi geniş grup slug'ları taşıyabilir. Bir guide content-ready veya publish yapılmadan önce bu alanlar hareketin gerçek primary/secondary anatomik kas slug'larıyla rafine edilmelidir.
 
 ## URL Sözleşmesi
 

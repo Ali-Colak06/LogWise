@@ -25,6 +25,10 @@ const MUSCLE_KEYS = ['primary', 'secondary'];
 const MEDIA_KEYS = ['demoMp4', 'demoWebm', 'poster', 'muscleMap', 'demoLabel', 'muscleMapAlt'];
 const WEB_KEYS = ['metaTitle', 'metaDescription', 'quickFacts', 'tracking', 'related'];
 const QUICK_FACT_KEYS = ['primaryMuscles', 'equipment', 'movementPattern', 'bestFor'];
+const DRAFT_MUSCLE_SLUGS = new Set([
+  'chest', 'back', 'shoulders', 'biceps', 'triceps', 'legs', 'trapezius',
+  'glutes', 'calves', 'forearms', 'core', 'cardiovascular', 'full-body'
+]);
 
 function fail(errors) {
   const error = new Error(`Exercise guide validation failed:\n- ${errors.join('\n- ')}`);
@@ -145,6 +149,21 @@ function checkWebData(errors, web, label, presetIds) {
   checkLocalizedText(errors, facts.bestFor, `${label}.quickFacts.bestFor`);
 }
 
+function isContentReady(guide) {
+  const muscles = guide && guide.muscles;
+  const muscleSlugs = muscles && Array.isArray(muscles.primary) && Array.isArray(muscles.secondary)
+    ? [...muscles.primary, ...muscles.secondary]
+    : [];
+  return Boolean(
+    guide && guide.previewReady &&
+    Array.isArray(guide.formSteps) && guide.formSteps.length > 0 &&
+    Array.isArray(guide.mistakes) && guide.mistakes.length > 0 &&
+    Array.isArray(guide.progression) && guide.progression.length > 0 &&
+    guide.web && typeof guide.web === 'object' &&
+    muscleSlugs.length > 0 && !muscleSlugs.some(slug => DRAFT_MUSCLE_SLUGS.has(slug))
+  );
+}
+
 function validateExerciseGuides(guides, presetIds) {
   const errors = [];
   if (!guides || typeof guides !== 'object' || Array.isArray(guides)) {
@@ -221,6 +240,7 @@ function validateExerciseGuides(guides, presetIds) {
       if (!Array.isArray(guide.mistakes) || guide.mistakes.length === 0) errors.push(`${label}.publish requires mistakes.`);
       if (!Array.isArray(guide.progression) || guide.progression.length === 0) errors.push(`${label}.publish requires progression.`);
       if (!media || !isNonEmptyString(media.muscleMap)) errors.push(`${label}.publish requires muscleMap.`);
+      if (!isContentReady(guide)) errors.push(`${label}.publish requires content-ready anatomical muscle data.`);
       checkWebData(errors, guide.web, `${label}.web`, presetIds);
     } else if (guide.web !== null && guide.web !== undefined) {
       checkWebData(errors, guide.web, `${label}.web`, presetIds);
@@ -251,6 +271,7 @@ function buildExerciseGuides(options = {}) {
   return {
     total: Object.keys(guides).length,
     previewReady: Object.values(guides).filter(guide => guide.previewReady).length,
+    contentReady: Object.values(guides).filter(isContentReady).length,
     mediaReady: Object.values(guides).filter(guide => guide.mediaReady).length,
     published: Object.values(guides).filter(guide => guide.publish).length,
     changed: previous !== output
@@ -265,17 +286,19 @@ if (require.main === module) {
         return {
           total: Object.keys(guides).length,
           previewReady: Object.values(guides).filter(guide => guide.previewReady).length,
+          contentReady: Object.values(guides).filter(isContentReady).length,
           mediaReady: Object.values(guides).filter(guide => guide.mediaReady).length,
           published: Object.values(guides).filter(guide => guide.publish).length
         };
       })()
     : buildExerciseGuides();
   const mode = checkOnly ? 'validated' : 'generated';
-  console.log(`Exercise guides ${mode}: ${result.total} total, ${result.previewReady} preview-ready, ${result.mediaReady} media-ready, ${result.published} published.`);
+  console.log(`Exercise guides ${mode}: ${result.total} total, ${result.previewReady} preview-ready, ${result.contentReady} content-ready, ${result.mediaReady} media-ready, ${result.published} published.`);
 }
 
 module.exports = {
   buildExerciseGuides,
+  isContentReady,
   loadAndValidateExerciseGuides,
   validateExerciseGuides
 };

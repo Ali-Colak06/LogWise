@@ -32,7 +32,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": []
     },
@@ -71,7 +71,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": []
     },
@@ -123,7 +123,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": []
     },
@@ -175,7 +175,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": []
     },
@@ -227,7 +227,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "shoulders",
@@ -282,7 +282,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": []
     },
@@ -334,7 +334,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": []
     },
@@ -528,35 +528,93 @@ window.LOGWISE_EX_GUIDES = {
       "Incline barbell press. Upper chest + front delts."
     ],
     "description": [
-      "30–45° eğik bankta barbell press. Üst göğüs bölgesini ve ön omuzları standart bench'e göre daha fazla çalıştırır. Tam göğüs gelişimi için önemlidir.",
-      "Barbell press on a 30–45° incline bench. Targets the upper chest and front deltoids more than flat bench. Essential for complete chest development."
+      "Eğik bankta yapılan barbell press; özellikle üst göğüs liflerini, ön omuzu ve triceps kaslarını çalıştırır. Düz bench press ile overhead press arasındaki açıyı dolduran temel bir üst vücut kuvvet hareketidir.",
+      "A barbell press performed on an incline bench that trains the upper-chest fibers, front delts, and triceps. It fills the pressing angle between the flat bench press and overhead press."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Banco 30–45° arasında ayarla; fazla eğik olursa omuz baskısı artar.",
-        "Set bench to 30–45°; steeper angles overload the shoulders."
+        "Bankı yaklaşık 30-45 dereceye ayarla; gözlerin barın biraz gerisinde kalacak şekilde uzan.",
+        "Set the bench to roughly 30-45 degrees and lie down with your eyes slightly behind the bar."
       ],
       [
-        "Bar üst göğse iner — boyun veya yüze değil.",
-        "Bar descends to upper chest — not toward neck or face."
+        "Kürek kemiklerini geriye ve aşağı sabitle, ayaklarını yere bas ve barı omuz genişliğinden biraz geniş kavra.",
+        "Set the shoulder blades back and down, plant the feet, and grip the bar slightly wider than shoulder width."
       ],
       [
-        "Dirsekleri hafifçe içe al (~75°); tam yanlara açma.",
-        "Tuck elbows slightly (~75°); don't fully flare them out."
+        "Barı çıkar, bilekleri dirseklerin üzerinde tut ve üst göğse doğru kontrollü biçimde indir.",
+        "Unrack the bar, keep the wrists stacked over the elbows, and lower it under control toward the upper chest."
       ],
       [
-        "Göğsü hareket boyunca kasılı hissedecek şekilde sıkıştır.",
-        "Feel the chest squeezing throughout the entire movement."
+        "Dirsekleri gövdeden yaklaşık 45-75 derece uzakta tut; barı sektirmeden kısa bir temas yap.",
+        "Keep the elbows roughly 45-75 degrees from the torso and make a light touch without bouncing."
+      ],
+      [
+        "Barı yukarı ve hafifçe rafa doğru it; omuz pozisyonunu ve ayak basıncını koruyarak kilitle.",
+        "Press the bar up and slightly back toward the rack, finishing while keeping the shoulders set and feet planted."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Bankı çok dik ayarlayıp hareketi neredeyse omuz pressine çevirmek.",
+        "Setting the bench too steep and turning the lift into an overhead press."
+      ],
+      [
+        "Dirsekleri tamamen yana açarak omuz eklemine gereksiz yük bindirmek.",
+        "Flaring the elbows straight out and adding unnecessary shoulder stress."
+      ],
+      [
+        "Barı boyna indirmek veya göğüsten sektirmek.",
+        "Lowering the bar toward the neck or bouncing it off the chest."
+      ],
+      [
+        "Kalçayı banktan kaldırmak ya da kürek kemiklerinin sabitliğini kaybetmek.",
+        "Lifting the hips off the bench or losing the set shoulder-blade position."
+      ]
+    ],
+    "tips": [
+      [
+        "Üst göğüs vurgusu için çoğu kişide 30 derece civarı iyi bir başlangıç noktasıdır.",
+        "Around 30 degrees is a useful starting point for emphasizing the upper chest for most lifters."
+      ],
+      [
+        "Bar alt noktadayken ön kolları yere yakın dik tutacak bir tutuş genişliği seç.",
+        "Choose a grip that keeps the forearms close to vertical at the bottom."
+      ],
+      [
+        "Her tekrarda aynı üst göğüs temas noktasını ve bar yolunu koru.",
+        "Keep the same upper-chest touch point and bar path on every rep."
+      ],
+      [
+        "Teknik bozulmadan önce seti bitirmek için çoğu çalışma setinde 1-3 tekrar yedek bırak.",
+        "Leave 1-3 reps in reserve on most work sets so technique stays consistent."
+      ]
+    ],
+    "progression": [
+      [
+        "Önce incline dumbbell press ile simetrik kontrol ve rahat hareket açıklığı geliştir.",
+        "Start with the incline dumbbell press to build symmetrical control and a comfortable range of motion."
+      ],
+      [
+        "Barbell varyasyonunda tekrar aralığını tamamladığında küçük ağırlık artışları yap.",
+        "Add small amounts of weight once you complete the target rep range on the barbell variation."
+      ],
+      [
+        "Alt noktada kısa duraklama veya yavaş eksantrik kullanarak aynı yükle kontrolü zorlaştır.",
+        "Use a short pause at the bottom or a slower eccentric to increase control demands at the same load."
+      ],
+      [
+        "İleri aşamada ağır kuvvet setleri ile orta tekrar hipertrofi setlerini farklı günlere ayır.",
+        "At an advanced stage, separate heavier strength sets and moderate-rep hypertrophy sets across sessions."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "full-body"
+        "pectoralis-major-clavicular-head"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "triceps-brachii"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -572,7 +630,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Incline Bench Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Incline Bench Press Rehberi | Form ve İpuçları",
+        "Incline Bench Press Guide | Form and Tips"
+      ],
+      "metaDescription": [
+        "Incline bench press formunu, bar yolunu, yaygın hataları ve güvenli ilerleme adımlarını öğren.",
+        "Learn incline bench press setup, bar path, common mistakes, and practical progression steps."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Üst göğüs, ön omuz, triceps",
+          "Upper chest, front delts, triceps"
+        ],
+        "equipment": [
+          "Eğik bench, barbell ve rack",
+          "Incline bench, barbell, and rack"
+        ],
+        "movementPattern": [
+          "Eğik press",
+          "Incline press"
+        ],
+        "bestFor": [
+          "Üst göğüs kuvveti ve hipertrofisi",
+          "Upper-chest strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench açısını her antrenmanda aynı tut.",
+          "Keep the bench angle consistent between sessions."
+        ],
+        [
+          "Çalışma ağırlığı, tekrarlar ve RIR değerini kaydet.",
+          "Log work-set load, reps, and RIR."
+        ],
+        [
+          "Temas noktası veya omuz konforundaki değişiklikleri nota ekle.",
+          "Note changes in touch point or shoulder comfort."
+        ]
+      ],
+      "related": [
+        "bench-press",
+        "incline-dumbell-press",
+        "overhead-press"
+      ]
+    }
   },
   "close-grip-bench-press": {
     "publish": false,
@@ -606,7 +710,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "triceps"
@@ -660,7 +764,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": []
     },
@@ -712,7 +816,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": []
     },
@@ -764,7 +868,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": []
     },
@@ -794,35 +898,96 @@ window.LOGWISE_EX_GUIDES = {
       "Standing barbell overhead press."
     ],
     "description": [
-      "Ayakta barbell omuz press. Tüm deltoid başlarını, triceps ve üst trap kaslarını çalıştıran temel bileşik omuz hareketi.",
-      "Standing barbell overhead press. Fundamental compound shoulder movement working all deltoid heads, triceps, and upper traps."
+      "Ayakta yapılan strict barbell press; ön ve yan deltoidleri, triceps kaslarını ve üst gövde stabilizatörlerini çalıştırır. Yükü baş üzerine taşırken gövdeyi sabit tutmayı öğreten temel bir dikey press hareketidir.",
+      "A strict standing barbell press that trains the front and side delts, triceps, and upper-body stabilizers. It is a foundational vertical press that teaches full-body control while moving load overhead."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bar alt çeneye yakın başlar; basarken kulakların üstüne hizalan.",
-        "Bar starts just below chin; end position directly over ears."
+        "Barı üst göğüs hizasında rack üzerinde konumlandır ve omuz genişliğinin biraz dışında kavra.",
+        "Set the bar in a rack around upper-chest height and grip it just outside shoulder width."
       ],
       [
-        "Sırtı aşırı kamburlaştırma — core'u sıkı tut.",
-        "Avoid excessive back arch — keep core braced throughout."
+        "Barı çıkar, dirsekleri barın biraz önünde tut ve bilekleri ön kolların üzerinde hizala.",
+        "Unrack the bar with the elbows slightly in front of it and wrists stacked over the forearms."
       ],
       [
-        "Bacak bükme olmadan tam güçle it — teknik egzersiz bu şekilde.",
-        "No knee bend — strict overhead press with no leg drive."
+        "Ayakları yere sabitle; kalça, karın ve bacakları sıkarak kaburgaları pelvis üzerinde tut.",
+        "Plant the feet and brace the glutes, abs, and legs so the ribs stay stacked over the pelvis."
       ],
       [
-        "Nefes al → kilitlen → it → ver sırası önemlidir.",
-        "Inhale → brace → press → exhale — this sequence matters."
+        "Çeneyi kısa süre geriye alıp barı yüzün önünden dikey it; bar geçince başı tekrar öne getir.",
+        "Move the chin briefly back and press the bar vertically past the face, then bring the head through once it clears."
+      ],
+      [
+        "Barı orta ayağın üzerinde dirsekler kilitli bitir; aynı dikey yolu izleyerek kontrollü indir.",
+        "Finish with the bar over midfoot and elbows locked, then lower it under control along the same vertical path."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Belden aşırı geriye yaslanıp hareketi incline press haline getirmek.",
+        "Leaning excessively through the lower back and turning the lift into an incline press."
+      ],
+      [
+        "Barı yüzün etrafından geniş bir yay çizerek geçirmek.",
+        "Moving the bar in a large arc around the face."
+      ],
+      [
+        "Strict press setinde dizlerden hız alarak push press yapmak.",
+        "Using knee drive and unintentionally turning a strict press into a push press."
+      ],
+      [
+        "Bilekleri geriye kırmak veya dirsekleri barın çok arkasında başlatmak.",
+        "Overextending the wrists or starting with the elbows far behind the bar."
+      ]
+    ],
+    "tips": [
+      [
+        "Bar yolu için başlangıç ve bitişte yükü orta ayağın üzerinde düşün.",
+        "Think of keeping the load over midfoot at both the start and finish."
+      ],
+      [
+        "Kalçayı sıkmak ve kaburgaları aşağıda tutmak belin aşırı kavislenmesini azaltır.",
+        "Squeezing the glutes and keeping the ribs down reduces excessive lower-back arching."
+      ],
+      [
+        "Tutuşu, alt pozisyonda ön kollar dik olacak şekilde ayarla.",
+        "Set the grip so the forearms are vertical in the bottom position."
+      ],
+      [
+        "Rack yüksekliğini barı parmak ucuna çıkmadan güvenle alabileceğin seviyeye getir.",
+        "Set the rack height so you can unrack safely without rising onto your toes."
+      ]
+    ],
+    "progression": [
+      [
+        "Shoulder press veya tek kol dumbbell press ile baş üstü kontrolü geliştir.",
+        "Build overhead control with a shoulder press or single-arm dumbbell press."
+      ],
+      [
+        "Boş barla dikey bar yolunu ve gövde brace pozisyonunu tekrar et.",
+        "Practice the vertical bar path and braced torso position with an empty bar."
+      ],
+      [
+        "Hedef tekrarların tümü temiz olduğunda küçük plakalarla yükü artır.",
+        "Increase load with small plates once every target rep is clean."
+      ],
+      [
+        "İleri aşamada alt noktada pause veya kontrollü tempo kullan.",
+        "At an advanced stage, add a pause at the bottom or a controlled tempo."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "anterior-deltoid",
+        "lateral-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "triceps-brachii",
+        "upper-trapezius",
+        "serratus-anterior",
+        "abdominals"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -838,7 +1003,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Overhead Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Overhead Press Rehberi | Strict Press Formu",
+        "Overhead Press Guide | Strict Press Form"
+      ],
+      "metaDescription": [
+        "Strict overhead press kurulumu, dikey bar yolu, brace tekniği ve yaygın form hataları.",
+        "Learn strict overhead press setup, vertical bar path, bracing, and common form mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön/yan omuz ve triceps",
+          "Front/side delts and triceps"
+        ],
+        "equipment": [
+          "Barbell ve rack",
+          "Barbell and rack"
+        ],
+        "movementPattern": [
+          "Dikey press",
+          "Vertical press"
+        ],
+        "bestFor": [
+          "Baş üstü kuvvet ve omuz gelişimi",
+          "Overhead strength and shoulder development"
+        ]
+      },
+      "tracking": [
+        [
+          "Ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log load, reps, and RIR."
+        ],
+        [
+          "Strict press ile push press setlerini ayrı tut.",
+          "Track strict press and push press sets separately."
+        ],
+        [
+          "Bel kavisinin veya bar yolunun bozulduğu setleri not et.",
+          "Note sets where back arch or bar path changed."
+        ]
+      ],
+      "related": [
+        "shoulder-press",
+        "incline-bench-press",
+        "push-up"
+      ]
+    }
   },
   "shoulder-press": {
     "publish": false,
@@ -1668,7 +1879,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "shoulders",
@@ -1723,7 +1934,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "shoulders",
@@ -1835,7 +2046,7 @@ window.LOGWISE_EX_GUIDES = {
         "shoulders"
       ],
       "secondary": [
-        "full-body"
+        "core"
       ]
     },
     "media": {
@@ -1889,7 +2100,7 @@ window.LOGWISE_EX_GUIDES = {
         "shoulders"
       ],
       "secondary": [
-        "full-body"
+        "core"
       ]
     },
     "media": {
@@ -1940,7 +2151,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "triceps"
@@ -1994,7 +2205,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "shoulders",
@@ -2049,7 +2260,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "shoulders",
@@ -2104,7 +2315,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "triceps"
@@ -2210,7 +2421,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "shoulders",
@@ -2265,7 +2476,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "chest"
       ],
       "secondary": [
         "shoulders",
@@ -2431,7 +2642,7 @@ window.LOGWISE_EX_GUIDES = {
         "triceps"
       ],
       "secondary": [
-        "full-body"
+        "chest"
       ]
     },
     "media": {
@@ -3426,7 +3637,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "forearms"
@@ -3484,7 +3695,7 @@ window.LOGWISE_EX_GUIDES = {
       ],
       "secondary": [
         "trapezius",
-        "full-body"
+        "core"
       ]
     },
     "media": {
@@ -3643,7 +3854,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -3697,7 +3908,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -3751,7 +3962,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": []
     },
@@ -3781,36 +3992,95 @@ window.LOGWISE_EX_GUIDES = {
       "Pull-up. Fundamental back exercise."
     ],
     "description": [
-      "Barfikse asılarak çıkma. Sırt kaslarının en temel bileşik hareketi. Latissimus dorsi, biceps ve core kaslarını birlikte çalıştırır.",
-      "Pull-up from a dead hang. The foundational compound for back muscles. Works latissimus dorsi, biceps, and core together."
+      "Vücut ağırlığıyla yapılan temel dikey çekiş hareketidir. Latissimus dorsi, üst sırt, dirsek fleksörleri ve core birlikte çalışırken omuz kuşağı kontrolünü geliştirir.",
+      "A foundational bodyweight vertical pull. It trains the lats, upper back, elbow flexors, and core while developing control of the shoulder girdle."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Geniş, overhand tutuş lat'ları vurgular; dar tutuş biceps'i.",
-        "Wide overhand grip emphasizes lats; narrower grip shifts more to biceps."
+        "Barı omuz genişliğinde veya biraz daha geniş, avuçlar karşıya bakacak şekilde kavra.",
+        "Grip the bar at shoulder width or slightly wider with the palms facing away."
       ],
       [
-        "Her tekrarda ölü asılmaya dön — tam ROM şart.",
-        "Return to a full dead hang each rep — full range of motion is essential."
+        "Kontrollü bir asılma pozisyonu al; kaburgaları aşağıda, bacakları sakin ve gövdeyi gergin tut.",
+        "Settle into a controlled hang with ribs down, legs quiet, and the torso braced."
       ],
       [
-        "Çıkış boyunca kürek kemiklerini aşağı çek — omuzları kulağa yaklaştırma.",
-        "Depress shoulder blades throughout — don't let shoulders shrug up."
+        "Kürek kemiklerini aşağı çekerek hareketi başlat ve dirsekleri yanlara/aşağı sür.",
+        "Initiate by drawing the shoulder blades down and driving the elbows toward the sides."
       ],
       [
-        "Vücut sallanmasın — kontrollü ve yavaş indir.",
-        "No swinging — controlled and slow descent."
+        "Çeneyi uzatmadan üst göğsü bara yaklaştır; çene bar seviyesini doğal biçimde geçsin.",
+        "Bring the upper chest toward the bar without craning the neck, allowing the chin to clear naturally."
+      ],
+      [
+        "Sallanmayı önleyerek kontrollü biçimde tam kol uzunluğuna dön.",
+        "Lower under control to full arm length without introducing a swing."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Bacak savurarak veya kalçadan kip yaparak momentum üretmek.",
+        "Creating momentum by swinging the legs or kipping through the hips."
+      ],
+      [
+        "Alt noktaya ulaşmadan yarım tekrarlar yapmak.",
+        "Performing partial reps without reaching the bottom position."
+      ],
+      [
+        "Omuzları kulaklara çekip skapula kontrolünü kaybetmek.",
+        "Shrugging the shoulders toward the ears and losing scapular control."
+      ],
+      [
+        "Çeneyi bara ulaştırmak için boynu aşırı uzatmak.",
+        "Overextending the neck just to get the chin over the bar."
+      ]
+    ],
+    "tips": [
+      [
+        "Aşırı geniş tutuş yerine omuz genişliği veya biraz daha geniş bir tutuşla başla.",
+        "Start around shoulder width or slightly wider instead of using an extreme wide grip."
+      ],
+      [
+        "Her tekrarın ilk bölümünü omuzları aşağı çekerek başlat.",
+        "Begin each rep by drawing the shoulders down."
+      ],
+      [
+        "Göğsü bara taşımayı, dirsekleri ceplere doğru sürmeyi düşün.",
+        "Think about bringing the chest to the bar and driving the elbows toward the pockets."
+      ],
+      [
+        "Teknik bozuluyorsa bant veya assisted pull-up makinesiyle tam hareket açıklığını koru.",
+        "If technique breaks down, use a band or assisted pull-up machine to preserve full range."
+      ]
+    ],
+    "progression": [
+      [
+        "Dead hang ve active hang ile tutuş ve omuz pozisyonunu geliştir.",
+        "Build grip and shoulder positioning with dead hangs and active hangs."
+      ],
+      [
+        "Scapular pull-up ile dirsekleri bükmeden hareket başlangıcını öğren.",
+        "Learn the start of the pull with scapular pull-ups while keeping the elbows straight."
+      ],
+      [
+        "Assisted pull-up kullanarak tam hareket açıklığında tekrar biriktir.",
+        "Accumulate full-range reps with an assisted pull-up."
+      ],
+      [
+        "Temiz vücut ağırlığı tekrarları arttığında kontrollü biçimde ek ağırlığa geç.",
+        "Once clean bodyweight reps are consistent, progress gradually to added load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "full-body"
+        "latissimus-dorsi"
       ],
       "secondary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis",
+        "rhomboids",
+        "middle-trapezius",
+        "abdominals"
       ]
     },
     "media": {
@@ -3827,7 +4097,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Pull Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Pull Up Rehberi | Barfiks Formu ve İlerleme",
+        "Pull-Up Guide | Form and Progression"
+      ],
+      "metaDescription": [
+        "Pull-up formunu, skapula başlangıcını, tam hareket açıklığını ve assisted progression adımlarını öğren.",
+        "Learn pull-up form, scapular initiation, full range of motion, and assisted progressions."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Lat, üst sırt ve biceps",
+          "Lats, upper back, and biceps"
+        ],
+        "equipment": [
+          "Pull-up barı",
+          "Pull-up bar"
+        ],
+        "movementPattern": [
+          "Dikey çekiş",
+          "Vertical pull"
+        ],
+        "bestFor": [
+          "Sırt kuvveti ve vücut ağırlığı kontrolü",
+          "Back strength and bodyweight control"
+        ]
+      },
+      "tracking": [
+        [
+          "Yardım seviyesi veya ek ağırlığı tekrarlarla birlikte kaydet.",
+          "Log assistance level or added load alongside reps."
+        ],
+        [
+          "Tam hareket açıklığındaki tekrarları ayrı takip et.",
+          "Track full-range reps separately."
+        ],
+        [
+          "Sallanma veya boyun uzatma başladığında seti bitirdiğini not et.",
+          "Note when swinging or neck craning begins to limit the set."
+        ]
+      ],
+      "related": [
+        "active-hang",
+        "scapular-pull-up",
+        "assisted-pull-up"
+      ]
+    }
   },
   "scapular-pull-up": {
     "publish": false,
@@ -3861,7 +4177,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": []
     },
@@ -3913,7 +4229,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -3967,7 +4283,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4021,7 +4337,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4075,7 +4391,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4129,7 +4445,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4183,7 +4499,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4237,9 +4553,11 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
-      "secondary": []
+      "secondary": [
+        "core"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -4289,7 +4607,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4347,7 +4665,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4401,7 +4719,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4455,7 +4773,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4509,7 +4827,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4563,7 +4881,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4617,7 +4935,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4649,36 +4967,97 @@ window.LOGWISE_EX_GUIDES = {
       "Bent-over barbell row."
     ],
     "description": [
-      "Eğilerek barbell sıra çekme. Sırt kalınlığı için en etkili hareketlerden biri. Rhomboid'ler, orta trap, lat ve biceps birlikte çalışır.",
-      "Bent-over barbell row. One of the most effective movements for back thickness. Works rhomboids, middle traps, lats, and biceps."
+      "Kalça menteşesi pozisyonunda yapılan yatay barbell çekişidir. Latissimus dorsi, rhomboidler, orta trapez ve arka omuzu çalıştırırken biceps ile arka zincir izometrik destek verir.",
+      "A horizontal barbell pull performed from a hip-hinge position. It trains the lats, rhomboids, middle traps, and rear delts while the biceps and posterior chain provide support."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Gövde yaklaşık 45° eğik — yatay pozisyon değil.",
-        "Torso should be roughly 45° — not completely horizontal."
+        "Barı omuz genişliğinin biraz dışında kavra ve kontrollü bir deadlift ile ayağa kalk.",
+        "Grip the bar slightly wider than shoulder width and stand up with a controlled deadlift."
       ],
       [
-        "Bar göbeğe veya alt göğse değmeli.",
-        "Pull bar to lower abdomen or lower chest."
+        "Dizleri hafif kırıp kalçayı geriye gönder; nötr omurgayla gövdeyi yaklaşık 30-45 derece eğ.",
+        "Soften the knees, push the hips back, and hinge the torso roughly 30-45 degrees with a neutral spine."
       ],
       [
-        "Her tekrarda nefes al ve core'u kilitle — sırtın için deadlift gibi.",
-        "Brace core before each rep — treat it like a deadlift for spine safety."
+        "Barı bacaklara yakın tut, nefes alıp core bölgesini sık ve omuzları kulaklardan uzaklaştır.",
+        "Keep the bar close to the legs, brace the core, and keep the shoulders away from the ears."
       ],
       [
-        "Çekiş sırasında dirsekleri arkaya doğru götür.",
-        "Drive elbows back behind the body during the pull."
+        "Dirsekleri geriye sürerek barı alt kaburga/üst karın bölgesine çek.",
+        "Drive the elbows back and pull the bar toward the lower ribs or upper abdomen."
+      ],
+      [
+        "Gövde açısını koruyarak barı kollar tam uzayana kadar kontrollü indir.",
+        "Maintain the torso angle and lower the bar under control until the arms are fully extended."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Her tekrarda gövdeyi kaldırıp hareketi momentumlu bir high rowa çevirmek.",
+        "Raising the torso on every rep and turning the lift into a momentum-driven high row."
+      ],
+      [
+        "Bel veya üst sırtı yuvarlayarak brace pozisyonunu kaybetmek.",
+        "Rounding the lower or upper back and losing the braced position."
+      ],
+      [
+        "Barı vücuttan uzağa çekmek ya da omuzları yukarı silkmek.",
+        "Pulling the bar away from the body or shrugging the shoulders upward."
+      ],
+      [
+        "Ağırlığı yerden sektirerek tekrarları hızlandırmak.",
+        "Bouncing the load to rush through reps."
+      ]
+    ],
+    "tips": [
+      [
+        "Kaldırabileceğin ağırlığı gövde açısını koruyabildiğin yük belirlesin.",
+        "Let your ability to maintain torso angle determine the load."
+      ],
+      [
+        "Çekişi ellerle değil dirsekleri arkaya sürerek başlattığını düşün.",
+        "Think about driving the elbows back instead of pulling with the hands."
+      ],
+      [
+        "Bar temas noktasını set boyunca aynı alt kaburga/üst karın bölgesinde tut.",
+        "Keep the bar contact point consistent around the lower ribs or upper abdomen."
+      ],
+      [
+        "Bel yorgunluğu hareketi sınırlıyorsa chest-supported row ile sırt hacmini tamamla.",
+        "If lower-back fatigue limits the lift, use chest-supported rows for additional back volume."
+      ]
+    ],
+    "progression": [
+      [
+        "Dumbbell row ile tek taraflı çekiş kontrolünü öğren.",
+        "Learn unilateral pulling control with a dumbbell row."
+      ],
+      [
+        "Chest-supported row ile omuz ve dirsek yolunu gövde yorgunluğu olmadan çalış.",
+        "Practice shoulder and elbow path with a chest-supported row before adding torso demand."
+      ],
+      [
+        "Barbell rowda hedef tekrarları sabit gövde açısıyla tamamladıktan sonra yük artır.",
+        "Add load only after completing target reps with a stable torso angle."
+      ],
+      [
+        "İleri aşamada alt noktadan pause veya yavaş eksantrik ekle.",
+        "At an advanced stage, add a pause or slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "full-body"
+        "latissimus-dorsi",
+        "rhomboids",
+        "middle-trapezius"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis",
+        "spinal-erectors",
+        "abdominals"
       ]
     },
     "media": {
@@ -4695,7 +5074,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Barbell Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Barbell Row Rehberi | Form ve Sırt Tekniği",
+        "Barbell Row Guide | Form and Back Technique"
+      ],
+      "metaDescription": [
+        "Barbell row kalça menteşesi, gövde açısı, bar temas noktası ve yaygın form hataları.",
+        "Learn barbell row hip-hinge setup, torso angle, bar contact point, and common mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Lat, rhomboid ve orta trapez",
+          "Lats, rhomboids, and middle traps"
+        ],
+        "equipment": [
+          "Barbell ve plakalar",
+          "Barbell and plates"
+        ],
+        "movementPattern": [
+          "Yatay çekiş",
+          "Horizontal pull"
+        ],
+        "bestFor": [
+          "Sırt kalınlığı ve çekiş kuvveti",
+          "Back thickness and pulling strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Gövde açısı aynı kalan çalışma setlerini kaydet.",
+          "Log work sets completed at a consistent torso angle."
+        ],
+        [
+          "Ağırlık, tekrar, RIR ve kullanılan tutuşu takip et.",
+          "Track load, reps, RIR, and grip used."
+        ],
+        [
+          "Bel yorgunluğu tekniği sınırladıysa antrenman notuna ekle.",
+          "Note when lower-back fatigue limited technique."
+        ]
+      ],
+      "related": [
+        "dumbell-row",
+        "chest-supported-row",
+        "cable-row"
+      ]
+    }
   },
   "t-bar-row": {
     "publish": false,
@@ -4729,7 +5154,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4783,7 +5208,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": [
         "biceps"
@@ -4907,7 +5332,7 @@ window.LOGWISE_EX_GUIDES = {
       "secondary": [
         "quadriceps",
         "latissimus-dorsi",
-        "forearms"
+        "forearm-flexors"
       ]
     },
     "media": {
@@ -4982,32 +5407,94 @@ window.LOGWISE_EX_GUIDES = {
       "Hip hinge. Hamstring and glute focused."
     ],
     "description": [
-      "Kalça menteşesi odaklı barbell veya dumbbell hareketi. Hamstring ve glute kaslarını yoğun biçimde çalıştırır, alt sırt stabilizasyonunu da geliştirir. Deadlift ailesinin en değerli posterior chain varyasyonlarından biridir.",
-      "A hip-hinge focused movement with barbell or dumbbells. Heavily trains the hamstrings and glutes while improving lower-back stability. One of the most valuable posterior-chain variations in the deadlift family."
+      "Diz açısını büyük ölçüde sabit tutarak yapılan kalça menteşesi hareketidir. Hamstring, gluteus maximus ve adduktorları uzun kas boyunda yükler; sırt ve core kasları gövdeyi izometrik olarak sabitler.",
+      "A hip-hinge movement performed with a mostly fixed knee angle. It loads the hamstrings, gluteus maximus, and adductors at long muscle lengths while the back and core stabilize the torso."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dizleri hafif kır ve hareket boyunca açıyı büyük ölçüde koru.",
-        "Keep a soft bend in the knees and maintain roughly the same angle throughout."
+        "Barı kalça genişliğinde ayaklarla deadlift ederek ayağa kalk ve omuz genişliğinde kavra.",
+        "Deadlift the bar to standing with feet around hip width and a shoulder-width grip."
       ],
       [
-        "Barı bacaklara yakın indir; kalçayı geriye göndererek menteşe yap.",
-        "Lower the bar close to the legs and hinge by pushing the hips back."
+        "Dizleri hafif kır, nefes alıp core bölgesini sık ve omuzları geriye/aşağı sabitle.",
+        "Soften the knees, brace the core, and set the shoulders back and down."
       ],
       [
-        "Alt noktada sırtı yuvarlama; hamstring gerilimi kaybolmadan dön.",
-        "Do not round the back at the bottom; return when hamstring tension is still present."
+        "Kalçayı geriye gönderirken barı uyluk ve kaval kemiklerine yakın biçimde indir.",
+        "Push the hips back while lowering the bar close to the thighs and shins."
+      ],
+      [
+        "Diz açısını büyük ölçüde koru; nötr omurgayla hamstring geriliminin izin verdiği noktada dur.",
+        "Keep the knee angle mostly fixed and stop where hamstring tension allows while maintaining a neutral spine."
+      ],
+      [
+        "Ayakları yere itip kalçayı öne getirerek ayağa kalk; üstte belden geriye yaslanma.",
+        "Drive the feet into the floor and bring the hips forward to stand without leaning back at lockout."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dizleri ilerletip hareketi squat veya normal deadlift haline getirmek.",
+        "Driving the knees forward and turning the lift into a squat or conventional deadlift."
+      ],
+      [
+        "Barı bacaklardan uzaklaştırarak bel üzerindeki momenti artırmak.",
+        "Letting the bar drift away from the legs and increasing demand on the lower back."
+      ],
+      [
+        "Yere ulaşmak için bel veya üst sırtı yuvarlamak.",
+        "Rounding the lower or upper back just to reach the floor."
+      ],
+      [
+        "Üst noktada kalçayı sıkmak yerine belden aşırı geriye yaslanmak.",
+        "Overextending the lower back at the top instead of finishing with the glutes."
+      ]
+    ],
+    "tips": [
+      [
+        "Alt nokta zemine göre değil, nötr omurga ve hamstring hareket açıklığına göre belirlenir.",
+        "The bottom position is set by hamstring mobility and a neutral spine, not by the floor."
+      ],
+      [
+        "Barın bacaklarına sürtünecek kadar yakın ilerlemesini hedefle.",
+        "Aim to keep the bar close enough to nearly brush the legs."
+      ],
+      [
+        "Kalçayı arkadaki duvara uzatıyormuş gibi geriye gönder.",
+        "Push the hips back as if reaching for a wall behind you."
+      ],
+      [
+        "Hamstring gerilimi kayboluyor veya bel yuvarlanıyorsa daha aşağı inme.",
+        "Do not descend farther once hamstring tension is lost or the back begins to round."
+      ]
+    ],
+    "progression": [
+      [
+        "Dowel veya hafif dumbbell ile kalça menteşesi ve sabit diz açısını öğren.",
+        "Learn the hip hinge and fixed knee angle with a dowel or light dumbbells."
+      ],
+      [
+        "Dumbbell RDL ile bar yolunu ve hamstring gerilimini kontrol et.",
+        "Use a dumbbell RDL to practice bar path and hamstring tension."
+      ],
+      [
+        "Barbell RDLde hedef tekrarları nötr omurgayla tamamlayınca küçük yük artışları yap.",
+        "Add small amounts of load after completing target reps with a neutral spine."
+      ],
+      [
+        "İleri aşamada diz altında pause, tempo veya tek bacak varyasyonu kullan.",
+        "At an advanced stage, use a below-knee pause, tempo, or single-leg variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "hamstrings",
+        "gluteus-maximus"
       ],
       "secondary": [
-        "full-body"
+        "adductor-magnus",
+        "spinal-erectors",
+        "abdominals"
       ]
     },
     "media": {
@@ -5024,7 +5511,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Romanian Deadlift exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Romanian Deadlift Rehberi | RDL Formu",
+        "Romanian Deadlift Guide | RDL Form"
+      ],
+      "metaDescription": [
+        "Romanian deadlift kalça menteşesi, bar yolu, hamstring gerilimi ve güvenli progression adımları.",
+        "Learn Romanian deadlift hip-hinge mechanics, bar path, hamstring tension, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Hamstring ve gluteus maximus",
+          "Hamstrings and gluteus maximus"
+        ],
+        "equipment": [
+          "Barbell veya dumbbell",
+          "Barbell or dumbbells"
+        ],
+        "movementPattern": [
+          "Kalça menteşesi",
+          "Hip hinge"
+        ],
+        "bestFor": [
+          "Arka zincir kuvveti ve hipertrofisi",
+          "Posterior-chain strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Ağırlık, tekrar, RIR ve kullandığın alt nokta referansını kaydet.",
+          "Log load, reps, RIR, and the bottom-position reference used."
+        ],
+        [
+          "Bar yolunun bacaklara yakın kalıp kalmadığını not et.",
+          "Note whether the bar stayed close to the legs."
+        ],
+        [
+          "Hamstring gerilimi yerine bel yorgunluğu baskınsa bunu kaydet.",
+          "Record when lower-back fatigue dominates over hamstring tension."
+        ]
+      ],
+      "related": [
+        "deadlift",
+        "hip-thrust",
+        "leg-curl"
+      ]
+    }
   },
   "squat": {
     "publish": false,
@@ -5227,7 +5760,7 @@ window.LOGWISE_EX_GUIDES = {
         "legs"
       ],
       "secondary": [
-        "full-body"
+        "glutes"
       ]
     },
     "media": {
@@ -5333,7 +5866,7 @@ window.LOGWISE_EX_GUIDES = {
         "legs"
       ],
       "secondary": [
-        "full-body"
+        "glutes"
       ]
     },
     "media": {
@@ -5362,36 +5895,93 @@ window.LOGWISE_EX_GUIDES = {
       "Leg press machine."
     ],
     "description": [
-      "Bacak press makinesi. Squat'ın aksine omurga yükü olmadan quadriceps, hamstring ve gluteusları çalıştırır. Başlangıç seviyesi için güvenli bir seçenek.",
-      "Leg press machine. Works quads, hamstrings, and glutes without spinal loading. A safer option especially for beginners."
+      "Sırt ve pelvisin makineye desteklendiği çok eklemli alt vücut press hareketidir. Quadriceps ana yükü taşırken gluteus maximus, adduktorlar ve hamstring kasları hareket açıklığı ile ayak konumuna göre katkı sağlar.",
+      "A multi-joint lower-body press performed with the back and pelvis supported by a machine. The quadriceps carry most of the load while the glutes, adductors, and hamstrings contribute according to range and foot position."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ayak pozisyonu önemlidir: yukarıda=hamstring/glute, aşağıda=quad vurgusu.",
-        "Foot placement matters: high = more hamstring/glute, low = more quad."
+        "Koltuğu, alt pozisyonda pelvisin ve belin pedden ayrılmayacağı bir derinliğe göre ayarla.",
+        "Set the seat so the pelvis and lower back can remain supported at the chosen bottom depth."
       ],
       [
-        "Dizleri platforma tam uzanarak kilitleme — eklem stresini artırır.",
-        "Don't lock out knees fully at the top — stop just short to protect joints."
+        "Ayakları platforma yaklaşık omuz genişliğinde yerleştir; diz ve ayak parmaklarını aynı yöne çevir.",
+        "Place the feet around shoulder width on the platform with knees and toes pointing in the same direction."
       ],
       [
-        "Sırtını makine sırtlığından kaldırma, tüm hareket boyunca bassın.",
-        "Keep lower back pressed firmly against the pad throughout."
+        "Platformu kontrollü itip güvenlik kollarını aç; baş, sırt ve pelvis temasını koru.",
+        "Press the platform under control, release the safeties, and keep the head, back, and pelvis supported."
       ],
       [
-        "Kontrollü indir (2-3 sn), güçlü ve hızlı çık.",
-        "Lower slowly (2-3 sec), press up powerfully."
+        "Dizleri ayak yönünde bükerek platformu, pelvis dönmeden kontrol edebildiğin derinliğe indir.",
+        "Lower the platform by bending the knees in line with the feet, stopping before the pelvis rolls."
+      ],
+      [
+        "Orta ayak ve topuk üzerinden iterek başlangıca dön; dizleri sert biçimde kilitleme.",
+        "Press through the midfoot and heel to return, avoiding a forceful knee lockout."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Daha derine inmek için kalça veya beli pedden kaldırmak.",
+        "Lifting the hips or lower back off the pad to chase extra depth."
+      ],
+      [
+        "Dizlerin içe çökmesine veya ayak yönünden sapmasına izin vermek.",
+        "Allowing the knees to collapse inward or drift away from the toe direction."
+      ],
+      [
+        "Üstte dizleri hızla ve sert biçimde kilitlemek.",
+        "Snapping the knees into a hard lockout at the top."
+      ],
+      [
+        "Ağırlığı kontrolsüz indirip alt noktada makineyi sektirmek.",
+        "Lowering the load without control and bouncing out of the bottom."
+      ]
+    ],
+    "tips": [
+      [
+        "Derinliği, pelvisin ped üzerinde nötr ve sabit kalabildiği nokta belirlesin.",
+        "Let pelvic control against the pad determine the usable depth."
+      ],
+      [
+        "Ayak basıncını topukla birlikte başparmak ve küçük parmak köküne dağıt.",
+        "Distribute foot pressure through the heel and the bases of the big and little toes."
+      ],
+      [
+        "Dizleri platforma doğru iterken ayak parmaklarının yönünü takip ettir.",
+        "Keep the knees tracking in the direction of the toes as the platform lowers."
+      ],
+      [
+        "Makine açıları değiştiği için yükleri yalnız aynı leg press makinesinde karşılaştır.",
+        "Because machine geometry varies, compare loads only on the same leg press machine."
+      ]
+    ],
+    "progression": [
+      [
+        "Goblet squat ile diz takibi ve kontrollü derinlik becerisini geliştir.",
+        "Develop knee tracking and controlled depth with a goblet squat."
+      ],
+      [
+        "Leg press üzerinde hafif yükle koltuk ve ayak konumunu standartlaştır.",
+        "Standardize seat and foot position with a light load on the leg press."
+      ],
+      [
+        "Hedef tekrar aralığını pelvis kontrolüyle tamamladıktan sonra küçük yük artışı yap.",
+        "Add a small amount of load after completing the target rep range with pelvic control."
+      ],
+      [
+        "İleri aşamada tek bacak, pause veya yavaş eksantrik varyasyonlarını kullan.",
+        "At an advanced stage, use single-leg, paused, or slow-eccentric variations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps"
       ],
       "secondary": [
-        "full-body"
+        "gluteus-maximus",
+        "adductor-magnus",
+        "hamstrings"
       ]
     },
     "media": {
@@ -5408,7 +5998,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Leg Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Leg Press Rehberi | Ayak Pozisyonu ve Form",
+        "Leg Press Guide | Foot Position and Form"
+      ],
+      "metaDescription": [
+        "Leg press koltuk ve ayak kurulumu, güvenli hareket derinliği, diz takibi ve yaygın hatalar.",
+        "Learn leg press seat and foot setup, controlled depth, knee tracking, and common mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Leg press makinesi",
+          "Leg press machine"
+        ],
+        "movementPattern": [
+          "Alt vücut press",
+          "Lower-body press"
+        ],
+        "bestFor": [
+          "Bacak kuvveti ve hipertrofisi",
+          "Leg strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine, koltuk ayarı ve ayak pozisyonunu kaydet.",
+          "Log the machine, seat setting, and foot position."
+        ],
+        [
+          "Ağırlık, tekrar, RIR ve kontrollü alt nokta derinliğini takip et.",
+          "Track load, reps, RIR, and controlled bottom depth."
+        ],
+        [
+          "Pelvisin pedden ayrıldığı tekrarları geçerli ilerleme olarak sayma.",
+          "Do not count reps where the pelvis loses contact as valid progression."
+        ]
+      ],
+      "related": [
+        "squat",
+        "goblet-squat",
+        "leg-extension"
+      ]
+    }
   },
   "lunge": {
     "publish": false,
@@ -5449,7 +6085,7 @@ window.LOGWISE_EX_GUIDES = {
         "legs"
       ],
       "secondary": [
-        "full-body"
+        "glutes"
       ]
     },
     "media": {
@@ -5503,7 +6139,7 @@ window.LOGWISE_EX_GUIDES = {
         "legs"
       ],
       "secondary": [
-        "full-body"
+        "glutes"
       ]
     },
     "media": {
@@ -5557,7 +6193,7 @@ window.LOGWISE_EX_GUIDES = {
         "legs"
       ],
       "secondary": [
-        "full-body"
+        "glutes"
       ]
     },
     "media": {
@@ -5611,7 +6247,7 @@ window.LOGWISE_EX_GUIDES = {
         "legs"
       ],
       "secondary": [
-        "full-body"
+        "glutes"
       ]
     },
     "media": {
@@ -5665,7 +6301,7 @@ window.LOGWISE_EX_GUIDES = {
         "legs"
       ],
       "secondary": [
-        "full-body"
+        "glutes"
       ]
     },
     "media": {
@@ -5823,7 +6459,7 @@ window.LOGWISE_EX_GUIDES = {
         "legs"
       ],
       "secondary": [
-        "full-body"
+        "glutes"
       ]
     },
     "media": {
@@ -5929,7 +6565,7 @@ window.LOGWISE_EX_GUIDES = {
         "legs"
       ],
       "secondary": [
-        "full-body"
+        "glutes"
       ]
     },
     "media": {
@@ -6270,35 +6906,95 @@ window.LOGWISE_EX_GUIDES = {
       "Hip thrust. Glutes."
     ],
     "description": [
-      "Gluteus maximus izolasyon hareketi. Banka yaslanılarak barbell veya bant ile yapılır. Kalça kasını en etkili çalıştıran egzersizler arasındadır.",
-      "Glute isolation movement using a bench, with barbell or band. One of the most effective exercises for targeting gluteus maximus."
+      "Üst sırtın bir bench üzerinde desteklendiği glute-dominant kalça ekstansiyonu hareketidir. Özellikle üst noktada gluteus maximus üretimini ve kalça kilitleme kuvvetini geliştirmek için kullanılır.",
+      "A glute-dominant hip-extension movement performed with the upper back supported on a bench. It is used to develop gluteus maximus output and strong hip lockout near full extension."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Omuz bıçaklarını banka daya — omuzlar banka temas halinde olmalı.",
-        "Rest upper back/shoulder blades on the bench edge."
+        "Benchi sabitle ve alt kenarını kürek kemiklerinin hemen altına yerleştir.",
+        "Secure the bench and position its edge just below the shoulder blades."
       ],
       [
-        "Kalçayı tam uzat — üst noktada sanki ayakta duruyormuş gibi sık.",
-        "Fully extend hips at top — squeeze glutes as hard as if standing."
+        "Barı kalça kıvrımına ped ile yerleştir; ayakları kalça/omuz genişliğinde ve yere düz bas.",
+        "Place the padded bar in the hip crease and plant the feet around hip to shoulder width."
       ],
       [
-        "Ayaklar yere düz bassın, topuklardan it.",
-        "Press through heels with feet flat on the floor."
+        "Çeneyi hafifçe içeri al, kaburgaları aşağıda tut ve karın bölgesini sık.",
+        "Tuck the chin slightly, keep the ribs down, and brace the abs."
       ],
       [
-        "Barbell için ped kullan — direkt temas rahatsız edicidir.",
-        "Use a barbell pad — direct contact can be quite uncomfortable."
+        "Orta ayak/topuk üzerinden iterek kalçayı yükselt; dizlerin ayak parmakları yönünde ilerlesin.",
+        "Drive through the midfoot and heel to raise the hips while the knees track with the toes."
+      ],
+      [
+        "Gövde yere yakın paralel olduğunda kalçayı sık ve pelvisi kontrol ederek aşağı indir.",
+        "Squeeze the glutes when the torso is near parallel to the floor, then lower the hips under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Üstte kalçayı kilitlemek yerine belden aşırı geriye kavis yapmak.",
+        "Hyperextending the lower back at the top instead of finishing with the glutes."
+      ],
+      [
+        "Ayakları çok uzağa veya çok yakına koyup diz açısını ve kuvvet yönünü bozmak.",
+        "Placing the feet too far away or too close and losing an effective knee angle."
+      ],
+      [
+        "Topukları kaldırıp yalnız ayak parmaklarından itmek.",
+        "Letting the heels rise and pressing only through the toes."
+      ],
+      [
+        "Benchi sabitlemeden veya bar pedi kullanmadan ağır yüklemek.",
+        "Loading heavily without securing the bench or using adequate bar padding."
+      ]
+    ],
+    "tips": [
+      [
+        "Üst noktada kaval kemikleri yaklaşık dik olacak ayak mesafesini hedefle.",
+        "Aim for a foot position that leaves the shins roughly vertical at the top."
+      ],
+      [
+        "Kilitlemede kaburgaları aşağıda, çeneyi içeride ve gözleri karşıda tut.",
+        "At lockout, keep the ribs down, chin tucked, and eyes forward."
+      ],
+      [
+        "Bir saniyelik üst nokta sıkıştırmasıyla belden değil gluteustan bitirdiğini doğrula.",
+        "Use a one-second squeeze at the top to confirm the finish comes from the glutes, not the lower back."
+      ],
+      [
+        "Bar kalça kemiğini rahatsız ediyorsa kalın bir pad ve dengeli merkezleme kullan.",
+        "Use a thick pad and center the bar evenly if the hip bones feel uncomfortable."
+      ]
+    ],
+    "progression": [
+      [
+        "Glute bridge ile pelvis kontrolü ve üst nokta sıkıştırmasını öğren.",
+        "Learn pelvic control and the top squeeze with a glute bridge."
+      ],
+      [
+        "Vücut ağırlığı hip thrust ile bench pozisyonunu ve ayak mesafesini ayarla.",
+        "Use a bodyweight hip thrust to establish bench and foot position."
+      ],
+      [
+        "Barbell yükünü hedef tekrarlar ve kontrollü kilitleme korununca artır.",
+        "Increase barbell load once target reps and controlled lockout are consistent."
+      ],
+      [
+        "İleri aşamada pause, tempo veya single-leg hip thrust kullan.",
+        "At an advanced stage, add a pause, tempo, or single-leg hip thrust."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "full-body"
+        "gluteus-maximus"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "adductor-magnus",
+        "quadriceps",
+        "abdominals"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -6314,7 +7010,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Hip Thrust exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Hip Thrust Rehberi | Glute Formu ve İpuçları",
+        "Hip Thrust Guide | Glute Form and Tips"
+      ],
+      "metaDescription": [
+        "Hip thrust bench ve ayak kurulumu, glute kilitleme tekniği, yaygın hatalar ve progression.",
+        "Learn hip thrust bench and foot setup, glute lockout technique, common mistakes, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Gluteus maximus",
+          "Gluteus maximus"
+        ],
+        "equipment": [
+          "Bench, barbell ve pad",
+          "Bench, barbell, and pad"
+        ],
+        "movementPattern": [
+          "Kalça ekstansiyonu",
+          "Hip extension"
+        ],
+        "bestFor": [
+          "Glute kuvveti ve hipertrofisi",
+          "Glute strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Ağırlık, tekrar, RIR ve üst nokta pause süresini kaydet.",
+          "Log load, reps, RIR, and top-pause duration."
+        ],
+        [
+          "Bench yüksekliği ve ayak mesafesini tutarlı kullan.",
+          "Keep bench height and foot distance consistent."
+        ],
+        [
+          "Bel kavisinin arttığı veya tam kilitlemenin kaybolduğu setleri not et.",
+          "Note sets where back arch increased or full lockout was lost."
+        ]
+      ],
+      "related": [
+        "glute-bridge",
+        "single-leg-hip-thrust",
+        "romanian-deadlift"
+      ]
+    }
   },
   "single-leg-hip-thrust": {
     "publish": false,
@@ -6348,7 +7090,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "glutes"
       ],
       "secondary": []
     },
@@ -6400,7 +7142,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "glutes"
       ],
       "secondary": []
     },
@@ -6452,7 +7194,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "glutes"
       ],
       "secondary": []
     },
@@ -6504,7 +7246,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "glutes"
       ],
       "secondary": []
     },
@@ -6556,7 +7298,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "glutes"
       ],
       "secondary": []
     },
@@ -6608,9 +7350,11 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
-      "secondary": []
+      "secondary": [
+        "glutes"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -6660,9 +7404,11 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
-      "secondary": []
+      "secondary": [
+        "glutes"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -6716,7 +7462,7 @@ window.LOGWISE_EX_GUIDES = {
       ],
       "secondary": [
         "triceps",
-        "full-body"
+        "core"
       ]
     },
     "media": {
@@ -6771,7 +7517,7 @@ window.LOGWISE_EX_GUIDES = {
       ],
       "secondary": [
         "triceps",
-        "full-body"
+        "core"
       ]
     },
     "media": {
@@ -6826,7 +7572,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -6878,7 +7624,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -6930,7 +7676,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -6982,7 +7728,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7034,7 +7780,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7086,7 +7832,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7138,7 +7884,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7190,7 +7936,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7242,7 +7988,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7294,7 +8040,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7346,7 +8092,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7398,7 +8144,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7450,9 +8196,11 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
-      "secondary": []
+      "secondary": [
+        "back"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -7502,7 +8250,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": []
     },
@@ -7554,9 +8302,11 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
-      "secondary": []
+      "secondary": [
+        "glutes"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -7606,7 +8356,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "core"
       ],
       "secondary": [
         "cardiovascular"
@@ -7972,7 +8722,7 @@ window.LOGWISE_EX_GUIDES = {
     "progression": [],
     "muscles": {
       "primary": [
-        "full-body"
+        "back"
       ],
       "secondary": []
     },
