@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-18 — Ortak exercise guide JSON/veri sözleşmesi eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-18 — R2 exercise-media teslim ve doğrulama akışı eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-61)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-62)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -73,6 +73,7 @@ LogWise/
 │   ├── BLOG-YAZISI-EKLEME.md  ← Yeni Learn yazısı ekleme reçetesi
 │   ├── PROGRAMMATIC-SEO-PROMPT.md ← Programmatic SEO çalışma promptu
 │   ├── EXERCISE-GUIDE-SCHEMA.md ← Ortak web/mobile guide ve medya sözleşmesi
+│   ├── R2-EXERCISE-MEDIA-SETUP.md ← Exercise medya R2 kurulum/yükleme reçetesi
 │   └── ex-guides.schema.json  ← Exercise guide makine-okunur JSON Schema
 ├── assets/
 │   └── landing/                ← Statik landing mockup görselleri
@@ -114,6 +115,7 @@ LogWise/
 ├── scripts/
 │   ├── build-blog.js          ← blog-content/*.md → learn/*.html + ogren/*.html üretici + TR/EN hreflang + landing Learn/Öğren kart enjeksiyonu
 │   ├── build-ex-guides.js     ← ex-guides.json doğrulama + ex-guides.js wrapper üretimi
+│   ├── validate-exercise-media.js ← Yerel MP4 + uzak R2 header/range doğrulaması
 │   ├── build-programmatic-seo.js ← data/*.js → library.html + library/exercises.html + library/programs.html + nested Library HTML üretici
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
 ├── index.html                 ← EN statik SEO landing
@@ -136,6 +138,7 @@ LogWise/
 ├── sitemap_index.xml          ← Sitemap index fallback'i
 ├── sitemap-basic.xml          ← Minimal XML sitemap fallback'i
 ├── sitemap.txt                ← Düz metin sitemap fallback'i
+├── r2-exercise-media-cors.json ← `media.logwise.fit` R2 CORS konfigürasyonu
 ├── sw.js                      ← Service Worker (PWA)
 ├── manifest.json              ← PWA manifest
 ├── _redirects, _headers       ← Cloudflare Pages konfigürasyonu
@@ -167,6 +170,7 @@ LogWise/
 | Yeni SEO araç sayfası eklemek | `.html` dosyası + `styles/landing.css` + `scripts/build-blog.js` statik sitemap kaydı + sw.js değerlendirmesi |
 | Programmatic SEO sayfaları eklemek/genişletmek | `docs/PROGRAMMATIC-SEO-PROMPT.md` + `scripts/build-programmatic-seo.js` |
 | Exercise guide ortak veri/medya eklemek | `docs/EXERCISE-GUIDE-SCHEMA.md` + `data/ex-guides.json` |
+| Exercise medyası encode/yükleme/doğrulama | `docs/R2-EXERCISE-MEDIA-SETUP.md` + `scripts/validate-exercise-media.js` |
 | Yeni sayfa eklemek | `.html` dosyası + gerekirse `_redirects` + sw.js PRECACHE |
 
 ---
@@ -215,6 +219,7 @@ LogWise/
 - **Programmatic SEO MVP** (Bölüm 55-58): `/library` hub + `/library/exercises` dizini + `/library/programs` dizini + `/library/exercises/bench-press`, `/library/exercises/squat`, `/library/exercises/deadlift`, `/library/programs/push-pull-legs` statik generator çıktıları + sitemap/SW entegrasyonu ✅
 - **Mobil public navigasyon** (Bölüm 60): Home/Tools/Library/Learn için iki dilli, erişilebilir ve aktif rota vurgulu ortak side panel ✅
 - **Ortak exercise guide altyapısı** (Bölüm 61): Platform-nötr JSON kaynak, web wrapper üretimi, readiness/medya doğrulaması ve legacy fallback geçiş sözleşmesi ✅
+- **R2 exercise-media teslim hattı** (Bölüm 62): Ayrı public bucket, CORS/custom-domain/upload reçetesi ve yerel/uzak medya doğrulayıcı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

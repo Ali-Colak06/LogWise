@@ -3935,3 +3935,39 @@ Library exercise guide sayfaları ile React Native / Expo istemcisinin aynı iç
 - `node scripts/build-ex-guides.js --check` readiness, i18n, slug ve URL sözleşmesini doğrulamalı.
 - `node scripts/build-blog.js` wrapper ile mevcut Learn/Library/sitemap çıktılarını birlikte üretmeli.
 - Build sonrasında mevcut `/library/exercises/bench-press`, `/squat` ve `/deadlift` HTML çıktıları medya gelmeden değişmemelidir.
+
+---
+
+## Bölüm 62 — R2 Exercise Media Teslim ve Doğrulama Hattı (2026-06-18)
+
+### Amaç
+
+Exercise guide MP4, WebM, poster ve muscle-map dosyalarının kullanıcı görsellerinden ayrı bir R2 bucket üzerinde güvenilir biçimde yayınlanması; yerel encode çıktısı ile production HTTP davranışının otomatik doğrulanması.
+
+### Mimari Kararlar
+
+- **Ayrı bucket:** Mevcut `logwise-images` bucket'ı avatar/workout fotoğrafları için kalır. Immutable exercise medyası `logwise-exercise-media` bucket'ında tutulur.
+- **Production domain:** Public medya yalnız `https://media.logwise.fit/exercises/{slug}/` üzerinden referanslanır; `r2.dev` ve `workers.dev` URL'leri guide JSON'a girmez.
+- **CORS config:** Kök `r2-exercise-media-cors.json`, `https://logwise.fit` için GET/HEAD/Range erişimini ve gerekli response header'larını tanımlar.
+- **Yerel doğrulama:** `scripts/validate-exercise-media.js --local`, ffprobe ile H.264 Main 3.1, yuv420p, ses kanalı yokluğu, 720p zarfı, süre/bitrate ve faststart kontrolü yapar.
+- **Uzak doğrulama:** Aynı script `--remote`, R2 varlıklarında MIME, immutable cache, CORS ve MP4 `206 Partial Content`/`Content-Range` davranışını kontrol eder.
+- **Versiyonlu upload:** Object key üzerine yazılmaz; `demo-v1.mp4` → `demo-v2.mp4` şeklinde yeni key oluşturulur.
+- **Cloudflare erişimi:** Bu seans sırasında Wrangler kuruluydu fakat oturum kapalıydı. Bucket/domain üzerinde dış değişiklik yapılmadı; runbook oturum açıldıktan sonra uygulanmak üzere hazırlandı.
+- **Service worker:** Remote medya precache edilmez ve bu faz yeni runtime statik asset eklemediği için cache bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `scripts/validate-exercise-media.js` | Yerel ffprobe ve uzak R2 HTTP doğrulaması |
+| `r2-exercise-media-cors.json` | R2 CORS kuralı |
+| `docs/R2-EXERCISE-MEDIA-SETUP.md` | Bucket, custom domain, cache ve upload runbook'u |
+| `docs/EXERCISE-GUIDE-SCHEMA.md` | Yeni validator komutları ve R2 rehberi bağlantısı |
+| `AGENTS.md` | Dosya haritası, görev yönlendirmesi ve refactor özeti |
+
+### Doğrulama Notları
+
+- `node --check scripts/validate-exercise-media.js` çalıştırılmalı.
+- `node scripts/validate-exercise-media.js --remote-ready`, media-ready kayıt yokken temiz biçimde no-op olmalı.
+- Yerel MP4 doğrulaması için `ffmpeg`/`ffprobe` PATH üzerinde bulunmalıdır.
+- Cloudflare oturumu açıldıktan sonra CORS config Wrangler ile uygulanmalı ve Bench Press pilot dosyaları uzak validator'dan geçmelidir.

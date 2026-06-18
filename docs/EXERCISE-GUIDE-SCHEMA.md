@@ -89,8 +89,10 @@ Kaynak dikeyse veya 720 pikselden küçükse ölçek ayarı kaynak bazında yap�
 
 1. JSON doğrulamasını çalıştır: `node scripts/build-ex-guides.js --check`.
 2. Wrapper üret: `node scripts/build-ex-guides.js`.
-3. Yerel MP4 dosyasını `ffprobe` ile codec, pixel format, ses kanalı ve ölçüler açısından kontrol et.
-4. R2 URL'sinde Content-Type, cache header ve range isteğini kontrol et.
+3. Yerel MP4 dosyasını `node scripts/validate-exercise-media.js --local <dosya>` ile kontrol et.
+4. R2 URL'lerini `node scripts/validate-exercise-media.js --remote <slug>` ile kontrol et.
 5. `mediaReady` değerini ancak dosyalar gerçekten erişilebildiğinde `true` yap.
 6. `publish` değerini ancak tam web içeriği ve muscle map hazır olduğunda `true` yap.
 7. `node scripts/build-blog.js` ile statik çıktıları yeniden üret.
+
+R2 bucket, CORS, custom domain ve upload komutları için `docs/R2-EXERCISE-MEDIA-SETUP.md` belgesine bak.
