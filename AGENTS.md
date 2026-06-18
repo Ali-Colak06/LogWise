@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-18 — R2 exercise-media teslim ve doğrulama akışı eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-18 — Exercise guide JSON cutover adapter'ı ve pilot içerikler eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-62)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-63)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -220,6 +220,7 @@ LogWise/
 - **Mobil public navigasyon** (Bölüm 60): Home/Tools/Library/Learn için iki dilli, erişilebilir ve aktif rota vurgulu ortak side panel ✅
 - **Ortak exercise guide altyapısı** (Bölüm 61): Platform-nötr JSON kaynak, web wrapper üretimi, readiness/medya doğrulaması ve legacy fallback geçiş sözleşmesi ✅
 - **R2 exercise-media teslim hattı** (Bölüm 62): Ayrı public bucket, CORS/custom-domain/upload reçetesi ve yerel/uzak medya doğrulayıcı ✅
+- **Exercise guide JSON cutover hazırlığı** (Bölüm 63): Üç pilotun tam TR/EN içeriği, `publish` kontrollü generator adapter'ı ve koşullu demo/kas haritası şablonu ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

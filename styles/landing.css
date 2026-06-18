@@ -782,6 +782,9 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
 .guide-block:first-child{padding-top:0;border-top:0}
 .guide-block h2{font-family:var(--font-display);font-size:42px;line-height:1.06;letter-spacing:-.03em;max-width:780px}
 .guide-block p{margin-top:16px;color:var(--t2);font-size:16px;line-height:1.75;max-width:780px}
+.guide-demo{margin-top:24px;border:1px solid var(--brd);border-radius:14px;overflow:hidden;background:#050505}
+.guide-demo video{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#050505}
+.guide-demo figcaption{padding:12px 16px;border-top:1px solid var(--brd);font-family:var(--font-mono);font-size:11px;line-height:1.5;color:var(--t3)}
 .guide-steps{margin-top:24px;display:grid;gap:12px;list-style:none;counter-reset:guide-step}
 .guide-steps li{counter-increment:guide-step;position:relative;padding:18px 18px 18px 58px;border:1px solid var(--brd);border-radius:14px;background:rgba(255,255,255,.018);color:var(--t2);line-height:1.6}
 .guide-steps li::before{content:counter(guide-step);position:absolute;left:18px;top:18px;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#000;font-family:var(--font-mono);font-size:12px;font-weight:800}
@@ -793,6 +796,8 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
 .guide-side-box h3{font-family:var(--font-display);font-size:23px;line-height:1.12;letter-spacing:-.02em}
 .guide-side-box p{margin-top:10px;color:var(--t2);font-size:14px;line-height:1.65}
 .guide-side-box ul{margin-top:12px;display:grid;gap:8px;padding-left:18px;color:var(--t2);font-size:14px;line-height:1.55}
+.guide-muscle-map img{display:block;width:100%;height:auto;margin-top:16px;aspect-ratio:4/5;object-fit:contain;border:1px solid var(--brd);border-radius:12px;background:#080808}
+.guide-muscle-map-inline{display:none}
 .guide-side-link{display:inline-flex;margin-top:16px;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;color:var(--gold);font-weight:700}
 .guide-related-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .guide-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
@@ -836,6 +841,8 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
   .tool-related-grid,.guide-related-grid,.guide-card-grid{grid-template-columns:1fr}
   .directory-card-grid,.program-directory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .guide-side{position:static}
+  .guide-muscle-map-side{display:none}
+  .guide-muscle-map-inline{display:block}
   .template-hero .template-table{min-width:840px}
 }
 @media (max-width:640px){

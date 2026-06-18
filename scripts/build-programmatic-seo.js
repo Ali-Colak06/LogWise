@@ -19,6 +19,7 @@
 const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
+const { loadAndValidateExerciseGuides } = require('./build-ex-guides.js');
 
 const DEFAULT_ROOT = path.join(__dirname, '..');
 const DEFAULT_SITE = 'https://logwise.fit';
@@ -302,11 +303,12 @@ function exerciseName(exercise) {
   return exercise.nameEN || exercise.name;
 }
 
-function buildLookups(windowData) {
+function buildLookups(windowData, guides) {
   return {
     exercises: windowData.LOGWISE_PRESET_EXERCISES || [],
     descriptions: windowData.LOGWISE_EX_DESCS || {},
     previews: windowData.LOGWISE_EX_PREVIEW || {},
+    guides: guides || {},
     programs: windowData.LOGWISE_PRESET_PROGRAMS || [],
     exerciseById: new Map((windowData.LOGWISE_PRESET_EXERCISES || []).map(ex => [ex.id, ex]))
   };
@@ -322,13 +324,57 @@ function descriptionFor(data, id) {
   return short || long || '';
 }
 
-function sourceTips(data, id) {
+function localizedEN(value) {
+  return Array.isArray(value) ? value[1] : '';
+}
+
+function localizedListEN(value) {
+  return Array.isArray(value) ? value.map(localizedEN).filter(Boolean) : [];
+}
+
+function canonicalGuideFor(data, id) {
+  const source = data.guides[id];
+  const exercise = data.exerciseById.get(id);
+  if (!source || !source.publish || !exercise) return null;
+
+  const web = source.web;
+  return {
+    title: exerciseName(exercise),
+    metaTitle: localizedEN(web.metaTitle),
+    metaDescription: localizedEN(web.metaDescription),
+    description: localizedEN(source.description),
+    quickFacts: {
+      primaryMuscles: localizedEN(web.quickFacts.primaryMuscles),
+      equipment: localizedEN(web.quickFacts.equipment),
+      pattern: localizedEN(web.quickFacts.movementPattern),
+      bestFor: localizedEN(web.quickFacts.bestFor)
+    },
+    howTo: localizedListEN(source.formSteps),
+    mistakes: localizedListEN(source.mistakes),
+    progression: localizedListEN(source.progression),
+    tracking: localizedListEN(web.tracking),
+    tips: localizedListEN(source.tips),
+    related: web.related.slice(),
+    mediaReady: source.mediaReady,
+    media: source.media,
+    canonical: true
+  };
+}
+
+function exerciseGuideFor(data, id) {
+  return canonicalGuideFor(data, id) || EXERCISE_GUIDES[id];
+}
+
+function sourceTips(data, id, guide) {
+  if (guide && guide.canonical) return guide.tips.slice(0, 4);
   const preview = data.previews[id];
   if (!preview || !Array.isArray(preview.tips)) return [];
   return preview.tips.map(tip => tip[1]).filter(Boolean).slice(0, 4);
 }
 
-function headBlock({ title, description, url, site, jsonLd }) {
+function headBlock({ title, description, url, site, jsonLd, image }) {
+  const socialImage = image || `${site}${OG_IMAGE}`;
+  const twitterCard = image ? 'summary_large_image' : 'summary';
   return `<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>${esc(title)}</title>
@@ -346,12 +392,12 @@ function headBlock({ title, description, url, site, jsonLd }) {
 <meta property="og:title" content="${esc(title)}"/>
 <meta property="og:description" content="${esc(description)}"/>
 <meta property="og:url" content="${url}"/>
-<meta property="og:image" content="${site}${OG_IMAGE}"/>
+<meta property="og:image" content="${esc(socialImage)}"/>
 <meta property="og:locale" content="en_US"/>
-<meta name="twitter:card" content="summary"/>
+<meta name="twitter:card" content="${twitterCard}"/>
 <meta name="twitter:title" content="${esc(title)}"/>
 <meta name="twitter:description" content="${esc(description)}"/>
-<meta name="twitter:image" content="${site}${OG_IMAGE}"/>
+<meta name="twitter:image" content="${esc(socialImage)}"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
@@ -579,14 +625,42 @@ function exerciseJsonLd({ site, slug, guide }) {
   ];
 }
 
+function exerciseDemoBlock(guide) {
+  if (!guide.mediaReady || !guide.media || !guide.media.demoMp4 || !guide.media.poster) return '';
+  const webm = guide.media.demoWebm
+    ? `          <source src="${esc(guide.media.demoWebm)}" type="video/webm"/>\n`
+    : '';
+  return `      <section class="guide-block guide-media-block" aria-labelledby="movement-demo-title">
+        <div class="section-kicker">MOVEMENT DEMO</div>
+        <h2 id="movement-demo-title">Watch the movement</h2>
+        <figure class="guide-demo">
+          <video controls muted loop playsinline preload="metadata" poster="${esc(guide.media.poster)}" aria-label="${esc(localizedEN(guide.media.demoLabel))}">
+${webm}          <source src="${esc(guide.media.demoMp4)}" type="video/mp4"/>
+          </video>
+          <figcaption>${esc(localizedEN(guide.media.demoLabel))}</figcaption>
+        </figure>
+      </section>
+`;
+}
+
+function exerciseMuscleMapBlock(guide, placement) {
+  if (!guide.mediaReady || !guide.media || !guide.media.muscleMap) return '';
+  const placementClass = placement === 'inline' ? 'guide-muscle-map-inline' : 'guide-muscle-map-side';
+  return `      <div class="guide-side-box guide-muscle-map ${placementClass}">
+        <h3>Muscles worked</h3>
+        <img src="${esc(guide.media.muscleMap)}" alt="${esc(localizedEN(guide.media.muscleMapAlt))}" width="800" height="1000" loading="lazy" decoding="async"/>
+      </div>
+`;
+}
+
 function exercisePage(slug, data, site) {
-  const guide = EXERCISE_GUIDES[slug];
+  const guide = exerciseGuideFor(data, slug);
   const exercise = data.exerciseById.get(slug);
   if (!guide || !exercise) throw new Error(`Missing exercise guide or source data for ${slug}`);
 
   const url = siteUrl(site, exerciseGuidePath(slug));
   const generatedIds = new Set(GENERATED_EXERCISES);
-  const sourceCueItems = sourceTips(data, slug);
+  const sourceCueItems = sourceTips(data, slug, guide);
   const sourceCueBlock = sourceCueItems.length ? `<div class="guide-side-box">
         <h3>LogWise cues</h3>
         <ul>
@@ -594,12 +668,17 @@ ${listItems(sourceCueItems)}
         </ul>
       </div>` : '';
   const relatedCards = guide.related.map(id => relatedExerciseCard(data, id, generatedIds)).filter(Boolean).join('\n');
+  const demoBlock = exerciseDemoBlock(guide);
+  const inlineMuscleMapBlock = exerciseMuscleMapBlock(guide, 'inline');
+  const sideMuscleMapBlock = exerciseMuscleMapBlock(guide, 'side');
+  const metaDescription = guide.metaDescription || guide.description;
+  const socialImage = guide.mediaReady && guide.media ? guide.media.poster : null;
 
   return `<!DOCTYPE html>
 <!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit library/exercises/*.html manually. -->
 <html lang="en">
 <head>
-${headBlock({ title: guide.metaTitle, description: guide.description, url, site, jsonLd: exerciseJsonLd({ site, slug, guide }) })}
+${headBlock({ title: guide.metaTitle, description: metaDescription, url, site, jsonLd: exerciseJsonLd({ site, slug, guide }), image: socialImage })}
 </head>
 <body class="seo-guide-page">
 ${nav([
@@ -639,14 +718,14 @@ ${nav([
 <section id="how-to" class="section-pad">
   <div class="shell guide-content-grid">
     <article class="guide-main">
-      <section class="guide-block">
+${demoBlock}      <section class="guide-block">
         <div class="section-kicker">FORM GUIDE</div>
         <h2>How to do the ${esc(guide.title)}</h2>
         <ol class="guide-steps">
 ${listItems(guide.howTo)}
         </ol>
       </section>
-      <section class="guide-block">
+${inlineMuscleMapBlock}      <section class="guide-block">
         <div class="section-kicker">COMMON MISTAKES</div>
         <h2>Keep the lift honest</h2>
         <ul class="guide-list">
@@ -671,7 +750,7 @@ ${listItems(guide.tracking)}
       </section>
     </article>
     <aside class="guide-side">
-      ${sourceCueBlock}
+${sideMuscleMapBlock}      ${sourceCueBlock}
       <div class="guide-side-box">
         <h3>Track the useful numbers</h3>
         <p>For this lift, the most useful history is simple: top set, back-off sets, total working volume, RIR, and short technique notes.</p>
@@ -1367,7 +1446,7 @@ ${footer()}
 function buildProgrammaticSeo(options = {}) {
   const root = options.root || DEFAULT_ROOT;
   const site = options.site || DEFAULT_SITE;
-  const data = buildLookups(loadWindowData(root));
+  const data = buildLookups(loadWindowData(root), loadAndValidateExerciseGuides(root));
   const libraryDir = path.join(root, 'library');
   const exerciseDir = path.join(libraryDir, 'exercises');
   const programDir = path.join(libraryDir, 'programs');

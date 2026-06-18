@@ -3971,3 +3971,38 @@ Exercise guide MP4, WebM, poster ve muscle-map dosyalarının kullanıcı görse
 - `node scripts/validate-exercise-media.js --remote-ready`, media-ready kayıt yokken temiz biçimde no-op olmalı.
 - Yerel MP4 doğrulaması için `ffmpeg`/`ffprobe` PATH üzerinde bulunmalıdır.
 - Cloudflare oturumu açıldıktan sonra CORS config Wrangler ile uygulanmalı ve Bench Press pilot dosyaları uzak validator'dan geçmelidir.
+
+---
+
+## Bölüm 63 — Exercise Guide JSON Cutover Hazırlığı (2026-06-18)
+
+### Amaç
+
+Bench Press, Squat ve Deadlift için web ile mobilin paylaşacağı tam iki dilli içeriği kanonik JSON'a taşımak; medya tesliminden sonra yalnız readiness bayrakları değiştirilerek güvenli biçimde yayına alınabilecek web generator yolunu hazırlamak.
+
+### Mimari Kararlar
+
+- **Tam pilot içerikler:** Üç hareketin summary, açıklama, form adımları, hatalar, ipuçları, progression, kas kimlikleri ve web metadata/quick-fact/tracking alanları TR+EN olarak `data/ex-guides.json` içine alındı.
+- **Publish kontrollü adapter:** Programmatic SEO generator kanonik guide kaydını yalnız `publish: true` olduğunda kullanır. Hazır olmayan veya eksik kayıtlar mevcut `EXERCISE_GUIDES` içeriğine düşer.
+- **Regresyonsuz hazırlık:** Pilot kayıtlar `previewReady: true`, `mediaReady: false`, `publish: false` kaldığı için mevcut üç canlı guide HTML çıktısı değişmez.
+- **Koşullu medya şablonu:** Media-ready guide sayfası MP4 zorunlu, WebM opsiyonel hareket demosunu ve masaüstü/mobil yerleşime uyarlanan kas haritasını otomatik üretir.
+- **Sosyal önizleme:** Yayınlanan guide poster'i varsa Open Graph/Twitter görseli olarak kullanılır; aksi durumda mevcut site paylaşım görseli korunur.
+- **Service worker:** Yeni statik dosya veya URL eklenmedi; mevcut `landing.css`, generator ve önceden precache edilen guide verileri güncellendiği için cache adı değiştirilmedi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Üç pilot hareketin tam TR/EN guide ve web içeriği |
+| `data/ex-guides.js` | Güncel kanonik JSON'dan yeniden üretilen web wrapper |
+| `scripts/build-programmatic-seo.js` | Publish-gated kanonik adapter, legacy fallback ve medya markup'ı |
+| `styles/landing.css` | Hareket demosu ve responsive kas haritası stilleri |
+| `docs/EXERCISE-GUIDE-SCHEMA.md` | Generator cutover davranışı |
+| `AGENTS.md` | Refactor özeti ve dosya haritası bölüm sayısı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` ile üç pilot preview-ready ve publish/media-ready sayıları doğrulanmalı.
+- `node scripts/build-blog.js` sonrasında mevcut üç canlı guide dosyasının hash'leri değişmemeli.
+- Geçici publish-ready fixture ile kanonik metin, demo video, kas haritası ve sosyal poster markup'ı üretilmeli; publish olmayan diğer sayfalar legacy kalmalı.
+- Masaüstü ve 390 px mobil viewport'ta demo/kas haritası boyutları, içerik sırası ve yatay taşma kontrol edilmeli.

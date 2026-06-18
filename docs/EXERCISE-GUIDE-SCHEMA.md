@@ -24,6 +24,8 @@ Bu belge, statik Library sayfaları ile React Native / Expo istemcisinin paylaş
 
 Mevcut Bench Press, Squat ve Deadlift sayfaları medya hazır olana kadar legacy generator ile yayında kalır. JSON cutover bu üç hareket için içerik, medya ve generator değişikliği birlikte hazır olduğunda atomik yapılır.
 
+Web generator, guide kaydını yalnız `publish: true` olduğunda kanonik kaynak olarak kullanır. `publish: false` iken JSON içinde tam içerik hazırlanabilir; canlı sayfa legacy guide verisinden byte-for-byte üretilmeye devam eder. Yayınlanan ve `mediaReady: true` olan kayıtlarda demo videosu ile kas haritası şablona otomatik eklenir.
+
 ## Dil ve İçerik
 
 Yerelleştirilmiş her değer iki elemanlı `[TR, EN]` dizisidir. Otomatik karakter kesme yapılmaz; `summary` uygulama preview'ı için özel ve kısa yazılır. Liste maddeleri önem sırasına konur.

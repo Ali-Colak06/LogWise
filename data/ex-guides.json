@@ -12,8 +12,46 @@
       "Düz bankta barbell press. Göğüs kasları, ön deltoid ve triceps aynı anda çalışır. Üst vücut kuvvetinin temel bileşik hareketidir.",
       "Barbell press on a flat bench. Works the pectorals, front deltoids, and triceps together. A foundational compound lift for upper-body strength."
     ],
-    "formSteps": [],
-    "mistakes": [],
+    "formSteps": [
+      [
+        "Gözlerini barın altında konumlandır, ayaklarını yere sabitle ve kürek kemiklerini banka doğru geriye çek.",
+        "Set your eyes under the bar, plant your feet, and pull your shoulder blades back into the bench."
+      ],
+      [
+        "Barı omuz genişliğinden biraz daha geniş tut; bileklerini dirseklerinin üzerinde hizala.",
+        "Grip the bar slightly wider than shoulder width and keep your wrists stacked over your elbows."
+      ],
+      [
+        "Barı kontrollü çıkar ve dirseklerini hafifçe içeri alarak orta-alt göğse indir.",
+        "Unrack with control, lower the bar toward the mid-to-lower chest, and keep the elbows slightly tucked."
+      ],
+      [
+        "Barı sektirmeden göğse hafifçe temas ettir; ardından omuzların üzerine gelene kadar yukarı ve hafifçe geriye it.",
+        "Touch the chest without bouncing, then press up and back until the bar is over the shoulders."
+      ],
+      [
+        "Kalçanı bankta tut ve her tekrarda aynı kurulum ile bar yolunu koru.",
+        "Keep your hips on the bench and repeat each rep with the same setup and bar path."
+      ]
+    ],
+    "mistakes": [
+      [
+        "Alt pozisyonu kontrol etmek yerine barı göğüsten sektirmek.",
+        "Bouncing the bar off the chest instead of controlling the bottom."
+      ],
+      [
+        "Press öncesinde veya sırasında omuzların öne yuvarlanmasına izin vermek.",
+        "Letting the shoulders roll forward before or during the press."
+      ],
+      [
+        "Her tekrarda dirsekleri tamamen yana açmak.",
+        "Flaring the elbows straight out to the sides on every rep."
+      ],
+      [
+        "Seti tamamlamak için kalçayı banktan kaldırmak.",
+        "Lifting the hips off the bench to turn the set into a different movement."
+      ]
+    ],
     "tips": [
       [
         "Omuz bıçaklarını bankta birbirine sıkıştır ve kilitli tut.",
@@ -36,7 +74,24 @@
         "Keep the same setup and bar path on every rep."
       ]
     ],
-    "progression": [],
+    "progression": [
+      [
+        "Ağırlık eklemeden önce 3x6-8 gibi sabit bir aralıkta tekrarları artır.",
+        "Add reps inside a fixed range before adding load, such as 3 sets of 6-8."
+      ],
+      [
+        "Press hareketlerinde mümkün olduğunda küçük ağırlık artışları kullan.",
+        "Use small load jumps on pressing movements when possible."
+      ],
+      [
+        "Ek bench hacminin toparlanmayı fark etmeden aşmaması için çalışma seti hacmini takip et.",
+        "Track working-set volume so extra bench work does not quietly outpace recovery."
+      ],
+      [
+        "Çoğu sette 1-3 tekrar yedek bırak; gerçek zorlamaları planlı testlere sakla.",
+        "Leave 1-3 reps in reserve on most sets and save true grinders for planned tests."
+      ]
+    ],
     "muscles": {
       "primary": [
         "pectoralis-major"
@@ -60,7 +115,53 @@
         "Chest, front shoulder, and triceps muscles used during the bench press."
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Bench Press Rehberi: Form, Kaslar, Hatalar ve İlerleme | LogWise",
+        "Bench Press Guide: Form, Muscles, Mistakes & Progression | LogWise"
+      ],
+      "metaDescription": [
+        "Bench press formunu geliştir, yaygın hatalardan kaçın, setlerini ilerlet ve antrenmanlarını LogWise ile takip et.",
+        "Learn how to bench press with cleaner form, avoid common mistakes, progress your sets, and track bench press workouts in LogWise."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, ön omuz, triceps",
+          "Chest, front delts, triceps"
+        ],
+        "equipment": [
+          "Barbell, düz bank, rack",
+          "Barbell, flat bench, rack"
+        ],
+        "movementPattern": [
+          "Yatay itiş",
+          "Horizontal press"
+        ],
+        "bestFor": [
+          "Üst vücut kuvveti ve press hacmi",
+          "Upper-body strength and pressing volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Bir sonraki hedefin net olması için her setin ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log each set with weight, reps, and RIR so your next target is obvious."
+        ],
+        [
+          "Tutuş genişliği, pause tekrarları, omuz rahatlığı veya spotter desteği için not ekle.",
+          "Add notes for grip width, pause reps, shoulder comfort, or spotter help."
+        ],
+        [
+          "Tahmini 1RM'i her hafta maksimum deneme nedeni olarak değil, uzun vadeli trend olarak kullan.",
+          "Use estimated 1RM as a trend, not as a reason to max out every week."
+        ]
+      ],
+      "related": [
+        "incline-bench-press",
+        "close-grip-bench-press",
+        "dumbell-press"
+      ]
+    }
   },
   "squat": {
     "publish": false,
@@ -75,8 +176,46 @@
       "Barbell arka squat. Quadriceps, kalça, hamstring ve core kaslarını birlikte çalıştıran temel alt vücut hareketidir.",
       "Barbell back squat. A foundational lower-body movement that trains the quads, glutes, hamstrings, and core together."
     ],
-    "formSteps": [],
-    "mistakes": [],
+    "formSteps": [
+      [
+        "Barı üst sırtına güvenli biçimde yerleştir, gövdeni sabitle ve dengeli bir duruşla rack'ten çık.",
+        "Set the bar securely on the upper back, brace your torso, and step out with a stable stance."
+      ],
+      [
+        "Ayaklarını yere sabitle ve dizlerinin ayak parmaklarıyla aynı yönde ilerlemesini sağla.",
+        "Keep your feet rooted and let the knees track in the same direction as the toes."
+      ],
+      [
+        "Göğsünü kontrollü tutup ağırlığı orta ayakta dengelerken kalçalarının arasına doğru çömel.",
+        "Sit down between your hips while keeping the chest tall and the midfoot balanced."
+      ],
+      [
+        "Kontrol edebildiğin derinliğe ulaş; ardından ayağa kalkmak için zemini it.",
+        "Reach a depth you can control, then drive the floor away to stand up."
+      ],
+      [
+        "Seti aceleye getirmek yerine her tekrardan önce nefesini ve brace pozisyonunu yenile.",
+        "Reset your breath and brace before each rep instead of rushing the set."
+      ]
+    ],
+    "mistakes": [
+      [
+        "Ağırlık zorlaştıkça dizlerin içe çökmesine izin vermek.",
+        "Letting the knees collapse inward as the load gets heavy."
+      ],
+      [
+        "Ayak parmaklarına yükselip orta ayak dengesini kaybetmek.",
+        "Rising onto the toes and losing midfoot balance."
+      ],
+      [
+        "Tekrarın alt noktasında gövde brace'ini gevşetmek.",
+        "Relaxing the brace at the bottom of the rep."
+      ],
+      [
+        "Derinliği zamanla azaltırken bunu ilerleme olarak saymak.",
+        "Cutting depth shorter every week while counting it as progress."
+      ]
+    ],
     "tips": [
       [
         "Dizler ayak parmaklarıyla aynı yönde ilerlesin; içe çökmesine izin verme.",
@@ -99,7 +238,24 @@
         "Focus on driving the floor away as you stand up."
       ]
     ],
-    "progression": [],
+    "progression": [
+      [
+        "Derinliği tutarlı koruyarak önce tekrarları, ardından ağırlığı artır.",
+        "Progress reps first, then load, while keeping depth consistent."
+      ],
+      [
+        "Squat yorgunluğu haftanın kalanını etkileyebileceği için hacim değişikliklerini kontrollü yap.",
+        "Use volume changes carefully because squat fatigue can affect the rest of the week."
+      ],
+      [
+        "Normal çalışma setlerinin yanlışlıkla maksimum denemeye dönüşmemesi için RIR takip et.",
+        "Track RIR so a normal working set does not become an accidental max attempt."
+      ],
+      [
+        "İlerleme durursa her şeyi değiştirmeden önce hacim, pause çalışması ve toparlanmayı değerlendir.",
+        "If the lift stalls, adjust volume, pause work, or recovery before changing everything."
+      ]
+    ],
     "muscles": {
       "primary": [
         "quadriceps",
@@ -125,7 +281,53 @@
         "Quads, glutes, hamstrings, and core muscles used during the squat."
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Squat Rehberi: Form, Kaslar, Hatalar ve İlerleme | LogWise",
+        "Squat Guide: Form, Muscles, Mistakes & Progression | LogWise"
+      ],
+      "metaDescription": [
+        "Squat formunu geliştir, set ve hacmi takip et, yaygın hatalardan kaçın ve alt vücut antrenmanını ilerlet.",
+        "Learn how to squat with better form, track sets and volume, avoid common squat mistakes, and progress your lower-body training."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps, kalça, hamstring, core",
+          "Quads, glutes, hamstrings, core"
+        ],
+        "equipment": [
+          "Barbell, rack, plakalar",
+          "Barbell, rack, plates"
+        ],
+        "movementPattern": [
+          "Squat",
+          "Squat"
+        ],
+        "bestFor": [
+          "Alt vücut kuvveti, bacak hacmi ve tüm vücut brace'i",
+          "Lower-body strength, leg volume, full-body bracing"
+        ]
+      },
+      "tracking": [
+        [
+          "Duruş genişliği, derinlik, kemer kullanımı ve seti değiştiren form ipuçlarını kaydet.",
+          "Record stance notes, depth, belt use, and any form cues that changed the set."
+        ],
+        [
+          "Toplam squat hacmini takip ederek leg press, lunge ve diğer bacak çalışmalarıyla birlikte değerlendir.",
+          "Track total squat volume and compare it with leg press, lunges, and other leg work."
+        ],
+        [
+          "Tek bir kötü seansa tepki vermek yerine tahmini 1RM trendini birkaç hafta boyunca incele.",
+          "Review estimated 1RM over several weeks rather than reacting to one rough session."
+        ]
+      ],
+      "related": [
+        "goblet-squat",
+        "leg-press",
+        "bulgarian-split-squat"
+      ]
+    }
   },
   "deadlift": {
     "publish": false,
@@ -140,8 +342,46 @@
       "Yerden barbell kaldırma hareketi. Sırt, bacak, kalça, core ve kavrama kaslarını birlikte çalıştıran temel güç egzersizlerinden biridir.",
       "Barbell lift from the floor. A foundational strength exercise that trains the back, legs, glutes, core, and grip together."
     ],
-    "formSteps": [],
-    "mistakes": [],
+    "formSteps": [
+      [
+        "Ayaklarını yaklaşık kalça genişliğinde aç ve barı orta ayağın üzerinde konumlandır.",
+        "Stand with the bar over the midfoot and place your feet around hip width."
+      ],
+      [
+        "Kalçadan menteşe yaparak barı kavra; barı öne itmeden kaval kemiklerini bara yaklaştır.",
+        "Hinge down, grip the bar, and bring the shins to the bar without pushing it forward."
+      ],
+      [
+        "Gövdeni sıkıca sabitle, bardaki boşluğu gider ve göğsünü kontrollü biçimde açık tut.",
+        "Brace hard, pull the slack out of the bar, and keep the chest proud."
+      ],
+      [
+        "Barı bacaklarına yakın tutarken zemini ayaklarınla it.",
+        "Push the floor away while the bar stays close to the legs."
+      ],
+      [
+        "Kalçayı öne getirerek kilitle; ardından barı kontrollü biçimde yere indir.",
+        "Lock out by driving the hips through, then lower the bar with control."
+      ]
+    ],
+    "mistakes": [
+      [
+        "Çekişe bar vücuttan fazla uzaktayken başlamak.",
+        "Starting with the bar too far from the body."
+      ],
+      [
+        "Kurulumu veya brace'i aceleye getirip omurga pozisyonunu kaybetmek.",
+        "Rounding the back because the brace or setup was rushed."
+      ],
+      [
+        "Gerilim oluşturmadan barı yerden aniden çekmek.",
+        "Yanking the bar off the floor before tension is built."
+      ],
+      [
+        "Her deadlift seansını maksimum kuvvet testine çevirmek.",
+        "Turning every deadlift session into a maximal test."
+      ]
+    ],
     "tips": [
       [
         "Barı ayak ortasının üzerinde konumlandır ve çekiş boyunca vücuduna yakın tut.",
@@ -164,7 +404,24 @@
         "Do not rush heavy sets; reset and check your setup before each rep."
       ]
     ],
-    "progression": [],
+    "progression": [
+      [
+        "Ağır çekişlerin toparlanma maliyeti yüksek olduğu için deadlift hacmini kontrollü artır.",
+        "Progress deadlift volume conservatively because heavy pulls are expensive to recover from."
+      ],
+      [
+        "Düz ağır hacim toparlanmayı bozuyorsa üst set ve daha hafif back-off setleri kullan.",
+        "Use top sets plus back-off sets if straight heavy volume beats you up."
+      ],
+      [
+        "Güçlü bir çekiş ile zorlanmış bir tekrarı ayırmak için RIR ve bar hızı notları tut.",
+        "Track RIR and bar speed notes so you can tell a strong pull from a forced pull."
+      ],
+      [
+        "Varyasyonları yalnız belirli bir problemi çözdüğünde kullan; hareket zor hissettirdiği için rastgele değiştirme.",
+        "Rotate variations only when they solve a clear problem, not just because the lift feels hard."
+      ]
+    ],
     "muscles": {
       "primary": [
         "gluteus-maximus",
@@ -191,6 +448,52 @@
         "Glutes, hamstrings, back, quads, and grip muscles used during the deadlift."
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Deadlift Rehberi: Form, Kaslar, Hatalar ve İlerleme | LogWise",
+        "Deadlift Guide: Form, Muscles, Mistakes & Progression | LogWise"
+      ],
+      "metaDescription": [
+        "Daha güçlü bir deadlift kurulumu öğren, yaygın hatalardan kaçın, ilerlemeyi planla ve antrenmanlarını LogWise ile takip et.",
+        "Learn how to deadlift with a stronger setup, avoid common mistakes, progress safely, and track deadlift workouts in LogWise."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Sırt, kalça, hamstring, quadriceps, kavrama",
+          "Back, glutes, hamstrings, quads, grip"
+        ],
+        "equipment": [
+          "Barbell ve plakalar",
+          "Barbell and plates"
+        ],
+        "movementPattern": [
+          "Kalça menteşesi ve çekiş",
+          "Hip hinge and pull"
+        ],
+        "bestFor": [
+          "Tüm vücut kuvveti ve posterior-chain yüklemesi",
+          "Total-body strength and posterior-chain loading"
+        ]
+      },
+      "tracking": [
+        [
+          "Duruş, tutuş, strap, kemer ve tekrarların touch-and-go mu reset mi olduğunu kaydet.",
+          "Log stance, grip, straps, belt use, and whether reps were touch-and-go or reset."
+        ],
+        [
+          "Haftalık çekiş hacmini row, pull-up ve Romanian deadlift çalışmalarıyla birlikte takip et.",
+          "Track weekly pulling volume alongside rows, pull-ups, and Romanian deadlifts."
+        ],
+        [
+          "Teknik başarısızlıkları kuvvet başarısızlıklarından ayırmak için kısa notlar kullan.",
+          "Use notes to separate technical misses from strength misses."
+        ]
+      ],
+      "related": [
+        "romanian-deadlift",
+        "barbell-row",
+        "back-extension"
+      ]
+    }
   }
 }
