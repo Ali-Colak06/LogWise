@@ -4,7 +4,7 @@
 > Her yeni konuşma başında AI bu dosyayı okur; yeni bir karar verildiğinde bu dosya güncellenir.
 > İlgili sözleşme dosyası: `AGENTS.md` (proje kuralları). İlgili tasarım dosyaları: `01-current-logwise-ui-audit.md`, `02-mobile-design-system-proposal.md`.
 
-Son güncelleme: 2026-05-25 (rev 15)
+Son güncelleme: 2026-06-17 (rev 17)
 
 ---
 
@@ -399,14 +399,35 @@ app_day_meta
 - **Week view:** Var. `calendar-prototype-v2`'deki gibi sonsuz scrollable feed.
 - Toggle butonu üst barda (prototipte var).
 
+### 8.1.1 Calendar cila turu — kullanıcı kararları (rev 16 — 2026-06-16)
+
+> Bu kararlar bazı önceki MVP kararlarını **GEÇERSİZ KILAR** (aşağıda işaretli). Kullanıcı talebi; implement edildi.
+
+**Month view:**
+- **Chip'ler kategori değil HAREKET ADI gösterir.** §3.5'teki "max 2 kategori chip" kuralı kalktı; o günün tüm hareketleri ad olarak chip'lenir (hücre yüksekliğiyle overflow-clip — "..." yok, prototip geometrisi). Renk hâlâ kategoriye göre. *(§3.5 "kategori chip / max 2" GEÇERSİZ — month için.)*
+- **Planlı (gelecek) chip'ler:** Aktif programın o güne denk gelen hareketleri, **bugün + gelecek** ve **henüz loglanmamış** günler için **soluk** (opacity ~0.45) chip olarak görünür. Geçmiş günler sadece gerçek log gösterir. Kaynak: `resolveProgramDay` (off-day/week/deload mantığı dahil). Aktif program yoksa planlı chip yok.
+- **Chip yüksekliği** font'a yakın azaltıldı (14→12).
+- **Aylar arası yatay swipe:** `react-native-gesture-handler` Pan, yön kilitli (`activeOffsetX ±24`, `failOffsetY ±18`) — dikey/diagonal niyet yanlışlıkla ay değiştirmez. Sol→sonraki, sağ→önceki ay. (Chevron'lar app bar'da kalır.)
+
+**Week view (akordiyon — §B1 + §8.3'ü GEÇERSİZ KILAR):**
+- **Collapsed satır:** sol-üst küçük "N hareket · M set" + altında o günün **kategori (bölge) chip'leri**. Planlı gün soluk.
+- **Chevron tap → akordiyon:** o gün yerinde açılır (aynı anda tek gün); alt alta hareket satırları, her birinin **sağında son seanstaki en ağır set "kg × tekrar"** (`useLastSession`, lazy — sadece açılınca fetch; "—" eğer geçmiş yok).
+- **Gün gövdesine tap (chevron hariç) → Day Detail'e gider** (router.push).
+- **Detay altında "Start workout" → kronometre** + **Durdur** (duraklat/devam) + **Bitir**. **KRONOMETRE GEÇİCİDİR (ephemeral):** sadece UI state, DB'ye yazmaz, akordiyon kapanınca/ekrandan çıkınca sıfırlanır. *(§8.3 "timer Day Detail'de, manuel" + §3.2 "active-workout kavramı yok" + §B1 "week expanded + timer MVP'de yok" — bu üçü week view için GEÇERSİZ.)*
+  - **Açık/ertelenmiş:** Süre kalıcılığı (Bitir → `app_day_meta.total_duration_minutes`) ileride değerlendirilecek (kullanıcı hatırlatma istedi). Şema alanı hazır.
+
 ### 8.2 Day Detail
 - **Start workout butonu yok.** Day Detail açılınca set girişi direkt aktiftir.
 - Egzersiz kartının içindeki "Set Ekle" butonu ile satır eklenir.
 
 ### 8.3 Rest Timer
-- **Manuel başlatma.** Set kaydı sonrası otomatik başlatma MVP'de yok.
+> **REST TIMER MVP'DEN ÇIKARILDI (rev 17 — 2026-06-17, kullanıcı kararı).** MVP'de set
+> arası dinlenme sayacı **yok**. Day Detail'de bunun yerine week-view ile tutarlı,
+> "Start workout" ile başlayan **geçici (ephemeral) antrenman kronometresi** var (§8.11).
+> Aşağıdaki rest-timer kararları MVP sonrasına ertelendi (referans için duruyor).
+- ~~**Manuel başlatma.** Set kaydı sonrası otomatik başlatma MVP'de yok.~~ (MVP sonrası)
 - Push notification entegrasyonu MVP'de yok (background timer dahil sonra).
-- Day Detail'in sticky bottom alanında görünür (prototip referans).
+- ~~Day Detail'in sticky bottom alanında görünür (prototip referans).~~ (yerini antrenman kronometresi aldı)
 
 ### 8.4 Program Edit
 - **Prototipteki seviyede.** Drag/reorder, cycle settings (none/weekly/deload), deload_every, off_days, gün başına egzersiz ekle/çıkar — hepsi prototip kapsamında.
@@ -483,6 +504,52 @@ D3 spec yazımı sırasında netleşen kararlar:
 - **D2 + D3 ortak component'ler:** `ActivateConfirmModal`, `DeleteProgramModal` (D2 + D3 paylaşır); `AddExerciseSheet` (C4 + D1 + D3 paylaşır, mode props ile davranış ayrımı).
 - **Drag handle = 6-dot icon (§8.8 C2 ile aynı):** ProgramExerciseRow'da sol kenar; long-press anywhere on row da drag tetikler (handle decorative). Set satırlarındaki çatışma yok burada (input yok).
 - **Program adı validation:** Min 1 char, max 60, trim, aynı isimle 2 program OK (D1 + D2 ile tutarlı — rev 13).
+
+## 8.11 Day Detail cila turu — kullanıcı kararları (rev 17 — 2026-06-17)
+
+> Bu kararlar bazı önceki MVP kararlarını **GEÇERSİZ KILAR** (aşağıda işaretli). Kullanıcı
+> talebi; UI cila turunda (auth + calendar'dan sonra) implement edildi. Checkpoint 1 uygulandı;
+> drag/reorder checkpoint 2'ye kaldı.
+
+**Timer (§8.2 + §8.3'ü GEÇERSİZ KILAR):**
+- **Rest timer YOK (MVP).** Set arası dinlenme sayacı MVP'den çıkarıldı (§8.3 güncellendi).
+- **Day Detail'de "Start workout" antrenman kronometresi VAR (ephemeral).** Week-view ile
+  tutarlı: Başla → süre + Durdur/Devam + Bitir. **DB'ye HİÇBİR ŞEY yazmaz**; ekrandan çıkınca
+  sıfırlanır. Component: `components/day/WorkoutTimerBar.tsx` (`useWorkoutStopwatch` hook). Sticky
+  bottom. *(§3.2/§8.2 "Start workout butonu YOK" — kronometre için GEÇERSİZ; ancak set girişi
+  HÂLÂ direkt aktiftir, kronometre logging'i gate'lemez.)* Kalıcılık yolu hazır:
+  `app_day_meta.total_duration_minutes` (ileride; week-view ile ortak hatırlatma).
+
+**Set girişi (prototip hizalama):**
+- **Set satırı = prototip 6-sütun grid** (`# · Type · KG · Reps · RIR · ×`), tek satır. Type ve
+  RIR birer hücre; tap → native `<select>` benzeri **`AnchoredDropdown`** (hücrenin hemen altında,
+  içeriğin üstüne binen dikey seçenek listesi; seçili = gold vurgulu; `measureInWindow` + Modal
+  overlay, ekran altına taşarsa yukarı flip). KG/Reps mono tabular; değer girilince accent (gold).
+  Önceki 2-satır chip + merkez modal + inline-akordiyon denemeleri bırakıldı; `SetTypeSelect` /
+  `RirSelect` **silindi** (kullanıcı kararı: web `<select>` dropdown'ı gibi olsun, 2026-06-17).
+- **Prefill (§3.2 rev 12'yi netleştirir/GÜÇLENDİRİR):** Önceki seansın **aynı set index**'indeki
+  değerleri (weight/reps/type/rir) yeni set eklenince **gerçek değer olarak gelir ve kullanıcı
+  dokunmasa da kaydedilir**. (Rev 12 "input'a dokunulana kadar yazılmaz" kuralı yumuşatıldı:
+  set EKLENDİĞİ an gerçek değerlerle yazılır.) **Lazy yazma korunur:** hiç set eklenmemiş
+  program kartı DB'ye yazılmaz — "push day'i açtım, 5'ten 2'sini yaptım → DB'de 2 kart" garantisi
+  sürüyor. Kaynak: `useLastSession` (kart başına lazy). Hiç önceki kayıt yoksa boş + `kg`/`reps`
+  hint.
+
+**Görsel cila (baseline — prototip dark+gold):**
+- **App bar:** display-font tarih başlığı ("Sal, 15 Eylül") + tek-satır mono alt başlık
+  (program context "PPL · Pazartesi · Hf 2" / rest "PPL · Dinlenme günü · Hf 2" / gold "Bugün").
+- **Stat strip:** mono tabular sayılar; Hacim'e `kg` eklendi. **"0/20 planlı set hedefi" GÖSTERİLMEZ**
+  — `app_program_days` set sayısı tutmuyor (şemada yok), uydurulmaz. (C3 spec sketch'inden sapma.)
+- **Kart başlığı:** kategori-chip pill (renkli dot + lokalize ad) + egzersiz adı + "Son: kg × tekrar"
+  (artık `useLastSession` ile gerçekten besleniyor — önceden ölü prop'tu) + 👁 + ⋮.
+- **Empty state:** ikinci CTA "Hazır Program Seç" eklendi → `PresetProgramModal` reuse
+  (§3.8). ≥360pt yan yana / <360pt stack (§8.8).
+
+**Checkpoint 2'ye ertelendi:** **Görünür 6-nokta drag handle + long-press reorder** (§8.8).
+Sebep: `react-native-draggable-flatlist` projede yok ve proje **Reanimated 4.1**'de — paketin son
+sürümü RNA4'ten eski, uyumu doğrulanmadı; ayrıca kart listesini `ScrollView`'dan draggable list'e
+taşımak gerekiyor. Dependency riskini izole etmek için ayrı checkpoint'te (cihazda doğrulamayı
+bloklamasın). Reorder mutation'ı (`app_workouts.position`) da o zaman eklenecek.
 
 ## 8.7 Misafir tercih aktarımı
 
@@ -618,4 +685,6 @@ Tüm kararlar §10'da.
 | 2026-05-21 | §3.2, §4.3, §8.8, §9 | **rev 12 — C1-C4 spec yazımı kararları.** Önceki set placeholder web'den ayrıldı: hayalet metin değil, **gerçek değer olarak input prefill** (aynı ağırlığı tekrar girmek gerekmez). RIR enum standardı: **DB+UI "F"** (web "0" yerine). Superset MVP'den **çıkarıldı**: set type chip enum `working/warmup/drop` (superset MVP sonrası, şema field'ı yer tutar). Yeni §8.8 eklendi: empty icon (Dumbbell 48pt), responsive CTA (≥360pt yan yana / <360pt stack), visible 6-dot drag handle, geçmiş program günü boş state (lazy yok), program günü label MVP'de yok, C4 Kütüphanem = custom + tüm tarihçe preset'ler, B1 hint kartı sticky dismiss flag, B1 Month swipe pager_view ile var. |
 | 2026-05-23 | §8.4.1, §8.9 (yeni), §9 Grup F (yeni) | **rev 13 — D1-D2 spec yazımı kararları.** Yeni §8.9 eklendi (Library spec yazımı kararları): NewProgramSheet ana implementasyonu D2'dedir (sadece isim + opsiyonel açıklama → app_programs insert with activated_at=null → router.push D3 Program Edit); D3 Program Edit MVP scope'unda ama bu seansta spec yok; D1+D2 tek route (segmented); D1 Exercises kütüphane kapsamı C4 Kütüphanem ile birebir tutarlı (custom + tüm tarihçe preset distinct slug); D1 row tap = preview, long-press = ⋯ menü; D1 custom delete = soft reference + fallback ("(silinmiş egzersiz)") — app_workouts persist; D2 ActiveProgramCard workout-prototype Phone 2 port (compliance + streak + next + 7-chip grid + 2 CTA); tek aktif program kuralı ActivateConfirmModal ile uygulanır; D2 program delete = app_programs+app_program_days silinir, app_workouts persist; "+ New" sadece sıfırdan (preset entry'si B1/C1/D2 empty state'lerinde); day-chip tap no-op MVP'de; Paylaş satırı gizli; app bar sol icon hamburger → avatar (B1 ile tutarlı). Yeni Grup F açık sorular eklendi (D1+D2 kalan sorular + önceki ekranların kalanları). |
 | 2026-05-25 | §3.1 (E1+F1+F2), §9 | **rev 15 — E1+F1+F2 spec yazımı kararları.** §3.1'e E1 More panel detayları eklendi: floating panel = bottom sheet; iki entry point (bottom nav + avatar tap) aynı sheet; disabled placeholder satırlar gösterilir (Profil/Ayarlar/Veri/GeriBildirim — "Çok yakında!" toast); auth vs guest iki varyant (Logout ↔ Hesap Aç); F1+F2 PlaceholderScreen ortak component kararı; CTA yok — sade mesaj. MVP screen listesi tamamlandı (15 ekran: A1-A5 + B1 + C1-C4 + D1-D3 + E1 + F1-F2). |
+| 2026-06-16 | §8.1.1 (yeni) | **rev 16 — Calendar cila turu kararları.** Month chip = hareket adı (kategori değil; §3.5 max-2-kategori GEÇERSİZ); planlı (gelecek) soluk chip'ler; aylar arası yatay swipe (gesture-handler Pan, yön kilitli); Week akordiyon (collapsed: N hareket·M set + bölge chip; chevron → hareket satırları + son seans en ağır set) + gün gövdesine tap → Day Detail; week "Start workout" → **geçici kronometre** (DB'ye yazmaz) — §8.3 rest timer + §3.2 "active-workout yok" + §B1 week için GEÇERSİZ. |
+| 2026-06-17 | §8.3, §8.11 (yeni), değişiklik kaydı | **rev 17 — Day Detail cila turu (checkpoint 1).** Rest timer MVP'den **çıkarıldı** (§8.3); yerine Day Detail'de "Start workout" ile başlayan **geçici antrenman kronometresi** (week-view ile tutarlı, DB'ye yazmaz — §8.2/§8.3 override). Set satırı **prototip 6-sütun grid**'e geçti (Type/RIR tap→modal seçici, KG/Reps mono). Prefill **güçlendirildi**: önceki seansın aynı index değerleri set eklenince gerçek gelir + dokunulmasa da kaydedilir (rev 12 lazy-yaz kuralı yumuşatıldı; program kartı hiç dokunulmazsa yine yazılmaz). Baseline cila: app bar (display başlık + mono alt-satır), stat strip (mono + kg), kategori-chip pill, "Son:" satırı artık `useLastSession` ile gerçek, empty state 2. CTA "Hazır Program Seç" (PresetProgramModal reuse). "0/20 planlı hedef" gösterilmiyor (şema set sayısı tutmuyor). **Checkpoint 2'ye ertelendi:** 6-nokta drag handle + reorder (react-native-draggable-flatlist / Reanimated 4 uyum riski izole edildi). |
 | 2026-05-23 | §8.10 (yeni), §9 Grup G (yeni) | **rev 14 — D3 Program Edit spec yazımı kararları + seans sonu karar oturumu.** Yeni §8.10 eklendi: D3 tam ekran route (modal değil), state ayırt etmez (NewProgramSheet save + ✎ edit + "Düzenle" hepsi aynı route'a push); gün layout = dikey scroll + collapsible panels (bugün açık default, multi-expand izinli); cycle type **3 seçenek `weekly` (default) / `deload` / `none`** (web `app.html`'de `weekly` yoktu — mobil için yeni eklendi, haftalık tekrar standart mental model); `none` MVP'de kalır ama default değil, compliance hesaplanmaz; autosave debounced (300-500ms, manuel "Kaydet" yok); off-day toggle = Opsiyon A (dolu gün off-day yapılınca app_program_days satırları silinir, confirm sorar); gün-gün taşıma = Opsiyon A (long-press ⋯ → MoveToDaySheet; drag-cross-panel MVP sonrası); aktif et CTA disabled koşul = en az 1 toplam egzersiz; bottom nav D3'te gizli (tam ekran edit); D2+D3 ortak component'ler (ActivateConfirmModal, DeleteProgramModal); 6-dot drag handle (§8.8 ile aynı); program adı validation (1-60 char, trim, duplicate OK). Grup G karar oturumu: 4 sorudan 3'üne kullanıcı karar verdi (cycle `none` kalır, off-day Opsiyon A, taşıma Opsiyon A); 1'i (aktif et koşulu) önerimle kapatıldı. |
