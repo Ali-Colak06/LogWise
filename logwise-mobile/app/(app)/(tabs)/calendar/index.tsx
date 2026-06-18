@@ -7,12 +7,21 @@
  *   - Today pill: gold-muted bg + gold border + Target icon + uppercase mono label
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Linking, ScrollView, View, Pressable, StyleSheet } from 'react-native';
+import {
+  Linking,
+  ScrollView,
+  View,
+  Pressable,
+  StyleSheet,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+} from 'react-native';
+import PagerView from 'react-native-pager-view';
 import { useRouter } from 'expo-router';
 import { Calendar as CalendarIcon, LayoutGrid, Target, ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { Screen, Text, Button, HStack, useToast } from '../../../../components/ui';
 import { useTheme } from '../../../../theme';
-import { useT, useTranslations } from '../../../../lib/i18n';
+import { useT, useTranslations, useLocaleStore } from '../../../../lib/i18n';
 import { useWorkoutsByMonth, useSetsByMonth } from '../../../../queries/workouts';
 import { useActiveProgramWithDays, useCreateProgramFromPreset } from '../../../../queries/programs';
 import { useCustomExercises } from '../../../../queries/exercises';
@@ -21,21 +30,96 @@ import {
   useSetProfilePreference,
   useWebUserCount,
 } from '../../../../queries/profile';
-import { getPresetExerciseBySlug } from '../../../../data/presets-exercises';
-import { turkishCatToKey } from '../../../../lib/exercise-resolve';
+import { resolveExerciseRef, buildCustomMap } from '../../../../lib/exercise-resolve';
+import { resolveProgramDay } from '../../../../lib/program';
 import { DuplicateProgramError } from '../../../../lib/data-bridge';
 import CalendarMonth, { type DayWorkoutSummary, type CategoryKey } from '../../../../components/calendar/CalendarMonth';
-import CalendarWeek, { type WeekDaySummary } from '../../../../components/calendar/CalendarWeek';
+import CalendarWeek, {
+  type WeekDaySummary,
+  isoWeekNumber,
+  startOfWeekMonday,
+  formatWeekRange,
+} from '../../../../components/calendar/CalendarWeek';
 import PresetProgramModal from '../../../../components/calendar/PresetProgramModal';
 import WebUserWelcomeModal from '../../../../components/auth/WebUserWelcomeModal';
 import ProfilePopover, { type AnchorRect } from '../../../../components/shared/ProfilePopover';
+import { useAuthMode, useAuthSession } from '../../../../stores/auth-store';
 import { computeOffDays, type PresetProgram } from '../../../../data/presets-programs';
+import type { AppWorkoutsRow, AppExercisesRow } from '../../../../types/database';
 
 type ViewMode = 'month' | 'week';
 
-function todayIso(): string {
-  const d = new Date();
+/** Bir günün hareketi — ad + kategori + ref (week detayında son seans lookup'ı için). */
+type DayExerciseEntry = { ref: string; name: string; category: CategoryKey };
+
+/** Month pager penceresi: anchor (açılış ayı) etrafında ±MONTH_WINDOW ay. Recenter yok. */
+const MONTH_WINDOW = 24;
+
+/** Ayın 42 hücresinin (6×7, Pazartesi başlangıç) tarihleri — planlı chip taraması için. */
+function monthCellDates(monthDate: Date): Date[] {
+  const year = monthDate.getFullYear();
+  const month = monthDate.getMonth();
+  const firstDow = new Date(year, month, 1).getDay();
+  const mondayOffset = (firstDow + 6) % 7;
+  const out: Date[] = [];
+  for (let i = 0; i < 42; i++) out.push(new Date(year, month, 1 - mondayOffset + i));
+  return out;
+}
+
+/** Görünür hafta feed'inin (anchor ±n hafta) tüm günleri — planlı chip taraması için. */
+function weekFeedDates(anchor: Date, before: number, after: number): Date[] {
+  const start = startOfWeekMonday(anchor);
+  const first = new Date(start.getFullYear(), start.getMonth(), start.getDate() - before * 7);
+  const total = (before + after + 1) * 7;
+  const out: Date[] = [];
+  for (let i = 0; i < total; i++) out.push(new Date(first.getFullYear(), first.getMonth(), first.getDate() + i));
+  return out;
+}
+
+function toIsoDate(d: Date): string {
   return `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}-${d.getDate().toString().padStart(2, '0')}`;
+}
+
+function todayIso(): string {
+  return toIsoDate(new Date());
+}
+
+/** Bir ayın workout satırlarını gün → loglu hareketler map'ine çevirir (position sırasıyla). */
+function buildLoggedMap(
+  rows: AppWorkoutsRow[] | undefined,
+  customMap: Map<string, AppExercisesRow>,
+  locale: 'tr' | 'en',
+): Map<string, DayExerciseEntry[]> {
+  const m = new Map<string, DayExerciseEntry[]>();
+  const sorted = [...(rows ?? [])].sort((a, b) => a.position - b.position);
+  for (const w of sorted) {
+    const r = resolveExerciseRef(w.exercise_ref, customMap, locale);
+    const arr = m.get(w.workout_date) ?? [];
+    arr.push({ ref: w.exercise_ref, name: r.name, category: r.categories[0] ?? 'other' });
+    m.set(w.workout_date, arr);
+  }
+  return m;
+}
+
+/** Bir ay paneli için özet: loglu günler (tam opak) + planlı günler (soluk). */
+function buildMonthSummaryMap(
+  monthDate: Date,
+  loggedMap: Map<string, DayExerciseEntry[]>,
+  plannedFor: (iso: string) => DayExerciseEntry[] | null,
+): Map<string, DayWorkoutSummary> {
+  const m = new Map<string, DayWorkoutSummary>();
+  for (const [date, exs] of loggedMap) {
+    m.set(date, { exercises: exs, planned: false, workoutCount: exs.length });
+  }
+  for (const d of monthCellDates(monthDate)) {
+    const iso = toIsoDate(d);
+    if (m.has(iso)) continue;
+    const planned = plannedFor(iso);
+    if (planned && planned.length > 0) {
+      m.set(iso, { exercises: planned, planned: true, workoutCount: planned.length });
+    }
+  }
+  return m;
 }
 
 export default function CalendarScreen() {
@@ -43,13 +127,51 @@ export default function CalendarScreen() {
   const { colors, tokens } = useTheme();
   const t = useT();
   const dict = useTranslations();
+  const locale = useLocaleStore((s) => s.locale);
   const toast = useToast();
 
+  // Avatar baş harfleri — ProfilePopover ile aynı mantık: kullanıcı display name /
+  // email öneki, misafirde "M". (Önceki sürüm yanlışlıkla aktif program adını gösteriyordu.)
+  const mode = useAuthMode();
+  const session = useAuthSession();
+  const avatarInitials = useMemo(() => {
+    if (mode === 'guest') return 'M';
+    const email = session?.user.email ?? '';
+    const displayName =
+      (session?.user.user_metadata?.display_name as string | undefined) ??
+      email.split('@')[0] ??
+      'LogWise';
+    return displayName.slice(0, 2).toUpperCase();
+  }, [mode, session]);
+
   const [viewMode, setViewMode] = useState<ViewMode>('month');
-  const [monthDate, setMonthDate] = useState<Date>(() => {
+
+  // Month pager — native react-native-pager-view. Sabit pencere (anchor ±MONTH_WINDOW ay),
+  // recenter YOK → hızlı ileri-geri'de karışma yok. Sayfalar tembel: sadece seçili ±1
+  // grid gerçek render edilir; gerisi boş placeholder (hafif). Gösterilen ay =
+  // months[selectedIndex]; kaydırma native, pozisyon ile ay daima senkron.
+  const anchorMonth = useMemo(() => {
     const d = new Date();
     return new Date(d.getFullYear(), d.getMonth(), 1);
-  });
+  }, []);
+  const months = useMemo(() => {
+    const out: Date[] = [];
+    for (let i = -MONTH_WINDOW; i <= MONTH_WINDOW; i++) {
+      out.push(new Date(anchorMonth.getFullYear(), anchorMonth.getMonth() + i, 1));
+    }
+    return out;
+  }, [anchorMonth]);
+  const [selectedIndex, setSelectedIndex] = useState(MONTH_WINDOW);
+  const pagerRef = useRef<PagerView>(null);
+  const monthDate = months[selectedIndex] ?? anchorMonth;
+  const goToPage = useCallback(
+    (i: number) => {
+      const clamped = i < 0 ? 0 : i > MONTH_WINDOW * 2 ? MONTH_WINDOW * 2 : i;
+      pagerRef.current?.setPage(clamped);
+    },
+    [],
+  );
+
   const [weekAnchor, setWeekAnchor] = useState<Date>(() => new Date());
   const [presetOpen, setPresetOpen] = useState(false);
   const [webWelcomeOpen, setWebWelcomeOpen] = useState(false);
@@ -74,15 +196,28 @@ export default function CalendarScreen() {
     scrollRef.current?.scrollTo({ y, animated });
   };
 
-  const year = monthDate.getFullYear();
-  const month = monthDate.getMonth() + 1;
+  // Week başlık senkronu: her hafta bloğunun y offset'i (CalendarWeek.onWeekLayout'tan)
+  // + scroll sırasında en üstteki görünür haftayı tutan state. Title bu haftaya göre
+  // güncellenir; ağır feed (memo'lu CalendarWeek) re-render OLMAZ — sadece app bar.
+  const weekOffsetsRef = useRef<Array<{ startISO: string; start: Date; y: number }>>([]);
+  const [visibleWeekStart, setVisibleWeekStart] = useState<Date | null>(null);
 
-  const workoutsQ = useWorkoutsByMonth(year, month);
+  // Seçili sayfa + komşuları (kenarlarda clamp). Komşu ayların workouts'u ÖNCEDEN
+  // çekilir → o sayfaya kaydırınca veri zaten hazır (gecikmesiz). React Query cache'ler,
+  // yeniden ziyaret anlık.
+  const idxPrev = Math.max(0, selectedIndex - 1);
+  const idxNext = Math.min(MONTH_WINDOW * 2, selectedIndex + 1);
+  const curM = months[selectedIndex] ?? anchorMonth;
+  const prevM = months[idxPrev] ?? curM;
+  const nextM = months[idxNext] ?? curM;
+  const workoutsQ = useWorkoutsByMonth(curM.getFullYear(), curM.getMonth() + 1);
+  const workoutsPrevQ = useWorkoutsByMonth(prevM.getFullYear(), prevM.getMonth() + 1);
+  const workoutsNextQ = useWorkoutsByMonth(nextM.getFullYear(), nextM.getMonth() + 1);
   // FAZ 2.5 — seed query'ler: gune tiklayinca Day Detail network beklemeden acilsin.
-  // setsMonth → useSetsByDate seed'i; activeWithDays → Day ile AYNI query key (cache
-  // ortak); customExercises → customMap Day acilmadan once hazir.
-  useSetsByMonth(year, month);
-  useCustomExercises();
+  // setsMonth → useSetsByDate seed'i + week görünümü set sayısı; activeWithDays → Day
+  // ile AYNI query key (cache ortak); customExercises → customMap Day acilmadan once hazir.
+  const setsQ = useSetsByMonth(curM.getFullYear(), curM.getMonth() + 1);
+  const customQ = useCustomExercises();
   const activeProgQ = useActiveProgramWithDays();
   const createProgM = useCreateProgramFromPreset();
 
@@ -111,66 +246,100 @@ export default function CalendarScreen() {
     }
   }, [prefsQ.isLoading, seenWebWelcome, webCountQ.data]);
 
-  const monthSummary = useMemo(() => {
-    const m = new Map<string, DayWorkoutSummary>();
-    const rows = workoutsQ.data ?? [];
-    for (const w of rows) {
-      const ex = getPresetExerciseBySlug(w.exercise_ref);
-      const firstCat = ex?.categories[0] ? turkishCatToKey(ex.categories[0]) : 'other';
-      const existing = m.get(w.workout_date);
-      if (!existing) {
-        m.set(w.workout_date, { categories: [firstCat], hasMore: false, workoutCount: 1 });
-      } else {
-        const cats: CategoryKey[] = existing.categories.includes(firstCat)
-          ? existing.categories
-          : [...existing.categories, firstCat];
-        m.set(w.workout_date, {
-          categories: cats.slice(0, 2),
-          hasMore: cats.length > 2,
-          workoutCount: existing.workoutCount + 1,
-        });
-      }
-    }
-    return m;
-  }, [workoutsQ.data]);
+  const today = todayIso();
+  const customMap = useMemo(() => buildCustomMap(customQ.data ?? []), [customQ.data]);
+  const activeProgram = activeProgQ.data?.program ?? null;
+  // PERF: stabil referans — yoksa her render yeni [] üretir, plannedFor→weekSummary
+  // her scroll tick'inde değişip CalendarWeek memo'sunu boşa düşürürdü.
+  const programDays = useMemo(() => activeProgQ.data?.days ?? [], [activeProgQ.data]);
 
+  // Gün → loglu hareketler — her ay için ayrı (pager panelleri kendi ayını kullanır).
+  const loggedCur = useMemo(() => buildLoggedMap(workoutsQ.data, customMap, locale), [workoutsQ.data, customMap, locale]);
+  const loggedPrev = useMemo(() => buildLoggedMap(workoutsPrevQ.data, customMap, locale), [workoutsPrevQ.data, customMap, locale]);
+  const loggedNext = useMemo(() => buildLoggedMap(workoutsNextQ.data, customMap, locale), [workoutsNextQ.data, customMap, locale]);
+  // Week feed ±3 hafta komşu aylara taşabilir → üç ayın loglarını birleştir.
+  const loggedAll = useMemo(() => {
+    const m = new Map(loggedCur);
+    for (const [k, v] of loggedPrev) if (!m.has(k)) m.set(k, v);
+    for (const [k, v] of loggedNext) if (!m.has(k)) m.set(k, v);
+    return m;
+  }, [loggedCur, loggedPrev, loggedNext]);
+
+  // Gün başına set sayısı — week meta ("N hareket · M set").
+  const setsByDate = useMemo(() => {
+    const m = new Map<string, number>();
+    for (const s of setsQ.data ?? []) m.set(s.workout_date, (m.get(s.workout_date) ?? 0) + 1);
+    return m;
+  }, [setsQ.data]);
+
+  // Aktif programdan PLANLI hareketler — bugün+gelecek. Loglu günleri çağıran taraf
+  // (buildMonthSummaryMap / weekSummary) m.has ile zaten atlar → ay-bağımsız; üç panel
+  // de aynı fonksiyonu kullanır.
+  const plannedFor = useCallback(
+    (dateISO: string): DayExerciseEntry[] | null => {
+      if (!activeProgram) return null;
+      if (dateISO < today) return null; // geçmiş: planlı gösterme (sadece gerçek log)
+      const pd = resolveProgramDay(activeProgram, programDays, dateISO);
+      if (!pd.hasStarted || pd.isOffDay || pd.exerciseRefs.length === 0) return null;
+      return pd.exerciseRefs.map((ref) => {
+        const r = resolveExerciseRef(ref, customMap, locale);
+        return { ref, name: r.name, category: r.categories[0] ?? 'other' };
+      });
+    },
+    [activeProgram, programDays, today, customMap, locale],
+  );
+
+  // Pager üç ay özeti (prev / cur / next) — her biri kendi loglu map'i + planlı.
+  const summaryCur = useMemo(() => buildMonthSummaryMap(curM, loggedCur, plannedFor), [curM, loggedCur, plannedFor]);
+  const summaryPrev = useMemo(() => buildMonthSummaryMap(prevM, loggedPrev, plannedFor), [prevM, loggedPrev, plannedFor]);
+  const summaryNext = useMemo(() => buildMonthSummaryMap(nextM, loggedNext, plannedFor), [nextM, loggedNext, plannedFor]);
+
+  // Week özeti: görünür haftalar (anchor ±3) için loglu (üç ay birleşik) + planlı.
   const weekSummary = useMemo(() => {
     const m = new Map<string, WeekDaySummary>();
-    const rows = workoutsQ.data ?? [];
-    for (const w of rows) {
-      const ex = getPresetExerciseBySlug(w.exercise_ref);
-      const name = ex?.name ?? w.exercise_ref;
-      const existing = m.get(w.workout_date);
-      if (!existing) {
-        m.set(w.workout_date, { workoutCount: 1, setCount: 0, exerciseNames: [name] });
-      } else {
-        m.set(w.workout_date, {
-          workoutCount: existing.workoutCount + 1,
-          setCount: existing.setCount,
-          exerciseNames: [...(existing.exerciseNames ?? []), name],
-        });
+    for (const [date, exs] of loggedAll) {
+      m.set(date, { workoutCount: exs.length, setCount: setsByDate.get(date) ?? 0, planned: false, exercises: exs });
+    }
+    for (const d of weekFeedDates(weekAnchor, 3, 3)) {
+      const iso = toIsoDate(d);
+      if (m.has(iso)) continue;
+      const planned = plannedFor(iso);
+      if (planned && planned.length > 0) {
+        m.set(iso, { workoutCount: planned.length, setCount: 0, planned: true, exercises: planned });
       }
     }
     return m;
-  }, [workoutsQ.data]);
+  }, [loggedAll, setsByDate, weekAnchor, plannedFor]);
 
   const hasWorkouts = (workoutsQ.data?.length ?? 0) > 0;
   const showHint = !hasWorkouts && !workoutsQ.isLoading && !seenHintCard;
-  const today = todayIso();
 
   const monthLabel = useMemo(() => {
     return dict.months[monthDate.getMonth()] ?? '';
   }, [monthDate, dict.months]);
 
-  const goPrevMonth = () => setMonthDate((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1));
-  const goNextMonth = () => setMonthDate((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1));
+  // Week app bar başlığı: görünür haftanın aralığı ("13 — 19 Eyl") + "W## · yıl".
+  // visibleWeekStart scroll'da güncellenir; yoksa anchor haftası (bugün) gösterilir.
+  const { weekTitleLabel, weekSubLabel } = useMemo(() => {
+    const ws = visibleWeekStart ?? startOfWeekMonday(weekAnchor);
+    const we = new Date(ws.getFullYear(), ws.getMonth(), ws.getDate() + 6);
+    return {
+      weekTitleLabel: formatWeekRange(ws, we, dict.months),
+      weekSubLabel: `W${isoWeekNumber(ws).toString().padStart(2, '0')} · ${ws.getFullYear()}`,
+    };
+  }, [visibleWeekStart, weekAnchor, dict.months]);
+
   const goToday = () => {
     const d = new Date();
-    setMonthDate(new Date(d.getFullYear(), d.getMonth(), 1));
     setWeekAnchor(new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+    // Başlık anında bugünün haftasına dönsün (scroll snap sonrası zaten teyit edilir).
+    setVisibleWeekStart(null);
     if (viewMode === 'week') {
       // Anchor değişmemişse layout tetiklenmez; bir frame sonra scroll'u zorla.
       setTimeout(() => scrollToTodayWeek(true), 0);
+    } else {
+      // Month: bugünün ayına (pencerenin merkezi = anchor) animasyonlu git.
+      goToPage(MONTH_WINDOW);
     }
   };
 
@@ -192,9 +361,36 @@ export default function CalendarScreen() {
     [router],
   );
 
-  const onTodayWeekLayout = useCallback((y: number) => {
-    todayWeekYRef.current = y;
-    scrollRef.current?.scrollTo({ y: Math.max(0, y - 4), animated: false });
+  const onWeekLayout = useCallback(
+    (startISO: string, start: Date, y: number, isToday: boolean) => {
+      const arr = weekOffsetsRef.current;
+      const idx = arr.findIndex((w) => w.startISO === startISO);
+      if (idx >= 0) arr[idx] = { startISO, start, y };
+      else arr.push({ startISO, start, y });
+      arr.sort((a, b) => a.y - b.y);
+      if (isToday) {
+        todayWeekYRef.current = y;
+        scrollRef.current?.scrollTo({ y: Math.max(0, y - 4), animated: false });
+      }
+    },
+    [],
+  );
+
+  // Scroll'da en üstteki görünür haftayı seç → app bar başlığı senkronlanır.
+  const onWeekScroll = useCallback((e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const sy = e.nativeEvent.contentOffset.y;
+    const arr = weekOffsetsRef.current;
+    let picked: { startISO: string; start: Date; y: number } | null = null;
+    for (const w of arr) {
+      if (w.y <= sy + 12) picked = w;
+    }
+    if (!picked && arr.length > 0) picked = arr[0] ?? null;
+    if (picked) {
+      const next = picked;
+      setVisibleWeekStart((prev) =>
+        prev && toIsoDate(prev) === next.startISO ? prev : next.start,
+      );
+    }
   }, []);
 
   const dismissHint = () => setPref.mutate({ key: 'seen_hint_card', value: true });
@@ -244,14 +440,14 @@ export default function CalendarScreen() {
           style={[styles.avatar, { borderColor: colors.border.subtle, backgroundColor: colors.background.subtle }]}
         >
           <Text style={{ color: colors.accent.gold, fontFamily: tokens.fonts.displayBold, fontSize: 13 }}>
-            {(activeProgQ.data?.program?.name ?? 'LW').slice(0, 2).toUpperCase()}
+            {avatarInitials}
           </Text>
         </Pressable>
         <View style={styles.barTitle}>
           <View style={styles.barTitleRow}>
             {viewMode === 'month' && (
               <Pressable
-                onPress={goPrevMonth}
+                onPress={() => goToPage(selectedIndex - 1)}
                 hitSlop={10}
                 accessibilityLabel={t('aria.prevMonth')}
                 style={styles.barNavBtn}
@@ -263,11 +459,11 @@ export default function CalendarScreen() {
               numberOfLines={1}
               style={{ color: colors.text.primary, fontFamily: tokens.fonts.displayBold, fontSize: 17, textAlign: 'center' }}
             >
-              {viewMode === 'month' ? monthLabel : t('nav.week')}
+              {viewMode === 'month' ? monthLabel : weekTitleLabel}
             </Text>
             {viewMode === 'month' && (
               <Pressable
-                onPress={goNextMonth}
+                onPress={() => goToPage(selectedIndex + 1)}
                 hitSlop={10}
                 accessibilityLabel={t('aria.nextMonth')}
                 style={styles.barNavBtn}
@@ -279,7 +475,7 @@ export default function CalendarScreen() {
           <Text
             style={{ color: colors.text.tertiary, fontFamily: tokens.fonts.mono, fontSize: 10, letterSpacing: 1.2, textAlign: 'center' }}
           >
-            {monthDate.getFullYear()}
+            {viewMode === 'month' ? monthDate.getFullYear() : weekSubLabel}
           </Text>
         </View>
         <HStack gap="xs" align="center">
@@ -314,22 +510,45 @@ export default function CalendarScreen() {
       </View>
 
       {viewMode === 'month' ? (
-        <View style={styles.monthContainer}>
-          <CalendarMonth
-            monthDate={monthDate}
-            workoutsByDate={monthSummary}
-            todayISO={today}
-            onDayPress={onDayPress}
-          />
-        </View>
+        <PagerView
+          ref={pagerRef}
+          style={styles.pager}
+          initialPage={selectedIndex}
+          onPageSelected={(e) => setSelectedIndex(e.nativeEvent.position)}
+          offscreenPageLimit={1}
+        >
+          {months.map((m, i) => {
+            // Tembel render: sadece seçili ±1 sayfada gerçek grid (veriyle); gerisi boş.
+            const delta = i - selectedIndex;
+            const near = delta >= -1 && delta <= 1;
+            const summary = delta === 0 ? summaryCur : delta < 0 ? summaryPrev : summaryNext;
+            return (
+              <View key={i} style={styles.monthPanel} collapsable={false}>
+                {near ? (
+                  <CalendarMonth
+                    monthDate={m}
+                    workoutsByDate={summary}
+                    todayISO={today}
+                    onDayPress={onDayPress}
+                  />
+                ) : null}
+              </View>
+            );
+          })}
+        </PagerView>
       ) : (
-        <ScrollView ref={scrollRef} contentContainerStyle={{ paddingBottom: 96 }}>
+        <ScrollView
+          ref={scrollRef}
+          contentContainerStyle={{ paddingBottom: 96 }}
+          onScroll={onWeekScroll}
+          scrollEventThrottle={64}
+        >
           <CalendarWeek
             anchorDate={weekAnchor}
             summaryByDate={weekSummary}
             todayISO={today}
             onDayPress={onDayPress}
-            onTodayWeekLayout={onTodayWeekLayout}
+            onWeekLayout={onWeekLayout}
           />
         </ScrollView>
       )}
@@ -426,7 +645,11 @@ const styles = StyleSheet.create({
     borderRadius: 999,
     borderWidth: 1,
   },
-  monthContainer: {
+  // Native pager — sayfalar (aylar) yatay kaydırılır; her sayfa tam ekran.
+  pager: {
+    flex: 1,
+  },
+  monthPanel: {
     flex: 1,
     paddingHorizontal: 1,
     paddingTop: 4,

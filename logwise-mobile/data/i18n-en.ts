@@ -432,6 +432,12 @@ export const en: Translations = {
     presetModalSubtitle: 'Pick a program that fits you and start immediately.',
     presetCtaStart: 'Start This Program',
     presetCtaLater: "I'll add my own later",
+    exShort: 'ex',
+    setShort: 'sets',
+    startWorkout: 'Start workout',
+    timerPause: 'Pause',
+    timerResume: 'Resume',
+    timerFinish: 'Finish',
     monthsShort: [
       'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
       'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',

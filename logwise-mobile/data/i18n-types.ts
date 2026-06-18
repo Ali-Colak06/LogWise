@@ -416,6 +416,12 @@ export interface Translations {
     presetModalSubtitle: string;
     presetCtaStart: string;        // "Bu Programı Başlat"
     presetCtaLater: string;        // "Daha sonra kendim ekleyeceğim"
+    exShort: string;               // "hareket" / "ex" — week collapsed count
+    setShort: string;              // "set" / "set" — week collapsed count
+    startWorkout: string;          // "Antrenmana Başla" / "Start workout"
+    timerPause: string;            // "Durdur" / "Pause"
+    timerResume: string;           // "Devam" / "Resume"
+    timerFinish: string;           // "Bitir" / "Finish"
     monthsShort: readonly [
       string, string, string, string, string, string,
       string, string, string, string, string, string,

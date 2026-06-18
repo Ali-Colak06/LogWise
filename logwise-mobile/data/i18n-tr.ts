@@ -463,6 +463,12 @@ export const tr: Translations = {
     presetModalSubtitle: 'Sana uygun bir program seçerek hemen başlayabilirsin.',
     presetCtaStart: 'Bu Programı Başlat',
     presetCtaLater: 'Daha sonra kendim ekleyeceğim',
+    exShort: 'hareket',
+    setShort: 'set',
+    startWorkout: 'Antrenmana Başla',
+    timerPause: 'Durdur',
+    timerResume: 'Devam',
+    timerFinish: 'Bitir',
     monthsShort: [
       'Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz',
       'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara',

@@ -19,12 +19,17 @@ import type { ColorPalette } from '../../theme/tokens';
 
 export type CategoryKey = keyof ColorPalette['category'];
 
+export interface MonthDayExercise {
+  name: string;
+  category: CategoryKey;
+}
+
 export interface DayWorkoutSummary {
-  categories: CategoryKey[];
-  hasMore: boolean;
+  /** O günün hareketleri — loglu: gerçek kayıt; planlı: aktif programdan. Sırayla. */
+  exercises: MonthDayExercise[];
+  /** true → aktif programdan planlanan ama henüz loglanmamış gün (soluk gösterilir). */
+  planned: boolean;
   workoutCount: number;
-  /** İleride preset.dayLabel ile zenginleştirilecek (Push / Pull / Leg) */
-  dayLabel?: string;
 }
 
 export interface CalendarMonthProps {
@@ -41,12 +46,12 @@ export interface CalendarMonthProps {
 const TR_DAYS_SHORT = ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'];
 const EN_DAYS_SHORT = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-// Kısa kategori isimleri (event chip içinde 7-8 char sığar)
-const CAT_SHORT_TR: Record<CategoryKey, string> = {
+// Kısa kategori isimleri (event chip içinde 7-8 char sığar) — CalendarWeek de kullanır.
+export const CAT_SHORT_TR: Record<CategoryKey, string> = {
   chest: 'Göğüs', back: 'Sırt', shoulder: 'Omuz', biceps: 'Biceps',
   triceps: 'Triceps', leg: 'Bacak', core: 'Karın', cardio: 'Kardio', other: 'Diğer',
 };
-const CAT_SHORT_EN: Record<CategoryKey, string> = {
+export const CAT_SHORT_EN: Record<CategoryKey, string> = {
   chest: 'Chest', back: 'Back', shoulder: 'Shoulder', biceps: 'Biceps',
   triceps: 'Triceps', leg: 'Leg', core: 'Core', cardio: 'Cardio', other: 'Other',
 };
@@ -92,7 +97,6 @@ function CalendarMonth({
     return out;
   }, [cells]);
   const dayLabels = locale === 'en' ? EN_DAYS_SHORT : TR_DAYS_SHORT;
-  const catShort = locale === 'en' ? CAT_SHORT_EN : CAT_SHORT_TR;
   // months/monthLabel/yearLabel parent app-bar tarafından gösteriliyor (ADIM 8 fix).
   void dict.months;
 
@@ -180,44 +184,33 @@ function CalendarMonth({
                 </Text>
               </View>
 
-              {summary && summary.workoutCount > 0 && (
-                <View style={styles.eventStack}>
-                  {summary.categories.slice(0, 2).map((cat, i) => (
+              {summary && summary.exercises.length > 0 && (
+                <View style={[styles.eventStack, summary.planned && styles.eventStackPlanned]}>
+                  {summary.exercises.map((ex, i) => (
                     <View
-                      key={`${cat}-${i}`}
-                      style={[
-                        styles.event,
-                        {
-                          backgroundColor: colors.categoryMuted[cat],
-                          borderColor: colors.category[cat],
-                        },
-                      ]}
+                      key={`${ex.name}-${i}`}
+                      style={[styles.event, { backgroundColor: colors.categoryMuted[ex.category] }]}
                     >
+                      {/* Sol kenarlık: kategori renginde kalın bar; chip borderRadius +
+                          overflow:hidden sayesinde sol köşeleri chip ile aynı kıvrımda. */}
+                      <View style={[styles.eventBar, { backgroundColor: colors.category[ex.category] }]} />
                       <Text
                         numberOfLines={1}
+                        ellipsizeMode="clip"
                         style={{
-                          color: colors.category[cat],
+                          flex: 1,
+                          color: colors.category[ex.category],
                           fontSize: 8,
                           fontWeight: '700',
-                          lineHeight: 10,
+                          lineHeight: 9,
+                          paddingLeft: 3,
+                          paddingRight: 2,
                         }}
                       >
-                        {summary.dayLabel ?? catShort[cat]}
+                        {ex.name}
                       </Text>
                     </View>
                   ))}
-                  {summary.hasMore && (
-                    <Text
-                      style={{
-                        color: colors.text.tertiary,
-                        fontSize: 8,
-                        fontWeight: '700',
-                        textAlign: 'center',
-                      }}
-                    >
-                      +
-                    </Text>
-                  )}
                 </View>
               )}
 
@@ -258,6 +251,7 @@ const styles = StyleSheet.create({
   },
   weekRow: {
     flexDirection: 'row',
+    gap: 2,
     paddingTop: 2,
     paddingBottom: 4,
   },
@@ -267,12 +261,12 @@ const styles = StyleSheet.create({
   grid: {
     flex: 1,
     flexDirection: 'column',
-    gap: 1,
+    gap: 2,
   },
   gridRow: {
     flex: 1,
     flexDirection: 'row',
-    gap: 1,
+    gap: 2,
   },
   dayCell: {
     flex: 1,
@@ -288,22 +282,29 @@ const styles = StyleSheet.create({
     width: 18,
     height: 16,
     alignSelf: 'center',
-    borderRadius: 5,
+    borderRadius: 3,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 1,
   },
   eventStack: {
-    gap: 1,
+    gap: 1.5,
     marginTop: 1,
   },
+  // Planlanan (aktif programdan, henüz loglanmamış) gün → soluk chip yığını.
+  eventStackPlanned: {
+    opacity: 0.45,
+  },
   event: {
-    height: 14,
-    paddingHorizontal: 3,
-    paddingTop: 1,
-    borderWidth: StyleSheet.hairlineWidth,
+    height: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: 2,
-    justifyContent: 'center',
     overflow: 'hidden',
+  },
+  // Sol renkli kenarlık (stroke yerine). Sağ kenarı düz, sol köşeleri chip kıvrımında.
+  eventBar: {
+    width: 2.5,
+    alignSelf: 'stretch',
   },
 });
