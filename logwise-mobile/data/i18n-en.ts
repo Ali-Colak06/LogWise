@@ -614,6 +614,7 @@ export const en: Translations = {
     multiAddCta: '{n} exercises · Add',
     addedToast: '{n} exercises added',
     alreadyExists: 'This exercise is already added today',
+    reorderHandle: 'Drag to reorder',
   },
   days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   daysFull: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],

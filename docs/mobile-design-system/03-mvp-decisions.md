@@ -4,7 +4,7 @@
 > Her yeni konuşma başında AI bu dosyayı okur; yeni bir karar verildiğinde bu dosya güncellenir.
 > İlgili sözleşme dosyası: `AGENTS.md` (proje kuralları). İlgili tasarım dosyaları: `01-current-logwise-ui-audit.md`, `02-mobile-design-system-proposal.md`.
 
-Son güncelleme: 2026-06-17 (rev 17)
+Son güncelleme: 2026-06-18 (rev 18)
 
 ---
 
@@ -149,7 +149,7 @@ Bottom navigation **5 öğeden** oluşur (calendar-prototype-v2'deki yapı):
 - "Active workout" kavramı MVP'de yok — kullanıcı istediği zaman set ekler/düzenler.
 - **Set kaydı:** focus dışına çıkınca / klavye "Done" → otomatik save (debounced). Hata için "Geri al" toast.
 - **Önceki kayıt olmayan ilk set placeholder:** "kg" / "reps" hint metni (alan etiketleri placeholder olarak). Yanlış default değer önerilmez.
-- **Egzersiz reorder:** Long-press drag — **sadece kart başlığında (header)**. Set satırlarına uzun bas hiçbir şey yapmaz; input çakışması yok. Kart başlığı belirgin drag affordance verir (küçük handle icon veya pressed state).
+- **Egzersiz reorder:** Long-press drag — **sadece görünür 6-nokta handle'da** (header sağı; set satırlarına/TextInput'lara bulaşmaz). **(rev 18 — UYGULANDI):** paketsiz custom drag (Reanimated 4 + gesture-handler); TÜM kartlar (persisted + lazy) sürüklenir; sıra `app_day_meta.card_order`'da (lazy kartlar workout yazılmadan sıralanır — lazy-write korunur). Detay §8.11 Checkpoint 2.
 - **Geçmiş düzenleme:** Her zaman read-write; bugün ve geçmiş aynı davranır.
 - **Önceki set placeholder (rev 12 — web'den ayrıldı):** O egzersizin bugünden önceki en son antrenmandaki setleri set-by-set **gerçek değer olarak prefill edilir** (placeholder hayalet metin değil). Web'de placeholder hayalet gibiydi, kullanıcı yine manuel yazmak zorundaydı; mobilde **input value'ları gerçek sayılarla dolar** — kullanıcı aynı ağırlığı tekrar girecekse hiçbir şey yapmaz, sadece RIR'i (veya farklı bir reps'i) günceller. Kaynak: same `exercise_ref` için en son `workout_date` (program bağı yok — preset/custom ayırt etmeden, programa olsun veya olmasın en son kayıt). Hiç önceki kayıt yoksa input boş kalır; hint metni `kg` / `reps` (Açık karar kalan §3.2 1. yolculuk son kararı).
 - **"Save vs auto-prefilled" ayrımı:** Otomatik prefill edilen değer DB'ye **anında yazılmaz**; kullanıcı input'a dokunduğunda veya focus-blur olduğunda (yani örtük onay) save tetiklenir. "Bench Press kartını hiç açmadan geçtim" durumunda DB'ye placeholder yazılmaz (lazy yazma kuralıyla — bkz. C3 lazy/sanal).
@@ -354,6 +354,7 @@ app_day_meta
   day_note text
   total_duration_minutes int  -- MVP'de yazılmaz
   skipped_exercise_ids text[] -- "sadece bugün skip" listesi (slug veya UUID)
+  card_order text[]           -- (rev 18) Day Detail birleşik kart sırası (persisted+lazy ref'leri); lazy kartlar workout yazılmadan sıralanır
   PRIMARY KEY (user_id, workout_date)
 ```
 
@@ -456,7 +457,7 @@ C1-C4 spec yazımı sırasında ortaya çıkan kararlar:
 
 - **Empty state icon:** `lucide-react-native` → **Dumbbell** outline, 48pt, `t-tertiary` renk. Day Detail empty + Library empty + Add Exercise empty hepsinde tutarlı.
 - **Empty state CTA layout:** Responsive — **≥360pt yan yana**, **<360pt stack** (`flexWrap`). iPhone SE 1 gibi dar ekranlarda otomatik dikey yığın.
-- **Drag handle (long-press reorder):** **Visible 6-dot icon**, kart başlığının sağ kenarında (⋯ menünün solunda), `t-tertiary` renk. Long-press affordance'ı net; set satırlarına bulaşmaz (§3.2).
+- **Drag handle (long-press reorder):** **Visible 6-dot icon** (lucide `GripVertical`), kart başlığının sağ kenarında (⋯ menünün solunda), `t-tertiary` renk. Long-press affordance'ı net; set satırlarına bulaşmaz (§3.2). **(rev 18 — UYGULANDI):** her kartta görünür (persisted + lazy + tek kart); paketsiz custom drag; sıra `app_day_meta.card_order`. Detay §8.11 Checkpoint 2.
 - **Superset MVP'de:** **YOK.** Set type chip seçeneklerinden "SS" (superset) **çıkarılır**; sadece `working` / `warmup` / `drop` kalır. Şemadaki `app_workouts.superset_group` alanı **kalır** (MVP'de yazılmaz; gelecek için yer tutar). Set type enum değişikliği: `"working" | "warmup" | "drop"` (MVP); `"superset"` MVP sonrası eklenir.
 - **RIR display = DB ("F" standardı):** UI'da "F" gösterilir, DB'ye de "F" yazılır (rev 12 değişikliği; web "0" idi). Web mobil ayrı veri katmanı zaten (§4.1), web RIR'i etkilenmez.
 - **Geçmiş program günü davranışı:** Bugünden önceki bir program günü açılır ve o güne hiç set girilmemişse → **boş state** gösterilir (C1 empty gibi). Lazy kartlar render edilmez. Subtitle'da program context da yok (§3.5.2 zaten böyle). Sebep: "o gün hiç açmadım, neden egzersizler var?" şaşkınlığını önler.
@@ -545,11 +546,32 @@ D3 spec yazımı sırasında netleşen kararlar:
 - **Empty state:** ikinci CTA "Hazır Program Seç" eklendi → `PresetProgramModal` reuse
   (§3.8). ≥360pt yan yana / <360pt stack (§8.8).
 
-**Checkpoint 2'ye ertelendi:** **Görünür 6-nokta drag handle + long-press reorder** (§8.8).
-Sebep: `react-native-draggable-flatlist` projede yok ve proje **Reanimated 4.1**'de — paketin son
-sürümü RNA4'ten eski, uyumu doğrulanmadı; ayrıca kart listesini `ScrollView`'dan draggable list'e
-taşımak gerekiyor. Dependency riskini izole etmek için ayrı checkpoint'te (cihazda doğrulamayı
-bloklamasın). Reorder mutation'ı (`app_workouts.position`) da o zaman eklenecek.
+**Checkpoint 2 — TAMAM (rev 18, 2026-06-18, cihazda doğrulandı):** **Görünür 6-nokta drag
+handle + long-press reorder** (§8.8).
+- **Paketsiz custom drag (kullanıcı kararı):** `react-native-draggable-flatlist` EKLENMEDİ
+  (son sürümü Reanimated 2 hedefliyor, RNA4.1 uyumu doğrulanmadı, Expo Go bundle riski).
+  Yerine projede zaten çalışan **Reanimated 4 + gesture-handler** ile custom drag yazıldı
+  (`components/day/ReorderableCardList.tsx`; AppBottomSheet Pan kalıbı). Long-press tetik
+  SADECE handle'da → SetRow TextInput'larına bulaşmaz (§3.2). Tetik 220ms; hızlı dikey
+  kaydırma hâlâ scroll eder.
+- **Reorder kapsamı = TÜM kartlar (persisted + lazy), kullanıcı kararı:** Handle her kartta
+  görünür (lazy program kartları + tek kart dahil) ve hepsi sürüklenir. Önce "yalnızca
+  persisted" düşünülmüştü ama program günü açıldığında kartların çoğu lazy → handle hiç
+  görünmüyordu; kullanıcı "tüm kartlarda görünsün + hepsi sürüklensin" dedi.
+- **Sıra `app_day_meta.card_order text[]`'te (yeni kolon):** Birleşik görüntü sırası
+  exercise_ref dizisi olarak saklanır. **Lazy kartlar workout satırı YAZILMADAN sıralanır
+  → lazy-write garantisi korunur** ("push day'i açtım, 5'ten 2'sini yaptım → DB'de 2 kart").
+  Persisted kartların `app_workouts.position`'ı da birleşik sıraya göre güncellenir (month
+  grid + diğer position tüketicileri tutarlı). Görüntü sırası: `card_order`'daki görünür
+  ref'ler → kalanı doğal sırada (persisted by position → lazy program sırası); stale ref'ler
+  bir sonraki reorder'da temizlenir. Yazma katmanı: `lib/data-bridge.ts reorderDayCards` +
+  `queries/workouts.ts useReorderDayCards` (optimistic: card_order + day/month position).
+- **Drop "flash" fix:** Kartlar STABİL sırada (ref'e göre sıralı) render edilir; görsel sıra
+  tamamen `translateY` (shared order) ile sürülür → reorder commit'i React çocuk sırasını
+  değiştirmediği için bırakınca 1-frame "eski konum" flash'ı olmaz.
+- **Program egzersizi silme fix (reorder sonrası "silinemiyor"):** Program egzersizini günden
+  çıkarırken loglu (persisted) ise workout da silinir (set'ler cascade) + skip; sadece skip
+  persisted kartı gizlemiyordu (skip filtresi yalnız lazy'e uygulanıyor).
 
 ## 8.7 Misafir tercih aktarımı
 
@@ -687,4 +709,5 @@ Tüm kararlar §10'da.
 | 2026-05-25 | §3.1 (E1+F1+F2), §9 | **rev 15 — E1+F1+F2 spec yazımı kararları.** §3.1'e E1 More panel detayları eklendi: floating panel = bottom sheet; iki entry point (bottom nav + avatar tap) aynı sheet; disabled placeholder satırlar gösterilir (Profil/Ayarlar/Veri/GeriBildirim — "Çok yakında!" toast); auth vs guest iki varyant (Logout ↔ Hesap Aç); F1+F2 PlaceholderScreen ortak component kararı; CTA yok — sade mesaj. MVP screen listesi tamamlandı (15 ekran: A1-A5 + B1 + C1-C4 + D1-D3 + E1 + F1-F2). |
 | 2026-06-16 | §8.1.1 (yeni) | **rev 16 — Calendar cila turu kararları.** Month chip = hareket adı (kategori değil; §3.5 max-2-kategori GEÇERSİZ); planlı (gelecek) soluk chip'ler; aylar arası yatay swipe (gesture-handler Pan, yön kilitli); Week akordiyon (collapsed: N hareket·M set + bölge chip; chevron → hareket satırları + son seans en ağır set) + gün gövdesine tap → Day Detail; week "Start workout" → **geçici kronometre** (DB'ye yazmaz) — §8.3 rest timer + §3.2 "active-workout yok" + §B1 week için GEÇERSİZ. |
 | 2026-06-17 | §8.3, §8.11 (yeni), değişiklik kaydı | **rev 17 — Day Detail cila turu (checkpoint 1).** Rest timer MVP'den **çıkarıldı** (§8.3); yerine Day Detail'de "Start workout" ile başlayan **geçici antrenman kronometresi** (week-view ile tutarlı, DB'ye yazmaz — §8.2/§8.3 override). Set satırı **prototip 6-sütun grid**'e geçti (Type/RIR tap→modal seçici, KG/Reps mono). Prefill **güçlendirildi**: önceki seansın aynı index değerleri set eklenince gerçek gelir + dokunulmasa da kaydedilir (rev 12 lazy-yaz kuralı yumuşatıldı; program kartı hiç dokunulmazsa yine yazılmaz). Baseline cila: app bar (display başlık + mono alt-satır), stat strip (mono + kg), kategori-chip pill, "Son:" satırı artık `useLastSession` ile gerçek, empty state 2. CTA "Hazır Program Seç" (PresetProgramModal reuse). "0/20 planlı hedef" gösterilmiyor (şema set sayısı tutmuyor). **Checkpoint 2'ye ertelendi:** 6-nokta drag handle + reorder (react-native-draggable-flatlist / Reanimated 4 uyum riski izole edildi). |
+| 2026-06-18 | §3.2, §4.3 (şema), §8.8, §8.11, değişiklik kaydı | **rev 18 — Day Detail Checkpoint 2: drag handle + reorder (cihazda doğrulandı).** Görünür 6-nokta handle + long-press reorder UYGULANDI. **Paketsiz custom drag** (Reanimated 4 + gesture-handler; `react-native-draggable-flatlist` EKLENMEDİ — RNA4 uyum/Expo Go bundle riski). **Reorder kapsamı = TÜM kartlar (persisted + lazy + tek kart)** (kullanıcı kararı; "yalnızca persisted" iptal — program günü lazy kartlarda handle görünmüyordu). Sıra yeni **`app_day_meta.card_order text[]`** kolonunda; **lazy kartlar workout YAZILMADAN sıralanır** (lazy-write korunur), persisted `position` da senkronlanır. Yazma: `reorderDayCards` / `useReorderDayCards` (optimistic). Drop "flash" fix (kartlar sabit sırada render, görsel sıra translateY ile). Program egzersizi silme fix: loglu program kartı günden çıkarılırken workout da silinir + skip (sadece skip persisted kartı gizlemiyordu). Handle tetik 220ms, yalnız handle'da → SetRow input çakışması yok. |
 | 2026-05-23 | §8.10 (yeni), §9 Grup G (yeni) | **rev 14 — D3 Program Edit spec yazımı kararları + seans sonu karar oturumu.** Yeni §8.10 eklendi: D3 tam ekran route (modal değil), state ayırt etmez (NewProgramSheet save + ✎ edit + "Düzenle" hepsi aynı route'a push); gün layout = dikey scroll + collapsible panels (bugün açık default, multi-expand izinli); cycle type **3 seçenek `weekly` (default) / `deload` / `none`** (web `app.html`'de `weekly` yoktu — mobil için yeni eklendi, haftalık tekrar standart mental model); `none` MVP'de kalır ama default değil, compliance hesaplanmaz; autosave debounced (300-500ms, manuel "Kaydet" yok); off-day toggle = Opsiyon A (dolu gün off-day yapılınca app_program_days satırları silinir, confirm sorar); gün-gün taşıma = Opsiyon A (long-press ⋯ → MoveToDaySheet; drag-cross-panel MVP sonrası); aktif et CTA disabled koşul = en az 1 toplam egzersiz; bottom nav D3'te gizli (tam ekran edit); D2+D3 ortak component'ler (ActivateConfirmModal, DeleteProgramModal); 6-dot drag handle (§8.8 ile aynı); program adı validation (1-60 char, trim, duplicate OK). Grup G karar oturumu: 4 sorudan 3'üne kullanıcı karar verdi (cycle `none` kalır, off-day Opsiyon A, taşıma Opsiyon A); 1'i (aktif et koşulu) önerimle kapatıldı. |

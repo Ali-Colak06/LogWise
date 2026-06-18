@@ -597,6 +597,7 @@ export interface Translations {
     multiAddCta: string;           // "{n} hareket · Ekle" templated
     addedToast: string;            // "{n} hareket eklendi" templated
     alreadyExists: string;         // "Bu hareket bugün zaten var"
+    reorderHandle: string;         // drag handle a11y — "Sırala / sürükle"
   };
   days: readonly [string, string, string, string, string, string, string];
   daysFull: readonly [string, string, string, string, string, string, string];

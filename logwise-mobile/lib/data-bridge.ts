@@ -891,6 +891,69 @@ export async function deleteWorkout(ctx: DataCtx, workoutId: string): Promise<vo
   if (error) throw error;
 }
 
+/**
+ * Bir günün TÜM kartlarının (persisted + lazy) görüntü sırasını günceller (C2 reorder —
+ * §8.8/§3.2; kullanıcı kararı 2026-06-18: lazy kartlar da sürüklenir).
+ *
+ * `orderedRefs` = istenen sıradaki exercise_ref'ler (persisted + lazy birlikte). Sıra
+ * `app_day_meta.card_order`'a yazılır → lazy kartlar **workout satırı YAZILMADAN** sıralanır
+ * (lazy-write garantisi korunur). Ek olarak persisted kartların `position`'ı birleşik sıraya
+ * göre güncellenir (month grid + diğer position tüketicileri tutarlı kalsın). position
+ * UNIQUE değil → paralel UPDATE güvenli; delete+reinsert YASAK (set'leri cascade ile silerdi).
+ */
+export async function reorderDayCards(
+  ctx: DataCtx,
+  input: { dateISO: string; orderedRefs: string[] },
+): Promise<void> {
+  if (input.orderedRefs.length === 0) return;
+  const rank = new Map(input.orderedRefs.map((ref, i) => [ref, i] as const));
+
+  if (ctx.mode === 'guest') {
+    await gs.upsertGuestDayMeta({ workout_date: input.dateISO, card_order: input.orderedRefs });
+    const existing = await gs.getGuestWorkoutsByDate(input.dateISO);
+    for (const w of existing) {
+      const pos = rank.get(w.exercise_ref);
+      if (pos === undefined || pos === w.position) continue;
+      // eslint-disable-next-line no-await-in-loop
+      await gs.updateGuestWorkout(w.id, { position: pos });
+    }
+    return;
+  }
+
+  if (!ctx.userId) throw new Error('No userId');
+  const userId = ctx.userId;
+  const updatedAt = new Date().toISOString();
+
+  const { error: metaErr } = await supabase.from('app_day_meta').upsert(
+    {
+      user_id: userId,
+      workout_date: input.dateISO,
+      card_order: input.orderedRefs,
+      updated_at: updatedAt,
+    },
+    { onConflict: 'user_id,workout_date' },
+  );
+  if (metaErr) throw metaErr;
+
+  const existing = await fetchWorkoutsByDate(ctx, input.dateISO);
+  const updates = existing
+    .map((w) => ({ id: w.id, position: rank.get(w.exercise_ref) }))
+    .filter((u): u is { id: string; position: number } => u.position !== undefined);
+  if (updates.length === 0) return;
+  const results = await Promise.all(
+    updates.map((u) =>
+      supabase
+        .from('app_workouts')
+        .update({ position: u.position, updated_at: updatedAt })
+        .eq('id', u.id)
+        .eq('user_id', userId),
+    ),
+  );
+  for (const { error } of results) {
+    if (error) throw error;
+  }
+}
+
 export async function updateSet(
   ctx: DataCtx,
   setId: string,

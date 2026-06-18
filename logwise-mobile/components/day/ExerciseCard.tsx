@@ -10,7 +10,7 @@
  * parent'a verir (parent mutation'a weight/reps/type/rir geçer).
  * Lazy yazma korunur: hiç set yoksa DB'ye satır yazılmaz (sets boş).
  */
-import { useMemo } from 'react';
+import { useMemo, type ReactNode } from 'react';
 import { StyleSheet, View, Pressable } from 'react-native';
 import { Eye, MoreVertical } from 'lucide-react-native';
 import { useTheme } from '../../theme';
@@ -39,6 +39,12 @@ export interface ExerciseCardProps {
   onDeleteSet: (setId: string) => void;
   onOpenPreview: () => void;
   onOpenMenu: () => void;
+  /**
+   * Görünür 6-nokta drag handle (§8.8) — reorder edilebilir persisted kartlarda parent
+   * tarafından GestureDetector'a sarılı verilir; ⋮ menünün solunda render edilir. Lazy
+   * program kartlarında verilmez (reorder dışı — §8.11).
+   */
+  dragHandle?: ReactNode;
 }
 
 function bestSetLabel(sets: { weight: number | null; reps: number | null }[]): string | null {
@@ -60,6 +66,7 @@ export default function ExerciseCard({
   onDeleteSet,
   onOpenPreview,
   onOpenMenu,
+  dragHandle,
 }: ExerciseCardProps) {
   const { colors } = useTheme();
   const t = useT();
@@ -118,6 +125,7 @@ export default function ExerciseCard({
           <Pressable onPress={onOpenPreview} hitSlop={8} style={styles.iconBtn} accessibilityLabel={t('library.preview')}>
             <Eye size={17} color={colors.text.secondary} />
           </Pressable>
+          {dragHandle}
           <Pressable onPress={onOpenMenu} hitSlop={8} style={styles.iconBtn} accessibilityLabel={t('common.more')}>
             <MoreVertical size={17} color={colors.text.secondary} />
           </Pressable>

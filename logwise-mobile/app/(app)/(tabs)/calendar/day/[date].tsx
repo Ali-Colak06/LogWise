@@ -14,7 +14,7 @@
  * Performans (BOZMA): iki fazlı mount (InteractionManager + contentReady), yazma
  * hook'ları optimistic + hedefli cache.
  */
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react';
 import { Alert, InteractionManager, ScrollView, View, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Dumbbell, ChevronLeft, ChevronRight, ArrowLeft, Plus } from 'lucide-react-native';
@@ -30,6 +30,7 @@ import {
   useUpdateSet,
   useDeleteSet,
   useDeleteWorkout,
+  useReorderDayCards,
   useSkipExerciseForDay,
 } from '../../../../../queries/workouts';
 import { useActiveProgramWithDays, useCreateProgramFromPreset } from '../../../../../queries/programs';
@@ -40,6 +41,7 @@ import { totalVolume } from '../../../../../lib/calc';
 import { DuplicateProgramError } from '../../../../../lib/data-bridge';
 import { computeOffDays, type PresetProgram } from '../../../../../data/presets-programs';
 import ExerciseCard, { type SetSeed } from '../../../../../components/day/ExerciseCard';
+import ReorderableCardList from '../../../../../components/day/ReorderableCardList';
 import RestDayBanner from '../../../../../components/day/RestDayBanner';
 import AddExerciseSheet from '../../../../../components/day/AddExerciseSheet';
 import WorkoutTimerBar, { useWorkoutStopwatch } from '../../../../../components/day/WorkoutTimerBar';
@@ -64,6 +66,23 @@ function shiftIso(iso: string, days: number): string {
   return `${next.getFullYear()}-${(next.getMonth() + 1).toString().padStart(2, '0')}-${next.getDate().toString().padStart(2, '0')}`;
 }
 
+// Stabil boş referans — dayMeta.card_order null iken her render'da yeni [] üretmemek için.
+const EMPTY_ORDER: string[] = [];
+
+/**
+ * Birleşik kart sırası: önce card_order'daki (görünür) ref'ler o sırayla, sonra card_order'da
+ * olmayan ref'ler doğal sırada (persisted by position → lazy program sırası). card_order boşsa
+ * doğal sıra döner. Stale (silinmiş/skip) ref'ler görünür değilse elenir.
+ */
+function applyCardOrder(naturalRefs: string[], cardOrder: string[]): string[] {
+  if (cardOrder.length === 0) return naturalRefs;
+  const visible = new Set(naturalRefs);
+  const inOrder = cardOrder.filter((r) => visible.has(r));
+  const seen = new Set(inOrder);
+  const rest = naturalRefs.filter((r) => !seen.has(r));
+  return [...inOrder, ...rest];
+}
+
 export default function DayDetailScreen() {
   const router = useRouter();
   const params = useLocalSearchParams<{ date?: string }>();
@@ -77,6 +96,8 @@ export default function DayDetailScreen() {
   const [addOpen, setAddOpen] = useState(false);
   const [presetOpen, setPresetOpen] = useState(false);
   const [previewEx, setPreviewEx] = useState<ResolvedExercise | null>(null);
+  // Reorder sürüklemesi sırasında dış ScrollView'u kilitle (gesture çakışmasını önler).
+  const [dragging, setDragging] = useState(false);
   const sw = useWorkoutStopwatch();
 
   // PERF: iki fazlı mount — push geçişi ağır kart ağacını (TextInput'lu SetRow'lar)
@@ -109,6 +130,7 @@ export default function DayDetailScreen() {
   const updateSet = useUpdateSet();
   const deleteSet = useDeleteSet();
   const deleteWorkout = useDeleteWorkout();
+  const reorderCards = useReorderDayCards();
   const skipExercise = useSkipExerciseForDay();
   const createProgM = useCreateProgramFromPreset();
 
@@ -203,13 +225,20 @@ export default function DayDetailScreen() {
 
   const onCardMenu = (w: AppWorkoutsRow | null, ref: string, isProgramEx: boolean) => {
     if (isProgramEx) {
+      // Program egzersizi günden çıkarılırken: loglu (persisted) ise workout'u da SİL
+      // (set'leri cascade). Sadece skip yetmez — persisted kartlar skipped filtresine
+      // takılmaz, kart ekranda kalırdı (reorder sonrası "silinemiyor" bug'ı).
+      const removeForToday = () => {
+        if (w) deleteWorkout.mutate(w.id);
+        skipExercise.mutate({ dateISO, exerciseRef: ref });
+      };
       Alert.alert(t('dayExtra.deleteCardProgramTitle'), undefined, [
-        { text: t('dayExtra.deleteOnlyToday'), onPress: () => skipExercise.mutate({ dateISO, exerciseRef: ref }) },
+        { text: t('dayExtra.deleteOnlyToday'), onPress: removeForToday },
         {
           text: t('dayExtra.deleteFromProgram'),
           style: 'destructive',
           onPress: () => {
-            skipExercise.mutate({ dateISO, exerciseRef: ref });
+            removeForToday();
             toast.show({ message: t('dayExtra.deleteOnlyToday'), variant: 'info' });
           },
         },
@@ -265,6 +294,73 @@ export default function DayDetailScreen() {
     setPreviewEx(resolveExerciseRef(ref, customMap, locale));
   };
 
+  // --- reorder (C2 — §8.8) : TÜM kartlar (persisted + lazy) tek listede sürüklenir ---
+  // (kullanıcı kararı 2026-06-18). Birleşik sıra app_day_meta.card_order'da; lazy kartlar
+  // workout satırı yazılmadan sıralanır (lazy-write korunur).
+  const workoutByRef = useMemo(
+    () => new Map(workouts.map((w) => [w.exercise_ref, w])),
+    [workouts],
+  );
+  const persistedRefsByPosition = useMemo(
+    () => [...workouts].sort((a, b) => a.position - b.position).map((w) => w.exercise_ref),
+    [workouts],
+  );
+  const naturalRefs = useMemo(
+    () => [...persistedRefsByPosition, ...lazyRefs],
+    [persistedRefsByPosition, lazyRefs],
+  );
+  const cardOrder = dayMetaQ.data?.card_order ?? EMPTY_ORDER;
+  const orderedRefs = useMemo(() => applyCardOrder(naturalRefs, cardOrder), [naturalRefs, cardOrder]);
+
+  const onReorderCards = useCallback(
+    (orderedRefsNext: string[]) => {
+      reorderCards.mutate(
+        { dateISO, orderedRefs: orderedRefsNext },
+        { onError: (e) => toast.show({ message: (e as Error).message, variant: 'danger' }) },
+      );
+    },
+    [reorderCards, dateISO, toast],
+  );
+
+  const renderCard = useCallback(
+    (ref: string, dragHandle: ReactNode) => {
+      const resolved = resolveExerciseRef(ref, customMap, locale);
+      const isProgramEx = !!programDay && programDay.exerciseRefs.includes(ref);
+      const w = workoutByRef.get(ref);
+      if (w) {
+        return (
+          <ExerciseCard
+            resolved={resolved}
+            dateISO={dateISO}
+            sets={setsByWorkout(w.id)}
+            onAddSet={(seed) => onAddSetToWorkout(w.id, seed)}
+            onChangeSet={onChangeSet}
+            onDeleteSet={onDeleteSet}
+            onOpenPreview={() => openPreview(ref)}
+            onOpenMenu={() => onCardMenu(w, ref, isProgramEx)}
+            dragHandle={dragHandle}
+          />
+        );
+      }
+      // Lazy program kartı (DB'de yok)
+      return (
+        <ExerciseCard
+          resolved={resolved}
+          dateISO={dateISO}
+          sets={[]}
+          onAddSet={(seed) => onAddSetToLazy(ref, seed)}
+          onChangeSet={onChangeSet}
+          onDeleteSet={onDeleteSet}
+          onOpenPreview={() => openPreview(ref)}
+          onOpenMenu={() => onCardMenu(null, ref, true)}
+          dragHandle={dragHandle}
+        />
+      );
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [workoutByRef, customMap, locale, programDay, dateISO, sets],
+  );
+
   return (
     <Screen scroll={false} hPadding={0}>
       {/* App bar */}
@@ -294,7 +390,11 @@ export default function DayDetailScreen() {
         </HStack>
       </HStack>
 
-      <ScrollView style={styles.scroll} contentContainerStyle={{ paddingBottom: 28 }}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={{ paddingBottom: 28 }}
+        scrollEnabled={!dragging}
+      >
         {/* Stat strip */}
         <HStack gap="sm" style={[styles.statStrip, { borderColor: colors.border.subtle }]}>
           <View style={styles.statCell}>
@@ -331,43 +431,15 @@ export default function DayDetailScreen() {
             )}
           </VStack>
         ) : (
-          <VStack gap="sm" style={styles.cardList}>
-            {/* Persisted cards */}
-            {workouts.map((w) => {
-              const resolved = resolveExerciseRef(w.exercise_ref, customMap, locale);
-              const isProgramEx = !!programDay && programDay.exerciseRefs.includes(w.exercise_ref);
-              return (
-                <ExerciseCard
-                  key={w.id}
-                  resolved={resolved}
-                  dateISO={dateISO}
-                  sets={setsByWorkout(w.id)}
-                  onAddSet={(seed) => onAddSetToWorkout(w.id, seed)}
-                  onChangeSet={onChangeSet}
-                  onDeleteSet={onDeleteSet}
-                  onOpenPreview={() => openPreview(w.exercise_ref)}
-                  onOpenMenu={() => onCardMenu(w, w.exercise_ref, isProgramEx)}
-                />
-              );
-            })}
-            {/* Lazy program cards */}
-            {lazyRefs.map((ref) => {
-              const resolved = resolveExerciseRef(ref, customMap, locale);
-              return (
-                <ExerciseCard
-                  key={`lazy-${ref}`}
-                  resolved={resolved}
-                  dateISO={dateISO}
-                  sets={[]}
-                  onAddSet={(seed) => onAddSetToLazy(ref, seed)}
-                  onChangeSet={onChangeSet}
-                  onDeleteSet={onDeleteSet}
-                  onOpenPreview={() => openPreview(ref)}
-                  onOpenMenu={() => onCardMenu(null, ref, true)}
-                />
-              );
-            })}
-          </VStack>
+          <View style={styles.cardList}>
+            {/* Tüm kartlar (persisted + lazy) tek listede — sürüklenip sıralanır (§8.8 C2) */}
+            <ReorderableCardList
+              ids={orderedRefs}
+              renderCard={renderCard}
+              onReorder={onReorderCards}
+              onActiveChange={setDragging}
+            />
+          </View>
         )}
       </ScrollView>
 

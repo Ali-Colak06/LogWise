@@ -646,6 +646,7 @@ export const tr: Translations = {
     multiAddCta: '{n} hareket · Ekle',
     addedToast: '{n} hareket eklendi',
     alreadyExists: 'Bu hareket bugün zaten var',
+    reorderHandle: 'Sıralamak için sürükle',
   },
   days: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
   daysFull: ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'],

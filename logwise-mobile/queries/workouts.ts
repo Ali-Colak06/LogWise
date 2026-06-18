@@ -32,6 +32,7 @@ import {
   addWorkoutSet,
   ensureWorkout,
   deleteWorkout,
+  reorderDayCards,
   updateSet,
   deleteSet,
   fetchLastSessionForRef,
@@ -516,6 +517,79 @@ export function useDeleteWorkout() {
   });
 }
 
+/**
+ * Gun ici TUM kartlarin (persisted + lazy) gorunum sirasini yeniden duzenle (C2 — §8.8;
+ * kullanici karari 2026-06-18). Optimistic: day_meta.card_order + day/month position'lari
+ * hemen guncelle, rollback onError. `orderedRefs` = exercise_ref'ler (persisted + lazy);
+ * lazy ref'ler sadece card_order'a yazilir (workout satiri yok — lazy-write korunur).
+ */
+export function useReorderDayCards() {
+  const ctx = useDataCtx();
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (input: { dateISO: string; orderedRefs: string[] }) => reorderDayCards(ctx, input),
+    onMutate: async (input) => {
+      const dayKey = wkKeys.day(ctx, input.dateISO);
+      const monthKey = monthKeyForDate(ctx, input.dateISO);
+      const metaKey = [...wkKeys.all(ctx), 'daymeta', input.dateISO] as const;
+      await qc.cancelQueries({ queryKey: dayKey });
+      await qc.cancelQueries({ queryKey: metaKey });
+      const prevDay = qc.getQueryData<AppWorkoutsRow[]>(dayKey);
+      const prevMonth = monthKey ? qc.getQueryData<AppWorkoutsRow[]>(monthKey) : undefined;
+      const prevMeta = qc.getQueryData<AppDayMetaRow | null>(metaKey);
+      const rank = new Map(input.orderedRefs.map((ref, i) => [ref, i] as const));
+
+      // day_meta.card_order optimistic
+      qc.setQueryData<AppDayMetaRow | null>(metaKey, (old: AppDayMetaRow | null | undefined) => {
+        if (old) return { ...old, card_order: input.orderedRefs };
+        return {
+          user_id: ctx.userId ?? GUEST,
+          workout_date: input.dateISO,
+          day_note: null,
+          total_duration_minutes: null,
+          skipped_exercise_ids: [],
+          card_order: input.orderedRefs,
+          created_at: nowIso(),
+          updated_at: nowIso(),
+        };
+      });
+
+      // Persisted kartlarin position'i (day cache) — birlesik siraya gore.
+      qc.setQueryData<AppWorkoutsRow[]>(dayKey, (old: AppWorkoutsRow[] | undefined) =>
+        old
+          ? old
+              .map((w) =>
+                rank.has(w.exercise_ref) ? { ...w, position: rank.get(w.exercise_ref) ?? w.position } : w,
+              )
+              .slice()
+              .sort((a, b) => a.position - b.position)
+          : old,
+      );
+      // Month grid chip sirasi da guncel kalsin (gun satirlari position'a gore render edilir).
+      if (monthKey && prevMonth) {
+        qc.setQueryData<AppWorkoutsRow[]>(monthKey, (old: AppWorkoutsRow[] | undefined) =>
+          old
+            ? old.map((w) =>
+                w.workout_date === input.dateISO && rank.has(w.exercise_ref)
+                  ? { ...w, position: rank.get(w.exercise_ref) ?? w.position }
+                  : w,
+              )
+            : old,
+        );
+      }
+      return { dayKey, prevDay, monthKey: monthKey ?? null, prevMonth, metaKey, prevMeta };
+    },
+    onError: (_e, _input, context) => {
+      if (!context) return;
+      qc.setQueryData(context.dayKey, context.prevDay);
+      qc.setQueryData(context.metaKey, context.prevMeta);
+      if (context.monthKey && context.prevMonth !== undefined) {
+        qc.setQueryData(context.monthKey, context.prevMonth);
+      }
+    },
+  });
+}
+
 /** Program gununde "sadece bugun skip". Optimistic day_meta; onSettled hedefli refetch. */
 export function useSkipExerciseForDay() {
   const ctx = useDataCtx();
@@ -537,6 +611,7 @@ export function useSkipExerciseForDay() {
           day_note: null,
           total_duration_minutes: null,
           skipped_exercise_ids: next,
+          card_order: null,
           created_at: nowIso(),
           updated_at: nowIso(),
         };

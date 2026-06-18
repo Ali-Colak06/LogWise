@@ -528,6 +528,7 @@ export async function upsertGuestDayMeta(input: {
   day_note?: string;
   total_duration_minutes?: number | null;
   skipped_exercise_ids?: string[];
+  card_order?: string[] | null;
 }): Promise<GuestDayMetaRow> {
   const all = await getGuestDayMetas();
   const idx = all.findIndex((d) => d.workout_date === input.workout_date);
@@ -539,6 +540,7 @@ export async function upsertGuestDayMeta(input: {
       day_note: input.day_note ?? '',
       total_duration_minutes: input.total_duration_minutes ?? null,
       skipped_exercise_ids: input.skipped_exercise_ids ?? [],
+      card_order: input.card_order ?? null,
       created_at: now,
       updated_at: now,
     };
@@ -551,6 +553,7 @@ export async function upsertGuestDayMeta(input: {
     ...(input.day_note !== undefined ? { day_note: input.day_note } : {}),
     ...(input.total_duration_minutes !== undefined ? { total_duration_minutes: input.total_duration_minutes } : {}),
     ...(input.skipped_exercise_ids !== undefined ? { skipped_exercise_ids: input.skipped_exercise_ids } : {}),
+    ...(input.card_order !== undefined ? { card_order: input.card_order } : {}),
     updated_at: now,
   };
   all[idx] = next;

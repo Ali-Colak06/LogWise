@@ -32,6 +32,7 @@ export type Database = {
     Tables: {
       app_day_meta: {
         Row: {
+          card_order: string[] | null
           created_at: string
           day_note: string | null
           skipped_exercise_ids: string[]
@@ -41,6 +42,7 @@ export type Database = {
           workout_date: string
         }
         Insert: {
+          card_order?: string[] | null
           created_at?: string
           day_note?: string | null
           skipped_exercise_ids?: string[]
@@ -50,6 +52,7 @@ export type Database = {
           workout_date: string
         }
         Update: {
+          card_order?: string[] | null
           created_at?: string
           day_note?: string | null
           skipped_exercise_ids?: string[]
