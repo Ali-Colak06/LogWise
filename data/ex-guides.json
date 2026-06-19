@@ -9562,36 +9562,98 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/cossack-squat",
     "summary": [
-      "Yana tek bacak squat. Mobilite + kuvvet.",
-      "Side-to-side single-leg squat. Mobility + strength."
+      "Geniş duruşta yana squat. Adduktor ve quad odaklı.",
+      "Wide-stance lateral squat. Adductor and quad focused."
     ],
     "description": [
-      "Yana tek bacak ağırlık aktarımıyla yapılan squat varyasyonu. Adduktor mobilitesi, kalça kontrolü ve tek taraflı kuvveti birlikte geliştirir. Alt vücut hazırlığı için çok faydalıdır.",
-      "A squat variation performed by shifting bodyweight to one leg side to side. It develops adductor mobility, hip control, and unilateral strength together. It is very useful for lower-body preparation."
+      "Geniş duruşta ağırlığın bir bacağa aktarılıp diğer bacağın uzun kaldığı yanal squat hareketidir. Çalışan tarafta quadriceps ve gluteus maximus, uzun kalan tarafta ve geçiş boyunca adduktorlar önemli yük taşır.",
+      "A lateral squat performed from a wide stance by shifting load onto one leg while the other stays long. The quadriceps and gluteus maximus work on the loaded side, while the adductors contribute through the long-leg position and transition."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Serbest kalan ayağın parmaklarını yukarı çekebilirsin.",
-        "You can lift the toes on the non-working leg."
+        "Ayakları rahatça geniş aç ve parmakları kalça yapına uygun hafif dışa çevir.",
+        "Take a comfortably wide stance and turn the toes slightly outward as allowed by your hip structure."
       ],
       [
-        "Derinlikten çok kontrollü ağırlık aktarımı hedefle.",
-        "Prioritize controlled weight shift over maximal depth."
+        "Brace yapıp kalçayı bir tarafa gönderirken o diz ve kalçayı birlikte bük.",
+        "Brace and shift the hips to one side while bending that knee and hip together."
       ],
       [
-        "Her iki tarafta simetrik çalış.",
-        "Train both sides symmetrically."
+        "Yüklenen ayağı tam taban tut; diğer bacağı uzun bırak ve ayağın yönünü seçtiğin varyasyonda koru.",
+        "Keep the loaded foot flat, leave the other leg long, and maintain the chosen free-foot orientation."
+      ],
+      [
+        "Topuk teması, diz takibi ve pelvis kontrolü korunabilen derinlikte dur.",
+        "Stop at the depth that preserves heel contact, knee tracking, and pelvic control."
+      ],
+      [
+        "Yüklenen ayağı zemine iterek merkeze dön ve diğer tarafa kontrollü geç.",
+        "Drive through the loaded foot to return to center and transition to the other side under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Mobilite izin vermediği halde maksimum derinliği zorlamak.",
+        "Forcing maximum depth beyond the available mobility."
+      ],
+      [
+        "Yüklenen topuğu kaldırmak veya dizi ayak yönünden içeri kaçırmak.",
+        "Lifting the loaded heel or letting the knee collapse inside the toe direction."
+      ],
+      [
+        "Pelvisi ve gövdeyi kontrolsüz döndürerek yana ulaşmaya çalışmak.",
+        "Rotating the pelvis and trunk without control to reach farther sideways."
+      ],
+      [
+        "İki tarafta aynı derinliği zorunlu tutup form farklarını görmezden gelmek.",
+        "Forcing identical depth on both sides and ignoring differences in control."
+      ]
+    ],
+    "tips": [
+      [
+        "Uzun kalan ayağın parmaklarını yukarı çevirmek bir varyasyondur; herkes için zorunlu değildir.",
+        "Turning the free-leg toes upward is one variation; it is not mandatory for everyone."
+      ],
+      [
+        "Sağ ve sol taraf farklı kontrollü derinliğe sahip olabilir; her tarafı kendi tekrarlanabilir menzilinde izle.",
+        "The two sides may have different controlled depths; track each within its repeatable range."
+      ],
+      [
+        "Bir destekten tutunmak denge talebini azaltıp ağırlık aktarımını öğrenmeyi kolaylaştırabilir.",
+        "Holding a support can reduce balance demand and help teach the weight shift."
+      ],
+      [
+        "Bu hareket mobilite testi değil, yüklenebilir bir squat varyasyonudur; kontrolü yükten önce standartlaştır.",
+        "This is not merely a mobility test but a loadable squat variation; standardize control before adding load."
+      ]
+    ],
+    "progression": [
+      [
+        "Dik bir destekten tutunarak kısa menzilli yana ağırlık aktarımı yap.",
+        "Use an upright support for short-range lateral weight shifts."
+      ],
+      [
+        "Vücut ağırlığıyla her tarafta kontrollü derinliği ve merkez dönüşünü geliştir.",
+        "Develop controlled depth and return to center on each side with bodyweight."
+      ],
+      [
+        "Aynı ayak ve diz kontrolü korununca goblet yükü ekle.",
+        "Add a goblet load once foot and knee control remain consistent."
+      ],
+      [
+        "İleri aşamada pause, daha yavaş eksantrik veya ayrı taraf setleri kullan.",
+        "At a later stage, use pauses, slower eccentrics, or side-specific sets."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps",
+        "adductor-magnus"
       ],
       "secondary": [
-        "glutes"
+        "gluteus-maximus",
+        "gluteus-medius",
+        "hamstrings"
       ]
     },
     "media": {
@@ -9608,7 +9670,53 @@
         "Muscle map for the Cossack Squat exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cossack Squat Rehberi | Yanal Squat Formu",
+        "Cossack Squat Guide | Lateral Squat Form"
+      ],
+      "metaDescription": [
+        "Cossack squat duruşu, ağırlık aktarımı, topuk ve diz kontrolü, taraf farkları ve progression adımları.",
+        "Learn Cossack-squat stance, weight shift, heel and knee control, side differences, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve adduktorlar",
+          "Quadriceps and adductors"
+        ],
+        "equipment": [
+          "Vücut ağırlığı; opsiyonel destek veya ağırlık",
+          "Bodyweight; optional support or weight"
+        ],
+        "movementPattern": [
+          "Yanal tek taraflı squat",
+          "Lateral unilateral squat"
+        ],
+        "bestFor": [
+          "Yanal kuvvet, adduktor yükleme ve kalça kontrolü",
+          "Lateral strength, adductor loading, and hip control"
+        ]
+      },
+      "tracking": [
+        [
+          "Taraf başına tekrar, yük, RIR ve kontrollü derinliği kaydet.",
+          "Log reps per side, load, RIR, and controlled depth."
+        ],
+        [
+          "Serbest ayağın yönünü ve destek kullanımını varyasyon notuna ekle.",
+          "Include free-foot orientation and support use in the variation notes."
+        ],
+        [
+          "Sağ-sol topuk veya diz kontrolü farklarını ayrı izle.",
+          "Track side-to-side differences in heel and knee control."
+        ]
+      ],
+      "related": [
+        "goblet-squat",
+        "lunge",
+        "leg-adduction-machine"
+      ]
+    }
   },
   "step-up": {
     "publish": false,
@@ -10098,36 +10206,98 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/sliding-leg-curl",
     "summary": [
-      "Kaydırmalı hamstring curl.",
-      "Sliding hamstring curl."
+      "Kaydırıcıyla diz fleksiyonu. Hamstring odaklı.",
+      "Slider knee flexion. Hamstring focused."
     ],
     "description": [
-      "Topukların kaydığı zeminde yapılan hamstring curl varyasyonu. Vücut ağırlığıyla arka bacak ve kalçayı etkili biçimde çalıştırır. Ev tipi hamstring antrenmanı için çok mantıklıdır.",
-      "A hamstring-curl variation performed on a sliding surface. It effectively trains the posterior legs and glutes using bodyweight. It is a very logical option for home-based hamstring work."
+      "Sırt üstü pozisyonda topukların kaygan bir yüzeyde gövdeye çekilip uzaklaştırıldığı diz fleksiyonu hareketidir. Hamstringler ana yükü taşırken gluteus maximus kalçanın yükseltilmesine, baldır kasları da diz fleksiyonuna katkı verir.",
+      "A supine knee-flexion exercise performed by sliding the heels toward and away from the body. The hamstrings carry most of the load while the gluteus maximus helps keep the hips elevated and the calf muscles assist knee flexion."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kalçayı yukarıda tutarak çekiş yap.",
-        "Keep the hips elevated while curling."
+        "Sırt üstü yatıp topukları eşit kayganlıktaki slider veya havluların üzerine yerleştir.",
+        "Lie on your back and place both heels on sliders or towels with equal friction."
       ],
       [
-        "İnişi yavaşlatmak hareketi zorlaştırır.",
-        "Slowing the return makes the movement harder."
+        "Kaburgaları pelvis üzerinde tutup brace yap ve kalçayı kontrollü bridge pozisyonuna kaldır.",
+        "Stack the ribs over the pelvis, brace, and raise the hips into a controlled bridge."
       ],
       [
-        "İki bacakla başlayıp tek bacağa ilerleyebilirsin.",
-        "You can start with two legs and progress to one."
+        "Kalçayı mümkün olduğunca sabit tutarak topukları yavaşça gövdeden uzaklaştır.",
+        "Keep the hips as stable as possible while slowly sliding the heels away from the body."
+      ],
+      [
+        "Kontrollü menzilin sonunda topukları zemine bastırıp dizleri bükerek geri çek.",
+        "At the end of the controlled range, press the heels down and flex the knees to pull them back."
+      ],
+      [
+        "Kalça ve gövde pozisyonunu koruyarak sıradaki tekrara geç.",
+        "Maintain hip and trunk position as you begin the next rep."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Topuklar uzaklaşırken kalçayı kontrolsüz zemine düşürmek.",
+        "Letting the hips drop to the floor without control as the heels slide away."
+      ],
+      [
+        "Dönüşte belden aşırı çukurlaşıp kalçayı savurmak.",
+        "Overarching the lower back and swinging the hips during the return."
+      ],
+      [
+        "Yüzey sürtünmesi uygun değilken menzili zorlamak.",
+        "Forcing range on a surface with unsuitable friction."
+      ],
+      [
+        "İki bacaktan tek bacağa, ara progression olmadan geçmek.",
+        "Moving from bilateral to single-leg reps without an intermediate progression."
+      ]
+    ],
+    "tips": [
+      [
+        "Zemin ve slider sürtünmesi yükü büyük ölçüde değiştirir; aynı kurulumu koru.",
+        "Floor and slider friction change the load substantially; keep setup consistent."
+      ],
+      [
+        "Kalçanın bir miktar alçalması regresyon olarak kullanılabilir; ne yaptığını varyasyon notunda belirt.",
+        "Allowing some hip drop can be used as a regression; identify it in the variation notes."
+      ],
+      [
+        "Tek bacak varyasyonu büyük bir zorluk artışıdır; önce eksantrik menzili ve çift bacak dönüşünü geliştir.",
+        "The single-leg variation is a large jump in difficulty; first develop eccentric range and a bilateral return."
+      ],
+      [
+        "Kramp veya form kaybında daha kısa menzil, daha düşük kalça yüksekliği veya daha fazla sürtünme kullan.",
+        "If cramping or form loss occurs, use a shorter range, lower hip position, or more friction."
+      ]
+    ],
+    "progression": [
+      [
+        "Glute bridge ve yatarak leg curl ile kalça/diz kontrolünü öğren.",
+        "Learn hip and knee control with glute bridges and lying leg curls."
+      ],
+      [
+        "Topukları kısa mesafe açıp kapatarak çift bacak tekrarları yap.",
+        "Perform bilateral reps by sliding the heels through a short distance."
+      ],
+      [
+        "Eksantrik menzili uzat ve aynı bridge yüksekliğinde geri dön.",
+        "Increase eccentric range and return at the same bridge height."
+      ],
+      [
+        "İleri aşamada tek bacak eksantrik veya tam tek bacak tekrarına geç.",
+        "At a later stage, progress to single-leg eccentrics or full single-leg reps."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "hamstrings"
       ],
       "secondary": [
-        "glutes"
+        "gluteus-maximus",
+        "gastrocnemius",
+        "soleus",
+        "abdominals"
       ]
     },
     "media": {
@@ -10144,7 +10314,53 @@
         "Muscle map for the Sliding Leg Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Sliding Leg Curl Rehberi | Slider Hamstring Formu",
+        "Sliding Leg Curl Guide | Slider Hamstring Form"
+      ],
+      "metaDescription": [
+        "Sliding leg curl için zemin seçimi, bridge yüksekliği, kontrollü menzil, hatalar ve tek bacak progression'ı.",
+        "Learn sliding leg-curl setup, bridge height, controlled range, errors, and single-leg progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Hamstringler",
+          "Hamstrings"
+        ],
+        "equipment": [
+          "Slider, havlu veya kaygan zemin",
+          "Sliders, towels, or a smooth floor"
+        ],
+        "movementPattern": [
+          "Bridge pozisyonunda diz fleksiyonu",
+          "Knee flexion from a bridge position"
+        ],
+        "bestFor": [
+          "Evde hamstring kuvveti ve eksantrik kontrol",
+          "At-home hamstring strength and eccentric control"
+        ]
+      },
+      "tracking": [
+        [
+          "Zemin/slider türü, tekrar, menzil, tempo ve RIR değerini kaydet.",
+          "Log floor or slider type, reps, range, tempo, and RIR."
+        ],
+        [
+          "Kalça yüksekliği ve çift/tek bacak varyasyonunu belirt.",
+          "Record hip height and bilateral or single-leg variation."
+        ],
+        [
+          "Eksantrik-only tekrarları tam tekrarlardan ayrı takip et.",
+          "Track eccentric-only reps separately from full reps."
+        ]
+      ],
+      "related": [
+        "leg-curl",
+        "seated-leg-curl",
+        "nordic-curl"
+      ]
+    }
   },
   "nordic-curl": {
     "publish": false,
@@ -10152,35 +10368,99 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/nordic-curl",
     "summary": [
-      "Nordic curl. Hamstring için çok zorlayıcı.",
-      "Nordic curl. Very demanding for hamstrings."
+      "Destekli Nordic curl. Eksantrik hamstring kuvveti.",
+      "Assisted Nordic curl. Eccentric hamstring strength."
     ],
     "description": [
-      "Diz üstünden öne kontrollü düşüşle yapılan çok zorlayıcı hamstring hareketi. Eksantrik hamstring kuvvetini çok güçlü şekilde geliştirir. Alt vücut antrenmanlarında özel bir yeri vardır.",
-      "A very demanding hamstring movement performed by lowering forward from the knees. It develops eccentric hamstring strength very strongly. It holds a special place in lower-body training."
+      "Diz üstünde, ayak bilekleri sabitken gövdenin öne kontrollü indirildiği diz fleksörü hareketidir. Hamstringler eksantrik inişi yavaşlatır; yardım düzeyi, hareket açıklığı ve kalça açısı zorluğu önemli ölçüde değiştirir.",
+      "A knee-flexor exercise performed by lowering the body forward from a kneeling position with the ankles anchored. The hamstrings slow the eccentric descent, while assistance, range, and hip angle substantially change difficulty."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "İlk başta negatif odaklı çalışmak normaldir.",
-        "Starting with eccentric-focused reps is normal here."
+        "Dizlerin altına rahat bir ped koy ve ayak bileklerini hareket etmeyecek sağlamlıkta sabitle.",
+        "Place comfortable padding under the knees and secure the ankles with a stable anchor."
       ],
       [
-        "Kalçayı kırmadan beden hattını koru.",
-        "Keep the body line solid without breaking at the hips."
+        "Dizlerden başa kadar seçtiğin gövde-kalça hattını brace ile sabitle.",
+        "Brace to establish the chosen trunk-to-hip line from the knees to the head."
       ],
       [
-        "Diz altı desteğini rahat kur.",
-        "Set up comfortable support under the knees."
+        "Hamstringlerle inişi yavaşlatırken gövdeyi dizlerden öne doğru kontrollü bırak.",
+        "Lower forward from the knees under control while the hamstrings resist the descent."
+      ],
+      [
+        "Kontrol bitmeden elleri, bandı veya yükseltilmiş desteği kullanarak inişi karşıla.",
+        "Use the hands, a band, or an elevated support to catch the descent before control is lost."
+      ],
+      [
+        "Seçilen yardım düzeyiyle başlangıca dön; ankraj ve diz pedini her tekrarda koru.",
+        "Return with the chosen assistance while maintaining the anchor and knee padding each rep."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ayak bileği ankrajını test etmeden tam vücut ağırlığıyla öne bırakmak.",
+        "Dropping forward with full bodyweight before testing the ankle anchor."
+      ],
+      [
+        "Kontrol edilen menzilden daha uzağa gidip son anda ellerle sert düşüşü yakalamak.",
+        "Going beyond the controlled range and catching a hard fall with the hands at the last moment."
+      ],
+      [
+        "Yorgunlukla her tekrarda kalça açısını ve yardım miktarını değiştirmek.",
+        "Changing hip angle and assistance from rep to rep as fatigue rises."
+      ],
+      [
+        "Tam konsantrik tekrar yapamadan progression başarısız saymak.",
+        "Treating the progression as a failure because a full concentric rep is not yet possible."
+      ]
+    ],
+    "tips": [
+      [
+        "Eksantrik-only tekrarlar geçerli bir aşamadır; tam geri dönüş başlangıç şartı değildir.",
+        "Eccentric-only reps are a valid stage; a full unassisted return is not an entry requirement."
+      ],
+      [
+        "Hafif kalça fleksiyonu zorluğu azaltabilir; tutarlıysa bunu ayrı bir regresyon olarak kullan.",
+        "Slight hip flexion can reduce difficulty; use it as a consistent regression when needed."
+      ],
+      [
+        "Nordic curl hamstring kuvvetini geliştirebilir fakat tek başına sakatlık önleme garantisi vermez.",
+        "Nordic curls can improve hamstring strength but do not guarantee injury prevention by themselves."
+      ],
+      [
+        "Yüksek kas hasarı potansiyeli nedeniyle hacmi kademeli artır ve form bozulmadan seti bitir.",
+        "Increase volume gradually because the exercise can be highly demanding, and end the set before form breaks down."
+      ]
+    ],
+    "progression": [
+      [
+        "Yüksek band yardımı veya yüksek el desteğiyle kısa menzil kullan.",
+        "Use strong band assistance or a high hand support through a short range."
+      ],
+      [
+        "Yavaş eksantrik iniş yapıp ellerle destekli geri dön.",
+        "Perform a slow eccentric descent and return with hand assistance."
+      ],
+      [
+        "Aynı gövde hattıyla yardım miktarını azalt veya menzili uzat.",
+        "Reduce assistance or increase range while maintaining the same body line."
+      ],
+      [
+        "İleri aşamada kontrollü tam tekrar veya harici yük kullan.",
+        "At a later stage, use controlled full reps or external load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "hamstrings"
       ],
-      "secondary": []
+      "secondary": [
+        "gastrocnemius",
+        "gluteus-maximus",
+        "abdominals",
+        "spinal-erectors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -10196,7 +10476,53 @@
         "Muscle map for the Nordic Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Nordic Curl Rehberi | Yardım ve Eksantrik Form",
+        "Nordic Curl Guide | Assistance and Eccentric Form"
+      ],
+      "metaDescription": [
+        "Nordic curl ankrajı, diz pedi, eksantrik kontrol, yardım seçenekleri, sık hatalar ve progression.",
+        "Learn Nordic-curl anchoring, padding, eccentric control, assistance, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Hamstringler",
+          "Hamstrings"
+        ],
+        "equipment": [
+          "Diz pedi ve sağlam ayak bileği ankrajı",
+          "Knee pad and secure ankle anchor"
+        ],
+        "movementPattern": [
+          "Diz üstü eksantrik diz fleksiyonu",
+          "Kneeling eccentric knee flexion"
+        ],
+        "bestFor": [
+          "Eksantrik hamstring kuvveti",
+          "Eccentric hamstring strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Ankraj, yardım türü, hareket açıklığı, tekrar ve eksantrik süreyi kaydet.",
+          "Log anchor, assistance type, range, reps, and eccentric duration."
+        ],
+        [
+          "Kalça açısı değişikliklerini ayrı varyasyon olarak belirt.",
+          "Record hip-angle changes as separate variations."
+        ],
+        [
+          "Eksantrik-only ve tam tekrarları ayrı takip et.",
+          "Track eccentric-only and full reps separately."
+        ]
+      ],
+      "related": [
+        "sliding-leg-curl",
+        "leg-curl",
+        "romanian-deadlift"
+      ]
+    }
   },
   "leg-adduction-machine": {
     "publish": false,
@@ -10204,36 +10530,98 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/leg-adduction-machine",
     "summary": [
-      "İç bacak makinesi. Adduktor odaklı.",
-      "Inner-thigh machine. Adductor focused."
+      "Makinede kalça adduksiyonu. İç uyluk odaklı.",
+      "Machine hip adduction. Inner-thigh focused."
     ],
     "description": [
-      "İç bacak yani adduktor kaslarını hedefleyen makine hareketi. Alt vücut dengesini ve kalça çevresi kontrolünü destekler. Squat ve lunge varyasyonlarına yardımcı hacim eklemek için kullanılabilir.",
-      "A machine movement targeting the inner-thigh adductor muscles. It supports lower-body balance and hip control. It can be used to add accessory volume alongside squats and lunges."
+      "Otururken bacakların pedlere karşı birbirine yaklaştırıldığı kalça adduksiyonu hareketidir. Adductor longus, brevis ve magnus ile gracilis ana yükü taşır; başlangıç açıklığı ve makine geometrisi hareket talebini değiştirir.",
+      "A seated hip-adduction exercise in which the legs move inward against pads. The adductor longus, brevis, magnus, and gracilis carry most of the load, while starting width and machine geometry change the demand."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Hareketi kontrollü yapıp iç bacak sıkışmasını hisset.",
-        "Perform the reps under control and feel the inner-thigh squeeze."
+        "Koltuk, sırt desteği ve başlangıç açıklığını kalça ile dizlerin rahat olduğu konuma ayarla.",
+        "Adjust the seat, back support, and starting width to a comfortable position for the hips and knees."
       ],
       [
-        "Ağırlık yükseldikçe savurma başlıyorsa geri çek.",
-        "If the motion becomes jerky as the load rises, reduce it."
+        "İç uylukları veya dizleri pedlere yerleştir; pelvis ve ayakları dengeli tut.",
+        "Place the inner thighs or knees against the pads and keep the pelvis and feet stable."
       ],
       [
-        "Alt noktadaki esneme ve üstteki sıkışma ikisi de değerlidir.",
-        "Both the stretch at the bottom and the squeeze at the top matter here."
+        "Tutacakları kavrayıp gövdeyi seçtiğin açıda sabitle.",
+        "Hold the handles and stabilize the trunk at the chosen angle."
+      ],
+      [
+        "Bacakları kalçadan birbirine yaklaştır ve pelvis dönmeden kısa süre kontrol göster.",
+        "Bring the legs together from the hips and pause briefly without rotating the pelvis."
+      ],
+      [
+        "Pedleri ağrısız başlangıç açıklığına kontrollü geri götür; ağırlık istifini çarptırma.",
+        "Return the pads under control to the pain-free starting width without crashing the stack."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Daha fazla esneme için başlangıç açıklığını zorla büyütmek.",
+        "Forcing a wider starting position to chase more stretch."
+      ],
+      [
+        "Ağır yükü gövde veya pelvis savurmasıyla kapatmak.",
+        "Closing a heavy load by swinging the trunk or pelvis."
+      ],
+      [
+        "Diz, kalça veya kasık rahatsızlığına rağmen aynı menzili sürdürmek.",
+        "Maintaining the same range despite knee, hip, or groin discomfort."
+      ],
+      [
+        "Dönüşte pedleri ve ağırlık istifini kontrolsüz bırakmak.",
+        "Releasing the pads and weight stack without control on the return."
+      ]
+    ],
+    "tips": [
+      [
+        "Maksimum esneme hedef değildir; rahat başlangıç açıklığını makine ayarıyla standartlaştır.",
+        "Maximum stretch is not the goal; standardize a comfortable starting width with the machine setting."
+      ],
+      [
+        "Kas sıkışması hissi ilerlemenin tek ölçütü değildir; yük, tekrar, menzil ve tempo kaydet.",
+        "Muscle squeeze is not the only measure of progress; log load, reps, range, and tempo."
+      ],
+      [
+        "Adduktor kuvveti yararlı olabilir ancak tek başına alt vücut dengesi veya sakatlık önleme garantisi vermez.",
+        "Adductor strength can be useful but does not by itself guarantee lower-body balance or injury prevention."
+      ],
+      [
+        "Farklı makinelerin kaldıraçları değişir; yükleri modeller arasında doğrudan karşılaştırma.",
+        "Machine leverages differ; do not directly compare loads across models."
+      ]
+    ],
+    "progression": [
+      [
+        "Rahat başlangıç açıklığında hafif yükle kontrollü tekrarlar yap.",
+        "Perform controlled reps with a light load and comfortable starting width."
+      ],
+      [
+        "Pelvis sabitken ağrısız hareket açıklığını standartlaştır.",
+        "Standardize pain-free range while keeping the pelvis stable."
+      ],
+      [
+        "Hedef tekrarlar temposu bozulmadan tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps maintain tempo."
+      ],
+      [
+        "İleri aşamada kapalı pozisyonda pause veya yavaş dönüş kullan.",
+        "At a later stage, use a pause in the closed position or a slower return."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "adductor-longus",
+        "adductor-brevis",
+        "adductor-magnus",
+        "gracilis"
       ],
       "secondary": [
-        "glutes"
+        "pectineus"
       ]
     },
     "media": {
@@ -10250,7 +10638,53 @@
         "Muscle map for the Leg Adduction Machine exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Leg Adduction Machine Rehberi | Ayar ve Form",
+        "Leg Adduction Machine Guide | Setup and Form"
+      ],
+      "metaDescription": [
+        "İç bacak makinesi için koltuk ve başlangıç açıklığı, pelvis kontrolü, hatalar ve progression adımları.",
+        "Learn leg-adduction machine setup, starting width, pelvic control, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Kalça adduktorları",
+          "Hip adductors"
+        ],
+        "equipment": [
+          "Leg adduction makinesi",
+          "Leg-adduction machine"
+        ],
+        "movementPattern": [
+          "Oturarak kalça adduksiyonu",
+          "Seated hip adduction"
+        ],
+        "bestFor": [
+          "İç uyluk kuvveti ve aksesuar hacmi",
+          "Inner-thigh strength and accessory volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, başlangıç açıklığı, yük, tekrar ve RIR değerini kaydet.",
+          "Log machine model, starting width, load, reps, and RIR."
+        ],
+        [
+          "Pelvis sabitken kullandığın hareket açıklığını takip et.",
+          "Track the range used while keeping the pelvis stable."
+        ],
+        [
+          "Koltuk veya ped ayarı değişikliklerini varyasyon notuna ekle.",
+          "Include seat or pad setting changes in the variation notes."
+        ]
+      ],
+      "related": [
+        "cossack-squat",
+        "hip-abduction-machine",
+        "squat"
+      ]
+    }
   },
   "leg-extension": {
     "publish": false,
@@ -10415,35 +10849,97 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/reverse-nordic",
     "summary": [
-      "Reverse nordic. Quad odaklı bodyweight.",
-      "Reverse nordic. Quad-focused bodyweight move."
+      "Diz üstü geriye eğilme. Quadriceps odaklı.",
+      "Kneeling backward lean. Quadriceps focused."
     ],
     "description": [
-      "Diz üstünden gövdeyi geriye bırakarak yapılan quadriceps odaklı bodyweight hareket. Kalça uzatılmış kalırken quadler yoğun yük alır. Kontrollü uygulandığında etkili bir aksesuar olabilir.",
-      "A quad-focused bodyweight movement performed by leaning the body backward from the knees. The hips stay extended while the quads take significant load. It can be an effective accessory when controlled well."
+      "Diz üstünde gövde ve uylukların birlikte geriye eğildiği, diz ekstansörlerini eksantrik ve konsantrik yükleyen vücut ağırlığı hareketidir. Quadriceps ana yükü taşır; menzil, yardım ve gövde hattı zorluğu belirler.",
+      "A bodyweight exercise performed by leaning the trunk and thighs backward together from a kneeling position, loading the knee extensors eccentrically and concentrically. The quadriceps carry most of the load, while range, assistance, and body line determine difficulty."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kalçayı öne açık tut.",
-        "Keep the hips extended forward."
+        "Dizlerin altına rahat bir ped koy ve dizleri ağrısız genişlikte yerleştir.",
+        "Place comfortable padding under the knees and set them at a pain-free width."
       ],
       [
-        "Menzili ağrısız ve kontrollü bölgede tut.",
-        "Work within a pain-free, controlled range."
+        "Ayak üstlerini veya parmakları rahat konumlandır; kaburgaları pelvis üzerinde tutup brace yap.",
+        "Position the tops of the feet or toes comfortably and brace with the ribs stacked over the pelvis."
       ],
       [
-        "İlk başta kısmi menzil yeterlidir.",
-        "A partial range is plenty at first."
+        "Gövde ve uyluk hattını koruyarak dizlerden geriye doğru yavaşça eğil.",
+        "Keep the trunk and thighs aligned as you slowly lean backward from the knees."
+      ],
+      [
+        "Diz, ayak bileği veya bel kontrolü bozulmadan önce ağrısız menzilde dur.",
+        "Stop within a pain-free range before knee, ankle, or lower-back control changes."
+      ],
+      [
+        "Quadriceps ile hareketi tersine çevirip başlangıca kontrollü dön.",
+        "Use the quadriceps to reverse the movement and return under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "İlk tekrardan maksimum geriye eğilme menzilini zorlamak.",
+        "Forcing maximum backward range from the first rep."
+      ],
+      [
+        "Geri giderken kalçayı oturtup hareketi farklı bir diz-kalça desenine çevirmek.",
+        "Sitting the hips back and turning the exercise into a different knee-hip pattern."
+      ],
+      [
+        "Kaburgaları açıp belden hiperekstansiyonla menzil kazanmak.",
+        "Flaring the ribs and gaining range through lower-back hyperextension."
+      ],
+      [
+        "Diz pedi veya ayak pozisyonu rahatsızken tekrarları sürdürmek.",
+        "Continuing reps with uncomfortable knee padding or foot position."
+      ]
+    ],
+    "tips": [
+      [
+        "Kısa hareket açıklığı geçerli bir başlangıçtır; derinlik kontrol kadar önemli değildir.",
+        "A short range is a valid starting point; depth is less important than control."
+      ],
+      [
+        "Reverse Nordic quadriceps için yararlı bir seçenek olabilir ancak squat varyasyonlarından otomatik olarak üstün değildir.",
+        "The reverse Nordic can be useful for the quadriceps but is not automatically superior to squat variations."
+      ],
+      [
+        "Band veya arkadaki yükseltilmiş destek zorluğu ölçeklendirebilir.",
+        "A band or elevated support behind the body can scale difficulty."
+      ],
+      [
+        "Ön uyluk gerilimi beklenebilir; eklem ağrısında menzili veya varyasyonu değiştir.",
+        "Front-thigh tension can be expected; change range or variation if joint pain occurs."
+      ]
+    ],
+    "progression": [
+      [
+        "Kalın diz pedi ve kısa ağrısız menzille vücut hattını öğren.",
+        "Learn the body line with thick knee padding and a short pain-free range."
+      ],
+      [
+        "Band veya yüksek destekle kontrollü eksantrik ve dönüş yap.",
+        "Use a band or high support for a controlled eccentric and return."
+      ],
+      [
+        "Aynı gövde hattıyla menzili kademeli artır veya yardımı azalt.",
+        "Gradually increase range or reduce assistance while maintaining the same body line."
+      ],
+      [
+        "İleri aşamada pause, yavaş eksantrik veya hafif harici yük ekle.",
+        "At a later stage, add pauses, a slower eccentric, or light external load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps"
       ],
-      "secondary": []
+      "secondary": [
+        "gluteus-maximus",
+        "abdominals"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -10459,7 +10955,53 @@
         "Muscle map for the Reverse Nordic exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Reverse Nordic Rehberi | Quad Formu ve Progression",
+        "Reverse Nordic Guide | Quad Form and Progression"
+      ],
+      "metaDescription": [
+        "Reverse Nordic için diz pedi, gövde hattı, ağrısız menzil, yardım seçenekleri, hatalar ve progression.",
+        "Learn reverse-Nordic padding, body line, pain-free range, assistance, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps",
+          "Quadriceps"
+        ],
+        "equipment": [
+          "Diz pedi; opsiyonel band veya destek",
+          "Knee pad; optional band or support"
+        ],
+        "movementPattern": [
+          "Diz üstü eksantrik-konsantrik diz ekstansiyonu",
+          "Kneeling eccentric-concentric knee extension"
+        ],
+        "bestFor": [
+          "Vücut ağırlığı quadriceps kuvveti",
+          "Bodyweight quadriceps strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Hareket açıklığı, yardım türü, tekrar, tempo ve RIR değerini kaydet.",
+          "Log range, assistance type, reps, tempo, and RIR."
+        ],
+        [
+          "Diz pedi ve ayak pozisyonunu varyasyon notuna ekle.",
+          "Include knee padding and foot position in the variation notes."
+        ],
+        [
+          "Yardımlı ve yardımsız tekrarları ayrı takip et.",
+          "Track assisted and unassisted reps separately."
+        ]
+      ],
+      "related": [
+        "leg-extension",
+        "squat",
+        "hack-squat"
+      ]
+    }
   },
   "calf-raise": {
     "publish": false,
@@ -10784,33 +11326,93 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/donkey-calf-raise",
     "summary": [
-      "Eğilerek baldır kaldırma. Güçlü esneme.",
-      "Bent-over calf raise. Strong stretch."
+      "Öne eğilerek calf raise. Diz açık baldır yüklemesi.",
+      "Bent-over calf raise. Knee-extended calf loading."
     ],
     "description": [
-      "Gövdeden öne eğilerek yapılan baldır kaldırma varyasyonu. Baldır kaslarına derin esneme ve güçlü kasılma sağlayabilir. Özellikle calf gelişiminde farklı bir açı eklemek için değerlidir.",
-      "A calf-raise variation performed with the torso bent forward. It can provide a deep stretch and strong contraction to the calf muscles. It is useful for adding a different stimulus to calf development."
+      "Kalça menteşesiyle öne eğilmiş ve gövde desteklenmiş halde yapılan diz açık plantar fleksiyon hareketidir. Gastrocnemius ve soleus topukların yükselmesini sağlar; platform, destek ve harici yük hareket talebini değiştirir.",
+      "A knee-extended plantar-flexion exercise performed in a supported hip-hinged position. The gastrocnemius and soleus raise the heels, while platform, support, and external loading change the demand."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Alt noktada topukları iyice bırakıp esnemeyi kullan.",
-        "Let the heels drop fully at the bottom to use the stretch."
+        "Ayak önlerini sağlam bir platforma dengeli yerleştir ve gövde için sabit bir destek seç.",
+        "Place the forefeet evenly on a stable platform and choose secure support for the trunk."
       ],
       [
-        "Üstte kısa duraklama ile baldırı bilinçli sık.",
-        "Pause briefly at the top and consciously squeeze the calves."
+        "Kalçadan öne eğilip gövdeyi destekle; dizleri rahatça açık ve ayak bileklerini nötr tut.",
+        "Hinge forward and support the trunk while keeping the knees comfortably extended and ankles aligned."
       ],
       [
-        "Hızlı sekmek yerine yavaş tempoyla çalış.",
-        "Use a slower tempo instead of bouncing through reps."
+        "Topukları mevcut ağrısız hareket açıklığında kontrollü indir.",
+        "Lower the heels under control through the available pain-free range."
+      ],
+      [
+        "Ayak önlerini platforma iterek topukları yükselt ve ayak bileklerinin devrilmesini önle.",
+        "Press the forefeet into the platform to raise the heels without letting the ankles roll."
+      ],
+      [
+        "Üstte kısa kontrol gösterip sekmeden aşağı dön.",
+        "Show brief control at the top and lower without bouncing."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Gövde desteği veya platform sağlam değilken yük eklemek.",
+        "Adding load before the trunk support or platform is stable."
+      ],
+      [
+        "Alt noktadan sekerek Aşil tendonu ve momentumu kullanmak.",
+        "Bouncing out of the bottom and relying on the Achilles tendon and momentum."
+      ],
+      [
+        "Yükselirken ayak bileklerini dışa veya içe devirmek.",
+        "Rolling the ankles outward or inward while rising."
+      ],
+      [
+        "Platform ve ayak bileği izin vermediği halde topukları zorla indirmek.",
+        "Forcing the heels lower than the platform and ankle mobility allow."
+      ]
+    ],
+    "tips": [
+      [
+        "Öne eğik gövde tek başına daha derin esneme garantisi vermez; kontrollü menzili ekipman belirler.",
+        "A bent-over torso does not guarantee a deeper stretch; equipment and control determine range."
+      ],
+      [
+        "Partneri sırta bindiren klasik varyasyonun yükünü standartlaştırmak zordur; makine, kemer veya plaka daha izlenebilir olabilir.",
+        "The classic partner-loaded version is hard to standardize; a machine, belt, or plate may be easier to track."
+      ],
+      [
+        "Diz açısı calf raise varyasyonlarını ayırır; dizler belirgin bükülüyorsa bunu farklı varyasyon olarak kaydet.",
+        "Knee position distinguishes calf-raise variations; log noticeably bent-knee reps as a different variation."
+      ],
+      [
+        "Yüksek tekrar zorunlu değildir; yük, tekrar ve tempoyu hedefe göre ilerlet.",
+        "High reps are not mandatory; progress load, reps, and tempo according to the goal."
+      ]
+    ],
+    "progression": [
+      [
+        "Vücut ağırlığı ve sabit gövde desteğiyle kontrollü ritmi öğren.",
+        "Learn a controlled rhythm with bodyweight and stable trunk support."
+      ],
+      [
+        "Aynı hareket açıklığında tekrar veya pause süresini artır.",
+        "Increase reps or pause duration through the same range."
+      ],
+      [
+        "Makine, kemer veya güvenli harici yükle direnci kademeli artır.",
+        "Gradually increase resistance with a machine, belt, or secure external load."
+      ],
+      [
+        "İleri aşamada tek bacak veya yavaş eksantrik kullan.",
+        "At a later stage, use single-leg reps or a slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "calves"
+        "gastrocnemius",
+        "soleus"
       ],
       "secondary": []
     },
@@ -10828,7 +11430,53 @@
         "Muscle map for the Donkey Calf Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Donkey Calf Raise Rehberi | Kurulum ve Form",
+        "Donkey Calf Raise Guide | Setup and Form"
+      ],
+      "metaDescription": [
+        "Donkey calf raise için platform ve gövde desteği, ağrısız menzil, ayak bileği kontrolü ve progression.",
+        "Learn donkey calf-raise support, range, ankle control, loading, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Gastrocnemius ve soleus",
+          "Gastrocnemius and soleus"
+        ],
+        "equipment": [
+          "Platform ve gövde desteği; opsiyonel yük",
+          "Platform and trunk support; optional load"
+        ],
+        "movementPattern": [
+          "Öne eğik diz açık plantar fleksiyon",
+          "Bent-over knee-extended plantar flexion"
+        ],
+        "bestFor": [
+          "Baldır kuvveti ve hipertrofisi",
+          "Calf strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Platform, destek, yük yöntemi, tekrar, RIR ve menzili kaydet.",
+          "Log platform, support, loading method, reps, RIR, and range."
+        ],
+        [
+          "Diz açısı ve üst/alt pause süresini belirt.",
+          "Record knee position and top or bottom pause duration."
+        ],
+        [
+          "Partner, makine ve kemer varyasyonlarını ayrı takip et.",
+          "Track partner, machine, and belt variations separately."
+        ]
+      ],
+      "related": [
+        "calf-raise",
+        "seated-calf-raise",
+        "walking-lunge"
+      ]
+    }
   },
   "shrug": {
     "publish": false,
@@ -11856,36 +12504,98 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/back-extension",
     "summary": [
-      "Bel arkaya açış. Arka zincir desteği.",
-      "Back extension. Posterior-chain support."
+      "45 derece back extension. Arka zincir odaklı.",
+      "45-degree back extension. Posterior-chain focused."
     ],
     "description": [
-      "Roman chair veya benzeri düzende yapılan arka zincir hareketi. Alt sırt, glute ve hamstringleri birlikte çalıştırır. Deadlift günü dışında posterior-chain hacmi eklemek için pratik bir seçenektir.",
-      "A posterior-chain movement usually performed on a roman chair or similar setup. It trains the lower back, glutes, and hamstrings together. It is a practical way to add posterior-chain volume outside of deadlift work."
+      "Kalça pedi ve ayak desteği bulunan 45 derece veya Roman-chair düzeneğinde yapılan kalça menteşesi ağırlıklı arka zincir hareketidir. Gluteus maximus, hamstringler ve spinal erektörlerin katkısı ped ayarı ve uygulama biçimine göre değişir.",
+      "A hip-hinge-dominant posterior-chain exercise performed on a 45-degree bench or Roman-chair setup with hip and foot support. Contributions from the gluteus maximus, hamstrings, and spinal erectors vary with pad setup and execution."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Belden aşırı kırılma yerine kalçadan menteşe düşün.",
-        "Think hip hinge first instead of excessive spinal extension."
+        "Kalça pedini kalça kıvrımının altında, menteşeye izin verecek yükseklikte ayarla ve ayakları sabitle.",
+        "Set the hip pad below the hip crease so hinging is possible, and secure the feet."
       ],
       [
-        "Üstte gövdeyi nötr hizaya getirmen yeterli; fazla hiperextensiyon gereksizdir.",
-        "Reaching a neutral torso at the top is enough; excessive hyperextension is unnecessary."
+        "Gövdeyi uzun tutup kaburgaları pelvis üzerinde brace ile sabitle.",
+        "Keep the torso long and brace with the ribs stacked over the pelvis."
       ],
       [
-        "Ağırlık eklemeden önce vücut ağırlığıyla kontrollü tekrarlar oturt.",
-        "Own the bodyweight version before adding external load."
+        "Kalçayı geriye göndererek gövdeyi kontrollü indir; seçtiğin omurga pozisyonunu koru.",
+        "Send the hips backward and lower the torso under control while maintaining the chosen spinal position."
+      ],
+      [
+        "Kalçayı pede itip glute ve hamstringlerle yüksel.",
+        "Drive the hips into the pad and rise using the glutes and hamstrings."
+      ],
+      [
+        "Gövde bacaklarla hizalandığında belden geriye kırılmadan tekrarı bitir.",
+        "Finish when the torso aligns with the legs without bending backward through the lower back."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kalça pedi çok yukarıdayken menteşe yapmaya çalışmak.",
+        "Trying to hinge with the hip pad set too high."
+      ],
+      [
+        "Alt noktaya momentumla düşüp hızla sekmek.",
+        "Dropping into the bottom and rebounding with momentum."
+      ],
+      [
+        "Üst noktada gereksiz bel hiperekstansiyonu yapmak.",
+        "Adding unnecessary lower-back hyperextension at the top."
+      ],
+      [
+        "Vücut ağırlığı kontrol edilmeden göğüste ağır plaka kullanmak.",
+        "Holding a heavy plate before controlling the bodyweight version."
+      ]
+    ],
+    "tips": [
+      [
+        "“Back extension” adı üstte beli aşırı uzatman gerektiği anlamına gelmez; nötr hizaya dönmek yeterlidir.",
+        "The name “back extension” does not require excessive spinal extension at the top; returning to neutral alignment is enough."
+      ],
+      [
+        "Ped yüksekliği ve ayak konumu kas katkısını değiştirir; her sette aynı kurulumu kullan.",
+        "Pad height and foot position change muscular contribution; use the same setup across sets."
+      ],
+      [
+        "Göğüste, baş arkasında veya kollar uzakta tutulan yükler farklı kaldıraç oluşturur; ayrı varyasyon olarak kaydet.",
+        "Loads held at the chest, behind the head, or with long arms create different leverage; log them separately."
+      ],
+      [
+        "Kalça menteşesi ve kontrollü omurga pozisyonu bu guide’ın standardıdır; segmental spinal fleksiyon varyasyonunu ayrı takip et.",
+        "A hip hinge with controlled spinal position is this guide’s standard; track segmental spinal-flexion variations separately."
+      ]
+    ],
+    "progression": [
+      [
+        "Kısa menzil ve vücut ağırlığıyla ped ayarı ve kalça menteşesini öğren.",
+        "Learn pad setup and the hip hinge with bodyweight through a short range."
+      ],
+      [
+        "Aynı gövde hattında kontrollü tam tekrar ve tempo geliştir.",
+        "Develop controlled full reps and consistent tempo with the same body line."
+      ],
+      [
+        "Göğüste hafif plaka veya dumbbell ile yükü kademeli artır.",
+        "Gradually add load with a light plate or dumbbell held at the chest."
+      ],
+      [
+        "İleri aşamada pause, yavaş eksantrik veya daha uzun kaldıraç kullan.",
+        "At a later stage, use pauses, a slower eccentric, or longer leverage."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "gluteus-maximus",
+        "hamstrings",
+        "spinal-erectors"
       ],
       "secondary": [
-        "glutes"
+        "adductor-magnus",
+        "abdominals"
       ]
     },
     "media": {
@@ -11902,7 +12612,53 @@
         "Muscle map for the Back Extension exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Back Extension Rehberi | Ped Ayarı ve Kalça Formu",
+        "Back Extension Guide | Pad Setup and Hip Form"
+      ],
+      "metaDescription": [
+        "Back extension ped yüksekliği, kalça menteşesi, nötr bitiş, yükleme hataları ve progression adımları.",
+        "Learn back-extension pad setup, hip hinge, neutral finish, loading errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Gluteus maximus, hamstringler ve spinal erektörler",
+          "Gluteus maximus, hamstrings, and spinal erectors"
+        ],
+        "equipment": [
+          "45 derece back extension veya Roman chair",
+          "45-degree back-extension bench or Roman chair"
+        ],
+        "movementPattern": [
+          "Destekli kalça menteşesi",
+          "Supported hip hinge"
+        ],
+        "bestFor": [
+          "Arka zincir kuvveti ve aksesuar hacmi",
+          "Posterior-chain strength and accessory volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine tipi, ped yüksekliği, ayak konumu, yük, tekrar ve RIR değerini kaydet.",
+          "Log machine type, pad height, foot position, load, reps, and RIR."
+        ],
+        [
+          "Yük tutuşunu ve kontrollü hareket açıklığını varyasyon notuna ekle.",
+          "Include load position and controlled range in the variation notes."
+        ],
+        [
+          "Kalça menteşesi ve segmental omurga varyasyonlarını ayrı takip et.",
+          "Track hip-hinge and segmental-spine variations separately."
+        ]
+      ],
+      "related": [
+        "romanian-deadlift",
+        "deadlift",
+        "superman"
+      ]
+    }
   },
   "arch-hold": {
     "publish": false,

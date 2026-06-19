@@ -4151,6 +4151,63 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 72 — Exercise Guide Enrichment Batch 8 (2026-06-19)
+
+### Amaç
+
+Yanal squat, kaydırmalı/Nordic diz fleksiyonu, makine adduksiyonu, reverse Nordic, donkey calf raise ve back extension desenlerini tam guide seviyesine taşımak; maksimum derinlik/esneme, simetrik menzil, otomatik sakatlık önleme ve üstün kas aktivasyonu hakkındaki mutlak legacy iddiaları düzeltmek.
+
+### Kapsam
+
+- Cossack Squat
+- Sliding Leg Curl
+- Nordic Curl
+- Leg Adduction Machine
+- Reverse Nordic
+- Donkey Calf Raise
+- Back Extension
+
+### İçerik Kararları
+
+- **Cossack squat tarafları:** Sağ ve sol taraf için aynı derinlik zorunlu tutulmadı; topuk teması, diz takibi ve tekrarlanabilir taraf menzili esas alındı. Serbest ayağın parmaklarını yukarı çevirme yalnız bir varyasyon olarak tanımlandı.
+- **Slider sürtünmesi:** Sliding Leg Curl zorluğunun zemin/slider sürtünmesi, kalça yüksekliği, eksantrik menzil ve tek/çift bacak seçimiyle değiştiği takip alanlarına eklendi.
+- **Nordic progression:** Eksantrik-only tekrarlar geçerli aşama kabul edildi; ankraj, diz pedi, band/el desteği ve kalça açısı ayrı izlenir. Hamstring kuvveti katkısı anlatıldı fakat tek başına sakatlık önleme garantisi verilmedi.
+- **Adduction açıklığı:** Makine başlangıç açıklığı maksimum esnemeye zorlanmadı; rahat kalça/diz pozisyonu, pelvis kontrolü ve makineye özgü kaldıraç esas alındı.
+- **Reverse Nordic iddiası:** Quadriceps için kullanılabilir bir bodyweight seçenek olarak yazıldı; squat tabanlı hareketlerden otomatik olarak üstün aktivasyon sağladığı iddiası kaldırıldı.
+- **Donkey calf standardı:** Öne eğilmenin otomatik derin esneme sağlamadığı belirtildi. Partnerle yüklenen klasik varyasyonun zor standardize edildiği, makine/kemer/plaka yüklerinin daha izlenebilir olduğu yazıldı.
+- **Back extension bitişi:** Hareket adı belde maksimum hiperekstansiyon cue'su olarak kullanılmadı; ped altında kalça menteşesi ve gövdenin nötr hizaya dönüşü guide standardı yapıldı.
+- **Anatomik kas verisi:** Yedi kayıt hareket bazlı primary/secondary kas slug'larına geçirildi.
+- **Kategori sonucu:** Preset `Bacak` ve `Kalf` kategorilerinde content-ready olmayan guide kalmadı.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 59 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Kaynaklar
+
+- `https://pubmed.ncbi.nlm.nih.gov/33049705/`
+- `https://pubmed.ncbi.nlm.nih.gov/39214520/`
+- `https://pubmed.ncbi.nlm.nih.gov/30293403/`
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi alt vücut/posterior-chain hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları, kaynaklar ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 59 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Preset `Bacak` ve `Kalf` kategorilerindeki tüm guide kayıtları content-ready olmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 71 — Exercise Guide Enrichment Batch 7 (2026-06-19)
 
 ### Amaç

@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-19 — Yedinci exercise guide enrichment batch'i ve TR medya label düzeltmesi eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-19 — Sekizinci exercise guide enrichment batch'i eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-71)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-72)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -229,6 +229,7 @@ LogWise/
 - **Exercise guide enrichment batch 5** (Bölüm 69): Yedi sırt çekiş hareketinin tam TR/EN içeriği, tek taraf/makine iddiası düzeltmeleri ve toplam 38 content-ready guide ✅
 - **Exercise guide enrichment batch 6** (Bölüm 70): Yedi squat/lunge/makine bacak hareketinin tam TR/EN içeriği, eklem/form miti düzeltmeleri ve toplam 45 content-ready guide ✅
 - **Exercise guide enrichment batch 7** (Bölüm 71): Yedi kalça/baldır hareketinin tam TR/EN içeriği, calf varyasyonu ayrımı, TR medya alt metni onarımı ve toplam 52 content-ready guide ✅
+- **Exercise guide enrichment batch 8** (Bölüm 72): Yedi alt vücut/posterior-chain hareketinin tam TR/EN içeriği, Nordic yükleme düzeltmeleri, Bacak/Kalf kategori kapanışı ve toplam 59 content-ready guide ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
