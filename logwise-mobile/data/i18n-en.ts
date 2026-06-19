@@ -528,6 +528,8 @@ export const en: Translations = {
     cycleWeekly: 'Weekly',
     cycleDeload: 'Deload',
     cycleNone: 'None',
+    weekLabel: 'Week {n}',
+    streakValue: '{n}d',
   },
   programEdit: {
     titleNew: 'New Program',

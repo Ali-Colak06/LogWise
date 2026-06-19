@@ -4,7 +4,7 @@
 > Her yeni konuşma başında AI bu dosyayı okur; yeni bir karar verildiğinde bu dosya güncellenir.
 > İlgili sözleşme dosyası: `AGENTS.md` (proje kuralları). İlgili tasarım dosyaları: `01-current-logwise-ui-audit.md`, `02-mobile-design-system-proposal.md`.
 
-Son güncelleme: 2026-06-18 (rev 18)
+Son güncelleme: 2026-06-19 (rev 19)
 
 ---
 
@@ -573,6 +573,55 @@ handle + long-press reorder** (§8.8).
   çıkarırken loglu (persisted) ise workout da silinir (set'ler cascade) + skip; sadece skip
   persisted kartı gizlemiyordu (skip filtresi yalnız lazy'e uygulanıyor).
 
+## 8.12 Library (D1-D2) cila turu — kullanıcı kararları (rev 19 — 2026-06-19)
+
+> Bu kararlar §8.9'un bazı kararlarını **GEÇERSİZ KILAR** (işaretli). UI cila turunda
+> (auth + calendar + day detail'den sonra) kullanıcı talebiyle uygulandı + cihazda
+> doğrulandı. **D1 Egzersizler + D2 Programlar TAMAM**; D3 Program Edit ayrı tura kaldı.
+
+**D1 Egzersizler:**
+- **App bar sol icon = AVATAR + ProfilePopover (§8.9 "hamburger" GEÇERSİZ — kullanıcı kararı):**
+  Hamburger yerine Calendar app bar ile aynı avatar (baş harfler, gold) + tap → `ProfilePopover`
+  (sol-üst popover: profil + dil/tema + çıkış/hesap aç). Gerekçe: ekranlar arası tutarlılık.
+  MoreSheet bu ekrandan kaldırıldı (ProfilePopover aynı içeriği sunar; bottom nav More ayrı).
+- **D1 kapsamı = custom + TÜM 54 preset KORUNUR (§8.9 "custom + kullanılan preset slug" GEÇERSİZ
+  — kullanıcı kararı):** D1 her zaman tüm hareket kataloğunu gösterir (gözatılabilir katalog).
+  "Kütüphane boş" empty state pratikte tetiklenmez; sadece arama/filtre sonucu boşsa kompakt
+  "sonuç yok" + "+ Yeni Özel" linki.
+- **Satır tasarımı:** sol kategori-renginde tam-boy accent rayı + ad + alt-satır kategori-chip
+  (renkli dot + lokalize ad — Day Detail kart başlığıyla aynı stil) + custom için "(Özel)" + chev.
+- **Son seans stat'ı VAR (turun erken "yalın satır" kararı GEÇERSİZ — kullanıcı kararı):** Her
+  satırda "Son: {weight} kg × {reps}" (en ağır set; Day Detail "Son:" mantığıyla aynı). Tek batch
+  `fetchLastSessionByRef` / `useLastSessionByRef` (satır başına sorgu yok; perf). weight'i numeric
+  olmayan harekette gizli. PR ayrı bir stat olarak EKLENMEDİ (son seans yeterli görüldü).
+- **Alfabetik sticky letter-head:** `ScrollView` + `stickyHeaderIndices` (SectionList DEĞİL).
+  SectionList virtualization uzun yukarı scroll'da satırları boşaltıyordu (blank rows); liste küçük
+  (~80) → tümünü render (AddExerciseSheet kalıbı). Harf gruplama Türkçe-aware (`toLocaleUpperCase('tr')`).
+- **"+ Yeni" pill her iki sekmede:** Egzersizler → `AddExerciseSheet` (mode library, initialTab='new');
+  Programlar → `NewProgramSheet`.
+
+**D2 Programlar:**
+- **Pasif program satırları:** ad + meta ("{N} gün · {N} hareket") + tip rozeti (haftalık/deload/yok —
+  lowercase mono pill) + chev. Meta tek batch `fetchProgramDayCounts` / `useProgramDayCounts`.
+- **Empty state 2 CTA:** "Hazır Seç" (`PresetProgramModal` — Calendar akışı reuse:
+  `createProgramFromPreset` + duplicate guard + toast) + "+ Yeni Program" (responsive yan yana/stack).
+- **ActiveProgramCard meta:** "Haftalık · Hafta N" (N = activated_at'tan bugüne 1-based hafta;
+  'none' / başlamamış programda gizli). Streak "{n}g" formatı (yeni i18n `library.weekLabel`,
+  `library.streakValue`).
+- **Gün-chip count formatı AÇIK:** 7-hücre çıplak sayı ("5" / rest "—"); prototip "5 ex". Mobilde
+  dar olduğu için sade bırakıldı; "5e" eki kullanıcı kararına bırakıldı (henüz verilmedi).
+
+**Bug fix — "Haftayı gör" CTA (ActiveProgramCard):** Calendar bir **tab** olduğundan ekran state'i
+(mod + ay/hafta konumu) korunuyordu → CTA ne hafta görünümüne geçiyor ne bugünün haftasına dönüyordu.
+Fix: CTA `/calendar?view=week&ts=<nonce>` gönderir; Calendar param effect'i hafta görünümüne geçer +
+bugünün haftasına döner + scroll eder (`ts` nonce her basışta tetikler). "Bugünkü workout" CTA
+(day-detail push) değişmedi.
+
+**Açık / sıradaki:**
+- **D3 Program Edit cila turu** (ayrı seans — §8.10 spec mevcut; cihazda eksik/sapma önceliklendirilecek).
+- Gün-chip "5e / 5 ex" formatı kararı.
+- D1 satır menüsü şu an native Alert; stilize `ExerciseRowMenu` bottom sheet'e çevirme opsiyonel.
+
 ## 8.7 Misafir tercih aktarımı
 
 - Misafir kullanıcının dil/tema tercihi (`@logwise/guest/profile` içinde `locale`, `theme`) hesap açtıktan sonra `app_profiles.preferences`'a **aktarılır**. Veri aktarımının doğal parçası.
@@ -710,4 +759,5 @@ Tüm kararlar §10'da.
 | 2026-06-16 | §8.1.1 (yeni) | **rev 16 — Calendar cila turu kararları.** Month chip = hareket adı (kategori değil; §3.5 max-2-kategori GEÇERSİZ); planlı (gelecek) soluk chip'ler; aylar arası yatay swipe (gesture-handler Pan, yön kilitli); Week akordiyon (collapsed: N hareket·M set + bölge chip; chevron → hareket satırları + son seans en ağır set) + gün gövdesine tap → Day Detail; week "Start workout" → **geçici kronometre** (DB'ye yazmaz) — §8.3 rest timer + §3.2 "active-workout yok" + §B1 week için GEÇERSİZ. |
 | 2026-06-17 | §8.3, §8.11 (yeni), değişiklik kaydı | **rev 17 — Day Detail cila turu (checkpoint 1).** Rest timer MVP'den **çıkarıldı** (§8.3); yerine Day Detail'de "Start workout" ile başlayan **geçici antrenman kronometresi** (week-view ile tutarlı, DB'ye yazmaz — §8.2/§8.3 override). Set satırı **prototip 6-sütun grid**'e geçti (Type/RIR tap→modal seçici, KG/Reps mono). Prefill **güçlendirildi**: önceki seansın aynı index değerleri set eklenince gerçek gelir + dokunulmasa da kaydedilir (rev 12 lazy-yaz kuralı yumuşatıldı; program kartı hiç dokunulmazsa yine yazılmaz). Baseline cila: app bar (display başlık + mono alt-satır), stat strip (mono + kg), kategori-chip pill, "Son:" satırı artık `useLastSession` ile gerçek, empty state 2. CTA "Hazır Program Seç" (PresetProgramModal reuse). "0/20 planlı hedef" gösterilmiyor (şema set sayısı tutmuyor). **Checkpoint 2'ye ertelendi:** 6-nokta drag handle + reorder (react-native-draggable-flatlist / Reanimated 4 uyum riski izole edildi). |
 | 2026-06-18 | §3.2, §4.3 (şema), §8.8, §8.11, değişiklik kaydı | **rev 18 — Day Detail Checkpoint 2: drag handle + reorder (cihazda doğrulandı).** Görünür 6-nokta handle + long-press reorder UYGULANDI. **Paketsiz custom drag** (Reanimated 4 + gesture-handler; `react-native-draggable-flatlist` EKLENMEDİ — RNA4 uyum/Expo Go bundle riski). **Reorder kapsamı = TÜM kartlar (persisted + lazy + tek kart)** (kullanıcı kararı; "yalnızca persisted" iptal — program günü lazy kartlarda handle görünmüyordu). Sıra yeni **`app_day_meta.card_order text[]`** kolonunda; **lazy kartlar workout YAZILMADAN sıralanır** (lazy-write korunur), persisted `position` da senkronlanır. Yazma: `reorderDayCards` / `useReorderDayCards` (optimistic). Drop "flash" fix (kartlar sabit sırada render, görsel sıra translateY ile). Program egzersizi silme fix: loglu program kartı günden çıkarılırken workout da silinir + skip (sadece skip persisted kartı gizlemiyordu). Handle tetik 220ms, yalnız handle'da → SetRow input çakışması yok. |
+| 2026-06-19 | §8.12 (yeni), §8.9 (override notları), değişiklik kaydı | **rev 19 — Library (D1-D2) cila turu (cihazda doğrulandı).** Yeni §8.12 eklendi. **D1 Egzersizler:** app bar hamburger → **avatar + ProfilePopover** (§8.9 hamburger GEÇERSİZ — Calendar tutarlılığı, kullanıcı kararı); D1 kapsamı **custom + TÜM 54 preset KORUNUR** (§8.9 "kullanılan slug" GEÇERSİZ — kullanıcı kararı); satır = accent rayı + ad + kategori-chip alt-satır + custom "(Özel)"; her satırda **"Son: kg × tekrar"** (en ağır set, tek batch `fetchLastSessionByRef`); alfabetik **sticky letter-head** = `ScrollView` + `stickyHeaderIndices` (SectionList virtualization yukarı scroll'da blank-row yapıyordu → ~80 satır tümü render); "+ Yeni" pill her iki sekmede. **D2 Programlar:** pasif satır = ad + meta ("N gün · N hareket", batch `fetchProgramDayCounts`) + tip rozeti; empty state 2 CTA ("Hazır Seç" PresetProgramModal reuse + "+ Yeni Program"); ActiveProgramCard meta "Haftalık · Hafta N" + streak "{n}g" (yeni i18n `weekLabel`/`streakValue`). **Bug fix:** "Haftayı gör" CTA artık `/calendar?view=week&ts=<nonce>` → Calendar hafta görünümüne geçip bugünün haftasına döner (tab state korunduğu için eskiden çalışmıyordu). **Açık:** D3 Program Edit cila turu (ayrı seans); gün-chip "5e/5 ex" formatı; D1 satır menüsü Alert→sheet (opsiyonel). |
 | 2026-05-23 | §8.10 (yeni), §9 Grup G (yeni) | **rev 14 — D3 Program Edit spec yazımı kararları + seans sonu karar oturumu.** Yeni §8.10 eklendi: D3 tam ekran route (modal değil), state ayırt etmez (NewProgramSheet save + ✎ edit + "Düzenle" hepsi aynı route'a push); gün layout = dikey scroll + collapsible panels (bugün açık default, multi-expand izinli); cycle type **3 seçenek `weekly` (default) / `deload` / `none`** (web `app.html`'de `weekly` yoktu — mobil için yeni eklendi, haftalık tekrar standart mental model); `none` MVP'de kalır ama default değil, compliance hesaplanmaz; autosave debounced (300-500ms, manuel "Kaydet" yok); off-day toggle = Opsiyon A (dolu gün off-day yapılınca app_program_days satırları silinir, confirm sorar); gün-gün taşıma = Opsiyon A (long-press ⋯ → MoveToDaySheet; drag-cross-panel MVP sonrası); aktif et CTA disabled koşul = en az 1 toplam egzersiz; bottom nav D3'te gizli (tam ekran edit); D2+D3 ortak component'ler (ActivateConfirmModal, DeleteProgramModal); 6-dot drag handle (§8.8 ile aynı); program adı validation (1-60 char, trim, duplicate OK). Grup G karar oturumu: 4 sorudan 3'üne kullanıcı karar verdi (cycle `none` kalır, off-day Opsiyon A, taşıma Opsiyon A); 1'i (aktif et koşulu) önerimle kapatıldı. |

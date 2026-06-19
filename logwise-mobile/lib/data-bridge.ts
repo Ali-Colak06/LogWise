@@ -184,6 +184,41 @@ export async function fetchProgramDays(
 }
 
 /**
+ * D2 pasif program satırları — her program icin antrenman gunu sayisi (distinct day_index)
+ * + toplam egzersiz (program_days satir sayisi). Tek batch: tum programlar gunleriyle embed.
+ * Aktif program da dahil (zararsiz). Bos program → { dayCount: 0, total: 0 } (haritada YOK).
+ */
+export async function fetchProgramDayCounts(
+  ctx: DataCtx,
+): Promise<Record<string, { dayCount: number; total: number }>> {
+  const out: Record<string, { dayCount: number; total: number }> = {};
+  const tally = (days: Array<{ day_index: number }>): { dayCount: number; total: number } => ({
+    dayCount: new Set(days.map((d) => d.day_index)).size,
+    total: days.length,
+  });
+  if (ctx.mode === 'guest') {
+    const programs = await gs.getGuestPrograms();
+    for (const p of programs) {
+      const days = await gs.getGuestProgramDays(p.id);
+      if (days.length > 0) out[p.id] = tally(days);
+    }
+    return out;
+  }
+  if (!ctx.userId) return {};
+  const { data, error } = await supabase
+    .from('app_programs')
+    .select('id, app_program_days(day_index)')
+    .eq('user_id', ctx.userId);
+  if (error) throw error;
+  const rows = (data as Array<{ id: string; app_program_days?: Array<{ day_index: number }> }> | null) ?? [];
+  for (const r of rows) {
+    const days = r.app_program_days ?? [];
+    if (days.length > 0) out[r.id] = tally(days);
+  }
+  return out;
+}
+
+/**
  * Aynı preset'ten zaten bir program varken tekrar oluşturma denenirse fırlatılır.
  * ADIM 6 PRIORITY 0: kullanıcı modal'da "Bu Programı Başlat"a birden çok kez basınca
  * (3 kopya PPL gözlemlendi) UI net bir mesaj göstersin diye typed error.
@@ -1020,6 +1055,60 @@ export async function fetchLastSessionForRef(
     .order('set_index');
   if (setErr) throw setErr;
   return { workoutDate: last.workout_date, sets: (setData as AppSetsRow[] | null) ?? [] };
+}
+
+/**
+ * D1 Egzersizler — her exercise_ref icin SON seansin "en agir set"i ({weight}, {reps}).
+ * Day Detail "Son:" etiketiyle AYNI mantik (en yuksek weight'li set). Tek batch sorgu:
+ * tum workout'lardan ref basina en son tarihli workout'u bul → o workout'larin set'lerini
+ * cek → ref basina en agir set. weight'i numeric olmayan ref'ler haritada YOK (label gizli).
+ */
+export async function fetchLastSessionByRef(
+  ctx: DataCtx,
+): Promise<Record<string, { weight: number; reps: number }>> {
+  type WkLite = { id: string; exercise_ref: string; workout_date: string };
+  let workouts: WkLite[];
+  if (ctx.mode === 'guest') {
+    const all = await gs.getGuestWorkouts();
+    workouts = all.map((w) => ({ id: w.id, exercise_ref: w.exercise_ref, workout_date: w.workout_date }));
+  } else {
+    if (!ctx.userId) return {};
+    const { data, error } = await supabase
+      .from('app_workouts')
+      .select('id, exercise_ref, workout_date')
+      .eq('user_id', ctx.userId);
+    if (error) throw error;
+    workouts = (data as WkLite[] | null) ?? [];
+  }
+  if (workouts.length === 0) return {};
+
+  // ref → en son tarihli workout (tie: ilk gelen yeterli — ayni ref/gun tek workout).
+  const latestByRef = new Map<string, WkLite>();
+  for (const w of workouts) {
+    const cur = latestByRef.get(w.exercise_ref);
+    if (!cur || w.workout_date > cur.workout_date) latestByRef.set(w.exercise_ref, w);
+  }
+  const latestIds = Array.from(latestByRef.values()).map((w) => w.id);
+  const sets = await fetchSetsForWorkouts(ctx, latestIds);
+
+  const byWorkout = new Map<string, AppSetsRow[]>();
+  for (const s of sets) {
+    const arr = byWorkout.get(s.workout_id) ?? [];
+    arr.push(s);
+    byWorkout.set(s.workout_id, arr);
+  }
+
+  const out: Record<string, { weight: number; reps: number }> = {};
+  for (const [ref, wk] of latestByRef) {
+    let best: { weight: number; reps: number } | null = null;
+    for (const s of byWorkout.get(wk.id) ?? []) {
+      if (typeof s.weight !== 'number') continue;
+      const reps = typeof s.reps === 'number' ? s.reps : 0;
+      if (!best || s.weight > best.weight) best = { weight: s.weight, reps };
+    }
+    if (best) out[ref] = best;
+  }
+  return out;
 }
 
 // ============================================================================

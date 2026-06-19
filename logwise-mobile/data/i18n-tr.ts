@@ -560,6 +560,8 @@ export const tr: Translations = {
     cycleWeekly: 'Haftalık',
     cycleDeload: 'Deload',
     cycleNone: 'Yok',
+    weekLabel: 'Hafta {n}',
+    streakValue: '{n}g',
   },
   programEdit: {
     titleNew: 'Yeni Program',

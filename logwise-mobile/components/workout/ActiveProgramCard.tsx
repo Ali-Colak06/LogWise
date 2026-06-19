@@ -50,13 +50,28 @@ export default function ActiveProgramCard({
         ? t('library.cycleNone')
         : t('library.cycleWeekly');
 
+  // Meta: "Haftalık · Hafta N" — N = activated_at'tan bugüne 1-based hafta. 'none'
+  // (tek seferlik) ve henüz başlamamış programda hafta gösterilmez.
+  const activatedISO = program.activated_at ? program.activated_at.slice(0, 10) : null;
+  const weekNumber = (() => {
+    if (!activatedISO) return 0;
+    const a = new Date(`${activatedISO}T00:00:00`);
+    const b = new Date(`${todayISO}T00:00:00`);
+    const days = Math.floor((b.getTime() - a.getTime()) / 86_400_000);
+    return days >= 0 ? Math.floor(days / 7) + 1 : 0;
+  })();
+  const metaLabel =
+    program.cycle_type !== 'none' && weekNumber > 0
+      ? `${cycleLabel}  ·  ${t('library.weekLabel', { vars: { n: weekNumber } })}`
+      : cycleLabel;
+
   return (
     <View style={[styles.card, { backgroundColor: colors.background.elevated, borderColor: colors.border.subtle }]}>
       <View style={styles.head}>
         <View style={{ flex: 1 }}>
           <Text variant="meta" color="secondary">{t('library.activeProgram')}</Text>
           <Text variant="screenHeading" numberOfLines={2} style={{ marginTop: 2 }}>{program.name}</Text>
-          <Text variant="caption" color="secondary" style={{ marginTop: 2 }}>{cycleLabel}</Text>
+          <Text variant="caption" color="secondary" style={{ marginTop: 2 }}>{metaLabel}</Text>
         </View>
         <Pressable onPress={onEdit} hitSlop={8} style={styles.iconBtn} accessibilityLabel={t('library.edit')}>
           <Pencil size={18} color={colors.text.secondary} />
@@ -76,7 +91,7 @@ export default function ActiveProgramCard({
         </View>
         <View style={[styles.statCell, styles.statBorder, { borderColor: colors.border.subtle }]}>
           <Text variant="meta" color="secondary">{t('library.statStreak')}</Text>
-          <Text variant="bodyStrong">{streak}</Text>
+          <Text variant="bodyStrong">{t('library.streakValue', { vars: { n: streak } })}</Text>
         </View>
         <View style={[styles.statCell, styles.statBorder, { borderColor: colors.border.subtle }]}>
           <Text variant="meta" color="secondary">{t('library.statNext')}</Text>

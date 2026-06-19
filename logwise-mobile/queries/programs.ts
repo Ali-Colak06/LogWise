@@ -11,6 +11,7 @@ import {
   fetchActiveProgramWithDays,
   fetchPrograms,
   fetchProgramDays,
+  fetchProgramDayCounts,
   fetchProgramById,
   createProgramFromPreset,
   createEmptyProgram,
@@ -97,6 +98,15 @@ export function useProgram(programId: string | null | undefined) {
     queryKey: pgKeys.one(ctx, programId ?? '_none'),
     queryFn: () => fetchProgramById(ctx, programId as string),
     enabled: !!programId,
+  });
+}
+
+/** D2 pasif satir meta'si — program_id → { dayCount, total } (tek batch). */
+export function useProgramDayCounts() {
+  const ctx = useDataCtx();
+  return useQuery<Record<string, { dayCount: number; total: number }>>({
+    queryKey: [...pgKeys.all(ctx), 'daycounts'],
+    queryFn: () => fetchProgramDayCounts(ctx),
   });
 }
 

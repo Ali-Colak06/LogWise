@@ -511,6 +511,8 @@ export interface Translations {
     cycleWeekly: string;
     cycleDeload: string;
     cycleNone: string;
+    weekLabel: string;             // "Hafta {n}" templated (ActiveProgramCard meta)
+    streakValue: string;           // "{n}g" templated (streak suffix)
   };
   programEdit: {
     titleNew: string;              // "Yeni Program"

@@ -29,6 +29,7 @@ import {
   fetchSetsByMonth,
   fetchAllWorkoutDates,
   fetchUsedExerciseRefs,
+  fetchLastSessionByRef,
   addWorkoutSet,
   ensureWorkout,
   deleteWorkout,
@@ -129,6 +130,18 @@ export function useUsedExerciseRefs() {
   return useQuery<string[]>({
     queryKey: [...wkKeys.all(ctx), 'usedrefs'],
     queryFn: () => fetchUsedExerciseRefs(ctx),
+  });
+}
+
+/**
+ * D1 Egzersizler — her exercise_ref icin son seansin en agir set'i ({weight}, {reps}).
+ * Tek batch sorgu; satir basina `useLastSession` cagirmaktan (54+ query) kacinir.
+ */
+export function useLastSessionByRef() {
+  const ctx = useDataCtx();
+  return useQuery<Record<string, { weight: number; reps: number }>>({
+    queryKey: [...wkKeys.all(ctx), 'lastsession-by-ref'],
+    queryFn: () => fetchLastSessionByRef(ctx),
   });
 }
 

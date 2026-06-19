@@ -17,7 +17,7 @@ import {
   type NativeSyntheticEvent,
 } from 'react-native';
 import PagerView from 'react-native-pager-view';
-import { useRouter } from 'expo-router';
+import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Calendar as CalendarIcon, LayoutGrid, Target, ChevronLeft, ChevronRight } from 'lucide-react-native';
 import { Screen, Text, Button, HStack, useToast } from '../../../../components/ui';
 import { useTheme } from '../../../../theme';
@@ -124,6 +124,7 @@ function buildMonthSummaryMap(
 
 export default function CalendarScreen() {
   const router = useRouter();
+  const navParams = useLocalSearchParams<{ view?: string; ts?: string }>();
   const { colors, tokens } = useTheme();
   const t = useT();
   const dict = useTranslations();
@@ -352,6 +353,20 @@ export default function CalendarScreen() {
     }
     return undefined;
   }, [viewMode]);
+
+  // D2 "Haftayı gör" CTA → /calendar?view=week&ts=<nonce>. Calendar bir tab olduğu için
+  // state (mod + konum) korunur; bu param her basışta (ts nonce) hafta görünümüne geçirip
+  // BUGÜNÜN haftasına döndürür. ts değişimini izleriz → aynı view tekrar gelse de tetiklenir.
+  useEffect(() => {
+    if (navParams.view !== 'week') return;
+    setViewMode('week');
+    const d = new Date();
+    setWeekAnchor(new Date(d.getFullYear(), d.getMonth(), d.getDate()));
+    setVisibleWeekStart(null);
+    const id = setTimeout(() => scrollToTodayWeek(true), 60);
+    return () => clearTimeout(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [navParams.ts, navParams.view]);
 
   // PERF: memo'lu CalendarMonth/Week'e stabil referans gitsin (yoksa memo boşa düşer).
   const onDayPress = useCallback(
