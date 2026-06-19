@@ -15971,36 +15971,104 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/mountain-climber",
     "summary": [
-      "Dağ tırmanıcı. Kardiyo + karın.",
-      "Mountain climber. Cardio + core."
+      "Mountain climber. Dinamik plank ve diz sürüşü.",
+      "Mountain climber. Dynamic plank and knee drive."
     ],
     "description": [
-      "Dinamik plank pozisyonundan diz çekme hareketi. Core, omuzlar ve kardiyo sistemini aynı anda çalıştırır. Yüksek yoğunluklu antrenmanlar için mükemmeldir.",
-      "Dynamic knee drive from plank position. Works core, shoulders, and cardiovascular system simultaneously. Excellent for high-intensity training."
+      "High-plank pozisyonunda dizlerin sırayla gövdeye doğru çekildiği dinamik bütün-vücut hareketidir. Karın duvarı ve omuz kuşağı plank desteğini korurken kalça fleksörleri ve bacaklar diz sürüşünü üretir; tempo kardiyorespiratuvar talebi değiştirir.",
+      "A dynamic whole-body exercise that alternates knee drives toward the torso from a high-plank position. The abdominal wall and shoulder girdle maintain plank support while the hip flexors and legs create the knee drive; tempo changes cardiorespiratory demand."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kalçayı sabit tut — yukarı veya aşağı hareket etmemeli.",
-        "Keep hips level — don't let them rise or drop."
+        "Elleri omuzların altında veya rahatça yakınında yerleştirip high-plank pozisyonu kur.",
+        "Set the hands under or comfortably near the shoulders and establish a high plank."
       ],
       [
-        "Eller omuz altında tam hizalı olsun.",
-        "Make sure hands are directly below shoulders."
+        "Zemini aktif it, kaburgaları pelvis üzerinde tut ve ayakları dengeli yerleştir.",
+        "Actively press the floor, stack the ribs over the pelvis, and set the feet evenly."
       ],
       [
-        "Hızlı yapınca kardiyo, yavaş yapınca core odaklı olur.",
-        "Fast pace = cardio focus; slow pace = core focus."
+        "Bir dizi gövdeye doğru kontrollü çekip diğer ayağı destek noktası olarak koru.",
+        "Drive one knee toward the torso under control while the other foot remains the support point."
+      ],
+      [
+        "İlk ayağı geri getirirken diğer dizi öne al ve seçilen ritmi sürdür.",
+        "Return the first foot as the other knee comes forward and maintain the chosen rhythm."
+      ],
+      [
+        "El, omuz veya pelvis pozisyonu belirgin değişmeden önce seti bitir.",
+        "End the set before hand, shoulder, or pelvic position changes substantially."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Hız için ellerin arkasına çekilip omuz desteğini kaybetmek.",
+        "Drifting behind the hands and losing shoulder support just to move faster."
+      ],
+      [
+        "Ayakları kontrolsüz yere vurarak ritim üretmek.",
+        "Creating rhythm by striking the feet into the floor without control."
+      ],
+      [
+        "Her tekrarda kalça yüksekliğini büyük ölçüde değiştirmek.",
+        "Changing hip height substantially on every rep."
+      ],
+      [
+        "Taraf başına tekrar ile toplam diz sürüşünü karıştırmak.",
+        "Mixing reps per side with total knee-drive count."
+      ]
+    ],
+    "tips": [
+      [
+        "Kalça tamamen hareketsiz olmak zorunda değildir; tekrarlanabilir plank hattı ve kontrollü ayak değişimi önemlidir.",
+        "The hips do not need to be perfectly motionless; a repeatable plank line and controlled foot switch matter."
+      ],
+      [
+        "Hız yalnız “kardiyo”, yavaş tempo yalnız “core” anlamına gelmez; her iki tempoda da aynı kaslar farklı talep düzeylerinde çalışır.",
+        "Fast does not mean only cardio and slow does not mean only core; the same muscles work at different demands in both."
+      ],
+      [
+        "Yüksek yüzey eller ve gövde kaldıraç talebini azaltan geçerli bir regresyondur.",
+        "An elevated hand surface is a valid regression that reduces upper-body and trunk leverage demand."
+      ],
+      [
+        "Süre, cadence ve taraf başına tekrar farklı set standartlarıdır; aynı kayıtta karıştırma.",
+        "Time, cadence, and reps per side are different set standards; do not mix them in one log."
+      ]
+    ],
+    "progression": [
+      [
+        "Yüksek yüzeyde yavaş alternating knee drive ile plank kontrolü öğren.",
+        "Learn plank control with slow alternating knee drives on an elevated surface."
+      ],
+      [
+        "Zeminde duraklamalı ve kontrollü taraf değişimleri yap.",
+        "Perform paused and controlled side changes on the floor."
+      ],
+      [
+        "Aynı pelvis ve omuz kontrolüyle cadence veya süreyi artır.",
+        "Increase cadence or duration while maintaining pelvic and shoulder control."
+      ],
+      [
+        "İleri aşamada daha uzun interval veya slider varyasyonu kullan.",
+        "At a later stage, use longer intervals or a slider variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "transversus-abdominis",
+        "iliopsoas",
+        "rectus-femoris"
       ],
       "secondary": [
-        "cardiovascular"
+        "internal-oblique",
+        "external-oblique",
+        "serratus-anterior",
+        "anterior-deltoid",
+        "triceps-brachii",
+        "quadriceps",
+        "gluteus-maximus"
       ]
     },
     "media": {
@@ -16017,7 +16085,53 @@
         "Muscle map for the Mountain Climber exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Mountain Climber Rehberi | Plank ve Tempo Formu",
+        "Mountain Climber Guide | Plank and Tempo Form"
+      ],
+      "metaDescription": [
+        "Mountain climber için el ve plank kurulumu, diz sürüşü, cadence, tekrar standardı, hatalar ve progression.",
+        "Learn mountain-climber setup, knee drive, cadence, rep standard, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Karın duvarı ve kalça fleksörleri",
+          "Abdominal wall and hip flexors"
+        ],
+        "equipment": [
+          "Vücut ağırlığı; opsiyonel yüksek yüzey",
+          "Bodyweight; optional elevated surface"
+        ],
+        "movementPattern": [
+          "Dinamik plank ve alternating knee drive",
+          "Dynamic plank and alternating knee drive"
+        ],
+        "bestFor": [
+          "Gövde kontrolü ve kondisyon intervalleri",
+          "Trunk control and conditioning intervals"
+        ]
+      },
+      "tracking": [
+        [
+          "Süre veya taraf başına tekrar, cadence, interval ve RPE değerini kaydet.",
+          "Log time or reps per side, cadence, interval, and RPE."
+        ],
+        [
+          "Zemin veya yüksek yüzey varyasyonunu belirt.",
+          "Record floor or elevated-surface variation."
+        ],
+        [
+          "Toplam diz sürüşü ve taraf başına tekrar sayılarını ayrı takip et.",
+          "Track total knee drives and reps per side separately."
+        ]
+      ],
+      "related": [
+        "plank",
+        "burpee",
+        "hanging-knee-raise"
+      ]
+    }
   },
   "burpee": {
     "publish": false,
@@ -16025,35 +16139,105 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/burpee",
     "summary": [
-      "Tam vücut kardiyo.",
-      "Full body cardio."
+      "Burpee. Squat-plank geçişli kondisyon hareketi.",
+      "Burpee. Squat-to-plank conditioning movement."
     ],
     "description": [
-      "Tam vücut kardiyo ve kuvvet egzersizi. Squat, plank, şınav ve zıplamayı birleştirir. Kondisyon ve yağ yakımı için en etkili hareketlerden biridir.",
-      "Full body cardio and strength exercise combining squat, plank, push-up, and jump. One of the most effective movements for conditioning and fat loss."
+      "Ayakta duruştan ellerin zemine geldiği, ayakların plank pozisyonuna gidip geri döndüğü ve tekrar ayağa kalkılan bütün-vücut kondisyon hareketidir. Push-up, göğüs teması ve zıplama zorunlu parçalar değildir; seçilen burpee standardına göre eklenir.",
+      "A whole-body conditioning exercise that moves from standing to hands on the floor, sends the feet to plank, returns them, and stands again. A push-up, chest contact, and jump are not mandatory components; they depend on the chosen burpee standard."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Şınav tam olsun — sadece göğüs yere gelsin.",
-        "Full push-up during the burpee — chest touches the floor."
+        "Ayakta dengeli başla ve seçtiğin burpee bileşenlerini önceden belirle.",
+        "Start balanced and define the components of the chosen burpee variation in advance."
       ],
       [
-        "Zıplamanın ardından tam yüksel; kolları yukarı kaldır.",
-        "Jump fully at the top — reach arms overhead."
+        "Kalça ve dizleri büküp elleri rahatça zemine yerleştir.",
+        "Bend the hips and knees and place the hands comfortably on the floor."
       ],
       [
-        "Nefes al → aşağı in → yukarı çık → ver ritmi önemli.",
-        "Breathing rhythm: inhale on descent, exhale on ascent."
+        "Ayakları adımla veya sıçrayarak kontrollü plank pozisyonuna gönder.",
+        "Step or jump the feet back into a controlled plank position."
+      ],
+      [
+        "Seçilen varyasyonda push-up veya göğüs teması yapıp ayakları tekrar eller yönüne getir.",
+        "Perform the chosen push-up or chest-contact component, then bring the feet back toward the hands."
+      ],
+      [
+        "Ayağa kalk; seçilen standartta reach veya zıplamayı tamamlayıp sıradaki tekrara geç.",
+        "Stand up and complete the chosen reach or jump standard before the next rep."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Set içinde step-back, push-up ve zıplama standartlarını rastgele değiştirmek.",
+        "Changing step-back, push-up, and jump standards randomly within a set."
+      ],
+      [
+        "Plank geçişinde beli kontrolsüz düşürmek.",
+        "Letting the lower back sag without control during the plank transition."
+      ],
+      [
+        "Ayakları ellere getirirken diz ve ayak pozisyonunu zorlamak.",
+        "Forcing knee and foot position when returning the feet toward the hands."
+      ],
+      [
+        "Yorgunlukta yere iniş ve ayağa kalkış kontrolünü tamamen bırakmak.",
+        "Abandoning floor and standing transition control under fatigue."
+      ]
+    ],
+    "tips": [
+      [
+        "Burpee tek bir evrensel harekete sahip değildir; push-up, chest-to-floor, step-back ve jump bileşenlerini kaydet.",
+        "There is no single universal burpee; log push-up, chest-to-floor, step-back, and jump components."
+      ],
+      [
+        "Zıplamasız veya step-back burpee geçerli düşük darbeli varyasyonlardır.",
+        "No-jump and step-back burpees are valid lower-impact variations."
+      ],
+      [
+        "Yağ kaybı tek bir harekete bağlı değildir; burpee’yi kondisyon yükü olarak süre, tekrar ve RPE ile değerlendir.",
+        "Fat loss does not depend on one exercise; evaluate burpees as conditioning load through time, reps, and RPE."
+      ],
+      [
+        "Nefesi tek bir zorunlu ritme sıkıştırma; tekrarlar boyunca sürdürülebilir solunum kullan.",
+        "Do not force one mandatory breathing rhythm; use sustainable breathing throughout the reps."
+      ]
+    ],
+    "progression": [
+      [
+        "Yüksek yüzeyde step-back burpee ile geçiş sırasını öğren.",
+        "Learn the transition sequence with an elevated step-back burpee."
+      ],
+      [
+        "Zeminde step-back ve zıplamasız ayağa kalkış kullan.",
+        "Use a floor step-back with a no-jump stand."
+      ],
+      [
+        "Jump-back veya üstte zıplama bileşenlerinden birini ekle.",
+        "Add either the jump-back or the top jump component."
+      ],
+      [
+        "İleri aşamada push-up, chest-to-floor veya daha uzun interval ekle.",
+        "At a later stage, add a push-up, chest-to-floor standard, or longer interval."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "cardiovascular"
+        "quadriceps",
+        "gluteus-maximus",
+        "pectoralis-major",
+        "triceps-brachii",
+        "anterior-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "gastrocnemius",
+        "soleus",
+        "rectus-abdominis",
+        "serratus-anterior",
+        "iliopsoas"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -16069,7 +16253,53 @@
         "Muscle map for the Burpee exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Burpee Rehberi | Varyasyon, Form ve Tempo",
+        "Burpee Guide | Variation, Form, and Tempo"
+      ],
+      "metaDescription": [
+        "Burpee için step veya jump-back, push-up ve zıplama seçenekleri, geçiş formu, interval takibi ve progression.",
+        "Learn burpee step or jump-back, push-up and jump options, transitions, interval tracking, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Bacaklar, göğüs, omuz ve triceps",
+          "Legs, chest, shoulders, and triceps"
+        ],
+        "equipment": [
+          "Vücut ağırlığı; opsiyonel yüksek yüzey",
+          "Bodyweight; optional elevated surface"
+        ],
+        "movementPattern": [
+          "Ayakta-squat-plank geçişi",
+          "Standing-squat-plank transition"
+        ],
+        "bestFor": [
+          "Bütün-vücut kondisyonu ve interval çalışma",
+          "Whole-body conditioning and intervals"
+        ]
+      },
+      "tracking": [
+        [
+          "Burpee standardı, tekrar, süre, çalışma/dinlenme ve RPE değerini kaydet.",
+          "Log burpee standard, reps, time, work-rest interval, and RPE."
+        ],
+        [
+          "Push-up, chest-to-floor ve zıplama bileşenlerini belirt.",
+          "Record push-up, chest-to-floor, and jump components."
+        ],
+        [
+          "Step-back ve jump-back varyasyonlarını ayrı takip et.",
+          "Track step-back and jump-back variations separately."
+        ]
+      ],
+      "related": [
+        "mountain-climber",
+        "push-up",
+        "jumping-jack"
+      ]
+    }
   },
   "jumping-jack": {
     "publish": false,
@@ -16077,35 +16307,103 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/jumping-jack",
     "summary": [
-      "Zıplama. Kardiyo.",
-      "Jumping jack. Cardio."
+      "Jumping jack. Ritmik kol-bacak açma ve kapama.",
+      "Jumping jack. Rhythmic arm and leg opening."
     ],
     "description": [
-      "Zıplayarak kol-bacak açma kapama. Klasik kardiyo ısınma hareketi. Tüm vücut koordinasyonunu ve kardiyovasküler sistemi aktive eder.",
-      "Jump with simultaneous arm and leg opening/closing. Classic cardio warm-up movement. Activates whole-body coordination and cardiovascular system."
+      "Ayakların yana açılıp kapanmasıyla kolların eşzamanlı kaldırılıp indirildiği ritmik bütün-vücut kardiyo hareketidir. Baldır, quadriceps, kalça çevresi ve omuz kasları tekrarlı sıçrama ile kol hareketini paylaşır.",
+      "A rhythmic whole-body cardio exercise that opens and closes the feet while the arms rise and lower together. The calves, quadriceps, hip muscles, and shoulders share repeated jumping and arm motion."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Yumuşak yüzey tercih et veya ayakkabı giy — eklemler için iyidir.",
-        "Prefer a soft surface or wear shoes — gentler on the joints."
+        "Ayakta dengeli başla; ayak ve kol açıklığını rahat eklem menziline göre seç.",
+        "Start balanced and choose a foot and arm range that fits comfortable joint motion."
       ],
       [
-        "Her zıplamada topuk yere değmesin; ayak parmakları üzerine in.",
-        "Land on the balls of your feet, not flat-footed."
+        "Hafif sıçrayarak ayakları yana açarken kolları eşzamanlı kaldır.",
+        "Jump lightly to open the feet while raising the arms at the same time."
       ],
       [
-        "Kardiyovasküler ısınma olarak 2-3 dakika yeterlidir.",
-        "2-3 minutes is sufficient as a cardiovascular warm-up."
+        "Ayakları tüm tabanla veya doğal iniş biçiminle yumuşak ve sessiz karşıla.",
+        "Land softly and quietly through the whole foot or your natural landing pattern."
+      ],
+      [
+        "Tekrar sıçrayıp ayakları merkeze, kolları gövde yanına getir.",
+        "Jump again to return the feet to center and the arms to the sides."
+      ],
+      [
+        "Seçilen cadence ve hareket açıklığını set boyunca tutarlı koru.",
+        "Maintain the chosen cadence and range consistently through the set."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Her inişte dizlerin kontrolsüz içe çökmesine izin vermek.",
+        "Allowing the knees to collapse inward on each landing."
+      ],
+      [
+        "Omuz hareket açıklığını zorlayarak kolları baş üstüne çarpmak.",
+        "Forcing shoulder range and striking the hands overhead."
+      ],
+      [
+        "Yalnız ayak parmaklarına sert inip topuk ve tüm ayak kontrolünü kaybetmek.",
+        "Landing hard only on the toes and losing whole-foot control."
+      ],
+      [
+        "Yorgunlukta cadence ve açıklık bozulduğu halde süreyi uzatmak.",
+        "Extending the set after cadence and range deteriorate with fatigue."
+      ]
+    ],
+    "tips": [
+      [
+        "Step jack, zıplama olmadan aynı koordinasyon desenini kullanan geçerli regresyondur.",
+        "A step jack is a valid no-jump regression using the same coordination pattern."
+      ],
+      [
+        "Topuğun hiç değmemesi zorunlu değildir; sessiz ve kontrol edilen iniş daha önemlidir.",
+        "Keeping the heels off the floor is not mandatory; a quiet controlled landing matters more."
+      ],
+      [
+        "Isınma için sabit 2-3 dakika herkese uygun değildir; süre ve cadence’i oturum hedefiyle ayarla.",
+        "A fixed two-to-three minutes is not right for everyone; set duration and cadence by the session goal."
+      ],
+      [
+        "Kol açıklığını omuz konforuna göre kısaltmak hareketi geçersiz yapmaz.",
+        "Shortening arm range for shoulder comfort does not invalidate the exercise."
+      ]
+    ],
+    "progression": [
+      [
+        "Alternating step jack ile kol-bacak koordinasyonunu öğren.",
+        "Learn arm-leg coordination with alternating step jacks."
+      ],
+      [
+        "Düşük cadence ile küçük sıçramalı jumping jack yap.",
+        "Perform small jumping jacks at a low cadence."
+      ],
+      [
+        "Aynı sessiz inişle cadence veya süreyi kademeli artır.",
+        "Gradually increase cadence or duration with the same quiet landing."
+      ],
+      [
+        "İleri aşamada daha uzun interval veya kontrollü power-jack varyasyonu kullan.",
+        "At a later stage, use longer intervals or a controlled power-jack variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "cardiovascular"
+        "gastrocnemius",
+        "soleus",
+        "quadriceps",
+        "gluteus-medius",
+        "lateral-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "gluteus-maximus",
+        "adductor-longus",
+        "adductor-magnus",
+        "anterior-deltoid"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -16121,7 +16419,53 @@
         "Muscle map for the Jumping Jack exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Jumping Jack Rehberi | İniş, Cadence ve Form",
+        "Jumping Jack Guide | Landing, Cadence, and Form"
+      ],
+      "metaDescription": [
+        "Jumping jack için ayak ve kol açıklığı, sessiz iniş, step-jack regresyonu, cadence, süre ve progression.",
+        "Learn jumping-jack range, quiet landing, step-jack regression, cadence, duration, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Baldır, quadriceps, yan kalça ve omuz",
+          "Calves, quadriceps, lateral hips, and shoulders"
+        ],
+        "equipment": [
+          "Vücut ağırlığı ve uygun zemin",
+          "Bodyweight and suitable floor"
+        ],
+        "movementPattern": [
+          "Ritmik jumping abduction-adduction",
+          "Rhythmic jumping abduction-adduction"
+        ],
+        "bestFor": [
+          "Koordinasyon, ısınma ve kondisyon intervalleri",
+          "Coordination, warm-ups, and conditioning intervals"
+        ]
+      },
+      "tracking": [
+        [
+          "Süre, tekrar, cadence, interval ve RPE değerini kaydet.",
+          "Log time, reps, cadence, interval, and RPE."
+        ],
+        [
+          "Step jack veya jumping-jack varyasyonunu belirt.",
+          "Record step-jack or jumping-jack variation."
+        ],
+        [
+          "Kol hareket açıklığı değişikliklerini varyasyon notuna ekle.",
+          "Include arm-range changes in the variation notes."
+        ]
+      ],
+      "related": [
+        "burpee",
+        "mountain-climber",
+        "treadmill"
+      ]
+    }
   },
   "treadmill": {
     "publish": false,
@@ -16129,35 +16473,103 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/treadmill",
     "summary": [
-      "Koşu bandında yürüyüş/koşu.",
-      "Treadmill walking/running."
+      "Treadmill yürüyüş veya koşu. Hız ve eğim kontrollü.",
+      "Treadmill walking or running. Controlled speed and incline."
     ],
     "description": [
-      "Koşu bandında yürüyüş veya koşu. En yaygın kardiyo egzersizlerinden biridir. Hız ve eğim ayarı ile zorluk kolayca değiştirilebilir.",
-      "Treadmill walking or running. One of the most common cardio exercises. Difficulty easily adjustable via speed and incline settings."
+      "Motorlu bant üzerinde hız ve eğimin ayarlanabildiği yürüyüş veya koşu egzersizidir. Alt vücut kasları adım desenini üretir; hız, eğim, süre ve bireysel yanıt kardiyorespiratuvar talebi belirler.",
+      "A walking or running exercise on a motorized belt with adjustable speed and incline. Lower-body muscles create the gait pattern while speed, incline, duration, and individual response determine cardiorespiratory demand."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Eğim artırmak kalori yakımını önemli ölçüde artırabilir.",
-        "Increasing incline can boost calorie burn significantly."
+        "Ayakkabı, bant alanı ve acil durdurma klipsini kontrol et.",
+        "Check footwear, belt space, and the emergency-stop clip."
       ],
       [
-        "Yürüyüşte kollarını doğal salla — kenarlığa tutunma.",
-        "If walking, let arms swing naturally — don't hold the side rails."
+        "Yan platformlardan banda düşük hızda geç ve ritim oturunca tutacakları bırak.",
+        "Step onto the belt from the side platforms at low speed and release the rails once rhythm is established."
       ],
       [
-        "LISS (düşük yoğunluklu sabit hız) yağ yakımı için etkilidir.",
-        "Low-intensity steady state (LISS) is effective for fat burning."
+        "Bakışı ileri, gövdeyi rahat ve kolları doğal salınımda tut.",
+        "Keep the gaze forward, trunk relaxed, and arms swinging naturally."
+      ],
+      [
+        "Hız veya eğimi küçük adımlarla değiştirip seçilen intervali sürdür.",
+        "Adjust speed or incline in small steps and maintain the chosen interval."
+      ],
+      [
+        "Bitişte hızı kademeli düşür, bant yavaşlayınca yan platformlara kontrollü geç.",
+        "Reduce speed gradually and step to the side platforms under control once the belt slows."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Yüksek hız veya eğimde tutacaklara sürekli asılarak makine metriğini sürdürmek.",
+        "Hanging continuously on the rails to maintain a high displayed speed or incline."
+      ],
+      [
+        "Hız ve eğimi aynı anda büyük ölçüde artırmak.",
+        "Increasing speed and incline substantially at the same time."
+      ],
+      [
+        "Bant hareketliyken geriye bakmak veya cihazdan kontrolsüz inmek.",
+        "Looking backward or stepping off without control while the belt is moving."
+      ],
+      [
+        "Farklı treadmill kalibrasyonlarını birebir aynı performans olarak kabul etmek.",
+        "Treating different treadmill calibrations as identical performance."
+      ]
+    ],
+    "tips": [
+      [
+        "Eğim enerji talebini değiştirebilir fakat sabit bir kalori artışı garanti etmez.",
+        "Incline can change energy demand but does not guarantee a fixed calorie increase."
+      ],
+      [
+        "Tutacaklar başlangıç, bitiş ve denge düzeltmesi için kullanılabilir; sürekli destek ayrı varyasyondur.",
+        "Rails can assist starting, stopping, and balance corrections; continuous support is a separate variation."
+      ],
+      [
+        "LISS veya interval seçimi tek başına yağ kaybını belirlemez; toplam program ve enerji dengesi önemlidir.",
+        "LISS or intervals alone do not determine fat loss; the overall program and energy balance matter."
+      ],
+      [
+        "Yürüyüş ve koşu yüklerini hız/eğim yanında RPE veya nabız yanıtıyla takip et.",
+        "Track walking and running with RPE or heart-rate response as well as speed and incline."
+      ]
+    ],
+    "progression": [
+      [
+        "Düşük hız ve düz bantta rahat yürüyüş ritmi kur.",
+        "Establish a comfortable walking rhythm at low speed and zero incline."
+      ],
+      [
+        "Önce süreyi, sonra hız veya eğim değişkenlerinden birini artır.",
+        "Increase duration first, then change either speed or incline."
+      ],
+      [
+        "Aynı RPE’de mesafe veya süreyi kademeli geliştir.",
+        "Gradually improve distance or duration at the same RPE."
+      ],
+      [
+        "İleri aşamada planlı yürüyüş-koşu veya eğim intervalleri kullan.",
+        "At a later stage, use planned walk-run or incline intervals."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "cardiovascular"
+        "quadriceps",
+        "gluteus-maximus",
+        "hamstrings",
+        "gastrocnemius",
+        "soleus"
       ],
-      "secondary": []
+      "secondary": [
+        "iliopsoas",
+        "gluteus-medius",
+        "tibialis-anterior",
+        "spinal-erectors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -16173,7 +16585,53 @@
         "Muscle map for the Treadmill exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Treadmill Rehberi | Hız, Eğim ve Yürüyüş Formu",
+        "Treadmill Guide | Speed, Incline, and Form"
+      ],
+      "metaDescription": [
+        "Treadmill için güvenli başlangıç-bitiş, hız ve eğim ayarı, tutacak kullanımı, RPE, interval ve progression.",
+        "Learn treadmill start-stop safety, speed, incline, rail use, RPE, intervals, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps, glute, hamstring ve baldır",
+          "Quadriceps, glutes, hamstrings, and calves"
+        ],
+        "equipment": [
+          "Koşu bandı ve güvenlik klipsi",
+          "Treadmill and safety clip"
+        ],
+        "movementPattern": [
+          "Ayarlanabilir yürüyüş veya koşu",
+          "Adjustable walking or running"
+        ],
+        "bestFor": [
+          "Kardiyorespiratuvar kapasite ve yürüyüş/koşu hacmi",
+          "Cardiorespiratory fitness and walking-running volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Süre, mesafe, hız, eğim, RPE ve varsa ortalama nabzı kaydet.",
+          "Log duration, distance, speed, incline, RPE, and average heart rate if available."
+        ],
+        [
+          "Yürüyüş, koşu ve interval varyasyonlarını belirt.",
+          "Record walking, running, and interval variations."
+        ],
+        [
+          "Sürekli tutacak desteğini desteksiz setlerden ayrı takip et.",
+          "Track continuous rail support separately from unsupported sessions."
+        ]
+      ],
+      "related": [
+        "stair-climber",
+        "cycling",
+        "jumping-jack"
+      ]
+    }
   },
   "cycling": {
     "publish": false,
@@ -16181,35 +16639,101 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/cycling",
     "summary": [
-      "Bisiklet kardiyo.",
-      "Cycling cardio."
+      "Bisiklet. Kadans, direnç ve süre kontrollü kardiyo.",
+      "Cycling. Cadence, resistance, and duration controlled."
     ],
     "description": [
-      "Sabit veya dışarıda bisiklet sürmek. Dizlere az yük bindiren, güçlü bir kardiyo egzersizi. Quadriceps ve kalça kaslarını da çalıştırır.",
-      "Stationary or outdoor cycling. A powerful cardio exercise with low impact on the knees. Also works quads and hip muscles."
+      "Sabit bisiklet veya dış ortam bisikletinde tekrarlı pedal çevirme egzersizidir. Quadriceps ve gluteus maximus ana itişi üretir; hamstring, baldır ve kalça fleksörleri pedal çevrimine katkı verir. Kadans, direnç, süre ve parkur talebi değiştirir.",
+      "A repeated pedaling exercise on a stationary or outdoor bicycle. The quadriceps and gluteus maximus create most of the drive while the hamstrings, calves, and hip flexors contribute through the pedal cycle. Cadence, resistance, duration, and terrain change demand."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Oturma yüksekliğini ayarla — diz tam uzanmalı ama kilitlenmemeli.",
-        "Adjust seat height so knee almost fully extends but doesn't lock."
+        "Sele yüksekliği, ileri-geri konumu ve gidon erişimini rahat pedal çevrimine göre ayarla.",
+        "Adjust saddle height, fore-aft position, and handlebar reach for comfortable pedaling."
       ],
       [
-        "Kadansı (devir/dk) yüksek tut, ağır vites kullanmak dizi yorar.",
-        "Keep cadence high; heavy gearing puts extra stress on knees."
+        "Pedal alt noktadayken dizde rahat bir bükülme kalmasını başlangıç referansı olarak kullan.",
+        "Use a comfortable bend in the knee at the bottom of the pedal stroke as a starting reference."
       ],
       [
-        "HIIT için interval çalışması kalorileri çok daha hızlı yakar.",
-        "Interval training burns calories much faster than steady pace."
+        "Ayakları pedallara dengeli yerleştir ve gövdeyi seçilen bisiklet türüne uygun destekle.",
+        "Place the feet evenly on the pedals and support the trunk according to the bike type."
+      ],
+      [
+        "Kadans ve direnci birlikte kontrol ederek akıcı pedal ritmi kur.",
+        "Coordinate cadence and resistance to establish a smooth pedaling rhythm."
+      ],
+      [
+        "Bitişte direnci ve hızı kademeli azaltıp bisikletten kontrollü in.",
+        "Reduce resistance and speed gradually and dismount under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Sele yüksekliğini yalnız dizin “neredeyse kilitlenmesi” kuralıyla ayarlamak.",
+        "Setting saddle height only by an “almost locked knee” rule."
+      ],
+      [
+        "Direnç çok düşükken kontrolsüz sekmek veya çok yüksekken kadansı zorlamak.",
+        "Bouncing without control at very low resistance or forcing cadence against excessive resistance."
+      ],
+      [
+        "Dizlerin pedal boyunca sürekli içe veya dışa savrulmasına izin vermek.",
+        "Allowing the knees to swing inward or outward repeatedly through the pedal stroke."
+      ],
+      [
+        "Sabit bisiklet ve dış parkur verilerini koşullar değişmeden karşılaştırmak.",
+        "Comparing stationary-bike and outdoor data without accounting for conditions."
+      ]
+    ],
+    "tips": [
+      [
+        "Tek bir ideal kadans yoktur; hedef, bisiklet türü, direnç ve bireysel konfor seçimi değiştirir.",
+        "There is no single ideal cadence; goals, bike type, resistance, and individual comfort change the choice."
+      ],
+      [
+        "Ağır vites otomatik olarak diz için zararlı, yüksek kadans otomatik olarak güvenli değildir.",
+        "Heavy gearing is not automatically harmful to the knees, and high cadence is not automatically safe."
+      ],
+      [
+        "Interval ve sabit tempo farklı uyaranlardır; biri her durumda daha hızlı yağ kaybı garanti etmez.",
+        "Intervals and steady riding are different stimuli; neither guarantees faster fat loss in every case."
+      ],
+      [
+        "Power varsa watt; yoksa direnç seviyesi, kadans, hız ve RPE ile ilerlemeyi izle.",
+        "Use watts when available; otherwise track resistance level, cadence, speed, and RPE."
+      ]
+    ],
+    "progression": [
+      [
+        "Rahat sele ayarı ve düşük-orta dirençte akıcı cadence geliştir.",
+        "Develop smooth cadence with a comfortable saddle setup and low-to-moderate resistance."
+      ],
+      [
+        "Aynı RPE’de süreyi veya mesafeyi kademeli artır.",
+        "Gradually increase duration or distance at the same RPE."
+      ],
+      [
+        "Tek seferde yalnız direnç, cadence veya interval süresinden birini değiştir.",
+        "Change only resistance, cadence, or interval duration at one time."
+      ],
+      [
+        "İleri aşamada planlı tempo, eşik veya kısa interval blokları kullan.",
+        "At a later stage, use planned tempo, threshold, or short interval blocks."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "cardiovascular"
+        "quadriceps",
+        "gluteus-maximus"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "gastrocnemius",
+        "soleus",
+        "iliopsoas",
+        "tibialis-anterior"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -16225,7 +16749,53 @@
         "Muscle map for the Cycling exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cycling Rehberi | Sele, Kadans ve Direnç Ayarı",
+        "Cycling Guide | Saddle, Cadence, and Resistance"
+      ],
+      "metaDescription": [
+        "Bisiklet için sele ve gidon ayarı, kadans-direnci dengeleme, interval takibi, hatalar ve progression.",
+        "Learn cycling saddle and handlebar setup, cadence-resistance balance, intervals, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Sabit veya dış ortam bisikleti",
+          "Stationary or outdoor bicycle"
+        ],
+        "movementPattern": [
+          "Tekrarlı pedal çevrimi",
+          "Repeated pedal cycle"
+        ],
+        "bestFor": [
+          "Kardiyorespiratuvar kapasite ve düşük darbeli hacim",
+          "Cardiorespiratory fitness and lower-impact volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Süre, mesafe, cadence, direnç veya watt, hız ve RPE değerini kaydet.",
+          "Log duration, distance, cadence, resistance or watts, speed, and RPE."
+        ],
+        [
+          "Bisiklet türü, sele ve gidon ayarlarını belirt.",
+          "Record bike type, saddle, and handlebar settings."
+        ],
+        [
+          "Sabit bisiklet ve dış sürüşleri ayrı takip et.",
+          "Track stationary and outdoor rides separately."
+        ]
+      ],
+      "related": [
+        "treadmill",
+        "stair-climber",
+        "rowing-machine"
+      ]
+    }
   },
   "stair-climber": {
     "publish": false,
@@ -16233,35 +16803,101 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/stair-climber",
     "summary": [
-      "Merdiven simülasyonu. Yoğun kardiyo.",
-      "Stair-climbing simulation. Intense cardio."
+      "Stair climber. Basamak hızı ve destek kontrollü kardiyo.",
+      "Stair climber. Step-rate and support controlled cardio."
     ],
     "description": [
-      "Merdiven çıkışını taklit eden yoğun kardiyo cihazı. Kalp atışını hızlı yükseltir, aynı zamanda quadriceps ve glute kaslarını da yorar. Kısa sürede yüksek efor isteyen kondisyon çalışmaları için idealdir.",
-      "A high-intensity cardio machine that mimics climbing stairs. It elevates heart rate quickly while also taxing the quads and glutes. It is ideal for conditioning sessions that need a lot of effort in limited time."
+      "Sürekli dönen basamaklarda merdiven çıkışını taklit eden kardiyo makinesi egzersizidir. Quadriceps ve gluteus maximus ana adım kuvvetini üretir; hamstring ve baldırlar basamak geçişine katkı verir. Basamak hızı, süre ve tutacak desteği talebi değiştirir.",
+      "A cardio-machine exercise that simulates stair climbing on continuously rotating steps. The quadriceps and gluteus maximus produce most of the step force while the hamstrings and calves assist transitions. Step rate, duration, and rail support change demand."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kollara aşırı yük verme; tutacakları sadece denge için hafif kullan.",
-        "Do not lean heavily on the handles; use them lightly for balance only."
+        "Makineye sabitken çık, tutacakları kavra ve düşük seviyede başlat.",
+        "Mount the stationary machine, hold the rails, and start at a low level."
       ],
       [
-        "Adımları tam basarak çık; parmak ucunda minik adımlara kaçma.",
-        "Step fully onto each step instead of taking tiny tiptoe steps."
+        "Basamak ritmi oturunca gövdeyi rahat dik tutup tutacak basıncını azalt.",
+        "Once rhythm is established, keep the torso comfortably upright and reduce rail pressure."
       ],
       [
-        "Başlangıçta kısa bloklarla çalış; cihaz düşündüğünden daha sert olabilir.",
-        "Start with short work blocks; the machine can be harder than it looks."
+        "Ayağı makine geometrisinin izin verdiği kadar dengeli biçimde basamağa yerleştir.",
+        "Place the foot on each step as evenly as the machine geometry allows."
+      ],
+      [
+        "Seçilen step rate ile diz ve kalça yönünü kontrollü koru.",
+        "Maintain controlled knee and hip alignment at the chosen step rate."
+      ],
+      [
+        "Bitişte seviyeyi düşür, basamaklar durunca makineden kontrollü in.",
+        "Reduce the level and dismount under control once the steps stop."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Yüksek seviye göstermek için ön kollara veya tutacaklara sürekli asılmak.",
+        "Leaning heavily on the forearms or rails to maintain a high displayed level."
+      ],
+      [
+        "Makine boyutuna uymayan zorunlu tam ayak basışını kovalamak.",
+        "Forcing full-foot placement that does not fit the machine dimensions."
+      ],
+      [
+        "Adım ritmi bozulurken seviyeyi artırmaya devam etmek.",
+        "Continuing to increase level while step rhythm deteriorates."
+      ],
+      [
+        "Basamaklar hareketliyken yana bakmak veya kontrolsüz inmek.",
+        "Looking away or dismounting without control while the steps are moving."
+      ]
+    ],
+    "tips": [
+      [
+        "Tutacaklar başlangıç ve denge düzeltmesi için kullanılabilir; sürekli ağır destek ayrı varyasyondur.",
+        "Rails can assist starting and balance corrections; continuous heavy support is a separate variation."
+      ],
+      [
+        "Tüm ayağın basamağa sığması makineye ve ayak boyuna bağlıdır; dengeli basıncı hedefle.",
+        "Full-foot placement depends on machine and foot size; aim for balanced pressure."
+      ],
+      [
+        "Yüksek kalp atımı tek başına daha iyi seans anlamına gelmez; step rate, süre ve RPE’yi birlikte izle.",
+        "A high heart rate alone does not define a better session; track step rate, duration, and RPE together."
+      ],
+      [
+        "Kısa interval ve sabit tempo seçenekleri farklı hedeflere hizmet eder; biri her zaman üstün değildir.",
+        "Short intervals and steady work serve different goals; neither is always superior."
+      ]
+    ],
+    "progression": [
+      [
+        "Düşük step rate ile güvenli çıkış ve ritim öğren.",
+        "Learn safe mounting and rhythm at a low step rate."
+      ],
+      [
+        "Aynı seviye ve hafif tutacak desteğinde süreyi artır.",
+        "Increase duration at the same level with light rail support."
+      ],
+      [
+        "Tutacak desteğini azalt veya step rate’i küçük adımlarla artır.",
+        "Reduce rail support or increase step rate in small steps."
+      ],
+      [
+        "İleri aşamada planlı tempo veya interval blokları kullan.",
+        "At a later stage, use planned tempo or interval blocks."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "cardiovascular"
+        "quadriceps",
+        "gluteus-maximus"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "gastrocnemius",
+        "soleus",
+        "gluteus-medius",
+        "spinal-erectors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -16277,7 +16913,53 @@
         "Muscle map for the Stair Climber exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Stair Climber Rehberi | Basamak Hızı ve Form",
+        "Stair Climber Guide | Step Rate and Form"
+      ],
+      "metaDescription": [
+        "Stair climber için güvenli başlangıç-bitiş, ayak basışı, tutacak desteği, step rate, interval ve progression.",
+        "Learn stair-climber start-stop safety, foot placement, rail support, step rate, intervals, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Stair-climber makinesi",
+          "Stair-climber machine"
+        ],
+        "movementPattern": [
+          "Sürekli merdiven çıkışı",
+          "Continuous stair climbing"
+        ],
+        "bestFor": [
+          "Kardiyorespiratuvar kapasite ve alt vücut kondisyonu",
+          "Cardiorespiratory fitness and lower-body conditioning"
+        ]
+      },
+      "tracking": [
+        [
+          "Süre, kat/basamak, seviye veya step rate, RPE ve nabzı kaydet.",
+          "Log duration, floors or steps, level or step rate, RPE, and heart rate."
+        ],
+        [
+          "Tutacak desteği miktarını varyasyon notuna ekle.",
+          "Include the amount of rail support in the variation notes."
+        ],
+        [
+          "Interval ve sabit tempo seanslarını ayrı takip et.",
+          "Track interval and steady sessions separately."
+        ]
+      ],
+      "related": [
+        "treadmill",
+        "cycling",
+        "walking-lunge"
+      ]
+    }
   },
   "rowing-machine": {
     "publish": false,
@@ -16285,35 +16967,107 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/rowing-machine",
     "summary": [
-      "Kürek ergometresi. Tüm vücut kardiyo.",
-      "Rowing ergometer. Full-body cardio."
+      "Rowing ergometer. Bacak-gövde-kol ritimli kardiyo.",
+      "Rowing ergometer. Legs-body-arms rhythmic cardio."
     ],
     "description": [
-      "Kürek ergometresinde yapılan tam vücut kardiyo egzersizi. Bacak itişi, gövde salınımı ve kol çekişini tek ritimde birleştirir. Hem kondisyon hem de iş kapasitesi geliştirmek için çok verimlidir.",
-      "A full-body cardio exercise performed on a rowing ergometer. It combines leg drive, torso swing, and arm pull in one rhythm. It is highly efficient for building conditioning and work capacity."
+      "Kürek ergometresinde bacak itişi, kalça menteşesi ve kol çekişinin sıralı biçimde birleştirildiği bütün-vücut kardiyo hareketidir. Quadriceps ve glute itişi başlatır; sırt ve kollar finish’i, gövde kasları ise stroke boyunca aktarımı kontrol eder.",
+      "A whole-body cardio exercise on a rowing ergometer that sequences leg drive, hip hinge, and arm pull. The quadriceps and glutes initiate the drive, the back and arms complete the finish, and the trunk controls force transfer through the stroke."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Çekiş sırası bacak-gövde-kol; dönüş sırası kol-gövde-bacak olsun.",
-        "Drive in the order legs-torso-arms, then return arms-torso-legs."
+        "Ayaklıkları kayış ayağın geniş kısmına gelecek şekilde ayarla ve tutacağı rahat kavra.",
+        "Adjust the footrests so the strap crosses the widest part of the foot and hold the handle lightly."
       ],
       [
-        "Belden kamburlaşma; gövde salınımını kontrollü ve nötr omurgayla yap.",
-        "Avoid rounding the lower back; keep the torso swing controlled with a neutral spine."
+        "Catch’te kolları uzun, gövdeyi kalçadan hafif öne eğik ve incikleri rahatça dik konuma yakın tut.",
+        "At the catch, keep the arms long, hinge slightly forward from the hips, and bring the shins near vertical as comfort allows."
       ],
       [
-        "Dakika başına çok hızlı değil, güçlü ve ritmik çekişler hedefle.",
-        "Aim for strong rhythmic strokes rather than simply rushing the stroke rate."
+        "Drive’ı bacaklarla başlat, sonra gövdeyi dik hattın gerisine kontrollü aç ve en son kolları çek.",
+        "Start the drive with the legs, then open the torso slightly past vertical, and finish with the arm pull."
+      ],
+      [
+        "Finish’te tutacağı alt kaburga civarında, bilekleri düz ve omuzları rahat tut.",
+        "At the finish, hold the handle near the lower ribs with flat wrists and relaxed shoulders."
+      ],
+      [
+        "Recovery’de önce kolları uzat, sonra gövdeyi öne al ve eller dizleri geçince dizleri bük.",
+        "On recovery, extend the arms first, hinge the torso forward, and bend the knees after the hands clear them."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Drive’ı kollarla erken başlatıp bacak itişini geciktirmek.",
+        "Starting the drive early with the arms and delaying leg drive."
+      ],
+      [
+        "Kalça geride kalırken dizleri hızla açıp “seat shoot” yapmak.",
+        "Opening the knees rapidly while the hips lag behind in a seat shoot."
+      ],
+      [
+        "Recovery’de dizleri eller geçmeden büküp tutacak yolunu kapatmak.",
+        "Bending the knees before the hands clear them and blocking the handle path."
+      ],
+      [
+        "Yalnız stroke rate’i yükseltip split ve stroke kalitesini bozmak.",
+        "Increasing only stroke rate while worsening split and stroke quality."
+      ]
+    ],
+    "tips": [
+      [
+        "Drive sırası bacak-gövde-kol; recovery sırası kol-gövde-bacak olarak akıcı biçimde birleşir.",
+        "The drive flows legs-body-arms and recovery flows arms-body-legs."
+      ],
+      [
+        "Damper ayarı doğrudan “zorluk seviyesi” değildir; makine türü ve drag factor ile birlikte kaydet.",
+        "Damper setting is not simply a difficulty level; log it with machine type and drag factor."
+      ],
+      [
+        "İnciklerin dikten ileri gitmesi zorunlu değildir; rahat catch mesafesini kullan.",
+        "The shins do not need to pass vertical; use a comfortable catch position."
+      ],
+      [
+        "Daha yüksek stroke rate otomatik olarak daha hızlı split veya daha iyi teknik anlamına gelmez.",
+        "A higher stroke rate does not automatically mean a faster split or better technique."
+      ]
+    ],
+    "progression": [
+      [
+        "Düşük stroke rate ile catch-drive-finish-recovery sırasını öğren.",
+        "Learn catch-drive-finish-recovery sequencing at a low stroke rate."
+      ],
+      [
+        "Aynı teknikle kısa süre veya mesafede tutarlı split geliştir.",
+        "Develop a consistent split over short time or distance with the same technique."
+      ],
+      [
+        "Süre, mesafe veya güç değişkenlerinden birini kademeli artır.",
+        "Gradually increase one of duration, distance, or power."
+      ],
+      [
+        "İleri aşamada planlı stroke-rate, tempo veya interval blokları kullan.",
+        "At a later stage, use planned stroke-rate, tempo, or interval blocks."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "cardiovascular"
+        "quadriceps",
+        "gluteus-maximus",
+        "latissimus-dorsi",
+        "middle-trapezius",
+        "rhomboids"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "gastrocnemius",
+        "soleus",
+        "spinal-erectors",
+        "rectus-abdominis",
+        "biceps-brachii",
+        "posterior-deltoid",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -16329,7 +17083,53 @@
         "Muscle map for the Rowing Machine exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Rowing Machine Rehberi | Stroke Sırası ve Form",
+        "Rowing Machine Guide | Stroke Sequence and Form"
+      ],
+      "metaDescription": [
+        "Rowing ergometer için ayaklık, catch, bacak-gövde-kol drive, recovery, stroke rate, split ve progression.",
+        "Learn rowing footrests, catch, legs-body-arms drive, recovery, stroke rate, split, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Bacaklar, glute, lat ve üst sırt",
+          "Legs, glutes, lats, and upper back"
+        ],
+        "equipment": [
+          "Rowing ergometer",
+          "Rowing ergometer"
+        ],
+        "movementPattern": [
+          "Sıralı bütün-vücut stroke",
+          "Sequenced whole-body stroke"
+        ],
+        "bestFor": [
+          "Kardiyorespiratuvar kapasite ve bütün-vücut iş gücü",
+          "Cardiorespiratory fitness and whole-body work capacity"
+        ]
+      },
+      "tracking": [
+        [
+          "Süre/mesafe, ortalama split, stroke rate, watt, RPE ve nabzı kaydet.",
+          "Log time or distance, average split, stroke rate, watts, RPE, and heart rate."
+        ],
+        [
+          "Makine türü, damper ve varsa drag factor değerini belirt.",
+          "Record machine type, damper, and drag factor when available."
+        ],
+        [
+          "Teknik, tempo ve interval seanslarını ayrı takip et.",
+          "Track technique, tempo, and interval sessions separately."
+        ]
+      ],
+      "related": [
+        "cycling",
+        "treadmill",
+        "deadlift"
+      ]
+    }
   },
   "superman": {
     "publish": false,

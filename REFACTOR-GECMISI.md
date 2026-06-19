@@ -4151,6 +4151,61 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 76 — Exercise Guide Enrichment Batch 12 (2026-06-19)
+
+### Amaç
+
+Dinamik plank, burpee/jumping jack ve dört temel kardiyo makinesi desenindeki yedi hareketi tam guide seviyesine taşımak; sabit yağ/kalori yakımı vaatleri, tek ideal cadence, zorunlu burpee bileşenleri ve yalnız hız/seviye odaklı performans hakkındaki legacy iddiaları düzeltmek.
+
+### Kapsam
+
+- Mountain Climber
+- Burpee
+- Jumping Jack
+- Treadmill
+- Cycling
+- Stair Climber
+- Rowing Machine
+
+### İçerik Kararları
+
+- **Mountain Climber standardı:** Hızlı tekrar yalnız kardiyo, yavaş tekrar yalnız core olarak ayrılmadı. El/plank kurulumu, pelvis kontrolü, cadence ve toplam/side-specific tekrar standardı tracking alanına eklendi.
+- **Burpee varyasyonları:** Push-up, chest-to-floor, jump-back ve üstte zıplama zorunlu evrensel bileşenler yapılmadı. Step-back ve zıplamasız burpee geçerli düşük darbeli varyasyonlar olarak tanımlandı.
+- **Jumping Jack inişi:** Yalnız ayak parmaklarına inme ve sabit 2-3 dakika ısınma cue'ları kaldırıldı; sessiz kontrollü iniş, rahat omuz açıklığı, cadence ve step-jack regresyonu kullanıldı.
+- **Treadmill iddiaları:** Eğim için sabit kalori artışı ve LISS için otomatik yağ kaybı vaat edilmedi. Hız, eğim, süre, mesafe, RPE/nabız ve tutacak desteği birlikte izlenir.
+- **Cycling ayarı:** Sele yalnız “diz neredeyse kilitli” kuralıyla ayarlanmadı. Tek ideal kadans, ağır vitesin otomatik zararı ve HIIT'in otomatik üstün yağ yakımı iddiaları kaldırıldı; bisiklet türü, fit, cadence, direnç/watt ve RPE kaydedilir.
+- **Stair Climber desteği:** Makine boyundan bağımsız zorunlu tam ayak basışı kaldırıldı. Dengeli ayak basıncı, step rate, tutacak desteği, süre ve RPE standardı yazıldı.
+- **Rowing sırası:** Concept2 tekniğiyle uyumlu olarak drive bacak-gövde-kol, recovery kol-gövde-bacak sırasına bağlandı. Catch, finish, split, stroke rate, damper ve drag factor tracking alanlarına eklendi.
+- **Anatomik kas verisi:** Kardiyovasküler sistem kas slug'ı olarak kullanılmadı; yedi guide harekete özgü alt/üst vücut ve gövde kaslarına geçirildi.
+- **Kategori sonucu:** Kardiyo kategorisinde yalnız ayrı dans/skill kaydı `moonwalk` content-ready değildir.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 87 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Kaynaklar
+
+- `https://www.concept2.com/training/rowing-technique`
+- `https://pubmed.ncbi.nlm.nih.gov/21694556/`
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi ana kardiyo hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları, kaynaklar ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 87 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 75 — Exercise Guide Enrichment Batch 11 (2026-06-19)
 
 ### Amaç
