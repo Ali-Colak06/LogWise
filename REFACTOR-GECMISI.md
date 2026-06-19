@@ -4151,6 +4151,60 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 74 — Exercise Guide Enrichment Batch 10 (2026-06-19)
+
+### Amaç
+
+Ayakta rollout, oturarak/kablo rotasyon, asılı diz-bacak kaldırma, strict toes-to-bar ve dragon flag desenlerindeki yedi dinamik/ileri core hareketini tam guide seviyesine taşımak; maksimum rotasyon, alt karın izolasyonu, strict-kipping karışımı ve tam menzil zorunluluğu hakkındaki legacy iddiaları düzeltmek.
+
+### Kapsam
+
+- Standing Ab Wheel
+- Russian Twist
+- Cable Woodchopper
+- Hanging Leg Raise
+- Hanging Knee Raise
+- Toes-to-Bar
+- Dragon Flag
+
+### İçerik Kararları
+
+- **Standing rollout progression:** Tam ayakta tekrar başlangıç şartı yapılmadı; eğimli yüzey, duvar sınırı ve ayakta eksantrik/diz üstü dönüş ayrı regresyonlar olarak tanımlandı.
+- **Russian Twist menzili:** Her yana maksimum dönüş zorunluluğu kaldırıldı. Ayaklar yerde temel varyasyon olarak korundu; ayakları kaldırma ve yükü gövdeden uzaklaştırma ayrı zorluk değişkenleri oldu.
+- **Woodchopper standardı:** Guide yüksekten aşağı bütün-vücut rotasyon varyasyonu olarak kilitlendi. Ayak pivotuna izin verildi; low-to-high ve anti-rotation varyasyonları ayrı kayda bağlandı. Spor performansına otomatik transfer garantisi verilmedi.
+- **Alt karın miti:** Hanging Knee Raise, Hanging Leg Raise ve Toes-to-Bar ayrı bir “alt karın kasını” izole eden hareketler olarak sunulmadı; rectus abdominis, oblik, kalça fleksörü, lat ve kavrama katkıları anatomik veriye işlendi.
+- **Asılış pozisyonu:** Omuzları zorla sürekli aşağı bastırma cue'su kaldırıldı; rahat ve kontrollü aktif asılış kullanıldı. Kavrama/omuz kontrolü kaybolduğunda set biter.
+- **Strict-kipping ayrımı:** Hanging varyasyonlar ve Toes-to-Bar için strict standart yazıldı; kipli tekrarlar aynı set ve tracking kaydında karıştırılmaz.
+- **Toes-to-Bar teması:** Bara temas tek kalite ölçütü yapılmadı; hedef yükseklik, diz açısı, pelvis kıvrımı, salınım ve kontrollü iniş birlikte izlenir.
+- **Dragon Flag güvenli ankrajı:** Üst sırt desteği ve boynun ana yük noktası olmaması açıklandı; tuck, tek bacak, straddle ve eksantrik-only progression'lar tam düz bacak tekrardan önce kabul edildi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 73 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Kaynaklar
+
+- `https://pubmed.ncbi.nlm.nih.gov/25111163/`
+- `https://pubmed.ncbi.nlm.nih.gov/16649890/`
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi dinamik/ileri core hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları, kaynaklar ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 73 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 73 — Exercise Guide Enrichment Batch 9 (2026-06-19)
 
 ### Amaç

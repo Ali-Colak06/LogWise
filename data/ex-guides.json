@@ -13976,35 +13976,104 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/standing-ab-wheel",
     "summary": [
-      "Ayakta ab wheel rollout. İleri seviye core.",
-      "Standing ab-wheel rollout. Advanced core."
+      "Ayakta ab-wheel rollout. Uzun kaldıraç anti-extension.",
+      "Standing ab-wheel rollout. Long-lever anti-extension."
     ],
     "description": [
-      "Ayakta başlanan ab wheel rollout varyasyonu. Diz üstü versiyona göre çok daha yüksek core, omuz ve vücut hattı kontrolü ister. İleri seviye karın çalışmaları içinde oldukça zorlayıcı bir seçenektir.",
-      "An ab-wheel rollout variation started from standing. Compared with the kneeling version, it demands far more core strength, shoulder stability, and body-line control. It is a very challenging advanced abdominal exercise."
+      "Ayakta başlayıp teker zeminde öne yuvarlanırken tüm gövde kaldıraç kolunun uzatıldığı ileri seviye dinamik anti-extension hareketidir. Karın duvarı gövdeyi kontrol eder; lat, serratus, omuz, kol ve kalça çevresi hareket yoluna katkı verir.",
+      "An advanced dynamic anti-extension exercise that starts standing and lengthens the whole-body lever as the wheel rolls forward on the floor. The abdominal wall controls the trunk while the lats, serratus, shoulders, arms, and hip muscles contribute to the path."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Menzili zamanla artır; ilk günden tam tekrar kovalamak gereksizdir.",
-        "Build the range gradually; there is no need to chase full reps on day one."
+        "Ayakları dengeli genişlikte yerleştir ve tekeri iki elle simetrik tut.",
+        "Stand with a stable foot width and hold the wheel evenly with both hands."
       ],
       [
-        "Bel boşluğunu koruyup core kilidini kaybetme.",
-        "Do not lose the brace or let the lower back collapse."
+        "Kalçadan kontrollü katlanıp tekeri ayakların önünde zemine yerleştir.",
+        "Hinge down under control and place the wheel on the floor in front of the feet."
       ],
       [
-        "Negatif tekrarlar bu hareketi öğrenmek için çok yararlıdır.",
-        "Negative reps are very useful while learning this movement."
+        "Kaburgaları pelvis üzerinde brace ile tutup tekeri yavaşça ileri yuvarla.",
+        "Brace with the ribs stacked over the pelvis and slowly roll the wheel forward."
+      ],
+      [
+        "Bel ve omuz kontrolü korunabilen menzilde dur; tam uzanmayı zorunlu tutma.",
+        "Stop at the range that preserves lower-back and shoulder control; do not force full extension."
+      ],
+      [
+        "Teker ve zemini kendine çekerek kalçayı ve gövdeyi birlikte başlangıca getir.",
+        "Pull the wheel and floor toward you to return the hips and trunk together to the start."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Diz üstü rollout kontrol edilmeden tam ayakta tekrar denemek.",
+        "Attempting a full standing rep before controlling kneeling rollouts."
+      ],
+      [
+        "Bel pozisyonu kaybolduktan sonra tekeri daha ileri göndermek.",
+        "Rolling farther after lower-back position is lost."
+      ],
+      [
+        "Dönüşte yalnız kalçayı yukarı fırlatıp tekeri geride bırakmak.",
+        "Throwing only the hips upward and leaving the wheel behind on the return."
+      ],
+      [
+        "Eksantrik tekrar sonunda güvenli diz veya zemin geçişi planlamamak.",
+        "Failing to plan a safe knee or floor transition at the end of an eccentric rep."
+      ]
+    ],
+    "tips": [
+      [
+        "Eğimli yüzey, duvar sınırı veya ayakta eksantrik-diz üstü dönüş farklı regresyonlardır; ayrı kaydet.",
+        "An incline, wall limit, or standing eccentric with kneeling return are different regressions; log them separately."
+      ],
+      [
+        "Tam tekrar şart değildir; aynı bel kontrolüyle tekrarlanabilen menzil asıl ilerleme ölçüsüdür.",
+        "A full rep is not mandatory; repeatable range with the same lower-back control is the main progress measure."
+      ],
+      [
+        "Ayak genişliği dengeyi ve teker yolunu değiştirir; setler arasında sabit tut.",
+        "Foot width changes balance and wheel path; keep it consistent between sets."
+      ],
+      [
+        "Bu hareket yalnız karın izolasyonu değildir; omuz, lat ve kalça katkısı normaldir.",
+        "This is not an abdominal isolation exercise; shoulder, lat, and hip contribution is normal."
+      ]
+    ],
+    "progression": [
+      [
+        "Diz üstü ab-wheel rollout ile tam kontrollü menzil geliştir.",
+        "Develop a fully controlled range with kneeling ab-wheel rollouts."
+      ],
+      [
+        "Yüksek eğimli yüzeyde ayakta rollout yap.",
+        "Perform standing rollouts on a high incline."
+      ],
+      [
+        "Ayakta eksantrik inip dizler üzerinden destekli geri dön.",
+        "Lower eccentrically from standing and return with knee assistance."
+      ],
+      [
+        "Eğim veya zemin menzilini kademeli artırarak tam ayakta tekrara ilerle.",
+        "Gradually increase incline or floor range toward a full standing rep."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "transversus-abdominis",
+        "internal-oblique",
+        "external-oblique"
       ],
-      "secondary": []
+      "secondary": [
+        "latissimus-dorsi",
+        "serratus-anterior",
+        "anterior-deltoid",
+        "triceps-brachii",
+        "iliopsoas",
+        "gluteus-maximus"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -14020,7 +14089,53 @@
         "Muscle map for the Standing Ab Wheel exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Standing Ab Wheel Rehberi | Ayakta Rollout Formu",
+        "Standing Ab Wheel Guide | Rollout Form"
+      ],
+      "metaDescription": [
+        "Standing ab-wheel için ayak ve teker kurulumu, menzil sınırı, eksantrik regresyonlar, hatalar ve progression.",
+        "Learn standing ab-wheel setup, range limits, eccentric regressions, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Karın duvarı ve oblikler",
+          "Abdominal wall and obliques"
+        ],
+        "equipment": [
+          "Ab wheel ve uygun zemin",
+          "Ab wheel and suitable floor"
+        ],
+        "movementPattern": [
+          "Ayakta dinamik anti-extension",
+          "Standing dynamic anti-extension"
+        ],
+        "bestFor": [
+          "İleri gövde kuvveti ve uzun kaldıraç kontrolü",
+          "Advanced trunk strength and long-lever control"
+        ]
+      },
+      "tracking": [
+        [
+          "Menzil mesafesi, ayak genişliği, tekrar, tempo ve RIR değerini kaydet.",
+          "Log range distance, foot width, reps, tempo, and RIR."
+        ],
+        [
+          "Eğimli, duvar sınırlı veya eksantrik-only varyasyonu belirt.",
+          "Record incline, wall-limited, or eccentric-only variation."
+        ],
+        [
+          "Diz üstü destekli dönüşleri tam ayakta tekrarlardan ayrı takip et.",
+          "Track kneeling-assisted returns separately from full standing reps."
+        ]
+      ],
+      "related": [
+        "ab-wheel",
+        "plank",
+        "dragon-flag"
+      ]
+    }
   },
   "russian-twist": {
     "publish": false,
@@ -14028,35 +14143,100 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/russian-twist",
     "summary": [
-      "Gövde rotasyonu. Oblikler.",
-      "Torso rotation. Obliques."
+      "Oturarak gövde rotasyonu. Oblik odaklı.",
+      "Seated trunk rotation. Oblique focused."
     ],
     "description": [
-      "Gövde rotasyonu egzersizi. Oblik kasları ve transversus abdominis kaslarını çalıştırır. Yan karın kaslarının gelişimi için idealdir.",
-      "Torso rotation exercise. Works the obliques and transverse abdominis. Ideal for lateral core development."
+      "Dizler bükülü oturuşta gövdenin sağa ve sola kontrollü döndürüldüğü rotasyon hareketidir. Internal ve external oblikler ana yükü taşır; kalça fleksörleri oturuşu, derin karın kasları ise pelvis-gövde ilişkisini destekler.",
+      "A rotational exercise performed seated with bent knees while the trunk turns from side to side under control. The internal and external obliques carry most of the load, while the hip flexors support the seated position and deeper abdominal muscles assist trunk-pelvis control."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bacakları yerde tutabilirsin; kaldırınca zorluk artar.",
-        "Legs can be on the ground; raising them adds difficulty."
+        "Dizleri büküp ayakları zemine yerleştir; oturma kemikleri üzerinde dengeli otur.",
+        "Sit with the knees bent and feet on the floor, balanced over the sitting bones."
       ],
       [
-        "Her yana tam dön — kısmi rotasyon etkinliği düşürür.",
-        "Rotate fully to each side — partial rotation reduces effectiveness."
+        "Gövdeyi kontrol edebildiğin kadar geriye yatır ve kaburga-pelvis ilişkisini sabitle.",
+        "Lean back only as far as you can control and set the rib-pelvis relationship."
       ],
       [
-        "Ağırlıklı yapıyorsan hafiften başla; bel stresi olabilir.",
-        "Start light if weighted — can strain the lower back if too heavy."
+        "Elleri göğüs önünde birleştir veya hafif yükü gövdeye yakın tut.",
+        "Join the hands in front of the chest or hold a light load close to the torso."
+      ],
+      [
+        "Göğüs kafesini ağrısız menzilde bir tarafa çevir; pelvis ve ayak desteğini koru.",
+        "Rotate the rib cage toward one side through a pain-free range while maintaining pelvic and foot support."
+      ],
+      [
+        "Merkezden kontrollü geçip diğer tarafa aynı menzil ve tempoda dön.",
+        "Pass through center under control and rotate to the other side with the same range and tempo."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Her yana maksimum dönmeyi zorunlu tutup bel veya kalça kontrolünü kaybetmek.",
+        "Forcing maximum rotation to each side and losing lower-back or hip control."
+      ],
+      [
+        "Yükü yalnız kollarla sağa sola savurmak.",
+        "Swinging the load side to side using only the arms."
+      ],
+      [
+        "Ayakları kaldırınca gövde rotasyonu yerine denge mücadelesine dönüşmek.",
+        "Turning the exercise into a balance struggle after lifting the feet."
+      ],
+      [
+        "Hızlı tekrar uğruna sağ ve sol menzili farklılaştırmak.",
+        "Using different right and left ranges just to move faster."
+      ]
+    ],
+    "tips": [
+      [
+        "Kısmi fakat kontrollü rotasyon geçerli bir tekrar olabilir; tam dönüş otomatik olarak daha etkili değildir.",
+        "Partial but controlled rotation can be a valid rep; full rotation is not automatically more effective."
+      ],
+      [
+        "Ayaklar yerde temel varyasyondur; ayakları kaldırmak yalnız daha zor bir denge seçeneğidir.",
+        "Feet down is the base variation; lifting them is simply a harder balance option."
+      ],
+      [
+        "Yük gövdeden uzaklaştıkça kaldıraç artar; kilo kadar yük mesafesini de kaydet.",
+        "Leverage increases as the load moves away from the torso; log load distance as well as weight."
+      ],
+      [
+        "Sağ ve sol rotasyonu aynı pelvis konumu ve nefes düzeniyle takip et.",
+        "Track right and left rotation with the same pelvic position and breathing pattern."
+      ]
+    ],
+    "progression": [
+      [
+        "Dik oturuş ve ayaklar yerde kısa rotasyonlarla başla.",
+        "Start upright with the feet down and short rotations."
+      ],
+      [
+        "Gövdeyi biraz geriye alarak aynı rotasyon kontrolünü koru.",
+        "Lean back slightly while maintaining the same rotation control."
+      ],
+      [
+        "Hafif yükü gövdeye yakın ekle ve sonra kaldıracı uzat.",
+        "Add a light load close to the torso, then lengthen the lever."
+      ],
+      [
+        "İleri aşamada ayaklar havada veya pause kullanılan varyasyona geç.",
+        "At a later stage, use a feet-up or paused variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "internal-oblique",
+        "external-oblique"
       ],
-      "secondary": []
+      "secondary": [
+        "rectus-abdominis",
+        "transversus-abdominis",
+        "iliopsoas",
+        "rectus-femoris"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -14072,7 +14252,53 @@
         "Muscle map for the Russian Twist exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Russian Twist Rehberi | Rotasyon Formu ve Menzil",
+        "Russian Twist Guide | Rotation Form and Range"
+      ],
+      "metaDescription": [
+        "Russian twist oturuşu, ayak seçeneği, kontrollü rotasyon menzili, yük kaldıracı, hatalar ve progression.",
+        "Learn Russian-twist setup, foot options, rotation range, load leverage, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Internal ve external oblikler",
+          "Internal and external obliques"
+        ],
+        "equipment": [
+          "Vücut ağırlığı; opsiyonel hafif yük",
+          "Bodyweight; optional light load"
+        ],
+        "movementPattern": [
+          "Oturarak gövde rotasyonu",
+          "Seated trunk rotation"
+        ],
+        "bestFor": [
+          "Kontrollü rotasyon ve oblik kuvveti",
+          "Controlled rotation and oblique strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Taraf başına tekrar, rotasyon menzili, yük, tempo ve RIR değerini kaydet.",
+          "Log reps per side, rotation range, load, tempo, and RIR."
+        ],
+        [
+          "Ayaklar yerde veya havada varyasyonunu belirt.",
+          "Record feet-down or feet-up variation."
+        ],
+        [
+          "Yükün gövdeye mesafesini varyasyon notuna ekle.",
+          "Include load distance from the torso in the variation notes."
+        ]
+      ],
+      "related": [
+        "cable-woodchopper",
+        "side-plank",
+        "cable-crunch"
+      ]
+    }
   },
   "cable-woodchopper": {
     "publish": false,
@@ -14080,35 +14306,103 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/cable-woodchopper",
     "summary": [
-      "Kablo oduncu hareketi. Rotasyonel core.",
-      "Cable woodchopper. Rotational core."
+      "Yüksekten aşağı cable woodchopper. Rotasyonel core.",
+      "High-to-low cable woodchopper. Rotational core."
     ],
     "description": [
-      "Kabloyla çapraz yönde yapılan rotasyonel core hareketi. Oblikler, transversus abdominis ve gövde kontrolünü geliştirir. Sporda yön değiştirme ve kuvvet transferi için faydalı bir varyasyondur.",
-      "A rotational core exercise performed diagonally with a cable. It develops the obliques, transverse abdominis, and trunk control. It is useful for change-of-direction and force transfer in sport."
+      "Yüksek makaradan gelen kablonun gövde boyunca çapraz aşağı taşındığı ayakta rotasyon hareketidir. Oblikler gövde dönüşünü kontrol eder; kalça, ayak, sırt ve omuz kasları bütün vücut kuvvet aktarımına katkı verir.",
+      "A standing rotational exercise that moves a high cable diagonally downward across the body. The obliques control trunk rotation while the hips, feet, back, and shoulder muscles contribute to whole-body force transfer."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dönüşü sadece kollarla değil, gövdeyle birlikte yap.",
-        "Rotate through the trunk instead of moving only the arms."
+        "Makarayı yüksek konuma ayarla ve makineye yan dönerek dengeli bir duruş al.",
+        "Set the pulley high and take a stable stance with the body side-on to the machine."
       ],
       [
-        "Kalçaları ve ayakları gerektiği kadar çevirerek doğal bir rota izle.",
-        "Allow the hips and feet to turn naturally as needed."
+        "Aparatı iki elle kavra, kablo boşluğunu al ve yükü başlangıç tarafında kontrol et.",
+        "Grip the attachment with both hands, take up cable slack, and control the load on the starting side."
       ],
       [
-        "Ağırlık arttıkça form bozuluyorsa tekrar düşmek daha iyi olur.",
-        "If form breaks as the weight rises, reduce the load and keep the movement clean."
+        "Göğüs kafesi, pelvis ve ayakların seçtiğin varyasyonda birlikte dönmesine izin ver.",
+        "Allow the rib cage, pelvis, and feet to rotate together according to the chosen variation."
+      ],
+      [
+        "Kabloyu karşı kalça yönüne çapraz taşı; kolları gövdenin uzantısı gibi kullan.",
+        "Move the cable diagonally toward the opposite hip, using the arms as an extension of the trunk."
+      ],
+      [
+        "Ağırlık istifini çarptırmadan başlangıca kontrollü dön ve iki yönü ayrı çalış.",
+        "Return to the start without crashing the stack and train both directions separately."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dönüşü yalnız kollarla yapıp gövde ve ayakları sabit bırakmak.",
+        "Moving only the arms while keeping the trunk and feet rigid."
+      ],
+      [
+        "Ayaklar zemine yapışıkken dizleri ve beli zorla döndürmek.",
+        "Forcing the knees and lower back to rotate while the feet stay fixed."
+      ],
+      [
+        "Ağır yükte kablonun gövdeyi başlangıca kontrolsüz çekmesine izin vermek.",
+        "Letting a heavy cable pull the body back to the start without control."
+      ],
+      [
+        "Sağ ve sol yönde farklı makara yüksekliği veya duruş kullanmak.",
+        "Using different pulley heights or stances for the right and left directions."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu guide yüksekten aşağı rotasyon varyasyonudur; low-to-high ve anti-rotation seçeneklerini ayrı kaydet.",
+        "This guide covers the high-to-low rotational variation; log low-to-high and anti-rotation options separately."
+      ],
+      [
+        "Ayak pivotu kişiye ve hedefe göre değişebilir; diz-kalça yönünü rahat tutan tekrarlanabilir seçimi kullan.",
+        "Foot pivot can vary by person and goal; use a repeatable choice that keeps knee-hip alignment comfortable."
+      ],
+      [
+        "Woodchopper kuvvet aktarımını çalıştırabilir ancak spor performansına otomatik transfer garantisi vermez.",
+        "Woodchoppers can train force transfer but do not guarantee automatic transfer to sports performance."
+      ],
+      [
+        "Yükten önce kablo yolu ve iki yöndeki tempo eşitliğini standartlaştır.",
+        "Standardize cable path and tempo in both directions before increasing load."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif kabloyla ayak pivotu ve çapraz yolu öğren.",
+        "Learn the foot pivot and diagonal path with a light cable."
+      ],
+      [
+        "Aynı duruşta sağ ve sol yönde kontrollü tekrarlar tamamla.",
+        "Complete controlled reps in both directions with the same stance."
+      ],
+      [
+        "Hedef tekrarlar aynı kablo yolunda tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps use the same cable path."
+      ],
+      [
+        "İleri aşamada split stance, yarım diz çökme veya farklı makara yönü kullan.",
+        "At a later stage, use split stance, half-kneeling, or another pulley direction."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "internal-oblique",
+        "external-oblique"
       ],
-      "secondary": []
+      "secondary": [
+        "transversus-abdominis",
+        "rectus-abdominis",
+        "gluteus-maximus",
+        "gluteus-medius",
+        "latissimus-dorsi",
+        "serratus-anterior",
+        "anterior-deltoid"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -14124,7 +14418,53 @@
         "Muscle map for the Cable Woodchopper exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cable Woodchopper Rehberi | Rotasyon Formu",
+        "Cable Woodchopper Guide | Rotational Form"
+      ],
+      "metaDescription": [
+        "Cable woodchopper makara ayarı, ayak pivotu, çapraz kablo yolu, yön takibi, hatalar ve progression.",
+        "Learn cable-woodchopper setup, foot pivot, diagonal path, side tracking, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Internal ve external oblikler",
+          "Internal and external obliques"
+        ],
+        "equipment": [
+          "Kablo makinesi ve tutacak",
+          "Cable machine and handle"
+        ],
+        "movementPattern": [
+          "Ayakta yüksekten aşağı rotasyon",
+          "Standing high-to-low rotation"
+        ],
+        "bestFor": [
+          "Rotasyon kontrolü ve bütün vücut kuvvet aktarımı",
+          "Rotational control and whole-body force transfer"
+        ]
+      },
+      "tracking": [
+        [
+          "Yön başına tekrar, makara yüksekliği, duruş, yük ve RIR değerini kaydet.",
+          "Log reps per direction, pulley height, stance, load, and RIR."
+        ],
+        [
+          "Ayak pivotu ve kablo bitiş konumunu varyasyon notuna ekle.",
+          "Include foot pivot and cable finish position in the variation notes."
+        ],
+        [
+          "High-to-low ve diğer yönleri ayrı takip et.",
+          "Track high-to-low and other directions separately."
+        ]
+      ],
+      "related": [
+        "russian-twist",
+        "side-plank",
+        "farmer-carry"
+      ]
+    }
   },
   "hanging-leg-raise": {
     "publish": false,
@@ -14132,35 +14472,102 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/hanging-leg-raise",
     "summary": [
-      "Asılı bacak kaldırma. Alt karın ve core.",
-      "Hanging leg raise. Lower abs and core."
+      "Strict hanging leg raise. Core ve kalça fleksörü kontrolü.",
+      "Strict hanging leg raise. Core and hip-flexor control."
     ],
     "description": [
-      "Barfiks barında asılı pozisyonda yapılan core hareketi. Alt karın, kalça fleksörleri ve kavrama gücünü birlikte zorlar. Vücut ağırlığıyla yapılan en güçlü karın varyasyonlarından biridir.",
-      "A core movement performed while hanging from a pull-up bar. It challenges the lower abs, hip flexors, and grip strength together. It is one of the most powerful bodyweight ab variations."
+      "Barfiks barında asılıyken düz veya hafif bükülü bacakların kontrollü kaldırıldığı kalça fleksiyonu ve pelvis kontrolü hareketidir. Karın duvarı gövdeyi ve pelvis kıvrımını, kalça fleksörleri bacak kaldırmayı; kavrama ve sırt kasları asılışı destekler.",
+      "A hanging hip-flexion and pelvic-control exercise that raises straight or slightly bent legs under control. The abdominal wall manages the trunk and pelvic curl, the hip flexors lift the legs, and the grip and back muscles support the hang."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bacakları savurmak yerine kontrollü kaldır; salınımı minimumda tut.",
-        "Raise the legs under control rather than swinging them up."
+        "Barı tam kavrayıp omuz ve dirsekleri rahat, kontrollü bir asılışta yerleştir.",
+        "Take a full grip and set the shoulders and elbows in a comfortable, controlled hang."
       ],
       [
-        "Belini hafifçe kıvırıp pelvisi içeri almak karın aktivasyonunu artırır.",
-        "Slightly curling the pelvis under increases abdominal involvement."
+        "Salınımı durdurup kaburgaları pelvis üzerinde brace ile sabitle.",
+        "Settle any swing and brace with the ribs stacked over the pelvis."
       ],
       [
-        "Düz bacak çok zorsa önce diz çekiş varyasyonuyla başla.",
-        "If straight-leg reps are too hard, start with knee raises first."
+        "Dizleri seçtiğin açıda tutarak bacakları kalçadan öne kaldır.",
+        "Keep the chosen knee angle and raise the legs forward from the hips."
+      ],
+      [
+        "Hedef varyasyonda pelvis kıvırmasını ekleyip kontrol edilen yükseklikte kısa süre dur.",
+        "Add a pelvic curl for the chosen variation and pause briefly at the controlled height."
+      ],
+      [
+        "Bacakları savurmadan indir ve sıradaki tekrardan önce asılışı yeniden sabitle.",
+        "Lower the legs without swinging and reset the hang before the next rep."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Bacakları yükseltmek için ilk tekrardan salınım üretmek.",
+        "Creating swing from the first rep to lift the legs."
+      ],
+      [
+        "Yorgunlukla diz açısını ve bacak yüksekliğini her tekrarda değiştirmek.",
+        "Changing knee angle and leg height from rep to rep with fatigue."
+      ],
+      [
+        "Pelvis kıvırma hedeflenirken yalnız kalçadan bacak kaldırmak.",
+        "Only flexing the hips when the variation calls for a pelvic curl."
+      ],
+      [
+        "Kavrama veya omuz kontrolü kaybolduğu halde sete devam etmek.",
+        "Continuing after grip or shoulder control is lost."
+      ]
+    ],
+    "tips": [
+      [
+        "“Alt karın” ayrı bir kas değildir; pelvis kıvırma rectus abdominis ve oblik katkısını değiştirir.",
+        "The “lower abs” are not a separate muscle; pelvic curling changes rectus-abdominis and oblique contribution."
+      ],
+      [
+        "Diz açısı ve hedef yükseklik kaldıracı büyük ölçüde değiştirir; aynı varyasyonu tekrarla.",
+        "Knee angle and target height change leverage substantially; repeat the same variation."
+      ],
+      [
+        "Aktif asılış omuz kontrolüne yardımcı olabilir; omuzları zorla sürekli aşağı çekmek şart değildir.",
+        "An active hang can support shoulder control; forcibly depressing the shoulders throughout is not mandatory."
+      ],
+      [
+        "Strict ve kipli tekrarlar farklı hareket standartlarıdır; aynı sette veya kayıtta karıştırma.",
+        "Strict and kipping reps use different standards; do not mix them in one set or log entry."
+      ]
+    ],
+    "progression": [
+      [
+        "Dead hang ve hanging knee raise ile kavrama ve salınım kontrolü geliştir.",
+        "Develop grip and swing control with dead hangs and hanging knee raises."
+      ],
+      [
+        "Bükülü dizle bacakları daha uzağa taşıyan kontrollü tekrarlar yap.",
+        "Perform controlled reps with bent knees and a gradually longer lever."
+      ],
+      [
+        "Diz açısını uzatıp aynı hedef yüksekliği koru.",
+        "Lengthen the knee angle while maintaining the same target height."
+      ],
+      [
+        "İleri aşamada bar yüksekliği veya toes-to-bar menziline ilerle.",
+        "At a later stage, progress toward bar height or toes-to-bar range."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "iliopsoas",
+        "rectus-femoris"
       ],
-      "secondary": []
+      "secondary": [
+        "internal-oblique",
+        "external-oblique",
+        "transversus-abdominis",
+        "latissimus-dorsi",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -14176,7 +14583,53 @@
         "Muscle map for the Hanging Leg Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Hanging Leg Raise Rehberi | Strict Asılı Form",
+        "Hanging Leg Raise Guide | Strict Hanging Form"
+      ],
+      "metaDescription": [
+        "Hanging leg raise için kavrama, diz açısı, pelvis kıvırma, salınım kontrolü, hatalar ve progression.",
+        "Learn hanging-leg-raise grip, knee angle, pelvic curl, swing control, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Rectus abdominis ve kalça fleksörleri",
+          "Rectus abdominis and hip flexors"
+        ],
+        "equipment": [
+          "Barfiks barı",
+          "Pull-up bar"
+        ],
+        "movementPattern": [
+          "Asılı kalça fleksiyonu ve pelvis kontrolü",
+          "Hanging hip flexion and pelvic control"
+        ],
+        "bestFor": [
+          "Asılı core kuvveti ve uzun bacak kaldıracı",
+          "Hanging core strength and long leg leverage"
+        ]
+      },
+      "tracking": [
+        [
+          "Tekrar, diz açısı, hedef yükseklik, tempo ve RIR değerini kaydet.",
+          "Log reps, knee angle, target height, tempo, and RIR."
+        ],
+        [
+          "Pelvis kıvırmalı veya yalnız hip-flexion varyasyonunu belirt.",
+          "Record pelvic-curl or hip-flexion-only variation."
+        ],
+        [
+          "Strict ve kipli tekrarları ayrı takip et.",
+          "Track strict and kipping reps separately."
+        ]
+      ],
+      "related": [
+        "hanging-knee-raise",
+        "toes-to-bar",
+        "reverse-crunch"
+      ]
+    }
   },
   "hanging-knee-raise": {
     "publish": false,
@@ -14184,35 +14637,102 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/hanging-knee-raise",
     "summary": [
-      "Asılı diz çekişi. Başlangıç dostu core.",
-      "Hanging knee raise. Beginner-friendly core."
+      "Strict hanging knee raise. Asılı pelvis kontrolü.",
+      "Strict hanging knee raise. Hanging pelvic control."
     ],
     "description": [
-      "Barfiks barında asılıyken dizleri gövdeye çekme hareketi. Hanging leg raise'e göre daha erişilebilirdir ve karın-kalça fleksörü koordinasyonunu öğretir. Calisthenics core ilerlemesinde önemli bir basamaktır.",
-      "A movement where the knees are raised toward the torso while hanging from a pull-up bar. It is more accessible than a hanging leg raise and teaches abdominal-hip flexor coordination. It is an important step in calisthenics core progressions."
+      "Barfiks barında asılıyken bükülü dizlerin gövdeye doğru kaldırıldığı kalça fleksiyonu ve pelvis kıvırma hareketidir. Bükülü diz kısa kaldıraç sağlar; karın duvarı, kalça fleksörleri, kavrama ve sırt kasları birlikte çalışır.",
+      "A hanging hip-flexion and pelvic-curl exercise that raises bent knees toward the torso. Bent knees create a shorter lever while the abdominal wall, hip flexors, grip, and back muscles work together."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dizleri sadece kaldırmak yerine pelvisi hafif kıvır.",
-        "Do not just lift the knees; slightly curl the pelvis as well."
+        "Barı tam kavrayıp rahat ve kontrollü bir asılış kur.",
+        "Take a full grip and establish a comfortable, controlled hang."
       ],
       [
-        "Sallanmayı minimumda tut.",
-        "Keep swinging to a minimum."
+        "Salınımı durdur, dizleri birlikte rahatça bük ve brace yap.",
+        "Settle any swing, bend the knees comfortably together, and brace."
       ],
       [
-        "Omuzları aktif ve aşağıda tutarak asıl.",
-        "Hang with the shoulders active and depressed."
+        "Dizleri kalçadan öne kaldırırken kaburgaları pelvis üzerinde kontrol et.",
+        "Raise the knees forward from the hips while controlling the ribs over the pelvis."
+      ],
+      [
+        "Hedef varyasyonda kuyruk sokumunu öne kıvırıp kısa süre dur.",
+        "For the chosen variation, curl the tailbone forward and pause briefly."
+      ],
+      [
+        "Dizleri kontrollü indir ve salınım başlamadan sıradaki tekrara geç.",
+        "Lower the knees under control and begin the next rep before swing develops."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dizleri kaldırmak için bacakları geriden savurmak.",
+        "Swinging the legs backward to lift the knees."
+      ],
+      [
+        "Yalnız dizleri yükseltip hedeflenen pelvis kıvrımını atlamak.",
+        "Raising only the knees and skipping the intended pelvic curl."
+      ],
+      [
+        "Dönüşte bacakları kontrolsüz bırakarak bar salınımını büyütmek.",
+        "Dropping the legs on the return and increasing bar swing."
+      ],
+      [
+        "Asılış kontrolü kaybolduğunda tekrar saymaya devam etmek.",
+        "Continuing to count reps after hang control is lost."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu hareket her başlangıç seviyesi için kolay değildir; dead hang ve omuz konforu önce değerlendirilmelidir.",
+        "This movement is not easy for every beginner; dead-hang control and shoulder comfort come first."
+      ],
+      [
+        "Dizlerin göğse ne kadar yaklaştığı değil, aynı pelvis ve salınım standardı daha önemlidir.",
+        "Consistent pelvic and swing standards matter more than how close the knees reach the chest."
+      ],
+      [
+        "Omuzları aktif tutmak kontrol sağlayabilir; zorla depresyon yerine rahat stabil pozisyon seç.",
+        "An active shoulder position can improve control; choose comfortable stability rather than forced depression."
+      ],
+      [
+        "Strict ve kipli diz çekişlerini ayrı varyasyon olarak kaydet.",
+        "Log strict and kipping knee raises as separate variations."
+      ]
+    ],
+    "progression": [
+      [
+        "Dead hang ve kısa scapular kontrol setleri geliştir.",
+        "Develop dead-hang and short scapular-control sets."
+      ],
+      [
+        "Tek tek diz kaldırma veya kısa çift diz menzili kullan.",
+        "Use alternating knee lifts or a short bilateral range."
+      ],
+      [
+        "Aynı salınım kontrolüyle diz yüksekliği ve pelvis kıvrımını artır.",
+        "Increase knee height and pelvic curl while maintaining swing control."
+      ],
+      [
+        "İleri aşamada hanging leg raise için diz açısını uzat.",
+        "At a later stage, lengthen the knee angle toward a hanging leg raise."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "iliopsoas",
+        "rectus-femoris"
       ],
-      "secondary": []
+      "secondary": [
+        "internal-oblique",
+        "external-oblique",
+        "transversus-abdominis",
+        "latissimus-dorsi",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -14228,7 +14748,53 @@
         "Muscle map for the Hanging Knee Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Hanging Knee Raise Rehberi | Strict Diz Çekişi",
+        "Hanging Knee Raise Guide | Strict Form"
+      ],
+      "metaDescription": [
+        "Hanging knee raise için kavrama, asılış, pelvis kıvırma, salınım kontrolü, strict form ve progression.",
+        "Learn hanging-knee-raise grip, pelvic curl, swing control, strict form, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Rectus abdominis ve kalça fleksörleri",
+          "Rectus abdominis and hip flexors"
+        ],
+        "equipment": [
+          "Barfiks barı",
+          "Pull-up bar"
+        ],
+        "movementPattern": [
+          "Kısa kaldıraç asılı kalça fleksiyonu",
+          "Short-lever hanging hip flexion"
+        ],
+        "bestFor": [
+          "Asılı core kontrolü ve leg-raise progression'ı",
+          "Hanging core control and leg-raise progression"
+        ]
+      },
+      "tracking": [
+        [
+          "Tekrar, diz yüksekliği, pelvis kıvrımı, tempo ve RIR değerini kaydet.",
+          "Log reps, knee height, pelvic curl, tempo, and RIR."
+        ],
+        [
+          "Alternating veya çift diz varyasyonunu belirt.",
+          "Record alternating or bilateral knee variation."
+        ],
+        [
+          "Strict ve kipli tekrarları ayrı takip et.",
+          "Track strict and kipping reps separately."
+        ]
+      ],
+      "related": [
+        "hanging-leg-raise",
+        "reverse-crunch",
+        "toes-to-bar"
+      ]
+    }
   },
   "toes-to-bar": {
     "publish": false,
@@ -14236,36 +14802,102 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/toes-to-bar",
     "summary": [
-      "Ayakları bara değdirme. İleri seviye core.",
-      "Toes to bar. Advanced core."
+      "Strict toes-to-bar. Bara kadar asılı bacak kaldırma.",
+      "Strict toes-to-bar. Hanging leg raise to the bar."
     ],
     "description": [
-      "Barfiks barında ayakları bara değdirerek yapılan ileri seviye core hareketi. Karın, kalça fleksörleri, kavrama ve ritim kontrolünü aynı anda zorlar. Hanging leg raise'den daha yüksek koordinasyon ve kuvvet ister.",
-      "An advanced core movement where the feet are raised to the pull-up bar. It challenges the abs, hip flexors, grip, and timing all at once. It demands more coordination and strength than a hanging leg raise."
+      "Barfiks barında strict asılıştan bacakların bara doğru kaldırıldığı uzun kaldıraç kalça fleksiyonu ve pelvis kıvırma hareketidir. Karın duvarı, kalça fleksörleri, kavrama, lat ve omuz çevresi birlikte yüksek koordinasyon talebi taşır.",
+      "A long-lever hip-flexion and pelvic-curl exercise that raises the legs toward the bar from a strict hang. The abdominal wall, hip flexors, grip, lats, and shoulder girdle share a high coordination demand."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Savurma kullanıyorsan bile core kontrolünü kaybetme.",
-        "Even if you use some kip, do not lose trunk control."
+        "Barı tam kavrayıp kontrollü strict asılışta salınımı durdur.",
+        "Take a full grip and settle into a controlled strict hang without swing."
       ],
       [
-        "Önce güçlü hanging knee raise ve leg raise tabanı kurmak faydalıdır.",
-        "It helps to first build a strong base with hanging knee raises and leg raises."
+        "Kaburgaları pelvis üzerinde brace ile tutup bacakları birlikte öne kaldır.",
+        "Brace with the ribs over the pelvis and raise both legs forward together."
       ],
       [
-        "Omuzları aktif tutup asılı pozisyonda çökme.",
-        "Keep the shoulders active and do not collapse in the hang."
+        "Bacaklar yükselirken pelvis kıvrımını artır ve barı kontrollü hedefle.",
+        "Increase the pelvic curl as the legs rise and approach the bar under control."
+      ],
+      [
+        "Ayaklar bara ulaşabiliyorsa hafif temas et; ulaşmıyorsa aynı kontrollü yükseklikte dur.",
+        "Make light contact if the feet reach the bar; otherwise stop at the same controlled height."
+      ],
+      [
+        "Bacakları aynı yoldan indirip sonraki strict tekrar öncesi asılışı yeniden sabitle.",
+        "Lower through the same path and reset the hang before the next strict rep."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Strict set içinde istemeden kip ve salınım kullanmaya başlamak.",
+        "Unintentionally introducing kip and swing during a strict set."
+      ],
+      [
+        "Bara temas için diz açısını veya iki bacağın yüksekliğini tutarsız değiştirmek.",
+        "Changing knee angle or leg height inconsistently just to touch the bar."
+      ],
+      [
+        "Dönüşte bacakları düşürüp omuz ve kavramaya ani yük bindirmek.",
+        "Dropping the legs on the return and abruptly loading the shoulders and grip."
+      ],
+      [
+        "Bara temas etmeyen kontrollü tekrarı başarısız sayıp menzili zorlamak.",
+        "Treating a controlled near-bar rep as failure and forcing the range."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu guide strict varyasyonu temsil eder; CrossFit tarzı kipli toes-to-bar ayrı hareket standardıdır.",
+        "This guide represents the strict variation; CrossFit-style kipping toes-to-bar uses a separate movement standard."
+      ],
+      [
+        "Bar teması kalite ölçüsünün yalnız bir parçasıdır; diz açısı, salınım ve iniş kontrolünü de izle.",
+        "Bar contact is only one quality measure; track knee angle, swing, and descent control too."
+      ],
+      [
+        "Omuz ve kavrama yorgunluğu core kapasitesinden önce seti sınırlayabilir.",
+        "Shoulder and grip fatigue may limit the set before core capacity does."
+      ],
+      [
+        "Bacak kaldırma yüksekliği aynı kalırken pelvis kıvrımını geliştirmek geçerli progression'dır.",
+        "Improving pelvic curl at the same leg height is valid progress."
+      ]
+    ],
+    "progression": [
+      [
+        "Hanging knee raise ile asılış ve pelvis kontrolü kur.",
+        "Build hang and pelvic control with hanging knee raises."
+      ],
+      [
+        "Hanging leg raise ile diz açısını ve hedef yüksekliği uzat.",
+        "Lengthen knee angle and target height with hanging leg raises."
+      ],
+      [
+        "Bara yakın aynı yüksekliğe strict tekrarlar yap.",
+        "Perform strict reps to a consistent near-bar height."
+      ],
+      [
+        "Aynı salınımsız inişle hafif bar temasına ilerle.",
+        "Progress to light bar contact with the same swing-free descent."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "iliopsoas",
+        "rectus-femoris"
       ],
       "secondary": [
-        "back"
+        "internal-oblique",
+        "external-oblique",
+        "transversus-abdominis",
+        "latissimus-dorsi",
+        "serratus-anterior",
+        "forearm-flexors"
       ]
     },
     "media": {
@@ -14282,7 +14914,53 @@
         "Muscle map for the Toes To Bar exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Strict Toes-to-Bar Rehberi | Asılı Form",
+        "Strict Toes-to-Bar Guide | Hanging Form"
+      ],
+      "metaDescription": [
+        "Strict toes-to-bar için asılış, diz açısı, pelvis kıvırma, bar teması, salınım hataları ve progression.",
+        "Learn strict toes-to-bar hang, knee angle, pelvic curl, bar contact, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Rectus abdominis ve kalça fleksörleri",
+          "Rectus abdominis and hip flexors"
+        ],
+        "equipment": [
+          "Barfiks barı",
+          "Pull-up bar"
+        ],
+        "movementPattern": [
+          "Uzun kaldıraç asılı kalça fleksiyonu",
+          "Long-lever hanging hip flexion"
+        ],
+        "bestFor": [
+          "İleri strict asılı core ve koordinasyon",
+          "Advanced strict hanging core control"
+        ]
+      },
+      "tracking": [
+        [
+          "Tekrar, hedef yükseklik, bar teması, diz açısı ve RIR değerini kaydet.",
+          "Log reps, target height, bar contact, knee angle, and RIR."
+        ],
+        [
+          "Strict ve kipli varyasyonları ayrı takip et.",
+          "Track strict and kipping variations separately."
+        ],
+        [
+          "Salınımsız inişle tamamlanmayan tekrarları not et.",
+          "Note reps not completed with a swing-free descent."
+        ]
+      ],
+      "related": [
+        "hanging-leg-raise",
+        "hanging-knee-raise",
+        "dragon-flag"
+      ]
+    }
   },
   "dragon-flag": {
     "publish": false,
@@ -14290,35 +14968,103 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/dragon-flag",
     "summary": [
-      "Dragon flag. Çok ileri seviye karın.",
-      "Dragon flag. Very advanced abs."
+      "Dragon flag. Destekli uzun kaldıraç anti-extension.",
+      "Dragon flag. Supported long-lever anti-extension."
     ],
     "description": [
-      "Bench veya sabit destek üzerinde yapılan çok ileri seviye bir core hareketi. Vücudu tek parça halinde indirip kaldırmak büyük karın kuvveti ve tam beden kontrolü gerektirir. Calisthenics dünyasında ikonik zorlayıcı hareketlerden biridir.",
-      "A very advanced core movement performed on a bench or fixed support. Lowering and raising the body as one unit requires major abdominal strength and full-body control. It is one of the iconic challenge movements in calisthenics."
+      "Üst sırt sabit bir yüzeye desteklenip ellerle ankraj alınırken gövde ve bacakların uzun kaldıraç olarak indirildiği ileri seviye dinamik anti-extension hareketidir. Karın duvarı ana kontrolü sağlar; lat, omuz çevresi, glute ve quadriceps beden hattını destekler.",
+      "An advanced dynamic anti-extension exercise that anchors the upper back and hands to a stable surface while lowering the trunk and legs as a long lever. The abdominal wall provides the main control while the lats, shoulder girdle, glutes, and quadriceps support the body line."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Önce negatif tekrar ve kısmi menzille başlamak genelde daha akıllıcadır.",
-        "Starting with negatives and partial range is usually the smarter approach."
+        "Sabit bir bench veya zeminde üst sırtı yerleştir ve başın arkasındaki sağlam desteği iki elle kavra.",
+        "Set the upper back on a stable bench or floor and grip a secure support behind the head with both hands."
       ],
       [
-        "Belin kırılmasına izin verme; beden hattını tek parça tut.",
-        "Do not let the body fold at the lower back; keep one solid line."
+        "Omuzları destek üzerinde tutup kalçayı kaldır; boynu yük taşıyan ana nokta yapma.",
+        "Keep the shoulders supported and lift the hips without making the neck the primary load-bearing point."
       ],
       [
-        "Omuz ve boyun konforunu her zaman öncelikle takip et.",
-        "Always prioritize shoulder and neck comfort on this movement."
+        "Diz ve kalça açısını seçtiğin regresyonda sabitleyip kaburga-pelvis kontrolü kur.",
+        "Set the knee and hip angle for the chosen regression and establish rib-pelvis control."
+      ],
+      [
+        "Gövde ve bacakları kontrol edilen kaldıraç olarak yavaşça indir.",
+        "Lower the trunk and legs slowly as one controlled lever."
+      ],
+      [
+        "Pozisyon kaybolmadan önce durup aynı hatla başlangıca dön veya eksantrik tekrarı güvenli bitir.",
+        "Stop before position is lost and return along the same path or finish the eccentric rep safely."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Yükü üst sırt yerine boyun veya baş üzerine taşımak.",
+        "Shifting load onto the neck or head instead of the upper back."
+      ],
+      [
+        "Tam düz bacak menzilini erken deneyip bel veya kalçada kırılmak.",
+        "Attempting full straight-leg range too early and folding through the lower back or hips."
+      ],
+      [
+        "Eksantrik sonunda güvenli ayak veya kalça inişi planlamamak.",
+        "Failing to plan a safe foot or hip landing after an eccentric rep."
+      ],
+      [
+        "Diz açısını her tekrarda değiştirip zorluğu karşılaştırılamaz hale getirmek.",
+        "Changing knee angle each rep and making difficulty impossible to compare."
+      ]
+    ],
+    "tips": [
+      [
+        "Tuck ve tek bacak varyasyonları geçerli progression'lardır; tam düz bacak formu başlangıç şartı değildir.",
+        "Tuck and single-leg variations are valid progressions; full straight-leg form is not an entry requirement."
+      ],
+      [
+        "Omuz ve üst sırt desteği kurulmadan uzun kaldıraç deneme.",
+        "Do not attempt a long lever before establishing shoulder and upper-back support."
+      ],
+      [
+        "Hafif kalça fleksiyonu tutarlı bir regresyon olabilir; her tekrarda aynı açıyı koru.",
+        "Slight hip flexion can be a consistent regression; maintain the same angle each rep."
+      ],
+      [
+        "Negatif tekrar yalnız iniş kontrol ediliyorsa faydalı bir aşamadır; düşüş tekrar sayılmaz.",
+        "A negative rep is useful only when the descent is controlled; a fall does not count as a rep."
+      ]
+    ],
+    "progression": [
+      [
+        "Hollow hold ve diz üstü ab-wheel ile anti-extension temeli geliştir.",
+        "Build an anti-extension base with hollow holds and kneeling ab-wheel rollouts."
+      ],
+      [
+        "Tuck dragon flag ile kısa kaldıraç iniş ve dönüş yap.",
+        "Use tuck dragon flags for short-lever lowering and return."
+      ],
+      [
+        "Tek bacak veya straddle varyasyonuyla kaldıracı kademeli uzat.",
+        "Gradually lengthen the lever with a single-leg or straddle variation."
+      ],
+      [
+        "Tam düz bacak eksantrikten kontrollü tam tekrara ilerle.",
+        "Progress from full straight-leg eccentrics to controlled full reps."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "transversus-abdominis",
+        "internal-oblique",
+        "external-oblique"
       ],
-      "secondary": []
+      "secondary": [
+        "latissimus-dorsi",
+        "serratus-anterior",
+        "gluteus-maximus",
+        "quadriceps",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -14334,7 +15080,53 @@
         "Muscle map for the Dragon Flag exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dragon Flag Rehberi | Regresyon ve Form",
+        "Dragon Flag Guide | Regressions and Form"
+      ],
+      "metaDescription": [
+        "Dragon flag için üst sırt desteği, tuck ve tek bacak regresyonları, kaldıraç kontrolü, hatalar ve progression.",
+        "Learn dragon-flag support, tuck and single-leg regressions, lever control, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Karın duvarı ve oblikler",
+          "Abdominal wall and obliques"
+        ],
+        "equipment": [
+          "Sabit bench veya sağlam ankraj",
+          "Stable bench or secure anchor"
+        ],
+        "movementPattern": [
+          "Destekli dinamik anti-extension",
+          "Supported dynamic anti-extension"
+        ],
+        "bestFor": [
+          "İleri uzun kaldıraç gövde kontrolü",
+          "Advanced long-lever trunk control"
+        ]
+      },
+      "tracking": [
+        [
+          "Kaldıraç varyasyonu, hareket açıklığı, tekrar, tempo ve RIR değerini kaydet.",
+          "Log lever variation, range, reps, tempo, and RIR."
+        ],
+        [
+          "Tuck, tek bacak, straddle ve düz bacak varyasyonlarını ayrı takip et.",
+          "Track tuck, single-leg, straddle, and straight-leg variations separately."
+        ],
+        [
+          "Eksantrik-only ve tam tekrarları ayır.",
+          "Separate eccentric-only reps from full reps."
+        ]
+      ],
+      "related": [
+        "hollow-body-hold",
+        "ab-wheel",
+        "toes-to-bar"
+      ]
+    }
   },
   "l-sit": {
     "publish": false,
