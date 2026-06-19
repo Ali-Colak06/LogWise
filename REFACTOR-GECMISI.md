@@ -4151,6 +4151,59 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 70 — Exercise Guide Enrichment Batch 6 (2026-06-19)
+
+### Amaç
+
+Squat, split-stance, yürüyüş ve diz fleksiyon/ekstansiyon desenlerindeki yedi bacak hareketini tam guide seviyesine taşımak; makine güvenliği, diz-ayak ucu, platform yüksekliği ve tek taraflı çalışma hakkındaki mutlak legacy iddiaları düzeltmek.
+
+### Kapsam
+
+- Hack Squat
+- Smith Machine Squat
+- Bulgarian Split Squat
+- Walking Lunge
+- Step Up
+- Leg Extension
+- Seated Leg Curl
+
+### İçerik Kararları
+
+- **Hack squat güvenliği:** Sabit yolun denge talebini azaltabildiği yazıldı; hareket otomatik olarak güvenli veya herkese uygun aksesuar hacmi şeklinde sunulmadı.
+- **Smith ray geometrisi:** Ayak konumu tek bir ileri mesafeye sabitlenmedi; ray açısı, bar yolu, gövde dengesi ve rahat derinliğe göre ayarlanması istendi.
+- **Tek taraflı çalışma:** Bulgarian Split Squat iki taraf arasındaki farkları görünür ve ayrı takip edilebilir kılar; asimetriyi otomatik düzelttiği iddia edilmedi.
+- **Diz-ayak ucu miti:** Walking Lunge sırasında dizin ayak ucunu geçmesi tek başına hata sayılmadı; tam ayak teması, diz-ayak yönü ve kontrollü yük aktarımı esas alındı.
+- **Step-up yüksekliği:** Daha yüksek platform otomatik olarak daha iyi kabul edilmedi; pelvis kontrolü korunabilen yükseklik ve arkadaki bacaktan minimum itiş öne çıkarıldı.
+- **Leg extension bitişi:** Kontrollü tam diz ekstansiyonu ile eklemi hızla kilitlemek ayrıştırıldı; savurarak sert bitiriş hata olarak yazıldı.
+- **Seated leg curl ayrımı:** Ayrı `leg-curl` kaydı yatarak varyasyonu temsil ettiği için bu guide kalça fleksiyonunda yapılan oturarak leg curl'e özgü yazıldı.
+- **Anatomik kas verisi:** Yedi kayıt hareket bazlı primary/secondary kas slug'larına geçirildi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 45 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Kaynak
+
+- `https://www.acefitness.org/resources/everyone/exercise-library/94/forward-lunge/`
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi squat/lunge/makine bacak hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 45 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 69 — Exercise Guide Enrichment Batch 5 (2026-06-19)
 
 ### Amaç

@@ -8593,31 +8593,94 @@ window.LOGWISE_EX_GUIDES = {
       "Hack squat machine. Quad focused."
     ],
     "description": [
-      "Hack squat makinesinde yapılan alt vücut press varyasyonu. Quadriceps odaklı hacim oluşturmak için çok etkilidir ve denge ihtiyacını azaltır. Serbest squat sonrasında güvenli ek hacim vermek için sık kullanılır.",
-      "A lower-body pressing variation performed on a hack squat machine. It is very effective for quad-focused volume and reduces balance demands. It is often used to add safer accessory volume after free-bar squats."
+      "Sırt ve omuzların pede desteklendiği, kızak üzerinde yapılan squat/alt vücut press hareketidir. Quadriceps ana yükü taşırken gluteus maximus ve adduktorlar derinliğe ve ayak konumuna göre katkı verir.",
+      "A sled-based squat and lower-body press performed with the back and shoulders supported. The quadriceps carry most of the load while the glutes and adductors contribute according to depth and foot position."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ayak yerleşimi quad veya glute vurgusunu değiştirebilir; pozisyonla oyna.",
-        "Foot placement can shift the emphasis between quads and glutes, so experiment a bit."
+        "Omuz pedlerini ve platformu rahatça kullanabileceğin makine ayarını seç.",
+        "Set the shoulder pads and platform position so the machine can be used comfortably."
       ],
       [
-        "Belini pedden ayırmadan kontrollü derinlikte çalış.",
-        "Work through a controlled depth without letting the lower back peel off the pad."
+        "Ayakları platformda rahat squat genişliğine yerleştir; diz ve ayak parmaklarını aynı yöne çevir.",
+        "Place the feet at a comfortable squat width with knees and toes pointing in the same direction."
       ],
       [
-        "Dizleri kilitleyip makineye yaslanmak yerine her tekrar aktif kal.",
-        "Stay active on every rep instead of locking out and hanging on the machine."
+        "Sırt ve pelvisi pede yerleştir, brace yap ve güvenlik kollarını kontrollü aç.",
+        "Set the back and pelvis on the pad, brace, and release the safeties under control."
+      ],
+      [
+        "Diz ve kalçaları bükerek pelvis pedden ayrılmadan kontrol edebildiğin derinliğe in.",
+        "Bend the knees and hips to the depth you can control without the pelvis leaving the pad."
+      ],
+      [
+        "Tüm ayağı platforma iterek yukarı çık; dizleri sert biçimde kilitlemeden tekrarı tamamla.",
+        "Press through the whole foot and rise without snapping the knees into lockout."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Daha derine inmek için pelvis veya beli pedden ayırmak.",
+        "Lifting the pelvis or lower back from the pad to chase more depth."
+      ],
+      [
+        "Dizlerin içe çökmesine veya ayak yönünden sapmasına izin vermek.",
+        "Allowing the knees to collapse inward or drift away from the toe direction."
+      ],
+      [
+        "Alt noktada kızaktan sekerek hız almak.",
+        "Bouncing out of the bottom using the sled."
+      ],
+      [
+        "Farklı hack squat makinelerindeki yükleri doğrudan karşılaştırmak.",
+        "Directly comparing loads across different hack-squat machines."
+      ]
+    ],
+    "tips": [
+      [
+        "Ayak konumu kas talebini değiştirebilir; konumu değiştiriyorsan ayrı varyasyon olarak kaydet.",
+        "Foot placement can change muscular demand; log a changed position as a separate variation."
+      ],
+      [
+        "Derinliği platformdaki topuk teması ve pelvis kontrolü belirlesin.",
+        "Let heel contact and pelvic control determine depth."
+      ],
+      [
+        "Makine desteği denge talebini azaltır; mutlak güvenlik garantisi vermez.",
+        "Machine support reduces balance demand but does not guarantee safety."
+      ],
+      [
+        "Kızak momentumu artıyorsa yükü veya iniş hızını azalt.",
+        "Reduce load or descent speed if sled momentum increases."
+      ]
+    ],
+    "progression": [
+      [
+        "Goblet squat ile ayak basıncı ve diz takibini öğren.",
+        "Learn foot pressure and knee tracking with a goblet squat."
+      ],
+      [
+        "Hafif hack squat ile platform konumu ve kontrollü derinliği standartlaştır.",
+        "Standardize platform position and controlled depth with a light hack squat."
+      ],
+      [
+        "Hedef tekrarlar aynı ayar ve derinlikte tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps use the same setup and depth."
+      ],
+      [
+        "İleri aşamada pause veya yavaş eksantrik kullan.",
+        "At an advanced stage, use pauses or a slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps"
       ],
-      "secondary": []
+      "secondary": [
+        "gluteus-maximus",
+        "adductor-magnus",
+        "hamstrings"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -8633,7 +8696,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Hack Squat exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Hack Squat Rehberi | Makine Ayarı ve Form",
+        "Hack Squat Guide | Machine Setup and Form"
+      ],
+      "metaDescription": [
+        "Hack squat ayak konumu, pelvis kontrolü, güvenli derinlik, diz takibi ve progression adımları.",
+        "Learn hack-squat foot position, pelvic control, depth, knee tracking, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Hack squat makinesi",
+          "Hack-squat machine"
+        ],
+        "movementPattern": [
+          "Destekli squat/alt vücut press",
+          "Supported squat/lower-body press"
+        ],
+        "bestFor": [
+          "Quadriceps kuvveti ve hipertrofisi",
+          "Quadriceps strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, ayak konumu, yük, tekrar ve RIR değerini kaydet.",
+          "Log machine model, foot position, load, reps, and RIR."
+        ],
+        [
+          "Pelvis temasını koruduğun alt nokta derinliğini takip et.",
+          "Track bottom depth while maintaining pelvic contact."
+        ],
+        [
+          "Ayak konumu değişikliklerini ayrı varyasyon olarak not et.",
+          "Log foot-position changes as separate variations."
+        ]
+      ],
+      "related": [
+        "squat",
+        "leg-press",
+        "leg-extension"
+      ]
+    }
   },
   "smith-machine-squat": {
     "publish": false,
@@ -8645,32 +8754,95 @@ window.LOGWISE_EX_GUIDES = {
       "Smith-machine squat. Controlled path."
     ],
     "description": [
-      "Smith makinesinde yapılan squat varyasyonu. Bar yolu sabit olduğu için denge talebini azaltır ve bazı kullanıcılar için hareket öğrenimini kolaylaştırır. Serbest squat yerine geçmek zorunda değildir ama kontrollü hacim için işe yarayabilir.",
-      "A squat variation performed in a Smith machine. The fixed bar path reduces balance demands and can make the movement easier to learn for some lifters. It is not a required replacement for free squats, but it can be useful for controlled volume."
+      "Barın ray üzerinde sabit bir yol izlediği squat varyasyonudur. Quadriceps ve gluteus maximus ana yükü taşırken sabit bar yolu denge talebini azaltır; ayak konumu makinenin ray açısına göre ayarlanmalıdır.",
+      "A squat variation where the bar follows a fixed rail. The quadriceps and glutes carry most of the load while the fixed path reduces balance demand; foot position should match the machine’s rail angle."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ayaklarını barın tam altı yerine biraz öne koymak çoğu kullanıcıya daha rahat gelir.",
-        "Placing the feet slightly forward of the bar line often feels more natural for many lifters."
+        "Bar yüksekliğini omuz altına rahatça girip çıkabileceğin seviyeye ayarla.",
+        "Set the bar height so you can get under and out comfortably."
       ],
       [
-        "Makine yolu sabit olsa da core'u gevşetme; gövdeyi yine aktif tut.",
-        "Even with the fixed track, keep the trunk active and braced."
+        "Barı üst sırtına yerleştir; ayakları ray açısına uygun rahat squat konumuna al.",
+        "Place the bar on the upper back and set the feet in a comfortable squat position for the rail angle."
       ],
       [
-        "Diz ve kalça çizgini rahat hissettiren stance'i seç.",
-        "Choose the stance that lets the knees and hips move comfortably."
+        "Ayak tabanını yere sabitle, brace yap ve bar kilidini kontrollü aç.",
+        "Plant the feet, brace, and rotate the bar hooks open under control."
+      ],
+      [
+        "Diz ve kalçaları birlikte bükerek ayak yönünü koruduğun rahat derinliğe in.",
+        "Bend the knees and hips together to a comfortable depth while maintaining toe and knee direction."
+      ],
+      [
+        "Tüm ayağı zemine iterek ray boyunca yüksel ve kontrollü kilitle.",
+        "Drive through the whole foot to rise along the rail and finish under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Her Smith makinesinde ayakları zorunlu olarak barın çok önüne koymak.",
+        "Assuming the feet must always be placed far in front of the bar on every Smith machine."
+      ],
+      [
+        "Ray açısına uymayan stance nedeniyle topuk veya ayak basıncını kaybetmek.",
+        "Losing heel or foot pressure because stance does not match the rail angle."
+      ],
+      [
+        "Sabit bar yoluna güvenip brace pozisyonunu bırakmak.",
+        "Relaxing the brace because the bar path is fixed."
+      ],
+      [
+        "Alt noktada bar kancalarına veya güvenlik stoplarına çarpmak.",
+        "Crashing into the hooks or safety stops at the bottom."
+      ]
+    ],
+    "tips": [
+      [
+        "Ayak konumunu ezber yerine ray açısı, topuk teması ve diz-kalça rahatlığıyla belirle.",
+        "Set foot position by rail angle, heel contact, and knee-hip comfort rather than a fixed rule."
+      ],
+      [
+        "Güvenlik stoplarını başarısız tekrarda seni koruyacak yüksekliğe ayarla.",
+        "Set safety stops at a height that protects you on a failed rep."
+      ],
+      [
+        "Makine yolu denge talebini azaltır ama gövde brace ve diz takibi yine aktiftir.",
+        "The rail reduces balance demand, but torso bracing and knee tracking remain active."
+      ],
+      [
+        "Farklı Smith makinelerindeki bar ağırlığı ve ray sürtünmesini doğrudan karşılaştırma.",
+        "Do not directly compare bar weight and rail friction across Smith machines."
+      ]
+    ],
+    "progression": [
+      [
+        "Bodyweight veya goblet squat ile squat deseni ve ayak basıncı öğren.",
+        "Learn squat mechanics and foot pressure with bodyweight or goblet squats."
+      ],
+      [
+        "Hafif Smith squat ile ray açısına uygun stance ve güvenlik ayarı geliştir.",
+        "Develop stance and safety setup for the rail angle with a light Smith squat."
+      ],
+      [
+        "Hedef tekrarlar aynı derinlik ve brace ile tamamlanınca yük artır.",
+        "Add load once target reps use consistent depth and bracing."
+      ],
+      [
+        "İleri aşamada pause, tempo veya serbest bar squat varyasyonları kullan.",
+        "At an advanced stage, use pauses, tempo, or free-bar squat variations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps",
+        "gluteus-maximus"
       ],
       "secondary": [
-        "glutes"
+        "adductor-magnus",
+        "hamstrings",
+        "abdominals",
+        "spinal-erectors"
       ]
     },
     "media": {
@@ -8687,7 +8859,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Smith Machine Squat exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Smith Machine Squat Rehberi | Ayak ve Ray Formu",
+        "Smith Machine Squat Guide | Foot and Rail Setup"
+      ],
+      "metaDescription": [
+        "Smith squat ray açısı, ayak konumu, güvenlik stopları, brace ve kontrollü derinlik rehberi.",
+        "Learn Smith-squat rail angle, foot position, safety stops, bracing, and controlled depth."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Smith makinesi",
+          "Smith machine"
+        ],
+        "movementPattern": [
+          "Ray destekli squat",
+          "Rail-guided squat"
+        ],
+        "bestFor": [
+          "Destekli squat kuvveti ve hacmi",
+          "Supported squat strength and volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, ray yönü, ayak konumu, yük ve tekrarları kaydet.",
+          "Log machine model, rail direction, foot position, load, and reps."
+        ],
+        [
+          "Güvenlik stopu ve alt nokta derinliğini tutarlı takip et.",
+          "Track safety-stop setting and bottom depth consistently."
+        ],
+        [
+          "Topuk basıncı veya brace bozulduğu setleri not et.",
+          "Note sets where heel pressure or bracing changes."
+        ]
+      ],
+      "related": [
+        "squat",
+        "hack-squat",
+        "goblet-squat"
+      ]
+    }
   },
   "leg-press": {
     "publish": false,
@@ -9023,32 +9241,95 @@ window.LOGWISE_EX_GUIDES = {
       "Walking lunge. Balance and single-leg strength."
     ],
     "description": [
-      "İleriye doğru yürüyerek yapılan lunge varyasyonu. Quadriceps, glute ve dengeyi dinamik biçimde çalıştırır. Sabit lunge'a göre koordinasyon ve kondisyon talebi biraz daha yüksektir.",
-      "A lunge variation performed while moving forward. It trains the quads, glutes, and balance dynamically. Compared with a stationary lunge, it demands a bit more coordination and conditioning."
+      "Her tekrarda ileri adımla devam edilen dinamik tek taraflı squat/lunge hareketidir. Quadriceps ve gluteus maximus ana yükü taşırken adduktorlar, hamstring ve baldır kasları denge ve ilerlemeye katkı verir.",
+      "A dynamic unilateral squat and lunge pattern that continues forward with each rep. The quads and glutes carry most of the load while the adductors, hamstrings, and calves assist balance and forward movement."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Her adımda gövdeyi dik ve kontrollü tut; acele etme.",
-        "Keep the torso upright and controlled on every step; do not rush."
+        "Dik ve dengeli başla; ayakları kalça genişliğinde tut.",
+        "Start tall and balanced with the feet around hip width."
       ],
       [
-        "Ön ayağın tüm tabanı yere bassın ve itişi oradan üret.",
-        "Keep the whole front foot planted and drive from that base."
+        "Bir ayakla ileri adım atıp tüm ön ayağı yere yerleştir.",
+        "Step forward and place the entire lead foot on the floor."
       ],
       [
-        "Adım uzunluğunu çok kısaltma; diz ve kalça rahat hareket etsin.",
-        "Do not make the stride too short; allow the knee and hip to move comfortably."
+        "Her iki dizi bükerek arka dizi kontrollü biçimde zemine yaklaştır.",
+        "Bend both knees and lower the rear knee toward the floor under control."
+      ],
+      [
+        "Ön ayağı zemine iterek yüksel ve arka ayağı bir sonraki adıma taşı.",
+        "Drive through the front foot to rise and bring the trailing leg into the next step."
+      ],
+      [
+        "Her adımda iki ayrı ray üzerinde kalça genişliğini ve ritmi koru.",
+        "Maintain hip-width “two-track” steps and a consistent rhythm."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Adımları tek çizgi üzerinde atıp yan dengeyi kaybetmek.",
+        "Stepping on one narrow line and losing side-to-side balance."
+      ],
+      [
+        "Ön topuğu kaldırmak veya dizin içe çökmesine izin vermek.",
+        "Letting the front heel rise or the knee collapse inward."
+      ],
+      [
+        "Arka dizi zemine kontrolsüz çarpmak.",
+        "Dropping the rear knee into the floor without control."
+      ],
+      [
+        "Hız için adım uzunluğu ve hareket açıklığını sürekli değiştirmek.",
+        "Changing stride length and range repeatedly just to move faster."
+      ]
+    ],
+    "tips": [
+      [
+        "Ön dizin ayak ucunu geçmesi tek başına hata değildir; topuk teması ve diz yönünü koru.",
+        "The front knee passing the toes is not automatically an error; maintain heel contact and knee tracking."
+      ],
+      [
+        "Adım uzunluğunu her iki dizin rahat büküleceği şekilde ayarla.",
+        "Choose a stride length that lets both knees bend comfortably."
+      ],
+      [
+        "Dengeyi zorlaştırmadan önce vücut ağırlığıyla ritmi standartlaştır.",
+        "Standardize rhythm with bodyweight before adding balance demands."
+      ],
+      [
+        "Yorgunlukta adımlar daralıyorsa seti teknik bozulmadan bitir.",
+        "End the set before fatigue causes the steps to narrow and technique to change."
+      ]
+    ],
+    "progression": [
+      [
+        "Sabit split squat ve forward lunge ile alt pozisyon kontrolü öğren.",
+        "Learn bottom-position control with split squats and forward lunges."
+      ],
+      [
+        "Vücut ağırlığı walking lunge ile ritim ve iki-ray adım geliştir.",
+        "Develop rhythm and two-track stepping with bodyweight walking lunges."
+      ],
+      [
+        "Aynı adım ve derinlik korununca dumbbell yükü ekle.",
+        "Add dumbbell load once stride and depth remain consistent."
+      ],
+      [
+        "İleri aşamada daha uzun mesafe, pause veya front-rack yük kullan.",
+        "At an advanced stage, use longer distances, pauses, or front-rack loading."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps",
+        "gluteus-maximus"
       ],
       "secondary": [
-        "glutes"
+        "adductor-magnus",
+        "hamstrings",
+        "gastrocnemius",
+        "soleus"
       ]
     },
     "media": {
@@ -9065,7 +9346,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Walking Lunge exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Walking Lunge Rehberi | Adım ve Denge Formu",
+        "Walking Lunge Guide | Step and Balance Form"
+      ],
+      "metaDescription": [
+        "Walking lunge adım genişliği, diz takibi, ön ayak basıncı, denge ve progression adımları.",
+        "Learn walking-lunge step width, knee tracking, front-foot pressure, balance, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Vücut ağırlığı veya dumbbell",
+          "Bodyweight or dumbbells"
+        ],
+        "movementPattern": [
+          "Dinamik tek taraflı squat",
+          "Dynamic unilateral squat"
+        ],
+        "bestFor": [
+          "Tek bacak kuvveti, denge ve kondisyon",
+          "Single-leg strength, balance, and conditioning"
+        ]
+      },
+      "tracking": [
+        [
+          "Yük, toplam adım/tekrar, RIR ve mesafeyi kaydet.",
+          "Log load, total steps or reps, RIR, and distance."
+        ],
+        [
+          "Adım genişliği ve kontrollü derinliği tutarlı takip et.",
+          "Track consistent step width and controlled depth."
+        ],
+        [
+          "Sağ-sol ritim veya denge farklarını not et.",
+          "Note side-to-side rhythm or balance differences."
+        ]
+      ],
+      "related": [
+        "lunge",
+        "bulgarian-split-squat",
+        "step-up"
+      ]
+    }
   },
   "bulgarian-split-squat": {
     "publish": false,
@@ -9077,32 +9404,95 @@ window.LOGWISE_EX_GUIDES = {
       "Rear-foot-elevated single leg squat."
     ],
     "description": [
-      "Arka ayağın yükseltildiği tek taraflı squat varyasyonu. Quadriceps, glute ve denge becerisini aynı anda geliştirir. Sağ-sol kuvvet farklarını görmek ve kapatmak için çok etkilidir.",
-      "A unilateral squat variation with the rear foot elevated. Builds quads, glutes, and balance at the same time. Very effective for identifying and correcting left-right strength imbalances."
+      "Arka ayağın yükseltildiği tek taraflı squat varyasyonudur. Ön bacağın quadriceps ve gluteus maximus kasları ana yükü taşırken adduktorlar ve hamstring denge ile kalça kontrolüne katkı verir.",
+      "A unilateral squat variation with the rear foot elevated. The front-leg quadriceps and gluteus maximus carry most of the load while the adductors and hamstrings assist balance and hip control."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ön ayağı yeterince ileri yerleştir ki diz ve kalça rahat bir çizgide çalışsın.",
-        "Place the front foot far enough forward so the knee and hip move comfortably."
+        "Arka ayağı rahat bir bench üzerine yerleştir ve ön ayağı kalça genişliğinde öne al.",
+        "Place the rear foot comfortably on a bench and step the front foot forward at hip width."
       ],
       [
-        "Gövdeyi hafif öne eğebilirsin ama belini sabit ve kontrollü tut.",
-        "A slight forward torso lean is fine, but keep the lower back stable and controlled."
+        "Ön ayağın tamamını yere bas, pelvisi kare ve gövdeyi kontrollü tut.",
+        "Plant the entire front foot, keep the pelvis square, and control the torso."
       ],
       [
-        "Ön bacağın topuğundan iterek yukarı çık; arka ayak sadece destek olsun.",
-        "Drive up through the front heel; let the rear foot act mostly as support."
+        "Her iki dizi bükerek arka dizi zemine doğru indir; ön diz ayak yönünü takip etsin.",
+        "Bend both knees and lower the rear knee toward the floor while the front knee tracks the toes."
+      ],
+      [
+        "Ön topuk ve orta ayak temasını koruduğun rahat derinliğe ulaş.",
+        "Reach a comfortable depth while maintaining front heel and midfoot contact."
+      ],
+      [
+        "Ön ayağı yere iterek yüksel; arka ayağı yalnız denge desteği olarak kullan.",
+        "Drive through the front foot to rise and use the rear foot only for balance."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ön ayağı ip üzerinde gibi çok dar yerleştirip yan dengeyi kaybetmek.",
+        "Placing the front foot on an overly narrow line and losing side-to-side balance."
+      ],
+      [
+        "Arka ayaktan güçlü itiş alıp ön bacak talebini azaltmak.",
+        "Pushing hard from the rear foot and reducing demand on the front leg."
+      ],
+      [
+        "Ön topuğu kaldırmak veya dizin içe çökmesine izin vermek.",
+        "Letting the front heel rise or the knee collapse inward."
+      ],
+      [
+        "Bench yüksekliğini kalça/ayak konforunu bozacak kadar yüksek seçmek.",
+        "Using a bench height that compromises hip or foot comfort."
+      ]
+    ],
+    "tips": [
+      [
+        "Arka ayağın yüksekliği şart değildir; daha düşük destek çoğu kişide daha rahat olabilir.",
+        "Rear-foot height is not fixed; a lower support can be more comfortable for many lifters."
+      ],
+      [
+        "Gövdeyi hafif öne eğmek glute talebini değiştirebilir; bel yerine kalçadan eğil.",
+        "A slight torso lean can change glute demand; hinge from the hips rather than rounding the back."
+      ],
+      [
+        "Tek taraflı hareket farkı görünür kılar; iki tarafı ayrı kaydet ve güçlü tarafı eşitle.",
+        "Unilateral work reveals differences; log each side and match the stronger side to the weaker."
+      ],
+      [
+        "Denge yükten önce sınırlıyorsa destek alarak ön bacak kuvvetini çalış.",
+        "If balance limits the lift before strength, use light support to train the front leg."
+      ]
+    ],
+    "progression": [
+      [
+        "Destekli split squat ile tek taraflı alt pozisyon ve ön ayak basıncı öğren.",
+        "Learn the unilateral bottom position and front-foot pressure with a supported split squat."
+      ],
+      [
+        "Vücut ağırlığı Bulgarian split squat ile bench ve adım mesafesini ayarla.",
+        "Set bench height and step distance with a bodyweight Bulgarian split squat."
+      ],
+      [
+        "İki taraf aynı kontrolle hedef tekrarları tamamlayınca dumbbell yükü ekle.",
+        "Add dumbbell load once both sides complete target reps with the same control."
+      ],
+      [
+        "İleri aşamada pause, tempo veya front-foot-elevated varyasyon kullan.",
+        "At an advanced stage, use pauses, tempo, or a front-foot-elevated variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps",
+        "gluteus-maximus"
       ],
       "secondary": [
-        "glutes"
+        "adductor-magnus",
+        "hamstrings",
+        "gastrocnemius",
+        "soleus"
       ]
     },
     "media": {
@@ -9119,7 +9509,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Bulgarian Split Squat exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Bulgarian Split Squat Rehberi | Tek Bacak Formu",
+        "Bulgarian Split Squat Guide | Single-Leg Form"
+      ],
+      "metaDescription": [
+        "Bulgarian split squat bench yüksekliği, ön ayak konumu, denge, diz takibi ve progression.",
+        "Learn Bulgarian split-squat bench height, front-foot position, balance, knee tracking, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Bench ve opsiyonel dumbbell",
+          "Bench and optional dumbbells"
+        ],
+        "movementPattern": [
+          "Arka ayak yükseltili tek taraflı squat",
+          "Rear-foot-elevated unilateral squat"
+        ],
+        "bestFor": [
+          "Tek bacak kuvveti ve sağ-sol kontrolü",
+          "Single-leg strength and side-to-side control"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench yüksekliği, adım mesafesi, yük ve tekrarları her taraf için kaydet.",
+          "Log bench height, step distance, load, and reps for each side."
+        ],
+        [
+          "Ön ayak teması ve kontrollü alt nokta derinliğini takip et.",
+          "Track front-foot contact and controlled bottom depth."
+        ],
+        [
+          "Sağ-sol denge veya hareket açıklığı farklarını not et.",
+          "Note side-to-side differences in balance or range."
+        ]
+      ],
+      "related": [
+        "lunge",
+        "walking-lunge",
+        "step-up"
+      ]
+    }
   },
   "cossack-squat": {
     "publish": false,
@@ -9185,32 +9621,96 @@ window.LOGWISE_EX_GUIDES = {
       "Step onto a platform. Single-leg strength."
     ],
     "description": [
-      "Bir kutu ya da platform üzerine çıkılarak yapılan tek taraflı alt vücut hareketi. Quadriceps, glute ve dengeyi birlikte geliştirir. Evde veya salonda uygulanması kolay, çok işlevsel bir seçenektir.",
-      "A unilateral lower-body movement performed by stepping onto a box or platform. It develops the quads, glutes, and balance together. It is a practical and highly functional choice at home or in the gym."
+      "Bir platform üzerine tek bacakla çıkılan unilateral alt vücut hareketidir. Öndeki bacağın quadriceps ve gluteus maximus kasları ana işi yaparken kalça stabilizatörleri ve baldır kasları dengeye katkı verir.",
+      "A unilateral lower-body movement performed by stepping onto a platform. The lead-leg quadriceps and glutes do most of the work while hip stabilizers and calf muscles assist balance."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Yukarı çıkarken arka ayağın itişini minimumda tut; işi ön bacak yapsın.",
-        "Minimize the push from the trailing leg so the lead leg does the work."
+        "Platform yüksekliğini ön ayağın tamamını koyabildiğin ve pelvisi kontrol edebildiğin seviyede seç.",
+        "Choose a platform height that allows full lead-foot contact and pelvic control."
       ],
       [
-        "Platform yüksekliğini kontrolü bozmayacak seviyede seç.",
-        "Choose a platform height that does not compromise control."
+        "Ön ayağı platforma tamamen yerleştir; gövdeyi dik veya hafif kontrollü öne eğik tut.",
+        "Place the entire lead foot on the platform and keep the torso upright or slightly leaned forward under control."
       ],
       [
-        "İnişi de kontrollü yaparak diz stabilitesini koru.",
-        "Control the lowering phase as well to reinforce knee stability."
+        "Ön ayağı platforma iterek kalça ve dizi uzat; arka ayaktan sıçrama alma.",
+        "Drive the lead foot into the platform to extend the hip and knee without jumping from the trailing foot."
+      ],
+      [
+        "Üstte dengeyi kur ve kalçayı yana düşürmeden dik dur.",
+        "Establish balance at the top and stand tall without letting the pelvis drop sideways."
+      ],
+      [
+        "Aynı ön bacakla kontrollü biçimde zemine geri in.",
+        "Lower back to the floor under control using the same lead leg."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Platformu ön ayak temasını veya pelvis kontrolünü bozacak kadar yüksek seçmek.",
+        "Choosing a platform so high that foot contact or pelvic control is lost."
+      ],
+      [
+        "Arka ayaktan zıplayarak ön bacak talebini azaltmak.",
+        "Jumping from the trailing foot and reducing lead-leg demand."
+      ],
+      [
+        "Üstte kalçayı yana düşürmek veya dizin içe çökmesine izin vermek.",
+        "Letting the pelvis drop sideways or the knee collapse inward at the top."
+      ],
+      [
+        "İnişi kontrolsüz bırakıp zemine düşmek.",
+        "Dropping to the floor without controlling the descent."
+      ]
+    ],
+    "tips": [
+      [
+        "Platform yüksekliği arttıkça hareket otomatik olarak daha iyi olmaz; kontrolü koruyan yüksekliği seç.",
+        "A higher platform is not automatically better; choose the height that preserves control."
+      ],
+      [
+        "Ön ayağın topuk ve orta ayağını platformda aktif tut.",
+        "Keep the lead heel and midfoot active on the platform."
+      ],
+      [
+        "Arka ayağın zemine yalnız hafif dokunuş yaptığını düşün.",
+        "Think of the trailing foot as making only a light contact with the floor."
+      ],
+      [
+        "Sağ-sol farkını görmek için tarafları ayrı kaydet ve aynı temiz tekrar sayısını kullan.",
+        "Track sides separately and use the same clean rep count to observe differences."
+      ]
+    ],
+    "progression": [
+      [
+        "Alçak platform ve hafif destekle ön ayak basıncı ve iniş kontrolü öğren.",
+        "Learn lead-foot pressure and descent control on a low platform with light support."
+      ],
+      [
+        "Vücut ağırlığı step-up ile arka ayak itişini azalt.",
+        "Reduce trailing-leg push on bodyweight step-ups."
+      ],
+      [
+        "İki taraf aynı kontrolle hedef tekrarları tamamlayınca dumbbell yükü ekle.",
+        "Add dumbbell load once both sides complete target reps with the same control."
+      ],
+      [
+        "İleri aşamada yüksekliği küçük adımlarla artır veya front-rack yük kullan.",
+        "At an advanced stage, increase height gradually or use front-rack loading."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps",
+        "gluteus-maximus"
       ],
       "secondary": [
-        "glutes"
+        "gluteus-medius",
+        "adductor-magnus",
+        "hamstrings",
+        "gastrocnemius",
+        "soleus"
       ]
     },
     "media": {
@@ -9227,7 +9727,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Step Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Step Up Rehberi | Platform ve Tek Bacak Formu",
+        "Step-Up Guide | Platform and Single-Leg Form"
+      ],
+      "metaDescription": [
+        "Step-up platform yüksekliği, ön ayak basıncı, arka ayak itişi, iniş kontrolü ve progression.",
+        "Learn step-up platform height, lead-foot pressure, trailing-leg control, descent, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Kutu/platform ve opsiyonel dumbbell",
+          "Box or platform and optional dumbbells"
+        ],
+        "movementPattern": [
+          "Tek taraflı yükselme",
+          "Unilateral step"
+        ],
+        "bestFor": [
+          "Tek bacak kuvveti ve pelvis kontrolü",
+          "Single-leg strength and pelvic control"
+        ]
+      },
+      "tracking": [
+        [
+          "Platform yüksekliği, yük, tekrar ve RIR değerini her taraf için kaydet.",
+          "Log platform height, load, reps, and RIR for each side."
+        ],
+        [
+          "Arka ayak itişi olmadan tamamlanan tekrarları takip et.",
+          "Track reps completed without trailing-leg push."
+        ],
+        [
+          "Sağ-sol denge veya iniş kontrolü farkını not et.",
+          "Note side-to-side differences in balance or descent control."
+        ]
+      ],
+      "related": [
+        "lunge",
+        "walking-lunge",
+        "bulgarian-split-squat"
+      ]
+    }
   },
   "leg-curl": {
     "publish": false,
@@ -9398,31 +9944,92 @@ window.LOGWISE_EX_GUIDES = {
       "Seated hamstring curl. Load in lengthened position."
     ],
     "description": [
-      "Oturarak yapılan hamstring curl varyasyonu. Kalça bükülü pozisyonda olduğu için hamstringleri uzamış halde yükler ve arka bacak gelişimini destekler. Alt vücut programlarında squat ve hinge hareketlerini iyi tamamlar.",
-      "A seated hamstring-curl variation. Because the hips stay flexed, it loads the hamstrings in a lengthened position and supports posterior-leg development. It complements squats and hinge movements very well in lower-body programs."
+      "Kalça bükülü oturuşta yapılan makine diz fleksiyonu hareketidir. Bu pozisyon hamstringleri başlangıçta daha uzun kas boyunda yükler; gastrocnemius diz bükmeye yardımcı olur.",
+      "A machine knee-flexion movement performed seated with the hips flexed. This position loads the hamstrings at a longer starting muscle length while the gastrocnemius assists knee flexion."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Alt noktada dizleri tam açmaya yakın getirerek hamstring gerilimini hisset.",
-        "At the bottom, approach full knee extension to feel the hamstring stretch."
+        "Makine pivotunu diz eklemiyle hizala; sırtlık ve koltuğu kalçayı sabit tutacak şekilde ayarla.",
+        "Align the machine pivot with the knee joint and set the seat and backrest to stabilize the hips."
       ],
       [
-        "Kalçanı koltuktan kaldırmadan pedin altında kontrollü çekiş yap.",
-        "Curl under control without lifting the hips from the seat."
+        "Alt pedi ayak bileğinin hemen üstüne, üst pedi uylukların üzerine yerleştir.",
+        "Place the lower pad just above the ankle and secure the thigh pad over the legs."
       ],
       [
-        "Eksantrik kısmı yavaşlatmak hamstring hissini belirgin artırır.",
-        "Slowing the eccentric phase greatly increases hamstring tension."
+        "Dizleri tam uzamaya yakın kontrollü başlangıç pozisyonuna getir.",
+        "Begin near full knee extension under control."
+      ],
+      [
+        "Kalça koltuktan kalkmadan dizleri büküp pedi aşağı/geriye çek.",
+        "Curl the pad down and back without lifting the hips from the seat."
+      ],
+      [
+        "Alt noktada kısa sıkıştırma yapıp ağırlığı yavaşça başlangıca döndür.",
+        "Pause briefly at the bottom and return the load slowly to the start."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Diz eklemini makine pivotuyla hizalamamak.",
+        "Failing to align the knee joint with the machine pivot."
+      ],
+      [
+        "Uyluk pedini gevşek bırakıp kalçanın koltuktan kalkmasına izin vermek.",
+        "Leaving the thigh pad loose and allowing the hips to rise."
+      ],
+      [
+        "Ağırlığı hızla savurup alt/üst noktada kontrolü kaybetmek.",
+        "Swinging the load and losing control at the bottom or top."
+      ],
+      [
+        "Pedi baldırın ortasına koyup kaldıraç ve konforu bozmak.",
+        "Placing the roller too high on the calf and changing leverage and comfort."
+      ]
+    ],
+    "tips": [
+      [
+        "Kalça bükülü pozisyon hamstringi uzatır; sırtlık ve uyluk pedini bu pozisyonu koruyacak şekilde ayarla.",
+        "Hip flexion lengthens the hamstrings; set the backrest and thigh pad to preserve that position."
+      ],
+      [
+        "Alt pozisyonda kalça kalkıyorsa yükü veya hareket hızını azalt.",
+        "Reduce load or speed if the hips lift in the curled position."
+      ],
+      [
+        "Başlangıçta kontrollü tam uzamaya yaklaş ama dizleri sertçe kilitleme.",
+        "Approach full extension under control without snapping the knees straight."
+      ],
+      [
+        "Yatarak ve oturarak leg curl yüklerini farklı makine varyasyonları olarak kaydet.",
+        "Log seated and lying leg-curl loads as different machine variations."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle pivot, pad ve sırtlık ayarlarını standartlaştır.",
+        "Standardize pivot, pad, and backrest settings with a light load."
+      ],
+      [
+        "Hedef tekrarları kalça sabit ve kontrollü eksantrikle tamamla.",
+        "Complete target reps with stable hips and a controlled eccentric."
+      ],
+      [
+        "Aynı makinede küçük yük veya tekrar artışları yap.",
+        "Progress with small load or rep increases on the same machine."
+      ],
+      [
+        "RDL veya Nordic curl ile hamstringi farklı hareket ve kas boylarında çalıştır.",
+        "Train the hamstrings at different movements and lengths with RDLs or Nordic curls."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "hamstrings"
       ],
-      "secondary": []
+      "secondary": [
+        "gastrocnemius"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -9438,7 +10045,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Seated Leg Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Seated Leg Curl Rehberi | Hamstring Makine Formu",
+        "Seated Leg Curl Guide | Hamstring Machine Form"
+      ],
+      "metaDescription": [
+        "Seated leg curl pivot, uyluk ve ayak pedi ayarı, kalça kontrolü, uzun kas boyu ve progression.",
+        "Learn seated leg-curl pivot and pad setup, hip control, lengthened loading, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Hamstringler",
+          "Hamstrings"
+        ],
+        "equipment": [
+          "Seated leg curl makinesi",
+          "Seated leg-curl machine"
+        ],
+        "movementPattern": [
+          "Otururken diz fleksiyonu",
+          "Seated knee flexion"
+        ],
+        "bestFor": [
+          "Hamstring hipertrofisi ve diz fleksiyon kuvveti",
+          "Hamstring hypertrophy and knee-flexion strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, sırtlık/pad ayarı, yük, tekrar ve RIR değerini kaydet.",
+          "Log machine model, backrest and pad settings, load, reps, and RIR."
+        ],
+        [
+          "Kalça sabitken ulaşılan üst ve alt pozisyonu takip et.",
+          "Track top and bottom positions reached with stable hips."
+        ],
+        [
+          "Yatarak leg curl ile yükleri doğrudan karşılaştırma.",
+          "Do not directly compare loads with the lying leg curl."
+        ]
+      ],
+      "related": [
+        "leg-curl",
+        "romanian-deadlift",
+        "nordic-curl"
+      ]
+    }
   },
   "sliding-leg-curl": {
     "publish": false,
@@ -9610,29 +10263,88 @@ window.LOGWISE_EX_GUIDES = {
       "Leg extension. Quadriceps."
     ],
     "description": [
-      "Oturarak bacak uzatma makinesi. Quadriceps kaslarını izole eder. Genellikle squat ve leg press'in tamamlayıcısı olarak kullanılır.",
-      "Seated leg extension machine. Isolates the quadriceps. Usually used as a complement to squat and leg press."
+      "Oturarak makinede yapılan açık zincir diz ekstansiyonu hareketidir. Quadriceps kas grubu ana hedeftir; makine pivotu, koltuk ve pad ayarı dizin rahat bir yolda hareket etmesini sağlamalıdır.",
+      "An open-chain knee-extension movement performed on a seated machine. The quadriceps are the main target; pivot, seat, and pad settings should allow the knee to move comfortably."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Tam uzanmaya git ama dizleri kilitleme.",
-        "Extend fully but don't lock out knees at the top."
+        "Makine pivotunu diz eklemiyle hizala ve sırtlığı kalçayı koltukta tutacak şekilde ayarla.",
+        "Align the machine pivot with the knee joint and set the backrest to keep the hips on the seat."
       ],
       [
-        "Kontrollü indir — eksantrik faz çok önemlidir.",
-        "Lower slowly — the eccentric (lowering) phase is very important."
+        "Alt pedi ayak bileğinin hemen üstüne yerleştir ve tutacakları kavra.",
+        "Place the lower pad just above the ankle and hold the handles."
       ],
       [
-        "Diz rahatsızlığı varsa dikkatli ol; çok ağır yüklemekten kaçın.",
-        "Be cautious with knee issues; avoid going excessively heavy."
+        "Kalça ve sırt temasını koruyarak dizleri kontrollü biçimde uzat.",
+        "Extend the knees under control while maintaining hip and back contact."
+      ],
+      [
+        "Ağrısız üst noktada quadriceps kasını kısa süre sık; dizi sertçe geriye vurma.",
+        "Briefly squeeze the quadriceps at a pain-free top position without snapping the knee backward."
+      ],
+      [
+        "Ağırlık yığınını çarptırmadan başlangıç açısına yavaşça geri dön.",
+        "Return slowly to the start angle without letting the weight stack crash."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Diz eklemini makine pivotuyla hizalamamak.",
+        "Failing to align the knee joint with the machine pivot."
+      ],
+      [
+        "Kalçayı koltuktan kaldırıp ağırlığa gövdeyle yardım etmek.",
+        "Lifting the hips and using the torso to assist the load."
+      ],
+      [
+        "Üstte dizi hızla ve sert biçimde kilitlemek.",
+        "Snapping the knee into a hard lockout at the top."
+      ],
+      [
+        "Ağırlık yığınını geri dönüşte çarptırmak.",
+        "Letting the weight stack crash on the return."
+      ]
+    ],
+    "tips": [
+      [
+        "Kontrollü tam diz uzaması ile sertçe kilitleme aynı şey değildir; rahat hareket açıklığını kullan.",
+        "Controlled full knee extension is not the same as snapping into lockout; use a comfortable range."
+      ],
+      [
+        "Diz rahatsızlığı varsa pad, koltuk ve başlangıç açısını değiştirip ağrısız aralığı seç.",
+        "If the knee is uncomfortable, adjust pad, seat, and start angle and use a pain-free range."
+      ],
+      [
+        "Ağırlıktan önce üstte kısa sıkıştırma ve yavaş inişi standartlaştır.",
+        "Standardize a brief top squeeze and slow descent before adding load."
+      ],
+      [
+        "Farklı makinelerde pivot ve kaldıraç değiştiği için yükleri doğrudan karşılaştırma.",
+        "Do not directly compare loads across machines with different pivots and levers."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle pivot/pad ayarı ve ağrısız hareket açıklığını öğren.",
+        "Learn pivot and pad setup and a pain-free range with light load."
+      ],
+      [
+        "Hedef tekrarları kalça sabit ve yığın çarpmadan tamamla.",
+        "Complete target reps with stable hips and no stack contact."
+      ],
+      [
+        "Aynı makinede küçük yük veya tekrar artışları yap.",
+        "Progress with small load or rep increases on the same machine."
+      ],
+      [
+        "Squat ve leg press ile çok eklemli quadriceps kuvvetini tamamla.",
+        "Complement the movement with multi-joint quad work such as squats and leg presses."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps"
       ],
       "secondary": []
     },
@@ -9650,7 +10362,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Leg Extension exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Leg Extension Rehberi | Makine ve Diz Formu",
+        "Leg Extension Guide | Machine and Knee Form"
+      ],
+      "metaDescription": [
+        "Leg extension pivot ve pad ayarı, kontrollü diz uzaması, ağrısız hareket açıklığı ve progression.",
+        "Learn leg-extension pivot and pad setup, controlled knee extension, pain-free range, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps",
+          "Quadriceps"
+        ],
+        "equipment": [
+          "Leg extension makinesi",
+          "Leg-extension machine"
+        ],
+        "movementPattern": [
+          "Diz ekstansiyonu",
+          "Knee extension"
+        ],
+        "bestFor": [
+          "Quadriceps izolasyonu ve kontrollü hacim",
+          "Quadriceps isolation and controlled volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, koltuk/pad ayarı, yük, tekrar ve RIR değerini kaydet.",
+          "Log machine model, seat and pad settings, load, reps, and RIR."
+        ],
+        [
+          "Ağrısız alt/üst açıları ve pause süresini takip et.",
+          "Track pain-free bottom and top angles and pause duration."
+        ],
+        [
+          "Kalçanın kalktığı veya yığının çarptığı setleri not et.",
+          "Note sets where the hips lift or the stack crashes."
+        ]
+      ],
+      "related": [
+        "hack-squat",
+        "leg-press",
+        "squat"
+      ]
+    }
   },
   "reverse-nordic": {
     "publish": false,
