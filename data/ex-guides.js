@@ -3312,36 +3312,100 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/pike-handstand-press-negative",
     "summary": [
-      "Pike HSPU negatif. Kontrollü iniş.",
-      "Pike HSPU negative. Controlled descent."
+      "Pike handstand press negatif. Eksantrik omuz pressi.",
+      "Pike handstand press negative. Eccentric shoulder press."
     ],
     "description": [
-      "Pike ya da yükseltili pozisyonda kontrollü iniş odaklı handstand press varyasyonu. Omuz gücü ve eksantrik kontrolü geliştirir. Handstand push-up progresyonunda mantıklı bir ara adımdır.",
-      "A handstand-press variation focused on the lowering phase from a pike or elevated setup. It builds shoulder strength and eccentric control. It is a logical step in handstand push-up progressions."
+      "Kalça yüksek pike pozisyonundan başın kontrollü biçimde ellere doğru indirildiği eksantrik dikey press hareketidir. Ön omuz ve triceps ana yükü taşırken serratus, trapez, üst göğüs, el bileği ve gövde kasları destek sağlar.",
+      "An eccentric vertical-press exercise that lowers the head toward the hands from a high-hip pike position. The anterior deltoids and triceps carry most of the load while the serratus, trapezius, upper chest, wrists, and trunk provide support."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "İnişi mümkün olduğunca yavaş kontrol et.",
-        "Control the descent as slowly as possible."
+        "Elleri omuz genişliği civarında yerleştir; parmakları açıp zemine dengeli bas.",
+        "Place the hands around shoulder width, spread the fingers, and press evenly into the floor."
       ],
       [
-        "Başın ineceği hattı düzenli tut.",
-        "Keep the line of descent consistent."
+        "Ayakları zeminde veya yükseltide konumlandırıp kalçayı omuzların üzerine yaklaştır.",
+        "Set the feet on the floor or an elevation and bring the hips closer over the shoulders."
       ],
       [
-        "Gerekirse yükseklikle ölçekle.",
-        "Scale by adjusting elevation if needed."
+        "Dirsekleri rahat press hattında tutup omuzları aktif biçimde ellerden uzağa it.",
+        "Keep the elbows in a comfortable pressing path and actively push the shoulders away from the hands."
+      ],
+      [
+        "Başı ellerin biraz önündeki tekrarlanabilir hedefe yavaşça indir.",
+        "Lower the head slowly toward a repeatable target slightly in front of the hands."
+      ],
+      [
+        "Hedefte dizleri indirerek, ayakla destek alarak veya seçilen yardımla güvenli biçimde çık.",
+        "Exit safely at the target by lowering the knees, using foot assistance, or applying the chosen support."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "İniş hızını kontrol edemeden başı zemine bırakmak.",
+        "Dropping the head to the floor without controlling descent speed."
+      ],
+      [
+        "Dirsekleri aşırı yana açıp her tekrarda baş yolunu değiştirmek.",
+        "Flaring the elbows excessively and changing the head path each rep."
+      ],
+      [
+        "Ayak yüksekliğini artırırken el ve baş mesafesini kaydetmemek.",
+        "Increasing foot elevation without tracking hand and head distance."
+      ],
+      [
+        "Negatif sonunda güvenli çıkış planlamadan sete başlamak.",
+        "Starting the set without planning a safe exit after the negative."
+      ]
+    ],
+    "tips": [
+      [
+        "“Mümkün olduğunca yavaş” yerine tekrarlanabilir bir eksantrik süre hedefle.",
+        "Use a repeatable eccentric duration rather than simply going as slowly as possible."
+      ],
+      [
+        "Başın ellerin biraz önüne inmesi tripod tabanı oluşturabilir; hedef noktasını setler arasında sabit tut.",
+        "Lowering the head slightly in front of the hands can create a tripod base; keep the target consistent between sets."
+      ],
+      [
+        "Ayak yüksekliği ve gövde açısı omuz yükünü değiştirir; ayrı varyasyon olarak kaydet.",
+        "Foot elevation and trunk angle change shoulder loading; log them as separate variations."
+      ],
+      [
+        "Bu hareket HSPU için eksantrik hazırlık olabilir fakat beceriyi otomatik kazandırmaz.",
+        "This exercise can provide eccentric preparation for a handstand push-up but does not automatically produce the skill."
+      ]
+    ],
+    "progression": [
+      [
+        "Pike push-up ile el, dirsek ve baş yolunu öğren.",
+        "Learn hand, elbow, and head path with pike push-ups."
+      ],
+      [
+        "Yüksek hedefe kısa menzilli kontrollü negatif yap.",
+        "Perform short controlled negatives to a high target."
+      ],
+      [
+        "Eksantrik süreyi koruyarak hedef yüksekliğini veya ayak yükseltisini değiştir.",
+        "Change target height or foot elevation while maintaining eccentric time."
+      ],
+      [
+        "İleri aşamada duvar destekli HSPU negatifine geç.",
+        "At a later stage, progress to a wall-supported handstand-push-up negative."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "anterior-deltoid",
+        "triceps-brachii"
       ],
       "secondary": [
-        "core"
+        "upper-trapezius",
+        "serratus-anterior",
+        "pectoralis-major-clavicular-head",
+        "forearm-flexors",
+        "rectus-abdominis"
       ]
     },
     "media": {
@@ -3358,7 +3422,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Pike Handstand Press Negative exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Pike HSPU Negative Rehberi | Eksantrik Form",
+        "Pike HSPU Negative Guide | Eccentric Form"
+      ],
+      "metaDescription": [
+        "Pike handstand press negatif için el, dirsek ve baş yolu, ayak yüksekliği, güvenli çıkış ve progression.",
+        "Learn pike-HSPU-negative setup, head path, foot elevation, safe exit, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön omuz ve triceps",
+          "Anterior deltoids and triceps"
+        ],
+        "equipment": [
+          "Zemin; opsiyonel ayak yükseltisi ve baş pedi",
+          "Floor; optional foot elevation and head pad"
+        ],
+        "movementPattern": [
+          "Eksantrik dikey press",
+          "Eccentric vertical press"
+        ],
+        "bestFor": [
+          "Omuz press kontrolü ve HSPU hazırlığı",
+          "Shoulder-press control and HSPU preparation"
+        ]
+      },
+      "tracking": [
+        [
+          "Ayak yüksekliği, baş hedefi, tekrar, eksantrik süre ve RIR değerini kaydet.",
+          "Log foot elevation, head target, reps, eccentric time, and RIR."
+        ],
+        [
+          "Zemin veya yükseltili pike varyasyonunu belirt.",
+          "Record floor or elevated-pike variation."
+        ],
+        [
+          "Destekli çıkış ve tam press dönüşünü ayrı takip et.",
+          "Track assisted exits separately from full pressing returns."
+        ]
+      ],
+      "related": [
+        "pike-push-up",
+        "wall-handstand-hold",
+        "shoulder-press"
+      ]
+    }
   },
   "wall-handstand-hold": {
     "publish": false,
@@ -3366,36 +3476,103 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/wall-handstand-hold",
     "summary": [
-      "Duvarda handstand tutuşu.",
-      "Wall handstand hold."
+      "Duvarda handstand. Ters pozisyonda omuz ve denge kontrolü.",
+      "Wall handstand. Inverted shoulder and balance control."
     ],
     "description": [
-      "Duvardan destek alınarak yapılan handstand tutuşu. Omuz dayanıklılığı, core sıkılığı ve ters pozisyonda beden kontrolünü geliştirir. Handstand becerisine güvenli giriş için en pratik basamaklardan biridir.",
-      "A handstand hold performed with wall support. It builds shoulder endurance, core tension, and body control while inverted. It is one of the most practical entry steps for learning the handstand safely."
+      "Duvar desteğiyle eller üzerinde ters pozisyonun izometrik korunduğu handstand varyasyonudur. Omuz kuşağı, triceps, el bileği ve parmaklar yük ile dengeyi yönetirken gövde, glute ve quadriceps beden hattına katkı verir.",
+      "A handstand variation that holds an inverted position on the hands with wall support. The shoulder girdle, triceps, wrists, and fingers manage load and balance while the trunk, glutes, and quadriceps contribute to body line."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kaburgaları dışarı itmeden core'u sıkı tut.",
-        "Keep the core tight without flaring the ribs."
+        "Eller için kaymayan bir zemin ve kontrollü çıkış alanı hazırla.",
+        "Prepare a non-slip hand surface and a clear area for a controlled exit."
       ],
       [
-        "Omuzları aktif şekilde yukarı iterek kulaklara yaklaştır.",
-        "Actively elevate the shoulders toward the ears by pushing tall."
+        "Göğüs duvara bakacak şekilde wall walk veya seçtiğin güvenli girişle ters pozisyona çık.",
+        "Enter the inversion with a chest-to-wall wall walk or another chosen safe entry."
       ],
       [
-        "Kısa kaliteli setler, uzun bozuk tutuşlardan daha değerlidir.",
-        "Short high-quality holds are better than long sloppy ones."
+        "Elleri rahat genişlikte tut, parmakları aç ve zemini aktif it.",
+        "Keep the hands at a comfortable width, spread the fingers, and actively press the floor."
+      ],
+      [
+        "Dirsekleri rahat ekstansiyonda tutup omuzları uzun bir destek pozisyonuna yükselt.",
+        "Keep the elbows comfortably extended and elevate the shoulders into a tall support position."
+      ],
+      [
+        "Duvara hafif temasla kontrollü nefes al; el veya omuz pozisyonu bozulmadan önce güvenli çık.",
+        "Breathe under control with light wall contact and exit safely before hand or shoulder position changes."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ters pozisyona çıkmadan önce güvenli iniş yolunu planlamamak.",
+        "Entering the inversion without planning a safe way down."
+      ],
+      [
+        "Ağırlığı baş veya boyun üzerine aktarmak.",
+        "Shifting bodyweight onto the head or neck."
+      ],
+      [
+        "Süreyi uzatmak için dirsek, omuz veya bel pozisyonunu kontrolsüz değiştirmek.",
+        "Changing elbow, shoulder, or lower-back position just to extend the hold."
+      ],
+      [
+        "Ellerin duvara mesafesini her sette büyük ölçüde değiştirmek.",
+        "Changing hand distance from the wall substantially between sets."
+      ]
+    ],
+    "tips": [
+      [
+        "Göğüs duvara ve sırt duvara varyasyonları farklı giriş ve denge talepleri taşır; ayrı kaydet.",
+        "Chest-to-wall and back-to-wall variations have different entry and balance demands; log them separately."
+      ],
+      [
+        "Parmak basıncı ve el bileği kontrolü handstand dengesinin aktif parçalarıdır.",
+        "Finger pressure and wrist control are active parts of handstand balance."
+      ],
+      [
+        "Omuzları uzun biçimde itmek faydalı olabilir; ağrılı maksimum elevasyonu zorunlu tutma.",
+        "Pushing tall through the shoulders can be useful; do not force painful maximum elevation."
+      ],
+      [
+        "Kısa kaliteli setler formun dağıldığı uzun tutuşlardan daha karşılaştırılabilirdir.",
+        "Short high-quality sets are more comparable than long holds with deteriorating form."
+      ]
+    ],
+    "progression": [
+      [
+        "Box pike hold ile eller üzerinde yük ve omuz desteğini öğren.",
+        "Learn hand loading and shoulder support with a box pike hold."
+      ],
+      [
+        "Kısmi wall walk ile ters pozisyonda süre geliştir.",
+        "Develop inversion time with partial wall walks."
+      ],
+      [
+        "Göğüs duvara kısa handstand setlerini aynı el mesafesinde tamamla.",
+        "Complete short chest-to-wall handstand sets at the same hand distance."
+      ],
+      [
+        "İleri aşamada hafif heel pull veya kontrollü duvar ayrılmaları kullan.",
+        "At a later stage, use light heel pulls or controlled wall separations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "anterior-deltoid",
+        "upper-trapezius",
+        "serratus-anterior",
+        "triceps-brachii"
       ],
       "secondary": [
-        "core"
+        "forearm-flexors",
+        "rectus-abdominis",
+        "internal-oblique",
+        "external-oblique",
+        "gluteus-maximus",
+        "quadriceps"
       ]
     },
     "media": {
@@ -3412,7 +3589,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Wall Handstand Hold exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Wall Handstand Hold Rehberi | Duvar Formu",
+        "Wall Handstand Hold Guide | Wall Form"
+      ],
+      "metaDescription": [
+        "Wall handstand için el ve duvar mesafesi, omuz desteği, parmak basıncı, güvenli giriş-çıkış ve progression.",
+        "Learn wall-handstand setup, shoulder support, finger pressure, safe entry-exit, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Omuz kuşağı ve triceps",
+          "Shoulder girdle and triceps"
+        ],
+        "equipment": [
+          "Sağlam duvar ve kaymayan zemin",
+          "Stable wall and non-slip floor"
+        ],
+        "movementPattern": [
+          "Ters izometrik dikey destek",
+          "Inverted isometric vertical support"
+        ],
+        "bestFor": [
+          "Handstand pozisyonu, omuz dayanıklılığı ve denge",
+          "Handstand position, shoulder endurance, and balance"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş süresi, duvar yönü, el-duvar mesafesi ve RPE değerini kaydet.",
+          "Log hold time, wall orientation, hand-wall distance, and RPE."
+        ],
+        [
+          "Wall walk veya kick-up girişini belirt.",
+          "Record wall-walk or kick-up entry."
+        ],
+        [
+          "Duvar temaslı ve heel-pull tekrarlarını ayrı takip et.",
+          "Track wall-contact and heel-pull attempts separately."
+        ]
+      ],
+      "related": [
+        "pike-handstand-press-negative",
+        "pike-push-up",
+        "support-hold"
+      ]
+    }
   },
   "diamond-push-up": {
     "publish": false,
@@ -5387,37 +5610,104 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/farmer-carry",
     "summary": [
-      "Ağırlık taşıma. Kavrama, core ve trapez.",
-      "Loaded carry. Grip, core, and traps."
+      "Çift taraflı farmer carry. Kavrama ve taşıma kuvveti.",
+      "Bilateral farmer carry. Grip and loaded-carry strength."
     ],
     "description": [
-      "İki elde yük taşıyarak yapılan fonksiyonel kuvvet hareketi. Kavrama gücü, üst trapez, core stabilitesi ve genel iş kapasitesini aynı anda geliştirir. Basit görünmesine rağmen çok yüksek sistemik talep oluşturur.",
-      "A functional strength movement where load is carried in both hands. It develops grip strength, upper traps, core stability, and general work capacity all at once. Despite its simplicity, it creates a high systemic training demand."
+      "İki elde eşit yükle belirli mesafe veya süre yüründüğü loaded-carry hareketidir. Kavrama ve üst trapez yükü taşırken gövde, kalça ve alt bacak kasları duruşu ve adımı stabilize eder.",
+      "A loaded-carry exercise that walks for distance or time with equal loads in both hands. The grip and upper trapezius carry the implements while the trunk, hips, and lower legs stabilize posture and gait."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Göğsü açık tut ve omuzları hafif aşağı-geride organize et.",
-        "Keep the chest open and organize the shoulders slightly down and back."
+        "Yükleri iki yana eşit yerleştir ve tutacakların güvenli olduğunu kontrol et.",
+        "Place equal loads on both sides and check that the handles are secure."
       ],
       [
-        "Kısa, kontrollü adımlar kullan; yük seni yana çekmesin.",
-        "Use short controlled steps and do not let the load pull you side to side."
+        "Kalça ve dizlerden kontrollü eğilip iki yükü aynı anda kavra.",
+        "Bend through the hips and knees under control and grip both implements together."
       ],
       [
-        "Ağırlık taşırken karını aktif tutmak hareketin ana kısmıdır.",
-        "Actively bracing the trunk during the walk is a core part of the movement."
+        "Ayağa kalkıp yüklerin doğal biçimde yanlarda asılmasına izin ver; gövdeyi brace et.",
+        "Stand up, let the loads hang naturally at the sides, and brace the trunk."
+      ],
+      [
+        "Doğal fakat kontrollü adımlarla belirlenen mesafeyi yürü; dönüşleri yavaşlat.",
+        "Walk the planned distance with natural controlled steps and slow down for turns."
+      ],
+      [
+        "Bitişte yükleri savurmadan kalça ve dizlerle zemine indir.",
+        "At the finish, lower the loads through the hips and knees without swinging them down."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Omuzları zorla aşağı-geriye kilitleyip doğal taşıma pozisyonunu bozmak.",
+        "Forcing the shoulders down and back and disrupting a natural carrying position."
+      ],
+      [
+        "Yük nedeniyle yana eğilmek veya yüklerin bacaklara çarpmasına izin vermek.",
+        "Leaning sideways under load or letting the implements strike the legs."
+      ],
+      [
+        "Dönüşlerde hız kesmeden ayakları çaprazlamak.",
+        "Crossing the feet during turns without slowing down."
+      ],
+      [
+        "Set sonunda yükleri kontrolsüz bırakmak.",
+        "Dropping or releasing the loads without control at the end."
+      ]
+    ],
+    "tips": [
+      [
+        "Omuzların hafif yükselmesi yük altında normal olabilir; zorla depresyon tek doğru pozisyon değildir.",
+        "Some shoulder elevation can be normal under load; forced depression is not the only correct position."
+      ],
+      [
+        "Dumbbell, kettlebell, trap-bar veya özel farmer handle farklı tutuş ve salınım üretir; ayrı kaydet.",
+        "Dumbbells, kettlebells, trap bars, and farmer handles create different grip and swing demands; log them separately."
+      ],
+      [
+        "Mesafe, süre, dönüş sayısı ve tutacak kalınlığı yük kadar önemlidir.",
+        "Distance, duration, turn count, and handle thickness matter as much as load."
+      ],
+      [
+        "Strap kullanımı kavrama limitini değiştirir; strapsız setlerle doğrudan karşılaştırma.",
+        "Straps change the grip limit; do not compare strapped and strapless sets directly."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif ve eşit yükle kısa düz mesafede adım kontrolü öğren.",
+        "Learn step control over a short straight distance with light equal loads."
+      ],
+      [
+        "Aynı yükle mesafe veya süreyi kademeli artır.",
+        "Gradually increase distance or duration with the same load."
+      ],
+      [
+        "Aynı parkur ve dönüş sayısında küçük yük artışları yap.",
+        "Add small amounts of load on the same course with the same turn count."
+      ],
+      [
+        "İleri aşamada kalın tutacak, daha uzun mesafe veya farklı implement kullan.",
+        "At a later stage, use thicker handles, longer distances, or another implement."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "forearms"
+        "forearm-flexors",
+        "upper-trapezius",
+        "quadratus-lumborum",
+        "spinal-erectors"
       ],
       "secondary": [
-        "trapezius",
-        "core"
+        "internal-oblique",
+        "external-oblique",
+        "gluteus-medius",
+        "gluteus-maximus",
+        "quadriceps",
+        "gastrocnemius",
+        "soleus"
       ]
     },
     "media": {
@@ -5434,7 +5724,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Farmer Carry exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Farmer Carry Rehberi | Yük, Mesafe ve Form",
+        "Farmer Carry Guide | Load, Distance, and Form"
+      ],
+      "metaDescription": [
+        "Farmer carry için güvenli kaldırma, doğal omuz pozisyonu, adım ve dönüş kontrolü, mesafe, kavrama ve progression.",
+        "Learn farmer-carry pickup, shoulder position, gait, turns, grip, distance, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Kavrama, üst trapez ve gövde stabilizatörleri",
+          "Grip, upper traps, and trunk stabilizers"
+        ],
+        "equipment": [
+          "İki eşit dumbbell, kettlebell veya farmer handle",
+          "Two equal dumbbells, kettlebells, or farmer handles"
+        ],
+        "movementPattern": [
+          "Çift taraflı loaded carry",
+          "Bilateral loaded carry"
+        ],
+        "bestFor": [
+          "Kavrama, taşıma kuvveti ve iş kapasitesi",
+          "Grip, carrying strength, and work capacity"
+        ]
+      },
+      "tracking": [
+        [
+          "Implement, taraf başına yük, mesafe/süre, dönüş sayısı ve RPE değerini kaydet.",
+          "Log implement, load per hand, distance or time, turn count, and RPE."
+        ],
+        [
+          "Tutacak kalınlığı ve strap kullanımını belirt.",
+          "Record handle thickness and strap use."
+        ],
+        [
+          "Düz parkur ve dönüşlü parkurları ayrı takip et.",
+          "Track straight and turning courses separately."
+        ]
+      ],
+      "related": [
+        "shrug",
+        "dead-hang",
+        "side-plank"
+      ]
+    }
   },
   "wrist-extensions": {
     "publish": false,
@@ -6791,36 +7127,103 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/tuck-front-lever-row",
     "summary": [
-      "Tuck front lever row. Core + çekiş.",
-      "Tuck front lever row. Core + pull."
+      "Tuck front lever row. Kısa kaldıraç yatay çekiş.",
+      "Tuck front lever row. Short-lever horizontal pull."
     ],
     "description": [
-      "Tuck front lever pozisyonunda yapılan row hareketi. Core gerilimi ve yatay çekiş kuvvetini aynı anda geliştirir. Front lever progresyonları için çok güçlü bir basamaktır.",
-      "A row performed in a tuck front lever position. It develops core tension and horizontal pulling strength at the same time. It is a very strong step in front-lever progressions."
+      "Bar veya ring altında tuck front-lever gövde pozisyonu korunurken yapılan yatay çekiş hareketidir. Latissimus dorsi, biceps ve üst sırt çekişi üretir; karın, glute ve omuz kuşağı kısa kaldıraç beden hattını kontrol eder.",
+      "A horizontal pulling exercise performed under a bar or rings while maintaining a tuck front-lever body position. The lats, biceps, and upper back create the pull while the abdominals, glutes, and shoulder girdle control the short-lever body line."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Tuck pozisyonunu sıkı tut.",
-        "Keep the tuck position tight."
+        "Sağlam barı veya eşit yükseklikte ringleri tam kavrayıp kontrollü asılış kur.",
+        "Take a full grip on a secure bar or level rings and establish a controlled hang."
       ],
       [
-        "Çekişte kalçanın düşmesine izin verme.",
-        "Do not let the hips drop during the row."
+        "Dizleri gövdeye çekip pelvisi kıvırarak sıkı tuck pozisyonu oluştur.",
+        "Draw the knees toward the torso and curl the pelvis into a compact tuck."
       ],
       [
-        "Az tekrar bile yüksek kaliteyle çok değerlidir.",
-        "Even low reps are very valuable when done cleanly."
+        "Omuzları aktif tutup kalçayı hedeflenen lever yüksekliğine kaldır.",
+        "Keep the shoulders active and raise the hips toward the target lever height."
+      ],
+      [
+        "Kalça yüksekliğini mümkün olduğunca koruyarak göğsü bara veya ringlere çek.",
+        "Pull the chest toward the bar or rings while maintaining hip height as closely as possible."
+      ],
+      [
+        "Dirsekleri kontrollü açıp tuck pozisyonunu kaybetmeden başlangıca dön.",
+        "Extend the elbows under control and return without losing the tuck position."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Çekiş sırasında kalçayı düşürüp hareketi normal inverted rowa çevirmek.",
+        "Dropping the hips during the pull and turning the movement into a regular inverted row."
+      ],
+      [
+        "Tuck açısını her tekrarda değiştirerek kaldıracı tutarsızlaştırmak.",
+        "Changing tuck angle each rep and making leverage inconsistent."
+      ],
+      [
+        "Omuzları kulaklara çekip yalnız dirseklerle row yapmak.",
+        "Shrugging the shoulders and rowing only through the elbows."
+      ],
+      [
+        "Bar ve ring varyasyonlarını doğrudan aynı yük gibi karşılaştırmak.",
+        "Comparing bar and ring variations as if they provide the same demand."
+      ]
+    ],
+    "tips": [
+      [
+        "Kalçanın tam yatay olması tek geçerli standart değildir; aynı hedef yüksekliği tekrarla.",
+        "Perfectly horizontal hips are not the only valid standard; repeat the same target height."
+      ],
+      [
+        "Dizlerin gövdeye yakınlığı kaldıracı değiştirir; tuck sıkılığını tracking alanına ekle.",
+        "Knee distance from the torso changes leverage; include tuck tightness in tracking."
+      ],
+      [
+        "Bar daha sabit, ringler daha serbest el yolu sunar; aparat seçimini ayrı varyasyon olarak tut.",
+        "A bar is more fixed while rings allow a freer hand path; keep apparatus as a separate variation."
+      ],
+      [
+        "Az tekrar ancak aynı lever hattıyla yapıldığında karşılaştırılabilir ilerleme sağlar.",
+        "Low reps provide comparable progress only when performed with the same lever line."
+      ]
+    ],
+    "progression": [
+      [
+        "Australian pull-up veya ring row ile yatay çekiş kontrolü geliştir.",
+        "Develop horizontal pulling control with Australian pull-ups or ring rows."
+      ],
+      [
+        "Tuck front-lever hold ile kısa kaldıraç pozisyonunu öğren.",
+        "Learn the short-lever position with a tuck front-lever hold."
+      ],
+      [
+        "Kısa row menzilini aynı kalça yüksekliğinde tamamla.",
+        "Complete a short rowing range at the same hip height."
+      ],
+      [
+        "İleri aşamada row menzilini veya tuck kaldıracını kademeli uzat.",
+        "At a later stage, gradually increase rowing range or tuck leverage."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "biceps-brachii",
+        "middle-trapezius",
+        "rhomboids"
       ],
       "secondary": [
-        "core"
+        "posterior-deltoid",
+        "teres-major",
+        "rectus-abdominis",
+        "internal-oblique",
+        "external-oblique",
+        "gluteus-maximus"
       ]
     },
     "media": {
@@ -6837,7 +7240,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Tuck Front Lever Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Tuck Front Lever Row Rehberi | Çekiş Formu",
+        "Tuck Front Lever Row Guide | Pulling Form"
+      ],
+      "metaDescription": [
+        "Tuck front lever row için aparat, tuck sıkılığı, kalça yüksekliği, row menzili, hatalar ve progression.",
+        "Learn tuck-front-lever-row apparatus, tuck tightness, hip height, range, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus dorsi, biceps ve üst sırt",
+          "Latissimus dorsi, biceps, and upper back"
+        ],
+        "equipment": [
+          "Sağlam bar veya ringler",
+          "Secure bar or rings"
+        ],
+        "movementPattern": [
+          "Kısa kaldıraç yatay çekiş",
+          "Short-lever horizontal pull"
+        ],
+        "bestFor": [
+          "Front-lever çekiş kuvveti ve beden hattı",
+          "Front-lever pulling strength and body-line control"
+        ]
+      },
+      "tracking": [
+        [
+          "Aparat, tuck sıkılığı, kalça yüksekliği, tekrar ve RIR değerini kaydet.",
+          "Log apparatus, tuck tightness, hip height, reps, and RIR."
+        ],
+        [
+          "Göğüs-bar mesafesi veya row menzilini belirt.",
+          "Record chest-to-bar distance or rowing range."
+        ],
+        [
+          "Bar ve ring varyasyonlarını ayrı takip et.",
+          "Track bar and ring variations separately."
+        ]
+      ],
+      "related": [
+        "australian-pull-up",
+        "ring-row",
+        "hollow-body-hold"
+      ]
+    }
   },
   "dumbell-row": {
     "publish": false,
@@ -12721,37 +13170,101 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/support-hold",
     "summary": [
-      "Destek tutuşu. Dip temeli.",
-      "Support hold. Dip foundation."
+      "Paralel bar support hold. Üst destek kontrolü.",
+      "Parallel-bar support hold. Top-support control."
     ],
     "description": [
-      "Dip barlarında üst pozisyonda yapılan izometrik tutuş. Omuz stabilitesi, triceps gerginliği ve core kontrolünü birlikte geliştirir. Dips progresyonu için iyi bir başlangıçtır.",
-      "An isometric top-position hold on dip bars. It develops shoulder stability, triceps tension, and core control together. It is a strong starting point for dip progressions."
+      "Sabit paralel barlarda dirsekler açıkken gövdenin üst destek pozisyonunda izometrik tutulduğu harekettir. Triceps, ön omuz, göğüs ve omuz kuşağı destek üretirken karın kasları sallanmayı ve pelvis pozisyonunu kontrol eder.",
+      "An isometric top-support exercise on fixed parallel bars with the elbows extended. The triceps, anterior shoulders, chest, and shoulder girdle create support while the abdominals control sway and pelvic position."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri kilitlerken omuzları aktif tut.",
-        "Keep the shoulders active while locking the elbows."
+        "Paralel barların sağlamlığını ve kontrollü çıkış yüksekliğini kontrol et.",
+        "Check that the parallel bars are secure and set at a manageable exit height."
       ],
       [
-        "Gövdede sallanma olmasın.",
-        "Do not allow the torso to sway."
+        "Basamak veya ayak desteğiyle üst pozisyona çıkıp barları tam kavra.",
+        "Use a step or foot assistance to reach the top position and take a full grip."
       ],
       [
-        "Kısa setlerle kaliteli pozisyonu koru.",
-        "Use short sets that preserve a clean position."
+        "Dirsekleri rahat ekstansiyonda tutup barları aşağı iterek omuz kuşağını aktif destekle.",
+        "Keep the elbows comfortably extended and press the bars down to support the shoulder girdle actively."
+      ],
+      [
+        "Kaburgaları pelvis üzerinde tut, bacakları sessiz ve gövdeyi sallanmasız koru.",
+        "Stack the ribs over the pelvis and keep the legs quiet without torso sway."
+      ],
+      [
+        "Dirsek veya omuz pozisyonu değişmeden önce ayak desteğine kontrollü dön.",
+        "Return to foot support under control before elbow or shoulder position changes."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Omuzları pasif bırakıp gövdenin barlar arasında çökmesine izin vermek.",
+        "Letting the shoulders go passive and the torso sink between the bars."
+      ],
+      [
+        "Dirsekleri rahatsız edici hiperekstansiyona zorlamak.",
+        "Forcing the elbows into uncomfortable hyperextension."
+      ],
+      [
+        "Süre uğruna bacak ve gövde salınımını sürdürmek.",
+        "Continuing through leg and torso sway just to extend time."
+      ],
+      [
+        "Kontrollü iniş yolu olmadan yüksek barlarda tutuşa çıkmak.",
+        "Mounting high bars without a controlled way down."
+      ]
+    ],
+    "tips": [
+      [
+        "Omuzları aktif desteklemek önemlidir; maksimum depresyon herkeste aynı görünmek zorunda değildir.",
+        "Active shoulder support matters; maximum depression does not need to look the same for everyone."
+      ],
+      [
+        "Rahat dirsek ekstansiyonu geçerlidir; anatomik kilit açısı kişiden kişiye değişebilir.",
+        "Comfortable elbow extension is valid; anatomical lockout angle can vary between people."
+      ],
+      [
+        "Paralel bar support, ring support’tan daha sabittir; süreleri doğrudan karşılaştırma.",
+        "Parallel-bar support is more stable than ring support; do not compare hold times directly."
+      ],
+      [
+        "Dips için temel oluşturabilir fakat dip derinliği ve eksantrik kontrol ayrıca çalışılmalıdır.",
+        "It can build a base for dips, but dip depth and eccentric control still require separate practice."
+      ]
+    ],
+    "progression": [
+      [
+        "Ayaklar yerde barlara bastırarak destek pozisyonunu öğren.",
+        "Learn the support position while pressing into the bars with feet down."
+      ],
+      [
+        "Ayak ucundan hafif yardım alarak kısa tutuşlar yap.",
+        "Use light toe assistance for short holds."
+      ],
+      [
+        "Yardımsız kısa setleri aynı omuz ve dirsek pozisyonunda tamamla.",
+        "Complete short unassisted sets with the same shoulder and elbow position."
+      ],
+      [
+        "İleri aşamada süre, L-sit tuck veya kontrollü dip negatif ekle.",
+        "At a later stage, add duration, an L-sit tuck, or controlled dip negatives."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "triceps-brachii",
+        "anterior-deltoid",
+        "pectoralis-major"
       ],
       "secondary": [
-        "triceps",
-        "core"
+        "serratus-anterior",
+        "lower-trapezius",
+        "latissimus-dorsi",
+        "rectus-abdominis",
+        "forearm-flexors"
       ]
     },
     "media": {
@@ -12768,7 +13281,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Support Hold exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Support Hold Rehberi | Paralel Bar Desteği",
+        "Support Hold Guide | Parallel-Bar Support"
+      ],
+      "metaDescription": [
+        "Support hold için bar kurulumu, omuz desteği, rahat dirsek ekstansiyonu, süre, hatalar ve dip progression'ı.",
+        "Learn support-hold setup, shoulder support, elbow extension, timing, errors, and dip progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps, ön omuz ve göğüs",
+          "Triceps, anterior shoulders, and chest"
+        ],
+        "equipment": [
+          "Sabit paralel barlar veya parallettes",
+          "Fixed parallel bars or parallettes"
+        ],
+        "movementPattern": [
+          "İzometrik üst destek",
+          "Isometric top support"
+        ],
+        "bestFor": [
+          "Dip temeli ve omuz destek kontrolü",
+          "Dip foundation and shoulder-support control"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş süresi, bar yüksekliği, ayak yardımı ve RPE değerini kaydet.",
+          "Log hold time, bar height, foot assistance, and RPE."
+        ],
+        [
+          "Paralel bar veya parallette varyasyonunu belirt.",
+          "Record parallel-bar or parallette variation."
+        ],
+        [
+          "Yardımlı ve yardımsız tutuşları ayrı takip et.",
+          "Track assisted and unassisted holds separately."
+        ]
+      ],
+      "related": [
+        "dips",
+        "ring-support-hold",
+        "bench-dips"
+      ]
+    }
   },
   "ring-support-hold": {
     "publish": false,
@@ -12776,37 +13335,103 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/ring-support-hold",
     "summary": [
-      "Ring destek tutuşu. Stabilite odaklı.",
-      "Ring support hold. Stability focused."
+      "Ring support hold. Serbest halkalarda üst destek.",
+      "Ring support hold. Top support on free rings."
     ],
     "description": [
-      "Ring üzerinde üst destek pozisyonunda yapılan izometrik tutuş. Ring instabilitesi nedeniyle omuz, triceps ve core çok daha aktif çalışır. Ring dips ve muscle-up hazırlığı için faydalıdır.",
-      "An isometric top-support hold performed on rings. Because of ring instability, the shoulders, triceps, and core work much harder. It is useful for ring dips and muscle-up preparation."
+      "Serbest hareket eden ringlerde dirsekler açıkken üst destek pozisyonunun izometrik korunduğu harekettir. Triceps, ön omuz, göğüs, omuz kuşağı, kavrama ve karın kasları ring konumunu ve beden hattını birlikte kontrol eder.",
+      "An isometric top-support exercise on freely moving rings with the elbows extended. The triceps, anterior shoulders, chest, shoulder girdle, grip, and abdominals work together to control ring position and body line."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ringleri vücuda yakın ve sabit tut.",
-        "Keep the rings close to the body and stable."
+        "Ringleri eşit ve güvenli yüksekliğe ayarla; altında kontrollü ayak desteği bırak.",
+        "Set the rings to an equal safe height and keep controlled foot support underneath."
       ],
       [
-        "Dirsekleri kilitle ama omuzları pasif bırakma.",
-        "Lock the elbows without letting the shoulders go passive."
+        "Ayak yardımıyla üst desteğe çıkıp ringleri gövdenin yanında tam kavra.",
+        "Use foot assistance to reach top support and take a full grip with the rings beside the body."
       ],
       [
-        "Kısa sürelerle başlayıp kaliteyi koru.",
-        "Start with short durations and preserve quality."
+        "Dirsekleri rahat ekstansiyonda tutup ringleri aşağı iterek omuzları aktif destekle.",
+        "Keep the elbows comfortably extended and press the rings down to support the shoulders actively."
+      ],
+      [
+        "Ringleri gövdeye yakın, nötr veya kontrol edilen hafif dışa dönüşte sabitle.",
+        "Keep the rings close to the body in neutral or a controlled slight turnout."
+      ],
+      [
+        "Ring salınımı veya omuz pozisyonu bozulmadan önce ayak desteğine kontrollü dön.",
+        "Return to foot support before ring sway or shoulder position changes."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Başlangıçta ringleri zorla tam dışa çevirip kontrolü kaybetmek.",
+        "Forcing a full ring turnout at the start and losing control."
+      ],
+      [
+        "Ringlerin gövdeden uzaklaşıp dirsek ve omuz kaldıraçlarını büyütmesine izin vermek.",
+        "Letting the rings drift away from the body and lengthen elbow and shoulder leverage."
+      ],
+      [
+        "Dirsekleri rahatsız edici hiperekstansiyona zorlamak.",
+        "Forcing the elbows into uncomfortable hyperextension."
+      ],
+      [
+        "Ringler sallanırken yalnız süreyi uzatmaya devam etmek.",
+        "Continuing solely to extend time while the rings swing."
+      ]
+    ],
+    "tips": [
+      [
+        "Ring instabilitesi koordinasyon talebini artırır; her kasın otomatik olarak daha fazla çalıştığı anlamına gelmez.",
+        "Ring instability increases coordination demand; it does not mean every muscle automatically works harder."
+      ],
+      [
+        "Tam ring turnout ileri bir varyasyondur; nötr ring desteği geçerli başlangıçtır.",
+        "A full ring turnout is an advanced variation; neutral-ring support is a valid starting point."
+      ],
+      [
+        "Ring yüksekliği ve strap uzunluğu salınımı değiştirir; setler arasında sabit tut.",
+        "Ring height and strap length change sway; keep them consistent between sets."
+      ],
+      [
+        "Sabit bar ve ring tutuş sürelerini doğrudan karşılaştırma.",
+        "Do not directly compare hold times between fixed bars and rings."
+      ]
+    ],
+    "progression": [
+      [
+        "Paralel bar support hold ile üst destek pozisyonunu öğren.",
+        "Learn the top-support position with parallel-bar support holds."
+      ],
+      [
+        "Ayak yardımlı nötr ring desteğinde kısa setler yap.",
+        "Perform short neutral-ring holds with foot assistance."
+      ],
+      [
+        "Yardımı azaltıp ringleri gövdeye yakın sabitle.",
+        "Reduce assistance while stabilizing the rings close to the body."
+      ],
+      [
+        "İleri aşamada hafif turnout, daha uzun süre veya ring dip negatifi ekle.",
+        "At a later stage, add slight turnout, longer holds, or ring-dip negatives."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "triceps-brachii",
+        "anterior-deltoid",
+        "pectoralis-major"
       ],
       "secondary": [
-        "triceps",
-        "core"
+        "serratus-anterior",
+        "lower-trapezius",
+        "latissimus-dorsi",
+        "forearm-flexors",
+        "rectus-abdominis",
+        "internal-oblique",
+        "external-oblique"
       ]
     },
     "media": {
@@ -12823,7 +13448,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Ring Support Hold exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Ring Support Hold Rehberi | Halka Desteği",
+        "Ring Support Hold Guide | Ring Stability"
+      ],
+      "metaDescription": [
+        "Ring support için halka yüksekliği, ayak yardımı, nötr ve turnout pozisyonları, salınım, hatalar ve progression.",
+        "Learn ring-support height, foot assistance, neutral and turnout positions, sway, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps, ön omuz ve göğüs",
+          "Triceps, anterior shoulders, and chest"
+        ],
+        "equipment": [
+          "Eşit ayarlı jimnastik ringleri",
+          "Evenly adjusted gymnastic rings"
+        ],
+        "movementPattern": [
+          "Serbest halkalarda izometrik üst destek",
+          "Isometric top support on free rings"
+        ],
+        "bestFor": [
+          "Ring stabilitesi ve dip hazırlığı",
+          "Ring stability and dip preparation"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş süresi, ring yüksekliği, strap uzunluğu, yardım ve RPE değerini kaydet.",
+          "Log hold time, ring height, strap length, assistance, and RPE."
+        ],
+        [
+          "Nötr veya turnout ring pozisyonunu belirt.",
+          "Record neutral or turnout ring position."
+        ],
+        [
+          "Yardımlı ve yardımsız tutuşları ayrı takip et.",
+          "Track assisted and unassisted holds separately."
+        ]
+      ],
+      "related": [
+        "support-hold",
+        "dips",
+        "ring-row"
+      ]
+    }
   },
   "plank": {
     "publish": false,
@@ -15135,36 +15806,102 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/l-sit",
     "summary": [
-      "L pozisyon oturuşu. Core ve kalça fleksörü.",
-      "L-sit hold. Core and hip flexors."
+      "L-sit. Üst destek ve uzun bacak kaldıraç kontrolü.",
+      "L-sit. Top support and long-leg lever control."
     ],
     "description": [
-      "Bacaklar önde düz uzatılmış şekilde yapılan izometrik tutuş. Core, kalça fleksörleri, quadriceps ve omuz stabilitesini aynı anda zorlar. Hem calisthenics hem de genel vücut kontrolü için çok değerli bir harekettir.",
-      "An isometric hold performed with the legs straight out in front. It challenges the core, hip flexors, quads, and shoulder stability all at once. It is highly valuable for both calisthenics and general body control."
+      "Eller üzerinde üst destek korunurken bacakların gövde önünde kaldırıldığı izometrik skill hareketidir. Kalça fleksörleri ve karın duvarı bacak-pelvis pozisyonunu; quadriceps diz açısını, triceps ve omuz kuşağı ise desteği korur.",
+      "An isometric skill that holds top support on the hands while lifting the legs in front of the torso. The hip flexors and abdominal wall control leg-pelvis position, the quadriceps maintain knee angle, and the triceps and shoulder girdle support the body."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ellerle zemini veya paraleti aktif iterek omuzları yükselt.",
-        "Push strongly through the floor or parallettes to elevate the shoulders."
+        "Parallettes, paralel bar veya zeminde elleri rahat ve simetrik yerleştir.",
+        "Place the hands comfortably and symmetrically on parallettes, parallel bars, or the floor."
       ],
       [
-        "Tam L zor gelirse tek bacak veya tuck versiyonla başla.",
-        "If a full L-sit is too hard, start with a tuck or single-leg version."
+        "Destekleri aşağı itip dirsekleri rahat ekstansiyonda tutarak kalçayı yükselt.",
+        "Press the supports down and lift the hips with the elbows comfortably extended."
       ],
       [
-        "Dizleri kilitli ve ayak parmakları gergin tutmak pozisyonu temizler.",
-        "Keeping the knees locked and toes pointed makes the position cleaner."
+        "Önce dizleri gövdeye çekip tuck support pozisyonunu sabitle.",
+        "First draw the knees toward the torso and stabilize a tuck-support position."
+      ],
+      [
+        "Seçilen progression'a göre bir veya iki bacağı öne uzat; pelvis yüksekliğini koru.",
+        "Extend one or both legs forward according to the chosen progression while maintaining hip height."
+      ],
+      [
+        "Omuz, dirsek veya pelvis pozisyonu bozulmadan önce ayakları kontrollü indir.",
+        "Lower the feet under control before shoulder, elbow, or pelvic position changes."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Tuck support kurulmadan tam düz bacak L-sit denemek.",
+        "Attempting a full straight-leg L-sit before establishing tuck support."
+      ],
+      [
+        "Omuzları pasif bırakıp kalçanın desteklerin altında çökmesine izin vermek.",
+        "Letting the shoulders go passive and the hips sink below the supports."
+      ],
+      [
+        "Diz veya ayak estetiğini süre ve pelvis kontrolünden daha önemli görmek.",
+        "Prioritizing knee or toe aesthetics over hold time and pelvic control."
+      ],
+      [
+        "Sağ ve sol tek bacak varyasyonlarında farklı destek yüksekliği kullanmak.",
+        "Using different support heights for right and left single-leg variations."
+      ]
+    ],
+    "tips": [
+      [
+        "Tuck, tek bacak ve bir diz bükülü varyasyonlar geçerli progression'lardır.",
+        "Tuck, single-leg, and one-knee-bent variations are valid progressions."
+      ],
+      [
+        "Tam diz ekstansiyonu kaldıracı artırır; kişisel eklem kilidi veya pointed toes tek başarı ölçütü değildir.",
+        "Full knee extension increases leverage; individual joint lockout or pointed toes are not the only success measures."
+      ],
+      [
+        "Daha yüksek parallettes kalçayı kaldırmak ve bacakları zeminden ayırmak için alan sağlayabilir.",
+        "Higher parallettes can provide room to lift the hips and clear the legs from the floor."
+      ],
+      [
+        "Hamstring esnekliği ve kompresyon kuvveti bacak yüksekliğini etkiler; süreyle birlikte varyasyonu kaydet.",
+        "Hamstring flexibility and compression strength affect leg height; log variation along with duration."
+      ]
+    ],
+    "progression": [
+      [
+        "Support hold ve ayak yardımlı tuck support ile üst desteği öğren.",
+        "Learn top support with support holds and foot-assisted tuck support."
+      ],
+      [
+        "Kısa tuck L-sit tutuşlarını aynı pelvis yüksekliğinde tamamla.",
+        "Complete short tuck L-sit holds at the same hip height."
+      ],
+      [
+        "Tek bacak veya bir diz bükülü varyasyonla kaldıracı uzat.",
+        "Lengthen the lever with a single-leg or one-knee-bent variation."
+      ],
+      [
+        "İki bacağı kademeli uzatıp kontrollü full L-sit’e ilerle.",
+        "Gradually extend both legs toward a controlled full L-sit."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "iliopsoas",
+        "rectus-abdominis",
+        "rectus-femoris"
       ],
       "secondary": [
-        "glutes"
+        "quadriceps",
+        "triceps-brachii",
+        "anterior-deltoid",
+        "serratus-anterior",
+        "latissimus-dorsi",
+        "forearm-flexors"
       ]
     },
     "media": {
@@ -15181,7 +15918,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the L-Sit exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "L-Sit Rehberi | Tuck ve Tek Bacak Progression",
+        "L-Sit Guide | Tuck and Single-Leg Progression"
+      ],
+      "metaDescription": [
+        "L-sit için üst destek, tuck ve tek bacak varyasyonları, pelvis ve bacak yüksekliği, hatalar ve progression.",
+        "Learn L-sit support, tuck and single-leg variations, hip and leg height, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Kalça fleksörleri ve karın duvarı",
+          "Hip flexors and abdominal wall"
+        ],
+        "equipment": [
+          "Parallettes, paralel bar veya zemin",
+          "Parallettes, parallel bars, or floor"
+        ],
+        "movementPattern": [
+          "Üst destekte izometrik kompresyon",
+          "Isometric compression in top support"
+        ],
+        "bestFor": [
+          "Calisthenics core, kalça fleksörü ve destek kontrolü",
+          "Calisthenics core, hip-flexor, and support control"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş süresi, destek yüksekliği, varyasyon ve RPE değerini kaydet.",
+          "Log hold time, support height, variation, and RPE."
+        ],
+        [
+          "Pelvis ve topuk yüksekliğini tekrarlanabilir referansla belirt.",
+          "Record hip and heel height using a repeatable reference."
+        ],
+        [
+          "Tuck, tek bacak ve full L-sit’i ayrı takip et.",
+          "Track tuck, single-leg, and full L-sit separately."
+        ]
+      ],
+      "related": [
+        "support-hold",
+        "hanging-leg-raise",
+        "hollow-body-hold"
+      ]
+    }
   },
   "mountain-climber": {
     "publish": false,

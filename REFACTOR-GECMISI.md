@@ -4151,6 +4151,61 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 75 — Exercise Guide Enrichment Batch 11 (2026-06-19)
+
+### Amaç
+
+Eksantrik pike press, duvar handstand, bilateral loaded carry, tuck front-lever row, paralel bar/ring support ve L-sit desenlerindeki yedi skill/isometric hareketi tam guide seviyesine taşımak; zorunlu omuz depresyonu, tam ring turnout, kusursuz yatay lever ve estetik tam L pozisyonu hakkındaki mutlak legacy cue'ları düzeltmek.
+
+### Kapsam
+
+- Pike Handstand Press Negative
+- Wall Handstand Hold
+- Farmer Carry
+- Tuck Front Lever Row
+- Support Hold
+- Ring Support Hold
+- L-Sit
+
+### İçerik Kararları
+
+- **Pike negatif standardı:** “Mümkün olduğunca yavaş” cue'su yerine tekrarlanabilir eksantrik süre, sabit baş hedefi, ayak yüksekliği ve önceden planlanan güvenli çıkış kullanıldı.
+- **Wall handstand kurulumu:** Göğüs-duvar temel varyasyonu için kaymayan el yüzeyi, finger pressure, aktif uzun omuz desteği ve kontrollü iniş yazıldı. Göğüs-duvar ile sırt-duvar varyasyonları ayrı takip edilir.
+- **Handstand kas verisi:** El bileği fleksörleri, üst trapez, ön omuz ve triceps katkıları araştırma bulgularıyla uyumlu biçimde anatomik slug'lara işlendi.
+- **Farmer Carry omuz pozisyonu:** Omuzları zorla aşağı-geriye kilitleme kaldırıldı; yüklerin doğal yan pozisyonu, brace, kontrollü adım/dönüş ve güvenli indirme esas alındı. Implement, tutacak kalınlığı, strap, mesafe ve dönüş sayısı ayrı izlenir.
+- **Tuck lever standardı:** Kalçanın kusursuz yatay olması tek geçerli tekrar yapılmadı; aynı tuck sıkılığı, hedef kalça yüksekliği ve row menzili kullanıldı. Bar ve ring varyasyonları ayrıldı.
+- **Support hold dirsek/omuz:** Maksimum depresyon ve zorunlu anatomik kilit yerine aktif omuz desteği ile rahat dirsek ekstansiyonu kullanıldı. Sabit paralel bar süresi ring support süresiyle doğrudan karşılaştırılmaz.
+- **Ring support turnout:** Tam ring turnout başlangıç şartı yapılmadı; nötr ring desteği geçerli regresyon olarak tanımlandı. Ring instabilitesinin koordinasyon talebini artırdığı, her kası otomatik daha fazla çalıştırmadığı belirtildi.
+- **L-sit progression:** Tuck, tek bacak ve bir diz bükülü varyasyonlar geçerli aşamalar oldu. Diz kilidi ve pointed toes estetiği tek başarı ölçütü yapılmadı; destek/pelvis/topuk yüksekliği tracking alanına eklendi.
+- **Kategori sonucu:** Core kategorisinde yalnız kardiyo batch'inde işlenecek `mountain-climber` content-ready değildir.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 80 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Kaynaklar
+
+- `https://pubmed.ncbi.nlm.nih.gov/29471194/`
+- `https://pubmed.ncbi.nlm.nih.gov/19528856/`
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi skill/isometric/carry hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları, kaynaklar ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 80 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 74 — Exercise Guide Enrichment Batch 10 (2026-06-19)
 
 ### Amaç
