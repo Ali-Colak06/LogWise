@@ -17,6 +17,7 @@ import {
   LogOut,
   LogIn,
   Sparkles,
+  ChevronRight,
 } from 'lucide-react-native';
 import { AppBottomSheet, Text, useToast } from '../ui';
 import { useTheme } from '../../theme';
@@ -36,8 +37,7 @@ export default function MoreSheet({ visible, onClose }: MoreSheetProps) {
 
   const comingSoon = () => toast.show({ message: t('more.comingSoon'), variant: 'info' });
 
-  const disabledRows: Array<{ icon: typeof UserIcon; key: string }> = [
-    { icon: UserIcon, key: 'more.rowProfile' },
+  const disabledRows: Array<{ icon: typeof Settings; key: string }> = [
     { icon: Settings, key: 'more.rowSettings' },
     { icon: Database, key: 'more.rowData' },
     { icon: MessageSquare, key: 'more.rowFeedback' },
@@ -79,6 +79,15 @@ export default function MoreSheet({ visible, onClose }: MoreSheetProps) {
       </View>
 
       <View style={[styles.sep, { backgroundColor: colors.border.subtle }]} />
+
+      {/* Profil (auth-only — gerçek route /profile; §3.11) */}
+      {!m.isGuest && (
+        <Pressable style={styles.row} onPress={m.onProfile}>
+          <UserIcon size={20} color={colors.text.secondary} />
+          <Text variant="body" style={styles.rowLabel}>{t('more.rowProfile')}</Text>
+          <ChevronRight size={18} color={colors.text.tertiary} />
+        </Pressable>
+      )}
 
       {/* Disabled placeholder rows — "Yakında" çipi + bilgi toast */}
       {disabledRows.map(({ icon: RowIcon, key }) => (

@@ -1,9 +1,12 @@
 /**
  * BottomTabBar — custom Expo Router tab bar (ADIM 6 — §3.1).
  *
- * 5 sekme: Calendar / Library / Dashboard / Social / More.
+ * Görünür 4 sekme: Calendar / Library / Dashboard / More.
  * "More" sekmesi route'a gitmez → MoreSheet açar (onMorePress).
  * Aktif sekme: gold ikon + gold üst çizgi (underline).
+ *
+ * Social sekmesi LAUNCH'ta GİZLİ (§3.11 rev22 — sosyal v2'ye ertelendi, cold-start).
+ * Route kayıtlı kalır (`HIDDEN_TABS` ile bar'dan atlanır); v2'de set'ten çıkar → geri gelir.
  */
 import type { ComponentType } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
@@ -33,6 +36,10 @@ const LABEL_KEYS: Record<string, string> = {
   more: 'nav.more',
 };
 
+// Launch'ta bar'da gösterilmeyen sekmeler (§3.11). Route kayıtlı kalır; sadece
+// tab bar'dan atlanır. Sosyal v2'de bu set'ten çıkarılınca geri görünür.
+const HIDDEN_TABS = new Set<string>(['social']);
+
 export interface AppBottomTabBarProps extends BottomTabBarProps {
   onMorePress: () => void;
 }
@@ -58,6 +65,7 @@ export default function BottomTabBar({
       ]}
     >
       {state.routes.map((route, index) => {
+        if (HIDDEN_TABS.has(route.name)) return null; // Social launch'ta gizli (§3.11)
         const Icon = ICONS[route.name] ?? Menu;
         const labelKey = LABEL_KEYS[route.name] ?? route.name;
         const isMore = route.name === 'more';

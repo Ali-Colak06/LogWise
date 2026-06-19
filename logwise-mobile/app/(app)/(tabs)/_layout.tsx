@@ -1,8 +1,10 @@
 /**
  * (tabs) layout — Tabs + custom BottomTabBar (ADIM 6 — §3.1).
  *
- * 5 sekme: calendar / workout (Library) / dashboard / social / more.
+ * Route'lar: calendar / workout (Library) / dashboard / social / more.
  * "more" sekmesi route'a gitmez → MoreSheet açar (BottomTabBar onMorePress).
+ * "social" route KAYITLI ama bar'da GİZLİ (launch §3.11 — v2'ye ertelendi;
+ * BottomTabBar HIDDEN_TABS ile atlar). Görünür 4 sekme.
  * ADIM 8 fix: initialRouteName="calendar" (geri tuşu Calendar'a döner).
  */
 import { useState } from 'react';

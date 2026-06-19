@@ -54,12 +54,15 @@ export default function ProfilePopover({ visible, anchor, onClose }: ProfilePopo
             { left, top, backgroundColor: colors.background.elevated, borderColor: colors.border.subtle },
           ]}
         >
-          <ProfileMenuHeader
-            initials={m.initials}
-            title={m.isGuest ? t('more.guestTitle') : m.displayName}
-            subtitle={m.isGuest ? t('more.guestSubtitle') : m.email}
-            avatarSize={40}
-          />
+          {/* Auth: başlık tap → Profile (§3.11). Misafir: inert. */}
+          <Pressable onPress={m.isGuest ? undefined : m.onProfile}>
+            <ProfileMenuHeader
+              initials={m.initials}
+              title={m.isGuest ? t('more.guestTitle') : m.displayName}
+              subtitle={m.isGuest ? t('more.guestSubtitle') : m.email}
+              avatarSize={40}
+            />
+          </Pressable>
 
           <View style={[styles.sep, { backgroundColor: colors.border.subtle }]} />
 

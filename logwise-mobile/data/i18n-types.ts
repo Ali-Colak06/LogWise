@@ -568,6 +568,24 @@ export interface Translations {
     socialTitle: string;
     socialDesc: string;
   };
+  profile: {
+    title: string;
+    account: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    usernameLabel: string;
+    emailLabel: string;
+    nameSaved: string;
+    dangerZone: string;
+    deleteCta: string;
+    deleteTitle: string;
+    deleteBody: string;
+    deleteConfirmHint: string;     // "Onaylamak için {word} yaz"
+    deleteConfirmWord: string;     // "SİL" / "DELETE"
+    deleting: string;
+    deleteError: string;
+    delete: string;
+  };
   dayExtra: {
     addSet: string;                // "+ Set Ekle"
     colSet: string;                // "#"

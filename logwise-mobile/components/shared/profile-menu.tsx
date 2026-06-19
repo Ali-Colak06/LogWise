@@ -72,6 +72,11 @@ export function useProfileMenu(onClose: () => void) {
     onClose();
   };
 
+  const onProfile = () => {
+    router.push('/(app)/profile');
+    onClose();
+  };
+
   return {
     isGuest,
     email,
@@ -84,6 +89,7 @@ export function useProfileMenu(onClose: () => void) {
     onLogout,
     onRegister,
     onLogin,
+    onProfile,
   };
 }
 
