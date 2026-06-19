@@ -3274,36 +3274,100 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/y-raise",
     "summary": [
-      "Y raise. Üst sırt ve alt trapez.",
-      "Y raise. Upper back and lower traps."
+      "Incline Y-raise. Skapular yukarı rotasyon kontrolü.",
+      "Incline Y-raise. Scapular upward-rotation control."
     ],
     "description": [
-      "Kolları Y açısında kaldırarak yapılan üst sırt ve omuz hareketi. Alt trapez, arka omuz ve skapular kontrolü destekleyen kasları çalıştırır. Postür ve omuz sağlığı için çok faydalıdır.",
-      "An upper-back and shoulder movement performed by raising the arms in a Y angle. It trains the lower traps, rear delts, and muscles that support scapular control. It is very useful for posture and shoulder health."
+      "Eğimli bench üzerinde yüzüstü yatarken kolların gövdeyle Y açısı oluşturacak şekilde kaldırıldığı omuz-skapula hareketidir. Alt trapez, serratus anterior ve arka omuz ana kontrolü paylaşır; orta trapez ve rotator cuff destek verir.",
+      "A shoulder-scapular exercise performed prone on an incline bench by raising the arms into a Y angle with the torso. The lower trapezius, serratus anterior, and posterior deltoids share control while the middle trapezius and rotator cuff assist."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Hafif ağırlık genelde daha doğrudur.",
-        "Lighter loads are usually the better choice here."
+        "Bench’i rahat bir eğime ayarla ve göğüs ile pelvisi desteğe yerleştir.",
+        "Set the bench to a comfortable incline and place the chest and pelvis against the support."
       ],
       [
-        "Boynu sıkmadan kolları uzun tut.",
-        "Keep the arms long without tensing the neck."
+        "Hafif dumbbell’ları nötr veya başparmak yukarı tutuşla, kolları uzun biçimde aşağıda başlat.",
+        "Start with light dumbbells below the body using a neutral or thumbs-up grip and long arms."
       ],
       [
-        "Amaç temiz skapula hareketidir.",
-        "The goal is clean scapular motion."
+        "Boynu gövdenin devamında tutup kolları gövdeye göre Y açısında kaldır.",
+        "Keep the neck in line with the torso and raise the arms into a Y angle."
+      ],
+      [
+        "Skapula ve omuz kontrolü korunabilen yükseklikte kısa süre dur.",
+        "Pause briefly at the height that preserves scapular and shoulder control."
+      ],
+      [
+        "Dumbbell’ları savurmadan başlangıca kontrollü indir.",
+        "Lower the dumbbells to the start without swinging."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kolları kaldırmak için göğsü bench’ten ayırmak veya beli çukurlaştırmak.",
+        "Lifting the chest from the bench or arching the lower back to raise the arms."
+      ],
+      [
+        "Y açısını her tekrarda daraltıp hareketi front raise’e çevirmek.",
+        "Narrowing the Y angle each rep and turning the movement into a front raise."
+      ],
+      [
+        "Boynu aşırı uzatıp başı yukarı kaldırmak.",
+        "Overextending the neck and lifting the head."
+      ],
+      [
+        "Ağır yükle skapular hareketi kontrolsüz shrug’a çevirmek.",
+        "Turning scapular movement into an uncontrolled shrug with heavy load."
+      ]
+    ],
+    "tips": [
+      [
+        "Y-raise postürü veya omuz sağlığını tek başına düzeltme garantisi vermez.",
+        "The Y-raise does not guarantee improved posture or shoulder health by itself."
+      ],
+      [
+        "Skapular yukarı rotasyon ve kontrollü elevasyon hareketin normal parçalarıdır; omuzları zorla aşağı bastırma.",
+        "Scapular upward rotation and controlled elevation are normal parts of the movement; do not force the shoulders down."
+      ],
+      [
+        "Bench açısı ve Y genişliği kaldıracı değiştirir; setler arasında aynı ayarı kullan.",
+        "Bench angle and Y width change leverage; use the same setup between sets."
+      ],
+      [
+        "Hafif yük sık görülür fakat tek doğru yük aralığı değildir; gövde teması ve kol yolu korunmalıdır.",
+        "Light loads are common but not the only valid range; torso contact and arm path must remain consistent."
+      ]
+    ],
+    "progression": [
+      [
+        "Yüksüz veya çok hafif kolla Y yolunu ve bench temasını öğren.",
+        "Learn the Y path and bench contact with no load or very light load."
+      ],
+      [
+        "Aynı bench açısında kontrollü tekrarlar tamamla.",
+        "Complete controlled reps at the same bench angle."
+      ],
+      [
+        "Küçük yük veya tekrar artışları yap.",
+        "Add small increases in load or reps."
+      ],
+      [
+        "İleri aşamada tepe pause veya yavaş eksantrik kullan.",
+        "At a later stage, use a top pause or slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "lower-trapezius",
+        "serratus-anterior",
+        "posterior-deltoid"
       ],
       "secondary": [
-        "trapezius"
+        "middle-trapezius",
+        "supraspinatus",
+        "infraspinatus",
+        "teres-minor"
       ]
     },
     "media": {
@@ -3320,7 +3384,53 @@
         "Muscle map for the Y-Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Y-Raise Rehberi | Incline Bench ve Skapula Formu",
+        "Y-Raise Guide | Incline Bench and Scapular Form"
+      ],
+      "metaDescription": [
+        "Incline Y-raise için bench açısı, Y kol yolu, başparmak tutuşu, skapular kontrol, hatalar ve progression.",
+        "Learn incline Y-raise bench angle, arm path, grip, scapular control, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Alt trapez, serratus ve arka omuz",
+          "Lower trapezius, serratus, and posterior deltoid"
+        ],
+        "equipment": [
+          "Incline bench ve hafif dumbbell’lar",
+          "Incline bench and light dumbbells"
+        ],
+        "movementPattern": [
+          "Prone Y skapular elevasyon/yukarı rotasyon",
+          "Prone Y scapular elevation and upward rotation"
+        ],
+        "bestFor": [
+          "Skapular kontrol ve omuz aksesuar hacmi",
+          "Scapular control and shoulder accessory volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench açısı, Y genişliği, tutuş, yük, tekrar ve RIR değerini kaydet.",
+          "Log bench angle, Y width, grip, load, reps, and RIR."
+        ],
+        [
+          "Kontrollü kol yüksekliğini belirt.",
+          "Record controlled arm height."
+        ],
+        [
+          "Yüksüz ve yüklü varyasyonları ayrı takip et.",
+          "Track unloaded and loaded variations separately."
+        ]
+      ],
+      "related": [
+        "face-pull",
+        "rear-delt-fly",
+        "reverse-pec-deck"
+      ]
+    }
   },
   "rear-delt-fly": {
     "publish": false,
@@ -3490,36 +3600,98 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/reverse-pec-deck",
     "summary": [
-      "Ters pec deck. Arka omuz odaklı.",
-      "Reverse pec deck. Rear-delt focused."
+      "Reverse pec deck. Makinede yatay omuz abdüksiyonu.",
+      "Reverse pec deck. Machine horizontal shoulder abduction."
     ],
     "description": [
-      "Pec deck makinesinin ters yönlü kullanılan arka omuz varyasyonu. Arka deltoid, orta sırt ve üst sırt stabilitesini destekleyen kasları hedefler. Postür ve omuz dengesi için çok kullanışlıdır.",
-      "A rear-delt variation using the pec deck in reverse. It targets the posterior deltoids, mid-back, and supporting upper-back musculature. It is very useful for posture and shoulder balance."
+      "Göğüs pede dönük otururken kolların makineye karşı geriye açıldığı yatay omuz abdüksiyonu hareketidir. Arka deltoid ana yükü taşır; orta trapez, rhomboid ve dış rotatorlar skapula-omuz kontrolüne katkı verir.",
+      "A horizontal shoulder-abduction exercise performed seated facing the chest pad while the arms open backward against the machine. The posterior deltoid carries most of the load while the middle trapezius, rhomboids, and external rotators assist scapular-shoulder control."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Hareketi kolla savurmak yerine arka omuzdan başlat.",
-        "Initiate the movement from the rear delts instead of swinging with the arms."
+        "Koltuk ve tutacak başlangıcını omuzların rahat yatay hattına göre ayarla.",
+        "Adjust the seat and handle start so the shoulders begin in a comfortable horizontal line."
       ],
       [
-        "Göğsü pedde sabit tut ve boynu kasma.",
-        "Keep the chest steady against the pad and avoid tensing the neck."
+        "Göğsü pede yerleştir, ayakları zemine bas ve tutacakları rahat kavra.",
+        "Set the chest against the pad, plant the feet, and grip the handles comfortably."
       ],
       [
-        "Çok ağır gitmek yerine tam açıklık ve sıkışma hedefle.",
-        "Favor full range and contraction over going too heavy."
+        "Dirsekleri hafif bükülü veya makine pedine uygun açıda tut.",
+        "Keep a slight elbow bend or use the angle required by the machine pads."
+      ],
+      [
+        "Üst kolları geriye açarken göğüs temasını ve rahat boyun pozisyonunu koru.",
+        "Open the upper arms backward while maintaining chest contact and a relaxed neck."
+      ],
+      [
+        "Omuz başı öne yuvarlanmadan kontrol edilen başlangıca dön.",
+        "Return under control without letting the shoulder heads roll forward."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağır yük için göğsü pedden ayırıp gövdeyi geriye savurmak.",
+        "Lifting the chest from the pad and swinging backward to move heavy load."
+      ],
+      [
+        "Arka omuz hareketini aşırı skapula sıkıştırmasına dönüştürmek.",
+        "Turning the rear-delt movement into excessive scapular squeezing."
+      ],
+      [
+        "Daha fazla açıklık için omuz başını öne veya yukarı zorlamak.",
+        "Forcing the shoulder head forward or upward to create more range."
+      ],
+      [
+        "Farklı reverse pec-deck makinelerindeki yükleri doğrudan karşılaştırmak.",
+        "Directly comparing loads across different reverse-pec-deck machines."
+      ]
+    ],
+    "tips": [
+      [
+        "Arka deltoid ana hedef olsa da orta sırt katkısını tamamen ortadan kaldırmak mümkün veya gerekli değildir.",
+        "The posterior deltoid is the main target, but eliminating mid-back contribution is neither possible nor necessary."
+      ],
+      [
+        "Makine kolu, tutacak ve koltuk ayarı kaldıraç profilini değiştirir; modeli kaydet.",
+        "Machine arm, handle, and seat settings change leverage; log the model."
+      ],
+      [
+        "Tam açıklık omuz yapısına ve makineye bağlıdır; ağrısız tekrarlanabilir menzili kullan.",
+        "Full range depends on shoulder structure and machine; use a pain-free repeatable range."
+      ],
+      [
+        "Postür veya “omuz dengesi” tek bir egzersizle garanti edilmez.",
+        "Posture or “shoulder balance” is not guaranteed by one exercise."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle koltuk, tutuş ve ağrısız menzili standardize et.",
+        "Standardize seat, grip, and pain-free range with a light load."
+      ],
+      [
+        "Aynı göğüs temasında kontrollü tekrarlar tamamla.",
+        "Complete controlled reps with the same chest contact."
+      ],
+      [
+        "Makine basamaklarına uygun küçük yük veya tekrar artışı yap.",
+        "Increase load or reps in small steps allowed by the machine."
+      ],
+      [
+        "İleri aşamada tepe pause veya yavaş dönüş kullan.",
+        "At a later stage, use a top pause or slower return."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "posterior-deltoid"
       ],
       "secondary": [
-        "trapezius"
+        "middle-trapezius",
+        "rhomboids",
+        "infraspinatus",
+        "teres-minor"
       ]
     },
     "media": {
@@ -3536,7 +3708,53 @@
         "Muscle map for the Reverse Pec Deck exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Reverse Pec Deck Rehberi | Makine Ayarı ve Form",
+        "Reverse Pec Deck Guide | Machine Setup and Form"
+      ],
+      "metaDescription": [
+        "Reverse pec deck için koltuk ve tutacak ayarı, göğüs teması, arka omuz menzili, hatalar ve progression.",
+        "Learn reverse-pec-deck seat and handle setup, chest contact, rear-delt range, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Arka deltoid",
+          "Posterior deltoid"
+        ],
+        "equipment": [
+          "Reverse pec-deck makinesi",
+          "Reverse pec-deck machine"
+        ],
+        "movementPattern": [
+          "Makinede yatay omuz abdüksiyonu",
+          "Machine horizontal shoulder abduction"
+        ],
+        "bestFor": [
+          "Arka omuz hipertrofi hacmi",
+          "Posterior-shoulder hypertrophy volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, koltuk/tutacak ayarı, yük, tekrar ve RIR değerini kaydet.",
+          "Log machine model, seat and handle setting, load, reps, and RIR."
+        ],
+        [
+          "Kontrollü hareket açıklığını belirt.",
+          "Record controlled range."
+        ],
+        [
+          "Farklı makine modellerini ayrı takip et.",
+          "Track different machine models separately."
+        ]
+      ],
+      "related": [
+        "rear-delt-fly",
+        "cable-rear-delt-fly",
+        "y-raise"
+      ]
+    }
   },
   "cable-rear-delt-fly": {
     "publish": false,
@@ -3544,35 +3762,99 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/cable-rear-delt-fly",
     "summary": [
-      "Kablo arka omuz açışı. Sürekli gerilim.",
-      "Cable rear-delt fly. Constant tension."
+      "Cable rear-delt fly. Kabloyla yatay omuz abdüksiyonu.",
+      "Cable rear-delt fly. Cable horizontal shoulder abduction."
     ],
     "description": [
-      "Kabloyla yapılan arka omuz açış hareketi. Hareket boyunca daha sürekli gerilim sağladığı için rear delt hissini kuvvetlendirir. Omuz dengesi ve postür için iyi bir aksesuar seçenektir.",
-      "A rear-delt fly performed with cables. Because it keeps more constant tension through the movement, it often creates a stronger rear-delt stimulus. It is a great accessory for shoulder balance and posture."
+      "Karşılıklı kabloların gövde önünden geriye açıldığı bilateral yatay omuz abdüksiyonu hareketidir. Arka deltoid ana yükü taşır; orta trapez, rhomboid ve dış rotatorlar kablo yolunu ve skapulayı kontrol eder.",
+      "A bilateral horizontal shoulder-abduction exercise that opens crossed cables from in front of the torso. The posterior deltoid carries most of the load while the middle trapezius, rhomboids, and external rotators control cable path and scapular motion."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ağırlığı hafif tutup arka omuzu hissetmeye odaklan.",
-        "Keep the load modest and focus on feeling the rear delts."
+        "Karşılıklı pulley’leri omuz civarında eşit yüksekliğe ayarla ve kabloları çapraz kavra.",
+        "Set opposing pulleys to equal height around the shoulders and take the crossed cables."
       ],
       [
-        "Boynu kasmadan kolları yay gibi aç.",
-        "Open the arms in a wide arc without tensing the neck."
+        "Makinenin ortasında dengeli dur, kablo boşluğunu al ve dirsekleri hafif bük.",
+        "Stand balanced between the stacks, remove cable slack, and soften the elbows."
       ],
       [
-        "Kürek kemiklerini gereğinden fazla sıkmadan rear delt odaklı kal.",
-        "Avoid over-squeezing the shoulder blades so the rear delts stay the focus."
+        "Kolları rahat yatay düzlemde geniş bir yayla geriye aç.",
+        "Open the arms backward in a wide arc through a comfortable horizontal plane."
+      ],
+      [
+        "Gövde ve boyun pozisyonunu koruyarak kontrollü bitişte kısa süre dur.",
+        "Pause briefly at the controlled finish while maintaining torso and neck position."
+      ],
+      [
+        "Kabloların kolları öne savurmasına izin vermeden başlangıca dön.",
+        "Return to the start without letting the cables pull the arms forward uncontrolled."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağır yük için gövdeyi öne-arkaya savurmak.",
+        "Swinging the torso forward and backward to move heavy load."
+      ],
+      [
+        "Dirsek açısını değiştirip hareketi row veya triceps extension’a çevirmek.",
+        "Changing elbow angle and turning the movement into a row or triceps extension."
+      ],
+      [
+        "Arka omuz yerine yalnız kürek kemiklerini maksimum sıkmaya çalışmak.",
+        "Trying only to squeeze the shoulder blades maximally instead of moving through the rear shoulder."
+      ],
+      [
+        "Sağ ve sol pulley yüksekliğini veya kablo yolunu eşitlememek.",
+        "Failing to match right and left pulley height or cable path."
+      ]
+    ],
+    "tips": [
+      [
+        "Kablo gerginliği mevcut olsa da omuz torku hareket boyunca sabit değildir.",
+        "Cable tension may remain present, but shoulder torque is not constant through the range."
+      ],
+      [
+        "Rear-delt hissi tek kalite ölçütü değildir; dirsek açısı, menzil ve tempo da izlenmelidir.",
+        "Rear-delt sensation is not the only quality measure; elbow angle, range, and tempo should also be tracked."
+      ],
+      [
+        "Skapular retraksiyon normal katkıdır; aşırı sıkıştırıp kol yolunu kısaltma.",
+        "Scapular retraction is a normal contribution; do not over-squeeze and shorten the arm path."
+      ],
+      [
+        "Pulley yüksekliği omuz yolunu değiştirir; her sette aynı konumu kullan.",
+        "Pulley height changes shoulder path; use the same position each set."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle pulley yüksekliği ve dirsek açısını standardize et.",
+        "Standardize pulley height and elbow angle with a light load."
+      ],
+      [
+        "Aynı gövde konumunda kontrollü hedef tekrarları tamamla.",
+        "Complete controlled target reps with the same torso position."
+      ],
+      [
+        "Küçük yük veya tekrar artışları yap.",
+        "Add small increases in load or reps."
+      ],
+      [
+        "İleri aşamada bitiş pause veya yavaş eksantrik kullan.",
+        "At a later stage, use a finish pause or slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "posterior-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "middle-trapezius",
+        "rhomboids",
+        "infraspinatus",
+        "teres-minor"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -3588,7 +3870,53 @@
         "Muscle map for the Cable Rear Delt Fly exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cable Rear-Delt Fly Rehberi | Kablo Formu",
+        "Cable Rear-Delt Fly Guide | Cable Form"
+      ],
+      "metaDescription": [
+        "Cable rear-delt fly için pulley yüksekliği, dirsek açısı, kablo yolu, gövde kontrolü, hatalar ve progression.",
+        "Learn cable rear-delt fly pulley height, elbow angle, cable path, torso control, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Arka deltoid",
+          "Posterior deltoid"
+        ],
+        "equipment": [
+          "Çift kablo istasyonu",
+          "Dual cable station"
+        ],
+        "movementPattern": [
+          "Kabloyla yatay omuz abdüksiyonu",
+          "Cable horizontal shoulder abduction"
+        ],
+        "bestFor": [
+          "Arka omuz hipertrofi hacmi ve kablo kontrolü",
+          "Posterior-shoulder volume and cable control"
+        ]
+      },
+      "tracking": [
+        [
+          "Pulley yüksekliği, dirsek açısı, yük, tekrar ve RIR değerini kaydet.",
+          "Log pulley height, elbow angle, load, reps, and RIR."
+        ],
+        [
+          "Tutacak veya kablo kavrama biçimini belirt.",
+          "Record handle or cable grip style."
+        ],
+        [
+          "Farklı pulley yollarını ayrı takip et.",
+          "Track different pulley paths separately."
+        ]
+      ],
+      "related": [
+        "rear-delt-fly",
+        "reverse-pec-deck",
+        "face-pull"
+      ]
+    }
   },
   "face-pull": {
     "publish": false,
@@ -3760,36 +4088,99 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/upright-row",
     "summary": [
-      "Dikey çekiş. Omuz ve trapez.",
-      "Vertical pull. Shoulders and traps."
+      "Barbell upright row. Omuz abdüksiyonu ve skapular elevasyon.",
+      "Barbell upright row. Shoulder abduction and scapular elevation."
     ],
     "description": [
-      "Barbell, dumbbell veya kabloyla yapılan dikey çekiş hareketi. Omuzların yan kısmı ile üst trapezi birlikte çalıştırır. Kontrollü yük ve uygun hareket açıklığıyla iyi bir aksesuar seçenek olabilir.",
-      "A vertical-pulling movement done with a barbell, dumbbells, or cable. It trains the side delts together with the upper traps. With controlled loading and a sensible range of motion, it can be a strong accessory option."
+      "Barbell’ın gövde önünde yukarı çekildiği, omuz abdüksiyonu ile dirsek fleksiyonunu birleştiren dikey çekiş hareketidir. Yan deltoid ve üst trapez ana yükü taşır; biceps, ön kol ve supraspinatus yardımcı olur.",
+      "A vertical pull that raises a barbell in front of the body by combining shoulder abduction with elbow flexion. The lateral deltoids and upper trapezius carry most of the load while the biceps, forearms, and supraspinatus assist."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Barı gövdeye yakın tut ve dirseklerin yukarı yönlenmesine izin ver.",
-        "Keep the bar close to the body and let the elbows travel upward."
+        "Barı omuz yapına uygun rahat genişlikte pronated tutuşla kavra.",
+        "Grip the bar pronated at a comfortable width for your shoulders."
       ],
       [
-        "Omuzun rahatsız olduğu noktaya kadar zorlamadan çalış.",
-        "Do not force the range beyond the point where the shoulders feel comfortable."
+        "Dengeli dur, kaburgaları pelvis üzerinde tut ve barı uyluk önünde başlat.",
+        "Stand balanced, stack the ribs over the pelvis, and start the bar in front of the thighs."
       ],
       [
-        "Momentum yerine yavaş ve kontrollü çekiş kullan.",
-        "Use slow controlled pulls instead of momentum."
+        "Dirsekleri yukarı ve yana yönlendirerek barı gövdeye yakın kaldır.",
+        "Guide the elbows upward and outward while raising the bar close to the torso."
+      ],
+      [
+        "Omuz-bilek konforu ve gövde kontrolü korunabilen yükseklikte dur.",
+        "Stop at the height that preserves shoulder-wrist comfort and torso control."
+      ],
+      [
+        "Barı savurmadan aynı yoldan kontrollü indir.",
+        "Lower the bar along the same path without swinging."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Barı çeneye ulaştırmayı zorunlu tutup omuz menzilini zorlamak.",
+        "Forcing the bar to the chin and exceeding comfortable shoulder range."
+      ],
+      [
+        "Ağır yük için kalça ve belden momentum üretmek.",
+        "Using hip and lower-back momentum to move heavy load."
+      ],
+      [
+        "Bilekleri aşırı büküp barı ellerle yukarı çekmek.",
+        "Overflexing the wrists and pulling the bar upward with the hands."
+      ],
+      [
+        "Tutuş genişliğini değiştirirken yükleri doğrudan karşılaştırmak.",
+        "Directly comparing loads while changing grip width."
+      ]
+    ],
+    "tips": [
+      [
+        "Upright row herkeste aynı tutuş ve yüksekliği gerektirmez; ağrısız menzili kullan.",
+        "The upright row does not require the same grip and height for everyone; use a pain-free range."
+      ],
+      [
+        "Omuz elevasyonu hareketin parçasıdır; üst trapez katkısını tamamen engellemeye çalışma.",
+        "Shoulder elevation is part of the movement; do not try to eliminate upper-trapezius contribution."
+      ],
+      [
+        "Dumbbell, cable ve barbell varyasyonları farklı el yolları sunar; bu guide barbell standardıdır.",
+        "Dumbbell, cable, and barbell variations allow different hand paths; this guide uses a barbell standard."
+      ],
+      [
+        "Hareket omuz rahatsızlığına otomatik neden olmaz veya herkes için uygun sayılmaz; bireysel konfor belirleyicidir.",
+        "The movement is neither automatically harmful nor suitable for everyone; individual comfort is decisive."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif barla rahat tutuş ve bitiş yüksekliğini belirle.",
+        "Determine a comfortable grip and finish height with a light bar."
+      ],
+      [
+        "Aynı gövde ve bilek kontrolünde hedef tekrarları tamamla.",
+        "Complete target reps with the same torso and wrist control."
+      ],
+      [
+        "Küçük yük veya tekrar artışları yap.",
+        "Add small increases in load or reps."
+      ],
+      [
+        "İleri aşamada pause veya kontrollü cable/dumbbell varyasyonu kullan.",
+        "At a later stage, use pauses or a controlled cable or dumbbell variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "lateral-deltoid",
+        "upper-trapezius"
       ],
       "secondary": [
-        "trapezius"
+        "supraspinatus",
+        "biceps-brachii",
+        "brachialis",
+        "forearm-flexors"
       ]
     },
     "media": {
@@ -3806,7 +4197,53 @@
         "Muscle map for the Upright Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Upright Row Rehberi | Tutuş ve Omuz Menzili",
+        "Upright Row Guide | Grip and Shoulder Range"
+      ],
+      "metaDescription": [
+        "Barbell upright row için tutuş genişliği, bar ve dirsek yolu, rahat bitiş yüksekliği, hatalar ve progression.",
+        "Learn barbell upright-row grip width, bar and elbow path, finish height, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Yan deltoid ve üst trapez",
+          "Lateral deltoid and upper trapezius"
+        ],
+        "equipment": [
+          "Barbell",
+          "Barbell"
+        ],
+        "movementPattern": [
+          "Dikey çekiş ve omuz abdüksiyonu",
+          "Vertical pull and shoulder abduction"
+        ],
+        "bestFor": [
+          "Omuz-trapez aksesuar hacmi",
+          "Shoulder-trapezius accessory volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş genişliği, yük, tekrar, bitiş yüksekliği ve RIR değerini kaydet.",
+          "Log grip width, load, reps, finish height, and RIR."
+        ],
+        [
+          "Barbell, dumbbell veya cable varyasyonunu belirt.",
+          "Record barbell, dumbbell, or cable variation."
+        ],
+        [
+          "Farklı tutuş ve menzilleri ayrı takip et.",
+          "Track different grips and ranges separately."
+        ]
+      ],
+      "related": [
+        "lateral-raise",
+        "shrug",
+        "face-pull"
+      ]
+    }
   },
   "push-up": {
     "publish": false,
@@ -6329,36 +6766,101 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/active-hang",
     "summary": [
-      "Aktif asılı kalış. Skapula kontrolü.",
-      "Active hang. Scapular control."
+      "Active hang. Dirsek açık aktif omuz desteği.",
+      "Active hang. Straight-arm active shoulder support."
     ],
     "description": [
-      "Barfiks barında omuzları aktif tutarak yapılan asılı duruş. Dead hang'e göre skapular depresyon ve omuz pozisyonu daha kontrollüdür. Pull-up başlangıcı için çok iyi bir temel drill'dir.",
-      "An active hang performed on a pull-up bar with the shoulders engaged. Compared with a dead hang, it uses more scapular depression and shoulder control. It is an excellent foundational drill for the start of a pull-up."
+      "Barfiks barında dirsekler açıkken omuz kuşağının hafif aktif destekle tutulduğu izometrik asılış varyasyonudur. Latissimus dorsi, alt trapez, serratus ve kavrama kasları gövdeyi barda kontrol eder; aktiflik derecesi kişiye ve hedefe göre değişir.",
+      "An isometric hanging variation that maintains light active shoulder-girdle support with the elbows extended. The latissimus dorsi, lower trapezius, serratus, and grip muscles control the body on the bar; the degree of activity varies by person and goal."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Omuzları kulağa bırakma.",
-        "Do not let the shoulders collapse toward the ears."
+        "Barı tam kavra ve ayakların güvenli çıkış noktasına yakın olduğundan emin ol.",
+        "Take a full grip and make sure the feet have a safe exit point nearby."
       ],
       [
-        "Dirsekleri düz tut.",
-        "Keep the elbows straight."
+        "Dirsekleri rahat ekstansiyonda tutup kontrollü asılışa geç.",
+        "Keep the elbows comfortably extended and move into a controlled hang."
       ],
       [
-        "Kısa ama kaliteli tutuşlar daha değerlidir.",
-        "Shorter high-quality holds are more valuable."
+        "Barı aşağı çekiyormuş gibi hafif omuz kuşağı aktivasyonu oluştur.",
+        "Create light shoulder-girdle activity as if pulling the bar downward."
+      ],
+      [
+        "Boynu rahat, kaburgaları pelvis üzerinde ve gövdeyi sallanmasız tut.",
+        "Keep the neck relaxed, ribs over the pelvis, and body free of swing."
+      ],
+      [
+        "Kavrama, dirsek veya omuz kontrolü bozulmadan önce ayak desteğine dön.",
+        "Return to foot support before grip, elbow, or shoulder control changes."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Omuzları kulaklardan mümkün olduğunca uzağa zorlayıp maksimum depresyon aramak.",
+        "Forcing the shoulders as far from the ears as possible to chase maximum depression."
+      ],
+      [
+        "Dirsekleri bükerek aktif hang’i kısa pull-up tutuşuna çevirmek.",
+        "Bending the elbows and turning the active hang into a short pull-up hold."
+      ],
+      [
+        "Gövde salınımı büyürken süreyi sürdürmek.",
+        "Continuing the hold as body swing increases."
+      ],
+      [
+        "Kavrama kaybında güvenli çıkış olmadan barı bırakmak.",
+        "Releasing the bar without a safe exit when grip fails."
+      ]
+    ],
+    "tips": [
+      [
+        "Aktif hang omuzları mutlaka maksimum aşağı çekmek değildir; hafif ve kontrollü destek yeterli olabilir.",
+        "An active hang does not require maximum shoulder depression; light controlled support may be enough."
+      ],
+      [
+        "Dead hang ve active hang farklı omuz-kuşağı standartlarıdır; süreleri doğrudan karşılaştırma.",
+        "Dead hangs and active hangs use different shoulder-girdle standards; do not compare duration directly."
+      ],
+      [
+        "Tam, nötr veya halka tutuşu kavrama ve omuz yolunu değiştirir; ayrı varyasyon olarak kaydet.",
+        "Pronated, neutral, or ring grips change grip and shoulder path; log them separately."
+      ],
+      [
+        "Pull-up başlangıcına yardımcı olabilir fakat tek bir zorunlu başlangıç pozisyonu öğretmez.",
+        "It may support pull-up preparation but does not define one mandatory start position."
+      ]
+    ],
+    "progression": [
+      [
+        "Ayak destekli asılışta hafif omuz aktivasyonunu öğren.",
+        "Learn light shoulder activation in a foot-assisted hang."
+      ],
+      [
+        "Kısa yardımsız active-hang setleri yap.",
+        "Perform short unassisted active-hang sets."
+      ],
+      [
+        "Aynı dirsek ve gövde kontrolüyle süreyi artır.",
+        "Increase duration while maintaining elbow and trunk control."
+      ],
+      [
+        "İleri aşamada scapular pull-up veya kontrollü pull-up başlangıcına geç.",
+        "At a later stage, progress to scapular pull-ups or controlled pull-up starts."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "lower-trapezius",
+        "serratus-anterior",
+        "forearm-flexors"
       ],
       "secondary": [
-        "forearms"
+        "middle-trapezius",
+        "rhomboids",
+        "rectus-abdominis",
+        "external-oblique"
       ]
     },
     "media": {
@@ -6375,7 +6877,53 @@
         "Muscle map for the Active Hang exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Active Hang Rehberi | Omuz ve Kavrama Formu",
+        "Active Hang Guide | Shoulder and Grip Form"
+      ],
+      "metaDescription": [
+        "Active hang için tutuş, dirsek açıklığı, omuz aktivasyonu, güvenli çıkış, süre takibi, hatalar ve progression.",
+        "Learn active-hang grip, elbow position, shoulder activity, safe exit, timing, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Lat, alt trapez, serratus ve kavrama",
+          "Lats, lower trapezius, serratus, and grip"
+        ],
+        "equipment": [
+          "Sağlam bar veya ringler",
+          "Secure bar or rings"
+        ],
+        "movementPattern": [
+          "Dirsek açık aktif asılış",
+          "Straight-arm active hang"
+        ],
+        "bestFor": [
+          "Asılış kontrolü ve pull-up hazırlığı",
+          "Hanging control and pull-up preparation"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş türü, yardım, süre ve RPE değerini kaydet.",
+          "Log grip type, assistance, duration, and RPE."
+        ],
+        [
+          "Omuz aktivasyonu derecesi ve gövde pozisyonunu belirt.",
+          "Record the degree of shoulder activity and body position."
+        ],
+        [
+          "Dead hang ve active hang setlerini ayrı takip et.",
+          "Track dead-hang and active-hang sets separately."
+        ]
+      ],
+      "related": [
+        "dead-hang",
+        "scapular-pull-up",
+        "pull-up"
+      ]
+    }
   },
   "farmer-carry": {
     "publish": false,
@@ -7306,35 +7854,101 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/scapular-pull-up",
     "summary": [
-      "Skapula çekişi. Barfiks temeli.",
-      "Scapular pull-up. Pull-up foundation."
+      "Scapular pull-up. Dirsek açık dinamik omuz-kuşağı kontrolü.",
+      "Scapular pull-up. Straight-arm shoulder-girdle control."
     ],
     "description": [
-      "Dirsek bükmeden yapılan küçük skapula çekiş hareketi. Pull-up başlangıcı için omuz depresyonu ve skapular kontrol öğretir. Calisthenics çekiş paternlerinin temel hazırlık hareketlerinden biridir.",
-      "A small pull-up drill performed without bending the elbows. It teaches shoulder depression and scapular control for the pull-up start position. It is one of the key preparatory drills for calisthenics pulling patterns."
+      "Barfiks barında dirsekleri bükmeden rahat asılış ile aktif omuz desteği arasında küçük gövde yükselmesi yapılan skapular hareketidir. Latissimus dorsi, alt trapez, serratus ve orta sırt kasları omuz kuşağını kontrol eder; kavrama asılışı sürdürür.",
+      "A scapular movement on a pull-up bar that creates a small body rise between a comfortable hang and active shoulder support without bending the elbows. The lats, lower trapezius, serratus, and mid-back control the shoulder girdle while the grip maintains the hang."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri düz tutup sadece omuz kuşağını aşağı-yukarı hareket ettir.",
-        "Keep the elbows straight and move only through the shoulder girdle."
+        "Barı tam kavrayıp kontrollü ve sallanmasız asılış kur.",
+        "Take a full grip and establish a controlled hang without swing."
       ],
       [
-        "Küçük menzil normaldir; amaç kontrol öğretmektir.",
-        "A small range of motion is normal; the goal is control."
+        "Dirsekleri rahat ekstansiyonda tut ve gövdeyi uzun bırak.",
+        "Keep the elbows comfortably extended and the body long."
       ],
       [
-        "Her tekrarın alt ve üst pozisyonunu bilinçli hisset.",
-        "Feel both the bottom and top scapular positions consciously."
+        "Barı aşağı çekiyormuş gibi omuz kuşağını aktif hale getirerek gövdeyi küçük mesafe yükselt.",
+        "Activate the shoulder girdle as if pulling the bar down and raise the body a small distance."
+      ],
+      [
+        "Üstte dirsekleri bükmeden kısa kontrol göster.",
+        "Show brief control at the top without bending the elbows."
+      ],
+      [
+        "Omuz kuşağını ağrısız alt asılışa kontrollü geri bırak.",
+        "Return the shoulder girdle under control to the pain-free lower hang."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Gövdeyi yükseltmek için dirsekleri bükmek.",
+        "Bending the elbows to lift the body."
+      ],
+      [
+        "Maksimum aşağı çekiş için boynu ve omuzları gereksiz kasmak.",
+        "Tensing the neck and shoulders unnecessarily to chase maximum depression."
+      ],
+      [
+        "Alt pozisyona kontrolsüz düşüp bar salınımı üretmek.",
+        "Dropping into the bottom without control and creating bar swing."
+      ],
+      [
+        "Küçük hareket açıklığını başarısız tekrar olarak görüp menzili zorlamak.",
+        "Treating the naturally small range as failure and forcing more motion."
+      ]
+    ],
+    "tips": [
+      [
+        "Hareket açıklığının küçük olması normaldir; dirsek ve gövde kontrolü daha önemlidir.",
+        "A small range is normal; elbow and body control matter more."
+      ],
+      [
+        "Alt pozisyon herkes için tam pasif dead hang olmak zorunda değildir; omuz konforuna uygun menzili kullan.",
+        "The bottom does not need to be a fully passive dead hang for everyone; use a range that suits shoulder comfort."
+      ],
+      [
+        "Skapula yalnız aşağı-yukarı değil, göğüs kafesi üzerinde çok düzlemli hareket eder; doğal yolu zorla kilitleme.",
+        "The scapula moves in multiple planes over the rib cage, not only down and up; do not force it into a rigid path."
+      ],
+      [
+        "Pull-up tekniğine yardımcı olabilir fakat her pull-up tekrarının zorunlu başlangıç ritüeli değildir.",
+        "It can assist pull-up technique but is not a mandatory starting ritual for every pull-up rep."
+      ]
+    ],
+    "progression": [
+      [
+        "Ayak destekli active hang ile omuz kuşağı aktivasyonunu öğren.",
+        "Learn shoulder-girdle activation with a foot-assisted active hang."
+      ],
+      [
+        "Kısa menzilli yardımlı scapular tekrarlar yap.",
+        "Perform assisted scapular reps through a short range."
+      ],
+      [
+        "Dirsekler açıkken yardımsız kontrollü tekrarlar geliştir.",
+        "Develop unassisted controlled reps with straight elbows."
+      ],
+      [
+        "İleri aşamada pause veya pull-up başlangıcıyla birleştir.",
+        "At a later stage, add pauses or combine with a pull-up start."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "lower-trapezius",
+        "serratus-anterior"
       ],
-      "secondary": []
+      "secondary": [
+        "middle-trapezius",
+        "rhomboids",
+        "forearm-flexors",
+        "rectus-abdominis"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -7350,7 +7964,53 @@
         "Muscle map for the Scapular Pull Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Scapular Pull-Up Rehberi | Dirsek Açık Form",
+        "Scapular Pull-Up Guide | Straight-Arm Form"
+      ],
+      "metaDescription": [
+        "Scapular pull-up için tutuş, dirsek açıklığı, aktif omuz desteği, küçük menzil, hatalar ve progression.",
+        "Learn scapular-pull-up grip, straight elbows, active support, small range, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Lat, alt trapez ve serratus",
+          "Lats, lower trapezius, and serratus"
+        ],
+        "equipment": [
+          "Sağlam bar",
+          "Secure bar"
+        ],
+        "movementPattern": [
+          "Dirsek açık dinamik skapular çekiş",
+          "Straight-arm dynamic scapular pull"
+        ],
+        "bestFor": [
+          "Asılı omuz kontrolü ve pull-up hazırlığı",
+          "Hanging shoulder control and pull-up preparation"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş, yardım, tekrar, hareket açıklığı ve RIR değerini kaydet.",
+          "Log grip, assistance, reps, range, and RIR."
+        ],
+        [
+          "Alt asılışın pasif veya hafif aktif olduğunu belirt.",
+          "Record whether the bottom hang is passive or lightly active."
+        ],
+        [
+          "Yardımlı ve yardımsız tekrarları ayrı takip et.",
+          "Track assisted and unassisted reps separately."
+        ]
+      ],
+      "related": [
+        "active-hang",
+        "pull-up",
+        "dead-hang"
+      ]
+    }
   },
   "chin-up": {
     "publish": false,
@@ -12707,35 +13367,98 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/shrug",
     "summary": [
-      "Omuz silkme. Trapez.",
-      "Shrug. Traps."
+      "Dumbbell shrug. Kontrollü skapular elevasyon.",
+      "Dumbbell shrug. Controlled scapular elevation."
     ],
     "description": [
-      "Omuz silkme hareketi. Trapez kasının üst bölümünü (upper trapezius) çalıştırır. Barbell, dumbbell veya makinede yapılabilir.",
-      "Shoulder shrug. Works the upper trapezius. Can be done with barbell, dumbbells, or machine."
+      "İki dumbbell yanlarda tutulurken omuz kuşağının kontrollü yükseltilip indirildiği skapular elevasyon hareketidir. Üst trapez ve levator scapulae ana yükü taşır; kavrama kasları dumbbell’ları sabitler.",
+      "A scapular-elevation exercise that raises and lowers the shoulder girdle under control while holding dumbbells at the sides. The upper trapezius and levator scapulae carry most of the load while the grip muscles secure the dumbbells."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Boyun döndürme yok — sadece omuzları dikey olarak kaldır.",
-        "No neck rolling — simply elevate the shoulders straight up."
+        "Dumbbell’ları iki yanda tutup ayakları dengeli yerleştir.",
+        "Hold the dumbbells at the sides and set the feet evenly."
       ],
       [
-        "Üst noktada 1-2 sn tut.",
-        "Hold at the top for 1-2 seconds."
+        "Dirsekleri uzun, bilekleri nötr ve boynu rahat tut.",
+        "Keep the elbows long, wrists neutral, and neck relaxed."
       ],
       [
-        "Ağır kullanabilirsin ama inişi her zaman kontrollü yap.",
-        "Can go heavy but always lower with control."
+        "Omuz kuşağını rahat izin verdiği yönde yukarı kaldır.",
+        "Elevate the shoulder girdle in the direction that feels comfortable."
+      ],
+      [
+        "Üstte kontrolü gösterip boynu veya başı hareket ettirmeden kısa süre dur.",
+        "Show control at the top and pause briefly without moving the neck or head."
+      ],
+      [
+        "Dumbbell’ları savurmadan omuzları kontrollü başlangıca indir.",
+        "Lower the shoulders to the start without swinging the dumbbells."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Omuzları hızlı daireler çizerek döndürmek.",
+        "Rolling the shoulders rapidly in circles."
+      ],
+      [
+        "Ağır yük için diz ve kalçadan momentum üretmek.",
+        "Using knee and hip momentum to move heavy load."
+      ],
+      [
+        "Üst noktada başı öne itmek veya boynu kasmak.",
+        "Pushing the head forward or tensing the neck at the top."
+      ],
+      [
+        "Kavrama kaybolurken sete devam etmek.",
+        "Continuing the set after grip control is lost."
+      ]
+    ],
+    "tips": [
+      [
+        "Omuzların tam dikey veya hafif arkaya yolu anatomine ve ekipmana göre değişebilir; dairesel yuvarlama gerekli değildir.",
+        "The shoulder path may be vertical or slightly back depending on anatomy and equipment; circular rolling is unnecessary."
+      ],
+      [
+        "Üstte 1-2 saniye pause zorunlu değildir; kullanılan tempo setler arasında tutarlı olmalıdır.",
+        "A one-to-two-second top pause is not mandatory; tempo should remain consistent between sets."
+      ],
+      [
+        "Ağır yük geçerli olabilir ancak hareket açıklığı ve kontrollü iniş korunmalıdır.",
+        "Heavy loading can be valid, but range and controlled lowering must remain consistent."
+      ],
+      [
+        "Dumbbell, barbell, trap-bar ve makine shrug farklı el ve yük yollarıdır; ayrı kaydet.",
+        "Dumbbell, barbell, trap-bar, and machine shrugs use different hand and load paths; log them separately."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbell ile rahat omuz yolu ve kontrollü inişi öğren.",
+        "Learn a comfortable shoulder path and controlled lowering with light dumbbells."
+      ],
+      [
+        "Aynı hareket açıklığında hedef tekrarları tamamla.",
+        "Complete target reps through the same range."
+      ],
+      [
+        "Küçük yük veya tekrar artışları yap.",
+        "Add small increases in load or reps."
+      ],
+      [
+        "İleri aşamada pause, yavaş eksantrik veya farklı implement kullan.",
+        "At a later stage, use pauses, slower eccentrics, or another implement."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "trapezius"
+        "upper-trapezius",
+        "levator-scapulae"
       ],
-      "secondary": []
+      "secondary": [
+        "forearm-flexors",
+        "rhomboids"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -12751,7 +13474,53 @@
         "Muscle map for the Shrug exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dumbbell Shrug Rehberi | Trapez Formu",
+        "Dumbbell Shrug Guide | Trapezius Form"
+      ],
+      "metaDescription": [
+        "Dumbbell shrug için omuz yolu, boyun ve bilek kontrolü, ağır yük, tempo, hatalar ve progression adımları.",
+        "Learn dumbbell-shrug shoulder path, neck and wrist control, loading, tempo, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Üst trapez ve levator scapulae",
+          "Upper trapezius and levator scapulae"
+        ],
+        "equipment": [
+          "İki dumbbell",
+          "Two dumbbells"
+        ],
+        "movementPattern": [
+          "Yüklü skapular elevasyon",
+          "Loaded scapular elevation"
+        ],
+        "bestFor": [
+          "Üst trapez kuvveti ve hipertrofisi",
+          "Upper-trapezius strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Implement, tutuş, yük, tekrar, hareket açıklığı ve RIR değerini kaydet.",
+          "Log implement, grip, load, reps, range, and RIR."
+        ],
+        [
+          "Pause ve eksantrik süreyi tempo notuna ekle.",
+          "Include pause and eccentric duration in tempo notes."
+        ],
+        [
+          "Dumbbell, barbell, trap-bar ve makine varyasyonlarını ayrı takip et.",
+          "Track dumbbell, barbell, trap-bar, and machine variations separately."
+        ]
+      ],
+      "related": [
+        "farmer-carry",
+        "upright-row",
+        "deadlift"
+      ]
+    }
   },
   "hip-thrust": {
     "publish": false,

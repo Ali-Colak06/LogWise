@@ -4151,6 +4151,55 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 78 — Exercise Guide Enrichment Batch 14 (2026-06-19)
+
+### Amaç
+
+Y-raise, rear-delt fly, upright row, shrug ve straight-arm hang/çekiş desenlerindeki yedi skapula-omuz kuşağı hareketini tam guide seviyesine taşımak; postür/omuz sağlığı garantisi, sabit kablo torku, zorunlu skapular depresyon ve maksimum sıkıştırma hakkındaki mutlak legacy cue'ları düzeltmek.
+
+### Kapsam
+
+- Y-Raise
+- Reverse Pec Deck
+- Cable Rear-Delt Fly
+- Upright Row
+- Shrug
+- Active Hang
+- Scapular Pull-Up
+
+### İçerik Kararları
+
+- **Y-Raise standardı:** Incline bench varyasyonu kilitlendi. Y açısı, bench eğimi ve kontrollü kol yüksekliği takip edilir; hareket tek başına postür veya omuz sağlığı garantisi olarak sunulmadı.
+- **Skapular yukarı rotasyon:** Y-Raise ve raise/fly varyasyonlarında trapez-serratus katkısını tamamen yok etme cue'su kaldırıldı; kontrollü elevasyon ve yukarı rotasyon normal hareket bileşeni kabul edildi.
+- **Reverse Pec Deck:** Makine modeli, koltuk/tutacak ayarı, göğüs teması ve ağrısız menzil tracking alanına eklendi. Arka deltoid hedefi, orta sırt katkısını tamamen ortadan kaldıran izolasyon olarak yazılmadı.
+- **Cable Rear-Delt Fly:** Pulley yüksekliği, dirsek açısı ve kablo yolu standartlaştırıldı. Kablo gerginliğinin omuz torkunu hareket boyunca sabit yapmadığı ve kas hissinin tek kalite ölçütü olmadığı belirtildi.
+- **Upright Row:** Guide barbell standardına bağlandı. Çeneye zorunlu çekiş kaldırıldı; tutuş genişliği ve rahat bitiş yüksekliği bireysel izlenir. Hareket otomatik zararlı veya herkes için uygun sayılmadı.
+- **Shrug yolu:** Dumbbell shrug için kontrollü skapular elevasyon kullanıldı; hızlı dairesel omuz yuvarlama kaldırıldı. Pause süresi zorunlu tutulmadı ve farklı implement'ler ayrı kayda bağlandı.
+- **Active Hang:** Maksimum omuz depresyonu yerine hafif, kontrollü omuz-kuşağı desteği tanımlandı. Dead Hang ve Active Hang süreleri doğrudan karşılaştırılmaz.
+- **Scapular Pull-Up:** Dirsek açık küçük skapular hareket standardı yazıldı. Alt pozisyon herkese tam pasif dead hang yapılmadı; küçük menzil başarısız tekrar sayılmadı.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 101 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi skapula/omuz kuşağı hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 101 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 77 — Exercise Guide Enrichment Batch 13 (2026-06-19)
 
 ### Amaç

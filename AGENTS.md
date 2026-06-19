@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-19 — On üçüncü exercise guide enrichment batch'i eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-19 — On dördüncü exercise guide enrichment batch'i eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-77)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-78)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -235,6 +235,7 @@ LogWise/
 - **Exercise guide enrichment batch 11** (Bölüm 75): Yedi skill/isometric/carry hareketinin tam TR/EN içeriği, ring-bar ve kaldıraç standardı ayrımları, toplam 80 content-ready guide ✅
 - **Exercise guide enrichment batch 12** (Bölüm 76): Yedi ana kardiyo hareketinin tam TR/EN içeriği, yoğunluk/kalori miti düzeltmeleri ve toplam 87 content-ready guide ✅
 - **Exercise guide enrichment batch 13** (Bölüm 77): Yedi omuz press/raise varyasyonunun tam TR/EN içeriği, makine-kablo ve izolasyon iddiası düzeltmeleri, toplam 94 content-ready guide ✅
+- **Exercise guide enrichment batch 14** (Bölüm 78): Yedi skapula/omuz kuşağı hareketinin tam TR/EN içeriği, elevasyon-depresyon ve hang standardı ayrımları, toplam 101 content-ready guide ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
