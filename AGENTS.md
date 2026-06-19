@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-19 — Üçüncü exercise guide enrichment batch'i eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-19 — Dördüncü exercise guide enrichment batch'i eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-67)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-68)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -225,6 +225,7 @@ LogWise/
 - **Exercise guide enrichment batch 1** (Bölüm 65): Yedi temel hareketin tam TR/EN guide içeriği, anatomik kas verisi ve türetilmiş `content-ready` raporu ✅
 - **Exercise guide enrichment batch 2** (Bölüm 66): Yedi ek temel hareketin tam TR/EN içeriği, form miti düzeltmeleri ve toplam 17 content-ready guide ✅
 - **Exercise guide enrichment batch 3** (Bölüm 67): Yedi omuz/kol hareketinin tam TR/EN içeriği, riskli cue düzeltmeleri ve toplam 24 content-ready guide ✅
+- **Exercise guide enrichment batch 4** (Bölüm 68): Yedi göğüs/press hareketinin tam TR/EN içeriği, izolasyon miti düzeltmeleri ve toplam 31 content-ready guide ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

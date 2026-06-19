@@ -10,31 +10,93 @@ window.LOGWISE_EX_GUIDES = {
       "Machine chest press. Fixed path, safe."
     ],
     "description": [
-      "Makinede göğüs press. Sabit hareket yolu ve destekli pozisyon sayesinde güvenlidir. Başlangıç seviyesi için ideal bir göğüs egzersizi.",
-      "Machine chest press. Safe due to its fixed movement path and supported position. Ideal chest exercise for beginners."
+      "Oturma ve sırt desteği bulunan makinede yapılan yatay press hareketidir. Pectoralis major ana yükü taşırken ön omuz ve triceps destek verir; makinenin sabit yolu denge ihtiyacını azaltır ancak doğru koltuk ayarı yine gereklidir.",
+      "A horizontal press performed on a seated machine with back support. The pectoralis major carries most of the load while the front delts and triceps assist; the fixed path reduces balance demands but still requires correct seat setup."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Koltuk ve sırtlık yüksekliğini ayarla — kollar omuz hizasında başlamalı.",
-        "Adjust seat and back pad — arms should start at shoulder height."
+        "Koltuk yüksekliğini tutacaklar orta göğüs hizasına gelecek şekilde ayarla.",
+        "Adjust the seat so the handles line up around mid-chest height."
       ],
       [
-        "Kontrollü geri çekil — makinenin ağırlığını aniden bırakma.",
-        "Return slowly — don't let the machine's weight snap back."
+        "Ayakları yere bas, sırt ve başı pede yerleştir; kürek kemiklerini kontrollü biçimde geriye/aşağı al.",
+        "Plant the feet, place the back and head on the pad, and set the shoulder blades gently back and down."
       ],
       [
-        "Hareketin başında ve sonunda göğsü kasılı hissetmeye çalış.",
-        "Focus on feeling the chest squeeze at the start and end of each rep."
+        "Tutuşu bilekler ön kollarla hizalı ve dirsekler rahat bir açıda olacak şekilde seç.",
+        "Choose a grip that keeps wrists aligned with the forearms and elbows at a comfortable angle."
+      ],
+      [
+        "Tutacakları göğüsten uzağa it; omuzları öne yuvarlamadan kolları kontrollü uzat.",
+        "Press the handles away while extending the arms under control without rolling the shoulders forward."
+      ],
+      [
+        "Ağırlık yığınını çarptırmadan ağrısız göğüs gerilimine kadar geri dön.",
+        "Return to a pain-free chest stretch without letting the weight stack crash."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Koltuk yüksekliğini tutacaklar omuzun çok üstünde veya altında kalacak şekilde ayarlamak.",
+        "Setting the seat so the handles sit far above or below the shoulders."
+      ],
+      [
+        "Press sonunda omuzları pedden koparıp öne yuvarlamak.",
+        "Rolling the shoulders forward and away from the pad at the end of the press."
+      ],
+      [
+        "Dirsekleri sert biçimde kilitlemek veya makineyi hızla geri bırakmak.",
+        "Snapping the elbows into lockout or letting the machine return too quickly."
+      ],
+      [
+        "Farklı makine geometrilerindeki ağırlıkları doğrudan karşılaştırmak.",
+        "Directly comparing loads across machines with different geometry."
+      ]
+    ],
+    "tips": [
+      [
+        "Makine sabit yol sunsa da omuz konforu için koltuk ve tutuş ayarını kişiselleştir.",
+        "Even with a fixed path, personalize seat and grip settings for shoulder comfort."
+      ],
+      [
+        "Ön kolları press boyunca tutacakların arkasında hizalı tut.",
+        "Keep the forearms aligned behind the handles throughout the press."
+      ],
+      [
+        "Üstte göğsü sıkmak için omuzları öne fırlatmak yerine kontrollü kol uzat.",
+        "Use controlled arm extension instead of throwing the shoulders forward to squeeze the chest."
+      ],
+      [
+        "Ağırlık yığını çarpıyorsa yükü veya tekrar hızını azalt.",
+        "Reduce the load or rep speed if the weight stack crashes."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif makine yüküyle koltuk ayarı, bilek-dirsek hizası ve kontrollü dönüşü öğren.",
+        "Use a light machine load to learn seat setup, wrist-elbow alignment, and controlled return."
+      ],
+      [
+        "Hedef tekrarlar aynı hareket açıklığında tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps use the same range."
+      ],
+      [
+        "Tek kol seçeneği varsa sağ-sol kontrolünü ayrı karşılaştır.",
+        "If a single-arm option is available, compare side-to-side control."
+      ],
+      [
+        "Daha fazla serbest ağırlık kontrolü için dumbbell veya barbell presse ilerle.",
+        "Progress to dumbbell or barbell pressing for more free-weight control."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "triceps-brachii"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -50,7 +112,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Chest Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Chest Press Rehberi | Makine Ayarı ve Form",
+        "Chest Press Guide | Machine Setup and Form"
+      ],
+      "metaDescription": [
+        "Machine chest press koltuk ve tutuş ayarı, omuz kontrolü, hareket açıklığı ve yaygın form hataları.",
+        "Learn machine chest-press seat and grip setup, shoulder control, range, and common mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, ön omuz ve triceps",
+          "Chest, front delts, and triceps"
+        ],
+        "equipment": [
+          "Chest press makinesi",
+          "Chest-press machine"
+        ],
+        "movementPattern": [
+          "Yatay press",
+          "Horizontal press"
+        ],
+        "bestFor": [
+          "Destekli göğüs kuvveti ve hipertrofisi",
+          "Supported chest strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, koltuk ayarı, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log machine model, seat setting, load, reps, and RIR."
+        ],
+        [
+          "Tutacak ve dirsek başlangıç konumunu tutarlı kullan.",
+          "Keep handle and elbow start positions consistent."
+        ],
+        [
+          "Omuzun pedden ayrıldığı tekrarları not et.",
+          "Note reps where the shoulder loses contact with the pad."
+        ]
+      ],
+      "related": [
+        "dumbell-press",
+        "bench-press",
+        "pec-deck"
+      ]
+    }
   },
   "chest-fly": {
     "publish": false,
@@ -101,31 +209,93 @@ window.LOGWISE_EX_GUIDES = {
       "Flat dumbbell press."
     ],
     "description": [
-      "Dumbbell ile düz bankta göğüs press. Her kol bağımsız çalışır; kas dengesizliklerini giderir ve hareket açısı daha geniş olabilir.",
-      "Flat dumbbell chest press. Each arm works independently, correcting imbalances. Allows a greater range of motion at the bottom."
+      "Düz bench üzerinde iki dumbbell ile yapılan yatay press hareketidir. Her kol bağımsız yük taşır; göğüs, ön omuz ve triceps çalışırken serbest ağırlık stabilizasyonu gerekir.",
+      "A horizontal press performed with two dumbbells on a flat bench. Each arm carries load independently while the chest, front delts, and triceps work with free-weight stabilization."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dumbbellları hafifçe birbirine yaklaştırarak sık — göğüs aktivasyonunu artırır.",
-        "Squeeze dumbbells slightly toward each other at the top for extra chest contraction."
+        "Dumbbellları dizlerinin üzerine al, bench üzerine kontrollü uzanırken ağırlıkları omuz hizasına taşı.",
+        "Rest the dumbbells on the thighs and guide them to shoulder level as you lie back under control."
       ],
       [
-        "Her iki tarafın aynı ağırlık ve tekrarı yapmasına dikkat et.",
-        "Ensure both sides match in weight and reps to prevent imbalance."
+        "Ayakları yere sabitle, kürek kemiklerini geriye/aşağı al ve göğsü rahatça açık tut.",
+        "Plant the feet, set the shoulder blades back and down, and keep the chest comfortably open."
       ],
       [
-        "Alt noktada dirsekler 90° bükük, dumbbelllar omuz hizasında.",
-        "At the bottom, elbows at 90°, dumbbells in line with shoulders."
+        "Dumbbellları bilekler dirseklerin üzerinde olacak şekilde alt pozisyonda hizala.",
+        "Align the dumbbells at the bottom with wrists stacked over the elbows."
+      ],
+      [
+        "Her iki ağırlığı aynı hızda yukarı it; omuzları bench üzerinde sabit tut.",
+        "Press both weights upward at the same speed while keeping the shoulders stable on the bench."
+      ],
+      [
+        "Dirsekleri kontrollü bükerek omuzun rahat kaldığı alt noktaya geri dön.",
+        "Bend the elbows under control and return to a bottom position that remains comfortable for the shoulders."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dumbbellları bench üzerine uzanırken kontrolsüz biçimde geriye fırlatmak.",
+        "Throwing the dumbbells backward without control while getting onto the bench."
+      ],
+      [
+        "Alt noktada sabit 90 derece dirsek açısını herkese zorlamak.",
+        "Forcing the same 90-degree elbow angle for every lifter at the bottom."
+      ],
+      [
+        "Sağ ve sol dumbbellı farklı hız veya bar yoluyla itmek.",
+        "Pressing the dumbbells with different speed or paths between sides."
+      ],
+      [
+        "Set bitiminde ağırlıkları omuzdan yana kontrolsüz düşürmek.",
+        "Dropping the dumbbells out to the sides without control at the end of the set."
+      ]
+    ],
+    "tips": [
+      [
+        "Alt pozisyonu dirsek açısıyla değil, ön kol hizası ve omuz konforuyla belirle.",
+        "Set the bottom position by forearm alignment and shoulder comfort rather than a fixed elbow angle."
+      ],
+      [
+        "Dumbbellları üstte sertçe çarpıştırmadan birbirine yaklaşan bir yolda it.",
+        "Press the dumbbells along a converging path without crashing them together."
+      ],
+      [
+        "Bir taraf öne geçiyorsa yükü azaltıp iki kolun tempo ve hareket açıklığını eşitle.",
+        "If one side leads, reduce load and match tempo and range between arms."
+      ],
+      [
+        "Ağır setlerde dumbbellları güvenle başlatıp bitirmek için spotter kullan.",
+        "Use a spotter for safe setup and finish on heavy sets."
+      ]
+    ],
+    "progression": [
+      [
+        "Chest press veya push-up ile yatay press ve omuz kontrolü geliştir.",
+        "Build horizontal pressing and shoulder control with a chest press or push-up."
+      ],
+      [
+        "Hafif dumbbell press ile simetrik bar yolu ve güvenli set kurulumu öğren.",
+        "Learn symmetrical paths and safe setup with a light dumbbell press."
+      ],
+      [
+        "Hedef tekrarlar iki tarafta eşit tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps are equal on both sides."
+      ],
+      [
+        "Pause, tempo veya daha ağır barbell bench press ile kuvveti çeşitlendir.",
+        "Vary strength work with pauses, tempo, or a heavier barbell bench press."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "triceps-brachii"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -141,7 +311,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Dumbell Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dumbbell Press Rehberi | Düz Bench Formu",
+        "Dumbbell Press Guide | Flat-Bench Form"
+      ],
+      "metaDescription": [
+        "Düz dumbbell press kurulumu, sağ-sol kontrolü, dirsek-bilek hizası ve güvenli hareket açıklığı.",
+        "Learn flat dumbbell-press setup, side-to-side control, elbow-wrist alignment, and range."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, ön omuz ve triceps",
+          "Chest, front delts, and triceps"
+        ],
+        "equipment": [
+          "Dumbbell ve düz bench",
+          "Dumbbells and flat bench"
+        ],
+        "movementPattern": [
+          "Yatay press",
+          "Horizontal press"
+        ],
+        "bestFor": [
+          "Göğüs kuvveti ve sağ-sol kontrolü",
+          "Chest strength and side-to-side control"
+        ]
+      },
+      "tracking": [
+        [
+          "Dumbbell ağırlığı, tekrar, RIR ve kullanılan tutuşu kaydet.",
+          "Log dumbbell load, reps, RIR, and grip used."
+        ],
+        [
+          "İki kolun alt nokta derinliği ve tekrar hızını karşılaştır.",
+          "Compare bottom depth and rep speed between arms."
+        ],
+        [
+          "Kurulum veya set bitişinde spotter kullanıldıysa not et.",
+          "Note when a spotter was used for setup or finish."
+        ]
+      ],
+      "related": [
+        "bench-press",
+        "incline-dumbell-press",
+        "dumbell-fly"
+      ]
+    }
   },
   "incline-dumbell-press": {
     "publish": false,
@@ -153,31 +369,93 @@ window.LOGWISE_EX_GUIDES = {
       "Incline dumbbell press. Upper chest."
     ],
     "description": [
-      "Eğik bankta dumbbell press. Üst göğüsü izole eder, hareket açısı barbell'e göre daha serbesttir. Bütün göğüs programının önemli bir parçasıdır.",
-      "Incline dumbbell press. Isolates the upper chest with a freer range of motion than barbell. An important part of any complete chest program."
+      "Eğik bench üzerinde iki dumbbell ile yapılan press hareketidir. Üst göğüs lifleri, ön omuz ve triceps çalışırken bağımsız kollar daha serbest bir tutuş ve hareket yolu sağlar.",
+      "A press performed with two dumbbells on an incline bench. It trains the upper-chest fibers, front delts, and triceps while independent arms allow a freer grip and path."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Banco 30–45° arasında — fazla dik omuzları aşırı yorar.",
-        "Set bench to 30–45° — too steep overworks the shoulders."
+        "Benchi yaklaşık 30-45 dereceye ayarla ve dumbbellları dizlerinin üzerinde hazırla.",
+        "Set the bench to roughly 30-45 degrees and prepare the dumbbells on the thighs."
       ],
       [
-        "Her iki kolu eşit şekilde kaldır; biri ileride olmamalı.",
-        "Raise both arms equally; one side shouldn't lead the other."
+        "Kontrollü uzanıp dumbbellları omuz hizasına getir; ayakları yere sabitle.",
+        "Lie back under control, bring the dumbbells to shoulder level, and plant the feet."
       ],
       [
-        "Hareketi tamamlarken dumbbellları birbirine yaklaştır ve üst göğsü sık.",
-        "Bring dumbbells together at the top and squeeze the upper chest."
+        "Kürek kemiklerini geriye/aşağı al; bilekleri dirseklerin üzerinde hizala.",
+        "Set the shoulder blades back and down and stack the wrists over the elbows."
+      ],
+      [
+        "Dumbbellları yukarı ve hafifçe birbirine yaklaşan bir yolda aynı hızda it.",
+        "Press the dumbbells upward at the same speed along a slightly converging path."
+      ],
+      [
+        "Üst göğüs ve omuz kontrolü korunabildiği alt noktaya yavaşça geri dön.",
+        "Lower slowly to a bottom position where upper-chest and shoulder control remain stable."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Benchi çok dik ayarlayıp hareketi shoulder presse çevirmek.",
+        "Setting the bench too steep and turning the movement into a shoulder press."
+      ],
+      [
+        "Bir dumbbellı diğerinden önce veya farklı yolda itmek.",
+        "Pressing one dumbbell earlier or along a different path."
+      ],
+      [
+        "Alt noktada omuz başlarını öne yuvarlayacak kadar derine zorlamak.",
+        "Forcing depth until the shoulder heads roll forward."
+      ],
+      [
+        "Üstte dumbbellları sert biçimde çarpıştırmak.",
+        "Crashing the dumbbells together at the top."
+      ]
+    ],
+    "tips": [
+      [
+        "Çoğu kişi için yaklaşık 30 derece üst göğüs vurgusu ve omuz konforu arasında iyi başlangıçtır.",
+        "For many lifters, around 30 degrees is a useful starting point for upper-chest emphasis and shoulder comfort."
+      ],
+      [
+        "Ön kolları alt pozisyonda yere yakın dik tutacak tutuş ve dirsek yolu seç.",
+        "Choose a grip and elbow path that keep the forearms close to vertical at the bottom."
+      ],
+      [
+        "Dumbbellları birleştirmek yerine göğsün üzerinden kontrollü biçimde yukarı taşı.",
+        "Move the dumbbells over the chest under control instead of forcing them together."
+      ],
+      [
+        "Sağ-sol farkı görünüyorsa yük artışından önce simetriyi düzelt.",
+        "If side-to-side differences appear, improve symmetry before adding load."
+      ]
+    ],
+    "progression": [
+      [
+        "Düz dumbbell press ile serbest ağırlık kurulumu ve simetri geliştir.",
+        "Build free-weight setup and symmetry with the flat dumbbell press."
+      ],
+      [
+        "Hafif incline dumbbell press ile bench açısı ve alt nokta kontrolünü öğren.",
+        "Learn bench angle and bottom-position control with a light incline dumbbell press."
+      ],
+      [
+        "Hedef tekrarlar iki tarafta eşit tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps are equal on both sides."
+      ],
+      [
+        "İleri aşamada pause, tempo veya incline barbell press ile kuvveti çeşitlendir.",
+        "At an advanced stage, use pauses, tempo, or incline barbell pressing."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major-clavicular-head"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "triceps-brachii"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -193,7 +471,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Incline Dumbell Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Incline Dumbbell Press Rehberi | Üst Göğüs Formu",
+        "Incline Dumbbell Press Guide | Upper-Chest Form"
+      ],
+      "metaDescription": [
+        "Incline dumbbell press bench açısı, sağ-sol kontrolü, dirsek yolu ve güvenli hareket açıklığı.",
+        "Learn incline dumbbell-press bench angle, side-to-side control, elbow path, and range."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Üst göğüs, ön omuz ve triceps",
+          "Upper chest, front delts, and triceps"
+        ],
+        "equipment": [
+          "Dumbbell ve eğik bench",
+          "Dumbbells and incline bench"
+        ],
+        "movementPattern": [
+          "Eğik press",
+          "Incline press"
+        ],
+        "bestFor": [
+          "Üst göğüs kuvveti ve hipertrofisi",
+          "Upper-chest strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench açısı, dumbbell yükü, tekrar ve RIR değerini kaydet.",
+          "Log bench angle, dumbbell load, reps, and RIR."
+        ],
+        [
+          "İki kolun alt nokta ve tekrar hızını ayrı karşılaştır.",
+          "Compare bottom position and rep speed between arms."
+        ],
+        [
+          "Omuz konforu veya bar yolu değişikliklerini not et.",
+          "Note changes in shoulder comfort or pressing path."
+        ]
+      ],
+      "related": [
+        "incline-bench-press",
+        "dumbell-press",
+        "shoulder-press"
+      ]
+    }
   },
   "decline-push-up": {
     "publish": false,
@@ -260,31 +584,93 @@ window.LOGWISE_EX_GUIDES = {
       "Dumbbell chest fly."
     ],
     "description": [
-      "Dumbbell ile göğüs açma-kapama (fly) hareketi. Göğüs kasını yatay düzlemde izole eder. Büyük bir gerilim açısı sağlar.",
-      "Dumbbell chest fly. Isolates the chest in the horizontal plane. Provides a large stretch at the bottom."
+      "Düz bench üzerinde dumbbelllarla yapılan yatay omuz adduksiyonu hareketidir. Pectoralis major ana hedefken uzun kaldıraç nedeniyle hafif yük ve kontrollü omuz derinliği gerekir.",
+      "A horizontal shoulder-adduction movement performed with dumbbells on a flat bench. The pectoralis major is the main target, while the long lever requires light loading and controlled shoulder depth."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri hafifçe bük — tamamen düz tutma, eklem stresi artar.",
-        "Keep a soft elbow bend throughout — fully straight arms increase joint stress."
+        "Dumbbellları göğüs üzerinde tutarak bench üzerine uzan; ayakları yere sabitle.",
+        "Lie on the bench with the dumbbells above the chest and feet planted."
       ],
       [
-        "Geniş açıdan indir; göğüste derin bir gerilim hissedeceksin.",
-        "Lower through a wide arc until you feel a deep chest stretch."
+        "Kürek kemiklerini kontrollü geriye/aşağı al ve dirseklerde hafif sabit bir bükülme oluştur.",
+        "Set the shoulder blades gently back and down and keep a slight fixed elbow bend."
       ],
       [
-        "Ağırlıktan değil, hissettirenden git; form her zaman önce.",
-        "Prioritize the feel over the load; form always comes first."
+        "Kolları geniş bir yay üzerinde iki yana aç; bilek ve dirsek açısını koru.",
+        "Open the arms along a wide arc while maintaining wrist and elbow angles."
+      ],
+      [
+        "Omuz başları öne yuvarlanmadan göğüste kontrollü gerilim hissettiğin noktada dur.",
+        "Stop where a controlled chest stretch is felt without the shoulder heads rolling forward."
+      ],
+      [
+        "Üst kolları tekrar göğüs üzerinde bir araya getirerek aynı yayda başlangıca dön.",
+        "Bring the upper arms back over the chest along the same arc."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Daha derin gerilim için omuz kontrolünü kaybedene kadar kolları indirmek.",
+        "Lowering the arms until shoulder control is lost just to chase a deeper stretch."
+      ],
+      [
+        "Dirsekleri tekrar boyunca büküp açarak hareketi presse çevirmek.",
+        "Bending and extending the elbows during the rep and turning it into a press."
+      ],
+      [
+        "Uzun kaldıraçta gereğinden ağır dumbbell kullanmak.",
+        "Using excessively heavy dumbbells with the long lever."
+      ],
+      [
+        "Dumbbellları üstte sertçe çarpıştırmak veya bilekleri bükmek.",
+        "Crashing the dumbbells together at the top or bending the wrists."
+      ]
+    ],
+    "tips": [
+      [
+        "Derinliği “ne kadar aşağı” yerine omuz başını sabit tutabildiğin noktayla belirle.",
+        "Set depth by where the shoulder head stays controlled, not by how low the dumbbells travel."
+      ],
+      [
+        "Dirsek açısını yumuşak ama sabit tut; üst kolu göğüs üzerinden kapatmayı düşün.",
+        "Keep a soft but fixed elbow angle and think about closing the upper arms over the chest."
+      ],
+      [
+        "Fly için press ağırlığından belirgin şekilde daha hafif yük kullan.",
+        "Use substantially less load for the fly than for pressing."
+      ],
+      [
+        "Omuz gerilimi rahatsız ediyorsa cable veya pec-deck varyasyonuna geç.",
+        "If shoulder stretch is uncomfortable, switch to a cable or pec-deck variation."
+      ]
+    ],
+    "progression": [
+      [
+        "Pec deck ile sabit yol ve kısa kaldıraçta göğüs adduksiyonunu öğren.",
+        "Learn chest adduction with a fixed path and shorter lever on the pec deck."
+      ],
+      [
+        "Cable fly ile ayakta kontrollü başlangıç ve bitiş konumu geliştir.",
+        "Develop controlled start and finish positions with a cable fly."
+      ],
+      [
+        "Hafif dumbbell fly ile sabit dirsek açısı ve ağrısız derinlik oluştur.",
+        "Build a fixed elbow angle and pain-free depth with a light dumbbell fly."
+      ],
+      [
+        "İleri aşamada tekrar, tempo veya kontrollü hareket açıklığıyla ilerle; yük artışını küçük tut.",
+        "At an advanced stage, progress reps, tempo, or controlled range while keeping load jumps small."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "biceps-brachii"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -300,7 +686,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Dumbell Fly exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dumbbell Fly Rehberi | Göğüs Açış Formu",
+        "Dumbbell Fly Guide | Chest-Fly Form"
+      ],
+      "metaDescription": [
+        "Dumbbell fly dirsek açısı, ağrısız omuz derinliği, kontrollü göğüs gerilimi ve yaygın hatalar.",
+        "Learn dumbbell-fly elbow angle, pain-free shoulder depth, controlled chest stretch, and mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Pectoralis major",
+          "Pectoralis major"
+        ],
+        "equipment": [
+          "Dumbbell ve düz bench",
+          "Dumbbells and flat bench"
+        ],
+        "movementPattern": [
+          "Yatay omuz adduksiyonu",
+          "Horizontal shoulder adduction"
+        ],
+        "bestFor": [
+          "Göğüs hipertrofisi ve adduksiyon kontrolü",
+          "Chest hypertrophy and adduction control"
+        ]
+      },
+      "tracking": [
+        [
+          "Dumbbell ağırlığı, tekrar, RIR ve alt nokta derinliğini kaydet.",
+          "Log dumbbell load, reps, RIR, and bottom depth."
+        ],
+        [
+          "Dirsek açısı ve bench pozisyonunu tutarlı takip et.",
+          "Track elbow angle and bench position consistently."
+        ],
+        [
+          "Omuz rahatsızlığı veya press hareketine dönüşen setleri not et.",
+          "Note shoulder discomfort or sets that turn into a press."
+        ]
+      ],
+      "related": [
+        "pec-deck",
+        "cable-crossover",
+        "dumbell-press"
+      ]
+    }
   },
   "incline-dumbell-fly": {
     "publish": false,
@@ -688,32 +1120,92 @@ window.LOGWISE_EX_GUIDES = {
       "Close-grip bench press. Triceps focused."
     ],
     "description": [
-      "Dar tutuşla yapılan bench press varyasyonu. Triceps yükünü artırırken göğüs ve ön omuzları da çalıştırır. Press gücünü desteklemek ve kol hacmi kazanmak için çok etkilidir.",
-      "A close-grip bench-press variation. It shifts more load to the triceps while still training the chest and front delts. It is very effective for improving pressing strength and adding arm size."
+      "Normal bench press’e göre daha dar ve rahat bir tutuşla yapılan barbell press varyasyonudur. Triceps yükü artarken pectoralis major ve ön omuz press hareketine katkı vermeye devam eder.",
+      "A barbell press variation performed with a narrower comfortable grip than the standard bench press. Triceps demand increases while the chest and front delts continue to assist the press."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Tutuşu aşırı dar yapma; bilek ve dirsek rahat kalacak bir genişlik seç.",
-        "Do not go excessively narrow; choose a grip width that keeps wrists and elbows comfortable."
+        "Bench üzerinde gözlerini barın biraz gerisine getir; ayakları yere ve kürek kemiklerini banka sabitle.",
+        "Lie with the eyes slightly behind the bar, feet planted, and shoulder blades set on the bench."
       ],
       [
-        "Barı alt göğüs-sternum hattına indirerek dirsekleri gövdeye yakın tut.",
-        "Lower the bar toward the lower chest/sternum while keeping elbows relatively close to the torso."
+        "Normal bench tutuşundan biraz dar, bilek ve dirseklerin rahat kaldığı genişliği seç.",
+        "Choose a grip slightly narrower than your normal bench grip while keeping wrists and elbows comfortable."
       ],
       [
-        "Bench press gibi omuzları bankta sıkıştır ama kilidi tricepsle tamamla.",
-        "Set the shoulders like a normal bench press, then finish the lockout with the triceps."
+        "Barı çıkarıp bilekleri ön kolların üzerinde hizala ve kontrollü biçimde alt göğüs/sternuma indir.",
+        "Unrack, stack the wrists over the forearms, and lower under control toward the lower chest or sternum."
+      ],
+      [
+        "Dirsekleri gövdeye yakın ama zorla yapışık olmayacak bir yolda tut.",
+        "Keep the elbows on a relatively close path without forcing them against the torso."
+      ],
+      [
+        "Ayak basıncı ve omuz pozisyonunu koruyarak barı yukarı/rafa doğru it ve tricepsle bitir.",
+        "Maintain foot pressure and shoulder position while pressing the bar up and back, finishing with the triceps."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Tutuşu aşırı daraltıp bilekleri dışa bükmek.",
+        "Using an excessively narrow grip and bending the wrists outward."
+      ],
+      [
+        "Dirsekleri gövdeye zorla yapıştırarak bar yolunu ve omuz konforunu bozmak.",
+        "Forcing the elbows against the torso and disrupting bar path and shoulder comfort."
+      ],
+      [
+        "Barı boyna veya üst göğse indirip ön kolları eğmek.",
+        "Lowering toward the neck or upper chest and losing vertical forearm alignment."
+      ],
+      [
+        "Göğüsten sektirmek veya triceps kilidini tamamlamak için omuzları öne atmak.",
+        "Bouncing off the chest or throwing the shoulders forward to finish lockout."
+      ]
+    ],
+    "tips": [
+      [
+        "“Dar” tutuş genellikle normal bench’ten biraz dardır; ellerin birbirine değmesi gerekmez.",
+        "A close grip is usually only somewhat narrower than a normal bench grip; the hands do not need to touch."
+      ],
+      [
+        "Alt noktada ön kolları yere yakın dik tutan tutuşu kullan.",
+        "Use the grip that keeps the forearms close to vertical at the bottom."
+      ],
+      [
+        "Normal bench press gibi kürek kemiği ve ayak kurulumunu koru.",
+        "Keep the same shoulder-blade and foot setup used for a standard bench press."
+      ],
+      [
+        "Triceps hedefi için ağır yükten önce kontrollü alt temas ve temiz kilidi önceliklendir.",
+        "For triceps emphasis, prioritize a controlled touch and clean lockout before heavy load."
+      ]
+    ],
+    "progression": [
+      [
+        "Triceps pushdown ile kontrollü dirsek ekstansiyonu geliştir.",
+        "Develop controlled elbow extension with triceps pushdowns."
+      ],
+      [
+        "Boş veya hafif barla rahat tutuş ve alt göğüs temas noktasını öğren.",
+        "Learn a comfortable grip and lower-chest touch point with an empty or light bar."
+      ],
+      [
+        "Hedef tekrarlar bilek-dirsek hizası korunarak tamamlanınca yük artır.",
+        "Add load once target reps maintain wrist-elbow alignment."
+      ],
+      [
+        "Pause close-grip bench veya JM press ile farklı triceps kuvvet açıları kullan.",
+        "Use paused close-grip bench presses or JM presses for different triceps strength angles."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "triceps-brachii"
       ],
       "secondary": [
-        "triceps"
+        "pectoralis-major",
+        "anterior-deltoid"
       ]
     },
     "media": {
@@ -730,7 +1222,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Close-Grip Bench Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Close-Grip Bench Press Rehberi | Triceps Formu",
+        "Close-Grip Bench Press Guide | Triceps Form"
+      ],
+      "metaDescription": [
+        "Close-grip bench press tutuş genişliği, bar yolu, bilek-dirsek hizası ve triceps progression adımları.",
+        "Learn close-grip bench-press grip width, bar path, wrist-elbow alignment, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps, göğüs ve ön omuz",
+          "Triceps, chest, and front delts"
+        ],
+        "equipment": [
+          "Bench, barbell ve rack",
+          "Bench, barbell, and rack"
+        ],
+        "movementPattern": [
+          "Dar tutuş yatay press",
+          "Close-grip horizontal press"
+        ],
+        "bestFor": [
+          "Triceps kuvveti ve bench kilidi",
+          "Triceps strength and bench lockout"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş genişliği, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log grip width, load, reps, and RIR."
+        ],
+        [
+          "Bar temas noktası ve bilek-dirsek hizasını tutarlı takip et.",
+          "Track bar touch point and wrist-elbow alignment consistently."
+        ],
+        [
+          "Bilek rahatsızlığı veya dirsek yolunun bozulduğu setleri not et.",
+          "Note sets where wrist discomfort or elbow path changes."
+        ]
+      ],
+      "related": [
+        "bench-press",
+        "triceps-pushdown",
+        "jm-press"
+      ]
+    }
   },
   "cable-crossover": {
     "publish": false,
@@ -742,31 +1280,94 @@ window.LOGWISE_EX_GUIDES = {
       "Cable crossover. Constant tension."
     ],
     "description": [
-      "Çift kablo makinesinde göğüs çaprazlama hareketi. Hareket boyunca sürekli gerilim sağlar. Özellikle iç göğüs ve alt göğüsü izole etmek için idealdir.",
-      "Chest crossover on a dual cable machine. Provides constant tension throughout the movement. Ideal for isolating the inner and lower chest."
+      "Çift kabloyla yapılan ayakta göğüs adduksiyonu hareketidir. Kablo gerilimi hareket boyunca pectoralis majoru yükler; pulley yüksekliği kol yolunu değiştirir ancak “iç göğsü” ayrı bir kas olarak izole etmez.",
+      "A standing chest-adduction movement performed with dual cables. Cable tension loads the pectoralis major throughout the rep; pulley height changes arm path but does not isolate an independent “inner chest” muscle."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kablo yüksekliğini değiştirerek farklı göğüs bölgelerini hedefleyebilirsin.",
-        "Change cable height to target different chest regions (upper/mid/lower)."
+        "Pulleyleri seçtiğin kol yoluna göre iki tarafta eşit yüksekliğe ayarla.",
+        "Set both pulleys to equal height for the arm path you want to use."
       ],
       [
-        "Hareketi bitirirken elleri birbiriyle kapat ve 1 sn sık.",
-        "Fully close and cross hands at the end, hold for 1 second."
+        "Tutacakları alıp bir adım öne çık; ayakları dengeli, gövdeyi hafif eğik tut.",
+        "Take the handles, step forward, and use a balanced stance with a slight torso lean."
       ],
       [
-        "Gövdeyi hafifçe öne eğ; dik durmak göğsü devre dışı bırakır.",
-        "Lean torso slightly forward; standing fully upright removes chest tension."
+        "Dirseklerde hafif sabit bükülme oluştur ve kürek kemiklerini kontrollü tut.",
+        "Keep a slight fixed elbow bend and maintain controlled shoulder blades."
+      ],
+      [
+        "Üst kolları göğüs önünde bir araya getirerek elleri kontrollü biçimde yaklaştır.",
+        "Bring the upper arms together in front of the chest and let the hands approach under control."
+      ],
+      [
+        "Omuz başları öne kaçmadan kolları aynı yayda ağrısız gerilime geri aç.",
+        "Open the arms along the same arc to a pain-free stretch without the shoulder heads drifting forward."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kablo yüksekliğinin “iç göğsü” bağımsız biçimde izole ettiğini varsaymak.",
+        "Assuming a pulley height can independently isolate the “inner chest.”"
+      ],
+      [
+        "Ağır yük için gövdeyi savurmak veya adım pozisyonunu kaybetmek.",
+        "Swinging the torso or losing stance to move excessive load."
+      ],
+      [
+        "Dirsek açısını değiştirip hareketi cable presse çevirmek.",
+        "Changing elbow angle and turning the movement into a cable press."
+      ],
+      [
+        "Bitişte omuzları öne yuvarlayarak elleri gereğinden fazla çaprazlamak.",
+        "Over-crossing the hands by rolling the shoulders forward at the finish."
+      ]
+    ],
+    "tips": [
+      [
+        "Pulley yüksekliği kol yolunu ve omuz açısını değiştirir; hedefi rahat göğüs adduksiyonu olarak tut.",
+        "Pulley height changes arm path and shoulder angle; keep comfortable chest adduction as the goal."
+      ],
+      [
+        "Ellerin ne kadar çaprazlandığından çok üst kolların göğüs önünde yaklaşmasına odaklan.",
+        "Focus on the upper arms approaching in front of the chest rather than how far the hands cross."
+      ],
+      [
+        "Gövde pozisyonunu set boyunca sabit tutacak yük seç.",
+        "Choose a load that allows the torso position to remain stable."
+      ],
+      [
+        "Omuz önünde rahatsızlık varsa geri açılma derinliğini azalt.",
+        "Reduce the return depth if the front of the shoulder becomes uncomfortable."
+      ]
+    ],
+    "progression": [
+      [
+        "Pec deck ile sabit yolda göğüs adduksiyonunu öğren.",
+        "Learn chest adduction on the fixed path of a pec deck."
+      ],
+      [
+        "Tek kol cable fly ile gövde ve omuz kontrolünü ayrı ayrı geliştir.",
+        "Develop torso and shoulder control with a single-arm cable fly."
+      ],
+      [
+        "Çift kablo crossoverda aynı pulley yüksekliği ve kol yolunu tutarlı kullan.",
+        "Use consistent pulley height and arm path on the dual-cable crossover."
+      ],
+      [
+        "İleri aşamada farklı pulley yüksekliklerini ayrı varyasyonlar olarak takip et.",
+        "At an advanced stage, track different pulley heights as separate variations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "biceps-brachii",
+        "serratus-anterior"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -782,7 +1383,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Cable Crossover exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cable Crossover Rehberi | Kablo Göğüs Formu",
+        "Cable Crossover Guide | Chest Form"
+      ],
+      "metaDescription": [
+        "Cable crossover pulley yüksekliği, kol yolu, omuz kontrolü ve “iç göğüs” miti hakkında doğru form rehberi.",
+        "Learn cable-crossover pulley height, arm path, shoulder control, and the inner-chest myth."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Pectoralis major",
+          "Pectoralis major"
+        ],
+        "equipment": [
+          "Çift kablo makinesi",
+          "Dual-cable machine"
+        ],
+        "movementPattern": [
+          "Yatay/eğik omuz adduksiyonu",
+          "Horizontal or angled shoulder adduction"
+        ],
+        "bestFor": [
+          "Göğüs hipertrofisi ve sürekli gerilim",
+          "Chest hypertrophy and continuous tension"
+        ]
+      },
+      "tracking": [
+        [
+          "Pulley yüksekliği, aparat, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log pulley height, attachment, load, reps, and RIR."
+        ],
+        [
+          "Adım pozisyonu ve geri açılma derinliğini tutarlı kullan.",
+          "Keep stance and return depth consistent."
+        ],
+        [
+          "Gövde salınımı veya omuzun öne yuvarlandığı setleri not et.",
+          "Note sets where the torso swings or shoulders roll forward."
+        ]
+      ],
+      "related": [
+        "pec-deck",
+        "dumbell-fly",
+        "incline-cable-fly"
+      ]
+    }
   },
   "pec-deck": {
     "publish": false,
@@ -794,31 +1441,93 @@ window.LOGWISE_EX_GUIDES = {
       "Pec deck machine. Chest isolation."
     ],
     "description": [
-      "Makinede yapılan göğüs izolasyon hareketi. Sabit yol sayesinde denge ihtiyacını azaltır ve göğüs kasına odaklanmayı kolaylaştırır. Press hareketlerinden sonra kası sıkıştırmak için çok kullanışlıdır.",
-      "A machine-based chest isolation movement. The fixed path reduces balance demands and makes it easier to focus on the chest. It is very useful for squeezing the pecs after pressing work."
+      "Makinede sabit veya yarı sabit bir yolda yapılan göğüs adduksiyonudur. Pectoralis major ana hedefken sırt desteği denge ihtiyacını azaltır; koltuk ve başlangıç derinliği omuz konforuna göre ayarlanmalıdır.",
+      "A machine chest-adduction movement performed on a fixed or semi-fixed path. The pectoralis major is the main target while back support reduces balance demands; seat and start depth should match shoulder comfort."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kol pedleri veya tutacaklar omuzlarına uygun yükseklikte olsun.",
-        "Set the pads or handles so they align comfortably with your shoulders."
+        "Koltuk yüksekliğini tutacak veya pedler orta göğüs/omuz hattına gelecek şekilde ayarla.",
+        "Set the seat so the handles or pads align around mid-chest and shoulder height."
       ],
       [
-        "Hareket sonunda göğsü bilinçli şekilde sık ve kısa durakla.",
-        "Actively squeeze the chest at the end of each rep and pause briefly."
+        "Sırt ve başı pede yerleştir; ayakları yere bas ve kürek kemiklerini kontrollü tut.",
+        "Place the back and head on the pad, plant the feet, and control the shoulder blades."
       ],
       [
-        "Omuzları öne yuvarlama; kürek kemiklerini kontrollü tut.",
-        "Do not roll the shoulders forward; keep the shoulder blades controlled."
+        "Makine tipine göre dirsekleri pede yerleştir veya tutacakları nötr bilekle kavra.",
+        "Depending on the machine, place the elbows on the pads or grip the handles with neutral wrists."
+      ],
+      [
+        "Üst kolları göğüs önünde bir araya getir ve kontrollü son noktada kısa dur.",
+        "Bring the upper arms together in front of the chest and pause briefly at a controlled finish."
+      ],
+      [
+        "Omuz başları öne yuvarlanmadan ağrısız göğüs gerilimine geri aç.",
+        "Return to a pain-free chest stretch without the shoulder heads rolling forward."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Koltuk yüksekliğini omuzları yukarı kaldıracak konumda bırakmak.",
+        "Leaving the seat at a height that forces the shoulders upward."
+      ],
+      [
+        "Başlangıç derinliğini omuz kontrolünün ötesine ayarlamak.",
+        "Setting the start depth beyond controllable shoulder range."
+      ],
+      [
+        "Bitişte göğüs sıkıştırmak için omuzları öne yuvarlamak.",
+        "Rolling the shoulders forward to create a stronger squeeze at the finish."
+      ],
+      [
+        "Ağırlık yığınını geri dönüşte çarptırmak.",
+        "Letting the weight stack crash on the return."
+      ]
+    ],
+    "tips": [
+      [
+        "Makinenin başlangıç ayarı varsa en derin seçenek yerine ağrısız kontrolü seç.",
+        "If the machine has a start-position setting, choose pain-free control rather than the deepest option."
+      ],
+      [
+        "Ellerden çok üst kolların göğüs önünde yaklaşmasını düşün.",
+        "Think about the upper arms approaching in front of the chest rather than the hands."
+      ],
+      [
+        "Kürek kemiklerini tamamen kilitleme veya öne fırlatma; kontrollü doğal hareket kullan.",
+        "Do not rigidly pin or throw the shoulder blades forward; use controlled natural movement."
+      ],
+      [
+        "Makine geometrisi değiştiğinde yük ve ayarları yeni varyasyon olarak kaydet.",
+        "Treat different machine geometry as a new variation when logging load and setup."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle koltuk, başlangıç derinliği ve üst kol yolunu öğren.",
+        "Learn seat position, start depth, and upper-arm path with a light load."
+      ],
+      [
+        "Hedef tekrarları yığın çarpmadan tamamlayınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps are completed without stack contact."
+      ],
+      [
+        "Üstte pause veya yavaş geri dönüşle aynı yükte kontrolü artır.",
+        "Increase control at the same load with a top pause or slower return."
+      ],
+      [
+        "Cable veya dumbbell fly ile farklı direnç profillerini ayrı varyasyon olarak kullan.",
+        "Use cable or dumbbell fly variations for different resistance profiles."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "biceps-brachii"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -834,7 +1543,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Pec Deck exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Pec Deck Rehberi | Makine Ayarı ve Göğüs Formu",
+        "Pec Deck Guide | Machine Setup and Chest Form"
+      ],
+      "metaDescription": [
+        "Pec deck koltuk ve başlangıç ayarı, omuz kontrollü derinlik, göğüs adduksiyonu ve yaygın hatalar.",
+        "Learn pec-deck seat and start settings, shoulder-controlled depth, chest adduction, and mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Pectoralis major",
+          "Pectoralis major"
+        ],
+        "equipment": [
+          "Pec deck makinesi",
+          "Pec-deck machine"
+        ],
+        "movementPattern": [
+          "Yatay omuz adduksiyonu",
+          "Horizontal shoulder adduction"
+        ],
+        "bestFor": [
+          "Destekli göğüs hipertrofisi",
+          "Supported chest hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, koltuk/başlangıç ayarı, ağırlık ve tekrarları kaydet.",
+          "Log machine model, seat/start settings, load, and reps."
+        ],
+        [
+          "Ağrısız geri açılma derinliği ve RIR değerini takip et.",
+          "Track pain-free return depth and RIR."
+        ],
+        [
+          "Omuzun öne yuvarlandığı veya yığının çarptığı setleri not et.",
+          "Note sets where the shoulders roll forward or the stack crashes."
+        ]
+      ],
+      "related": [
+        "dumbell-fly",
+        "cable-crossover",
+        "chest-press"
+      ]
+    }
   },
   "incline-cable-fly": {
     "publish": false,

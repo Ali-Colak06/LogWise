@@ -4151,6 +4151,54 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 68 — Exercise Guide Enrichment Batch 4 (2026-06-19)
+
+### Amaç
+
+Göğüs antrenmanının makine, dumbbell, incline, fly, cable ve triceps odaklı press desenlerini tam guide seviyesine taşımak; legacy metinlerdeki mutlak güvenlik, bölgesel izolasyon ve kontrolsüz derin gerilim iddialarını düzeltmek.
+
+### Kapsam
+
+- Chest Press
+- Dumbbell Press (`dumbell-press` legacy slug)
+- Incline Dumbbell Press (`incline-dumbell-press` legacy slug)
+- Dumbbell Fly (`dumbell-fly` legacy slug)
+- Cable Crossover
+- Pec Deck
+- Close-Grip Bench Press
+
+### İçerik Kararları
+
+- **Makine güvenliği:** Chest Press ve Pec Deck için sabit yolun denge ihtiyacını azalttığı, ancak koltuk/başlangıç ayarı ve omuz kontrolünün hâlâ gerekli olduğu açıklandı; “makine güvenlidir” mutlak ifadesi kaldırıldı.
+- **Dumbbell simetrisi:** Bağımsız kolların sağ-sol farkını görünür kılabileceği anlatıldı; dumbbell çalışmanın dengesizliği otomatik düzelttiği iddia edilmedi.
+- **Sabit dirsek açısı yok:** Dumbbell Press alt noktası herkese 90 derece dirsek açısıyla dayatılmadı; ön kol hizası ve omuz konforuna bağlandı.
+- **Fly derinliği:** Dumbbell Fly ve Pec Deck geri açılması, omuz başı öne yuvarlanmadan korunabilen ağrısız hareket açıklığıyla sınırlandı.
+- **İç göğüs miti:** Cable Crossover pulley yüksekliğinin kol yolunu değiştirdiği, ancak bağımsız bir “iç göğüs” kasını izole etmediği belirtildi.
+- **Close-grip tanımı:** Tutuşun elleri birbirine değdirecek kadar dar olması gerekmediği; normal bench tutuşundan biraz dar, bilek-dirsek rahatlığını koruyan genişlik olması gerektiği yazıldı.
+- **Anatomik kas verisi:** Yedi kayıt hareket bazlı primary/secondary kas slug'larına geçirildi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 31 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi göğüs/press hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 31 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 67 — Exercise Guide Enrichment Batch 3 (2026-06-19)
 
 ### Amaç
