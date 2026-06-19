@@ -7,8 +7,10 @@
  * Aktif Et CTA + Sil. Autosave: değişiklikler anında mutation (debounce yerine
  * her edit'te commit — basit/güvenli; cihaz testinde debounce eklenebilir).
  *
- * NOT (OPEN): drag/reorder yerine ⋮ menü "yukarı/aşağı taşı" (draggable-flatlist
- * paketi yüklü değil). Spec drag istiyor — ADIM 7 paket eklenince upgrade.
+ * Gün içi sıralama: görünür 6-nokta drag handle + long-press sürükleme (paketsiz
+ * custom drag — Day Detail `ReorderableCardList` yeniden kullanımı; Reanimated 4 +
+ * gesture-handler). Sürükleme aktifken ana ScrollView gate'lenir (scrollEnabled=false).
+ * Gün-gün taşıma yine ⋮ menü → MoveToDaySheet (§8.10 Opsiyon A).
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, TextInput, View } from 'react-native';
@@ -34,9 +36,10 @@ import {
   useClearProgramDay,
 } from '../../../../queries/programs';
 import { useCustomExercises } from '../../../../queries/exercises';
-import { resolveExerciseRef, buildCustomMap, type ResolvedExercise } from '../../../../lib/exercise-resolve';
+import { resolveExerciseRef, buildCustomMap, catLabel, type ResolvedExercise } from '../../../../lib/exercise-resolve';
 import { totalProgramExercises } from '../../../../lib/program';
 import AddExerciseSheet from '../../../../components/day/AddExerciseSheet';
+import ReorderableCardList from '../../../../components/day/ReorderableCardList';
 import ConfirmModal from '../../../../components/workout/ConfirmModal';
 import DayExerciseActionSheet from '../../../../components/workout/DayExerciseActionSheet';
 import ExPreviewModal from '../../../../components/shared/ExPreviewModal';
@@ -80,6 +83,7 @@ export default function ProgramEditScreen() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [rowMenu, setRowMenu] = useState<{ di: DayIndex; ref: string; name: string } | null>(null);
   const [previewEx, setPreviewEx] = useState<ResolvedExercise | null>(null);
+  const [dragging, setDragging] = useState(false);
 
   // Boş program guard: hareketi olmayan program kaydedilemez (§ kullanıcı kararı).
   // D2'den "yeni program" oluşturulunca DB'ye boş satır atılıyor; kullanıcı hiç
@@ -196,18 +200,6 @@ export default function ProgramEditScreen() {
     setRowMenu(null);
   };
 
-  const onReorder = (di: DayIndex, ref: string, dir: -1 | 1) => {
-    const list = dayExercises(di).map((d) => d.exercise_ref);
-    const idx = list.indexOf(ref);
-    const target = idx + dir;
-    if (idx === -1 || target < 0 || target >= list.length) return;
-    const next = [...list];
-    const tmp = next[idx]!;
-    next[idx] = next[target]!;
-    next[target] = tmp;
-    reorder.mutate({ programId, dayIndex: di, orderedRefs: next });
-  };
-
   const onActivate = () => {
     if (!program) return;
     if (activeProgram && activeProgram.id !== program.id) {
@@ -234,6 +226,9 @@ export default function ProgramEditScreen() {
 
   const cycleType = program?.cycle_type ?? 'weekly';
   const deloadEvery = program?.deload_every ?? 4;
+  const cycleShort =
+    cycleType === 'deload' ? t('library.cycleDeload') : cycleType === 'none' ? t('library.cycleNone') : t('library.cycleWeekly');
+  const appBarSubtitle = `${cycleShort} · ${t('programEdit.exerciseCount', { vars: { n: totalEx } })}`;
 
   return (
     <Screen scroll={false}>
@@ -242,15 +237,20 @@ export default function ProgramEditScreen() {
         <Pressable onPress={() => router.back()} hitSlop={12} style={styles.iconBtn} accessibilityLabel={t('day.back')}>
           <ArrowLeft size={22} color={colors.text.primary} />
         </Pressable>
-        <Text variant="bodyStrong" numberOfLines={1} style={{ flex: 1, textAlign: 'center' }}>
-          {nameVal || t('programEdit.titleNew')}
-        </Text>
+        <View style={{ flex: 1 }}>
+          <Text variant="bodyStrong" numberOfLines={1} align="center">
+            {nameVal || t('programEdit.titleNew')}
+          </Text>
+          <Text variant="meta" color="secondary" numberOfLines={1} align="center" style={{ marginTop: 1 }}>
+            {appBarSubtitle}
+          </Text>
+        </View>
         <Pressable onPress={() => router.back()} hitSlop={8} style={[styles.savePill, { backgroundColor: colors.accent.gold }]}>
           <Text variant="meta" color="onAccent">{t('programEdit.save')}</Text>
         </Pressable>
       </HStack>
 
-      <ScrollView contentContainerStyle={{ paddingBottom: 48, paddingHorizontal: 12 }}>
+      <ScrollView contentContainerStyle={{ paddingBottom: 48, paddingHorizontal: 12 }} scrollEnabled={!dragging}>
         {/* Name + desc */}
         <Text variant="caption" color="secondary" style={styles.label}>{t('programEdit.nameLabel')}</Text>
         <TextInput
@@ -314,9 +314,16 @@ export default function ProgramEditScreen() {
             <View key={di} style={[styles.dayPanel, { borderColor: colors.border.subtle, backgroundColor: colors.background.elevated }]}>
               <Pressable onPress={() => toggleExpand(di)} style={styles.dayHead}>
                 <Text variant="bodyStrong" style={{ flex: 1 }}>{dict.daysFull[di] ?? ''}</Text>
-                <Text variant="meta" color="secondary" style={{ marginRight: 8 }}>
-                  {off ? `💤 ${t('programEdit.offBadge')}` : t('programEdit.exerciseCount', { vars: { n: exs.length } })}
-                </Text>
+                {off ? (
+                  <View style={styles.offMeta}>
+                    <Moon size={13} color={colors.semantic.info} strokeWidth={2} />
+                    <Text variant="meta" style={{ color: colors.semantic.info }}>{t('programEdit.offBadge')}</Text>
+                  </View>
+                ) : (
+                  <Text variant="meta" color="secondary" style={{ marginRight: 8 }}>
+                    {t('programEdit.exerciseCount', { vars: { n: exs.length } })}
+                  </Text>
+                )}
                 {open ? <ChevronUp size={18} color={colors.text.secondary} /> : <ChevronDown size={18} color={colors.text.secondary} />}
               </Pressable>
 
@@ -331,28 +338,43 @@ export default function ProgramEditScreen() {
                     </View>
                   ) : (
                     <>
-                      {exs.map((ex, i) => {
-                        const r = resolveExerciseRef(ex.exercise_ref, customMap, locale);
-                        return (
-                          <View key={ex.exercise_ref} style={[styles.exRow, { borderColor: colors.border.subtle }]}>
-                            <View style={styles.reorder}>
-                              <Pressable onPress={() => onReorder(di, ex.exercise_ref, -1)} hitSlop={6} disabled={i === 0}>
-                                <ChevronUp size={16} color={i === 0 ? colors.text.disabled : colors.text.secondary} />
+                      <ReorderableCardList
+                        ids={exs.map((ex) => ex.exercise_ref)}
+                        onReorder={(orderedRefs) => reorder.mutate({ programId, dayIndex: di, orderedRefs })}
+                        onActiveChange={setDragging}
+                        renderCard={(ref, dragHandle) => {
+                          const r = resolveExerciseRef(ref, customMap, locale);
+                          const catKey = r.categories[0] ?? 'other';
+                          return (
+                            <View style={[styles.exRow, { borderColor: colors.border.subtle, backgroundColor: colors.background.subtle }]}>
+                              {dragHandle}
+                              <View style={[styles.exAccent, { backgroundColor: colors.category[catKey] }]} />
+                              <Pressable style={styles.exBody} onPress={() => setPreviewEx(r)}>
+                                <Text variant="body" numberOfLines={1}>{r.name}</Text>
+                                <View style={styles.exSub}>
+                                  <View style={[styles.rowCatChip, { backgroundColor: colors.categoryMuted[catKey] }]}>
+                                    <View style={[styles.rowCatDot, { backgroundColor: colors.category[catKey] }]} />
+                                    <Text font="mono" style={[styles.rowCatChipText, { color: colors.category[catKey] }]}>
+                                      {catLabel(catKey, dict.cats)}
+                                    </Text>
+                                  </View>
+                                  {!r.isPreset && (
+                                    <Text font="mono" style={[styles.customHint, { color: colors.text.tertiary }]}>
+                                      {t('library.customBadge')}
+                                    </Text>
+                                  )}
+                                </View>
                               </Pressable>
-                              <Pressable onPress={() => onReorder(di, ex.exercise_ref, 1)} hitSlop={6} disabled={i === exs.length - 1}>
-                                <ChevronDown size={16} color={i === exs.length - 1 ? colors.text.disabled : colors.text.secondary} />
+                              <Pressable onPress={() => setRowMenu({ di, ref, name: r.name })} hitSlop={6} style={{ padding: 4 }}>
+                                <MoreVertical size={16} color={colors.text.tertiary} />
+                              </Pressable>
+                              <Pressable onPress={() => removeEx.mutate({ programId, dayIndex: di, exerciseRef: ref })} hitSlop={6} style={{ padding: 4 }}>
+                                <X size={16} color={colors.text.tertiary} />
                               </Pressable>
                             </View>
-                            <Text variant="body" style={{ flex: 1 }} numberOfLines={1}>{r.name}</Text>
-                            <Pressable onPress={() => setRowMenu({ di, ref: ex.exercise_ref, name: r.name })} hitSlop={6} style={{ padding: 4 }}>
-                              <MoreVertical size={16} color={colors.text.tertiary} />
-                            </Pressable>
-                            <Pressable onPress={() => removeEx.mutate({ programId, dayIndex: di, exerciseRef: ex.exercise_ref })} hitSlop={6} style={{ padding: 4 }}>
-                              <X size={16} color={colors.text.tertiary} />
-                            </Pressable>
-                          </View>
-                        );
-                      })}
+                          );
+                        }}
+                      />
                       <View style={{ height: 8 }} />
                       <HStack gap="sm">
                         <Button variant="secondary" size="sm" label={t('programEdit.addExercise')} onPress={() => setAddForDay(di)} icon={<Plus size={14} color={colors.text.primary} />} />
@@ -440,6 +462,13 @@ const styles = StyleSheet.create({
   dayHead: { flexDirection: 'row', alignItems: 'center', padding: 14 },
   dayBody: { paddingHorizontal: 14, paddingBottom: 14 },
   offEmpty: { alignItems: 'center', paddingVertical: 16 },
-  exRow: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8, borderTopWidth: StyleSheet.hairlineWidth },
-  reorder: { alignItems: 'center' },
+  exRow: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 8, paddingHorizontal: 6, borderWidth: StyleSheet.hairlineWidth, borderRadius: 10 },
+  offMeta: { flexDirection: 'row', alignItems: 'center', gap: 4, marginRight: 8 },
+  exAccent: { alignSelf: 'stretch', width: 3, borderRadius: 2, marginVertical: 2 },
+  exBody: { flex: 1, gap: 4 },
+  exSub: { flexDirection: 'row', alignItems: 'center', gap: 8, flexWrap: 'wrap' },
+  rowCatChip: { flexDirection: 'row', alignItems: 'center', gap: 4, height: 18, paddingHorizontal: 7, borderRadius: 999 },
+  rowCatDot: { width: 5, height: 5, borderRadius: 3 },
+  rowCatChipText: { fontSize: 10, fontWeight: '700', letterSpacing: 0.2 },
+  customHint: { fontSize: 10, fontWeight: '600', letterSpacing: 0.3 },
 });
