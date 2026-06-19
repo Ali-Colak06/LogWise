@@ -161,26 +161,93 @@
   },
   "chest-fly": {
     "publish": false,
-    "previewReady": false,
+    "previewReady": true,
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/chest-fly",
     "summary": [
-      "Göğüs açma-kapama. İzolasyon hareketi.",
-      "Chest fly. Isolation movement."
+      "Tutacaklı makinede kontrollü göğüs fly varyasyonu.",
+      "A controlled chest-fly variation on a handle-based machine."
     ],
     "description": [
-      "Göğüs açma-kapama. İzolasyon hareketi.",
-      "Chest fly. Isolation movement."
+      "Chest fly, tutacaklı bir fly makinesinde kolları geniş bir yay üzerinden önde birleştiren yatay omuz adduksiyonu hareketidir. Sabit makine yolu denge ihtiyacını azaltır; ancak omuz konforu için koltuk, başlangıç açısı ve hareket menzili kişiye göre ayarlanmalıdır.",
+      "The chest fly is a horizontal shoulder-adduction movement performed by bringing the handles of a fly machine together through a broad arc. The fixed machine path reduces balance demands, but the seat, starting angle, and range still need to match the lifter for shoulder comfort."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [],
-    "progression": [],
+    "formSteps": [
+      [
+        "Koltuğu, tutacaklar göğüs ile omuz hizası arasında başlayacak şekilde ayarla.",
+        "Adjust the seat so the handles begin between chest and shoulder height."
+      ],
+      [
+        "Sırtını ve pelvisini pede yerleştir; ayaklarını zemine sabitle.",
+        "Keep your back and pelvis against the pad and plant your feet."
+      ],
+      [
+        "Dirseklerini hafif bük ve bu açıyı tekrar boyunca büyük ölçüde koru.",
+        "Keep a soft elbow bend and maintain roughly the same angle through the rep."
+      ],
+      [
+        "Tutacakları kontrollü bir yayla gövdenin önünde birbirine yaklaştır.",
+        "Bring the handles toward each other in front of the torso through a controlled arc."
+      ],
+      [
+        "Omuz başların öne yuvarlanmadan başlangıca kontrollü dön.",
+        "Return under control without letting the shoulders roll forward."
+      ]
+    ],
+    "mistakes": [
+      [
+        "Omuzları geriye zorlayan aşırı derin bir başlangıç açısı kullanmak.",
+        "Using an excessively deep starting angle that forces the shoulders back."
+      ],
+      [
+        "Dirsek açısını sürekli değiştirip hareketi press hareketine çevirmek.",
+        "Changing the elbow angle throughout and turning the movement into a press."
+      ],
+      [
+        "Ağırlığı kapatmak için sırtı pedden ayırmak veya ivme kullanmak.",
+        "Leaving the back pad or using momentum to close the weight."
+      ],
+      [
+        "Farklı makine tasarımlarındaki kilogramları doğrudan karşılaştırmak.",
+        "Directly comparing load numbers across different machine designs."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu kayıt tutacaklı makine fly içindir; dirsek veya önkol pedli varyasyonu pec-deck kaydında takip et.",
+        "This entry is for a handle-based machine fly; track the elbow- or forearm-pad variation under pec deck."
+      ],
+      [
+        "Göğüste gerilim ararken omuz başını öne düşürmeyen bir menzil seç.",
+        "Choose a range that creates chest tension without pulling the shoulder head forward."
+      ],
+      [
+        "Sabit makine yolu dengeyi azaltır, ancak tek başına hareketi risksiz yapmaz.",
+        "A fixed machine path reduces balance demands but does not make the exercise risk-free by itself."
+      ]
+    ],
+    "progression": [
+      [
+        "Önce hafif yükle koltuk ve başlangıç açısını standartlaştır.",
+        "First standardize the seat and starting angle with a light load."
+      ],
+      [
+        "Aynı menzilde tüm tekrarları kontrollü tamamlayabildiğinde küçük yük artışları yap.",
+        "Add load in small steps once every rep is controlled through the same range."
+      ],
+      [
+        "Daha fazla zorluk için kapanışta kısa duraklama ekle; menzili zorla büyütme.",
+        "For more difficulty, add a short pause at closure rather than forcing a larger range."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "serratus-anterior"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -196,7 +263,53 @@
         "Muscle map for the Chest Fly exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Chest Fly Rehberi: Makine Ayarı ve Form",
+        "Chest Fly Guide: Machine Setup and Form"
+      ],
+      "metaDescription": [
+        "Tutacaklı chest fly için koltuk ayarı, güvenli hareket menzili, sık hatalar ve ilerleme yöntemlerini öğren.",
+        "Learn seat setup, comfortable range, common mistakes, and progression methods for the handle-based chest fly."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs",
+          "Chest"
+        ],
+        "equipment": [
+          "Tutacaklı chest fly makinesi",
+          "Handle-based chest fly machine"
+        ],
+        "movementPattern": [
+          "Yatay omuz adduksiyonu",
+          "Horizontal shoulder adduction"
+        ],
+        "bestFor": [
+          "Kontrollü göğüs aksesuarı",
+          "Controlled chest accessory work"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli ve koltuk ayarı",
+          "Machine model and seat setting"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Ağrısız başlangıç açısı ve menzil",
+          "Pain-free starting angle and range"
+        ]
+      ],
+      "related": [
+        "pec-deck",
+        "dumbell-fly",
+        "cable-crossover"
+      ]
+    }
   },
   "dumbell-press": {
     "publish": false,
@@ -524,37 +637,91 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/decline-push-up",
     "summary": [
-      "Ayak yükseltili şınav. Üst göğüs vurgusu.",
-      "Feet-elevated push-up. Upper-chest emphasis."
+      "Ayakların yükseltildiği, yükü öne taşıyan şınav varyasyonu.",
+      "A feet-elevated push-up that shifts more load toward the upper body."
     ],
     "description": [
-      "Ayakların yükseltildiği push-up varyasyonu. Üst göğüs ve ön omuzlara standart push-up'tan daha fazla yük bindirir. Ekipmansız üst vücut ilerlemelerinde güçlü bir ara basamaktır.",
-      "A push-up variation with the feet elevated. It places more load on the upper chest and front delts than a standard push-up. It is a strong progression step in equipment-free upper-body training."
+      "Decline push-up, ayakların sabit bir yükseltiye yerleştirildiği şınav varyasyonudur. Yükselti vücut açısını ve üst gövdeye aktarılan yükü değiştirir; göğüs, ön omuz ve triceps birlikte çalışır. Daha yüksek ayak konumu otomatik olarak daha iyi veya yalnızca üst göğüs odaklı değildir.",
+      "The decline push-up is a push-up variation with the feet placed on a stable elevation. Elevation changes body angle and the load borne by the upper body while the chest, front delts, and triceps work together. A higher foot position is not automatically better or an upper-chest-only exercise."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ayak yükseldikçe zorluk artar; uygun seviyeyi seç.",
-        "The higher the feet, the harder the variation becomes, so choose an appropriate height."
+        "Kaymayan bir ayak yükseltisi seç ve ellerini rahat omuz genişliği çevresine yerleştir.",
+        "Choose a non-slip foot support and place the hands around a comfortable shoulder width."
       ],
       [
-        "Kalçayı düşürmeden plank çizgisini koru.",
-        "Maintain a solid plank line without letting the hips sag."
+        "Ayaklarını yükseltiye alıp baştan topuğa kontrollü bir gövde çizgisi kur.",
+        "Set the feet on the support and establish a controlled line from head to heel."
       ],
       [
-        "Göğsü kontrollü indirip güçlü şekilde it.",
-        "Lower the chest under control and press up strongly."
+        "Dirsekleri rahat bir açıda bükerek göğsünü ellerin arasına doğru indir.",
+        "Bend the elbows at a comfortable angle and lower the chest between the hands."
+      ],
+      [
+        "Omuz ve gövde kontrolünü koruduğun alt noktada kısa biçimde yön değiştir.",
+        "Reverse briefly at the deepest point where shoulder and trunk control remain."
+      ],
+      [
+        "Zemini itip dirsekleri açarken kalça ve gövde çizgisini birlikte yükselt.",
+        "Press the floor away and raise the hips and torso together as the elbows extend."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kalçayı düşürmek veya hareketi kolaylaştırmak için aşırı yükseltmek.",
+        "Letting the hips sag or piking them excessively to make the rep easier."
+      ],
+      [
+        "Kaygan ya da dengesiz bir ayak desteği kullanmak.",
+        "Using a slippery or unstable foot support."
+      ],
+      [
+        "Her sette farklı ayak yüksekliği kullanıp performansı karşılaştırmak.",
+        "Changing foot height between sets and comparing performance anyway."
+      ],
+      [
+        "Yalnızca tekrar sayısı için inişi kısaltmak veya kontrolü kaybetmek.",
+        "Shortening or losing control of the descent only to add reps."
+      ]
+    ],
+    "tips": [
+      [
+        "Ayak yüksekliği arttıkça yük dağılımı ve denge gereksinimi değişir; ilerlemeyi küçük adımlarla yap.",
+        "As foot height rises, load distribution and balance demands change, so progress in small steps."
+      ],
+      [
+        "Hareket üst göğsü izole etmez; göğüs, ön omuz ve triceps birlikte üretim yapar.",
+        "The movement does not isolate the upper chest; the chest, front delts, and triceps contribute together."
+      ],
+      [
+        "El genişliği, ayak yüksekliği ve menzili sabit tutmadan tekrar sayılarını karşılaştırma.",
+        "Do not compare rep counts unless hand width, foot height, and range stay consistent."
+      ]
+    ],
+    "progression": [
+      [
+        "Önce standart şınavda kontrollü tekrarlar oluştur.",
+        "First build controlled repetitions in the standard push-up."
+      ],
+      [
+        "Ayak yüksekliğini küçük adımlarla artır ve her seviyede aynı menzili koru.",
+        "Raise foot height gradually and preserve the same range at each level."
+      ],
+      [
+        "Yüksekliği artırmak yerine ağırlık yeleği veya kontrollü tempo da kullanabilirsin.",
+        "Instead of raising the feet further, you can use a weight vest or controlled tempo."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major",
+        "anterior-deltoid",
+        "triceps-brachii"
       ],
       "secondary": [
-        "shoulders",
-        "triceps"
+        "serratus-anterior",
+        "rectus-abdominis",
+        "gluteus-maximus"
       ]
     },
     "media": {
@@ -571,7 +738,53 @@
         "Muscle map for the Decline Push Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Decline Push-Up Rehberi: Ayak Yüksekliği ve Form",
+        "Decline Push-Up Guide: Foot Height and Form"
+      ],
+      "metaDescription": [
+        "Decline push-up için ayak yüksekliği, gövde çizgisi, kontrollü menzil, sık hatalar ve ilerleme seçeneklerini öğren.",
+        "Learn foot-height setup, body line, controlled range, common mistakes, and progression options for the decline push-up."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, ön omuz, triceps",
+          "Chest, front delts, triceps"
+        ],
+        "equipment": [
+          "Sabit ayak yükseltisi",
+          "Stable foot elevation"
+        ],
+        "movementPattern": [
+          "Ayak yükseltili yatay itiş",
+          "Feet-elevated horizontal press"
+        ],
+        "bestFor": [
+          "Ekipmansız itiş progresyonu",
+          "Equipment-light pressing progression"
+        ]
+      },
+      "tracking": [
+        [
+          "Ayak yüksekliği ve el genişliği",
+          "Foot height and hand width"
+        ],
+        [
+          "Tekrar, tempo ve RIR",
+          "Reps, tempo, and RIR"
+        ],
+        [
+          "Göğüs derinliği ve gövde çizgisi",
+          "Chest depth and body line"
+        ]
+      ],
+      "related": [
+        "push-up",
+        "pike-push-up",
+        "deficit-push-up"
+      ]
+    }
   },
   "dumbell-fly": {
     "publish": false,
@@ -739,35 +952,90 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/incline-dumbell-fly",
     "summary": [
-      "Eğik bankta göğüs fly. Üst göğüs odaklı.",
-      "Incline chest fly. Upper chest emphasis."
+      "Eğik bankta kontrollü dumbbell fly varyasyonu.",
+      "A controlled dumbbell-fly variation on an incline bench."
     ],
     "description": [
-      "Eğik bankta yapılan dumbbell fly varyasyonu. Üst göğüs liflerine daha fazla vurgu yapar ve press hareketlerinden farklı bir gerilim açısı sunar. Kontrollü yapıldığında göğüs izolasyonu için çok etkilidir.",
-      "A dumbbell-fly variation performed on an incline bench. It emphasizes the upper chest fibers more and provides a different tension angle than pressing movements. When controlled well, it is very effective for chest isolation."
+      "Incline dumbbell fly, eğik bank desteğinde dumbbellları geniş bir yay üzerinden birbirine yaklaştıran göğüs aksesuarıdır. Bank açısı omuz fleksiyonunu ve kas katkılarını değiştirir; klaviküler göğüs liflerinin katkısı artabilir, ancak hareket üst göğsü tamamen izole etmez.",
+      "The incline dumbbell fly is a chest accessory performed by bringing dumbbells together through a broad arc while supported on an incline bench. Bench angle changes shoulder flexion and muscle contribution; clavicular chest involvement may increase, but the movement does not isolate the upper chest."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bank açısını çok dik yapma; 30-45 derece aralığı genelde iyi çalışır.",
-        "Do not set the bench too steep; 30-45 degrees usually works well."
+        "Tekrarlanabilir, rahat bir bank açısı seç ve ayaklarını zemine sabitle.",
+        "Choose a repeatable, comfortable bench angle and plant your feet."
       ],
       [
-        "Dirsek açını sabit tutarak geniş bir yay çiz.",
-        "Use a wide arc while keeping the elbow angle relatively fixed."
+        "Dumbbellları göğsün üzerinde tut; dirseklerini hafif bük.",
+        "Hold the dumbbells above the chest with a soft elbow bend."
       ],
       [
-        "Alt noktada gereksiz derine zorlamadan göğüs gerilimini hisset.",
-        "Feel the chest stretch at the bottom without forcing an excessive range."
+        "Üst kolları iki yana kontrollü bir yayla indirirken dirsek açısını büyük ölçüde sabit tut.",
+        "Lower the upper arms through a controlled arc while keeping the elbow angle mostly fixed."
+      ],
+      [
+        "Omuz başları öne kaymadan ulaşabildiğin rahat alt noktada dur.",
+        "Stop at the deepest comfortable point before the shoulder heads glide forward."
+      ],
+      [
+        "Aynı yayı tersine çevirip dumbbellları göğsün üzerinde yeniden yaklaştır.",
+        "Reverse the same arc and bring the dumbbells back together above the chest."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Bank açısını her antrenmanda değiştirip performansı karşılaştırmak.",
+        "Changing the bench angle between sessions and comparing performance anyway."
+      ],
+      [
+        "Dirsekleri fazla bükerek hareketi dumbbell press haline getirmek.",
+        "Bending the elbows excessively and turning the movement into a dumbbell press."
+      ],
+      [
+        "Daha fazla esneme için omuzu kontrol dışı derine zorlamak.",
+        "Forcing the shoulders too deep in pursuit of a bigger stretch."
+      ],
+      [
+        "Dumbbellları üstte çarpıştırmak veya inişi serbest bırakmak.",
+        "Clanking the dumbbells together or dropping through the descent."
+      ]
+    ],
+    "tips": [
+      [
+        "Bank açısını kesin bir dereceye zorlamak yerine omuz konforu ve hedeflediğin çizgiye göre seç.",
+        "Choose the bench angle by shoulder comfort and the line you want to train rather than forcing one exact degree."
+      ],
+      [
+        "Dirsek açısını sabit tutan, kontrollü ve ağrısız bir yay kullan.",
+        "Use a controlled, pain-free arc with a stable elbow angle."
+      ],
+      [
+        "Dumbbellların birbirine değmesi gerekmez; üstte göğüs gerilimini koruyacak noktada dur.",
+        "The dumbbells do not need to touch; stop where chest tension stays controlled at the top."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbelllarla aynı bank açısı ve menzili yerleştir.",
+        "Establish a consistent bench angle and range with light dumbbells."
+      ],
+      [
+        "Hedef tekrarların tamamı aynı yayda kaldığında küçük ağırlık artışları yap.",
+        "Increase weight in small steps once all target reps follow the same arc."
+      ],
+      [
+        "Yük eklemeden önce kontrollü eksantrik veya kısa alt nokta duraklaması kullan.",
+        "Use a controlled eccentric or brief bottom pause before adding more load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major-clavicular-head",
+        "pectoralis-major"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "biceps-brachii"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -783,7 +1051,53 @@
         "Muscle map for the Incline Dumbell Fly exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Incline Dumbbell Fly Rehberi ve Formu",
+        "Incline Dumbbell Fly Guide and Form"
+      ],
+      "metaDescription": [
+        "Incline dumbbell fly için bank açısı, kontrollü menzil, omuz konforu, sık hatalar ve ilerleme ipuçlarını öğren.",
+        "Learn bench setup, controlled range, shoulder comfort, common mistakes, and progression for the incline dumbbell fly."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, klaviküler lifler",
+          "Chest, clavicular fibers"
+        ],
+        "equipment": [
+          "Eğik bank ve dumbbell",
+          "Incline bench and dumbbells"
+        ],
+        "movementPattern": [
+          "Eğik düzlemde omuz adduksiyonu",
+          "Inclined shoulder adduction"
+        ],
+        "bestFor": [
+          "Göğüs hipertrofisi aksesuarı",
+          "Chest hypertrophy accessory"
+        ]
+      },
+      "tracking": [
+        [
+          "Bank açısı",
+          "Bench angle"
+        ],
+        [
+          "Dumbbell ağırlığı, tekrar ve RIR",
+          "Dumbbell load, reps, and RIR"
+        ],
+        [
+          "Kontrollü ve ağrısız hareket menzili",
+          "Controlled, pain-free range"
+        ]
+      ],
+      "related": [
+        "dumbell-fly",
+        "incline-bench-press",
+        "incline-cable-fly"
+      ]
+    }
   },
   "bench-press": {
     "publish": false,
@@ -1596,35 +1910,90 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/incline-cable-fly",
     "summary": [
-      "Eğik kablo fly. Üst göğüs gerilimi.",
-      "Incline cable fly. Upper-chest tension."
+      "Eğik bankta kablolu göğüs fly varyasyonu.",
+      "A cable chest-fly variation on an incline bench."
     ],
     "description": [
-      "Eğik bankta yapılan kablo fly varyasyonu. Üst göğüs liflerine sabit gerilim sağlar ve alt noktada da yük hissini korur. Göğüs hipertrofisi için iyi bir tamamlayıcıdır.",
-      "A cable fly variation performed on an incline bench. It provides constant tension to the upper chest fibers and preserves load at the bottom. It is a strong complement for chest hypertrophy."
+      "Incline cable fly, eğik bankta iki kablo kolunu geniş bir yayla gövdenin önünde birleştirir. Kablolar hareket boyunca dış yük sağlar; fakat eklem torku bank açısı, makara yüksekliği ve kol pozisyonuyla değişir, bu nedenle gerilim her noktada aynı değildir.",
+      "The incline cable fly brings two cable handles together through a broad arc while lying on an incline bench. Cables provide external load throughout the motion, but joint torque changes with bench angle, pulley height, and arm position, so tension is not identical at every point."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bank açısını çok dik kurma.",
-        "Do not set the bench too steep."
+        "Bankı iki makara arasına simetrik yerleştir ve kablo yollarının serbest olduğunu kontrol et.",
+        "Center the bench between the pulleys and make sure both cable paths are clear."
       ],
       [
-        "Dirsek açını sabit tutarak geniş yay çiz.",
-        "Use a wide arc while keeping the elbow angle steady."
+        "Tutacakları alıp sırtını banka, ayaklarını zemine sabitle.",
+        "Take the handles, set your back on the bench, and plant your feet."
       ],
       [
-        "Üstte göğsü bilinçli sık.",
-        "Actively squeeze the chest at the top."
+        "Dirseklerde hafif ve sabit bir bükülmeyle kolları iki yana kontrollü aç.",
+        "Open the arms under control with a soft, stable elbow bend."
+      ],
+      [
+        "Omuz kontrolünün korunduğu alt noktadan kabloları geniş bir yayla göğsün üzerinde yaklaştır.",
+        "From the deepest controlled position, sweep the cables together above the chest."
+      ],
+      [
+        "Ağırlık plakalarını çarptırmadan aynı yoldan başlangıca dön.",
+        "Return along the same path without letting the weight stacks slam."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Bankı makaralara göre ortalamayıp iki tarafta farklı kablo açısı kullanmak.",
+        "Failing to center the bench and using different cable angles side to side."
+      ],
+      [
+        "Dirsekleri büküp açarak fly yerine press yapmak.",
+        "Flexing and extending the elbows until the fly becomes a press."
+      ],
+      [
+        "Kablo her zaman sabit kas gerilimi verir diye kontrolsüz menzil kullanmak.",
+        "Assuming cables create constant muscle tension and using an uncontrolled range."
+      ],
+      [
+        "Üstte elleri aşırı çaprazlayıp omuzları öne yuvarlamak.",
+        "Over-crossing the hands at the top and rolling the shoulders forward."
+      ]
+    ],
+    "tips": [
+      [
+        "Bank açısı ve makara yüksekliğini antrenman günlüğünde birlikte kaydet.",
+        "Record both bench angle and pulley height in the training log."
+      ],
+      [
+        "Kablo dış yükü sürdürür; fakat kas ve eklem torku hareket boyunca sabit kalmaz.",
+        "The cable maintains external load, but muscle and joint torque are not constant through the motion."
+      ],
+      [
+        "Üstte zorla sıkıştırmak yerine omuzların geride ve kontrollü kaldığı noktayı kullan.",
+        "At the top, use the point where the shoulders stay controlled rather than forcing a squeeze."
+      ]
+    ],
+    "progression": [
+      [
+        "Düşük yükle simetrik kurulum ve rahat menzil oluştur.",
+        "Establish a symmetrical setup and comfortable range with a low load."
+      ],
+      [
+        "Aynı tempo ve yayı koruyabildiğinde plakayı küçük adımlarla artır.",
+        "Increase the stack in small steps when you can preserve the same tempo and arc."
+      ],
+      [
+        "Yük eklemeden önce kapanışta kısa duraklama veya yavaş eksantrik kullan.",
+        "Add a brief closed-position pause or slower eccentric before increasing load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major-clavicular-head",
+        "pectoralis-major"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "serratus-anterior"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -1640,7 +2009,53 @@
         "Muscle map for the Incline Cable Fly exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Incline Cable Fly Rehberi ve Formu",
+        "Incline Cable Fly Guide and Form"
+      ],
+      "metaDescription": [
+        "Incline cable fly için bank ve makara ayarı, kontrollü menzil, sık hatalar ve ilerleme yöntemlerini öğren.",
+        "Learn bench and pulley setup, controlled range, common mistakes, and progression methods for the incline cable fly."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, klaviküler lifler",
+          "Chest, clavicular fibers"
+        ],
+        "equipment": [
+          "Çift kablo istasyonu ve eğik bank",
+          "Dual cable station and incline bench"
+        ],
+        "movementPattern": [
+          "Eğik düzlemde omuz adduksiyonu",
+          "Inclined shoulder adduction"
+        ],
+        "bestFor": [
+          "Kablolu göğüs aksesuarı",
+          "Cable chest accessory work"
+        ]
+      },
+      "tracking": [
+        [
+          "Bank açısı ve makara yüksekliği",
+          "Bench angle and pulley height"
+        ],
+        [
+          "Plaka yükü, tekrar ve RIR",
+          "Stack load, reps, and RIR"
+        ],
+        [
+          "Kol yayı ve üst nokta konumu",
+          "Arm arc and top position"
+        ]
+      ],
+      "related": [
+        "incline-dumbell-fly",
+        "cable-crossover",
+        "incline-bench-press"
+      ]
+    }
   },
   "overhead-press": {
     "publish": false,
@@ -4413,37 +4828,91 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/archer-push-up",
     "summary": [
-      "Archer şınavı. Tek kola geçiş adımı.",
-      "Archer push-up. Step toward one-arm pressing."
+      "Yükü bir kola kaydıran asimetrik şınav varyasyonu.",
+      "An asymmetrical push-up that shifts more load toward one arm."
     ],
     "description": [
-      "Bir kolun daha baskın, diğer kolun daha destekleyici çalıştığı ileri seviye şınav varyasyonu. Tek kola giden itiş progresyonları için çok değerlidir. Göğüs, omuz ve tricepsi güçlü şekilde zorlar.",
-      "An advanced push-up variation where one arm works more dominantly while the other assists. It is very valuable as a step toward one-arm pressing progressions. It heavily challenges the chest, shoulders, and triceps."
+      "Archer push-up, geniş el yerleşiminden gövdeyi bir ele doğru kaydırırken diğer kolu daha uzun tutan ileri seviye şınavdır. Çalışan taraf daha fazla yük taşır, ancak destek kolu hâlâ katkı verir; bu nedenle hareket tek kol şınavıyla aynı değildir.",
+      "The archer push-up is an advanced push-up performed from a wide hand position by shifting the torso toward one hand while the other arm stays longer. The working side carries more load, but the support arm still contributes, so this is not the same as a one-arm push-up."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bir tarafa giderken diğer kolu daha düz bırak.",
-        "As you shift to one side, let the other arm stay more extended."
+        "Ellerini standart şınavdan daha geniş ve iki tarafta eşit yerleştir.",
+        "Place the hands wider than a standard push-up and evenly on both sides."
       ],
       [
-        "Kalçayı çevirmeden gövde çizgisini koru.",
-        "Keep the body line steady without twisting the hips."
+        "Gövdeyi gergin tutup ağırlığını kontrollü biçimde bir ele doğru kaydır.",
+        "Brace the trunk and shift your weight toward one hand under control."
       ],
       [
-        "Menzili azaltıp formu korumak daha iyidir.",
-        "Reducing the range to keep form is often better."
+        "Çalışan dirseği bükerken destek kolunu daha uzun tut ve göğsünü çalışan ele yaklaştır.",
+        "Bend the working elbow while keeping the support arm longer and bring the chest toward the working hand."
+      ],
+      [
+        "Kontrollü alt noktadan zemini iterek merkeze dön.",
+        "Press the floor away from the controlled bottom position and return to center."
+      ],
+      [
+        "İki tarafta planlanan tekrarları aynı el genişliği ve menzille tamamla.",
+        "Complete the planned reps on both sides with the same hand width and range."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Destek kolunu tamamen pasif sanıp omuz ve dirseği kontrolsüz kilitlemek.",
+        "Treating the support arm as passive and locking its shoulder or elbow without control."
+      ],
+      [
+        "Çalışan tarafa yaklaşmadan yalnızca gövdeyi aşağı indirmek.",
+        "Lowering straight down without actually shifting toward the working side."
+      ],
+      [
+        "Kalça dönüşünü zorla sıfırlarken rahat omuz ve gövde yolunu bozmak.",
+        "Forcing zero hip rotation and disrupting a comfortable shoulder and torso path."
+      ],
+      [
+        "Güçlü ve zayıf tarafı ayrı takip etmeden toplam tekrar saymak.",
+        "Counting only total reps without tracking the stronger and weaker sides separately."
+      ]
+    ],
+    "tips": [
+      [
+        "Destek kolu yükün bir bölümünü taşır; hareketi tek kol şınavı olarak kaydetme.",
+        "The support arm carries part of the load, so do not log the movement as a one-arm push-up."
+      ],
+      [
+        "Gövde ve pelviste küçük doğal hareket olabilir; hedef kontrol ve iki tarafta tekrarlanabilirliktir.",
+        "Some natural torso and pelvic movement can occur; aim for control and repeatability on both sides."
+      ],
+      [
+        "Menzili veya el genişliğini azaltmak, kontrolsüz tam tekrardan daha iyi bir regresyondur.",
+        "Reducing range or hand width is a better regression than forcing an uncontrolled full rep."
+      ]
+    ],
+    "progression": [
+      [
+        "Geniş şınav ve yana ağırlık aktarmayla başla.",
+        "Start with wide push-ups and side-to-side weight shifts."
+      ],
+      [
+        "Eller yükseltide archer tekrarları yaparak taraf başına yükü kademeli artır.",
+        "Use elevated archer reps to increase side-specific loading gradually."
+      ],
+      [
+        "Kontrol geliştikçe desteğin yüksekliğini azalt veya destek kolunu daha uzağa yerleştir.",
+        "As control improves, lower the support height or move the support hand farther away."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major",
+        "triceps-brachii",
+        "anterior-deltoid"
       ],
       "secondary": [
-        "shoulders",
-        "triceps"
+        "serratus-anterior",
+        "external-oblique",
+        "rectus-abdominis"
       ]
     },
     "media": {
@@ -4460,7 +4929,53 @@
         "Muscle map for the Archer Push Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Archer Push-Up Rehberi: Form ve Progresyon",
+        "Archer Push-Up Guide: Form and Progression"
+      ],
+      "metaDescription": [
+        "Archer push-up için yana yük aktarımı, destek kolu kullanımı, taraf dengesi, sık hatalar ve progresyonları öğren.",
+        "Learn side-to-side loading, support-arm use, side balance, common mistakes, and progressions for the archer push-up."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, triceps, ön omuz",
+          "Chest, triceps, front delts"
+        ],
+        "equipment": [
+          "Vücut ağırlığı",
+          "Bodyweight"
+        ],
+        "movementPattern": [
+          "Asimetrik yatay itiş",
+          "Asymmetrical horizontal press"
+        ],
+        "bestFor": [
+          "Tek taraflı itiş hazırlığı",
+          "Unilateral pressing preparation"
+        ]
+      },
+      "tracking": [
+        [
+          "Taraf başına tekrar ve RIR",
+          "Reps and RIR per side"
+        ],
+        [
+          "El genişliği ve destek kolu açısı",
+          "Hand width and support-arm angle"
+        ],
+        [
+          "Çalışan tarafın göğüs derinliği",
+          "Chest depth on the working side"
+        ]
+      ],
+      "related": [
+        "push-up",
+        "diamond-push-up",
+        "ring-push-up"
+      ]
+    }
   },
   "pike-push-up": {
     "publish": false,
@@ -4853,36 +5368,90 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/diamond-push-up",
     "summary": [
-      "Dar el şınavı. Triceps vurgusu.",
-      "Close-hand push-up. Triceps emphasis."
+      "Rahat dar el yerleşimiyle triceps vurgulu şınav.",
+      "A triceps-emphasized push-up with a comfortable narrow hand position."
     ],
     "description": [
-      "Eller dar yerleşimde yapılan şınav varyasyonu. Triceps vurgusunu artırırken göğüs ve ön omuzları da çalıştırır. Bench press veya dips yanında iyi bir bodyweight aksesuarıdır.",
-      "A push-up variation performed with a narrow hand position. It increases triceps emphasis while still training the chest and front delts. It works well as a bodyweight accessory alongside bench pressing or dips."
+      "Diamond push-up, ellerin standart şınava göre daha dar yerleştirildiği bir itiş varyasyonudur. Dar pozisyon triceps katkısını artırabilir; göğüs ve ön omuz da harekete devam eder. Başparmak ve işaret parmaklarıyla kusursuz bir elmas şekli oluşturmak zorunlu değildir.",
+      "The diamond push-up is a pressing variation with the hands placed narrower than in a standard push-up. The narrow position can increase triceps contribution while the chest and front delts remain active. Forming a perfect diamond with the thumbs and index fingers is not required."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ellerini aşırı rahatsız etmeyecek kadar dar konumlandır.",
-        "Set the hands narrow, but not so narrow that the wrists become uncomfortable."
+        "Ellerini göğsünün altında, bilek ve dirseklerin için rahat olan dar bir genişliğe yerleştir.",
+        "Place the hands under the chest at a narrow width that is comfortable for the wrists and elbows."
       ],
       [
-        "Dirsekleri tamamen dışa açmadan vücuda yakın taşı.",
-        "Keep the elbows relatively close instead of flaring them out hard."
+        "Parmaklarını açıp avucun tamamıyla zemine bas; gövdeni baştan topuğa sabitle.",
+        "Spread the fingers, press through the whole hand, and brace the body from head to heel."
       ],
       [
-        "Gövde çizgisini koruyarak tam ROM ile çalış.",
-        "Maintain a straight body line and use full range of motion."
+        "Dirseklerini rahat bir hatta bükerek göğsünü ellerine doğru kontrollü indir.",
+        "Bend the elbows along a comfortable path and lower the chest toward the hands under control."
+      ],
+      [
+        "Bilek, dirsek ve omuz kontrolünü koruduğun alt noktada yön değiştir.",
+        "Reverse at the deepest point where wrist, elbow, and shoulder control remain."
+      ],
+      [
+        "Zemini itip gövde ve kalçayı birlikte yükselterek başlangıca dön.",
+        "Press the floor away and return with the torso and hips rising together."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Elmas şekli uğruna elleri bilekleri rahatsız edecek kadar daraltmak.",
+        "Forcing the hands excessively narrow just to make a diamond shape."
+      ],
+      [
+        "Avuç dışına çöküp el ve bilek basıncını dengesiz dağıtmak.",
+        "Collapsing toward the outer hand and distributing wrist pressure unevenly."
+      ],
+      [
+        "Dirsekleri zorla gövdeye yapıştırıp rahat eklem yolunu bozmak.",
+        "Pinning the elbows hard to the torso and disrupting a comfortable joint path."
+      ],
+      [
+        "Gövde çizgisini kaybederek yalnızca üst bedeni indirip kaldırmak.",
+        "Losing the body line and moving only the upper torso."
+      ]
+    ],
+    "tips": [
+      [
+        "Hedef dar ve rahat bir el yerleşimidir; parmakların tam elmas oluşturması gerekmez.",
+        "The goal is a narrow, comfortable hand position; the fingers do not need to form a perfect diamond."
+      ],
+      [
+        "Dirsekler doğal bir açıyla hareket edebilir; ağrısız ve tekrarlanabilir yolu kullan.",
+        "The elbows can follow a natural angle; use the pain-free, repeatable path."
+      ],
+      [
+        "Tam menzil kişiye özeldir; gövde kontrolünü veya eklem konforunu bozacak derinliği zorlama.",
+        "Full range is individual; do not force depth that compromises body control or joint comfort."
+      ]
+    ],
+    "progression": [
+      [
+        "Dar el şınavını duvar veya yüksek bir yüzeyde öğren.",
+        "Learn the narrow-hand push-up against a wall or elevated surface."
+      ],
+      [
+        "Yükseltiyi azaltarak zeminde kontrollü tekrarlara ilerle.",
+        "Lower the support gradually until controlled floor reps are available."
+      ],
+      [
+        "Hedef tekrarlar temiz olduğunda ağırlık yeleği, bant veya yavaş tempo ekle.",
+        "Once target reps are clean, add a weight vest, band, or slower tempo."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "triceps-brachii",
+        "pectoralis-major"
       ],
       "secondary": [
-        "triceps"
+        "anterior-deltoid",
+        "serratus-anterior",
+        "rectus-abdominis"
       ]
     },
     "media": {
@@ -4899,7 +5468,53 @@
         "Muscle map for the Diamond Push Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Diamond Push-Up Rehberi: El Konumu ve Form",
+        "Diamond Push-Up Guide: Hand Position and Form"
+      ],
+      "metaDescription": [
+        "Diamond push-up için rahat dar el yerleşimi, dirsek yolu, hareket menzili, sık hatalar ve progresyonları öğren.",
+        "Learn comfortable narrow-hand setup, elbow path, range, common mistakes, and progressions for the diamond push-up."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps ve göğüs",
+          "Triceps and chest"
+        ],
+        "equipment": [
+          "Vücut ağırlığı",
+          "Bodyweight"
+        ],
+        "movementPattern": [
+          "Dar tutuş yatay itiş",
+          "Narrow-grip horizontal press"
+        ],
+        "bestFor": [
+          "Ekipmansız triceps odaklı itiş",
+          "Equipment-free triceps-focused pressing"
+        ]
+      },
+      "tracking": [
+        [
+          "El genişliği ve bilek konforu",
+          "Hand width and wrist comfort"
+        ],
+        [
+          "Tekrar, tempo ve RIR",
+          "Reps, tempo, and RIR"
+        ],
+        [
+          "Göğüs derinliği ve gövde çizgisi",
+          "Chest depth and body line"
+        ]
+      ],
+      "related": [
+        "push-up",
+        "close-grip-bench-press",
+        "jm-press"
+      ]
+    }
   },
   "deficit-push-up": {
     "publish": false,
@@ -4907,37 +5522,91 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/deficit-push-up",
     "summary": [
-      "Derin menzilli şınav.",
-      "Deep-range push-up."
+      "Eşit yükseltiler üzerinde isteğe bağlı ek menzilli şınav.",
+      "A push-up on equal supports with optional extra range."
     ],
     "description": [
-      "Eller yükselti üzerinde ya da derin menzile izin veren desteklerde yapılan şınav. Standart şınava göre alt noktada daha fazla esneme ve göğüs gerilimi sağlar. Vücut ağırlığıyla press menzilini artırmak için iyidir.",
-      "A push-up performed on elevated handles or supports that allow deeper range. Compared with a standard push-up, it creates more stretch and chest tension at the bottom. It is good for increasing pressing range with bodyweight."
+      "Deficit push-up, elleri eşit ve sabit yükseltilere yerleştirerek göğsün el seviyesinin altına inebilmesine izin verir. Ek menzil göğüs, ön omuz ve tricepsi daha uzun bir hareket yolunda yükleyebilir; ancak daha derin her tekrar otomatik olarak daha iyi değildir ve menzil omuz kontrolüne göre seçilmelidir.",
+      "The deficit push-up places the hands on equal, stable supports so the chest can travel below hand level. The extra range can load the chest, front delts, and triceps through a longer path, but deeper is not automatically better and range should match shoulder control."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Alt noktada omuz konforunu gözet.",
-        "Monitor shoulder comfort at the bottom."
+        "Aynı yükseklikte, kaymayan ve devrilmeyen iki destek seç.",
+        "Choose two equal-height supports that will not slide or tip."
       ],
       [
-        "Kalçayı düşürmeden derine in.",
-        "Go deep without letting the hips sag."
+        "Ellerini desteklere eşit yerleştirip ayaklardan başa kadar gergin bir çizgi kur.",
+        "Place the hands evenly on the supports and brace a line from feet to head."
       ],
       [
-        "Menzil arttıkça kontrollü tempo önem kazanır.",
-        "As range increases, controlled tempo becomes even more important."
+        "Dirsekleri rahat bir hatta bükerek göğsünü desteklerin arasına indir.",
+        "Bend the elbows along a comfortable path and lower the chest between the supports."
+      ],
+      [
+        "Omuz başları kontrol altında kalırken ulaşabildiğin alt noktada dur.",
+        "Stop at the deepest point where the shoulder heads remain controlled."
+      ],
+      [
+        "Destekleri iterek gövde ve kalçayı birlikte başlangıca yükselt.",
+        "Press through the supports and raise the torso and hips together."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Farklı yükseklikte veya dengesiz destekler kullanmak.",
+        "Using supports that differ in height or are unstable."
+      ],
+      [
+        "Daha derin her tekrar daha iyidir diye omuz kontrolünü aşmak.",
+        "Exceeding shoulder control because every deeper rep is assumed to be better."
+      ],
+      [
+        "Alt noktada göğsü serbest bırakıp desteklerden sekmek.",
+        "Dropping into the bottom or bouncing off the supports."
+      ],
+      [
+        "Destek yüksekliğini kaydetmeden seanslar arası performans karşılaştırmak.",
+        "Comparing sessions without recording support height."
+      ]
+    ],
+    "tips": [
+      [
+        "Destekler eşit, kaymaz ve tüm set boyunca sabit olmalıdır.",
+        "The supports must be equal, non-slip, and stable for the entire set."
+      ],
+      [
+        "Ek derinlik bir seçenek, hedef değil; yalnızca kontrol ettiğin menzili kullan.",
+        "Extra depth is an option, not the goal; use only the range you control."
+      ],
+      [
+        "Standart şınavdan daha ağır hissetmese bile uzun hareket yolu toparlanma ihtiyacını artırabilir.",
+        "Even if it does not feel much heavier than a standard push-up, the longer path can increase recovery demands."
+      ]
+    ],
+    "progression": [
+      [
+        "Önce standart şınavda sabit gövde ve kontrollü menzil oluştur.",
+        "First establish a stable body line and controlled range in the standard push-up."
+      ],
+      [
+        "Alçak desteklerle başla ve derinliği küçük adımlarla artır.",
+        "Start with low supports and increase depth in small steps."
+      ],
+      [
+        "Menzil sabit kaldığında tekrar, tempo veya harici yükü kademeli artır.",
+        "Once range is consistent, progress reps, tempo, or external load gradually."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major",
+        "anterior-deltoid",
+        "triceps-brachii"
       ],
       "secondary": [
-        "shoulders",
-        "triceps"
+        "serratus-anterior",
+        "rectus-abdominis",
+        "gluteus-maximus"
       ]
     },
     "media": {
@@ -4954,7 +5623,53 @@
         "Muscle map for the Deficit Push Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Deficit Push-Up Rehberi: Ek Menzil ve Form",
+        "Deficit Push-Up Guide: Extra Range and Form"
+      ],
+      "metaDescription": [
+        "Deficit push-up için güvenli destek kurulumu, omuza uygun ek menzil, sık hatalar, takip ölçütleri ve progresyonları öğren.",
+        "Learn stable support setup, shoulder-appropriate extra range, common mistakes, tracking, and progressions for the deficit push-up."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, ön omuz, triceps",
+          "Chest, front delts, triceps"
+        ],
+        "equipment": [
+          "İki eşit ve sabit yükselti",
+          "Two equal, stable supports"
+        ],
+        "movementPattern": [
+          "Ek menzilli yatay itiş",
+          "Extended-range horizontal press"
+        ],
+        "bestFor": [
+          "Şınav menzili ve kontrolü",
+          "Push-up range and control"
+        ]
+      },
+      "tracking": [
+        [
+          "Destek yüksekliği ve genişliği",
+          "Support height and width"
+        ],
+        [
+          "Tekrar, tempo ve RIR",
+          "Reps, tempo, and RIR"
+        ],
+        [
+          "Göğüs derinliği ve omuz konforu",
+          "Chest depth and shoulder comfort"
+        ]
+      ],
+      "related": [
+        "push-up",
+        "ring-push-up",
+        "decline-push-up"
+      ]
+    }
   },
   "dips": {
     "publish": false,

@@ -4151,6 +4151,55 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 79 — Exercise Guide Enrichment Batch 15 (2026-06-20)
+
+### Amaç
+
+Üç fly ve dört şınav varyasyonunu tam guide seviyesine taşımak; sabit kas gerilimi, zorunlu bank açısı, üst göğüs izolasyonu, kusursuz elmas el yerleşimi ve daha derin menzilin otomatik olarak daha iyi olduğu hakkındaki legacy cue'ları düzeltmek.
+
+### Kapsam
+
+- Chest Fly
+- Incline Dumbell Fly
+- Incline Cable Fly
+- Decline Push Up
+- Archer Push Up
+- Diamond Push Up
+- Deficit Push Up
+
+### İçerik Kararları
+
+- **Chest Fly standardı:** Ayrı `dumbell-fly`, `pec-deck` ve `cable-crossover` kayıtları bulunduğu için bu guide tutacaklı chest-fly makinesine bağlandı. Dirsek/önkol pedli varyasyon `pec-deck` altında takip edilir; makine modeli, koltuk ayarı ve başlangıç açısı performans bağlamına eklendi.
+- **Fly menzili:** Üç fly varyasyonunda derin esneme zorunluluğu kaldırıldı. Alt nokta, omuz başının kontrol altında kaldığı ağrısız menzil olarak tanımlandı; dirsek açısının büyük ölçüde sabit tutulması fly ile press ayrımını korur.
+- **Incline Dumbell Fly:** Sabit `30-45 derece` reçetesi kaldırıldı. Bank açısı omuz konforu ve tekrarlanabilir hareket çizgisine göre seçilir; klaviküler göğüs katkısı artabilse de üst göğüs tamamen izole edilmiş sayılmaz.
+- **Incline Cable Fly:** Bank açısı ile makara yüksekliği birlikte takip edilir. Kablonun hareket boyunca dış yük sağlaması, kas veya eklem torkunun her noktada sabit olduğu iddiasına dönüştürülmedi.
+- **Decline Push Up:** Ayak yüksekliği yük dağılımını ve denge gereksinimini değiştirir; daha yüksek ayak otomatik olarak daha iyi veya yalnızca üst göğüs odaklı kabul edilmedi. El genişliği, ayak yüksekliği ve menzil birlikte standardize edilir.
+- **Archer Push Up:** Destek kolunun yük taşımaya devam ettiği açıkça yazıldı; hareket tek kol şınavı olarak sınıflandırılmadı. Taraf başına tekrar, el genişliği, destek kolu açısı ve göğüs derinliği ayrı takip edilir.
+- **Diamond Push Up:** Başparmak ve işaret parmaklarıyla kusursuz elmas oluşturma zorunluluğu kaldırıldı. Bilek ve dirsek konforunu koruyan dar el yerleşimi temel standart yapıldı; tam menzil kişiye özel kabul edildi.
+- **Deficit Push Up:** Eşit, kaymaz ve sabit destek kurulumu tanımlandı. Ek derinlik bir seçenek olarak tutuldu; omuz kontrolünü aşan menzil daha iyi tekrar sayılmadı ve destek yüksekliği tracking alanına eklendi.
+- **Readiness sonucu:** 145 total, 144 preview-ready, 108 content-ready, 0 media-ready, 0 published. Daha önce preview içeriği boş olan `chest-fly` bu batch ile `previewReady: true` oldu.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; mevcut `data/ex-guides.js` wrapper'ı yeniden üretildiği için ek cache bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi fly/şınav varyasyonu için tam TR/EN guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti, readiness toplamı ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 144 preview-ready, 108 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Yalnızca hedeflenen yedi guide kaydı değişmeli; related exercise slug'ları preset kataloğunda bulunmalı.
+- Meta title 65, meta description 180 karakter sınırını aşmamalı ve JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 78 — Exercise Guide Enrichment Batch 14 (2026-06-19)
 
 ### Amaç
