@@ -1975,35 +1975,100 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/machine-shoulder-press",
     "summary": [
-      "Makinede omuz press. Stabil ve güvenli.",
-      "Machine shoulder press. Stable and safe."
+      "Makinede shoulder press. Destekli dikey itiş.",
+      "Machine shoulder press. Supported vertical press."
     ],
     "description": [
-      "Makinede yapılan omuz press hareketi. Sabit yol sayesinde denge ihtiyacını azaltır ve omuzlara kontrollü yük bindirir. Serbest ağırlık press'lerine destek olmak için iyi bir hypertrophy seçeneğidir.",
-      "A shoulder-press movement performed on a machine. The fixed path reduces balance demands and applies load to the shoulders in a controlled way. It is a strong hypertrophy option to support free-weight pressing."
+      "Sırt ve pelvis koltuğa destekliyken makinenin belirlediği yol boyunca yapılan dikey press hareketidir. Ön ve yan deltoid ile triceps ana yükü taşır; serratus, trapez ve üst göğüs press yoluna katkı verir.",
+      "A vertical press performed along a machine-defined path with the back and pelvis supported by the seat. The anterior and lateral deltoids and triceps carry most of the load while the serratus, trapezius, and upper chest assist the press path."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Koltuk yüksekliğini ayarlayıp ellerin omuz hattına uygun başladığından emin ol.",
-        "Adjust the seat so the handles start in a comfortable line with the shoulders."
+        "Koltuk ve sırt desteğini tutacaklar omuzların rahat başlangıç hattına gelecek şekilde ayarla.",
+        "Adjust the seat and back support so the handles begin at a comfortable line for the shoulders."
       ],
       [
-        "Dirsekleri tamamen kilitlemeden tekrarları akıcı sürdür.",
-        "Keep the reps flowing instead of hard-locking the elbows each time."
+        "Ayakları zemine yerleştir, pelvis ve sırtı desteğe oturtup brace yap.",
+        "Place the feet on the floor, set the pelvis and back against the support, and brace."
       ],
       [
-        "Omuz konforu için aşırı derine zorlamadan çalış.",
-        "Avoid forcing an excessively deep range if the shoulders do not like it."
+        "Tutacakları rahat bilek-dirsek hizasıyla kavra ve güvenlik/başlangıç mekanizmasını kontrollü aç.",
+        "Grip the handles with comfortable wrist-elbow alignment and release the start mechanism under control."
+      ],
+      [
+        "Tutacakları makine yolu boyunca yukarı it; omuzları zorlamadan dirsekleri rahat ekstansiyona getir.",
+        "Press the handles upward along the machine path and extend the elbows comfortably without forcing the shoulders."
+      ],
+      [
+        "Ağırlık istifini çarptırmadan ağrısız başlangıç menziline kontrollü dön.",
+        "Return under control to the pain-free starting range without crashing the weight stack."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Koltuk yüksekliğini tutacaklar rahatsız bir omuz hattında başlayacak şekilde bırakmak.",
+        "Leaving the seat at a height that starts the handles in an uncomfortable shoulder line."
+      ],
+      [
+        "Ağır yük için beli destekten aşırı kaldırmak.",
+        "Lifting the lower back excessively from the support to move a heavy load."
+      ],
+      [
+        "Dirsekleri sert biçimde kilitlemek veya dönüşte istifi bırakmak.",
+        "Snapping the elbows into lockout or releasing the stack on the return."
+      ],
+      [
+        "Farklı shoulder-press makinelerindeki yükleri doğrudan karşılaştırmak.",
+        "Directly comparing loads across different shoulder-press machines."
+      ]
+    ],
+    "tips": [
+      [
+        "Sabit yol denge talebini azaltabilir; omuz konforu veya güvenliği otomatik garanti etmez.",
+        "A fixed path can reduce balance demand but does not automatically guarantee shoulder comfort or safety."
+      ],
+      [
+        "Nötr, pronated veya converging tutacaklar farklı bilek-dirsek yolları sunar; makine/tutuş seçimini kaydet.",
+        "Neutral, pronated, or converging handles offer different wrist-elbow paths; log the machine and grip."
+      ],
+      [
+        "Tam dirsek ekstansiyonu kontrollüyse geçerlidir; sert kilitleme zorunlu değildir.",
+        "Full elbow extension is valid when controlled; a hard lockout is not mandatory."
+      ],
+      [
+        "Makine yükü serbest ağırlık press performansına birebir çevrilemez.",
+        "Machine load does not translate directly to free-weight pressing performance."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle koltuk, tutuş ve ağrısız başlangıç menzilini standartlaştır.",
+        "Standardize seat, grip, and pain-free starting range with a light load."
+      ],
+      [
+        "Aynı sırt teması ve tempoyla hedef tekrarları tamamla.",
+        "Complete target reps with the same back contact and tempo."
+      ],
+      [
+        "Makine basamaklarına uygun küçük yük artışları yap.",
+        "Add load in small increments allowed by the machine."
+      ],
+      [
+        "İleri aşamada pause veya yavaş eksantrik kullan.",
+        "At a later stage, use pauses or a slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "anterior-deltoid",
+        "lateral-deltoid",
+        "triceps-brachii"
       ],
-      "secondary": []
+      "secondary": [
+        "upper-trapezius",
+        "serratus-anterior",
+        "pectoralis-major-clavicular-head"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -2019,7 +2084,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Machine Shoulder Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Machine Shoulder Press Rehberi | Ayar ve Form",
+        "Machine Shoulder Press Guide | Setup and Form"
+      ],
+      "metaDescription": [
+        "Makine shoulder press için koltuk, tutuş, sırt desteği, ağrısız menzil, hatalar ve progression adımları.",
+        "Learn machine shoulder-press setup, grip, back support, range, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön/yan deltoid ve triceps",
+          "Anterior/lateral deltoids and triceps"
+        ],
+        "equipment": [
+          "Shoulder-press makinesi",
+          "Shoulder-press machine"
+        ],
+        "movementPattern": [
+          "Destekli dikey press",
+          "Supported vertical press"
+        ],
+        "bestFor": [
+          "Omuz press kuvveti ve hipertrofi hacmi",
+          "Shoulder-press strength and hypertrophy volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, koltuk ayarı, tutuş, yük, tekrar ve RIR değerini kaydet.",
+          "Log machine model, seat setting, grip, load, reps, and RIR."
+        ],
+        [
+          "Sırt desteği ve kontrollü hareket açıklığını belirt.",
+          "Record back support and controlled range."
+        ],
+        [
+          "Farklı makine ve tutuş varyasyonlarını ayrı takip et.",
+          "Track different machine and grip variations separately."
+        ]
+      ],
+      "related": [
+        "shoulder-press",
+        "overhead-press",
+        "arnold-press"
+      ]
+    }
   },
   "arnold-press": {
     "publish": false,
@@ -2027,35 +2138,100 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/arnold-press",
     "summary": [
-      "Döner omuz press. Ön ve yan deltoid.",
-      "Rotational shoulder press. Front and side delts."
+      "Arnold press. Rotasyonlu dumbbell dikey press.",
+      "Arnold press. Rotating dumbbell vertical press."
     ],
     "description": [
-      "Dumbbell ile yapılan döner omuz press varyasyonu. Hareketin alt kısmındaki rotasyon sayesinde ön ve yan deltoidlere geniş bir çalışma açısı sunar. Omuz hipertrofisi için klasik shoulder press'e iyi bir alternatiftir.",
-      "A rotating dumbbell shoulder-press variation. The rotation in the lower portion gives the front and side delts a broad working arc. It is a strong hypertrophy alternative to the classic shoulder press."
+      "Dumbbell’ların gövde önündeki supine/nötre yakın tutuştan dışa dönerek baş üstü press’e geçtiği rotasyonlu omuz hareketidir. Ön ve yan deltoid ile triceps ana yükü taşır; rotasyon miktarı omuz konforuna göre ayarlanır.",
+      "A rotating shoulder press that moves dumbbells from a palms-in or near-neutral position in front of the torso into an overhead press. The anterior and lateral deltoids and triceps carry most of the load, while rotation is adjusted to shoulder comfort."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Alt noktada avuç içleri sana baksın, yukarı çıkarken dışa döndür.",
-        "Start with palms facing you at the bottom and rotate outward as you press up."
+        "Dik veya hafif eğimli sırt desteğine oturup dumbbell’ları omuz önünde rahat tut.",
+        "Sit against an upright or slightly inclined back support and hold the dumbbells comfortably in front of the shoulders."
       ],
       [
-        "Hareketi akıcı yap; dönüş ve press tek parça gibi ilerlesin.",
-        "Make the movement fluid so the rotation and press feel like one motion."
+        "Ayakları zemine bas, kaburgaları pelvis üzerinde tut ve bilekleri nötr hizala.",
+        "Plant the feet, stack the ribs over the pelvis, and align the wrists neutrally."
       ],
       [
-        "Aşırı ağır gitme; kontrollü tempo omuz konforu için önemlidir.",
-        "Do not go excessively heavy; controlled tempo matters for shoulder comfort."
+        "Press’e başlarken ön kolları omuzun rahat izin verdiği kadar dışa döndür.",
+        "As the press begins, rotate the forearms outward only as far as the shoulders comfortably allow."
+      ],
+      [
+        "Dumbbell’ları baş üstüne iterken dirsekleri kontrollü ekstansiyona getir.",
+        "Press the dumbbells overhead and extend the elbows under control."
+      ],
+      [
+        "Aynı yolu tersine izleyerek omuz önündeki başlangıç pozisyonuna dön.",
+        "Reverse the same path back to the starting position in front of the shoulders."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Alt pozisyonda ön kolları zorla tamamen içe döndürmek.",
+        "Forcing the forearms into maximum inward rotation at the bottom."
+      ],
+      [
+        "Rotasyon ve press’i kontrolsüz iki ayrı savurma hareketine çevirmek.",
+        "Turning rotation and pressing into two uncontrolled swings."
+      ],
+      [
+        "Ağır yük için beli aşırı çukurlaştırmak.",
+        "Overarching the lower back to move a heavy load."
+      ],
+      [
+        "Dumbbell yollarını sağ ve solda farklılaştırmak.",
+        "Using different dumbbell paths on the right and left sides."
+      ]
+    ],
+    "tips": [
+      [
+        "Tam palms-in başlangıç zorunlu değildir; nötre yakın rahat açı geçerli varyasyondur.",
+        "A full palms-in start is not mandatory; a comfortable near-neutral angle is valid."
+      ],
+      [
+        "Arnold press klasik shoulder press’ten otomatik olarak daha geniş veya daha iyi kas uyarımı sağlamaz.",
+        "The Arnold press does not automatically provide broader or better muscle stimulus than a standard shoulder press."
+      ],
+      [
+        "Rotasyon miktarı, sırt desteği ve alt menzil yük kadar önemlidir.",
+        "Rotation amount, back support, and bottom range matter as much as load."
+      ],
+      [
+        "Omuzların doğal yukarı rotasyonuna izin ver; onları zorla aşağı sabitleme.",
+        "Allow natural upward shoulder rotation rather than forcing the shoulders down."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbell ile rahat alt tutuş ve rotasyon yolunu öğren.",
+        "Learn a comfortable bottom grip and rotation path with light dumbbells."
+      ],
+      [
+        "Aynı sırt desteğinde kontrollü tam tekrarlar geliştir.",
+        "Develop controlled full reps with the same back support."
+      ],
+      [
+        "Hedef tekrarlar aynı rotasyonla tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps use the same rotation."
+      ],
+      [
+        "İleri aşamada pause veya yavaş dönüş ekle.",
+        "At a later stage, add pauses or a slower return."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "anterior-deltoid",
+        "lateral-deltoid",
+        "triceps-brachii"
       ],
-      "secondary": []
+      "secondary": [
+        "upper-trapezius",
+        "serratus-anterior",
+        "pectoralis-major-clavicular-head"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -2071,7 +2247,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Arnold Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Arnold Press Rehberi | Rotasyon ve Press Formu",
+        "Arnold Press Guide | Rotation and Press Form"
+      ],
+      "metaDescription": [
+        "Arnold press için sırt desteği, rahat alt tutuş, omuz rotasyonu, dumbbell yolu, hatalar ve progression.",
+        "Learn Arnold-press setup, bottom grip, shoulder rotation, dumbbell path, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön/yan deltoid ve triceps",
+          "Anterior/lateral deltoids and triceps"
+        ],
+        "equipment": [
+          "İki dumbbell ve opsiyonel sırt desteği",
+          "Two dumbbells and optional back support"
+        ],
+        "movementPattern": [
+          "Rotasyonlu dikey press",
+          "Rotating vertical press"
+        ],
+        "bestFor": [
+          "Omuz press hacmi ve kontrollü rotasyon",
+          "Shoulder-press volume and controlled rotation"
+        ]
+      },
+      "tracking": [
+        [
+          "Sırt desteği, alt tutuş açısı, rotasyon, yük, tekrar ve RIR değerini kaydet.",
+          "Log back support, bottom-grip angle, rotation, load, reps, and RIR."
+        ],
+        [
+          "Oturmalı veya ayakta varyasyonu belirt.",
+          "Record seated or standing variation."
+        ],
+        [
+          "Rotasyon miktarı değişen setleri ayrı takip et.",
+          "Track sets with different rotation amounts separately."
+        ]
+      ],
+      "related": [
+        "shoulder-press",
+        "machine-shoulder-press",
+        "front-raise"
+      ]
+    }
   },
   "lateral-raise": {
     "publish": false,
@@ -2241,35 +2463,99 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/machine-lateral-raise",
     "summary": [
-      "Makinede yana kaldırma. Stabil izolasyon.",
-      "Machine lateral raise. Stable isolation."
+      "Makinede lateral raise. Pad destekli omuz abdüksiyonu.",
+      "Machine lateral raise. Pad-supported shoulder abduction."
     ],
     "description": [
-      "Makinede yapılan yana kaldırma hareketi. Sabit yol sayesinde yan deltoide doğrudan yük bindirir ve denge ihtiyacını azaltır. Omuz hipertrofisi için çok anlaşılır bir izolasyon seçeneğidir.",
-      "A lateral raise performed on a machine. The fixed path loads the side delts directly while reducing balance demands. It is a very straightforward isolation option for shoulder hypertrophy."
+      "Dirsek veya ön kolların makine pedlerine karşı yana kaldırıldığı omuz abdüksiyonu hareketidir. Yan deltoid ana yükü taşır; supraspinatus ve skapular yukarı rotasyona katkı veren trapez-serratus kompleksi hareketi destekler.",
+      "A shoulder-abduction exercise that raises the elbows or forearms against machine pads. The lateral deltoid carries most of the load while the supraspinatus and the trapezius-serratus complex assist scapular upward rotation."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Omuz silkmeden yana aç.",
-        "Raise out to the side without shrugging."
+        "Koltuk ve padleri makine pivotu omuz hattına rahatça uyacak şekilde ayarla.",
+        "Adjust the seat and pads so the machine pivot aligns comfortably with the shoulder line."
       ],
       [
-        "Tepe noktada kısa duraklama ekle.",
-        "Add a short pause at the top."
+        "Dirsek veya ön kolları pedlere yerleştir, gövdeyi desteğe oturt ve tutacakları hafif kavra.",
+        "Place the elbows or forearms against the pads, set the torso against the support, and hold the handles lightly."
       ],
       [
-        "Menzili temiz tutmak yükten daha değerlidir.",
-        "Keeping the range clean is more valuable than load."
+        "Kolları rahat scapular düzlemde yana kaldır ve bilekleri gereksiz zorlamadan nötr tut.",
+        "Raise the arms in a comfortable scapular plane and keep the wrists neutral without unnecessary strain."
+      ],
+      [
+        "Omuz ve gövde kontrolü korunabilen yükseklikte kısa süre dur.",
+        "Pause briefly at the height that preserves shoulder and trunk control."
+      ],
+      [
+        "Ağırlık istifini çarptırmadan başlangıç pozisyonuna kontrollü dön.",
+        "Return to the start under control without crashing the weight stack."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Makine pivotu omuzla uyumsuzken ağır yük kullanmak.",
+        "Using heavy load while the machine pivot is poorly aligned with the shoulders."
+      ],
+      [
+        "Kaldırış için gövdeyi pedden savurmak.",
+        "Swinging the torso away from the pad to raise the arms."
+      ],
+      [
+        "Skapular hareketi tamamen engellemek için omuzları zorla aşağı bastırmak.",
+        "Forcing the shoulders down to prevent all scapular movement."
+      ],
+      [
+        "Farklı lateral-raise makinelerinin yüklerini doğrudan karşılaştırmak.",
+        "Directly comparing loads across different lateral-raise machines."
+      ]
+    ],
+    "tips": [
+      [
+        "Makine yolu denge talebini azaltır fakat yan deltoidi tamamen izole etmez.",
+        "The machine path reduces balance demand but does not completely isolate the lateral deltoid."
+      ],
+      [
+        "Üst trapez ve serratusun kontrollü katkısı skapular yukarı rotasyonun normal parçasıdır.",
+        "Controlled upper-trapezius and serratus contribution is a normal part of scapular upward rotation."
+      ],
+      [
+        "Pad tipi ve koltuk ayarı hareket kaldıracını değiştirir; makine modelini kaydet.",
+        "Pad type and seat setting change leverage; log the machine model."
+      ],
+      [
+        "Omuz hizası zorunlu bitiş değildir; rahat ve tekrarlanabilir yüksekliği kullan.",
+        "Shoulder height is not a mandatory finish; use a comfortable repeatable height."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle koltuk, pivot ve rahat hareket açıklığını standardize et.",
+        "Standardize seat, pivot, and comfortable range with a light load."
+      ],
+      [
+        "Aynı gövde temasında kontrollü tekrarlar tamamla.",
+        "Complete controlled reps with the same torso contact."
+      ],
+      [
+        "Makine basamaklarına uygun küçük yük veya tekrar artışı yap.",
+        "Increase load or reps in small steps allowed by the machine."
+      ],
+      [
+        "İleri aşamada tepe pause veya yavaş eksantrik kullan.",
+        "At a later stage, use a top pause or slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "lateral-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "supraspinatus",
+        "upper-trapezius",
+        "lower-trapezius",
+        "serratus-anterior"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -2285,7 +2571,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Machine Lateral Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Machine Lateral Raise Rehberi | Ayar ve Form",
+        "Machine Lateral Raise Guide | Setup and Form"
+      ],
+      "metaDescription": [
+        "Makine lateral raise için koltuk-pivot ayarı, pad teması, scapular düzlem, hareket yüksekliği ve progression.",
+        "Learn machine lateral-raise seat and pivot setup, pad contact, scapular plane, range, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Yan deltoid",
+          "Lateral deltoid"
+        ],
+        "equipment": [
+          "Lateral-raise makinesi",
+          "Lateral-raise machine"
+        ],
+        "movementPattern": [
+          "Pad destekli omuz abdüksiyonu",
+          "Pad-supported shoulder abduction"
+        ],
+        "bestFor": [
+          "Yan omuz hipertrofi hacmi",
+          "Lateral-shoulder hypertrophy volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, koltuk/pad ayarı, yük, tekrar ve RIR değerini kaydet.",
+          "Log machine model, seat and pad setting, load, reps, and RIR."
+        ],
+        [
+          "Kontrollü bitiş yüksekliğini belirt.",
+          "Record the controlled finish height."
+        ],
+        [
+          "Farklı makine modellerini ayrı takip et.",
+          "Track different machine models separately."
+        ]
+      ],
+      "related": [
+        "lateral-raise",
+        "cable-lateral-raise",
+        "lean-away-lateral-raise"
+      ]
+    }
   },
   "cable-lateral-raise": {
     "publish": false,
@@ -2293,35 +2625,99 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/cable-lateral-raise",
     "summary": [
-      "Kablo ile yana kaldırma. Sürekli gerilim.",
-      "Cable lateral raise. Constant tension."
+      "Tek kol cable lateral raise. Kabloyla omuz abdüksiyonu.",
+      "Single-arm cable lateral raise. Cable shoulder abduction."
     ],
     "description": [
-      "Kabloyla yapılan yana kaldırma varyasyonu. Dumbbell'a göre hareket boyunca daha sürekli gerilim sağlayarak yan deltoidi hedefler. Omuz hipertrofisi için çok kullanışlı bir izolasyon hareketidir.",
-      "A cable-based lateral-raise variation. Compared with dumbbells, it keeps more constant tension through the range and targets the side delts very directly. It is a very useful isolation exercise for shoulder hypertrophy."
+      "Düşük makaradan gelen kabloya karşı tek kolun yana kaldırıldığı omuz abdüksiyonu hareketidir. Yan deltoid ana yükü taşır; supraspinatus ile trapez-serratus kompleksi omuz ve skapula hareketine katkı verir. Pulley ve gövde konumu direnç profilini değiştirir.",
+      "A shoulder-abduction exercise that raises one arm against a low cable. The lateral deltoid carries most of the load while the supraspinatus and trapezius-serratus complex assist shoulder and scapular motion. Pulley and body position change the resistance profile."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kabloyu hafif çapraz açıdan çekmek yan delti daha net hissettirebilir.",
-        "Pulling from a slight cross-body angle can improve side-delt feel."
+        "Makarayı düşük konuma ayarla ve makineye yan dönerek tutacağı uzak elle kavra.",
+        "Set the pulley low, stand side-on to the machine, and hold the handle with the outside hand."
       ],
       [
-        "Omuz silkme yerine kolu dirsek önderliğinde yana kaldır.",
-        "Lead with the elbow and avoid turning the rep into a shrug."
+        "Kablo boşluğunu al, gövdeyi dengeli tut ve kolu rahat scapular düzleme yerleştir.",
+        "Take up cable slack, stabilize the torso, and place the arm in a comfortable scapular plane."
       ],
       [
-        "Ağırlığı düşük tutup formu bozmamak genelde daha iyi sonuç verir.",
-        "Keeping the weight lighter and the form cleaner usually works better here."
+        "Dirseği hafif bükülü tutarak kolu yana ve hafif öne kaldır.",
+        "Keep a slight elbow bend and raise the arm out to the side and slightly forward."
+      ],
+      [
+        "Omuz kontrolü korunabilen yükseklikte kısa süre dur.",
+        "Pause briefly at the height that preserves shoulder control."
+      ],
+      [
+        "Ağırlık istifini çarptırmadan kolu kontrollü başlangıca indir.",
+        "Lower the arm under control without crashing the weight stack."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağır yük için gövdeyi yana veya geriye savurmak.",
+        "Swinging the torso sideways or backward to move a heavy load."
+      ],
+      [
+        "Kabloyu her tekrarda farklı vücut hattından geçirmek.",
+        "Running the cable along a different body path each rep."
+      ],
+      [
+        "Omuzları tamamen sabitlemek için skapular hareketi zorla engellemek.",
+        "Forcibly preventing scapular movement to keep the shoulders completely fixed."
+      ],
+      [
+        "Dönüşte kablonun kolu kontrolsüz çekmesine izin vermek.",
+        "Letting the cable pull the arm down without control."
+      ]
+    ],
+    "tips": [
+      [
+        "Kablo gerginliği mevcut olsa da omuz eklemindeki tork hareket boyunca sabit değildir.",
+        "Cable tension may remain present, but torque at the shoulder is not constant through the range."
+      ],
+      [
+        "Kolun önden, yandan veya cross-body başlaması farklı kablo yollarıdır; ayrı varyasyon olarak kaydet.",
+        "Starting in front, at the side, or cross-body creates different cable paths; log them separately."
+      ],
+      [
+        "Üst trapez ve serratus katkısını tamamen kaldırmaya çalışma; kontrolsüz shrug ile karıştırma.",
+        "Do not try to eliminate upper-trapezius and serratus contribution; distinguish it from an uncontrolled shrug."
+      ],
+      [
+        "Kas hissi yararlı geri bildirim olabilir fakat ilerlemeyi yük, tekrar ve menzille birlikte değerlendir.",
+        "Muscle sensation can be useful feedback, but evaluate progress with load, reps, and range too."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle pulley konumu ve kablo yolunu standardize et.",
+        "Standardize pulley position and cable path with a light load."
+      ],
+      [
+        "Aynı gövde açısında kontrollü hedef tekrarları tamamla.",
+        "Complete controlled target reps with the same torso angle."
+      ],
+      [
+        "Küçük yük veya tekrar artışları yap.",
+        "Add small increases in load or reps."
+      ],
+      [
+        "İleri aşamada pause, yavaş eksantrik veya lean-away varyasyonu kullan.",
+        "At a later stage, use pauses, slower eccentrics, or a lean-away variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "lateral-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "supraspinatus",
+        "upper-trapezius",
+        "lower-trapezius",
+        "serratus-anterior"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -2337,7 +2733,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Cable Lateral Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cable Lateral Raise Rehberi | Kablo Yolu ve Form",
+        "Cable Lateral Raise Guide | Cable Path and Form"
+      ],
+      "metaDescription": [
+        "Cable lateral raise için pulley konumu, scapular düzlem, kablo yolu, gövde kontrolü, hatalar ve progression.",
+        "Learn cable lateral-raise pulley setup, scapular plane, cable path, torso control, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Yan deltoid",
+          "Lateral deltoid"
+        ],
+        "equipment": [
+          "Düşük makara ve tek el tutacağı",
+          "Low pulley and single handle"
+        ],
+        "movementPattern": [
+          "Tek kol kablo omuz abdüksiyonu",
+          "Single-arm cable shoulder abduction"
+        ],
+        "bestFor": [
+          "Yan omuz hipertrofi hacmi ve taraf takibi",
+          "Lateral-shoulder hypertrophy and side tracking"
+        ]
+      },
+      "tracking": [
+        [
+          "Pulley konumu, kablo yolu, taraf başına yük, tekrar ve RIR değerini kaydet.",
+          "Log pulley position, cable path, load per side, reps, and RIR."
+        ],
+        [
+          "Cross-body veya yan başlangıç konumunu belirt.",
+          "Record cross-body or side starting position."
+        ],
+        [
+          "Sağ ve sol tarafı ayrı takip et.",
+          "Track right and left sides separately."
+        ]
+      ],
+      "related": [
+        "lateral-raise",
+        "machine-lateral-raise",
+        "lean-away-lateral-raise"
+      ]
+    }
   },
   "front-raise": {
     "publish": false,
@@ -2345,35 +2787,99 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/front-raise",
     "summary": [
-      "Öne kaldırma. Ön deltoid.",
-      "Front raise. Front delts."
+      "Dumbbell front raise. Omuz fleksiyonu.",
+      "Dumbbell front raise. Shoulder flexion."
     ],
     "description": [
-      "Öne kaldırma hareketi. Deltoidin ön (anterior) bölümünü izole eder. Barbell, dumbbell veya kablo ile yapılabilir.",
-      "Front raise. Isolates the anterior (front) deltoid. Can be done with barbell, dumbbells, or cable."
+      "Dumbbell’ların gövde önünde kaldırıldığı omuz fleksiyonu hareketidir. Ön deltoid ana yükü taşır; üst göğüs, serratus ve trapez omuz-skapula hareketine katkı verir. Tek veya çift kol uygulanabilir.",
+      "A shoulder-flexion exercise that raises dumbbells in front of the body. The anterior deltoid carries most of the load while the upper chest, serratus, and trapezius assist shoulder and scapular motion. It can be performed with one or both arms."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kolu omuz hizasına kadar kaldır; aşırı yukarı gitme.",
-        "Raise to shoulder level; don't go excessively higher."
+        "Ayakta dengeli durup dumbbell’ları uyluk önünde nötr veya pronated rahat tutuşla tut.",
+        "Stand balanced and hold the dumbbells in front of the thighs with a comfortable neutral or pronated grip."
       ],
       [
-        "Gövdeyi sabit tut — momentum kullanma.",
-        "Keep torso still — don't use body swing for momentum."
+        "Kaburgaları pelvis üzerinde tut, dirsekleri hafif bükülü ve bilekleri nötr hizala.",
+        "Stack the ribs over the pelvis, keep a slight elbow bend, and align the wrists neutrally."
       ],
       [
-        "Ön omuzlar zaten bir çok harekette çalışır; çok fazla ek hacim ekleme.",
-        "Front delts already get work from pressing; don't overdo additional volume."
+        "Bir veya iki kolu gövde önünde kontrollü şekilde kaldır.",
+        "Raise one or both arms in front of the torso under control."
+      ],
+      [
+        "Omuz ve gövde kontrolü korunabilen yükseklikte kısa süre dur.",
+        "Pause briefly at the height that preserves shoulder and torso control."
+      ],
+      [
+        "Dumbbell’ları savurmadan başlangıç pozisyonuna indir.",
+        "Lower the dumbbells to the start without swinging."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağır yük için gövdeyi geriye atmak.",
+        "Leaning the torso backward to move a heavy load."
+      ],
+      [
+        "Dumbbell’ları alt noktadan savurarak hız almak.",
+        "Swinging the dumbbells from the bottom to create momentum."
+      ],
+      [
+        "Omuz hizasını herkese zorunlu bitiş noktası yapmak.",
+        "Treating shoulder height as a mandatory endpoint for everyone."
+      ],
+      [
+        "Sağ ve sol kolda farklı tutuş veya menzil kullanmak.",
+        "Using different grips or ranges on the right and left arms."
+      ]
+    ],
+    "tips": [
+      [
+        "Ön deltoid ana hedef olsa da hareket onu tamamen izole etmez.",
+        "The anterior deltoid is the main target, but the movement does not completely isolate it."
+      ],
+      [
+        "Omuz hizasının altı veya üstü, rahat kontrol korunuyorsa geçerli hareket açıklığı olabilir.",
+        "A finish below or above shoulder height can be valid when comfortable control is maintained."
+      ],
+      [
+        "Press hareketleri ön deltoidi de yükler; ek front-raise hacmini toplam programa göre ayarla.",
+        "Pressing also loads the anterior deltoids; set front-raise volume according to the full program."
+      ],
+      [
+        "Alternating ve bilateral tekrarları aynı performans standardı olarak karşılaştırma.",
+        "Do not compare alternating and bilateral reps as the same performance standard."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbell ile tutuş ve ağrısız kaldırma yüksekliğini belirle.",
+        "Determine grip and pain-free raise height with light dumbbells."
+      ],
+      [
+        "Aynı gövde pozisyonunda kontrollü tekrarlar tamamla.",
+        "Complete controlled reps with the same torso position."
+      ],
+      [
+        "Küçük yük veya tekrar artışları yap.",
+        "Add small increases in load or reps."
+      ],
+      [
+        "İleri aşamada pause, yavaş eksantrik veya cable front raise kullan.",
+        "At a later stage, use pauses, slower eccentrics, or cable front raises."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "anterior-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "pectoralis-major-clavicular-head",
+        "serratus-anterior",
+        "upper-trapezius",
+        "lower-trapezius"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -2389,7 +2895,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Front Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Front Raise Rehberi | Dumbbell Omuz Formu",
+        "Front Raise Guide | Dumbbell Shoulder Form"
+      ],
+      "metaDescription": [
+        "Dumbbell front raise için tutuş, dirsek ve bilek hizası, rahat kaldırma yüksekliği, hatalar ve progression.",
+        "Learn dumbbell front-raise grip, elbow and wrist alignment, raise height, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön deltoid",
+          "Anterior deltoid"
+        ],
+        "equipment": [
+          "Bir veya iki dumbbell",
+          "One or two dumbbells"
+        ],
+        "movementPattern": [
+          "Omuz fleksiyonu",
+          "Shoulder flexion"
+        ],
+        "bestFor": [
+          "Ön omuz aksesuar hacmi",
+          "Anterior-shoulder accessory volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş, tek/çift kol, yük, tekrar, bitiş yüksekliği ve RIR değerini kaydet.",
+          "Log grip, single or bilateral style, load, reps, finish height, and RIR."
+        ],
+        [
+          "Alternating veya eşzamanlı varyasyonu belirt.",
+          "Record alternating or simultaneous variation."
+        ],
+        [
+          "Farklı hareket açıklıklarını ayrı takip et.",
+          "Track different ranges separately."
+        ]
+      ],
+      "related": [
+        "cable-front-raise",
+        "shoulder-press",
+        "lateral-raise"
+      ]
+    }
   },
   "cable-front-raise": {
     "publish": false,
@@ -2397,35 +2949,99 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/cable-front-raise",
     "summary": [
-      "Kablo ön kaldırış. Sürekli gerilim.",
-      "Cable front raise. Constant tension."
+      "Tek kol cable front raise. Kabloyla omuz fleksiyonu.",
+      "Single-arm cable front raise. Cable shoulder flexion."
     ],
     "description": [
-      "Kabloyla yapılan ön kaldırış hareketi. Ön deltoide sabit gerilim sağlayarak dumbbell versiyonuna göre alt noktada da yük hissi verir. Omuz hipertrofisi için kontrollü bir ön omuz aksesuarıdır.",
-      "A front-raise movement done with a cable. It keeps more consistent tension on the front delt than the dumbbell version and maintains load even at the bottom. It is a controlled front-delt accessory for shoulder hypertrophy."
+      "Düşük makaradan gelen kabloya karşı kolun gövde önünde kaldırıldığı omuz fleksiyonu hareketidir. Ön deltoid ana yükü taşır; üst göğüs ile trapez-serratus kompleksi omuz ve skapula hareketine yardım eder. Kablo hattı direnç profilini değiştirir.",
+      "A shoulder-flexion exercise that raises the arm in front of the body against a low cable. The anterior deltoid carries most of the load while the upper chest and trapezius-serratus complex assist shoulder and scapular motion. Cable path changes the resistance profile."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kolu omuz hizasına kadar kaldırmak çoğu durumda yeterlidir.",
-        "Raising the arm to about shoulder height is enough in most cases."
+        "Makarayı düşük konuma ayarla ve tutacağı tek elle kavra.",
+        "Set the pulley low and hold the handle with one hand."
       ],
       [
-        "Gövdeyi geriye atarak momentum yaratma.",
-        "Do not lean back to create momentum."
+        "Kabloyu önden veya arkadan geçireceğin varyasyona göre dengeli konum al ve boşluğu kapat.",
+        "Take a balanced stance for the chosen front- or behind-body cable path and remove slack."
       ],
       [
-        "Tek kol versiyonu omuz hissini artırabilir.",
-        "A single-arm version can improve front-delt feel."
+        "Kaburgaları pelvis üzerinde tutup dirseği hafif bükülü ve bileği nötr hizala.",
+        "Stack the ribs over the pelvis and keep a slight elbow bend with a neutral wrist."
+      ],
+      [
+        "Kolu gövde önünde ağrısız ve kontrollü yüksekliğe kaldır.",
+        "Raise the arm in front of the torso to a pain-free controlled height."
+      ],
+      [
+        "Kablonun kolu kontrolsüz çekmesine izin vermeden başlangıca dön.",
+        "Return to the start without letting the cable pull the arm down uncontrolled."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Gövdeyi geriye atarak kabloyu hareket ettirmek.",
+        "Leaning backward to move the cable."
+      ],
+      [
+        "Pulley ve ayak konumunu setler arasında değiştirip yükü karşılaştırmak.",
+        "Changing pulley and foot position between sets while comparing load."
+      ],
+      [
+        "Kablo hattını vücuda sürtüp omuz yolunu bozmak.",
+        "Dragging the cable against the body and disrupting the shoulder path."
+      ],
+      [
+        "Dönüşte ağırlık istifini çarptırmak.",
+        "Crashing the weight stack on the return."
+      ]
+    ],
+    "tips": [
+      [
+        "Kablo gerginliği alt noktada kalabilir; omuz torku yine hareket boyunca sabit değildir.",
+        "Cable tension may remain at the bottom, but shoulder torque is still not constant through the range."
+      ],
+      [
+        "Tek kol çalışma sağ-sol farkını görünür kılar; bu farkı otomatik düzeltmez.",
+        "Single-arm work makes side differences visible; it does not automatically correct them."
+      ],
+      [
+        "Önden ve arkadan kablo yolları farklı başlangıç pozisyonlarıdır; ayrı kaydet.",
+        "Front- and behind-body cable paths use different starting positions; log them separately."
+      ],
+      [
+        "Kas hissini tek başarı ölçüsü yapmadan yük, tekrar, tempo ve menzili birlikte izle.",
+        "Track load, reps, tempo, and range rather than using muscle sensation as the only success measure."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle pulley, ayak ve kablo yolunu standardize et.",
+        "Standardize pulley, foot position, and cable path with a light load."
+      ],
+      [
+        "Her iki tarafta aynı kontrollü yüksekliğe tekrarlar yap.",
+        "Perform reps to the same controlled height on both sides."
+      ],
+      [
+        "Küçük yük veya tekrar artışları yap.",
+        "Add small increases in load or reps."
+      ],
+      [
+        "İleri aşamada pause veya yavaş eksantrik kullan.",
+        "At a later stage, use pauses or a slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "anterior-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "pectoralis-major-clavicular-head",
+        "serratus-anterior",
+        "upper-trapezius",
+        "lower-trapezius"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -2441,7 +3057,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Cable Front Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cable Front Raise Rehberi | Kablo Yolu ve Form",
+        "Cable Front Raise Guide | Cable Path and Form"
+      ],
+      "metaDescription": [
+        "Cable front raise için pulley ve ayak konumu, kablo yolu, bitiş yüksekliği, taraf takibi, hatalar ve progression.",
+        "Learn cable front-raise pulley and foot setup, cable path, finish height, side tracking, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön deltoid",
+          "Anterior deltoid"
+        ],
+        "equipment": [
+          "Düşük makara ve tek el tutacağı",
+          "Low pulley and single handle"
+        ],
+        "movementPattern": [
+          "Tek kol kablo omuz fleksiyonu",
+          "Single-arm cable shoulder flexion"
+        ],
+        "bestFor": [
+          "Ön omuz aksesuar hacmi ve taraf takibi",
+          "Anterior-shoulder accessory volume and side tracking"
+        ]
+      },
+      "tracking": [
+        [
+          "Pulley, kablo yolu, taraf başına yük, tekrar, bitiş yüksekliği ve RIR değerini kaydet.",
+          "Log pulley, cable path, load per side, reps, finish height, and RIR."
+        ],
+        [
+          "Önden veya arkadan kablo varyasyonunu belirt.",
+          "Record front- or behind-body cable variation."
+        ],
+        [
+          "Sağ ve sol tarafı ayrı takip et.",
+          "Track right and left sides separately."
+        ]
+      ],
+      "related": [
+        "front-raise",
+        "cable-lateral-raise",
+        "shoulder-press"
+      ]
+    }
   },
   "lean-away-lateral-raise": {
     "publish": false,
@@ -2449,35 +3111,101 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/lean-away-lateral-raise",
     "summary": [
-      "Yana eğimli lateral raise. Uzun menzil.",
-      "Lean-away lateral raise. Longer range."
+      "Lean-away cable lateral raise. Destekli tek kol abdüksiyon.",
+      "Lean-away cable lateral raise. Supported single-arm abduction."
     ],
     "description": [
-      "Bir destekten hafifçe uzaklaşarak yapılan lateral raise varyasyonu. Yan deltoidi alt pozisyonda daha uzun menzilde yükleyebilir. Bodybuilding odaklı omuz çalışmalarında popüler bir ince ayar hareketidir.",
-      "A lateral-raise variation performed while leaning away from a support. It can load the side delts through a longer range, especially at the bottom. It is a popular fine-tuning movement in bodybuilding-style shoulder training."
+      "Sabit bir desteği tutup gövdeyi makaradan kontrollü uzaklaştırarak yapılan tek kol cable lateral raise varyasyonudur. Yan deltoid ana yükü taşır; lean açısı ve kablo hattı omuz kaldıraç profilini değiştirir.",
+      "A single-arm cable lateral-raise variation performed while holding a stable support and leaning away from the pulley. The lateral deltoid carries most of the load while lean angle and cable path change shoulder leverage."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Destekten hafif uzaklaş ama kontrolü kaybetme.",
-        "Lean away slightly from the support without losing control."
+        "Makarayı düşük konuma ayarla, yakın elle sağlam desteği ve uzak elle tutacağı kavra.",
+        "Set the pulley low, hold a stable support with the near hand, and take the handle with the outside hand."
       ],
       [
-        "Dirsek önderliğinde kaldır ve shrug yapma.",
-        "Lead with the elbow and avoid turning it into a shrug."
+        "Ayakları güvenli yerleştirip kol ve gövdeyi düz bir destek hattında makaradan hafif uzaklaştır.",
+        "Set the feet securely and lean the arm and torso slightly away from the pulley in one supported line."
       ],
       [
-        "Düşük-orta ağırlık bu harekette genelde daha iyi çalışır.",
-        "Low-to-moderate loads usually work best here."
+        "Kablo boşluğunu al, kaburgaları pelvis üzerinde tut ve kolu rahat scapular düzleme yerleştir.",
+        "Take up cable slack, stack the ribs over the pelvis, and set the arm in a comfortable scapular plane."
+      ],
+      [
+        "Dirsek hafif bükülü halde kolu yana ve hafif öne kaldır.",
+        "Raise the arm out to the side and slightly forward with a soft elbow."
+      ],
+      [
+        "Lean açısını değiştirmeden kolu kontrollü başlangıca indir.",
+        "Lower the arm under control without changing the lean angle."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Destek veya ayak konumu güvenli değilken gövdeyi fazla yana bırakmak.",
+        "Leaning too far without secure support or foot position."
+      ],
+      [
+        "Her tekrarda lean açısını değiştirerek momentum üretmek.",
+        "Changing the lean angle each rep to create momentum."
+      ],
+      [
+        "Ağır yük için gövdeyi destek koluyla çekmek.",
+        "Pulling with the support arm to move a heavy load."
+      ],
+      [
+        "Kabloyu farklı vücut hattından geçirerek tarafları karşılaştırmak.",
+        "Comparing sides while running the cable along different body paths."
+      ]
+    ],
+    "tips": [
+      [
+        "Lean-away pozisyonu hareket açıklığını ve direnç profilini değiştirir; otomatik olarak daha iyi değildir.",
+        "The lean-away position changes range and resistance profile; it is not automatically better."
+      ],
+      [
+        "Lean açısı, ayak konumu ve destek yüksekliği kaldıraç değişkenleridir; tümünü kaydet.",
+        "Lean angle, foot position, and support height are leverage variables; log all of them."
+      ],
+      [
+        "Üst trapez ve serratus katkısı normal olabilir; kontrolsüz omuz silkme ile karıştırma.",
+        "Upper-trapezius and serratus contribution can be normal; distinguish it from uncontrolled shrugging."
+      ],
+      [
+        "Düşük-orta yük zorunlu kural değildir; seçilen yükte aynı lean ve kol yolu korunmalıdır.",
+        "Low-to-moderate load is not a mandatory rule; maintain the same lean and arm path at the selected load."
+      ]
+    ],
+    "progression": [
+      [
+        "Standart cable lateral raise ile kablo yolunu öğren.",
+        "Learn the cable path with a standard cable lateral raise."
+      ],
+      [
+        "Küçük lean açısında hafif yükle pozisyonu standardize et.",
+        "Standardize position with a small lean and light load."
+      ],
+      [
+        "Aynı lean açısı ve kol yolunda tekrar veya yük artır.",
+        "Increase reps or load with the same lean angle and arm path."
+      ],
+      [
+        "İleri aşamada pause veya yavaş eksantrik kullan.",
+        "At a later stage, use pauses or a slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "lateral-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "supraspinatus",
+        "upper-trapezius",
+        "lower-trapezius",
+        "serratus-anterior",
+        "internal-oblique",
+        "external-oblique"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -2493,7 +3221,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Lean Away Lateral Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Lean-Away Lateral Raise Rehberi | Form",
+        "Lean-Away Lateral Raise Guide | Form"
+      ],
+      "metaDescription": [
+        "Lean-away cable lateral raise için destek, ayak ve pulley konumu, lean açısı, kablo yolu, hatalar ve progression.",
+        "Learn lean-away lateral-raise support, foot and pulley setup, lean angle, cable path, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Yan deltoid",
+          "Lateral deltoid"
+        ],
+        "equipment": [
+          "Düşük makara, tutacak ve sağlam destek",
+          "Low pulley, handle, and stable support"
+        ],
+        "movementPattern": [
+          "Destekli tek kol omuz abdüksiyonu",
+          "Supported single-arm shoulder abduction"
+        ],
+        "bestFor": [
+          "Yan omuz hipertrofi hacmi ve kablo profil değişimi",
+          "Lateral-shoulder volume and cable-profile variation"
+        ]
+      },
+      "tracking": [
+        [
+          "Pulley, destek yüksekliği, lean açısı, yük, tekrar ve RIR değerini kaydet.",
+          "Log pulley, support height, lean angle, load, reps, and RIR."
+        ],
+        [
+          "Ayak konumu ve kablo yolunu varyasyon notuna ekle.",
+          "Include foot position and cable path in the variation notes."
+        ],
+        [
+          "Sağ ve sol tarafı ayrı takip et.",
+          "Track right and left sides separately."
+        ]
+      ],
+      "related": [
+        "cable-lateral-raise",
+        "lateral-raise",
+        "machine-lateral-raise"
+      ]
+    }
   },
   "y-raise": {
     "publish": false,

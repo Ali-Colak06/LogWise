@@ -4151,6 +4151,55 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 77 — Exercise Guide Enrichment Batch 13 (2026-06-19)
+
+### Amaç
+
+Makine/Arnold shoulder press ile makine, cable, front ve lean-away raise desenlerindeki yedi omuz hareketini tam guide seviyesine taşımak; makine güvenliği, sabit kablo gerilimi, tam kas izolasyonu ve zorunlu omuz hizası bitişi hakkındaki mutlak legacy iddiaları düzeltmek.
+
+### Kapsam
+
+- Machine Shoulder Press
+- Arnold Press
+- Machine Lateral Raise
+- Cable Lateral Raise
+- Front Raise
+- Cable Front Raise
+- Lean-Away Lateral Raise
+
+### İçerik Kararları
+
+- **Makine press güvenliği:** Sabit yolun denge talebini azaltabildiği, omuz konforu veya güvenliği otomatik garanti etmediği yazıldı. Makine modeli, koltuk, tutuş ve kontrollü menzil tracking alanlarına eklendi.
+- **Arnold rotasyonu:** Tam palms-in başlangıç zorunlu tutulmadı; omuzun rahat izin verdiği rotasyon kullanıldı. Arnold Press klasik shoulder press'ten otomatik olarak daha geniş veya üstün kas uyarımı sağlayan varyasyon olarak sunulmadı.
+- **Skapular hareket:** Lateral/front raise sırasında trapez ve serratus katkısını tamamen yok etme cue'su kaldırıldı; kontrollü skapular yukarı rotasyon normal hareket bileşeni kabul edildi.
+- **Makine lateral raise:** Pad/pivot ve koltuk ayarı makineye özgü kaldıraç olarak kaydedildi; sabit yol yan deltoidi tamamen izole eden veya makineler arası yükü karşılaştırılabilir yapan özellik sayılmadı.
+- **Kablo torku:** Cable Lateral Raise ve Cable Front Raise için kablo gerginliğinin bulunmasının omuz eklemi torkunu hareket boyunca sabit yapmadığı açıklandı. Pulley, kablo yolu ve vücut konumu ayrı takip edilir.
+- **Raise bitiş yüksekliği:** Omuz hizası herkese zorunlu bitiş yapılmadı; ağrısız, kontrollü ve tekrarlanabilir yükseklik kullanıldı.
+- **Front raise programlaması:** Ön deltoidin press hareketlerinde de yüklendiği belirtildi; ek raise hacmi program bağlamına bağlandı. Ön deltoid “tam izolasyon” dili kaldırıldı.
+- **Lean-away profili:** Lean-away açısının menzil ve direnç profilini değiştirdiği, otomatik olarak daha iyi olmadığı yazıldı. Destek yüksekliği, ayak konumu, lean açısı ve kablo yolu tracking alanına eklendi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 94 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi omuz press/raise hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 94 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 76 — Exercise Guide Enrichment Batch 12 (2026-06-19)
 
 ### Amaç
