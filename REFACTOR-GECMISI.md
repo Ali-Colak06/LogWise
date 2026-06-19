@@ -4096,3 +4096,55 @@ Kanonik guide kataloğunda preview metninden tam rehber içeriğine geçişi ba�
 - JSON ile üretilmiş wrapper birebir eşleşmeli.
 - `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
 - Mevcut Bench Press, Squat ve Deadlift Library HTML dosyaları `publish: false` nedeniyle `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
+## Bölüm 66 — Exercise Guide Enrichment Batch 2 (2026-06-19)
+
+### Amaç
+
+Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini tam guide içeriğine taşımak; legacy preview metinlerindeki aşırı katı eklem açısı ve hareket açıklığı kurallarını güncel, kontrol odaklı teknik anlatımla değiştirmek.
+
+### Kapsam
+
+- Push Up
+- Dips
+- Lat Pulldown
+- Cable Row
+- Goblet Squat
+- Lunge
+- Leg Curl
+
+### İçerik Kararları
+
+- **Tam iki dilli rehber:** Yedi hareket için description, formSteps, mistakes, tips, progression, muscles ve web alanları TR+EN tamamlandı.
+- **Bireysel hareket açıklığı:** Dips derinliği sabit 90 derece kuralına değil, ağrısız omuz kontrolüne bağlandı.
+- **Diz-ayak ucu miti:** Lunge ve goblet squat rehberlerinde dizin ayak ucunu geçmesi tek başına hata sayılmadı; topuk teması ve diz-ayak yönü esas alındı.
+- **Hareket ayrımı:** `leg-curl`, ayrı `seated-leg-curl` preset'i bulunduğu için yatarak leg curl makinesine özgü yazıldı.
+- **Anatomik kas verisi:** Tüm batch kayıtları geniş kategori slug'ları yerine hareket bazlı primary/secondary anatomik kas slug'ları taşır.
+- **Kaynak kontrolü:** Push-up rijit gövde ve kontrollü iniş ilkeleri ACE Push-Up Exercise Library; forward lunge adım/iniş ilkeleri ACE Forward Lunge Exercise Library ile çapraz kontrol edildi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 17 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki mevcut `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Kaynaklar
+
+- `https://www.acefitness.org/resources/everyone/exercise-library/41/push-up/`
+- `https://www.acefitness.org/resources/everyone/exercise-library/8/forward-lunge/`
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi hareket için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 17 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.

@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-18 — İlk guide enrichment batch'i ve content-ready raporu eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-19 — İkinci exercise guide enrichment batch'i eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-65)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-66)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -223,6 +223,7 @@ LogWise/
 - **Exercise guide JSON cutover hazırlığı** (Bölüm 63): Üç pilotun tam TR/EN içeriği, `publish` kontrollü generator adapter'ı ve koşullu demo/kas haritası şablonu ✅
 - **Tüm preset guide kapsamı + web preview tüketimi** (Bölüm 64): 145/145 kanonik kayıt, 143 preview-ready içerik ve `ExPreviewModal` kanonik öncelik/legacy fallback akışı ✅
 - **Exercise guide enrichment batch 1** (Bölüm 65): Yedi temel hareketin tam TR/EN guide içeriği, anatomik kas verisi ve türetilmiş `content-ready` raporu ✅
+- **Exercise guide enrichment batch 2** (Bölüm 66): Yedi ek temel hareketin tam TR/EN içeriği, form miti düzeltmeleri ve toplam 17 content-ready guide ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

@@ -1853,37 +1853,94 @@ window.LOGWISE_EX_GUIDES = {
       "Push-up. Chest, shoulders, triceps."
     ],
     "description": [
-      "Temel vücut ağırlığı egzersizi. Göğüs, omuz ve triceps kaslarını birlikte çalıştırır. Ekipman gerektirmez, her yerde yapılabilir.",
-      "Fundamental bodyweight exercise. Works chest, shoulders, and triceps together. Requires no equipment, can be done anywhere."
+      "Ekipman gerektirmeyen temel yatay itiş hareketidir. Göğüs, ön omuz, triceps ve serratus kaslarını çalıştırırken gövdenin plank pozisyonunda sabit kalmasını gerektirir.",
+      "A foundational horizontal press that requires no equipment. It trains the chest, front delts, triceps, and serratus while the torso remains stable in a plank position."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Vücut baştan topuğa düz bir çizgi oluşturmalı; bel ne düşmeli ne de kabarmalı.",
-        "Body should form a straight line from head to heels; hips neither sag nor pike."
+        "Ellerini omuz genişliğinde veya biraz daha geniş yerleştir; parmakları ileri ya da hafif dışa çevir.",
+        "Place the hands at shoulder width or slightly wider with fingers forward or turned slightly outward."
       ],
       [
-        "Göğsü yere değdir — tam ROM için çalış.",
-        "Touch chest to floor — aim for full range of motion."
+        "Ayakları geriye uzatıp yüksek plank pozisyonu al; kalça, karın ve quadriceps kaslarını sık.",
+        "Extend the legs into a high plank and brace the glutes, abs, and quadriceps."
       ],
       [
-        "Ayakları yükseltince (decline) üst göğüs, dizleri yere koyunca kolaylaşır.",
-        "Elevated feet (decline) hits upper chest; knees on floor for an easier variation."
+        "Baş, gövde ve topukları aynı çizgide tutarak dirsekleri kontrollü biçimde bük.",
+        "Bend the elbows under control while keeping the head, torso, and heels in one line."
       ],
       [
-        "Nefes alarak in, iterken ver.",
-        "Inhale going down, exhale pressing up."
+        "Göğsü ellerin arasına doğru indir; dirsekleri omuzlara göre rahat ve tekrarlanabilir bir açıda tut.",
+        "Lower the chest between the hands, keeping the elbows at a comfortable and repeatable angle relative to the shoulders."
+      ],
+      [
+        "Avuçları zemine itip gövde çizgisini bozmadan başlangıca dön; üstte kürek kemiklerinin doğal hareketine izin ver.",
+        "Press the floor away and return without losing body alignment, allowing natural shoulder-blade movement at the top."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Belin çökmesine veya kalçanın yukarı kaçmasına izin vermek.",
+        "Allowing the lower back to sag or the hips to pike upward."
+      ],
+      [
+        "Dirsekleri kontrolsüz biçimde tamamen yana açmak.",
+        "Letting the elbows flare straight out without control."
+      ],
+      [
+        "Göğüs yerine başı öne uzatarak zemine ulaşmaya çalışmak.",
+        "Reaching the head forward instead of lowering the chest."
+      ],
+      [
+        "Hareket açıklığını kısaltmak için elleri çok öne yerleştirmek.",
+        "Placing the hands too far forward to shorten the range of motion."
+      ]
+    ],
+    "tips": [
+      [
+        "Gövdeyi hareket eden bir plank gibi düşün; omuz ve kalça aynı anda yükselip alçalsın.",
+        "Think of the body as a moving plank, with shoulders and hips rising and lowering together."
+      ],
+      [
+        "Tam zemine inemiyorsan elleri yükselterek aynı gövde çizgisini koru.",
+        "If full floor reps are not available, elevate the hands and preserve the same body line."
+      ],
+      [
+        "Ellerin altında zemini dışa doğru çevirmeye çalışmak omuz kontrolünü artırabilir.",
+        "Gently trying to rotate the floor outward under the hands can improve shoulder control."
+      ],
+      [
+        "Teknik bozulmadan önce 1-3 tekrar yedek bırakarak seti bitir.",
+        "End the set with 1-3 reps in reserve before body alignment breaks down."
+      ]
+    ],
+    "progression": [
+      [
+        "Duvar veya yüksek yüzey push-up ile rijit gövde pozisyonunu öğren.",
+        "Learn a rigid body position with wall or high-incline push-ups."
+      ],
+      [
+        "Yüzey yüksekliğini kademeli azaltarak standart zemin push-upına ilerle.",
+        "Gradually lower the hand support until reaching a standard floor push-up."
+      ],
+      [
+        "Temiz tekrar sayısı arttığında tempo, pause veya deficit varyasyonu ekle.",
+        "Once clean reps increase, add tempo, pauses, or a deficit variation."
+      ],
+      [
+        "İleri aşamada ağırlıklı, ring veya daha zor kaldıraçlı varyasyonlara geç.",
+        "At an advanced stage, progress to weighted, ring, or harder-leverage variations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major"
       ],
       "secondary": [
-        "shoulders",
-        "triceps"
+        "anterior-deltoid",
+        "triceps-brachii",
+        "serratus-anterior",
+        "abdominals"
       ]
     },
     "media": {
@@ -1900,7 +1957,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Push Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Push Up Rehberi | Şınav Formu ve İlerleme",
+        "Push-Up Guide | Form and Progression"
+      ],
+      "metaDescription": [
+        "Doğru push-up gövde hizasını, el ve dirsek konumunu, yaygın hataları ve kolaydan zora ilerlemeyi öğren.",
+        "Learn push-up body alignment, hand and elbow position, common mistakes, and step-by-step progressions."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, ön omuz ve triceps",
+          "Chest, front delts, and triceps"
+        ],
+        "equipment": [
+          "Ekipman gerekmez",
+          "No equipment required"
+        ],
+        "movementPattern": [
+          "Yatay itiş",
+          "Horizontal press"
+        ],
+        "bestFor": [
+          "Üst vücut kuvveti ve gövde kontrolü",
+          "Upper-body strength and trunk control"
+        ]
+      },
+      "tracking": [
+        [
+          "Kullandığın yüzey yüksekliği veya varyasyonu kaydet.",
+          "Log the support height or variation used."
+        ],
+        [
+          "Yalnız tam gövde hizasıyla tamamlanan tekrarları say.",
+          "Count only reps completed with full body alignment."
+        ],
+        [
+          "Tekrar, RIR ve kullanılan tempo/pause bilgisini takip et.",
+          "Track reps, RIR, and any tempo or pause used."
+        ]
+      ],
+      "related": [
+        "decline-push-up",
+        "diamond-push-up",
+        "bench-press"
+      ]
+    }
   },
   "archer-push-up": {
     "publish": false,
@@ -2238,33 +2341,93 @@ window.LOGWISE_EX_GUIDES = {
       "Parallel bar dips. Chest + triceps."
     ],
     "description": [
-      "Paralel barlarda baskı egzersizi. Öne eğilince göğüs, dik durulursa triceps vurgulanır. Ciddi ağırlık eklenebilen güçlü bir bileşik harekettir.",
-      "Upper body pressing on parallel bars. Leaning forward emphasizes chest; staying upright emphasizes triceps. Can be loaded heavily over time."
+      "Paralel barlarda yapılan kapalı zincir üst vücut press hareketidir. Göğüs ve triceps ana yükü taşırken ön omuz ve serratus destek verir; kullanılabilir derinlik omuz konforu ve kontrolüne göre seçilmelidir.",
+      "A closed-chain upper-body press performed on parallel bars. The chest and triceps carry most of the load while the front delts and serratus assist; usable depth should match shoulder comfort and control."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Göğüs için öne ~30° eğil; triceps için gövdeyi dik tut.",
-        "Lean forward ~30° for chest emphasis; stay upright for triceps."
+        "Barları sıkıca kavra ve dirsekler uzatılmış destek pozisyonuna yüksel.",
+        "Grip the bars firmly and rise into a supported position with the elbows extended."
       ],
       [
-        "Omuzları kulağa doğru çöktürme — omuz bıçaklarını gergin tut.",
-        "Don't let shoulders shrug up — keep them depressed and retracted."
+        "Omuzları kulaklardan uzaklaştır, gövdeyi sık ve ayakları arkada sakin tut.",
+        "Keep the shoulders away from the ears, brace the torso, and hold the legs quietly behind you."
       ],
       [
-        "Tam aşağı in (90°), tam yukarı çık ama dirsekleri kilitleme.",
-        "Go to 90° at the elbow at bottom, fully extend at top without locking."
+        "Göğüs vurgusu için hafif öne eğilerek dirsekleri geriye doğru bük.",
+        "For more chest emphasis, lean slightly forward as the elbows bend backward."
+      ],
+      [
+        "Omuzların öne yuvarlanmadığı ve ağrısız kontrolün korunduğu derinliğe kadar in.",
+        "Descend only as far as you can remain pain-free without the shoulders rolling forward."
+      ],
+      [
+        "Barları aşağı iterek kontrollü destek pozisyonuna dön; üstte omuzları tekrar aşağıda tut.",
+        "Press the bars down to return to a controlled support, keeping the shoulders depressed at the top."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Herkes için aynı derinliği zorlayıp omuz kontrolünü kaybetmek.",
+        "Forcing the same depth for everyone and losing shoulder control."
+      ],
+      [
+        "Alt ve üst pozisyonda omuzları kulaklara doğru çöktürmek.",
+        "Letting the shoulders shrug toward the ears at the bottom or top."
+      ],
+      [
+        "Bacakları savurup gövdeden momentum üretmek.",
+        "Swinging the legs and creating momentum through the torso."
+      ],
+      [
+        "Dirsekleri tamamen yana açmak veya bilekleri bar üzerinde gevşetmek.",
+        "Flaring the elbows straight out or relaxing the wrists on the bars."
+      ]
+    ],
+    "tips": [
+      [
+        "Önce ağrısız support hold yapamıyorsan tam dip tekrarına geçme.",
+        "Do not progress to full dips until a pain-free support hold is stable."
+      ],
+      [
+        "Derinliği dirsek açısıyla değil omuzun öne yuvarlanmadan koruyabildiğin pozisyonla belirle.",
+        "Set depth by the position you can control without the shoulder rolling forward, not by a fixed elbow angle."
+      ],
+      [
+        "Daha fazla göğüs için kontrollü hafif öne eğim; daha fazla triceps için daha dik gövde kullan.",
+        "Use a controlled slight forward lean for more chest or a more upright torso for more triceps."
+      ],
+      [
+        "Omuzda keskin ağrı varsa hareketi bırakıp assisted dip veya başka press varyasyonuna geç.",
+        "Stop if sharp shoulder pain occurs and switch to an assisted dip or another pressing variation."
+      ]
+    ],
+    "progression": [
+      [
+        "Support hold ile bar üzerinde omuz depresyonu ve denge geliştir.",
+        "Develop shoulder depression and balance on the bars with a support hold."
+      ],
+      [
+        "Dip machine veya bant desteğiyle ağrısız hareket açıklığında tekrar biriktir.",
+        "Accumulate pain-free range with a dip machine or band assistance."
+      ],
+      [
+        "Vücut ağırlığı dipte kontrol ve tekrar sayısını artır.",
+        "Build control and reps on the bodyweight dip."
+      ],
+      [
+        "Temiz tekrarlar sabitlendiğinde küçük ek ağırlıklarla ilerle.",
+        "Once clean reps are consistent, progress with small amounts of added load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major",
+        "triceps-brachii"
       ],
       "secondary": [
-        "shoulders",
-        "triceps"
+        "anterior-deltoid",
+        "serratus-anterior"
       ]
     },
     "media": {
@@ -2281,7 +2444,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Dips exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dips Rehberi | Paralel Bar Formu ve Derinlik",
+        "Dips Guide | Parallel-Bar Form and Depth"
+      ],
+      "metaDescription": [
+        "Paralel bar dips kurulumu, omuz kontrollü derinlik, göğüs-triceps vurgusu ve güvenli progression adımları.",
+        "Learn parallel-bar dip setup, shoulder-controlled depth, chest-triceps emphasis, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs ve triceps",
+          "Chest and triceps"
+        ],
+        "equipment": [
+          "Paralel barlar",
+          "Parallel bars"
+        ],
+        "movementPattern": [
+          "Dikey press",
+          "Vertical press"
+        ],
+        "bestFor": [
+          "Üst vücut press kuvveti",
+          "Upper-body pressing strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Kullandığın yardım veya ek ağırlığı kaydet.",
+          "Log assistance or added load."
+        ],
+        [
+          "Ağrısız ve omuz kontrollü tekrar derinliğini takip et.",
+          "Track pain-free depth with controlled shoulders."
+        ],
+        [
+          "Tekrar, RIR ve gövde açısını not et.",
+          "Record reps, RIR, and torso angle."
+        ]
+      ],
+      "related": [
+        "support-hold",
+        "dip-machine",
+        "close-grip-bench-press"
+      ]
+    }
   },
   "dip-machine": {
     "publish": false,
@@ -3828,36 +4037,95 @@ window.LOGWISE_EX_GUIDES = {
       "Lat pulldown. Back width."
     ],
     "description": [
-      "Kablo makinesinde yukarıdan çekiş. Pull-up yapamayan kullanıcılar için mükemmel alternatif. Latissimus dorsi ve biceps başarıyla çalıştırılır.",
-      "Cable pulldown from overhead. Excellent alternative for those who can't do pull-ups yet. Works latissimus dorsi and biceps effectively."
+      "Kablo makinesinde yapılan dikey çekiş hareketidir. Latissimus dorsi ve teres major ana yükü taşırken biceps, brachialis ve üst sırt kasları dirsek çekişine katkı verir.",
+      "A vertical pulling movement performed on a cable machine. The lats and teres major carry most of the load while the biceps, brachialis, and upper back assist elbow movement."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bar üst göğse çekilmeli — boyun veya yüze değil.",
-        "Pull bar to upper chest — not toward neck or face."
+        "Diz pedini bacakları sabitleyecek şekilde ayarla ve barı omuz genişliğinden biraz geniş kavra.",
+        "Set the thigh pad to secure the legs and grip the bar slightly wider than shoulder width."
       ],
       [
-        "Çekerken dirsekleri aşağı ve hafifçe arkaya götür.",
-        "Drive elbows down and slightly back during the pull."
+        "Göğsü açık, kaburgaları kontrollü tutarak çok hafif geriye eğil.",
+        "Keep the chest open and ribs controlled with only a slight backward lean."
       ],
       [
-        "Çıkışta tam uzanmaya izin ver — lat gerilimi önemlidir.",
-        "Allow full stretch at the top — lat elongation matters."
+        "Omuzları kulaklardan uzaklaştırıp dirsekleri aşağı sürerek çekişi başlat.",
+        "Initiate by drawing the shoulders away from the ears and driving the elbows down."
       ],
       [
-        "Hafifçe arkaya yaslan (~30°); aşırı eğilme.",
-        "Lean back slightly (~30°) — but avoid excessive lean."
+        "Barı köprücük kemiği/üst göğüs yönüne getir; bilekleri ön kollarla hizalı tut.",
+        "Bring the bar toward the collarbone or upper chest while keeping wrists aligned with the forearms."
+      ],
+      [
+        "Dirsekleri kontrollü açıp latların uzamasına izin vererek başlangıca dön.",
+        "Return by extending the elbows under control and allowing the lats to lengthen."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Barı ense arkasına çekerek boyun ve omuz pozisyonunu zorlamak.",
+        "Pulling the bar behind the neck and forcing the neck and shoulders into a compromised position."
+      ],
+      [
+        "Ağır yük için gövdeyi aşırı geriye yatırıp hareketi rowa çevirmek.",
+        "Leaning far back to move heavy load and turning the exercise into a row."
+      ],
+      [
+        "Üstte tam kontrollü uzamaya izin vermeden yarım tekrar yapmak.",
+        "Performing partial reps without a controlled stretch at the top."
+      ],
+      [
+        "Dirsekleri aşağı sürmek yerine barı yalnız ellerle çekmek.",
+        "Pulling only with the hands instead of driving the elbows down."
+      ]
+    ],
+    "tips": [
+      [
+        "Aşırı geniş tutuş yerine ön kolların rahatça dik kalabildiği bir genişlik seç.",
+        "Choose a width that lets the forearms remain comfortably vertical instead of using an extreme grip."
+      ],
+      [
+        "Dirsekleri arka ceplere doğru indirdiğini düşün.",
+        "Think about driving the elbows toward the back pockets."
+      ],
+      [
+        "Barı göğse zorla çarptırmak yerine kontrol edilen son noktada kısa dur.",
+        "Pause briefly at the controlled end position instead of forcing the bar into the chest."
+      ],
+      [
+        "Tutuş erken yoruluyorsa yükü azaltıp lat hareketini koru.",
+        "If grip fatigue arrives early, reduce load and preserve lat movement."
+      ]
+    ],
+    "progression": [
+      [
+        "Straight-arm pulldown ile dirsek bükmeden omuz ekstansiyonunu hisset.",
+        "Use a straight-arm pulldown to learn shoulder extension without elbow flexion."
+      ],
+      [
+        "Single-arm lat pulldown ile iki tarafın bar yolunu ayrı kontrol et.",
+        "Use a single-arm lat pulldown to control each side independently."
+      ],
+      [
+        "Bilateral lat pulldownda tam hareket açıklığı korununca yük artır.",
+        "Add load to the bilateral pulldown once full range is consistent."
+      ],
+      [
+        "Yeterli relatif kuvvet oluştuğunda assisted pull-up ve pull-upa ilerle.",
+        "Progress to assisted pull-ups and pull-ups as relative strength improves."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "teres-major"
       ],
       "secondary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis",
+        "rhomboids",
+        "middle-trapezius"
       ]
     },
     "media": {
@@ -3874,7 +4142,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Lat Pulldown exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Lat Pulldown Rehberi | Bar Yolu ve Sırt Formu",
+        "Lat Pulldown Guide | Bar Path and Back Form"
+      ],
+      "metaDescription": [
+        "Lat pulldown makine ayarı, dirsek yolu, kontrollü üst pozisyon ve pull-up progression adımlarını öğren.",
+        "Learn lat pulldown setup, elbow path, controlled stretch, common mistakes, and pull-up progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus dorsi ve teres major",
+          "Latissimus dorsi and teres major"
+        ],
+        "equipment": [
+          "Kablo lat pulldown makinesi",
+          "Cable lat pulldown machine"
+        ],
+        "movementPattern": [
+          "Dikey çekiş",
+          "Vertical pull"
+        ],
+        "bestFor": [
+          "Sırt kuvveti ve pull-up hazırlığı",
+          "Back strength and pull-up preparation"
+        ]
+      },
+      "tracking": [
+        [
+          "Bar/tutuş tipini, ağırlığı ve tekrarları kaydet.",
+          "Log bar or grip type, load, and reps."
+        ],
+        [
+          "Gövde açısını ve RIR değerini tutarlı takip et.",
+          "Track torso angle and RIR consistently."
+        ],
+        [
+          "Tam üst uzamayı kaybettiğin setleri not et.",
+          "Note sets where full top range was lost."
+        ]
+      ],
+      "related": [
+        "pull-up",
+        "single-arm-lat-pulldown",
+        "straight-arm-pulldown"
+      ]
+    }
   },
   "single-arm-lat-pulldown": {
     "publish": false,
@@ -4639,36 +4953,95 @@ window.LOGWISE_EX_GUIDES = {
       "Seated cable row."
     ],
     "description": [
-      "Oturarak kablo çekme. Sırt kaslarını sürekli gerilimle çalıştırır. Orta sırt ve rhomboid'ler için özellikle etkilidir.",
-      "Seated cable row. Works back muscles under constant tension. Particularly effective for mid-back and rhomboids."
+      "Oturarak yapılan yatay kablo çekişidir. Rhomboidler, orta trapez ve latissimus dorsi ana çekişi üretirken arka omuz ve dirsek fleksörleri destek verir.",
+      "A seated horizontal cable pull. The rhomboids, middle traps, and lats produce the main pull while the rear delts and elbow flexors assist."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Hareket boyunca sırtı düz tut — hareketle birlikte öne sallanma.",
-        "Keep back straight — don't sway forward with each rep."
+        "Ayağı platforma sabitle, dizleri hafif kır ve aparatı nötr bileklerle kavra.",
+        "Brace the feet on the platform, soften the knees, and grip the attachment with neutral wrists."
       ],
       [
-        "Bitişte kürek kemiklerini sık ve 1 sn tut.",
-        "Squeeze shoulder blades together at the end and hold for 1 second."
+        "Kalçanın üzerinde dengeli otur; nötr omurga ve kontrollü kaburga pozisyonu kur.",
+        "Sit balanced on the hips with a neutral spine and controlled rib position."
       ],
       [
-        "Tam gerilim için hareketi tam uzanarak başlat.",
-        "Start from a full stretch for maximum range of motion."
+        "Omuzları kulaklardan uzaklaştırıp dirsekleri geriye sürerek aparatı çek.",
+        "Keep the shoulders away from the ears and drive the elbows back to pull the attachment."
       ],
       [
-        "Dirsekler gövdeye yakın kalsın — dışa açılmasın.",
-        "Keep elbows close to the body — don't let them flare outward."
+        "Aparatı alt kaburga/üst karın bölgesine getir ve kürek kemiklerini kontrollü yaklaştır.",
+        "Bring the attachment toward the lower ribs or upper abdomen and draw the shoulder blades together under control."
+      ],
+      [
+        "Gövdeyi savurmadan kolları uzat ve kürek kemiklerinin öne doğru doğal hareketine izin ver.",
+        "Extend the arms without swinging the torso and allow the shoulder blades to move naturally forward."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Her tekrarda gövdeyi ileri geri savurarak momentum kullanmak.",
+        "Swinging the torso forward and backward to create momentum."
+      ],
+      [
+        "Alt pozisyonda beli yuvarlayıp yükü omurgaya taşımak.",
+        "Rounding the lower back in the stretched position."
+      ],
+      [
+        "Omuzları yukarı silkip boynu sıkıştırmak.",
+        "Shrugging the shoulders upward and crowding the neck."
+      ],
+      [
+        "Dirsekleri gereğinden fazla geriye çekip omuz başını öne yuvarlamak.",
+        "Pulling the elbows too far behind the body and rolling the shoulder head forward."
+      ]
+    ],
+    "tips": [
+      [
+        "Gövde açısını sabit tut; küçük doğal kalça hareketini büyük salınıma dönüştürme.",
+        "Keep torso angle stable and do not turn small natural hip movement into a large swing."
+      ],
+      [
+        "Çekiş sonunda göğsü şişirmek yerine kürek kemiklerini kontrollü yaklaştır.",
+        "At the finish, draw the shoulder blades together instead of overextending the chest."
+      ],
+      [
+        "Dirsek yolunu seçilen aparata göre gövdeye yakın veya hafif açık tutarlı kullan.",
+        "Keep elbow path consistent with the chosen attachment, either close or slightly flared."
+      ],
+      [
+        "Ağırlık yığını tekrarlar arasında çarpıyorsa yükü veya hareket hızını azalt.",
+        "Reduce load or speed if the weight stack crashes between reps."
+      ]
+    ],
+    "progression": [
+      [
+        "Machine row veya chest-supported row ile sabit gövdede çekiş yolunu öğren.",
+        "Learn the pulling path with a machine row or chest-supported row."
+      ],
+      [
+        "Cable rowda pause ve kontrollü geri dönüşle tam hareket açıklığı geliştir.",
+        "Build full range on the cable row with a pause and controlled return."
+      ],
+      [
+        "Hedef tekrarlar gövde salınımı olmadan tamamlanınca yük artır.",
+        "Add load once target reps are completed without torso swing."
+      ],
+      [
+        "İleri aşamada farklı tutuşlar veya tek kol varyasyonuyla açıları çeşitlendir.",
+        "At an advanced stage, vary angles with different grips or a single-arm variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "rhomboids",
+        "middle-trapezius",
+        "latissimus-dorsi"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis"
       ]
     },
     "media": {
@@ -4685,7 +5058,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Cable Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cable Row Rehberi | Oturarak Kablo Çekiş Formu",
+        "Cable Row Guide | Seated Row Form"
+      ],
+      "metaDescription": [
+        "Cable row oturuşu, dirsek ve kürek kemiği yolu, kontrollü uzama ve yaygın form hataları.",
+        "Learn seated cable row setup, elbow and shoulder-blade path, controlled stretch, and common mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Rhomboid, orta trapez ve lat",
+          "Rhomboids, middle traps, and lats"
+        ],
+        "equipment": [
+          "Kablo row makinesi ve aparat",
+          "Cable row machine and attachment"
+        ],
+        "movementPattern": [
+          "Yatay çekiş",
+          "Horizontal pull"
+        ],
+        "bestFor": [
+          "Orta sırt kuvveti ve hipertrofisi",
+          "Mid-back strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Kullandığın aparat, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log attachment, load, reps, and RIR."
+        ],
+        [
+          "Gövde açısı veya pause süresini tutarlı kullan.",
+          "Keep torso angle and pause duration consistent."
+        ],
+        [
+          "Ağırlık yığını çarpmadan tamamlanan tekrarları takip et.",
+          "Track reps completed without the weight stack crashing."
+        ]
+      ],
+      "related": [
+        "machine-row",
+        "chest-supported-row",
+        "barbell-row"
+      ]
+    }
   },
   "machine-row": {
     "publish": false,
@@ -5735,32 +6154,94 @@ window.LOGWISE_EX_GUIDES = {
       "Squat holding a dumbbell at chest. Teaching variation."
     ],
     "description": [
-      "Dumbbell veya kettlebell göğüs önünde tutularak yapılan squat. Gövdeyi daha dik tutmayı öğretir ve yeni başlayanlar için squat formunu oturtmada çok etkilidir. Quadriceps, glute ve core aynı anda çalışır.",
-      "A squat performed while holding a dumbbell or kettlebell in front of the chest. It teaches a more upright torso and is highly effective for learning squat mechanics. It trains the quads, glutes, and core together."
+      "Dumbbell veya kettlebell göğüs önünde tutularak yapılan squat varyasyonudur. Öndeki yük daha dik gövdeyi teşvik eder; quadriceps, gluteus maximus, adduktorlar ve gövde stabilizatörleri birlikte çalışır.",
+      "A squat variation performed with a dumbbell or kettlebell held in front of the chest. The front-loaded position encourages a more upright torso while training the quads, glutes, adductors, and trunk stabilizers."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ağırlığı göğse yakın tut; kollarla öne taşımaya çalışma.",
-        "Keep the load close to the chest instead of reaching it forward."
+        "Ağırlığı iki elinle göğse yakın tut ve ayakları rahat squat genişliğine yerleştir.",
+        "Hold the load close to the chest with both hands and set the feet at a comfortable squat width."
       ],
       [
-        "Dirsekleri hafif aşağı yönlendirip göğsü açık tut.",
-        "Angle the elbows slightly down and keep the chest open."
+        "Ayak tabanını üç noktadan yere bas; nefes alıp karın bölgesini sık.",
+        "Create three-point foot pressure and brace the abdomen after taking a breath."
       ],
       [
-        "Alt noktada topukların yerde kaldığından emin ol.",
-        "Make sure the heels stay grounded at the bottom."
+        "Kalça ve dizleri birlikte bükerek dizleri ayak parmaklarının yönünde ilerlet.",
+        "Bend the hips and knees together while tracking the knees in the direction of the toes."
+      ],
+      [
+        "Topuklar ve gövde kontrolü korunabildiği derinliğe kadar in.",
+        "Descend to the depth where heel contact and torso control can be maintained."
+      ],
+      [
+        "Tüm ayağı yere iterek ayağa kalk ve üstte kalça ile dizleri kontrollü uzat.",
+        "Drive the whole foot into the floor to stand and extend the hips and knees under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağırlığı göğüsten uzağa taşıyıp omuz ve beli gereksiz yormak.",
+        "Holding the load away from the chest and unnecessarily fatiguing the shoulders and back."
+      ],
+      [
+        "Topukları kaldırmak veya ayak tabanı basıncını kaybetmek.",
+        "Letting the heels rise or losing balanced foot pressure."
+      ],
+      [
+        "Dizlerin içe çökmesine izin vermek.",
+        "Allowing the knees to collapse inward."
+      ],
+      [
+        "Daha derine inmek için bel ve pelvisi kontrolsüz yuvarlamak.",
+        "Rounding the lower back and pelvis without control to chase more depth."
+      ]
+    ],
+    "tips": [
+      [
+        "Ağırlığı göğse yakın tutmak karşı denge sağlar ve dik gövdeyi kolaylaştırır.",
+        "Keeping the load close provides counterbalance and supports a more upright torso."
+      ],
+      [
+        "Dizlerin ayak ucunu geçmesi tek başına hata değildir; topuk ve diz hattını kontrol et.",
+        "The knees passing the toes is not automatically an error; focus on heel contact and knee tracking."
+      ],
+      [
+        "Ayak bileği kısıtlıysa geçici olarak küçük topuk yükseltisi kullanıp mobiliteyi ayrıca çalış.",
+        "If ankle mobility is limited, use a small heel lift temporarily while training mobility separately."
+      ],
+      [
+        "Ağırlık gövde pozisyonunu bozuyorsa daha ağır dumbbell yerine tempo veya pause ekle.",
+        "If a heavier dumbbell disrupts position, add tempo or pauses instead of load."
+      ]
+    ],
+    "progression": [
+      [
+        "Destekli bodyweight squat ile ayak basıncı ve diz takibini öğren.",
+        "Learn foot pressure and knee tracking with a supported bodyweight squat."
+      ],
+      [
+        "Hafif goblet squat ile rahat derinlik ve dik gövde pozisyonu geliştir.",
+        "Develop comfortable depth and an upright torso with a light goblet squat."
+      ],
+      [
+        "Hedef tekrarlar kontrolle tamamlanınca dumbbell veya kettlebell yükünü artır.",
+        "Increase dumbbell or kettlebell load once target reps are controlled."
+      ],
+      [
+        "Goblet yükü tutuşla sınırlanınca front/back squat veya tempo varyasyonuna ilerle.",
+        "When grip limits the goblet load, progress to a front/back squat or tempo variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps",
+        "gluteus-maximus"
       ],
       "secondary": [
-        "glutes"
+        "adductor-magnus",
+        "abdominals",
+        "spinal-erectors"
       ]
     },
     "media": {
@@ -5777,7 +6258,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Goblet Squat exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Goblet Squat Rehberi | Form ve Derinlik",
+        "Goblet Squat Guide | Form and Depth"
+      ],
+      "metaDescription": [
+        "Goblet squat ağırlık tutuşu, ayak basıncı, diz takibi, kontrollü derinlik ve progression adımları.",
+        "Learn goblet squat load position, foot pressure, knee tracking, controlled depth, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Dumbbell veya kettlebell",
+          "Dumbbell or kettlebell"
+        ],
+        "movementPattern": [
+          "Squat",
+          "Squat"
+        ],
+        "bestFor": [
+          "Squat öğrenimi ve bacak kuvveti",
+          "Learning the squat and building leg strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Ağırlık, tekrar, RIR ve kullandığın topuk yükseltisini kaydet.",
+          "Log load, reps, RIR, and any heel elevation used."
+        ],
+        [
+          "Kontrollü alt nokta derinliğini tutarlı takip et.",
+          "Track a consistent controlled bottom depth."
+        ],
+        [
+          "Diz takibi veya topuk temasının bozulduğu setleri not et.",
+          "Note sets where knee tracking or heel contact changed."
+        ]
+      ],
+      "related": [
+        "squat",
+        "cossack-squat",
+        "leg-press"
+      ]
+    }
   },
   "hack-squat": {
     "publish": false,
@@ -6056,36 +6583,95 @@ window.LOGWISE_EX_GUIDES = {
       "Lunge. Single leg strength."
     ],
     "description": [
-      "İleri hamle. Tek bacak gücü, denge ve koordinasyon için mükemmeldir. Quadriceps ve gluteusları birlikte çalıştırır.",
-      "Forward lunge. Excellent for single-leg strength, balance, and coordination. Works quads and glutes together."
+      "Öne adımla yapılan tek taraflı squat/deselerasyon hareketidir. Quadriceps ve gluteus maximus ana yükü taşırken adduktorlar, hamstring ve baldır kasları dengeye katkı verir.",
+      "A unilateral squat and deceleration pattern performed by stepping forward. The quadriceps and gluteus maximus carry most of the load while the adductors, hamstrings, and calves assist balance."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Adım atınca ön diz ayak parmağının önüne geçmemeli.",
-        "When stepping, front knee should not go past the toes."
+        "Ayakları kalça genişliğinde tutup dik ve dengeli bir başlangıç pozisyonu al.",
+        "Stand tall and balanced with the feet around hip width."
       ],
       [
-        "Gövdeyi dik tut — aşırı öne eğilme.",
-        "Keep torso upright — don't lean excessively forward."
+        "Bir ayakla öne yeterince uzun adım at ve tüm ön ayağı yere yerleştir.",
+        "Take a sufficiently long step forward and place the entire front foot on the floor."
       ],
       [
-        "Arka diz yere yakın insin ama değmemeli.",
-        "Rear knee comes close to the floor but should not touch it."
+        "Her iki dizi bükerek arka dizi kontrollü biçimde zemine yaklaştır.",
+        "Bend both knees and lower the back knee toward the floor under control."
       ],
       [
-        "Her iki tarafı eşit tekrarla çalıştır.",
-        "Train both sides with equal reps and weight."
+        "Ön dizin ayak parmaklarıyla aynı yönde ilerlemesine ve ön topuğun yerde kalmasına izin ver.",
+        "Let the front knee track in the direction of the toes while the front heel stays grounded."
+      ],
+      [
+        "Ön ayağı yere iterek başlangıca dön; dengeyi kurup diğer tekrara geç.",
+        "Drive through the front foot to return, regain balance, and begin the next rep."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Adımı ip üzerinde yürür gibi çok dar atıp yan dengeyi kaybetmek.",
+        "Stepping on an overly narrow line and losing side-to-side balance."
+      ],
+      [
+        "Ön topuğu kaldırmak veya dizin içe çökmesine izin vermek.",
+        "Letting the front heel rise or the knee collapse inward."
+      ],
+      [
+        "Arka dizi kontrolsüz biçimde zemine çarpmak.",
+        "Dropping the back knee into the floor without control."
+      ],
+      [
+        "Başlangıca dönmek için ön ayak yerine yalnız arka ayaktan sıçramak.",
+        "Pushing off only the rear foot instead of driving through the front foot."
+      ]
+    ],
+    "tips": [
+      [
+        "Ön dizin ayak ucunu geçmesi tek başına hata değildir; topuk temasını ve diz hattını koru.",
+        "The front knee passing the toes is not automatically an error; maintain heel contact and knee tracking."
+      ],
+      [
+        "Denge için adımları iki ayrı ray üzerinde atıyormuş gibi kalça genişliğini koru.",
+        "For balance, keep hip width as if stepping on two separate tracks."
+      ],
+      [
+        "Adım uzunluğunu ön ayak yerde kalacak ve iki diz rahatça bükülecek şekilde ayarla.",
+        "Choose a step length that keeps the front foot grounded and allows both knees to bend comfortably."
+      ],
+      [
+        "Denge bozuluyorsa önce sabit split squat veya hafif destekle kontrol geliştir.",
+        "If balance is limiting, build control first with a stationary split squat or light support."
+      ]
+    ],
+    "progression": [
+      [
+        "Destekli split squat ile tek taraflı alt pozisyonu öğren.",
+        "Learn the unilateral bottom position with a supported split squat."
+      ],
+      [
+        "Vücut ağırlığı forward lunge ile adım ve frenleme kontrolü geliştir.",
+        "Develop stepping and deceleration control with a bodyweight forward lunge."
+      ],
+      [
+        "Dumbbell yükü ekleyip iki tarafta eşit tekrar ve hareket açıklığı koru.",
+        "Add dumbbell load while preserving equal reps and range on both sides."
+      ],
+      [
+        "İleri aşamada walking lunge, pause veya daha ağır yük varyasyonlarına geç.",
+        "At an advanced stage, progress to walking lunges, pauses, or heavier loading."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "quadriceps",
+        "gluteus-maximus"
       ],
       "secondary": [
-        "glutes"
+        "adductor-magnus",
+        "hamstrings",
+        "gastrocnemius",
+        "soleus"
       ]
     },
     "media": {
@@ -6102,7 +6688,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Lunge exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Lunge Rehberi | İleri Hamle Formu ve Denge",
+        "Lunge Guide | Forward-Lunge Form and Balance"
+      ],
+      "metaDescription": [
+        "Forward lunge adım uzunluğu, diz takibi, denge, yaygın hatalar ve tek bacak progression adımları.",
+        "Learn forward-lunge step length, knee tracking, balance, common mistakes, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus maximus",
+          "Quadriceps and gluteus maximus"
+        ],
+        "equipment": [
+          "Vücut ağırlığı veya dumbbell",
+          "Bodyweight or dumbbells"
+        ],
+        "movementPattern": [
+          "Tek taraflı squat",
+          "Unilateral squat"
+        ],
+        "bestFor": [
+          "Tek bacak kuvveti, denge ve koordinasyon",
+          "Single-leg strength, balance, and coordination"
+        ]
+      },
+      "tracking": [
+        [
+          "Her taraf için ağırlık, tekrar ve RIR değerini ayrı kaydet.",
+          "Log load, reps, and RIR for each side."
+        ],
+        [
+          "Adım uzunluğu ve kullanılan varyasyonu tutarlı takip et.",
+          "Track step length and variation consistently."
+        ],
+        [
+          "Denge kaybı veya diz hattı bozulduğu tekrarları not et.",
+          "Note reps where balance or knee tracking changed."
+        ]
+      ],
+      "related": [
+        "walking-lunge",
+        "bulgarian-split-squat",
+        "step-up"
+      ]
+    }
   },
   "walking-lunge": {
     "publish": false,
@@ -6330,31 +6962,92 @@ window.LOGWISE_EX_GUIDES = {
       "Leg curl. Hamstrings."
     ],
     "description": [
-      "Bacak bükme makinesi. Hamstring kaslarını izole eder. Yatarak veya oturarak yapılır. Bacak güç dengesini korumak için kritiktir.",
-      "Leg curl machine. Isolates the hamstring muscles. Performed lying or seated. Critical for balanced leg strength."
+      "Yatarak leg curl makinesinde yapılan diz fleksiyonu hareketidir. Hamstring kaslarını kısalan pozisyona doğru çalıştırır; gastrocnemius diz bükmeye yardımcı olur.",
+      "A knee-flexion movement performed on a lying leg-curl machine. It trains the hamstrings toward a shortened position while the gastrocnemius assists knee flexion."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Hareket boyunca kalçanın banktan kalkmasını engelle.",
-        "Prevent hips from lifting off the pad during the movement."
+        "Makinenin pivotunu diz eklemiyle hizala ve pedi ayak bileğinin hemen üstüne yerleştir.",
+        "Align the machine pivot with the knee joint and place the roller just above the ankle."
       ],
       [
-        "Tam uzanmaya izin ver — hamstring gerilimi önemlidir.",
-        "Allow full extension — the hamstring stretch is important."
+        "Yüzüstü uzanıp kalça ve gövdeyi pede sabitle; tutacakları kavra.",
+        "Lie face down, secure the hips and torso against the pad, and hold the handles."
       ],
       [
-        "Kontrollü indir; hamstring yaralanmalarından korunmak için form şart.",
-        "Lower with control; proper form is essential to prevent hamstring injuries."
+        "Ayak bileğini rahat pozisyonda tutup dizleri bükerek pedi kalçaya doğru çek.",
+        "Keep the ankle comfortable and bend the knees to curl the pad toward the glutes."
+      ],
+      [
+        "Kalça pedden kalkmadan ulaşabildiğin üst noktada hamstringleri kısa süre sık.",
+        "Briefly squeeze the hamstrings at the top position reached without the hips lifting."
+      ],
+      [
+        "Ağırlığı kontrollü indir ve dizleri sertçe kilitlemeden tam uzamaya yaklaş.",
+        "Lower the load under control and approach full extension without snapping the knees straight."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kalçayı pedden kaldırıp belden kavis oluşturarak ağırlığı çekmek.",
+        "Lifting the hips and arching the lower back to move the load."
+      ],
+      [
+        "Diz eklemini makine pivotuyla hizalamamak.",
+        "Failing to align the knee joint with the machine pivot."
+      ],
+      [
+        "Ağırlığı hızla savurup üstte ve altta kontrolü kaybetmek.",
+        "Swinging the load and losing control at the top and bottom."
+      ],
+      [
+        "Pedi baldırın ortasına yerleştirip kaldıraç ve konforu bozmak.",
+        "Placing the roller too high on the calf and changing leverage and comfort."
+      ]
+    ],
+    "tips": [
+      [
+        "Kalçanın kalkmaya başladığı yük, hedef hamstring çalışması için genellikle fazladır.",
+        "A load that causes the hips to lift is usually too heavy for targeted hamstring work."
+      ],
+      [
+        "Alt pozisyonda kontrollü uzama, üstte kısa sıkıştırma kullan.",
+        "Use a controlled stretch at the bottom and a brief squeeze at the top."
+      ],
+      [
+        "Ayak bileği pozisyonunu set boyunca tutarlı koru.",
+        "Keep ankle position consistent throughout the set."
+      ],
+      [
+        "Sağ-sol farkı varsa tek taraflı setlerle tekrar ve kontrolü karşılaştır.",
+        "If sides differ, compare reps and control with unilateral sets."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle makine pivotu, pad konumu ve tam kontrollü hareket açıklığını öğren.",
+        "Use a light load to learn pivot alignment, pad position, and controlled range."
+      ],
+      [
+        "Hedef tekrarları kalça sabitken tamamlayınca küçük yük artışı yap.",
+        "Add a small amount of load after completing target reps with the hips stable."
+      ],
+      [
+        "Tek bacak veya yavaş eksantrik setlerle taraf kontrolünü geliştir.",
+        "Use single-leg or slow-eccentric sets to improve side-to-side control."
+      ],
+      [
+        "Hamstring programını seated leg curl, RDL veya Nordic curl ile farklı kas boylarında tamamla.",
+        "Complement hamstring training at other muscle lengths with seated leg curls, RDLs, or Nordic curls."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "legs"
+        "hamstrings"
       ],
-      "secondary": []
+      "secondary": [
+        "gastrocnemius"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -6370,7 +7063,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Leg Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Leg Curl Rehberi | Yatarak Hamstring Formu",
+        "Leg Curl Guide | Lying Hamstring-Curl Form"
+      ],
+      "metaDescription": [
+        "Yatarak leg curl makine ayarı, diz-pivot hizası, kalça kontrolü, hareket açıklığı ve progression.",
+        "Learn lying leg-curl setup, knee-pivot alignment, hip control, range of motion, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Hamstringler",
+          "Hamstrings"
+        ],
+        "equipment": [
+          "Yatarak leg curl makinesi",
+          "Lying leg-curl machine"
+        ],
+        "movementPattern": [
+          "Diz fleksiyonu",
+          "Knee flexion"
+        ],
+        "bestFor": [
+          "Hamstring izolasyonu ve diz fleksiyon kuvveti",
+          "Hamstring isolation and knee-flexion strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine ayarı, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log machine setup, load, reps, and RIR."
+        ],
+        [
+          "Kalça sabitken ulaşılan üst ve alt pozisyonu takip et.",
+          "Track top and bottom positions reached with stable hips."
+        ],
+        [
+          "Tek taraflı setlerde sağ-sol tekrar farkını not et.",
+          "Note right-left rep differences on unilateral sets."
+        ]
+      ],
+      "related": [
+        "seated-leg-curl",
+        "romanian-deadlift",
+        "nordic-curl"
+      ]
+    }
   },
   "seated-leg-curl": {
     "publish": false,
