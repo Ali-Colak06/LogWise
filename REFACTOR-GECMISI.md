@@ -4151,6 +4151,58 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 69 — Exercise Guide Enrichment Batch 5 (2026-06-19)
+
+### Amaç
+
+Dikey ve yatay sırt çekişlerinin tek kol, düz kol, supine tutuş, yardımlı, dumbbell, makine ve göğüs destekli varyasyonlarını tam guide seviyesine taşımak; tek taraflı çalışma ve makine desteği hakkındaki otomatik sonuç iddialarını düzeltmek.
+
+### Kapsam
+
+- Single-Arm Lat Pulldown
+- Straight-Arm Pulldown
+- Chin Up
+- Assisted Pull Up
+- Dumbbell Row (`dumbell-row` legacy slug)
+- Machine Row
+- Chest-Supported Row
+
+### İçerik Kararları
+
+- **Tek taraflı çalışma:** Single-Arm Lat Pulldown ve Dumbbell Row iki taraf arasındaki farkı görünür ve ayrı takip edilebilir kılar; asimetriyi otomatik düzelttiği iddia edilmedi.
+- **Straight-arm ayrımı:** Straight-Arm Pulldown dirsek fleksiyonu değil, büyük ölçüde sabit dirsekle omuz ekstansiyonu olarak tanımlandı.
+- **Chin-up standardı:** Supine tam kavrama, brace, dirsekleri aşağı sürme, sallanmadan dik gövde ve kontrollü tam uzama ACE Chin-ups rehberiyle çapraz kontrol edildi.
+- **Yardım profili:** Assisted Pull Up için bant ve makinenin farklı yardım eğrileri sunduğu; ilerlemenin aynı sistem içinde karşılaştırılması gerektiği yazıldı.
+- **Makine güvenliği:** Machine Row sabit yolu ve desteği denge talebini azaltır; ayar ve omuz kontrolü gerekliliği sürdüğü için mutlak “güvenli hacim” ifadesi kaldırıldı.
+- **Göğüs desteği:** Chest-Supported Row spinal erektör talebini azaltabilir; bunu sıfır bel yükü veya herkes için ağrısızlık garantisi olarak sunmadı.
+- **Anatomik kas verisi:** Yedi kayıt hareket bazlı primary/secondary kas slug'larına geçirildi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 38 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Kaynak
+
+- `https://www.acefitness.org/resources/everyone/exercise-library/190/chin-ups/`
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi sırt çekiş hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 38 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 68 — Exercise Guide Enrichment Batch 4 (2026-06-19)
 
 ### Amaç

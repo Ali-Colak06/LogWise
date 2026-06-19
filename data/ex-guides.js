@@ -5713,32 +5713,95 @@ window.LOGWISE_EX_GUIDES = {
       "Single-arm lat pulldown. Strong lat feel."
     ],
     "description": [
-      "Tek kol yapılan lat pulldown varyasyonu. Her iki tarafı ayrı çalıştırarak lat hissini kuvvetlendirir ve asimetrileri fark etmeyi kolaylaştırır. Çekiş mekaniğini öğretmek için de çok faydalıdır.",
-      "A single-arm lat pulldown variation. Training each side separately strengthens lat feel and makes asymmetries easier to notice. It is also very useful for teaching better pulling mechanics."
+      "Tek kol kabloyla yapılan dikey çekiş varyasyonudur. Latissimus dorsi ve teres major ana yükü taşırken tek taraflı çalışma iki tarafın hareket açıklığı ve kontrolünü ayrı gözlemlemeyi sağlar.",
+      "A unilateral vertical pull performed on a cable. The latissimus dorsi and teres major carry most of the load while single-arm work allows each side’s range and control to be observed separately."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirseği kalçaya doğru çekmeyi düşün.",
-        "Think about driving the elbow toward the hip."
+        "Kabloyu üst konuma ayarla; oturarak veya yarım diz çökerek tek kol aparatını kavra.",
+        "Set the cable high and grip a single-handle attachment from a seated or half-kneeling position."
       ],
       [
-        "Gövdeyi fazla döndürmeden çekiş yap.",
-        "Pull without excessively rotating the torso."
+        "Kaburgaları kontrollü, gövdeyi dik ve çalışan omuzu kulaktan uzak tut.",
+        "Keep the ribs controlled, torso upright, and working shoulder away from the ear."
       ],
       [
-        "Zayıf tarafı önce çalıştırmak faydalı olabilir.",
-        "Training the weaker side first can be helpful."
+        "Kürek kemiğini aşağı alıp dirseği kalça yönüne sürerek çekişi başlat.",
+        "Initiate by drawing the shoulder blade down and driving the elbow toward the hip."
+      ],
+      [
+        "Gövdeyi döndürmeden dirseği rahat son noktaya getir ve kısa süre kontrol et.",
+        "Bring the elbow to a comfortable finish without rotating the torso and pause briefly."
+      ],
+      [
+        "Kolu yavaşça uzatıp omuzun kontrollü yükselmesine izin vererek başlangıca dön.",
+        "Extend the arm slowly and allow the shoulder to rise under control on the return."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dirseği indirmek için gövdeyi yana eğmek veya döndürmek.",
+        "Side-bending or rotating the torso to bring the elbow down."
+      ],
+      [
+        "Başlangıçta omuzu kulağa çekip kontrolsüz yüklenmek.",
+        "Shrugging the shoulder toward the ear and loading without control."
+      ],
+      [
+        "Çekişi yalnız biceps curl gibi dirsekten yapmak.",
+        "Turning the pull into an elbow-only biceps curl."
+      ],
+      [
+        "Kablonun kolu yukarı fırlatmasına izin vermek.",
+        "Allowing the cable to pull the arm upward abruptly."
+      ]
+    ],
+    "tips": [
+      [
+        "Dirseği aşağı değil, kalçanın yanına doğru sürmeyi düşün.",
+        "Think about driving the elbow toward the side of the hip."
+      ],
+      [
+        "Tek taraflı çalışma farkı görünür kılar; farkı otomatik düzeltmez, iki tarafı ayrı takip et.",
+        "Unilateral work reveals differences but does not automatically fix them; track each side separately."
+      ],
+      [
+        "Alt noktada gövdeyi sıkıştırmadan lat kasında kontrollü kısalma ara.",
+        "Seek a controlled lat contraction without crunching the torso at the bottom."
+      ],
+      [
+        "Zayıf tarafla başla ve güçlü tarafı aynı temiz tekrar sayısıyla sınırla.",
+        "Start with the weaker side and limit the stronger side to the same clean reps."
+      ]
+    ],
+    "progression": [
+      [
+        "Straight-arm pulldown ile omuz ekstansiyonu ve lat kontrolü öğren.",
+        "Learn shoulder extension and lat control with a straight-arm pulldown."
+      ],
+      [
+        "Hafif tek kol pulldownda gövde sabitliği ve dirsek yolunu geliştir.",
+        "Develop torso stability and elbow path on a light single-arm pulldown."
+      ],
+      [
+        "İki taraf aynı hareket açıklığında hedef tekrarları tamamlayınca yük artır.",
+        "Add load once both sides complete target reps through the same range."
+      ],
+      [
+        "Bilateral lat pulldown ve assisted pull-up ile daha yüksek toplam çekişe ilerle.",
+        "Progress to bilateral lat pulldowns and assisted pull-ups for higher total pulling demands."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "teres-major"
       ],
       "secondary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis",
+        "rhomboids",
+        "lower-trapezius"
       ]
     },
     "media": {
@@ -5755,7 +5818,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Single Arm Lat Pulldown exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Single-Arm Lat Pulldown Rehberi | Tek Kol Formu",
+        "Single-Arm Lat Pulldown Guide | Form"
+      ],
+      "metaDescription": [
+        "Tek kol lat pulldown gövde pozisyonu, dirsek yolu, sağ-sol kontrolü ve progression adımları.",
+        "Learn single-arm lat-pulldown torso position, elbow path, side-to-side control, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus dorsi ve teres major",
+          "Latissimus dorsi and teres major"
+        ],
+        "equipment": [
+          "Kablo makinesi ve tek kol aparat",
+          "Cable machine and single handle"
+        ],
+        "movementPattern": [
+          "Tek taraflı dikey çekiş",
+          "Unilateral vertical pull"
+        ],
+        "bestFor": [
+          "Lat kontrolü ve sağ-sol karşılaştırması",
+          "Lat control and side-to-side comparison"
+        ]
+      },
+      "tracking": [
+        [
+          "Her taraf için ağırlık, tekrar, RIR ve pozisyonu ayrı kaydet.",
+          "Log load, reps, RIR, and position for each side."
+        ],
+        [
+          "Gövde dönüşü olmadan ulaşılan alt noktayı takip et.",
+          "Track the finish reached without torso rotation."
+        ],
+        [
+          "Sağ-sol hareket açıklığı veya tekrar farkını not et.",
+          "Note side-to-side differences in range or reps."
+        ]
+      ],
+      "related": [
+        "lat-pulldown",
+        "straight-arm-pulldown",
+        "assisted-pull-up"
+      ]
+    }
   },
   "straight-arm-pulldown": {
     "publish": false,
@@ -5767,31 +5876,95 @@ window.LOGWISE_EX_GUIDES = {
       "Straight-arm lat pulldown. Lat isolation."
     ],
     "description": [
-      "Dirsek açısını büyük ölçüde sabit tutarak yapılan kablo lat çekişi. Lat kaslarını izole etmeye yardımcı olur ve çekiş hissini öğretmek için çok faydalıdır. Pull-up ve row hareketlerine iyi bir yardımcıdır.",
-      "A cable lat movement performed while keeping the elbows mostly fixed. It helps isolate the lats and is very useful for learning how to engage them. It works well as an accessory to pull-ups and rows."
+      "Dirsek açısını büyük ölçüde sabit tutarak yapılan kablo omuz ekstansiyonu hareketidir. Latissimus dorsi ve teres major vurgulanırken triceps uzun başı ve arka omuz yardımcı olur.",
+      "A cable shoulder-extension movement performed with a mostly fixed elbow angle. It emphasizes the lats and teres major while the triceps long head and rear delts assist."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri çok bükmeden kolları yay gibi aşağı indir.",
-        "Bring the arms down in an arc without turning it into an elbow flexion exercise."
+        "Kabloyu üst konuma ayarla ve düz bar veya halatı omuz genişliğinde kavra.",
+        "Set the cable high and grip a straight bar or rope around shoulder width."
       ],
       [
-        "Göğsü açık tutup latlarla koltuk altını kapatmayı düşün.",
-        "Keep the chest open and think about closing the armpits with the lats."
+        "Bir adım geri çık, kalçadan hafif eğil ve kaburgaları kontrollü tut.",
+        "Step back, hinge slightly at the hips, and keep the ribs controlled."
       ],
       [
-        "Alt noktada kısa bir sıkışma eklemek hareketi daha verimli yapar.",
-        "A brief squeeze at the bottom often makes the exercise more effective."
+        "Dirseklerde yumuşak ama büyük ölçüde sabit bir bükülme oluştur.",
+        "Keep a soft but mostly fixed bend in the elbows."
+      ],
+      [
+        "Üst kolları yay üzerinde aşağı/kalçaya doğru getir ve omuzları kulaklardan uzak tut.",
+        "Move the upper arms down toward the hips along an arc while keeping shoulders away from the ears."
+      ],
+      [
+        "Gövde pozisyonunu bozmadan kolları kontrollü biçimde baş üzerine geri uzat.",
+        "Return the arms overhead under control without changing torso position."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dirsekleri tekrar boyunca büküp hareketi pushdowna çevirmek.",
+        "Bending the elbows through the rep and turning it into a pushdown."
+      ],
+      [
+        "Alt noktaya ulaşmak için belden aşırı kapanmak veya kalçayı sallamak.",
+        "Over-folding the torso or swinging the hips to reach the bottom."
+      ],
+      [
+        "Başlangıçta omuzları kontrolsüz biçimde kulaklara bırakmak.",
+        "Letting the shoulders rise toward the ears without control at the start."
+      ],
+      [
+        "Ağır yük için hareket açıklığını kısaltmak.",
+        "Shortening range to move excessive load."
+      ]
+    ],
+    "tips": [
+      [
+        "Ellerden çok üst kolların kalçaya yaklaşmasını düşün.",
+        "Think about the upper arms approaching the hips rather than the hands."
+      ],
+      [
+        "Dirsek açısını set boyunca tutarlı tutacak hafif-orta yük seç.",
+        "Choose a light-to-moderate load that preserves elbow angle."
+      ],
+      [
+        "Alt noktada kaburgaları aşağıda tut; beli geriye kavisleyerek bitirme.",
+        "Keep the ribs down at the bottom instead of finishing with lower-back extension."
+      ],
+      [
+        "Üstte latın uzamasına izin ver ama ağırlık yığınını çarptırma.",
+        "Allow the lats to lengthen at the top without crashing the weight stack."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif halatla dirsek açısını ve gövde pozisyonunu öğren.",
+        "Learn elbow angle and torso position with a light rope attachment."
+      ],
+      [
+        "Düz bar varyasyonunda tam üst uzama ve kontrollü alt sıkıştırma geliştir.",
+        "Build full overhead reach and controlled bottom contraction with a straight bar."
+      ],
+      [
+        "Hedef tekrarlar gövde salınımı olmadan tamamlanınca yük artır.",
+        "Add load once target reps are completed without torso swing."
+      ],
+      [
+        "Lat pulldown ve pull-up hareketlerinde aynı omuz ekstansiyonu hissini uygula.",
+        "Apply the same shoulder-extension control to lat pulldowns and pull-ups."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "teres-major"
       ],
-      "secondary": []
+      "secondary": [
+        "triceps-long-head",
+        "posterior-deltoid",
+        "abdominals"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -5807,7 +5980,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Straight Arm Pulldown exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Straight-Arm Pulldown Rehberi | Lat Formu",
+        "Straight-Arm Pulldown Guide | Lat Form"
+      ],
+      "metaDescription": [
+        "Straight-arm pulldown dirsek açısı, gövde kontrolü, lat hareket açıklığı ve yaygın hatalar.",
+        "Learn straight-arm pulldown elbow angle, torso control, lat range, and common mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus dorsi ve teres major",
+          "Latissimus dorsi and teres major"
+        ],
+        "equipment": [
+          "Kablo makinesi ve bar/halat",
+          "Cable machine and bar or rope"
+        ],
+        "movementPattern": [
+          "Omuz ekstansiyonu",
+          "Shoulder extension"
+        ],
+        "bestFor": [
+          "Lat kontrolü ve çekiş aksesuarı",
+          "Lat control and pulling assistance"
+        ]
+      },
+      "tracking": [
+        [
+          "Aparat, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log attachment, load, reps, and RIR."
+        ],
+        [
+          "Dirsek açısı ve gövde eğimini tutarlı takip et.",
+          "Track elbow angle and torso lean consistently."
+        ],
+        [
+          "Gövde salınımı veya pushdowna dönüşen setleri not et.",
+          "Note sets that develop torso swing or turn into a pushdown."
+        ]
+      ],
+      "related": [
+        "lat-pulldown",
+        "single-arm-lat-pulldown",
+        "pull-up"
+      ]
+    }
   },
   "pull-up": {
     "publish": false,
@@ -6034,32 +6253,95 @@ window.LOGWISE_EX_GUIDES = {
       "Supinated pull-up. More biceps emphasis."
     ],
     "description": [
-      "Avuç içleri sana bakacak şekilde yapılan barfiks varyasyonu. Lat kaslarıyla birlikte biceps daha fazla yük alır ve birçok kullanıcı için klasik pull-up'tan biraz daha ulaşılabilirdir. Üst vücut çekiş gücü için temel hareketlerden biridir.",
-      "A pull-up variation performed with palms facing you. It places more emphasis on the biceps while still heavily training the lats, and is slightly more accessible than a standard pull-up for many lifters. It is a foundational upper-body pulling exercise."
+      "Avuçların kullanıcıya baktığı supine tutuşla yapılan vücut ağırlığı dikey çekişidir. Latissimus dorsi ile biceps brachii yüksek yük paylaşır; brachialis ve üst sırt kasları çekişe katkı verir.",
+      "A bodyweight vertical pull performed with a supinated grip and palms facing the lifter. The lats and biceps share high demand while the brachialis and upper back assist."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Tam asılı başlangıçtan çık ve tepe noktada çeneyi barın üstüne getir.",
-        "Start from a full dead hang and bring the chin clearly above the bar at the top."
+        "Barı omuz genişliğinde supine tam kavrama ile tut; bilekleri ön kollarla hizala.",
+        "Grip the bar around shoulder width with a full supinated grip and wrists aligned with the forearms."
       ],
       [
-        "Dirsekleri aşağı ve geriye çekmeyi düşün; sadece ellerinle asılma.",
-        "Think about pulling elbows down and back rather than hanging only from the hands."
+        "Kolları uzat, karın bölgesini sık ve gövdeyi sallanmayacak şekilde hizala.",
+        "Extend the arms, brace the abdomen, and align the torso to prevent swinging."
       ],
       [
-        "Sallanma yerine kontrollü tempo kullan; inişi de aktif yap.",
-        "Use a controlled tempo instead of swinging, and make the descent active as well."
+        "Omuzları kulaklardan uzaklaştırıp dirsekleri aşağı/yanlara sürerek çekişi başlat.",
+        "Initiate by drawing the shoulders away from the ears and driving the elbows down toward the sides."
+      ],
+      [
+        "Boynu uzatmadan çeneyi bar seviyesine getir ve kısa süre kontrol et.",
+        "Bring the chin to bar level without craning the neck and pause briefly."
+      ],
+      [
+        "Sallanmayı önleyerek kollar tam uzayana kadar kontrollü biçimde alçal.",
+        "Lower under control to full arm extension without introducing a swing."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kalça ve bacakları savurarak momentum üretmek.",
+        "Swinging the hips and legs to create momentum."
+      ],
+      [
+        "Çeneyi bara ulaştırmak için boynu aşırı uzatmak.",
+        "Overextending the neck just to clear the bar."
+      ],
+      [
+        "Alt pozisyonda dirsekleri tam uzatmadan yarım tekrar yapmak.",
+        "Performing partial reps without full elbow extension at the bottom."
+      ],
+      [
+        "Omuzları kulaklara çekip skapula kontrolünü kaybetmek.",
+        "Shrugging the shoulders toward the ears and losing scapular control."
+      ]
+    ],
+    "tips": [
+      [
+        "Dirsekleri zemine doğru sürmeyi ve göğsü bara yaklaştırmayı düşün.",
+        "Think about driving the elbows toward the floor and bringing the chest toward the bar."
+      ],
+      [
+        "Supine tutuş bilek veya dirseği rahatsız ediyorsa nötr tutuş veya pull-up varyasyonu kullan.",
+        "If the supinated grip bothers the wrists or elbows, use a neutral grip or pull-up variation."
+      ],
+      [
+        "Her tekrarı aynı dik gövde ve kontrollü inişle tamamla.",
+        "Complete every rep with the same upright torso and controlled descent."
+      ],
+      [
+        "Teknik bozuluyorsa yardım kullanarak tam hareket açıklığını koru.",
+        "Use assistance to preserve full range if technique breaks down."
+      ]
+    ],
+    "progression": [
+      [
+        "Dead hang ve active hang ile kavrama ve omuz kontrolü geliştir.",
+        "Build grip and shoulder control with dead hangs and active hangs."
+      ],
+      [
+        "Assisted chin-up ile tam hareket açıklığında tekrar biriktir.",
+        "Accumulate full-range reps with assisted chin-ups."
+      ],
+      [
+        "Vücut ağırlığı chin-upta temiz tekrar sayısını artır.",
+        "Increase clean bodyweight chin-up reps."
+      ],
+      [
+        "İleri aşamada küçük ek ağırlık veya kontrollü pause kullan.",
+        "At an advanced stage, add small amounts of weight or controlled pauses."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "biceps-brachii"
       ],
       "secondary": [
-        "biceps"
+        "brachialis",
+        "rhomboids",
+        "middle-trapezius",
+        "abdominals"
       ]
     },
     "media": {
@@ -6076,7 +6358,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Chin Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Chin Up Rehberi | Ters Tutuş Barfiks Formu",
+        "Chin-Up Guide | Supinated Pull-Up Form"
+      ],
+      "metaDescription": [
+        "Chin-up supine tutuşu, dirsek yolu, tam hareket açıklığı, kontrollü iniş ve progression adımları.",
+        "Learn chin-up grip, elbow path, full range, controlled descent, common mistakes, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Lat ve biceps",
+          "Lats and biceps"
+        ],
+        "equipment": [
+          "Pull-up barı",
+          "Pull-up bar"
+        ],
+        "movementPattern": [
+          "Supine dikey çekiş",
+          "Supinated vertical pull"
+        ],
+        "bestFor": [
+          "Üst vücut çekiş ve biceps kuvveti",
+          "Upper-body pulling and biceps strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Yardım veya ek ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log assistance or added load, reps, and RIR."
+        ],
+        [
+          "Yalnız tam alt uzama ve kontrollü üst noktalı tekrarları say.",
+          "Count only reps with full bottom extension and a controlled top."
+        ],
+        [
+          "Bilek/dirsek konforu ve sallanma başladığı setleri not et.",
+          "Note wrist or elbow comfort and sets where swinging begins."
+        ]
+      ],
+      "related": [
+        "assisted-pull-up",
+        "pull-up",
+        "active-hang"
+      ]
+    }
   },
   "chin-up-hold": {
     "publish": false,
@@ -6196,32 +6524,95 @@ window.LOGWISE_EX_GUIDES = {
       "Assisted pull-up. Pull-up progression."
     ],
     "description": [
-      "Makine veya bant desteğiyle yapılan pull-up varyasyonu. Tam barfiks gücüne giden yolda hacim ve teknik pratiği sağlar. Latlar, biceps ve skapular kontrol aynı anda gelişir.",
-      "A pull-up variation performed with machine or band assistance. It provides volume and technique practice on the way to full bodyweight pull-ups. The lats, biceps, and scapular control all improve together."
+      "Makine veya bant yardımıyla yapılan dikey vücut ağırlığı çekişidir. Yardım, tam hareket açıklığında teknik ve hacim pratiği sağlar; destek miktarı ve direnç profili kullanılan sisteme göre değişir.",
+      "A vertical bodyweight pull performed with machine or band assistance. Assistance enables technique and volume practice through full range, while the amount and resistance profile vary by system."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Destek miktarını zamanla azaltarak ilerle.",
-        "Progress by gradually reducing the amount of assistance."
+        "Makine veya bandı güvenle ayarla; barı seçtiğin pull-up/chin-up tutuşuyla kavra.",
+        "Set up the machine or band securely and grip the bar with the chosen pull-up or chin-up grip."
       ],
       [
-        "Her tekrarın dibinde tam uzama ve üstte aktif çekiş koru.",
-        "Keep a full stretch at the bottom and an active pull at the top of every rep."
+        "Kolları uzat, gövdeyi sık ve omuzları kontrollü biçimde kulaklardan uzaklaştır.",
+        "Extend the arms, brace the torso, and draw the shoulders away from the ears under control."
       ],
       [
-        "Kendini makineye bırakmak yerine inişi de kontrollü yap.",
-        "Control the lowering phase instead of dropping into the assistance."
+        "Dirsekleri aşağı sürerek göğsü bara yaklaştır ve sallanmayı önle.",
+        "Drive the elbows down and bring the chest toward the bar without swinging."
+      ],
+      [
+        "Boynu uzatmadan çeneyi bar seviyesine getir.",
+        "Bring the chin to bar level without extending the neck."
+      ],
+      [
+        "Yardım sistemine düşmeden kollar tam uzayana kadar kontrollü alçal.",
+        "Lower under control to full arm extension without dropping into the assistance."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Çok fazla yardım kullanıp çekiş eforunu ortadan kaldırmak.",
+        "Using so much assistance that meaningful pulling effort disappears."
+      ],
+      [
+        "Bant veya makineden sekerek alt noktadan hız almak.",
+        "Bouncing out of the bottom using the band or machine."
+      ],
+      [
+        "Alt ve üst pozisyonları kısaltarak yarım tekrar yapmak.",
+        "Shortening the top and bottom into partial reps."
+      ],
+      [
+        "İnişte gövdeyi tamamen serbest bırakmak.",
+        "Completely relaxing the torso during the descent."
+      ]
+    ],
+    "tips": [
+      [
+        "Yardım seviyesini yalnız tam ve temiz tekrarlar korunabildiğinde azalt.",
+        "Reduce assistance only when full clean reps can be maintained."
+      ],
+      [
+        "Makine ve bant farklı yardım profiline sahiptir; ilerlemeyi aynı sistem içinde karşılaştır.",
+        "Machines and bands provide different assistance profiles; compare progress within the same system."
+      ],
+      [
+        "Her tekrarda omuzları aşağı alarak çekişi aktif başlat.",
+        "Actively initiate each rep by drawing the shoulders down."
+      ],
+      [
+        "Vücut ağırlığı tekrarına geçmeden önce kontrollü inişi standartlaştır.",
+        "Standardize the controlled descent before progressing to bodyweight reps."
+      ]
+    ],
+    "progression": [
+      [
+        "Scapular pull-up ve active hang ile hareket başlangıcını öğren.",
+        "Learn the start of the movement with scapular pull-ups and active hangs."
+      ],
+      [
+        "Yüksek yardım seviyesinde tam hareket açıklığında tekrar biriktir.",
+        "Accumulate full-range reps with a higher assistance level."
+      ],
+      [
+        "Aynı tekrar ve teknik korunurken yardımı kademeli azalt.",
+        "Gradually reduce assistance while preserving reps and technique."
+      ],
+      [
+        "Düşük yardımdan temiz vücut ağırlığı pull-up veya chin-upa geç.",
+        "Progress from low assistance to clean bodyweight pull-ups or chin-ups."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi"
       ],
       "secondary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis",
+        "rhomboids",
+        "middle-trapezius",
+        "abdominals"
       ]
     },
     "media": {
@@ -6238,7 +6629,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Assisted Pull Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Assisted Pull Up Rehberi | Destekli Barfiks",
+        "Assisted Pull-Up Guide | Form and Progression"
+      ],
+      "metaDescription": [
+        "Assisted pull-up yardım seçimi, tam hareket açıklığı, kontrollü iniş ve vücut ağırlığına progression.",
+        "Learn assisted pull-up setup, full range, controlled descent, and progression to bodyweight reps."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Lat, üst sırt ve biceps",
+          "Lats, upper back, and biceps"
+        ],
+        "equipment": [
+          "Assisted makine veya direnç bandı",
+          "Assisted machine or resistance band"
+        ],
+        "movementPattern": [
+          "Yardımlı dikey çekiş",
+          "Assisted vertical pull"
+        ],
+        "bestFor": [
+          "Pull-up tekniği ve relatif kuvvet",
+          "Pull-up technique and relative strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine/bant türü, yardım seviyesi, tekrar ve RIR değerini kaydet.",
+          "Log machine or band type, assistance level, reps, and RIR."
+        ],
+        [
+          "Tam alt uzama ve üst noktayı tutarlı takip et.",
+          "Track consistent full bottom and top positions."
+        ],
+        [
+          "Yardım azaltılırken tekrar hızındaki değişimi not et.",
+          "Note changes in rep speed as assistance decreases."
+        ]
+      ],
+      "related": [
+        "scapular-pull-up",
+        "pull-up",
+        "chin-up"
+      ]
+    }
   },
   "australian-pull-up": {
     "publish": false,
@@ -6412,32 +6849,95 @@ window.LOGWISE_EX_GUIDES = {
       "Single arm dumbbell row."
     ],
     "description": [
-      "Tek kol dumbbell sıra çekme. Her kolu bağımsız çalıştırır; kas dengesizliklerini düzeltir. Sırt kalınlığı ve lat gelişimi için mükemmeldir.",
-      "Single arm dumbbell row. Works each arm independently, correcting imbalances. Excellent for back thickness and lat development."
+      "Bench veya sabit bir yüzeyden destek alınarak yapılan tek kol yatay çekiştir. Latissimus dorsi, rhomboidler ve orta trapez çalışırken bağımsız kol kullanımı iki tarafın kontrolünü ayrı izlemeyi sağlar.",
+      "A unilateral horizontal pull performed with support from a bench or stable surface. It trains the lats, rhomboids, and middle traps while independent-arm work allows each side’s control to be tracked separately."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Destek el ve dizi banka koy — sırt düz ve paralel.",
-        "Place support hand and knee on bench — keep back flat and parallel."
+        "Destek elini ve gerekirse aynı taraf dizini benche yerleştir; diğer ayağı yere sabitle.",
+        "Place the support hand and, if preferred, the same-side knee on the bench while planting the other foot."
       ],
       [
-        "Dumbbell'ı kalça yanına çek — öne değil, geriye.",
-        "Pull dumbbell toward hip — back and up, not forward."
+        "Nötr omurga ve kare kalça pozisyonu kur; çalışan kolu omuz altında uzat.",
+        "Set a neutral spine and square hips with the working arm extended below the shoulder."
       ],
       [
-        "Kürek kemiğini harekete dahil et; sadece kolunla çekme.",
-        "Engage the shoulder blade; don't just pull with the arm."
+        "Omuzu kulaktan uzaklaştırıp dirseği geriye/kalça yönüne sürerek dumbbellı çek.",
+        "Keep the shoulder away from the ear and row the dumbbell by driving the elbow back toward the hip."
+      ],
+      [
+        "Gövdeyi döndürmeden kontrollü son noktaya ulaş.",
+        "Reach a controlled finish without rotating the torso."
+      ],
+      [
+        "Dumbbellı yavaşça indir ve kürek kemiğinin kontrollü öne hareketine izin ver.",
+        "Lower the dumbbell slowly and allow the shoulder blade to move forward under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dumbbellı kaldırmak için gövde ve kalçayı tavana döndürmek.",
+        "Rotating the torso and hips toward the ceiling to lift the dumbbell."
+      ],
+      [
+        "Omuzu kulağa çekip boyun ve üst trapezi gereksiz germek.",
+        "Shrugging the shoulder toward the ear and overloading the neck and upper trap."
+      ],
+      [
+        "Dirsek açısını değiştirip hareketi curl haline getirmek.",
+        "Changing elbow angle and turning the movement into a curl."
+      ],
+      [
+        "Dumbbellı kontrolsüz bırakıp alt pozisyonda omuza yük bindirmek.",
+        "Dropping the dumbbell without control and loading the shoulder abruptly at the bottom."
+      ]
+    ],
+    "tips": [
+      [
+        "Dirsek yolunu kalça yönüne yaklaştırmak lat, daha dışa açmak üst sırt vurgusunu değiştirebilir.",
+        "A path toward the hip can emphasize the lat, while a more flared path changes upper-back emphasis."
+      ],
+      [
+        "Tek kol row sağ-sol farkını gösterir; farkı otomatik düzeltmez, iki tarafı ayrı kaydet.",
+        "Single-arm rows reveal differences but do not automatically fix them; log each side separately."
+      ],
+      [
+        "Gövde dönüşü başlamadan ulaşabildiğin üst noktayı standartlaştır.",
+        "Standardize the top position reached before torso rotation begins."
+      ],
+      [
+        "Kavrama erken yoruluyorsa önce yükü ve tempo kontrolünü değerlendir.",
+        "If grip fails early, first reassess load and tempo control."
+      ]
+    ],
+    "progression": [
+      [
+        "Chest-supported row ile gövde sabitken dirsek ve kürek kemiği yolunu öğren.",
+        "Learn elbow and shoulder-blade path with a chest-supported row."
+      ],
+      [
+        "Hafif tek kol dumbbell row ile kare kalça ve nötr omurga geliştir.",
+        "Develop square hips and a neutral spine with a light single-arm dumbbell row."
+      ],
+      [
+        "İki taraf aynı hareket açıklığında hedef tekrarları tamamlayınca yük artır.",
+        "Add load once both sides complete target reps through the same range."
+      ],
+      [
+        "İleri aşamada pause, tempo veya desteksiz row varyasyonlarına geç.",
+        "At an advanced stage, add pauses, tempo, or unsupported row variations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "rhomboids",
+        "middle-trapezius"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis"
       ]
     },
     "media": {
@@ -6454,7 +6954,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Dumbell Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dumbbell Row Rehberi | Tek Kol Sırt Formu",
+        "Dumbbell Row Guide | Single-Arm Back Form"
+      ],
+      "metaDescription": [
+        "Tek kol dumbbell row bench desteği, dirsek yolu, gövde rotasyonu kontrolü ve sağ-sol takibi.",
+        "Learn single-arm dumbbell-row support, elbow path, torso-rotation control, and side tracking."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Lat, rhomboid ve orta trapez",
+          "Lats, rhomboids, and middle traps"
+        ],
+        "equipment": [
+          "Dumbbell ve bench",
+          "Dumbbell and bench"
+        ],
+        "movementPattern": [
+          "Tek taraflı yatay çekiş",
+          "Unilateral horizontal pull"
+        ],
+        "bestFor": [
+          "Sırt kuvveti ve sağ-sol kontrolü",
+          "Back strength and side-to-side control"
+        ]
+      },
+      "tracking": [
+        [
+          "Her taraf için ağırlık, tekrar, RIR ve destek şeklini kaydet.",
+          "Log load, reps, RIR, and support setup for each side."
+        ],
+        [
+          "Gövde dönmeden ulaşılan üst noktayı takip et.",
+          "Track the top position reached without torso rotation."
+        ],
+        [
+          "Sağ-sol hareket açıklığı veya kavrama farkını not et.",
+          "Note side-to-side range or grip differences."
+        ]
+      ],
+      "related": [
+        "chest-supported-row",
+        "machine-row",
+        "barbell-row"
+      ]
+    }
   },
   "cable-row": {
     "publish": false,
@@ -6629,32 +7175,95 @@ window.LOGWISE_EX_GUIDES = {
       "Machine row. Back-thickness focused."
     ],
     "description": [
-      "Makinede yapılan sırt çekiş hareketi. Denge ihtiyacı düşük olduğu için sırt kasına daha direkt odaklanmayı sağlar. Özellikle sırt kalınlığı ve güvenli hacim biriktirmek için etkilidir.",
-      "A machine-based back-row movement. Because balance demands are low, it allows more direct focus on the back muscles. It is especially effective for building back thickness and accumulating safe volume."
+      "Makinenin yönlendirdiği bir yolda yapılan yatay çekiş hareketidir. Rhomboidler, orta trapez ve latissimus dorsi çalışırken destek ve sabit yol denge ihtiyacını azaltır; ayarlar makine geometrisine göre değişir.",
+      "A horizontal pull performed along a machine-guided path. It trains the rhomboids, middle traps, and lats while support and a fixed path reduce balance demands; setup varies by machine geometry."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Göğsü pedde sabit tutarak dirsekleri geriye sür.",
-        "Keep the chest fixed to the pad if available and drive the elbows back."
+        "Koltuk ve varsa göğüs pedini tutacaklar omuz/alt göğüs hattına gelecek şekilde ayarla.",
+        "Set the seat and chest pad, if present, so the handles align around shoulder to lower-chest height."
       ],
       [
-        "Bitişte kürek kemiklerini sık ama boynu kasma.",
-        "Squeeze the shoulder blades at the end without tensing the neck."
+        "Ayakları sabitle, göğsü pede yerleştir ve bilekleri nötr kavra.",
+        "Plant the feet, place the chest on the pad, and grip with neutral wrists."
       ],
       [
-        "Hareketi tam uzamadan başlatmak yerine gerilimli başlangıç kullan.",
-        "Start from a full stretch so the row covers the full useful range."
+        "Omuzları kulaklardan uzaklaştırıp dirsekleri seçilen tutuşa uygun yolda geriye sür.",
+        "Keep the shoulders away from the ears and drive the elbows back along a path suited to the grip."
+      ],
+      [
+        "Göğüs desteğini kaybetmeden kontrollü son noktaya ulaş.",
+        "Reach a controlled finish without losing chest support."
+      ],
+      [
+        "Kolları yavaşça uzatıp kürek kemiklerinin kontrollü öne hareketine izin ver.",
+        "Extend the arms slowly and allow the shoulder blades to move forward under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Koltuk veya göğüs pedini omuzları yukarı zorlayacak şekilde ayarlamak.",
+        "Setting the seat or chest pad so the shoulders are forced upward."
+      ],
+      [
+        "Ağır yük için göğsü pedden kaldırıp gövdeyle çekmek.",
+        "Lifting the chest off the pad and pulling with the torso to move heavy load."
+      ],
+      [
+        "Omuzları silkip boynu kasmak.",
+        "Shrugging the shoulders and tensing the neck."
+      ],
+      [
+        "Farklı makine geometrilerindeki yükleri doğrudan karşılaştırmak.",
+        "Directly comparing loads across different machine geometries."
+      ]
+    ],
+    "tips": [
+      [
+        "Makine sabit olsa da koltuk, ped ve tutuş ayarını omuz konforuna göre seç.",
+        "Even on a fixed machine, choose seat, pad, and grip settings for shoulder comfort."
+      ],
+      [
+        "Dirsek yolunu gövdeye yakın tutmak lat, daha açık tutmak üst sırt vurgusunu değiştirebilir.",
+        "A closer elbow path can emphasize the lats, while a more open path changes upper-back emphasis."
+      ],
+      [
+        "Bitişte omuzları öne yuvarlamadan kürek kemiklerini kontrollü yaklaştır.",
+        "Draw the shoulder blades together under control without rolling the shoulders forward."
+      ],
+      [
+        "Ağırlık yığını çarpıyorsa yük veya tekrar hızını azalt.",
+        "Reduce load or rep speed if the weight stack crashes."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif makine yüküyle koltuk/ped ayarı ve tam hareket açıklığını öğren.",
+        "Learn seat and pad setup and full range with a light machine load."
+      ],
+      [
+        "Hedef tekrarları göğüs desteği korunarak tamamla.",
+        "Complete target reps while maintaining chest support."
+      ],
+      [
+        "Aynı makinede küçük yük artışlarıyla ilerle.",
+        "Progress with small load increases on the same machine."
+      ],
+      [
+        "Tek kol row veya serbest ağırlık row ile daha fazla stabilizasyon ekle.",
+        "Add more stabilization demand with single-arm or free-weight rows."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "rhomboids",
+        "middle-trapezius",
+        "latissimus-dorsi"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis"
       ]
     },
     "media": {
@@ -6671,7 +7280,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Machine Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Machine Row Rehberi | Makine Ayarı ve Sırt Formu",
+        "Machine Row Guide | Setup and Back Form"
+      ],
+      "metaDescription": [
+        "Machine row koltuk ve göğüs pedi ayarı, dirsek yolu, skapula kontrolü ve yaygın hatalar.",
+        "Learn machine-row seat and chest-pad setup, elbow path, scapular control, and common mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Rhomboid, orta trapez ve lat",
+          "Rhomboids, middle traps, and lats"
+        ],
+        "equipment": [
+          "Row makinesi",
+          "Row machine"
+        ],
+        "movementPattern": [
+          "Destekli yatay çekiş",
+          "Supported horizontal pull"
+        ],
+        "bestFor": [
+          "Sırt hipertrofisi ve destekli hacim",
+          "Back hypertrophy and supported volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, koltuk/ped ayarı, tutuş ve yükü kaydet.",
+          "Log machine model, seat and pad settings, grip, and load."
+        ],
+        [
+          "Tekrar, RIR ve göğüs desteğinin korunduğu hareket açıklığını takip et.",
+          "Track reps, RIR, and range completed with chest support."
+        ],
+        [
+          "Ağırlık yığını çarpan veya göğsün pedden ayrıldığı setleri not et.",
+          "Note sets where the stack crashes or chest leaves the pad."
+        ]
+      ],
+      "related": [
+        "chest-supported-row",
+        "single-arm-row-machine",
+        "cable-row"
+      ]
+    }
   },
   "chest-supported-row": {
     "publish": false,
@@ -6683,32 +7338,95 @@ window.LOGWISE_EX_GUIDES = {
       "Chest-supported row. Lower back-friendly."
     ],
     "description": [
-      "Göğsün bench veya pede desteklendiği row varyasyonu. Alt sırt yükünü azaltarak sırt kasına daha direkt odaklanmayı sağlar. Bodybuilding tarzı sırt hacmi için çok güçlü bir seçenektir.",
-      "A row variation where the chest is supported on a bench or pad. It reduces lower-back loading and allows more direct focus on the back musculature. It is a very strong option for bodybuilding-style back volume."
+      "Göğsün bench veya pede desteklendiği yatay çekiş varyasyonudur. Destek spinal erektörlerin izometrik talebini azaltır; rhomboidler, orta trapez, lat ve arka omuz ana çekişi üretir.",
+      "A horizontal pull performed with the chest supported on a bench or pad. Support reduces isometric demand on the spinal erectors while the rhomboids, middle traps, lats, and rear delts produce the pull."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Göğüs desteğine yaslan ama omuzları gevşetme.",
-        "Use the chest support without letting the shoulders go passive."
+        "Benchi veya makine pedini göğsü destekleyecek ve kolları serbest bırakacak şekilde ayarla.",
+        "Set the bench or machine pad to support the chest while allowing the arms to hang freely."
       ],
       [
-        "Dirsek yolunu hedeflediğin sırt bölgesine göre ayarla.",
-        "Adjust the elbow path based on which part of the back you want to emphasize."
+        "Göğsü desteğe yerleştir, ayakları sabitle ve ağırlıkları nötr bilekle kavra.",
+        "Place the chest on the support, plant the feet, and grip the weights with neutral wrists."
       ],
       [
-        "Tam gerilme ve kontrollü bitiş bu harekette çok değerlidir.",
-        "A full stretch and controlled finish are especially valuable here."
+        "Omuzları kulaklardan uzaklaştırıp dirsekleri seçtiğin hedefe uygun yolda geriye sür.",
+        "Keep shoulders away from the ears and drive the elbows back along the chosen path."
+      ],
+      [
+        "Göğüs pedden ayrılmadan kontrollü üst noktaya ulaş.",
+        "Reach a controlled top position without lifting the chest from the pad."
+      ],
+      [
+        "Kolları yavaşça uzatıp kürek kemiklerinin kontrollü öne hareketine izin ver.",
+        "Lower slowly to arm extension and allow controlled forward shoulder-blade movement."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağır yük için göğsü pedden kaldırmak.",
+        "Lifting the chest from the pad to move excessive load."
+      ],
+      [
+        "Omuzları kulaklara silkip boynu sıkıştırmak.",
+        "Shrugging the shoulders toward the ears and crowding the neck."
+      ],
+      [
+        "Dirsekleri gereğinden fazla geriye çekip omuz başını öne yuvarlamak.",
+        "Pulling the elbows too far back and rolling the shoulder head forward."
+      ],
+      [
+        "Alt pozisyonda ağırlıkları kontrolsüz bırakmak.",
+        "Dropping the weights without control at the bottom."
+      ]
+    ],
+    "tips": [
+      [
+        "Göğüs desteği bel talebini azaltabilir ancak bench açısı ve yük yine kişiye göre ayarlanmalıdır.",
+        "Chest support can reduce lower-back demand, but bench angle and load still need individual setup."
+      ],
+      [
+        "Dirsekleri gövdeye yakın sürmek lat, daha açık sürmek üst sırt vurgusunu değiştirir.",
+        "A closer elbow path changes emphasis toward the lats, while a more open path shifts upper-back demand."
+      ],
+      [
+        "Üst noktayı göğsü pedden kaldırmadan ulaşabildiğin yerle sınırla.",
+        "Limit the top position to what can be reached without lifting the chest."
+      ],
+      [
+        "Alt pozisyonda tam gevşemek yerine kontrollü skapula hareketi kullan.",
+        "Use controlled scapular movement instead of fully relaxing at the bottom."
+      ]
+    ],
+    "progression": [
+      [
+        "Makine row ile sabit bir yolda göğüs destekli çekiş öğren.",
+        "Learn supported pulling along a fixed path on a machine row."
+      ],
+      [
+        "Hafif dumbbell chest-supported row ile iki kolun yolunu eşitle.",
+        "Match both arm paths with a light dumbbell chest-supported row."
+      ],
+      [
+        "Hedef tekrarlar göğüs teması korunarak tamamlanınca yük artır.",
+        "Add load once target reps maintain chest contact."
+      ],
+      [
+        "İleri aşamada farklı bench açıları, tutuşlar veya pause varyasyonları kullan.",
+        "At an advanced stage, use different bench angles, grips, or paused variations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "rhomboids",
+        "middle-trapezius",
+        "latissimus-dorsi"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis"
       ]
     },
     "media": {
@@ -6725,7 +7443,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Chest Supported Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Chest-Supported Row Rehberi | Destekli Sırt Formu",
+        "Chest-Supported Row Guide | Supported Back Form"
+      ],
+      "metaDescription": [
+        "Chest-supported row bench ayarı, dirsek yolu, göğüs teması, skapula kontrolü ve progression.",
+        "Learn chest-supported row setup, elbow path, chest contact, scapular control, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Rhomboid, orta trapez ve lat",
+          "Rhomboids, middle traps, and lats"
+        ],
+        "equipment": [
+          "Eğik bench ve dumbbell/bar veya makine",
+          "Incline bench and dumbbells/bar or machine"
+        ],
+        "movementPattern": [
+          "Göğüs destekli yatay çekiş",
+          "Chest-supported horizontal pull"
+        ],
+        "bestFor": [
+          "Sırt hacmi ve azaltılmış bel talebi",
+          "Back volume with reduced lower-back demand"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench açısı, aparat, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log bench angle, implement, load, reps, and RIR."
+        ],
+        [
+          "Göğüs teması korunarak ulaşılan üst ve alt noktayı takip et.",
+          "Track top and bottom positions reached while maintaining chest contact."
+        ],
+        [
+          "Dirsek yolu veya tutuş değişikliklerini ayrı varyasyon olarak not et.",
+          "Log elbow-path or grip changes as separate variations."
+        ]
+      ],
+      "related": [
+        "machine-row",
+        "dumbell-row",
+        "barbell-row"
+      ]
+    }
   },
   "seal-row": {
     "publish": false,
