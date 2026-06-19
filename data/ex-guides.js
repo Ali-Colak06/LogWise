@@ -10468,33 +10468,93 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/calf-raise",
     "summary": [
-      "Baldır kaldırma.",
-      "Calf raise."
+      "Ayakta calf raise. Gastrocnemius ve soleus.",
+      "Standing calf raise. Gastrocnemius and soleus."
     ],
     "description": [
-      "Baldır kaslarını çalıştıran yükselme hareketi. Gastrocnemius ve soleus kaslarını hedef alır. Ayakta, makinede veya basamak kenarında yapılabilir.",
-      "Calf raise targeting the calf muscles. Works gastrocnemius and soleus. Can be done standing, on a machine, or on a step edge."
+      "Ayakta, dizler büyük ölçüde açıkken topukların yükseltilip indirildiği plantar fleksiyon hareketidir. Gastrocnemius ve soleus ana baldır kaslarıdır; ekipman ve ayak desteğine göre denge talebi değişir.",
+      "A standing plantar-flexion exercise performed by raising and lowering the heels with the knees mostly extended. The gastrocnemius and soleus are the main calf muscles, while balance demand varies with equipment and support."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Tam yukarı yüksel ve alt noktada tam in — tam ROM kritik.",
-        "Rise all the way up and stretch fully at the bottom — full ROM is critical."
+        "Ayak önlerini platforma veya zemine dengeli yerleştir; gerekiyorsa hafif el desteği al.",
+        "Place the forefeet evenly on the platform or floor and use light hand support if needed."
       ],
       [
-        "Üst noktada 1-2 sn sık.",
-        "Pause and squeeze at the top for 1-2 seconds."
+        "Dizleri rahatça açık, gövdeyi sabit ve ayak bileklerini nötr hizada tut.",
+        "Keep the knees comfortably extended, the trunk stable, and the ankles aligned."
       ],
       [
-        "Baldır kasları yüksek tekrara adapte olur; 15-25 rep iyi çalışır.",
-        "Calves adapt quickly; higher reps (15-25) work well for them."
+        "Topukları mevcut ağrısız hareket açıklığında kontrollü indir.",
+        "Lower the heels under control through the available pain-free range."
+      ],
+      [
+        "Ayak önünü platforma iterek topukları yükselt ve ayak bileklerinin içe veya dışa devrilmesini önle.",
+        "Press the forefeet into the platform to raise the heels without letting the ankles roll inward or outward."
+      ],
+      [
+        "Üstte kısa kontrol gösterip sekmeden tekrar aşağı in.",
+        "Show brief control at the top and lower again without bouncing."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Alt noktadan sekerek Aşil tendonu ve momentumu kullanmak.",
+        "Bouncing out of the bottom and relying on the Achilles tendon and momentum."
+      ],
+      [
+        "Yükselirken ayak bileklerini dışa veya içe devirmek.",
+        "Rolling the ankles outward or inward while rising."
+      ],
+      [
+        "Yorgunlukla dizleri giderek büküp hareket desenini değiştirmek.",
+        "Gradually bending the knees with fatigue and changing the movement pattern."
+      ],
+      [
+        "Platform yüksekliği izin vermediği halde topukları zorla daha aşağı indirmek.",
+        "Forcing the heels lower than the platform and ankle mobility allow."
+      ]
+    ],
+    "tips": [
+      [
+        "Tam hareket açıklığı kişiye ve ekipmana bağlıdır; kontrollü ve ağrısız menzili standartlaştır.",
+        "Full range depends on the individual and equipment; standardize a controlled, pain-free range."
+      ],
+      [
+        "Hafif destek dengeyi azaltıp baldır yüklemesini daha tutarlı yapabilir.",
+        "Light support can reduce balance demand and make calf loading more consistent."
+      ],
+      [
+        "Baldırlar yalnızca yüksek tekrarla çalışmak zorunda değildir; yük ve tekrar aralığını hedefe göre ilerlet.",
+        "Calves do not have to be trained only with high reps; progress load and rep range according to the goal."
+      ],
+      [
+        "Diz açısı ayakta ve oturarak varyasyonların kas katkısını değiştirir; ikisini aynı hareket olarak karşılaştırma.",
+        "Knee position changes muscular contribution between standing and seated variations; do not compare them as the same movement."
+      ]
+    ],
+    "progression": [
+      [
+        "İki ayak ve el desteğiyle kontrollü yükselme-inme ritmi öğren.",
+        "Learn a controlled rise-and-lower rhythm with both feet and hand support."
+      ],
+      [
+        "Aynı hareket açıklığında vücut ağırlığı tekrarlarını artır.",
+        "Increase bodyweight reps through the same range."
+      ],
+      [
+        "Makine, dumbbell veya yüklenmiş varyasyonla direnci kademeli artır.",
+        "Gradually increase resistance with a machine, dumbbell, or loaded variation."
+      ],
+      [
+        "İleri aşamada tek bacak, pause veya yavaş eksantrik kullan.",
+        "At a later stage, use single-leg reps, pauses, or a slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "calves"
+        "gastrocnemius",
+        "soleus"
       ],
       "secondary": []
     },
@@ -10512,7 +10572,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Calf Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Calf Raise Rehberi | Ayakta Baldır Formu",
+        "Calf Raise Guide | Standing Calf Exercise Form"
+      ],
+      "metaDescription": [
+        "Ayakta calf raise için ayak basıncı, ağrısız hareket açıklığı, ayak bileği kontrolü ve progression.",
+        "Learn standing calf-raise foot pressure, range, ankle control, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Gastrocnemius ve soleus",
+          "Gastrocnemius and soleus"
+        ],
+        "equipment": [
+          "Zemin, basamak, dumbbell veya makine",
+          "Floor, step, dumbbell, or machine"
+        ],
+        "movementPattern": [
+          "Diz açık plantar fleksiyon",
+          "Knee-extended plantar flexion"
+        ],
+        "bestFor": [
+          "Baldır kuvveti ve hipertrofisi",
+          "Calf strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Ekipman, destek, yük, tekrar, RIR ve hareket açıklığını kaydet.",
+          "Log equipment, support, load, reps, RIR, and range."
+        ],
+        [
+          "Üst veya alt pause süresini tempo notuna ekle.",
+          "Include top or bottom pause duration in the tempo notes."
+        ],
+        [
+          "Tek ve çift bacak varyasyonlarını ayrı takip et.",
+          "Track single-leg and bilateral variations separately."
+        ]
+      ],
+      "related": [
+        "seated-calf-raise",
+        "donkey-calf-raise",
+        "walking-lunge"
+      ]
+    }
   },
   "seated-calf-raise": {
     "publish": false,
@@ -10520,35 +10626,96 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/seated-calf-raise",
     "summary": [
-      "Oturarak baldır kaldırma. Soleus vurgusu.",
-      "Seated calf raise. More soleus emphasis."
+      "Oturarak calf raise. Soleus vurgulu.",
+      "Seated calf raise. Soleus emphasis."
     ],
     "description": [
-      "Oturarak yapılan baldır kaldırma varyasyonu. Diz bükülü olduğu için soleus kasını ayaktaki calf raise'e göre daha fazla vurgular. Alt bacak gelişimini tamamlamak için standing calf raise ile iyi eşleşir.",
-      "A seated calf raise variation. Because the knees stay bent, it emphasizes the soleus more than standing calf raises do. It pairs well with standing calf raises for fuller lower-leg development."
+      "Dizler bükülüyken topukların yükseltilip indirildiği oturarak plantar fleksiyon hareketidir. Bükülü diz gastrocnemius katkısını azaltarak soleus vurgusunu artırır; hareket baldır kompleksini bütünüyle “izole” etmez.",
+      "A seated plantar-flexion exercise performed by raising and lowering the heels with the knees bent. The bent knee reduces gastrocnemius contribution and increases soleus emphasis without completely isolating one calf muscle."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Alt noktada topukları iyice aşağı bırakıp baldırı esnet.",
-        "Let the heels drop fully at the bottom to stretch the calves."
+        "Makine koltuğunu ve diz pedini, ped diz kapağına değil alt uyluğa oturacak şekilde ayarla.",
+        "Adjust the seat and knee pad so the pad rests on the lower thighs rather than the kneecaps."
       ],
       [
-        "Tepe noktada kısa bir duraklama ekle; hızlı sekme yapma.",
-        "Pause briefly at the top instead of bouncing through reps."
+        "Ayak önlerini platforma dengeli yerleştir ve güvenlik kolunu kontrollü aç.",
+        "Place the forefeet evenly on the platform and release the safety under control."
       ],
       [
-        "Kalf kasları yüksek tekrar ve kontrollü tempo ile iyi cevap verir.",
-        "Calves respond well to higher reps and a controlled tempo."
+        "Diz ve kalça konumunu sabit tutarak topukları ağrısız hareket açıklığında indir.",
+        "Keep the knee and hip positions fixed while lowering the heels through a pain-free range."
+      ],
+      [
+        "Ayak önünü platforma itip topukları yükselt; ayak bileklerini nötr hizada tut.",
+        "Press the forefeet into the platform to raise the heels while keeping the ankles aligned."
+      ],
+      [
+        "Üstte kısa süre kontrol göster ve ağırlık istifini çarptırmadan aşağı dön.",
+        "Pause briefly at the top and lower without letting the weight stack crash."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Diz pedini doğrudan diz kapaklarının üzerine yerleştirmek.",
+        "Positioning the knee pad directly over the kneecaps."
+      ],
+      [
+        "Alt noktada sekerek kontrollü baldır hareketini kaybetmek.",
+        "Bouncing at the bottom and losing controlled calf motion."
+      ],
+      [
+        "Yükselirken ayak bileklerini içe veya dışa devirmek.",
+        "Rolling the ankles inward or outward while rising."
+      ],
+      [
+        "Farklı makinelerin kaldıraç ve yüklerini doğrudan karşılaştırmak.",
+        "Directly comparing loads across machines with different leverages."
+      ]
+    ],
+    "tips": [
+      [
+        "Oturarak varyasyon soleus vurgusunu artırır; gastrocnemius tamamen devre dışı kalmaz.",
+        "The seated variation increases soleus emphasis; the gastrocnemius is not completely inactive."
+      ],
+      [
+        "Daha derin esneme için ayak bileğini zorlamak yerine ağrısız ve tekrar edilebilir menzili kullan.",
+        "Use a pain-free, repeatable range instead of forcing the ankle for a deeper stretch."
+      ],
+      [
+        "Yüksek tekrar zorunlu değildir; seçilen yükte tempo ve hareket açıklığını koru.",
+        "High reps are not mandatory; maintain tempo and range with the selected load."
+      ],
+      [
+        "Ayakta calf raise ile eşleştirmek mümkündür ancak program hedefi ve toplam hacim belirleyici olmalıdır.",
+        "It can be paired with standing calf raises, but program goals and total volume should guide the choice."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle ped konumu ve kontrollü hareket açıklığını öğren.",
+        "Learn pad position and controlled range with a light load."
+      ],
+      [
+        "Aynı tempo ve menzilde hedef tekrarları tamamla.",
+        "Complete target reps with the same tempo and range."
+      ],
+      [
+        "Makine basamaklarına uygun küçük yük artışları yap.",
+        "Add load in small increments allowed by the machine."
+      ],
+      [
+        "İleri aşamada üst pause, alt pause veya yavaş eksantrik ekle.",
+        "At a later stage, add top pauses, bottom pauses, or a slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "calves"
+        "soleus"
       ],
-      "secondary": []
+      "secondary": [
+        "gastrocnemius"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -10564,7 +10731,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Seated Calf Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Seated Calf Raise Rehberi | Makine Ayarı ve Form",
+        "Seated Calf Raise Guide | Machine Setup and Form"
+      ],
+      "metaDescription": [
+        "Oturarak calf raise için diz pedi ve ayak ayarı, soleus vurgusu, ayak bileği kontrolü ve progression.",
+        "Learn seated calf-raise pad setup, soleus emphasis, ankle control, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Soleus; gastrocnemius katkısı",
+          "Soleus with gastrocnemius assistance"
+        ],
+        "equipment": [
+          "Seated calf raise makinesi",
+          "Seated calf-raise machine"
+        ],
+        "movementPattern": [
+          "Diz bükülü plantar fleksiyon",
+          "Knee-flexed plantar flexion"
+        ],
+        "bestFor": [
+          "Soleus vurgulu baldır kuvveti ve hipertrofisi",
+          "Soleus-emphasis calf strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, ped ayarı, yük, tekrar, RIR ve hareket açıklığını kaydet.",
+          "Log machine model, pad setting, load, reps, RIR, and range."
+        ],
+        [
+          "Pause ve eksantrik sürelerini tempo notuna ekle.",
+          "Include pause and eccentric durations in the tempo notes."
+        ],
+        [
+          "Ayakta calf raise yükleriyle doğrudan karşılaştırma yapma.",
+          "Do not directly compare loads with standing calf raises."
+        ]
+      ],
+      "related": [
+        "calf-raise",
+        "donkey-calf-raise",
+        "leg-press"
+      ]
+    }
   },
   "donkey-calf-raise": {
     "publish": false,
@@ -10838,35 +11051,99 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/single-leg-hip-thrust",
     "summary": [
-      "Tek bacak hip thrust. Kalça izolasyonu.",
-      "Single-leg hip thrust. Glute isolation."
+      "Tek bacak hip thrust. Kalça kuvveti ve pelvis kontrolü.",
+      "Single-leg hip thrust. Glute strength and pelvic control."
     ],
     "description": [
-      "Tek bacakla yapılan hip thrust varyasyonu. Kalçayı unilateral yükleyerek denge ve glute aktivasyonunu artırır. Daha düşük ağırlıkla zorlayıcı glute çalışması sağlar.",
-      "A single-leg hip thrust variation. By loading the glutes unilaterally, it increases balance demands and glute activation. It provides challenging glute work with less external load."
+      "Üst sırtın sehpaya desteklendiği ve yükün tek ayak üzerinden taşındığı unilateral kalça ekstansiyonu hareketidir. Gluteus maximus ana yükü taşırken hamstringler, adduktorlar ve yan kalça kasları pelvis kontrolüne katkı verir.",
+      "A unilateral hip-extension exercise performed with the upper back supported on a bench and the load carried through one foot. The gluteus maximus is the prime mover while the hamstrings, adductors, and lateral hip muscles assist pelvic control."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Çalışmayan bacağı sabit tut.",
-        "Keep the non-working leg steady."
+        "Kürek kemiklerinin altını sabit bir sehpa kenarına yerleştir ve çalışan ayağı tam taban yere basacak şekilde ayarla.",
+        "Place the lower edge of the shoulder blades against a stable bench and set the working foot flat on the floor."
       ],
       [
-        "Tepe noktada kalçayı tam uzat.",
-        "Fully extend the hips at the top."
+        "Çalışmayan bacağı kalçadan kaldır; kaburgaları pelvis üzerinde tutup brace yap.",
+        "Lift the non-working leg from the hip and brace with the ribs stacked over the pelvis."
       ],
       [
-        "Belden değil kalçadan it.",
-        "Drive from the hips rather than the low back."
+        "Kalçayı kontrollü indirirken çalışan dizin ayak yönünü izlemesini ve pelvisin düz kalmasını koru.",
+        "Lower the hips under control while keeping the working knee aligned with the foot and the pelvis level."
+      ],
+      [
+        "Çalışan ayağı zemine iterek kalçayı uzat; gövde ve uyluk hizalanınca belden geriye yaslanmadan dur.",
+        "Drive through the working foot and extend the hip, stopping when the trunk and thigh align without leaning back through the lower back."
+      ],
+      [
+        "Tepe kontrolünü koruyarak aynı ayak ve sehpa konumuna geri in.",
+        "Maintain control at the top and return using the same foot and bench position."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Daha yükseğe çıkmak için beli aşırı çukurlaştırmak veya kaburgaları açmak.",
+        "Overarching the lower back or flaring the ribs to lift the hips higher."
+      ],
+      [
+        "Pelvisin çalışan veya boşta olan tarafa dönmesine izin vermek.",
+        "Allowing the pelvis to rotate toward either the working or non-working side."
+      ],
+      [
+        "Çalışmayan bacağı savurarak momentum üretmek.",
+        "Swinging the non-working leg to create momentum."
+      ],
+      [
+        "Ayak konumu veya hareket açıklığı değişirken yükleri doğrudan karşılaştırmak.",
+        "Comparing loads while changing foot position or range of motion."
+      ]
+    ],
+    "tips": [
+      [
+        "Tek taraflı çalışma sağ-sol farkını görünür kılar; tek başına bu farkı otomatik düzeltmez.",
+        "Unilateral work makes side-to-side differences visible; it does not automatically correct them."
+      ],
+      [
+        "Hamstring krampı baskınsa ayağın mesafesini, hareket açıklığını veya yükü azaltarak yeniden ayarla.",
+        "If hamstring cramping dominates, adjust foot distance, range, or load."
+      ],
+      [
+        "Tepe noktayı glute sıkışması ve nötr gövde belirlesin; sehpanın yüksekliği herkeste aynı menzili vermez.",
+        "Let glute contraction and a neutral trunk define the top; bench height does not create the same range for everyone."
+      ],
+      [
+        "Her iki tarafı aynı sehpa, ayak mesafesi ve tempo ile kaydet.",
+        "Log both sides with the same bench, foot distance, and tempo."
+      ]
+    ],
+    "progression": [
+      [
+        "Glute bridge ile brace ve kalça ekstansiyonu kontrolünü öğren.",
+        "Learn bracing and hip-extension control with a glute bridge."
+      ],
+      [
+        "İki bacak hip thrust ile sehpa ve ayak konumunu standartlaştır.",
+        "Standardize bench and foot position with a bilateral hip thrust."
+      ],
+      [
+        "Vücut ağırlığıyla tek bacak tekrarlarını iki tarafta eşit formda tamamla.",
+        "Complete bodyweight single-leg reps with consistent form on both sides."
+      ],
+      [
+        "Aynı pelvis kontrolü korununca küçük harici yük veya pause ekle.",
+        "Add small external loads or pauses once pelvic control remains consistent."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "glutes"
+        "gluteus-maximus"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "adductor-magnus",
+        "gluteus-medius",
+        "abdominals"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -10882,7 +11159,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Single Leg Hip Thrust exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Tek Bacak Hip Thrust Rehberi | Form ve Denge",
+        "Single-Leg Hip Thrust Guide | Form and Balance"
+      ],
+      "metaDescription": [
+        "Tek bacak hip thrust için sehpa ve ayak ayarı, pelvis kontrolü, bel pozisyonu ve progression adımları.",
+        "Learn single-leg hip-thrust setup, pelvic control, trunk position, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Gluteus maximus",
+          "Gluteus maximus"
+        ],
+        "equipment": [
+          "Sehpa; opsiyonel dumbbell veya plaka",
+          "Bench; optional dumbbell or plate"
+        ],
+        "movementPattern": [
+          "Tek taraflı kalça ekstansiyonu",
+          "Unilateral hip extension"
+        ],
+        "bestFor": [
+          "Kalça kuvveti ve taraf kontrolü",
+          "Glute strength and side-to-side control"
+        ]
+      },
+      "tracking": [
+        [
+          "Sehpa yüksekliği, ayak mesafesi, yük, tekrar ve RIR değerini kaydet.",
+          "Log bench height, foot distance, load, reps, and RIR."
+        ],
+        [
+          "Sağ ve sol tarafın kontrollü hareket açıklığını ayrı takip et.",
+          "Track controlled range separately for the right and left sides."
+        ],
+        [
+          "Pause veya tempo kullanımını varyasyon notuna ekle.",
+          "Include pauses or tempo in the variation notes."
+        ]
+      ],
+      "related": [
+        "hip-thrust",
+        "glute-bridge",
+        "bulgarian-split-squat"
+      ]
+    }
   },
   "glute-bridge": {
     "publish": false,
@@ -10890,35 +11213,98 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/glute-bridge",
     "summary": [
-      "Kalça köprüsü. Kalça aktivasyonu.",
-      "Glute bridge. Glute activation."
+      "Yerde kalça ekstansiyonu. Glute odaklı.",
+      "Floor-based hip extension. Glute focused."
     ],
     "description": [
-      "Sırt üstü yatarak kalça kaldırma. Hip thrust'ın ekipmansız versiyonu. Kalça aktivasyonu ve başlangıç seviyesi antrenmanları için çok yaygındır.",
-      "Lying glute bridge. Bodyweight version of the hip thrust. Very common for glute activation and beginner training."
+      "Sırt üstü pozisyonda ayaklar zemindeyken yapılan kalça ekstansiyonu hareketidir. Gluteus maximus ana yükü taşır; hamstringler, adduktorlar ve gövde kasları kalça ile pelvisin kontrollü hareketine yardım eder.",
+      "A hip-extension exercise performed supine with the feet on the floor. The gluteus maximus is the prime mover while the hamstrings, adductors, and trunk muscles assist controlled movement of the hips and pelvis."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ayaklar kalça genişliğinde, dizler yaklaşık 90° bükük.",
-        "Feet hip-width apart, knees bent to about 90°."
+        "Sırt üstü yat, ayakları rahat genişlikte ve topuklar kalçaya yakın bir mesafede zemine yerleştir.",
+        "Lie on your back and place the feet flat at a comfortable width and distance from the hips."
       ],
       [
-        "Üst noktada en az 1 saniye güçlüce sık.",
-        "Squeeze glutes at the top for at least 1 second."
+        "Baş ve üst sırtı rahat bırak; kaburgaları pelvis üzerinde tutup hafif brace yap.",
+        "Keep the head and upper back relaxed and lightly brace with the ribs stacked over the pelvis."
       ],
       [
-        "Diz bandı veya kalça üstü ağırlık ekleyerek zorlaştırabilirsin.",
-        "Add a resistance band around knees or weight on hips to increase difficulty."
+        "Tüm ayağı zemine iterek kalçayı kaldır ve dizlerin ayak yönünü izlemesini koru.",
+        "Press through the whole foot to raise the hips while keeping the knees aligned with the feet."
+      ],
+      [
+        "Omuz, kalça ve dizler rahatça hizalandığında belden ekstra uzamadan kısa süre dur.",
+        "Pause briefly when the shoulders, hips, and knees align comfortably without adding lower-back extension."
+      ],
+      [
+        "Kalçayı kontrollü indir ve pozisyonu kaybetmeden sıradaki tekrara geç.",
+        "Lower the hips under control and begin the next rep without losing position."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Tepe noktasını büyütmek için beli aşırı çukurlaştırmak.",
+        "Overarching the lower back to create a higher top position."
+      ],
+      [
+        "Dizlerin içe çökmesine veya ayakların kenarına devrilmesine izin vermek.",
+        "Allowing the knees to collapse inward or the feet to roll onto their edges."
+      ],
+      [
+        "Ayakları zorunlu bir diz açısına yerleştirip rahat basıncı kaybetmek.",
+        "Forcing a fixed knee angle and losing comfortable foot pressure."
+      ],
+      [
+        "Boyun veya başla zemine iterek yükselmeye çalışmak.",
+        "Trying to rise by pushing the head or neck into the floor."
+      ]
+    ],
+    "tips": [
+      [
+        "Ayak mesafesi hamstring ve glute hissini değiştirebilir; ağrısız ve tekrarlanabilir konumu seç.",
+        "Foot distance can change hamstring and glute sensation; choose a pain-free, repeatable position."
+      ],
+      [
+        "Tepe noktayı bel hareketi değil, kontrollü kalça ekstansiyonu belirlesin.",
+        "Let controlled hip extension, not lower-back movement, define the top."
+      ],
+      [
+        "Band, pause ve harici yük farklı varyasyonlardır; takipte ayrı not et.",
+        "Bands, pauses, and external load create different variations; log them separately."
+      ],
+      [
+        "Glute bridge yalnızca aktivasyon hareketi değildir; uygun yük ve progression ile kuvvet çalışması da olabilir.",
+        "The glute bridge is not only an activation drill; with suitable loading and progression it can also train strength."
+      ]
+    ],
+    "progression": [
+      [
+        "Kısa hareket açıklığı ve izometrik tepe tutuşuyla pozisyonu öğren.",
+        "Learn the position with a short range and an isometric top hold."
+      ],
+      [
+        "Kontrollü tam tekrar ve sabit tempo geliştir.",
+        "Develop controlled full reps with a consistent tempo."
+      ],
+      [
+        "Kalça üzerine band, dumbbell veya plaka ekleyerek yükü artır.",
+        "Increase load with a band, dumbbell, or plate over the hips."
+      ],
+      [
+        "İleri aşamada hip thrust veya single-leg hip thrust varyasyonuna geç.",
+        "Progress to a hip thrust or single-leg hip thrust variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "glutes"
+        "gluteus-maximus"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "adductor-magnus",
+        "abdominals"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -10934,7 +11320,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Glute Bridge exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Glute Bridge Rehberi | Kalça Köprüsü Formu",
+        "Glute Bridge Guide | Setup and Exercise Form"
+      ],
+      "metaDescription": [
+        "Glute bridge ayak konumu, pelvis ve bel kontrolü, sık hatalar, yükleme ve progression adımları.",
+        "Learn glute-bridge foot position, pelvic control, common errors, loading, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Gluteus maximus",
+          "Gluteus maximus"
+        ],
+        "equipment": [
+          "Vücut ağırlığı; opsiyonel band veya ağırlık",
+          "Bodyweight; optional band or weight"
+        ],
+        "movementPattern": [
+          "Yerde kalça ekstansiyonu",
+          "Floor-based hip extension"
+        ],
+        "bestFor": [
+          "Kalça kontrolü, kuvveti ve başlangıç progression'ı",
+          "Glute control, strength, and beginner progression"
+        ]
+      },
+      "tracking": [
+        [
+          "Ayak mesafesi, yük, tekrar, tempo ve RIR değerini kaydet.",
+          "Log foot distance, load, reps, tempo, and RIR."
+        ],
+        [
+          "Tepe pozisyonunda nötr gövdeyi koruduğun hareket açıklığını izle.",
+          "Track the range that maintains a neutral trunk at the top."
+        ],
+        [
+          "Band veya pause kullanımını ayrı varyasyon olarak belirt.",
+          "Mark band or pause use as a separate variation."
+        ]
+      ],
+      "related": [
+        "hip-thrust",
+        "single-leg-hip-thrust",
+        "romanian-deadlift"
+      ]
+    }
   },
   "glute-kickback": {
     "publish": false,
@@ -10942,35 +11374,98 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/glute-kickback",
     "summary": [
-      "Kalçayı geriye itiş. Glute izolasyonu.",
-      "Glute kickback. Glute isolation."
+      "Dört ayak kalça ekstansiyonu. Glute odaklı.",
+      "Quadruped hip extension. Glute focused."
     ],
     "description": [
-      "Vücut ağırlığı veya hafif dirençle yapılan kalçayı geriye itiş hareketi. Glute aktivasyonunu öğrenmek ve kalçayı hedefli çalıştırmak için basit ama etkili bir seçenektir. Isınma veya aksesuar bölümünde iyi çalışır.",
-      "A hip-extension movement done with bodyweight or light resistance. It is a simple but effective way to learn glute activation and target the glutes directly. It works well in warm-ups or accessory work."
+      "Dört ayak pozisyonunda, diz bükülü halde uyluğun geriye götürüldüğü vücut ağırlığı kalça ekstansiyonu hareketidir. Gluteus maximus ana hedefken hamstringler ve gövde/yan kalça kasları pelvisin sabit kalmasına yardım eder.",
+      "A bodyweight hip-extension exercise performed on all fours by moving a bent-knee thigh backward. The gluteus maximus is the main target while the hamstrings and trunk/lateral hip muscles help keep the pelvis stable."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Belden değil kalçadan hareket etmeye odaklan.",
-        "Focus on moving from the hip instead of the lower back."
+        "Eller omuzların, dizler kalçaların altında olacak şekilde dört ayak pozisyonu al.",
+        "Set up on all fours with the hands under the shoulders and knees under the hips."
       ],
       [
-        "Tepe noktada glute'u kısa süre bilinçli sık.",
-        "Intentionally squeeze the glute briefly at the top."
+        "Çalışan dizi rahatça bükülü tut; kaburgaları pelvis üzerinde tutup zemine dengeli bas.",
+        "Keep the working knee comfortably bent, stack the ribs over the pelvis, and press evenly into the floor."
       ],
       [
-        "Tekrarı yavaş yapmak hissi belirgin artırır.",
-        "Performing the reps slowly usually improves the feel a lot."
+        "Pelvisi çevirmeden uyluğu kalçadan geriye ve hafif yukarı götür.",
+        "Move the thigh backward and slightly upward from the hip without rotating the pelvis."
+      ],
+      [
+        "Bel pozisyonu değişmeden ulaşabildiğin noktada kısa süre dur.",
+        "Pause briefly at the point you can reach without changing lower-back position."
+      ],
+      [
+        "Dizi zemine çarpmadan başlangıç konumuna kontrollü dön.",
+        "Return under control without dropping the knee into the floor."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Bacağı daha yükseğe çıkarmak için beli çukurlaştırmak.",
+        "Arching the lower back to lift the leg higher."
+      ],
+      [
+        "Pelvisi açıp gövde ağırlığını destek tarafına kaydırmak.",
+        "Opening the pelvis and shifting body weight toward the support side."
+      ],
+      [
+        "Dizi savurarak momentumla tekrar yapmak.",
+        "Swinging the knee and using momentum through the rep."
+      ],
+      [
+        "Boyun pozisyonunu bozup başı aşırı kaldırmak.",
+        "Losing neck position by lifting the head excessively."
+      ]
+    ],
+    "tips": [
+      [
+        "Kontrollü kalça hareketi çoğu kişide küçük görünür; bacağı çok yükseltmek hedef değildir.",
+        "Controlled hip motion often looks small; lifting the leg very high is not the goal."
+      ],
+      [
+        "Taraf farkı gözlemlemek faydalıdır ancak tek başına bir dengesizlik tanısı koymaz.",
+        "Observing side-to-side differences is useful but does not diagnose an imbalance by itself."
+      ],
+      [
+        "Hamstring hissi normal katkı olabilir; pelvis veya bel kontrolü kayboluyorsa menzili azalt.",
+        "Hamstring sensation can reflect normal assistance; reduce range if pelvic or lower-back control is lost."
+      ],
+      [
+        "Bu kayıt dört ayak vücut ağırlığı varyasyonudur; kablo varyasyonunu ayrı takip et.",
+        "This entry is the quadruped bodyweight variation; track the cable variation separately."
+      ]
+    ],
+    "progression": [
+      [
+        "Glute bridge ile brace ve kalça ekstansiyonunu öğren.",
+        "Learn bracing and hip extension with a glute bridge."
+      ],
+      [
+        "Kısa menzilli quadruped kickback tekrarlarını yavaş yap.",
+        "Perform short-range quadruped kickback reps slowly."
+      ],
+      [
+        "Aynı pelvis kontrolüyle hareket açıklığını veya tepe pause süresini artır.",
+        "Increase range or top-pause duration while maintaining pelvic control."
+      ],
+      [
+        "İleri aşamada mini band veya cable kickback kullan.",
+        "At a later stage, use a mini band or cable kickback."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "glutes"
+        "gluteus-maximus"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "gluteus-medius",
+        "abdominals"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -10986,7 +11481,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Glute Kickback exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Glute Kickback Rehberi | Dört Ayak Kalça Formu",
+        "Glute Kickback Guide | Quadruped Hip Form"
+      ],
+      "metaDescription": [
+        "Vücut ağırlığı glute kickback için pelvis ve bel kontrolü, hareket açıklığı, hatalar ve progression.",
+        "Learn bodyweight glute-kickback pelvic control, range, common errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Gluteus maximus",
+          "Gluteus maximus"
+        ],
+        "equipment": [
+          "Vücut ağırlığı; opsiyonel mini band",
+          "Bodyweight; optional mini band"
+        ],
+        "movementPattern": [
+          "Dört ayak kalça ekstansiyonu",
+          "Quadruped hip extension"
+        ],
+        "bestFor": [
+          "Kalça kontrolü ve düşük yükte aksesuar çalışma",
+          "Hip control and low-load accessory work"
+        ]
+      },
+      "tracking": [
+        [
+          "Taraf başına tekrar, tempo, pause ve band direncini kaydet.",
+          "Log reps per side, tempo, pause, and band resistance."
+        ],
+        [
+          "Pelvis sabitken kullandığın hareket açıklığını takip et.",
+          "Track the range used while keeping the pelvis stable."
+        ],
+        [
+          "Sağ-sol kontrol farklarını ayrı not et.",
+          "Note right-left control differences separately."
+        ]
+      ],
+      "related": [
+        "cable-kickback",
+        "glute-bridge",
+        "hip-abduction-machine"
+      ]
+    }
   },
   "cable-kickback": {
     "publish": false,
@@ -10994,35 +11535,98 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/cable-kickback",
     "summary": [
-      "Kablo kalça geriye itişi. Glute odaklı.",
-      "Cable glute kickback. Glute focused."
+      "Ayakta kablo kalça ekstansiyonu. Glute odaklı.",
+      "Standing cable hip extension. Glute focused."
     ],
     "description": [
-      "Ayak bileğine takılan aparatla yapılan glute odaklı kablo hareketi. Kalçayı geriye itme paternini izole eder ve özellikle glute bağlantısı kurmak için faydalıdır. Alt vücut günlerinde yardımcı egzersiz olarak iyi çalışır.",
-      "A glute-focused cable movement usually done with an ankle attachment. It isolates hip extension and is especially useful for building a strong mind-muscle connection with the glutes. It works well as an accessory on lower-body days."
+      "Ayak bileği aparatıyla düşük makarada yapılan ayakta kalça ekstansiyonu hareketidir. Gluteus maximus ana yükü taşır; hamstringler ve yan kalça kasları harekete, gövde kasları ise duruşun korunmasına katkı verir.",
+      "A standing hip-extension exercise performed from a low pulley with an ankle cuff. The gluteus maximus carries most of the load while the hamstrings and lateral hip muscles assist movement and the trunk muscles maintain position."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Belden savrulma yerine hareketi kalçadan üret.",
-        "Drive the motion from the hip instead of swinging through the lower back."
+        "Ayak bileği aparatını düşük makaraya bağla ve makineye dönük dengeli bir destek al.",
+        "Attach an ankle cuff to a low pulley and face the machine with stable hand support."
       ],
       [
-        "Tepe noktada kısa bir duraklama eklemek glute hissini artırır.",
-        "A short pause at the top increases the glute contraction."
+        "Destek bacağını hafif bük, gövdeyi kontrollü öne eğ ve pelvisi makaraya dönük tut.",
+        "Slightly bend the support leg, hinge the trunk forward under control, and keep the pelvis facing the pulley."
       ],
       [
-        "Küçük ama kontrollü menzil çoğu zaman daha iyi sonuç verir.",
-        "A smaller but controlled range often works better than an exaggerated swing."
+        "Kablo boşluğunu alıp brace yap; çalışan bacağı kalçadan geriye götür.",
+        "Take up cable slack, brace, and move the working leg backward from the hip."
+      ],
+      [
+        "Pelvis veya bel pozisyonu değişmeden ulaştığın noktada kısa süre dur.",
+        "Pause briefly at the point reached without changing pelvic or lower-back position."
+      ],
+      [
+        "Ağırlık istifini çarptırmadan bacağı kontrollü başlangıca getir.",
+        "Return the leg under control without letting the weight stack crash."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağır yükü gövde savurmasıyla hareket ettirmek.",
+        "Moving a heavy load by swinging the trunk."
+      ],
+      [
+        "Kalçayı dışa açıp hareketi saf ekstansiyondan uzaklaştırmak.",
+        "Opening the hip outward and turning the movement away from hip extension."
+      ],
+      [
+        "Tepe noktada beli aşırı çukurlaştırmak.",
+        "Overarching the lower back at the top."
+      ],
+      [
+        "Dönüşte kablonun bacağı kontrolsüz öne çekmesine izin vermek.",
+        "Letting the cable pull the leg forward without control on the return."
+      ]
+    ],
+    "tips": [
+      [
+        "Daha büyük savurma yerine pelvis sabitken kullanabildiğin menzili seç.",
+        "Choose the range available with a stable pelvis instead of chasing a larger swing."
+      ],
+      [
+        "Gövde açısı ve makineye mesafe kablo hattını değiştirir; setler arasında aynı kurulumu koru.",
+        "Trunk angle and distance from the machine change the cable line; keep setup consistent between sets."
+      ],
+      [
+        "Kablo kickback “glute bağlantısı” hissi verebilir; ilerlemeyi yalnızca hisle değil yük, tekrar ve formla izle.",
+        "Cable kickbacks may create a strong glute sensation; track progress with load, reps, and form rather than sensation alone."
+      ],
+      [
+        "Sağ ve sol tarafı aynı aparat yüksekliği ve tempo ile çalıştır.",
+        "Train both sides with the same pulley height and tempo."
+      ]
+    ],
+    "progression": [
+      [
+        "Glute bridge ve vücut ağırlığı kickback ile kalça-pelvis ayrımını öğren.",
+        "Learn hip-pelvis separation with glute bridges and bodyweight kickbacks."
+      ],
+      [
+        "Hafif kablo yüküyle sabit destek ve kontrollü dönüş geliştir.",
+        "Develop stable support and a controlled return with a light cable load."
+      ],
+      [
+        "Hedef tekrarlar aynı menzilde tamamlanınca küçük ağırlık artışı yap.",
+        "Add small amounts of weight once target reps use the same range."
+      ],
+      [
+        "İleri aşamada tepe pause veya yavaş eksantrik ekle.",
+        "At a later stage, add a top pause or slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "glutes"
+        "gluteus-maximus"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "gluteus-medius",
+        "abdominals"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -11038,7 +11642,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Cable Kickback exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cable Kickback Rehberi | Kablo Kalça Formu",
+        "Cable Kickback Guide | Setup and Hip Form"
+      ],
+      "metaDescription": [
+        "Cable kickback aparat ayarı, pelvis ve bel kontrolü, kablo hattı, hatalar ve progression adımları.",
+        "Learn cable-kickback setup, pelvic control, cable path, common errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Gluteus maximus",
+          "Gluteus maximus"
+        ],
+        "equipment": [
+          "Kablo makinesi ve ayak bileği aparatı",
+          "Cable machine and ankle cuff"
+        ],
+        "movementPattern": [
+          "Ayakta kablo kalça ekstansiyonu",
+          "Standing cable hip extension"
+        ],
+        "bestFor": [
+          "Kalça aksesuar hacmi ve taraf takibi",
+          "Glute accessory volume and side tracking"
+        ]
+      },
+      "tracking": [
+        [
+          "Makara yüksekliği, makineye mesafe, yük, tekrar ve RIR değerini kaydet.",
+          "Log pulley height, distance from the machine, load, reps, and RIR."
+        ],
+        [
+          "Taraf başına kontrollü hareket açıklığını takip et.",
+          "Track controlled range for each side."
+        ],
+        [
+          "Gövde açısı veya aparat değişikliğini varyasyon notuna ekle.",
+          "Include trunk-angle or attachment changes in the variation notes."
+        ]
+      ],
+      "related": [
+        "glute-kickback",
+        "hip-thrust",
+        "hip-abduction-machine"
+      ]
+    }
   },
   "hip-abduction-machine": {
     "publish": false,
@@ -11046,35 +11696,98 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/hip-abduction-machine",
     "summary": [
-      "Kalça dışa açış makinesi. Glute medius.",
-      "Hip abduction machine. Glute medius focus."
+      "Makinede kalça abdüksiyonu. Yan kalça odaklı.",
+      "Machine hip abduction. Lateral hip focused."
     ],
     "description": [
-      "Kalçayı dışa açma makinesi. Glute medius ve kalça çevresi stabilizatörlerini hedef alır. Özellikle alt vücut programlarında kalça stabilitesi ve yan kalça gelişimi için yararlıdır.",
-      "A machine for moving the legs outward against resistance. It targets the glute medius and hip stabilizers. It is helpful for hip stability and lateral glute development in lower-body programs."
+      "Otururken bacakların pedlere karşı dışa açıldığı makine kalça abdüksiyonu hareketidir. Gluteus medius ve minimus başta olmak üzere kalça abdüktörlerini çalıştırır; tensor fasciae latae de harekete katkı verir.",
+      "A seated machine hip-abduction exercise in which the legs open outward against pads. It trains the hip abductors, led by the gluteus medius and minimus, with assistance from the tensor fasciae latae."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Hareket boyunca belden savrulmak yerine kalçadan açmaya odaklan.",
-        "Focus on opening from the hips rather than swinging from the lower back."
+        "Koltuk, sırt desteği ve başlangıç açıklığını kalça ile dizlerin rahat olduğu konuma ayarla.",
+        "Set the seat, back support, and starting width to a comfortable position for the hips and knees."
       ],
       [
-        "Tepe noktada kısa bir sıkışma eklemek yan kalça hissini artırır.",
-        "Adding a brief squeeze at the top increases lateral glute engagement."
+        "Dizleri veya dış uylukları pedlere yerleştir; pelvis ve ayakları dengeli tut.",
+        "Place the knees or outer thighs against the pads and keep the pelvis and feet stable."
       ],
       [
-        "Ağırlık çok yükselirse momentum başlar; kontrolü bozmayacak seviyede kal.",
-        "If the weight gets too high, momentum takes over; stay in a controllable range."
+        "Tutacakları kavrayıp gövdeyi seçtiğin açıda sabitle.",
+        "Hold the handles and stabilize the trunk at the chosen angle."
+      ],
+      [
+        "Bacakları kalçadan dışa aç; pelvis dönmeden kontrol edebildiğin noktada kısa süre dur.",
+        "Open the legs from the hips and pause where control can be maintained without pelvic rotation."
+      ],
+      [
+        "Ağırlık istifini çarptırmadan pedleri kontrollü biçimde içeri getir.",
+        "Return the pads inward under control without letting the weight stack crash."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağır yük için gövdeyi veya pelvisi savurmak.",
+        "Swinging the trunk or pelvis to move a heavy load."
+      ],
+      [
+        "Daha geniş açıklık için pelvisin koltukta dönmesine izin vermek.",
+        "Allowing the pelvis to rotate on the seat to create a wider range."
+      ],
+      [
+        "Ayakları zorlayarak diz ve kalça hizasını rahatsız etmek.",
+        "Forcing the foot position and making the knee or hip alignment uncomfortable."
+      ],
+      [
+        "Dönüşte pedleri ve ağırlık istifini kontrolsüz bırakmak.",
+        "Releasing the pads and weight stack without control on the return."
+      ]
+    ],
+    "tips": [
+      [
+        "Başlangıç açıklığı ve rahat hareket aralığı makineye ve kişiye göre değişir.",
+        "Starting width and comfortable range vary by machine and individual."
+      ],
+      [
+        "Gövde açısı kas hissini değiştirebilir; bunu sihirli bir izolasyon ayarı olarak değil ayrı varyasyon olarak kaydet.",
+        "Trunk angle can change muscular sensation; log it as a variation rather than treating it as a magic isolation setting."
+      ],
+      [
+        "Kalça abdüktörlerini güçlendirmek faydalı olabilir ancak tek başına ağrı veya sakatlık önleme garantisi vermez.",
+        "Strengthening the hip abductors can be useful but does not by itself guarantee pain relief or injury prevention."
+      ],
+      [
+        "İki taraf birlikte hareket ettiği için görünür asimetri sınırlıdır; tek taraf değerlendirmesi gerekiyorsa farklı bir varyasyon kullan.",
+        "Because both sides move together, visible asymmetry is limited; use another variation when side-specific assessment is needed."
+      ]
+    ],
+    "progression": [
+      [
+        "Rahat başlangıç açıklığında hafif yükle kontrollü tekrarlar yap.",
+        "Perform controlled reps with a light load and comfortable starting width."
+      ],
+      [
+        "Pelvis sabit kalırken hareket açıklığını standartlaştır.",
+        "Standardize range while keeping the pelvis stable."
+      ],
+      [
+        "Hedef tekrarlar temposu bozulmadan tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps maintain tempo."
+      ],
+      [
+        "İleri aşamada tepe pause veya yavaş dönüş kullan.",
+        "At a later stage, use a top pause or slower return."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "glutes"
+        "gluteus-medius",
+        "gluteus-minimus"
       ],
-      "secondary": []
+      "secondary": [
+        "tensor-fasciae-latae",
+        "gluteus-maximus"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -11090,7 +11803,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Hip Abduction Machine exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Hip Abduction Machine Rehberi | Ayar ve Form",
+        "Hip Abduction Machine Guide | Setup and Form"
+      ],
+      "metaDescription": [
+        "Kalça abdüksiyon makinesi için koltuk ve başlangıç ayarı, pelvis kontrolü, hatalar ve progression.",
+        "Learn hip-abduction machine setup, pelvic control, common errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Gluteus medius ve minimus",
+          "Gluteus medius and minimus"
+        ],
+        "equipment": [
+          "Kalça abdüksiyon makinesi",
+          "Hip-abduction machine"
+        ],
+        "movementPattern": [
+          "Oturarak kalça abdüksiyonu",
+          "Seated hip abduction"
+        ],
+        "bestFor": [
+          "Yan kalça kuvveti ve aksesuar hacmi",
+          "Lateral hip strength and accessory volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, başlangıç açıklığı, gövde açısı, yük, tekrar ve RIR değerini kaydet.",
+          "Log machine model, starting width, trunk angle, load, reps, and RIR."
+        ],
+        [
+          "Pelvis sabitken kullandığın hareket açıklığını takip et.",
+          "Track the range used while keeping the pelvis stable."
+        ],
+        [
+          "Koltuk veya ped ayarı değişikliklerini varyasyon notuna ekle.",
+          "Include seat or pad setting changes in the variation notes."
+        ]
+      ],
+      "related": [
+        "cable-kickback",
+        "glute-bridge",
+        "leg-adduction-machine"
+      ]
+    }
   },
   "back-extension": {
     "publish": false,

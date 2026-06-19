@@ -4151,6 +4151,67 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 71 — Exercise Guide Enrichment Batch 7 (2026-06-19)
+
+### Amaç
+
+Kalça ekstansiyonu, kalça abdüksiyonu ve ayakta/oturarak plantar fleksiyon desenlerindeki yedi hareketi tam guide seviyesine taşımak; aktivasyon, izolasyon, zorunlu tam hareket açıklığı ve sabit tekrar aralığı hakkındaki mutlak legacy iddiaları düzeltmek.
+
+### Kapsam
+
+- Single-Leg Hip Thrust
+- Glute Bridge
+- Glute Kickback
+- Cable Kickback
+- Hip Abduction Machine
+- Calf Raise
+- Seated Calf Raise
+
+### İçerik Kararları
+
+- **Tek taraflı çalışma:** Single-Leg Hip Thrust sağ-sol farklarını görünür ve ayrı takip edilebilir kılar; farkları otomatik düzelttiği veya tek başına asimetri tanısı koyduğu iddia edilmedi.
+- **Glute bridge bitişi:** Tepe noktası daha fazla bel hiperekstansiyonuyla değil, nötr gövde korunarak tamamlanan kalça ekstansiyonuyla sınırlandı.
+- **Kickback ayrımı:** `glute-kickback` dört ayak vücut ağırlığı varyasyonu, `cable-kickback` ayakta düşük makara varyasyonu olarak net biçimde ayrıldı.
+- **Aktivasyon dili:** Kas hissi veya “mind-muscle connection” ilerlemenin tek ölçütü yapılmadı; yük, tekrar, hareket açıklığı, tempo ve form takibi öne çıkarıldı.
+- **Hip abduction iddiası:** Makine kalça abdüksiyonunun gluteus medius/minimus ve tensor fasciae latae katkısıyla çalıştığı yazıldı; tek başına ağrı veya sakatlık önleme garantisi verilmedi.
+- **Calf ROM ve tekrar miti:** Herkes için zorunlu maksimum esneme ve yalnız yüksek tekrar önerisi kaldırıldı; ağrısız, tekrarlanabilir menzil ve hedefe göre yük/tekrar progression'ı kullanıldı.
+- **Standing/seated ayrımı:** Diz fleksiyonunun gastrocnemius katkısını azaltıp soleus vurgusunu artırdığı, fakat seated calf raise'in soleus'u tamamen izole etmediği belirtildi.
+- **Anatomik kas verisi:** Yedi kayıt hareket bazlı primary/secondary kas slug'larına geçirildi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 52 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Ek Veri Düzeltmesi
+
+- İlk migration'dan kalan `g?sterimi` ve `?al??an kaslar?n haritas?` kalıpları 142 guide kaydında gerçek Türkçe karakterlerle onarıldı.
+- Düzeltme `f5a3d76` commit'inde yalnızca `media.demoLabel[0]` ve `media.muscleMapAlt[0]` alanlarına uygulandı; 145/145 kayıt temiz doğrulandı.
+
+### Kaynaklar
+
+- `https://www.acefitness.org/resources/everyone/exercise-library/49/glute-bridge/`
+- `https://www.acefitness.org/resources/everyone/exercise-library/73/standing-calf-raises/`
+- `https://pubmed.ncbi.nlm.nih.gov/38156065/`
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi kalça/baldır hareketi için tam guide, anatomik kas içeriği ve düzeltilmiş TR medya alt metinleri |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları, kaynaklar ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 52 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- Tüm TR `demoLabel` ve `muscleMapAlt` değerleri bozuk `?` kalıplarından arınmış olmalı.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 70 — Exercise Guide Enrichment Batch 6 (2026-06-19)
 
 ### Amaç
