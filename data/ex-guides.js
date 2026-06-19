@@ -12831,39 +12831,103 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/plank",
     "summary": [
-      "Plank. Karın stabilizasyonu.",
-      "Plank. Core stabilization."
+      "Ön kol plank. Anti-extension gövde kontrolü.",
+      "Forearm plank. Anti-extension trunk control."
     ],
     "description": [
-      "İzometrik core stabilizasyon egzersizi. Karın kasları, sırt alt kısmı ve omuzları statik olarak çalıştırır. Temel bir core hareketi.",
-      "Isometric core stabilization. Works the abdominals, lower back, and shoulders statically. A foundational core movement."
+      "Ön kollar ve ayak uçları üzerinde gövde pozisyonunun izometrik korunduğu anti-extension hareketidir. Karın duvarı ana stabilizasyonu sağlarken omuz çevresi, glute, quadriceps ve spinal kaslar tüm vücut gerilimine katkı verir.",
+      "An anti-extension exercise that holds the trunk isometrically on the forearms and toes. The abdominal wall provides the main stabilization while the shoulder girdle, glutes, quadriceps, and spinal muscles contribute to whole-body tension."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kalça ne çok düşmeli ne de yükselmelidir — baştan topuğa düz çizgi.",
-        "Hips should neither sag nor pike — maintain a straight line from head to heels."
+        "Dirsekleri omuzların altına, ön kolları rahat ve dengeli biçimde zemine yerleştir.",
+        "Place the elbows under the shoulders with the forearms resting comfortably and evenly on the floor."
       ],
       [
-        "Nefesini tutma; karın kaslarını sıkarken normal nefes al.",
-        "Don't hold breath; keep breathing normally while squeezing core."
+        "Ayak uçlarını geriye alıp dizleri kaldır; zemini ön kollar ve ayaklarla aktif it.",
+        "Step the feet back, lift the knees, and actively press the floor through the forearms and toes."
       ],
       [
-        "Zamanı kademeli artır — 20-30 sn ile başla ve her hafta artır.",
-        "Gradually increase duration — start at 20-30 sec and add each week."
+        "Kaburgaları pelvis üzerinde tut, glute ve quadricepsleri seçtiğin gövde hattını koruyacak kadar ger.",
+        "Stack the ribs over the pelvis and tension the glutes and quadriceps enough to maintain the chosen body line."
       ],
       [
-        "Dirsek plank, bilek problemi olanlar için daha az stres yaratır.",
-        "Forearm plank creates less wrist stress for those with wrist issues."
+        "Boynu gövdenin devamında tutup kontrollü nefes almaya devam et.",
+        "Keep the neck in line with the trunk and continue breathing under control."
+      ],
+      [
+        "Kalça veya bel pozisyonu değişmeden önce seti bitir.",
+        "End the set before the hip or lower-back position changes."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Süreyi uzatmak için kalçayı kontrolsüz düşürmek veya yükseltmek.",
+        "Letting the hips sag or rise without control just to extend the hold."
+      ],
+      [
+        "Omuzları kulaklara sıkıştırıp ön kollarla zemini itmeyi bırakmak.",
+        "Shrugging the shoulders toward the ears and losing active forearm pressure."
+      ],
+      [
+        "Nefesi tamamen tutup pozisyonu kısa sürede kaybetmek.",
+        "Holding the breath completely and quickly losing position."
+      ],
+      [
+        "Her sette farklı ayak genişliği veya dirsek konumu kullanmak.",
+        "Using a different foot width or elbow position from set to set."
+      ]
+    ],
+    "tips": [
+      [
+        "Herkes için tek bir geometrik düz çizgi şart değildir; kaburga-pelvis ve bel kontrolünü tekrar edilebilir tut.",
+        "One exact geometric straight line is not mandatory for everyone; keep rib-pelvis and lower-back control repeatable."
+      ],
+      [
+        "Kaliteli kısa setler, formun dağıldığı uzun tutuşlardan daha izlenebilirdir.",
+        "Short high-quality sets are easier to track than long holds with deteriorating form."
+      ],
+      [
+        "Ön kol plank bilek yükünü azaltabilir fakat omuz veya bel konforunu otomatik garanti etmez.",
+        "A forearm plank can reduce wrist loading but does not automatically guarantee shoulder or lower-back comfort."
+      ],
+      [
+        "Süre tek progression değildir; kaldıraç, ayak genişliği ve harici yük de zorluğu değiştirir.",
+        "Time is not the only progression; leverage, foot width, and external load also change difficulty."
+      ]
+    ],
+    "progression": [
+      [
+        "Yüksek yüzeyde veya dizler yerde plank ile kaburga-pelvis kontrolünü öğren.",
+        "Learn rib-pelvis control with an elevated plank or knees-down plank."
+      ],
+      [
+        "Zeminde kısa, tekrarlanabilir ön kol plank setleri yap.",
+        "Perform short, repeatable floor forearm-plank sets."
+      ],
+      [
+        "Aynı formda tutuş süresini veya set sayısını kademeli artır.",
+        "Gradually increase hold duration or set count with the same form."
+      ],
+      [
+        "İleri aşamada long-lever plank, ağırlıklı plank veya kontrollü uzuv hareketi kullan.",
+        "At a later stage, use a long-lever plank, weighted plank, or controlled limb movement."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "transversus-abdominis",
+        "internal-oblique",
+        "external-oblique"
       ],
-      "secondary": []
+      "secondary": [
+        "serratus-anterior",
+        "anterior-deltoid",
+        "gluteus-maximus",
+        "quadriceps",
+        "spinal-erectors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -12879,7 +12943,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Plank exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Plank Rehberi | Ön Kol Plank Formu ve Süre",
+        "Plank Guide | Forearm Plank Form and Duration"
+      ],
+      "metaDescription": [
+        "Ön kol plank için dirsek ayarı, kaburga-pelvis kontrolü, nefes, süre takibi, hatalar ve progression.",
+        "Learn forearm-plank setup, rib-pelvis control, breathing, timing, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Karın duvarı ve oblikler",
+          "Abdominal wall and obliques"
+        ],
+        "equipment": [
+          "Egzersiz matı",
+          "Exercise mat"
+        ],
+        "movementPattern": [
+          "İzometrik anti-extension",
+          "Isometric anti-extension"
+        ],
+        "bestFor": [
+          "Gövde dayanıklılığı ve pozisyon kontrolü",
+          "Trunk endurance and position control"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş süresi, set sayısı, ayak genişliği ve RPE değerini kaydet.",
+          "Log hold time, set count, foot width, and RPE."
+        ],
+        [
+          "Diz yerde, yüksek yüzey veya long-lever varyasyonunu belirt.",
+          "Record knees-down, elevated, or long-lever variation."
+        ],
+        [
+          "Formun bozulduğu süreyi toplam süreden ayrı not etme; seti o noktada bitir.",
+          "Do not count time after form changes; end the set at that point."
+        ]
+      ],
+      "related": [
+        "side-plank",
+        "hollow-body-hold",
+        "ab-wheel"
+      ]
+    }
   },
   "hollow-body-hold": {
     "publish": false,
@@ -12887,35 +12997,102 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/hollow-body-hold",
     "summary": [
-      "Hollow hold. Calisthenics core temeli.",
-      "Hollow hold. Calisthenics core staple."
+      "Hollow body hold. Supine anti-extension kontrolü.",
+      "Hollow body hold. Supine anti-extension control."
     ],
     "description": [
-      "Calisthenics'in temel core pozisyonlarından biri olan hollow hold. Kaburgaları aşağıda tutmayı, pelvisi sabitlemeyi ve tüm gövdeyi tek parça halinde kontrol etmeyi öğretir. Bar, ring ve handstand paternlerine güçlü temel sağlar.",
-      "The hollow hold is one of the foundational core positions in calisthenics. It teaches rib control, pelvic stability, and whole-body tension. It provides a strong base for bars, rings, and handstand patterns."
+      "Sırt üstü pozisyonda kaburga-pelvis ilişkisi korunurken kol ve bacak kaldıraçlarının uzatıldığı izometrik anti-extension hareketidir. Karın duvarı ana yükü taşır; kalça fleksörleri ve omuz çevresi uzuv pozisyonuna katkı verir.",
+      "A supine isometric anti-extension exercise that lengthens the arm and leg levers while maintaining rib-pelvis position. The abdominal wall carries most of the demand while the hip flexors and shoulder girdle contribute to limb position."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bel boşluğunu minimumda tutarak kaburgaları aşağı kapat.",
-        "Keep the lower-back gap minimal and pull the ribs down."
+        "Sırt üstü yatıp kalça ve dizleri rahatça bük; kolları gövde yanında başlat.",
+        "Lie on your back with the hips and knees comfortably bent and the arms beside the body."
       ],
       [
-        "Kolları ve bacakları alçaltmak zorluğu artırır.",
-        "Lowering the arms and legs closer to the floor increases difficulty."
+        "Nefes vererek kaburgaları pelvis yönüne getir ve bel pozisyonunu ağrısız şekilde sabitle.",
+        "Exhale to bring the ribs toward the pelvis and set a pain-free lower-back position."
       ],
       [
-        "Süreyi uzatmadan önce pozisyon kalitesini koru.",
-        "Maintain position quality before trying to extend the hold time."
+        "Baş ve omuzları rahatça kaldırabiliyorsan kaldır; boynu zorlamadan bakışı ileri taşı.",
+        "If comfortable, lift the head and shoulders while keeping the neck relaxed and gaze forward."
+      ],
+      [
+        "Önce bir kolu veya bacağı, sonra iki uzvu pozisyon bozulmayacak mesafeye uzat.",
+        "Extend one arm or leg, then both limbs only as far as position can be maintained."
+      ],
+      [
+        "Kontrollü nefes alıp ver; bel veya kaburga pozisyonu değişmeden önce regresyona dön veya seti bitir.",
+        "Breathe under control and regress or end the set before the lower back or ribs change position."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kaldıracı erken uzatıp bel pozisyonunu kaybetmek.",
+        "Lengthening the lever too early and losing lower-back position."
+      ],
+      [
+        "Boynu aşırı bükerek başı göğse çekmek.",
+        "Overflexing the neck and pulling the head toward the chest."
+      ],
+      [
+        "Belini ağrılı biçimde zemine zorla bastırmak.",
+        "Forcing the lower back painfully into the floor."
+      ],
+      [
+        "Nefesi tutarak yalnız süreyi uzatmaya çalışmak.",
+        "Holding the breath solely to extend the duration."
+      ]
+    ],
+    "tips": [
+      [
+        "Belin zemine yakınlığı bir kontrol aracıdır; ağrılı veya zorlanmış temas hedef değildir.",
+        "Lower-back proximity to the floor is a control tool; painful or forced contact is not the goal."
+      ],
+      [
+        "Kol ve bacakları zemine yaklaştırmak zorluğu artırır; süreyi uzatmadan önce kaldıraç seçimini sabitle.",
+        "Lowering the arms and legs increases difficulty; standardize leverage before extending time."
+      ],
+      [
+        "Baş yerde yapılan varyasyon geçerli bir regresyondur; boyun yorgunluğunu core performansıyla karıştırma.",
+        "Keeping the head down is a valid regression; do not confuse neck fatigue with core performance."
+      ],
+      [
+        "Hollow hold bar, ring veya handstand kontrolüne yardımcı olabilir fakat bu becerileri otomatik öğretmez.",
+        "The hollow hold may support bar, ring, or handstand control but does not automatically teach those skills."
+      ]
+    ],
+    "progression": [
+      [
+        "Dizler bükülü ve kollar gövde yanında kısa tutuşlar yap.",
+        "Use short holds with bent knees and arms beside the body."
+      ],
+      [
+        "Bir bacağı veya bir kolu sırayla uzatarak dead-bug benzeri kaldıraç geliştir.",
+        "Build leverage by extending one leg or arm at a time in a dead-bug style."
+      ],
+      [
+        "İki bacağı ve kolları kontrollü biçimde daha uzağa uzat.",
+        "Gradually extend both legs and arms farther while maintaining control."
+      ],
+      [
+        "İleri aşamada hollow rock veya harici hafif yük kullan.",
+        "At a later stage, use hollow rocks or light external loading."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "transversus-abdominis",
+        "internal-oblique",
+        "external-oblique"
       ],
-      "secondary": []
+      "secondary": [
+        "iliopsoas",
+        "rectus-femoris",
+        "serratus-anterior",
+        "anterior-deltoid"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -12931,7 +13108,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Hollow Body Hold exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Hollow Body Hold Rehberi | Pozisyon ve Progression",
+        "Hollow Body Hold Guide | Position and Progression"
+      ],
+      "metaDescription": [
+        "Hollow hold için kaburga-pelvis kontrolü, kol ve bacak kaldıraçları, boyun regresyonu ve progression.",
+        "Learn hollow-hold rib-pelvis control, limb leverage, neck regressions, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Karın duvarı ve oblikler",
+          "Abdominal wall and obliques"
+        ],
+        "equipment": [
+          "Egzersiz matı",
+          "Exercise mat"
+        ],
+        "movementPattern": [
+          "Supine izometrik anti-extension",
+          "Supine isometric anti-extension"
+        ],
+        "bestFor": [
+          "Gövde gerilimi ve kaldıraç kontrolü",
+          "Whole-body tension and leverage control"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş süresi, kol/bacak pozisyonu ve RPE değerini kaydet.",
+          "Log hold time, arm and leg position, and RPE."
+        ],
+        [
+          "Baş yerde veya omuzlar kalkık varyasyonu belirt.",
+          "Record whether the head stays down or shoulders are lifted."
+        ],
+        [
+          "Pozisyon bozulmadan tamamlanan süreyi takip et.",
+          "Track only the duration completed without position loss."
+        ]
+      ],
+      "related": [
+        "plank",
+        "ab-wheel",
+        "l-sit"
+      ]
+    }
   },
   "side-plank": {
     "publish": false,
@@ -12939,35 +13162,101 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/side-plank",
     "summary": [
-      "Yan plank. Oblik ve lateral core.",
-      "Side plank. Obliques and lateral core."
+      "Yan plank. Lateral gövde ve kalça kontrolü.",
+      "Side plank. Lateral trunk and hip control."
     ],
     "description": [
-      "Yan destek pozisyonunda yapılan izometrik core hareketi. Oblikler, kalça yan zinciri ve omuz stabilitesini birlikte çalıştırır. Lateral core kuvveti için en temel hareketlerden biridir.",
-      "An isometric core exercise performed in a side-support position. It trains the obliques, lateral hip chain, and shoulder stability together. It is one of the foundational exercises for lateral core strength."
+      "Tek ön kol ve ayağın veya dizin dış kenarı üzerinde gövdenin yanal hizasının izometrik korunduğu anti-lateral-flexion hareketidir. Oblikler ve quadratus lumborum ana gövde yükünü taşırken yan kalça ve destek omzu pozisyonu korur.",
+      "An isometric anti-lateral-flexion exercise that maintains lateral alignment on one forearm and the outer edge of the feet or knee. The obliques and quadratus lumborum carry the main trunk demand while the lateral hip and support shoulder maintain position."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kulak-omuz-kalça-ayak çizgisini mümkün olduğunca düz tut.",
-        "Keep the ear-shoulder-hip-foot line as straight as possible."
+        "Alt dirseği omuzun altına yerleştir; dizler bükülü, ayaklar üst üste veya staggered varyasyondan birini seç.",
+        "Place the lower elbow under the shoulder and choose a bent-knee, stacked-feet, or staggered-feet variation."
       ],
       [
-        "Alt belin çökmesine izin verme; kalçayı aktif yukarı taşı.",
-        "Do not let the lower side sag; actively lift the hips."
+        "Ön kolu zemine itip omuzu kulaktan uzaklaştır.",
+        "Press the forearm into the floor and keep the shoulder away from the ear."
       ],
       [
-        "Kolaylaştırmak için dizler bükülü versiyonla başlayabilirsin.",
-        "You can start with a bent-knee version to make it easier."
+        "Kalçayı kaldırarak baş, gövde ve pelvisin seçtiğin destekle uyumlu hattını kur.",
+        "Lift the hips and establish a head, trunk, and pelvis line appropriate to the chosen support."
+      ],
+      [
+        "Pelvisin öne veya geriye dönmesini sınırlayıp kontrollü nefes al.",
+        "Limit forward or backward pelvic rotation and breathe under control."
+      ],
+      [
+        "Alt bel, kalça veya omuz pozisyonu değişmeden önce seti bitir.",
+        "End the set before the lower trunk, hip, or shoulder position changes."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Alt omuzu kulağa sıkıştırmak veya dirseği omuzdan uzağa koymak.",
+        "Shrugging the support shoulder or placing the elbow too far from it."
+      ],
+      [
+        "Kalçayı düşürüp süreyi devam ettirmek.",
+        "Continuing the hold after the hips sag."
+      ],
+      [
+        "Pelvisi tavana veya zemine kontrolsüz döndürmek.",
+        "Rotating the pelvis toward the ceiling or floor without control."
+      ],
+      [
+        "Sağ ve sol tarafı farklı ayak/diz varyasyonlarıyla karşılaştırmak.",
+        "Comparing sides while using different foot or knee variations."
+      ]
+    ],
+    "tips": [
+      [
+        "Dizler bükülü side plank geçerli bir başlangıçtır; süre uzatmak için formu saklamaya gerek yoktur.",
+        "A bent-knee side plank is a valid starting point; there is no need to hide form loss just to extend time."
+      ],
+      [
+        "Ayakları staggered yerleştirmek dengeyi kolaylaştırabilir ve gövde talebini koruyabilir.",
+        "Staggering the feet can improve balance while preserving trunk demand."
+      ],
+      [
+        "Yan kalça ve destek omzu birlikte yorulur; tek bir bölgedeki hissi tüm performansın ölçüsü yapma.",
+        "The lateral hip and support shoulder fatigue too; do not use sensation in one area as the sole performance measure."
+      ],
+      [
+        "Taraf sürelerini aynı varyasyon ve omuz ayarıyla ayrı kaydet.",
+        "Log side durations separately using the same variation and shoulder setup."
+      ]
+    ],
+    "progression": [
+      [
+        "Dizler bükülü ve kısa kaldıraçla yan desteği öğren.",
+        "Learn the side-support position with bent knees and a short lever."
+      ],
+      [
+        "Bacakları uzatıp ayakları staggered yerleştir.",
+        "Extend the legs with the feet staggered."
+      ],
+      [
+        "Ayakları üst üste koyarak veya süreyi artırarak zorluğu yükselt.",
+        "Increase difficulty by stacking the feet or extending duration."
+      ],
+      [
+        "İleri aşamada üst bacak kaldırma, row veya harici yük ekle.",
+        "At a later stage, add a top-leg lift, row, or external load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "internal-oblique",
+        "external-oblique",
+        "quadratus-lumborum"
       ],
-      "secondary": []
+      "secondary": [
+        "gluteus-medius",
+        "gluteus-maximus",
+        "serratus-anterior",
+        "lateral-deltoid"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -12983,7 +13272,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Side Plank exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Side Plank Rehberi | Yan Plank Formu ve Süre",
+        "Side Plank Guide | Form and Hold Duration"
+      ],
+      "metaDescription": [
+        "Side plank için dirsek, ayak ve diz varyasyonları, pelvis kontrolü, taraf takibi, hatalar ve progression.",
+        "Learn side-plank elbow, foot and knee variations, pelvic control, side tracking, errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Oblikler ve quadratus lumborum",
+          "Obliques and quadratus lumborum"
+        ],
+        "equipment": [
+          "Egzersiz matı",
+          "Exercise mat"
+        ],
+        "movementPattern": [
+          "İzometrik anti-lateral fleksiyon",
+          "Isometric anti-lateral flexion"
+        ],
+        "bestFor": [
+          "Lateral gövde ve yan kalça dayanıklılığı",
+          "Lateral trunk and hip endurance"
+        ]
+      },
+      "tracking": [
+        [
+          "Taraf başına süre, set, ayak/diz varyasyonu ve RPE değerini kaydet.",
+          "Log time per side, sets, foot or knee variation, and RPE."
+        ],
+        [
+          "Staggered veya üst üste ayak konumunu belirt.",
+          "Record staggered or stacked foot position."
+        ],
+        [
+          "Omuz veya kalça pozisyonu bozulduğu anda seti bitir.",
+          "End the set when shoulder or hip position changes."
+        ]
+      ],
+      "related": [
+        "plank",
+        "cable-woodchopper",
+        "farmer-carry"
+      ]
+    }
   },
   "crunch": {
     "publish": false,
@@ -12991,35 +13326,98 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/crunch",
     "summary": [
-      "Karın sıkıştırma.",
-      "Abdominal crunch."
+      "Yerde crunch. Kontrollü gövde fleksiyonu.",
+      "Floor crunch. Controlled trunk flexion."
     ],
     "description": [
-      "Klasik karın kasılma hareketi. Rectus abdominis (altı paket kası) için temel izolasyon egzersizi.",
-      "Classic abdominal crunch. Fundamental isolation exercise for the rectus abdominis (six-pack muscle)."
+      "Sırt üstü pozisyonda kaburgaların pelvise yaklaştırılmasıyla üst gövdenin kısa menzilde kıvrıldığı trunk-flexion hareketidir. Rectus abdominis ana yükü taşır; oblikler ve derin karın kasları kontrol sağlar.",
+      "A trunk-flexion exercise performed supine by bringing the rib cage toward the pelvis through a short curl of the upper torso. The rectus abdominis carries most of the load while the obliques and deeper abdominal muscles assist control."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Boyuna baskı yapma — elleri başın yanına koy, çeneyi göğse değdirme.",
-        "Don't pull on the neck — hands beside head, chin not jammed to chest."
+        "Sırt üstü yat, dizleri bük ve ayakları rahat mesafede tam taban yerleştir.",
+        "Lie on your back, bend the knees, and place the feet flat at a comfortable distance."
       ],
       [
-        "Küçük hareket yeterli — sadece omuz bıçakları yerden kalkmalı.",
-        "Small movement is enough — just lift shoulder blades off the floor."
+        "Elleri göğüste, baş yanında veya boynu çekmeyecek başka bir konumda tut.",
+        "Place the hands across the chest, beside the head, or in another position that does not pull the neck."
       ],
       [
-        "Nefesi kasılırken ver, inerken al.",
-        "Exhale as you crunch up, inhale on the way down."
+        "Nefes verirken kaburgaları pelvis yönüne getirip üst sırtı kontrollü kaldır.",
+        "Exhale while bringing the ribs toward the pelvis and lifting the upper back under control."
+      ],
+      [
+        "Boynu rahat tutarak kısa menzilin tepesinde dur.",
+        "Pause at the top of the short range while keeping the neck relaxed."
+      ],
+      [
+        "Gövdeyi zemine kontrollü aç ve sıradaki tekrara aynı ayak pozisyonuyla geç.",
+        "Uncurl the torso to the floor under control and begin the next rep with the same foot position."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ellerle başı veya boynu öne çekmek.",
+        "Pulling the head or neck forward with the hands."
+      ],
+      [
+        "Momentumla tam sit-up yüksekliğine çıkmaya çalışmak.",
+        "Using momentum to rise toward a full sit-up."
+      ],
+      [
+        "Her tekrarda ayak veya pelvis pozisyonunu değiştirmek.",
+        "Changing foot or pelvic position on each rep."
+      ],
+      [
+        "Dönüşte gövdeyi kontrolsüz zemine bırakmak.",
+        "Dropping the torso to the floor without control."
+      ]
+    ],
+    "tips": [
+      [
+        "Crunch küçük menzilli bir harekettir; omuzları çok yükseltmek daha iyi tekrar anlamına gelmez.",
+        "The crunch uses a short range; lifting the shoulders higher does not automatically make a better rep."
+      ],
+      [
+        "Çene ile göğüs arasında rahat boşluk bırak; boyun başla birlikte hafif hareket edebilir.",
+        "Keep comfortable space between chin and chest; the neck may move slightly with the head."
+      ],
+      [
+        "Rectus abdominis ana hedef olsa da hareket onu tamamen izole etmez.",
+        "The rectus abdominis is the main target, but the exercise does not completely isolate it."
+      ],
+      [
+        "Tekrar ve yükü yalnız yanma hissine göre değil, aynı menzil ve tempo ile ilerlet.",
+        "Progress reps and load using the same range and tempo, not by burn sensation alone."
+      ]
+    ],
+    "progression": [
+      [
+        "Elleri uyluklara uzatarak kısa kontrollü crunch tekrarları yap.",
+        "Perform short controlled crunch reps while reaching the hands toward the thighs."
+      ],
+      [
+        "Eller göğüste aynı menzil ve tempoyu standartlaştır.",
+        "Standardize range and tempo with the hands across the chest."
+      ],
+      [
+        "Kolları baş yanında veya daha uzun kaldıraçta kullan.",
+        "Use the hands beside the head or a longer arm lever."
+      ],
+      [
+        "İleri aşamada hafif plaka veya cable crunch ile direnç ekle.",
+        "At a later stage, add resistance with a light plate or cable crunch."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis"
       ],
-      "secondary": []
+      "secondary": [
+        "internal-oblique",
+        "external-oblique",
+        "transversus-abdominis"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -13035,7 +13433,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Crunch exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Crunch Rehberi | Karın Sıkıştırma Formu",
+        "Crunch Guide | Abdominal Curl Form"
+      ],
+      "metaDescription": [
+        "Crunch için ayak ve el konumu, kaburga-pelvis hareketi, boyun kontrolü, hatalar ve direnç progression'ı.",
+        "Learn crunch setup, rib-pelvis movement, neck control, common errors, and resistance progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Rectus abdominis",
+          "Rectus abdominis"
+        ],
+        "equipment": [
+          "Egzersiz matı",
+          "Exercise mat"
+        ],
+        "movementPattern": [
+          "Kısa menzilli trunk fleksiyonu",
+          "Short-range trunk flexion"
+        ],
+        "bestFor": [
+          "Kontrollü karın fleksiyonu ve başlangıç direnci",
+          "Controlled abdominal flexion and beginner resistance"
+        ]
+      },
+      "tracking": [
+        [
+          "Tekrar, tempo, el konumu, yük ve RIR değerini kaydet.",
+          "Log reps, tempo, hand position, load, and RIR."
+        ],
+        [
+          "Omuzların kontrollü kalktığı hareket açıklığını sabit tut.",
+          "Keep the controlled shoulder-lift range consistent."
+        ],
+        [
+          "Yüklü ve vücut ağırlığı varyasyonlarını ayrı takip et.",
+          "Track weighted and bodyweight variations separately."
+        ]
+      ],
+      "related": [
+        "reverse-crunch",
+        "cable-crunch",
+        "plank"
+      ]
+    }
   },
   "reverse-crunch": {
     "publish": false,
@@ -13043,35 +13487,100 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/reverse-crunch",
     "summary": [
-      "Ters crunch. Alt karın odaklı.",
-      "Reverse crunch. Lower-ab focused."
+      "Reverse crunch. Kontrollü pelvis kıvırma.",
+      "Reverse crunch. Controlled pelvic curl."
     ],
     "description": [
-      "Pelvisi yerden kıvırarak yapılan alt karın odaklı core hareketi. Basit görünmesine rağmen karın alt kısmını iyi aktive eder ve hanging varyasyonlara göre daha erişilebilirdir. Core antrenmanlarında güçlü bir temel seçenektir.",
-      "A lower-ab focused core movement performed by curling the pelvis off the floor. Despite its simplicity, it activates the lower abdominal region well and is more accessible than hanging variations. It is a strong foundational choice in core training."
+      "Sırt üstü pozisyonda pelvisin kaburgalara doğru kıvrılıp kuyruk sokumunun kısa mesafe yerden kaldırıldığı trunk-flexion hareketidir. Rectus abdominis ve oblikler pelvis kontrolünü sağlarken kalça fleksörleri bacak pozisyonuna katkı verir.",
+      "A trunk-flexion exercise performed supine by curling the pelvis toward the ribs and lifting the tailbone a short distance. The rectus abdominis and obliques control the pelvis while the hip flexors contribute to leg position."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bacakları sadece savurmak yerine pelvisi kıvırmaya odaklan.",
-        "Focus on curling the pelvis rather than just swinging the legs."
+        "Sırt üstü yat, kalça ve dizleri rahatça büküp bacakları masa pozisyonuna getir.",
+        "Lie on your back and bring the hips and knees into a comfortable tabletop position."
       ],
       [
-        "Belin tamamen boşluğa düşmesine izin verme.",
-        "Do not let the lower back lose all control between reps."
+        "Kolları zeminde veya sabit bir desteği hafifçe tutarak üst gövdeyi yerleştir.",
+        "Set the upper body with the arms on the floor or lightly holding a stable support."
       ],
       [
-        "Yavaş eksantrik tekrarlar hareketi daha etkili yapar.",
-        "Slow eccentric reps make the exercise much more effective."
+        "Nefes verirken dizleri yalnız savurmak yerine pelvisi kaburgalara doğru kıvır.",
+        "Exhale and curl the pelvis toward the ribs rather than merely swinging the knees."
+      ],
+      [
+        "Kuyruk sokumu kısa mesafe yükseldiğinde bel veya boyun momentumu olmadan dur.",
+        "Pause after the tailbone lifts a short distance without lower-back or neck momentum."
+      ],
+      [
+        "Pelvisi kontrollü zemine indir ve bacak açısını koruyarak tekrar et.",
+        "Lower the pelvis under control and repeat while maintaining the leg angle."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dizleri göğse hızla savurup pelvis kıvrımını atlamak.",
+        "Swinging the knees rapidly toward the chest and skipping the pelvic curl."
+      ],
+      [
+        "İnişte bacakları fazla açıp bel kontrolünü kaybetmek.",
+        "Extending the legs too far on the descent and losing lower-back control."
+      ],
+      [
+        "Kollarla zemini aşırı iterek kalçayı fırlatmak.",
+        "Pushing excessively through the arms to throw the hips upward."
+      ],
+      [
+        "Boyun veya başı zemine bastırarak momentum üretmek.",
+        "Driving the neck or head into the floor to create momentum."
+      ]
+    ],
+    "tips": [
+      [
+        "“Alt karın” ayrı bir kas değildir; reverse crunch rectus abdominis boyunca ve obliklerle birlikte çalışır.",
+        "The “lower abs” are not a separate muscle; the reverse crunch uses the rectus abdominis with the obliques."
+      ],
+      [
+        "Diz açısı ve bacakların gövdeden uzaklığı kaldıracı değiştirir; her sette aynı konumu kullan.",
+        "Knee angle and leg distance change leverage; use the same position across sets."
+      ],
+      [
+        "Kuyruk sokumunun kısa kontrollü kalkışı yeterlidir; büyük kalça savurması hedef değildir.",
+        "A short controlled tailbone lift is enough; a large hip swing is not the goal."
+      ],
+      [
+        "Yavaş eksantrik faydalı bir progression olabilir ancak tek başına daha “etkili” tekrar garantisi değildir.",
+        "A slower eccentric can be a useful progression but does not automatically guarantee a more effective rep."
+      ]
+    ],
+    "progression": [
+      [
+        "Dizler daha bükülü ve kısa pelvis kıvırmayla başla.",
+        "Start with more knee flexion and a short pelvic curl."
+      ],
+      [
+        "Aynı bacak açısıyla kontrollü tekrar ve eksantrik geliştir.",
+        "Develop controlled reps and eccentrics with the same leg angle."
+      ],
+      [
+        "Bacakları gövdeden biraz uzaklaştırarak kaldıracı uzat.",
+        "Lengthen the lever by moving the legs slightly farther from the torso."
+      ],
+      [
+        "İleri aşamada eğimli bench veya hanging knee raise varyasyonuna geç.",
+        "At a later stage, progress to an incline bench or hanging knee raise."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "internal-oblique",
+        "external-oblique"
       ],
-      "secondary": []
+      "secondary": [
+        "iliopsoas",
+        "rectus-femoris",
+        "transversus-abdominis"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -13087,7 +13596,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Reverse Crunch exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Reverse Crunch Rehberi | Pelvis Kıvırma Formu",
+        "Reverse Crunch Guide | Pelvic Curl Form"
+      ],
+      "metaDescription": [
+        "Reverse crunch için pelvis kıvırma, diz açısı, bacak kaldıracı, momentum hataları ve progression adımları.",
+        "Learn reverse-crunch pelvic curl, knee angle, leg leverage, momentum errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Rectus abdominis ve oblikler",
+          "Rectus abdominis and obliques"
+        ],
+        "equipment": [
+          "Egzersiz matı",
+          "Exercise mat"
+        ],
+        "movementPattern": [
+          "Pelvis odaklı trunk fleksiyonu",
+          "Pelvis-led trunk flexion"
+        ],
+        "bestFor": [
+          "Pelvis kontrolü ve karın fleksiyonu",
+          "Pelvic control and abdominal flexion"
+        ]
+      },
+      "tracking": [
+        [
+          "Tekrar, diz açısı, bacak mesafesi, tempo ve RIR değerini kaydet.",
+          "Log reps, knee angle, leg distance, tempo, and RIR."
+        ],
+        [
+          "Kolların zeminde veya destek tutuşunda olduğunu belirt.",
+          "Record whether the arms are on the floor or holding support."
+        ],
+        [
+          "Eğimli ve düz zemin varyasyonlarını ayrı takip et.",
+          "Track incline and flat-floor variations separately."
+        ]
+      ],
+      "related": [
+        "crunch",
+        "hanging-knee-raise",
+        "cable-crunch"
+      ]
+    }
   },
   "cable-crunch": {
     "publish": false,
@@ -13095,35 +13650,98 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/cable-crunch",
     "summary": [
-      "Kablo karın sıkıştırma.",
-      "Cable crunch."
+      "Diz çökerek cable crunch. Yüklenebilir trunk fleksiyonu.",
+      "Kneeling cable crunch. Loadable trunk flexion."
     ],
     "description": [
-      "Diz çökerek kablo makinesiyle karın kasılma hareketi. Karına dirençli yük ekler. Rectus abdominis ve oblikler yüksek aktivasyonla çalışır.",
-      "Kneeling cable crunch. Adds resistance to the abs. High activation for rectus abdominis and obliques."
+      "Yüksek makaradan gelen kabloya karşı diz çökerek yapılan dirençli trunk-flexion hareketidir. Rectus abdominis ana yükü taşır; oblikler ve derin karın kasları kaburga-pelvis hareketini kontrol eder.",
+      "A resisted trunk-flexion exercise performed kneeling against a high cable. The rectus abdominis carries most of the load while the obliques and deeper abdominal muscles control rib-pelvis movement."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Hareket boyunca kalçaları topuklarda tut; sadece boynu eğme.",
-        "Hinge from the hips toward heels throughout — don't just flex the neck."
+        "Yüksek makaraya halat takıp makineye dönük diz çök; dizleri rahatça pedle.",
+        "Attach a rope to a high pulley, kneel facing the machine, and pad the knees comfortably."
       ],
       [
-        "Alt noktada nefes ver ve karını maksimum sık.",
-        "Exhale at the bottom and squeeze abs maximally."
+        "Halat uçlarını başın iki yanında sabitle ve kablo boşluğunu al.",
+        "Hold the rope ends beside the head and take up cable slack."
       ],
       [
-        "Halatı yüz yanında tut — yukarı sallanmasın.",
-        "Hold the rope by your head — don't let it swing upward."
+        "Kalça ve pelvis için tekrarlanabilir bir konum seçip brace yap.",
+        "Choose a repeatable hip and pelvic position and brace."
+      ],
+      [
+        "Nefes verirken kaburgaları pelvise yaklaştırarak gövdeyi kıvır.",
+        "Exhale and curl the trunk by bringing the ribs toward the pelvis."
+      ],
+      [
+        "Alt pozisyonda kısa kontrol gösterip ağırlığı gövdeyi zorla açtırmadan başlangıca dön.",
+        "Pause briefly at the bottom and return without letting the load force the torso open."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Trunk fleksiyonu yerine kalçayı topuklara doğru büyük ölçüde menteşelemek.",
+        "Replacing trunk flexion with a large hip hinge toward the heels."
+      ],
+      [
+        "Halatı kollarla aşağı çekip hareketi lat pulldown’a çevirmek.",
+        "Pulling the rope down with the arms and turning the exercise into a lat pulldown."
+      ],
+      [
+        "Yalnız boynu büküp kaburga-pelvis mesafesini değiştirmemek.",
+        "Flexing only the neck without changing rib-pelvis distance."
+      ],
+      [
+        "Dönüşte ağırlık istifinin gövdeyi ve omuzları kontrolsüz çekmesine izin vermek.",
+        "Letting the weight stack pull the torso and shoulders open without control."
+      ]
+    ],
+    "tips": [
+      [
+        "Kalça konumu tamamen sabit olmak zorunda değildir; ancak tekrarlar arasında büyük menteşe farkı olmamalıdır.",
+        "The hips do not need to be perfectly motionless, but large hinge changes should not occur between reps."
+      ],
+      [
+        "Halat yalnız bağlantıdır; elleri hareket ettirmek yerine gövdeyi kaburgalardan kıvır.",
+        "The rope is only the connection; curl the trunk from the ribs instead of moving the hands."
+      ],
+      [
+        "Makara yüksekliği ve makineye mesafe kablo açısını değiştirir; kurulumu kaydet.",
+        "Pulley height and distance from the machine change cable angle; log the setup."
+      ],
+      [
+        "Daha ağır yük, hareket açıklığı kısalıyorsa otomatik progression değildir.",
+        "A heavier load is not automatic progress if range becomes shorter."
+      ]
+    ],
+    "progression": [
+      [
+        "Vücut ağırlığı crunch ile kaburga-pelvis kıvırmasını öğren.",
+        "Learn rib-pelvis curling with a bodyweight crunch."
+      ],
+      [
+        "Hafif kablo yüküyle kalça ve halat konumunu standartlaştır.",
+        "Standardize hip and rope position with a light cable load."
+      ],
+      [
+        "Aynı hareket açıklığı ve tempoda küçük yük artışları yap.",
+        "Add small amounts of load while maintaining the same range and tempo."
+      ],
+      [
+        "İleri aşamada pause veya yavaş eksantrik kullan.",
+        "At a later stage, use pauses or a slower eccentric."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis"
       ],
-      "secondary": []
+      "secondary": [
+        "internal-oblique",
+        "external-oblique",
+        "transversus-abdominis"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -13139,7 +13757,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Cable Crunch exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cable Crunch Rehberi | Kablo Karın Formu",
+        "Cable Crunch Guide | Kneeling Cable Form"
+      ],
+      "metaDescription": [
+        "Cable crunch makara ve halat ayarı, kaburga-pelvis hareketi, kalça kontrolü, hatalar ve yük progression'ı.",
+        "Learn cable-crunch setup, rib-pelvis movement, hip control, errors, and load progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Rectus abdominis",
+          "Rectus abdominis"
+        ],
+        "equipment": [
+          "Kablo makinesi, halat ve diz pedi",
+          "Cable machine, rope, and knee pad"
+        ],
+        "movementPattern": [
+          "Yüklenmiş trunk fleksiyonu",
+          "Loaded trunk flexion"
+        ],
+        "bestFor": [
+          "Ölçeklenebilir karın direnci ve hipertrofi",
+          "Scalable abdominal resistance and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Makara yüksekliği, makineye mesafe, yük, tekrar ve RIR değerini kaydet.",
+          "Log pulley height, distance from the machine, load, reps, and RIR."
+        ],
+        [
+          "Kalça konumu ve halat tutuşunu varyasyon notuna ekle.",
+          "Include hip position and rope hold in the variation notes."
+        ],
+        [
+          "Hareket açıklığı kısalan ağır setleri ayrı değerlendir.",
+          "Evaluate heavy sets with reduced range separately."
+        ]
+      ],
+      "related": [
+        "crunch",
+        "reverse-crunch",
+        "ab-wheel"
+      ]
+    }
   },
   "ab-wheel": {
     "publish": false,
@@ -13147,35 +13811,103 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/ab-wheel",
     "summary": [
-      "Karın tekeri rollout. Güçlü core hareketi.",
-      "Ab-wheel rollout. Advanced core movement."
+      "Diz üstü ab-wheel rollout. Yüksek anti-extension talebi.",
+      "Kneeling ab-wheel rollout. High anti-extension demand."
     ],
     "description": [
-      "Karın tekeriyle öne uzanıp geri dönülen ileri seviye core hareketi. Karın duvarını, omuz stabilitesini ve pelvis kontrolünü güçlü şekilde zorlar. Doğru uygulandığında core kuvveti için çok etkilidir.",
-      "An advanced core movement where you roll forward on an ab wheel and return. It strongly challenges the abdominal wall, shoulder stability, and pelvic control. When done correctly, it is extremely effective for building core strength."
+      "Diz üstünde tekeri öne yuvarlayıp gövde kaldıraç kolunu uzatarak geri dönülen dinamik anti-extension hareketidir. Karın duvarı gövdeyi kontrol eder; latissimus dorsi, serratus anterior, omuz ve kol kasları teker yoluna katkı verir.",
+      "A dynamic anti-extension exercise performed kneeling by rolling the wheel forward to lengthen the body lever and returning. The abdominal wall controls the trunk while the latissimus dorsi, serratus anterior, shoulder, and arm muscles contribute to the wheel path."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bel çukurunu artırma; kaburgaları aşağıda tutup core'u kilitle.",
-        "Do not let the lower back arch; keep the ribs down and the core braced."
+        "Dizleri rahatça pedle ve tekeri omuzların altında iki elle dengeli tut.",
+        "Pad the knees comfortably and hold the wheel evenly with both hands under the shoulders."
       ],
       [
-        "İlk başta menzili kısa tutup zamanla uzat.",
-        "Start with a shorter range and gradually increase it over time."
+        "Kaburgaları pelvis üzerinde tutup brace yap; kalça ve omuzları kontrollü ileri taşımaya başla.",
+        "Stack the ribs over the pelvis, brace, and begin moving the hips and shoulders forward under control."
       ],
       [
-        "Kalçanın öne düşmesine izin verme; dönüşü karınla başlat.",
-        "Do not let the hips collapse forward; initiate the return with the abs."
+        "Teker öne giderken kolları uzat ve bel pozisyonu değişmeden kullanabildiğin menzile ulaş.",
+        "Extend the arms as the wheel travels forward and stop at the range that preserves lower-back position."
+      ],
+      [
+        "Zemini ve tekeri kendine doğru çekerek dönüşü başlat; yalnız kalçayı geriye fırlatma.",
+        "Initiate the return by pulling the floor and wheel toward you rather than throwing the hips backward."
+      ],
+      [
+        "Teker omuzların altına döndüğünde aynı diz ve el konumuyla sıradaki tekrara geç.",
+        "When the wheel returns under the shoulders, begin the next rep with the same knee and hand position."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Bel kontrolü kaybolduktan sonra daha uzağa yuvarlanmak.",
+        "Rolling farther after lower-back control is lost."
+      ],
+      [
+        "Dönüşü kollar ve gövde yerine yalnız kalçayı geriye çekerek yapmak.",
+        "Returning only by pulling the hips backward instead of using the arms and trunk."
+      ],
+      [
+        "Tekerin sağa veya sola kaçmasına izin vermek.",
+        "Allowing the wheel to drift to one side."
+      ],
+      [
+        "Kısa menzil kontrol edilmeden tam rollout denemek.",
+        "Attempting a full rollout before controlling a short range."
+      ]
+    ],
+    "tips": [
+      [
+        "Duvar veya sabit blok menzil sınırı olarak kullanılabilir; her sette aynı mesafeyi kur.",
+        "A wall or fixed block can limit range; use the same distance each set."
+      ],
+      [
+        "Ab-wheel yalnız karın izolasyonu değildir; omuz, lat ve kol katkısı normaldir.",
+        "The ab wheel is not an abdominal isolation exercise; shoulder, lat, and arm contribution is normal."
+      ],
+      [
+        "Kalçanın bir miktar hareketi doğaldır; esas sınır kaburga-pelvis ve bel kontrolünün kaybolmasıdır.",
+        "Some hip movement is natural; the key limit is loss of rib-pelvis and lower-back control."
+      ],
+      [
+        "Daha uzun menzil ancak aynı dönüş yolu ve tempo korunuyorsa progression sayılmalıdır.",
+        "Longer range should count as progress only when the same return path and tempo are maintained."
+      ]
+    ],
+    "progression": [
+      [
+        "Plank ve hollow hold ile anti-extension pozisyonunu öğren.",
+        "Learn the anti-extension position with planks and hollow holds."
+      ],
+      [
+        "Duvara yakın kısa menzilli diz üstü rollout yap.",
+        "Perform short kneeling rollouts close to a wall."
+      ],
+      [
+        "Aynı gövde kontrolüyle duvar mesafesini kademeli artır.",
+        "Gradually increase wall distance while maintaining trunk control."
+      ],
+      [
+        "İleri aşamada tam diz üstü, eğimli ayakta veya standing ab-wheel varyasyonuna geç.",
+        "At a later stage, progress to full kneeling, inclined standing, or standing ab-wheel variations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "core"
+        "rectus-abdominis",
+        "transversus-abdominis",
+        "internal-oblique",
+        "external-oblique"
       ],
-      "secondary": []
+      "secondary": [
+        "latissimus-dorsi",
+        "serratus-anterior",
+        "anterior-deltoid",
+        "triceps-brachii",
+        "iliopsoas"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -13191,7 +13923,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Ab Wheel exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Ab Wheel Rehberi | Diz Üstü Rollout Formu",
+        "Ab Wheel Guide | Kneeling Rollout Form"
+      ],
+      "metaDescription": [
+        "Ab-wheel rollout için diz ve teker ayarı, kaburga-pelvis kontrolü, menzil sınırı, hatalar ve progression.",
+        "Learn ab-wheel setup, rib-pelvis control, range limits, common errors, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Karın duvarı ve oblikler",
+          "Abdominal wall and obliques"
+        ],
+        "equipment": [
+          "Ab wheel ve diz pedi",
+          "Ab wheel and knee pad"
+        ],
+        "movementPattern": [
+          "Dinamik anti-extension rollout",
+          "Dynamic anti-extension rollout"
+        ],
+        "bestFor": [
+          "Gövde kuvveti ve uzun kaldıraç kontrolü",
+          "Trunk strength and long-lever control"
+        ]
+      },
+      "tracking": [
+        [
+          "Menzil mesafesi, tekrar, tempo, RIR ve diz desteğini kaydet.",
+          "Log range distance, reps, tempo, RIR, and knee support."
+        ],
+        [
+          "Duvar/blok sınırı veya serbest rollout varyasyonunu belirt.",
+          "Record wall or block limit versus free rollout."
+        ],
+        [
+          "Diz üstü ve ayakta varyasyonları ayrı takip et.",
+          "Track kneeling and standing variations separately."
+        ]
+      ],
+      "related": [
+        "plank",
+        "hollow-body-hold",
+        "standing-ab-wheel"
+      ]
+    }
   },
   "standing-ab-wheel": {
     "publish": false,

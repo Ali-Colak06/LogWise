@@ -4151,6 +4151,60 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 73 — Exercise Guide Enrichment Batch 9 (2026-06-19)
+
+### Amaç
+
+İzometrik anti-extension, anti-lateral-flexion, kontrollü trunk flexion, pelvis kıvırma ve rollout desenlerindeki yedi temel core hareketini tam guide seviyesine taşımak; tek doğru bel şekli, alt karın izolasyonu, maksimum sıkışma ve yalnız süre odaklı progression hakkındaki mutlak legacy cue'ları düzeltmek.
+
+### Kapsam
+
+- Plank
+- Hollow Body Hold
+- Side Plank
+- Crunch
+- Reverse Crunch
+- Cable Crunch
+- Ab Wheel
+
+### İçerik Kararları
+
+- **Plank standardı:** Herkese tek geometrik düz çizgi dayatılmadı; dirsek/ayak kurulumu, kaburga-pelvis ilişkisi, kontrollü nefes ve form bozulmadan tamamlanan süre esas alındı.
+- **Hollow hold bel pozisyonu:** Belin zemine yakınlığı kontrol aracı olarak kullanıldı; ağrılı veya zorlanmış temas hedef yapılmadı. Baş yerde varyasyon geçerli regresyon kabul edildi.
+- **Side plank karşılaştırması:** Dizler bükülü, staggered ve ayaklar üst üste varyasyonları ayrıldı; sağ-sol süreleri yalnız aynı destek düzeninde karşılaştırılır.
+- **Crunch menzili:** Crunch kısa menzilli kaburga-pelvis trunk flexion'ı olarak tanımlandı; tam sit-up yüksekliği veya boynu elle çekme progression sayılmadı.
+- **Alt karın miti:** Reverse Crunch ayrı bir “alt karın kasını” izole eden hareket olarak sunulmadı; rectus abdominis, oblikler ve bacak pozisyonuna katkı veren kalça fleksörleri anatomik veriye işlendi.
+- **Cable crunch kalça kontrolü:** Kalçayı topuklara sabitleme cue'su kaldırıldı; tekrarlanabilir pelvis/kalça konumu ve gerçek trunk flexion, büyük hip hinge hareketinden ayrıldı.
+- **Ab-wheel izolasyonu:** Rollout yalnız karın izolasyonu olarak yazılmadı; latissimus dorsi, serratus anterior, omuz, triceps ve kalça fleksörü katkıları belirtildi. Menzil artışı yalnız aynı bel kontrolü ve dönüş yolu korunuyorsa progression kabul edildi.
+- **Anatomik kas verisi:** Yedi kayıt rectus abdominis, transversus abdominis, internal/external oblique ve harekete özgü yardımcı kas slug'larına geçirildi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 66 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Kaynaklar
+
+- `https://www.acefitness.org/resources/everyone/exercise-library/52/crunch/`
+- `https://pubmed.ncbi.nlm.nih.gov/16649890/`
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi temel core hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları, kaynaklar ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 66 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 72 — Exercise Guide Enrichment Batch 8 (2026-06-19)
 
 ### Amaç
