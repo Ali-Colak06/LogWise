@@ -4148,3 +4148,51 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 - JSON ile web wrapper birebir eşleşmeli.
 - `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
 - Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
+## Bölüm 67 — Exercise Guide Enrichment Batch 3 (2026-06-19)
+
+### Amaç
+
+Omuz ve kol antrenmanının temel press, raise, fly, rotasyon, curl ve pushdown desenlerini tam guide seviyesine taşımak; legacy preview metinlerindeki omuz pozisyonu ve kas aktivasyonu iddialarını daha nötr, kontrol odaklı cue'larla değiştirmek.
+
+### Kapsam
+
+- Shoulder Press
+- Lateral Raise
+- Rear Delt Fly
+- Face Pull
+- Biceps Curl
+- Hammer Curl
+- Triceps Pushdown
+
+### İçerik Kararları
+
+- **Shoulder Press ayrımı:** Barbell strict press ayrı `overhead-press`, makine varyasyonu ayrı `machine-shoulder-press` olduğu için bu kayıt dumbbell shoulder press olarak netleştirildi.
+- **Lateral Raise el pozisyonu:** “Su döker gibi başparmak aşağı” cue'su kaldırıldı; skapular düzlemde nötr veya hafif yukarı başparmak pozisyonu kullanıldı.
+- **Rear Delt Fly hedefi:** Aşırı kürek kemiği sıkıştırmasının hareketi mid-back rowa çevirebileceği açıklandı; üst kol yatay abdüksiyonu ana hedef yapıldı.
+- **Face Pull kontrolü:** Dış rotasyon zorlanmadan, rahat ön kol-bilek hizası ve kontrollü halat ayrımı öne çıkarıldı.
+- **Curl gerçekçiliği:** Biceps curl sırasında üst kolun tamamen hareketsiz olması dayatılmadı; küçük doğal hareketin tutarlı ve kontrollü kalması istendi.
+- **Pushdown halat miti:** Halat uçlarını ayırmanın “ekstra aktivasyon” sağladığı iddiası kaldırıldı; ayrım yalnız hareket açıklığı ve aparat boşluğu bağlamında anlatıldı.
+- **Anatomik kas verisi:** Yedi kayıt hareket bazlı primary/secondary kas slug'larına geçirildi.
+- **Readiness sonucu:** 145 total, 143 preview-ready, 24 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; feature branch'teki `logwise-v47` aynı merge içinde güncel wrapper'ı precache edeceği için ek bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi omuz/kol hareketi için tam guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 143 preview-ready, 24 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Related exercise slug'ları preset kataloğunda bulunmalı ve meta title/description uzunluk kontrolleri geçmeli.
+- JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.

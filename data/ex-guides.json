@@ -1060,31 +1060,96 @@
       "Seated/standing shoulder press."
     ],
     "description": [
-      "Oturarak veya ayakta dumbbell/barbell ile omuz press. Tüm deltoid kaslarını ve triceps'i çalıştırır. Overhead Press'in esnek bir alternatifidir.",
-      "Seated or standing dumbbell/barbell shoulder press. Works all deltoid heads and triceps. A flexible alternative to the strict overhead press."
+      "Dumbbell ile oturarak veya ayakta yapılan dikey press hareketidir. Ön ve yan deltoidlerle triceps ana yükü taşırken her kolun bağımsız çalışması sağ-sol kontrolünü geliştirir.",
+      "A vertical press performed seated or standing with dumbbells. The front and side delts and triceps carry most of the load while independent arms develop side-to-side control."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Oturarak sırtı sırtlığa yasla — omurga koruması için.",
-        "When seated, keep back firmly against the pad for spinal support."
+        "Oturarak yapıyorsan sırtlığı yaklaşık 75-90 dereceye ayarla ve ayaklarını yere sabitle.",
+        "When seated, set the backrest to roughly 75-90 degrees and plant the feet."
       ],
       [
-        "Barı kulak hizasına kadar indir — çok aşağıya gitme.",
-        "Lower bar to ear level — don't go excessively low."
+        "Dumbbellları omuz hizasına getir; bilekleri ön kolların üzerinde, dirsekleri hafif önde tut.",
+        "Bring the dumbbells to shoulder height with wrists stacked over the forearms and elbows slightly forward."
       ],
       [
-        "Dumbbellı basarken kontrollü yüksel; yanlara açma.",
-        "Press upward with control; don't flare dumbbells outward."
+        "Kaburgaları kontrollü, karın ve kalçayı sıkı tutarak gövdeyi sabitle.",
+        "Brace the abs and glutes while keeping the ribs controlled and torso stable."
+      ],
+      [
+        "Dumbbellları başın iki yanından yukarı it; rahat bir üst pozisyonda kolları uzat.",
+        "Press the dumbbells upward beside the head and extend the arms into a comfortable top position."
+      ],
+      [
+        "Ön kolları dik tutabildiğin ağrısız alt noktaya kontrollü biçimde geri dön.",
+        "Lower under control to a pain-free bottom position where the forearms can remain vertical."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Belden aşırı kavis yapıp press açısını geriye çevirmek.",
+        "Overarching the lower back and turning the press angle backward."
+      ],
+      [
+        "Dirsekleri tamamen yana açıp ön kolları içe eğmek.",
+        "Flaring the elbows straight out and allowing the forearms to angle inward."
+      ],
+      [
+        "Üstte dumbbellları sert biçimde birbirine çarpmak.",
+        "Crashing the dumbbells together at the top."
+      ],
+      [
+        "Omuz kontrolü kaybolmasına rağmen ağırlıkları gereğinden aşağı indirmek.",
+        "Forcing the dumbbells too low after shoulder control is lost."
+      ]
+    ],
+    "tips": [
+      [
+        "Dirsekleri tam yana değil, skapular düzlemde hafif önde tutmak çoğu kişide daha rahattır.",
+        "Keeping the elbows slightly forward in the scapular plane is more comfortable for many lifters."
+      ],
+      [
+        "Dumbbell sapını avuç içinde dengeli tut ve bileği geriye kırma.",
+        "Balance the handle through the palm and avoid bending the wrist backward."
+      ],
+      [
+        "Sağ ve sol kol farklı hızda ilerliyorsa yükü azaltıp senkronu koru.",
+        "If the arms move at different speeds, reduce load and maintain synchronization."
+      ],
+      [
+        "Ayakta varyasyonda bacaklardan hız almadan strict tekrar yap.",
+        "In the standing variation, perform strict reps without leg drive."
+      ]
+    ],
+    "progression": [
+      [
+        "Machine shoulder press ile sabit bir yolda baş üstü press kontrolü geliştir.",
+        "Develop overhead pressing control on a machine shoulder press."
+      ],
+      [
+        "Tek kol hafif dumbbell press ile gövde ve kol hizasını ayrı ayrı öğren.",
+        "Learn torso and arm alignment with a light single-arm dumbbell press."
+      ],
+      [
+        "İki kollu shoulder presste hedef tekrarlar temiz olduğunda küçük yük artışı yap.",
+        "Add small amounts of load once target reps are clean on the two-arm shoulder press."
+      ],
+      [
+        "İleri aşamada ayakta strict dumbbell veya barbell overhead presse geç.",
+        "At an advanced stage, progress to a standing strict dumbbell or barbell overhead press."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "anterior-deltoid",
+        "lateral-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "triceps-brachii",
+        "upper-trapezius",
+        "serratus-anterior",
+        "abdominals"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -1100,7 +1165,53 @@
         "Muscle map for the Shoulder Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Shoulder Press Rehberi | Dumbbell Omuz Formu",
+        "Shoulder Press Guide | Dumbbell Form"
+      ],
+      "metaDescription": [
+        "Dumbbell shoulder press kurulumu, dirsek-bilek hizası, güvenli hareket açıklığı ve progression adımları.",
+        "Learn dumbbell shoulder press setup, elbow-wrist alignment, controlled range, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön/yan omuz ve triceps",
+          "Front/side delts and triceps"
+        ],
+        "equipment": [
+          "Dumbbell ve opsiyonel bench",
+          "Dumbbells and optional bench"
+        ],
+        "movementPattern": [
+          "Dikey press",
+          "Vertical press"
+        ],
+        "bestFor": [
+          "Omuz kuvveti ve sağ-sol kontrolü",
+          "Shoulder strength and side-to-side control"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench açısı, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log bench angle, load, reps, and RIR."
+        ],
+        [
+          "Sağ-sol tekrar hızını ve hareket açıklığını karşılaştır.",
+          "Compare arm speed and range between sides."
+        ],
+        [
+          "Bel kavisinin arttığı setleri antrenman notuna ekle.",
+          "Note sets where lower-back arch increased."
+        ]
+      ],
+      "related": [
+        "machine-shoulder-press",
+        "overhead-press",
+        "arnold-press"
+      ]
+    }
   },
   "machine-shoulder-press": {
     "publish": false,
@@ -1216,35 +1327,95 @@
       "Lateral raise. Side delts."
     ],
     "description": [
-      "Yana kaldırma hareketi. Deltoidin yan (medial) bölümünü izole eder. Omuz genişliği ve V şekli için en önemli izolasyon hareketlerinden biridir.",
-      "Lateral raise. Isolates the medial (side) deltoid. One of the most important isolation movements for shoulder width and V-taper."
+      "Dumbbellların yana kaldırıldığı omuz abdüksiyonu hareketidir. Yan deltoid ana hedefken supraspinatus ve üst trapez harekete katkı verir; hafif yük ve kontrollü kol yolu önemlidir.",
+      "A shoulder-abduction movement performed by raising dumbbells to the sides. The lateral delts are the main target while the supraspinatus and upper traps assist; light loading and a controlled arm path matter."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Küçük ağırlık kullan — bu harekette form her şeydir.",
-        "Use light weight — form is everything in lateral raises."
+        "Dumbbellları yanlarda tut, ayakları sabitle ve dirsekleri hafif bük.",
+        "Hold the dumbbells at the sides, plant the feet, and keep a slight elbow bend."
       ],
       [
-        "Başparmakları biraz aşağı eğ (kutu dökmek gibi) — medial delti daha iyi aktive eder.",
-        "Tilt thumbs slightly down as if pouring water — better medial delt activation."
+        "Kolları tam yana değil, gövdenin yaklaşık 20-30 derece önündeki skapular düzleme getir.",
+        "Move the arms in the scapular plane, roughly 20-30 degrees forward of directly out to the sides."
       ],
       [
-        "Kolu omuz hizasının biraz üstüne kaldır, kontrollü indir.",
-        "Raise to just above shoulder level, then lower slowly."
+        "Bilekleri nötr, başparmakları nötr veya hafif yukarı tutarak dirsekleri yana kaldır.",
+        "Raise the elbows outward with neutral wrists and thumbs neutral or slightly up."
       ],
       [
-        "Dirsekleri hafifçe bükük tut — tam düz kol stres yaratır.",
-        "Keep a slight elbow bend — fully straight arms create unnecessary joint stress."
+        "Omuzları silkmadan ağrısız biçimde yaklaşık omuz hizasına ulaş.",
+        "Reach roughly shoulder height without shrugging and only through a pain-free range."
+      ],
+      [
+        "Dumbbellları aynı kol yolunda kontrollü biçimde başlangıca indir.",
+        "Lower the dumbbells under control along the same arm path."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Başparmakları zorla aşağı çevirip omuzu iç rotasyona kilitlemek.",
+        "Forcing the thumbs downward and locking the shoulder into internal rotation."
+      ],
+      [
+        "Ağır yükü kalça ve gövdeden savurarak kaldırmak.",
+        "Swinging heavy weight upward with the hips and torso."
+      ],
+      [
+        "Omuzları kulaklara doğru silkerek üst trapezi baskın hale getirmek.",
+        "Shrugging the shoulders toward the ears and letting the upper traps dominate."
+      ],
+      [
+        "Bilekleri dirseklerden yukarı taşıyıp hareketi el ile yönetmek.",
+        "Lifting the wrists above the elbows and leading the movement with the hands."
+      ]
+    ],
+    "tips": [
+      [
+        "Dirsekleri hareketin öncüsü, elleri ise dumbbell taşıyan kancalar gibi düşün.",
+        "Think of the elbows leading while the hands simply carry the dumbbells."
+      ],
+      [
+        "Çok hafif yükle bile yan omuz gerilimi korunabiliyorsa ağırlık yeterlidir.",
+        "If lateral-delt tension stays high with a light load, the weight is sufficient."
+      ],
+      [
+        "Skapular düzlem ve nötr/hafif yukarı başparmak pozisyonu çoğu omuz için rahattır.",
+        "The scapular plane with neutral or slightly raised thumbs is comfortable for many shoulders."
+      ],
+      [
+        "Üst noktada momentum yerine kısa kontrol kullan; aşağı inişi acele etme.",
+        "Use a brief controlled top position instead of momentum and do not rush the descent."
+      ]
+    ],
+    "progression": [
+      [
+        "Machine lateral raise ile sabit kol yolunu ve yan omuz hissini öğren.",
+        "Learn a stable arm path and lateral-delt tension on a machine lateral raise."
+      ],
+      [
+        "Hafif dumbbell lateral raise ile tempo ve simetri geliştir.",
+        "Build tempo and symmetry with a light dumbbell lateral raise."
+      ],
+      [
+        "Cable lateral raise ile alt pozisyonda daha sürekli gerilim ekle.",
+        "Use a cable lateral raise for more continuous tension in the lower range."
+      ],
+      [
+        "İleri aşamada lean-away veya kontrollü uzun hareket açıklığı varyasyonu kullan.",
+        "At an advanced stage, use a lean-away or controlled long-range variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "lateral-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "supraspinatus",
+        "anterior-deltoid",
+        "posterior-deltoid",
+        "upper-trapezius"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -1260,7 +1431,53 @@
         "Muscle map for the Lateral Raise exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Lateral Raise Rehberi | Yan Omuz Formu",
+        "Lateral Raise Guide | Side-Delt Form"
+      ],
+      "metaDescription": [
+        "Lateral raise skapular kol yolu, nötr el pozisyonu, kontrollü tempo ve yaygın omuz form hataları.",
+        "Learn lateral-raise arm path, neutral hand position, controlled tempo, and common shoulder mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Yan deltoid",
+          "Lateral deltoid"
+        ],
+        "equipment": [
+          "Dumbbell",
+          "Dumbbells"
+        ],
+        "movementPattern": [
+          "Omuz abdüksiyonu",
+          "Shoulder abduction"
+        ],
+        "bestFor": [
+          "Yan omuz hipertrofisi",
+          "Lateral-delt hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Ağırlık, tekrar, RIR ve kol yüksekliğini kaydet.",
+          "Log load, reps, RIR, and arm height."
+        ],
+        [
+          "Kullandığın el yönünü ve gövde eğimini tutarlı takip et.",
+          "Track hand orientation and torso angle consistently."
+        ],
+        [
+          "Momentum veya omuz silkme başladığında seti bitirdiğini not et.",
+          "Note when momentum or shrugging begins to limit the set."
+        ]
+      ],
+      "related": [
+        "machine-lateral-raise",
+        "cable-lateral-raise",
+        "lean-away-lateral-raise"
+      ]
+    }
   },
   "machine-lateral-raise": {
     "publish": false,
@@ -1586,31 +1803,95 @@
       "Rear delt fly. Rear delts."
     ],
     "description": [
-      "Arka deltoid açma hareketi. Genellikle ihmal edilen arka omuz kasını çalıştırır. Omuz sağlığı ve dik duruş için kritiktir.",
-      "Rear deltoid fly. Targets the often-neglected posterior deltoid. Critical for shoulder health and upright posture."
+      "Kalça menteşesi veya göğüs destekli pozisyonda yapılan yatay omuz abdüksiyonudur. Arka deltoid ana hedefken orta trapez, rhomboidler ve dış rotatorlar destek verir.",
+      "A horizontal shoulder-abduction movement performed from a hip hinge or chest-supported position. The rear delts are the main target while the middle traps, rhomboids, and external rotators assist."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Öne eğik veya makine/kablo ile yapılabilir; kontrol her zaman önce.",
-        "Can be done bent over or on a cable/machine; control is always first."
+        "Hafif dumbbellları al, dizleri yumuşat ve nötr omurgayla kalçadan öne eğil.",
+        "Hold light dumbbells, soften the knees, and hinge forward with a neutral spine."
       ],
       [
-        "Hareket boyunca dirsekleri hafifçe bükük tut.",
-        "Keep a slight elbow bend throughout the movement."
+        "Kolları omuzların altında uzat; dirsekleri hafif büküp avuçları birbirine çevir.",
+        "Let the arms hang below the shoulders with a slight elbow bend and palms facing each other."
       ],
       [
-        "Kürek kemiklerini sık harekentin sonunda — sadece kolla değil sırtla yap.",
-        "Retract shoulder blades at peak — use your back, not just the arms."
+        "Gövdeyi sabit tutarak üst kolları yana ve hafif geriye doğru aç.",
+        "Keep the torso stable and move the upper arms outward and slightly back."
+      ],
+      [
+        "Omuz başını öne yuvarlamadan arka deltoidde kontrol edilen son noktaya ulaş.",
+        "Reach the controlled end position in the rear delts without rolling the shoulder heads forward."
+      ],
+      [
+        "Dumbbellları aynı yay üzerinde yavaşça başlangıca indir.",
+        "Lower the dumbbells slowly along the same arc."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağırlığı kaldırmak için gövdeyi yukarı-aşağı savurmak.",
+        "Bouncing the torso up and down to move the load."
+      ],
+      [
+        "Kürek kemiklerini aşırı sıkıp hareketi yalnız orta sırt çekişine çevirmek.",
+        "Over-squeezing the shoulder blades and turning the movement into a mid-back pull."
+      ],
+      [
+        "Dirsek açısını tekrar boyunca değiştirip hareketi row yapmak.",
+        "Changing elbow angle throughout the rep and turning it into a row."
+      ],
+      [
+        "Omuzları kulaklara kaldırmak veya bileklerle dumbbellı yukarı çekmek.",
+        "Shrugging the shoulders or lifting the dumbbells with the wrists."
+      ]
+    ],
+    "tips": [
+      [
+        "Arka omuzu hedeflemek için üst kol hareketini, kürek kemiği sıkıştırmasından önce düşün.",
+        "To target the rear delts, prioritize upper-arm movement over forceful shoulder-blade squeezing."
+      ],
+      [
+        "Göğüs destekli bench kullanmak bel yorgunluğunu ve momentumu azaltabilir.",
+        "A chest-supported bench can reduce lower-back fatigue and momentum."
+      ],
+      [
+        "Hareket açıklığını omuz başı öne yuvarlanmadan koruyabildiğin noktada bitir.",
+        "End the range before the shoulder head rolls forward."
+      ],
+      [
+        "Küçük ağırlık ve yavaş iniş, arka deltoid gerilimini daha tutarlı tutar.",
+        "Light weight and a slow descent keep rear-delt tension more consistent."
+      ]
+    ],
+    "progression": [
+      [
+        "Reverse pec deck ile sabit gövdede yatay omuz abdüksiyonunu öğren.",
+        "Learn horizontal shoulder abduction with a stable torso on a reverse pec deck."
+      ],
+      [
+        "Göğüs destekli hafif dumbbell rear-delt fly ile kol yolunu geliştir.",
+        "Develop arm path with a light chest-supported dumbbell rear-delt fly."
+      ],
+      [
+        "Bent-over varyasyonda gövde sabitliği korununca tekrar veya yük artır.",
+        "Add reps or load once torso stability is consistent on the bent-over variation."
+      ],
+      [
+        "Cable rear-delt fly ile farklı başlangıç açıları ve sürekli gerilim kullan.",
+        "Use a cable rear-delt fly for varied start angles and continuous tension."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "posterior-deltoid"
       ],
-      "secondary": []
+      "secondary": [
+        "middle-trapezius",
+        "rhomboids",
+        "infraspinatus",
+        "teres-minor"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -1626,7 +1907,53 @@
         "Muscle map for the Rear Delt Fly exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Rear Delt Fly Rehberi | Arka Omuz Formu",
+        "Rear-Delt Fly Guide | Form and Control"
+      ],
+      "metaDescription": [
+        "Rear-delt fly gövde kurulumu, üst kol yolu, skapula kontrolü ve arka omuz odaklı progression.",
+        "Learn rear-delt fly setup, upper-arm path, scapular control, common mistakes, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Arka deltoid",
+          "Posterior deltoid"
+        ],
+        "equipment": [
+          "Dumbbell ve opsiyonel bench",
+          "Dumbbells and optional bench"
+        ],
+        "movementPattern": [
+          "Yatay omuz abdüksiyonu",
+          "Horizontal shoulder abduction"
+        ],
+        "bestFor": [
+          "Arka omuz hipertrofisi ve kontrolü",
+          "Rear-delt hypertrophy and control"
+        ]
+      },
+      "tracking": [
+        [
+          "Destek tipi, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log support type, load, reps, and RIR."
+        ],
+        [
+          "Dirsek açısı ve üst kol yüksekliğini tutarlı kullan.",
+          "Keep elbow angle and upper-arm height consistent."
+        ],
+        [
+          "Momentum veya aşırı skapula sıkıştırması başlayan setleri not et.",
+          "Note sets where momentum or excessive scapular squeezing begins."
+        ]
+      ],
+      "related": [
+        "reverse-pec-deck",
+        "cable-rear-delt-fly",
+        "face-pull"
+      ]
+    }
   },
   "reverse-pec-deck": {
     "publish": false,
@@ -1744,32 +2071,96 @@
       "Pull to the face. Rear delts and upper back."
     ],
     "description": [
-      "Kablo ve halatla yüze doğru çekilen üst sırt hareketi. Arka omuz, orta-üst trapez ve dış rotatörleri çalıştırarak postürü destekler. Press odaklı programlarda omuz dengesini korumak için çok faydalıdır.",
-      "An upper-back cable movement where the rope is pulled toward the face. It trains the rear delts, mid-upper traps, and external rotators, helping support posture. It is especially useful for maintaining shoulder balance in press-heavy programs."
+      "Halat aparatıyla yüze doğru yapılan kablo çekişi ve dış rotasyon kombinasyonudur. Arka deltoid, orta-alt trapez ve rhomboidleri çalıştırırken infraspinatus ile teres minor omuz dış rotasyonuna katkı verir.",
+      "A rope cable pull toward the face combined with external rotation. It trains the rear delts, middle and lower traps, and rhomboids while the infraspinatus and teres minor assist shoulder external rotation."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Halatı yüz hizasına çek ve bitişte elleri hafif dışa aç.",
-        "Pull the rope toward face level and slightly separate the hands at the finish."
+        "Kabloyu yüz veya üst göğüs hizasına ayarla ve halatı başparmaklar sana bakacak şekilde kavra.",
+        "Set the cable around face or upper-chest height and grip the rope with thumbs pointing toward you."
       ],
       [
-        "Dirsekler omuz çizgisine yakın kalsın; çok aşağıdan çekme.",
-        "Keep the elbows near shoulder height instead of pulling too low."
+        "Geri adım atıp kabloyu ger; dizleri yumuşak, gövdeyi dik ve kaburgaları kontrollü tut.",
+        "Step back to tension the cable with soft knees, an upright torso, and controlled ribs."
       ],
       [
-        "Ağırlığı değil, kürek kemiği ve arka omuz hissini kovala.",
-        "Prioritize scapular and rear-delt feel over heavy weight."
+        "Dirsekleri omuz çizgisine yakın tutarak halatı burun/alın yönüne çek.",
+        "Pull the rope toward the nose or forehead with elbows near shoulder height."
+      ],
+      [
+        "Bitişte elleri yüzün iki yanına ayır ve omuzları zorlamadan hafif dış rotasyon yap.",
+        "Separate the hands beside the face and add gentle external rotation without forcing the shoulders."
+      ],
+      [
+        "Dirsek ve kürek kemiği kontrolünü koruyarak kolları yavaşça uzat.",
+        "Extend the arms slowly while maintaining elbow and shoulder-blade control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ağır yük için belden geriye yaslanıp hareketi rowa çevirmek.",
+        "Leaning far back to move heavy load and turning the exercise into a row."
+      ],
+      [
+        "Dirsekleri aşağı düşürüp halatı göğse çekmek.",
+        "Dropping the elbows and pulling the rope toward the chest."
+      ],
+      [
+        "Bilekleri büküp elleri geriye zorlamak.",
+        "Bending the wrists and forcing the hands backward."
+      ],
+      [
+        "Bitişte omuzları kulaklara silkip boyun gerginliği oluşturmak.",
+        "Shrugging the shoulders at the finish and creating neck tension."
+      ]
+    ],
+    "tips": [
+      [
+        "Halatı kendine çekerken iki ucunu ayırmayı aynı hareketin parçası olarak düşün.",
+        "Think of pulling and separating the rope ends as one coordinated movement."
+      ],
+      [
+        "Dış rotasyonu zorlamak yerine ön kol ve bileği rahat hizalı tut.",
+        "Keep the forearms and wrists comfortably aligned instead of forcing external rotation."
+      ],
+      [
+        "Ağırlık yerine temiz dirsek yolu ve kontrollü geri dönüşü önceliklendir.",
+        "Prioritize clean elbow path and a controlled return over load."
+      ],
+      [
+        "Boyun geriliyorsa yükü azaltıp omuzları kulaklardan uzaklaştır.",
+        "If the neck becomes tense, reduce load and keep the shoulders away from the ears."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif cable rear-delt fly ile arka omuz ve skapula kontrolü geliştir.",
+        "Develop rear-delt and scapular control with a light cable rear-delt fly."
+      ],
+      [
+        "Hafif face pull ile halat ayrımı ve dirsek yolunu öğren.",
+        "Learn rope separation and elbow path with a light face pull."
+      ],
+      [
+        "Tüm tekrarlar gövde salınımı olmadan tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once every rep is completed without torso swing."
+      ],
+      [
+        "İleri aşamada pause veya yarım diz çökme varyasyonuyla gövde kontrolünü artır.",
+        "At an advanced stage, add a pause or half-kneeling variation for more torso control."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "posterior-deltoid",
+        "middle-trapezius",
+        "lower-trapezius",
+        "rhomboids"
       ],
       "secondary": [
-        "trapezius"
+        "infraspinatus",
+        "teres-minor",
+        "biceps-brachii"
       ]
     },
     "media": {
@@ -1786,7 +2177,53 @@
         "Muscle map for the Face Pull exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Face Pull Rehberi | Arka Omuz ve Skapula Formu",
+        "Face Pull Guide | Rear-Delt and Scapular Form"
+      ],
+      "metaDescription": [
+        "Face pull kablo yüksekliği, halat yolu, dış rotasyon, skapula kontrolü ve yaygın form hataları.",
+        "Learn face-pull cable height, rope path, external rotation, scapular control, and common mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Arka omuz, orta-alt trapez ve rhomboid",
+          "Rear delts, middle/lower traps, and rhomboids"
+        ],
+        "equipment": [
+          "Kablo makinesi ve halat",
+          "Cable machine and rope"
+        ],
+        "movementPattern": [
+          "Yatay çekiş ve dış rotasyon",
+          "Horizontal pull and external rotation"
+        ],
+        "bestFor": [
+          "Arka omuz ve skapula kontrolü",
+          "Rear-delt and scapular control"
+        ]
+      },
+      "tracking": [
+        [
+          "Kablo yüksekliği, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log cable height, load, reps, and RIR."
+        ],
+        [
+          "Halatın yüz üzerindeki hedef noktasını tutarlı kullan.",
+          "Keep the rope target point on the face consistent."
+        ],
+        [
+          "Gövde salınımı veya boyun gerginliği başlayan setleri not et.",
+          "Note sets where torso swing or neck tension begins."
+        ]
+      ],
+      "related": [
+        "rear-delt-fly",
+        "reverse-pec-deck",
+        "y-raise"
+      ]
+    }
   },
   "upright-row": {
     "publish": false,
@@ -2717,35 +3154,92 @@
       "Cable triceps pushdown."
     ],
     "description": [
-      "Kablo makinesiyle triceps kasılma hareketi. Üç kafa kas grubu olan triceps'i izole eder. En yaygın triceps egzersizlerinden biridir.",
-      "Cable triceps pushdown. Isolates the three-headed triceps muscle. One of the most common triceps exercises."
+      "Kablo makinesinde dirsek ekstansiyonu yapılan triceps izolasyon hareketidir. Triceps brachii ana hedefken sabit kablo gerilimi tekrar boyunca kontrollü direnç sağlar.",
+      "A cable elbow-extension isolation movement for the triceps. The triceps brachii is the main target while cable tension provides controlled resistance throughout the rep."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri gövde yanında sabit tut; öne gelmemeli.",
-        "Keep elbows locked at your sides throughout."
+        "Kabloyu üst konuma ayarla ve bar veya halat aparatını nötr bileklerle kavra.",
+        "Set the cable high and grip a bar or rope attachment with neutral wrists."
       ],
       [
-        "Hareketin altında tam uzat ve 1 sn sık.",
-        "Fully extend at the bottom and hold for 1 second."
+        "Ayakları sabitle, gövdeyi hafif öne eğ ve dirsekleri gövde yanında konumlandır.",
+        "Plant the feet, lean slightly forward, and position the elbows near the torso."
       ],
       [
-        "Halatta elleri biraz dışa aç — ekstra triceps aktivasyonu sağlar.",
-        "With a rope, slightly flare hands apart at the bottom for extra activation."
+        "Üst kolları sabit tutarak dirsekleri aç ve aparatı aşağı doğru it.",
+        "Keep the upper arms stable and extend the elbows to press the attachment downward."
       ],
       [
-        "Momentum kullanma; kontrolü her noktada koru.",
-        "No swinging — maintain control at all points."
+        "Dirsekler kontrollü uzadığında tricepsi kısa süre sık; omuzları aşağıda tut.",
+        "Briefly squeeze the triceps at controlled elbow extension while keeping the shoulders down."
+      ],
+      [
+        "Ağırlık yığınını çarptırmadan dirsekleri bükerek başlangıca dön.",
+        "Return by bending the elbows without letting the weight stack crash."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dirsekleri ileri-geri taşıyıp hareketi omuz ekstansiyonuna çevirmek.",
+        "Moving the elbows forward and back and turning the exercise into shoulder extension."
+      ],
+      [
+        "Ağır yük için gövdeyi sallamak veya aparata vücut ağırlığıyla yüklenmek.",
+        "Swinging the torso or leaning bodyweight onto the attachment to move heavy load."
+      ],
+      [
+        "Bilekleri aşağı büküp kuvveti el üzerinden kaçırmak.",
+        "Bending the wrists downward and losing force through the hands."
+      ],
+      [
+        "Geri dönüşte ağırlık yığınını çarptırıp triceps gerilimini kaybetmek.",
+        "Letting the weight stack crash on the return and losing triceps tension."
+      ]
+    ],
+    "tips": [
+      [
+        "Dirsekleri gövdeye yapıştırmak zorunda değilsin; rahat ve sabit bir konum seç.",
+        "The elbows do not need to be glued to the torso; choose a comfortable stable position."
+      ],
+      [
+        "Halat uçlarını ayırmak hareket açıklığı sağlar; bunu omuzları geriye atarak zorlama.",
+        "Separating the rope ends can create clearance, but do not force it by throwing the shoulders back."
+      ],
+      [
+        "Üstte dirsek bükülmesini triceps gerilimi korunacak rahat noktada bitir.",
+        "Finish elbow flexion at a comfortable point where triceps tension remains."
+      ],
+      [
+        "Ağırlık yerine üst kol sabitliği ve kontrollü kilitlemeyi önceliklendir.",
+        "Prioritize upper-arm stability and controlled extension over load."
+      ]
+    ],
+    "progression": [
+      [
+        "Tek kol hafif pushdown ile dirsek ve bilek hizasını öğren.",
+        "Learn elbow and wrist alignment with a light single-arm pushdown."
+      ],
+      [
+        "Bar veya halatla iki kollu pushdownda tam kontrollü tekrarlar geliştir.",
+        "Build fully controlled bilateral reps with a bar or rope."
+      ],
+      [
+        "Hedef tekrar aralığı üst kol sabitken tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps are completed with stable upper arms."
+      ],
+      [
+        "Overhead triceps extension ve close-grip press ile farklı omuz açılarını programa ekle.",
+        "Add overhead triceps extensions and close-grip presses for different shoulder positions."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "triceps"
+        "triceps-brachii"
       ],
-      "secondary": []
+      "secondary": [
+        "anconeus"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -2761,7 +3255,53 @@
         "Muscle map for the Triceps Pushdown exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Triceps Pushdown Rehberi | Kablo Formu",
+        "Triceps Pushdown Guide | Cable Form"
+      ],
+      "metaDescription": [
+        "Triceps pushdown dirsek-bilek hizası, bar ve halat kullanımı, kontrollü kilitleme ve yaygın hatalar.",
+        "Learn triceps-pushdown elbow and wrist alignment, bar and rope use, controlled extension, and mistakes."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps brachii",
+          "Triceps brachii"
+        ],
+        "equipment": [
+          "Kablo makinesi ve bar/halat",
+          "Cable machine and bar or rope"
+        ],
+        "movementPattern": [
+          "Dirsek ekstansiyonu",
+          "Elbow extension"
+        ],
+        "bestFor": [
+          "Triceps hipertrofisi ve dirsek kontrolü",
+          "Triceps hypertrophy and elbow control"
+        ]
+      },
+      "tracking": [
+        [
+          "Aparat, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log attachment, load, reps, and RIR."
+        ],
+        [
+          "Dirsek konumu ve kontrollü alt noktayı tutarlı takip et.",
+          "Track elbow position and controlled bottom range consistently."
+        ],
+        [
+          "Gövde salınımı veya bilek bükülmesi başlayan setleri not et.",
+          "Note sets where torso swing or wrist bending begins."
+        ]
+      ],
+      "related": [
+        "overhead-cable-triceps-extension",
+        "cross-body-triceps-extension",
+        "close-grip-bench-press"
+      ]
+    }
   },
   "cross-body-triceps-extension": {
     "publish": false,
@@ -3087,31 +3627,94 @@
       "Barbell/dumbbell biceps curl."
     ],
     "description": [
-      "Klasik biceps curl. Barbell veya dumbbell ile yapılır. Biceps brachii ve brachialis kaslarını çalıştırır.",
-      "Classic biceps curl with barbell or dumbbells. Works biceps brachii and brachialis muscles."
+      "Supine tutuşla dumbbell veya barbell kullanılarak yapılan dirsek fleksiyonu hareketidir. Biceps brachii ana hedefken brachialis, brachioradialis ve ön kol kasları kavrama ile çekişe katkı verir.",
+      "An elbow-flexion movement performed with dumbbells or a barbell using a supinated grip. The biceps brachii is the main target while the brachialis, brachioradialis, and forearm muscles assist."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri gövde yanında sabit tut — öne sallanmasın.",
-        "Keep elbows locked at sides — don't let them swing forward."
+        "Dumbbell veya barı avuçlar öne bakacak şekilde kavra ve dik dur.",
+        "Stand tall and hold dumbbells or a bar with the palms facing forward."
       ],
       [
-        "Üst noktada 1 sn sık; inişi kontrollü yap (~2-3 sn).",
-        "Squeeze at the top for 1 sec; lower slowly in 2-3 sec."
+        "Omuzları rahat tut, dirsekleri gövde yanında ve bilekleri nötr hizala.",
+        "Keep the shoulders relaxed, elbows near the torso, and wrists neutral."
       ],
       [
-        "Tam aşağı in — bicepsin tam gerilmesi için önemlidir.",
-        "Go to full extension at the bottom — important for full bicep stretch."
+        "Üst kolları büyük ölçüde sabit tutarak dirsekleri bük ve ağırlığı kaldır.",
+        "Curl the load by bending the elbows while keeping the upper arms mostly still."
+      ],
+      [
+        "Bilekleri bükmeden kontrollü üst noktaya ulaş ve biceps kasını kısa süre sık.",
+        "Reach a controlled top position without bending the wrists and briefly squeeze the biceps."
+      ],
+      [
+        "Dirsekleri sertçe kilitlemeden tam uzamaya yaklaşarak ağırlığı yavaşça indir.",
+        "Lower slowly toward full elbow extension without snapping the joints straight."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kalça ve belden sallanarak ağırlığa momentum vermek.",
+        "Swinging through the hips and lower back to create momentum."
+      ],
+      [
+        "Dirsekleri her tekrarda hızla öne taşıyıp omuz fleksiyonunu baskın yapmak.",
+        "Driving the elbows rapidly forward and letting shoulder flexion dominate."
+      ],
+      [
+        "Bilekleri içe bükerek ön kolu gereksiz yormak.",
+        "Curling the wrists inward and unnecessarily fatiguing the forearms."
+      ],
+      [
+        "Alt pozisyonu kısaltıp yalnız üst yarım tekrarlar yapmak.",
+        "Shortening the bottom range and performing only top-half reps."
+      ]
+    ],
+    "tips": [
+      [
+        "Üst kolun küçük doğal hareketi olabilir; tekrarlar arasında aynı kontrolü koru.",
+        "A small amount of natural upper-arm movement is acceptable if it stays controlled and consistent."
+      ],
+      [
+        "Avuçları yukarı çevirme niyetini set boyunca koru.",
+        "Maintain the intent to turn the palms upward throughout the set."
+      ],
+      [
+        "Ağırlığı kaldırdığından daha yavaş indirerek eksantriği kontrol et.",
+        "Control the eccentric by lowering more slowly than you lift."
+      ],
+      [
+        "Bar bileği rahatsız ediyorsa dumbbell veya EZ-bar varyasyonu kullan.",
+        "If a straight bar bothers the wrists, use dumbbells or an EZ-bar variation."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbell curl ile bilek ve dirsek hizasını öğren.",
+        "Learn wrist and elbow alignment with a light dumbbell curl."
+      ],
+      [
+        "İki kolda aynı hareket açıklığı ve tempo sağlandığında tekrar artır.",
+        "Add reps once both arms use the same range and tempo."
+      ],
+      [
+        "Hedef tekrar aralığı tamamlanınca küçük ağırlık artışı yap.",
+        "Increase load in small steps after completing the target rep range."
+      ],
+      [
+        "İleri aşamada preacher, incline veya cable curl ile farklı omuz açıları kullan.",
+        "At an advanced stage, use preacher, incline, or cable curls for different shoulder positions."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "biceps-brachii"
       ],
-      "secondary": []
+      "secondary": [
+        "brachialis",
+        "brachioradialis",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -3127,7 +3730,53 @@
         "Muscle map for the Biceps Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Biceps Curl Rehberi | Dumbbell ve Bar Formu",
+        "Biceps Curl Guide | Dumbbell and Bar Form"
+      ],
+      "metaDescription": [
+        "Biceps curl dirsek-bilek hizası, kontrollü hareket açıklığı, momentum hataları ve progression adımları.",
+        "Learn biceps-curl elbow and wrist alignment, controlled range, common mistakes, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Biceps brachii",
+          "Biceps brachii"
+        ],
+        "equipment": [
+          "Dumbbell, barbell veya EZ-bar",
+          "Dumbbells, barbell, or EZ-bar"
+        ],
+        "movementPattern": [
+          "Dirsek fleksiyonu",
+          "Elbow flexion"
+        ],
+        "bestFor": [
+          "Biceps kuvveti ve hipertrofisi",
+          "Biceps strength and hypertrophy"
+        ]
+      },
+      "tracking": [
+        [
+          "Aparat, tutuş, ağırlık, tekrar ve RIR değerini kaydet.",
+          "Log implement, grip, load, reps, and RIR."
+        ],
+        [
+          "Alt pozisyondaki dirsek uzamasını tutarlı takip et.",
+          "Track consistent elbow extension at the bottom."
+        ],
+        [
+          "Momentum veya bilek bükülmesi başlayan setleri not et.",
+          "Note sets where momentum or wrist curling begins."
+        ]
+      ],
+      "related": [
+        "preacher-curl",
+        "incline-dumbell-curl",
+        "one-arm-cable-curl"
+      ]
+    }
   },
   "spider-curl": {
     "publish": false,
@@ -3191,31 +3840,94 @@
       "Neutral grip curl. Brachialis emphasis."
     ],
     "description": [
-      "Nötr (dik) tutuşla curl. Brachialis ve brachioradialis kaslarını vurgular. Ön kol ve biceps kalınlığı için önemlidir.",
-      "Neutral grip curl. More emphasis on brachialis and brachioradialis. Important for forearm and overall arm thickness."
+      "Avuçların birbirine baktığı nötr tutuşla yapılan curl varyasyonudur. Brachialis ve brachioradialis vurgusu artarken biceps brachii dirsek fleksiyonuna katkı vermeye devam eder.",
+      "A curl variation performed with a neutral grip and palms facing each other. It increases emphasis on the brachialis and brachioradialis while the biceps brachii continues to assist elbow flexion."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Başparmak yukarı bakacak şekilde tut — nötr kavrama.",
-        "Hold with thumbs pointing up — neutral grip."
+        "Dumbbellları yanlarda, avuçlar birbirine ve başparmaklar öne bakacak şekilde tut.",
+        "Hold the dumbbells at the sides with palms facing each other and thumbs pointing forward."
       ],
       [
-        "Her iki kolu aynı anda veya dönüşümlü yapabilirsin.",
-        "Can be done simultaneously or alternating arms."
+        "Dik dur, omuzları rahat ve dirsekleri gövde yanında hizala.",
+        "Stand tall with relaxed shoulders and elbows aligned near the torso."
       ],
       [
-        "Dirsekleri sabit tut — sadece ön kol hareket etmeli.",
-        "Keep upper arms stationary — only the forearm should move."
+        "Nötr tutuşu koruyarak dirsekleri bük ve dumbbellları yukarı kaldır.",
+        "Curl the dumbbells upward while maintaining the neutral grip."
+      ],
+      [
+        "Bilekleri nötr tutup kontrollü üst noktada kısa süre dur.",
+        "Keep the wrists neutral and pause briefly at a controlled top position."
+      ],
+      [
+        "Üst kolları sakin tutarak dumbbellları tam kontrollü biçimde indir.",
+        "Lower the dumbbells under full control while keeping the upper arms quiet."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dumbbellları kaldırmak için kalça ve belden savurmak.",
+        "Swinging through the hips and lower back to lift the dumbbells."
+      ],
+      [
+        "Tutuşu curl sırasında supine çevirip hareket amacını değiştirmek.",
+        "Turning the grip into supination during the curl and changing the movement."
+      ],
+      [
+        "Bilekleri başparmak yönüne kırmak veya dumbbellı gevşek tutmak.",
+        "Bending the wrists toward the thumbs or holding the dumbbells loosely."
+      ],
+      [
+        "Dirsekleri öne taşıyıp hareket açıklığını kısaltmak.",
+        "Driving the elbows forward and shortening the usable range."
+      ]
+    ],
+    "tips": [
+      [
+        "Dumbbell sapını sık ama bileği nötr tut; başparmak yukarı yönünü koru.",
+        "Grip the handle firmly while keeping the wrist neutral and thumb pointing up."
+      ],
+      [
+        "Alternating tekrar kullanıyorsan gövdenin diğer tarafa dönmesini engelle.",
+        "On alternating reps, prevent the torso from rotating toward the working side."
+      ],
+      [
+        "Dumbbellı omuza değdirmek yerine dirsek fleksiyonunun kontrollü son noktasında dur.",
+        "Stop at the controlled end of elbow flexion instead of forcing the dumbbell into the shoulder."
+      ],
+      [
+        "Brachialis ve ön kol kontrolü için inişi kaldırıştan daha yavaş yap.",
+        "Lower more slowly than you lift to emphasize brachialis and forearm control."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif alternating hammer curl ile nötr bilek ve gövde kontrolü öğren.",
+        "Learn neutral-wrist and torso control with light alternating hammer curls."
+      ],
+      [
+        "İki kollu hammer curlde aynı tempo ve hareket açıklığını geliştir.",
+        "Build the same tempo and range on both arms with bilateral hammer curls."
+      ],
+      [
+        "Hedef tekrarlar momentum olmadan tamamlanınca küçük yük artışı yap.",
+        "Add small amounts of load once target reps are completed without momentum."
+      ],
+      [
+        "Rope veya preacher hammer curl ile farklı direnç ve üst kol desteği kullan.",
+        "Use rope or preacher hammer curls for different resistance and upper-arm support."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "brachialis",
+        "brachioradialis"
       ],
-      "secondary": []
+      "secondary": [
+        "biceps-brachii",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -3231,7 +3943,53 @@
         "Muscle map for the Hammer Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Hammer Curl Rehberi | Nötr Tutuş Formu",
+        "Hammer Curl Guide | Neutral-Grip Form"
+      ],
+      "metaDescription": [
+        "Hammer curl nötr tutuşu, dirsek ve bilek kontrolü, momentum hataları ve kol progression adımları.",
+        "Learn hammer-curl neutral grip, elbow and wrist control, common mistakes, and progression."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Brachialis ve brachioradialis",
+          "Brachialis and brachioradialis"
+        ],
+        "equipment": [
+          "Dumbbell",
+          "Dumbbells"
+        ],
+        "movementPattern": [
+          "Nötr tutuş dirsek fleksiyonu",
+          "Neutral-grip elbow flexion"
+        ],
+        "bestFor": [
+          "Üst kol ve ön kol kalınlığı",
+          "Upper-arm and forearm development"
+        ]
+      },
+      "tracking": [
+        [
+          "Ağırlık, tekrar, RIR ve alternating/bilateral modu kaydet.",
+          "Log load, reps, RIR, and alternating or bilateral mode."
+        ],
+        [
+          "Nötr bilek ve alt pozisyon hareket açıklığını takip et.",
+          "Track neutral wrist position and bottom range."
+        ],
+        [
+          "Gövde dönüşü veya dirsek kayması başlayan setleri not et.",
+          "Note sets where torso rotation or elbow drift begins."
+        ]
+      ],
+      "related": [
+        "rope-hammer-curl",
+        "preacher-hammer-curl",
+        "reverse-curl"
+      ]
+    }
   },
   "zottman-curl": {
     "publish": false,
