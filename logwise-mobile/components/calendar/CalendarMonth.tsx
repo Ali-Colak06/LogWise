@@ -86,7 +86,8 @@ function CalendarMonth({
   selectedISO,
   restDayISOs,
 }: CalendarMonthProps) {
-  const { colors, tokens } = useTheme();
+  const { colors, tokens, scheme } = useTheme();
+  const isDark = scheme === 'dark';
   const locale = useLocaleStore((s) => s.locale);
   const dict = useTranslations();
 
@@ -126,13 +127,22 @@ function CalendarMonth({
           const isRest = restDayISOs?.has(cell.iso) ?? false;
           const summary = workoutsByDate.get(cell.iso);
 
-          const cellBorder = isSelected
+          // Normal hücre: özel değilse stroke'u yumuşat. Açık temada beyaz hücreler
+          // krem zemin (app bg) üstünde zaten gutter'larla ayrışıyor → gri 1px border
+          // ağır görünüyordu; normal hücrede hairline + düşük kontrast (light: app bg
+          // tonu, dark: subtle border). Bugün/seçili/rest hâlâ 1px accent ile vurgulu.
+          const isSpecialCell = isSelected || isToday || isRest;
+          const cellBorder = isSelected || isToday
             ? colors.accent.gold
-            : isToday
-              ? colors.accent.gold
-              : isRest
-                ? colors.semantic.info
-                : colors.border.subtle;
+            : isRest
+              ? colors.semantic.info
+              : isDark
+                ? colors.border.subtle
+                : colors.background.app;
+          // Koyu tema: normal hücrede 1px subtle border (grid ayrımı için gerekli —
+          // hücre/zemin kontrastı düşük). Açık tema: hairline + app-bg tonu (stroke
+          // görünmez, gutter ayırıyor). Özel hücreler her zaman 1px accent.
+          const cellBorderWidth = isSpecialCell || isDark ? 1 : StyleSheet.hairlineWidth;
 
           const cellBg = isSelected
             ? colors.accent.goldMuted
@@ -164,6 +174,7 @@ function CalendarMonth({
                 styles.dayCell,
                 {
                   borderColor: cellBorder,
+                  borderWidth: cellBorderWidth,
                   backgroundColor: pressed ? colors.background.hover : cellBg,
                   opacity: pressed ? 0.85 : 1,
                 },
@@ -251,7 +262,7 @@ const styles = StyleSheet.create({
   },
   weekRow: {
     flexDirection: 'row',
-    gap: 2,
+    gap: 1,
     paddingTop: 2,
     paddingBottom: 4,
   },
@@ -261,17 +272,16 @@ const styles = StyleSheet.create({
   grid: {
     flex: 1,
     flexDirection: 'column',
-    gap: 2,
+    gap: 1,
   },
   gridRow: {
     flex: 1,
     flexDirection: 'row',
-    gap: 2,
+    gap: 1,
   },
   dayCell: {
     flex: 1,
     minHeight: 56,
-    borderWidth: 1,
     borderRadius: 3,
     padding: 2,
     alignItems: 'stretch',

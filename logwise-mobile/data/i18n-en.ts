@@ -579,6 +579,7 @@ export const en: Translations = {
     logoutConfirmBody: 'Are you sure you want to sign out?',
   },
   placeholder: {
+    soon: 'Coming Soon',
     dashboardTitle: 'Dashboard',
     dashboardDesc: 'Your workout stats and progress charts are coming soon.',
     socialTitle: 'Social',

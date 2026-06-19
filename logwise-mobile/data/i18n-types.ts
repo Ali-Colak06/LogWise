@@ -562,6 +562,7 @@ export interface Translations {
     logoutConfirmBody: string;
   };
   placeholder: {
+    soon: string;                  // "Çok Yakında" (rozet)
     dashboardTitle: string;
     dashboardDesc: string;
     socialTitle: string;

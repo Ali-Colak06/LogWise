@@ -611,6 +611,7 @@ export const tr: Translations = {
     logoutConfirmBody: 'Çıkış yapmak istediğine emin misin?',
   },
   placeholder: {
+    soon: 'Çok Yakında',
     dashboardTitle: 'Panel',
     dashboardDesc: 'Antrenman istatistiklerin ve ilerleme grafiklerin yakında burada olacak.',
     socialTitle: 'Sosyal',

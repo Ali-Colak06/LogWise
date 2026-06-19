@@ -4,7 +4,7 @@
 > Her yeni konuşma başında AI bu dosyayı okur; yeni bir karar verildiğinde bu dosya güncellenir.
 > İlgili sözleşme dosyası: `AGENTS.md` (proje kuralları). İlgili tasarım dosyaları: `01-current-logwise-ui-audit.md`, `02-mobile-design-system-proposal.md`.
 
-Son güncelleme: 2026-06-19 (rev 20)
+Son güncelleme: 2026-06-19 (rev 21)
 
 ---
 
@@ -660,6 +660,39 @@ bugünün haftasına döner + scroll eder (`ts` nonce her basışta tetikler). "
   (name/desc blur'da commit); işlevsel sorun yok, debounce ileride opsiyonel.
 - §8.12'den devreden: gün-chip "5e / 5 ex" formatı; D1 satır menüsü Alert → stilize sheet (opsiyonel).
 
+## 8.14 E1 More + F1/F2 Placeholder cila turu — kullanıcı kararları (rev 21 — 2026-06-19)
+
+> Ana yolculuk ekranlarından (auth→calendar→day→library→D3) sonra kalan kısa
+> placeholder/yardımcı ekranlar. İki checkpoint + kullanıcı bulgularına 3 ek düzeltme;
+> hepsi cihazda doğrulandı.
+
+**CP1 — F1 Dashboard + F2 Social placeholder (`PlaceholderScreen`):**
+- İkon **goldMuted halka** içinde gold renkte (sönük gri yüzen ikon yerine) + altında
+  **"ÇOK YAKINDA" gold pill rozeti** (mono, uppercase) + başlık + açıklama. Spec'in "sade,
+  CTA yok" kuralı korunur (rozet bilgi amaçlı, aksiyon değil). Yeni i18n `placeholder.soon`.
+
+**CP2 — E1 MoreSheet + ortak modül (kullanıcı "rol ayrımını koru" seçti):**
+- **Paylaşılan `components/shared/profile-menu.tsx`** çıkarıldı: `useProfileMenu(onClose)`
+  hook (profil state + Çıkış/Hesap-Aç/Giriş handler'ları) + `TogglePill` + `ProfileMenuHeader`.
+  MoreSheet (bottom-nav) ile ProfilePopover (avatar) bu modülü paylaşır → **kod tekrarı bitti,
+  davranış değişmedi**. Rol ayrımı korunur: popover = hızlı menü, MoreSheet = tam hub.
+- **Disabled placeholder satırlar** (Profil/Ayarlar/Veri/Geri Bildirim) artık sağında
+  **"Çok Yakında" çipi** (rev15'teki "opacity 0.38" yerine — çip daha okunabilir/net affordance).
+  Tap → "Çok yakında!" toast (değişmedi).
+
+**Kullanıcı bulguları (3 ek düzeltme):**
+- **Misafir More'da "Giriş Yap" eksikti** → misafir varyantına LogIn satırı eklendi
+  (`auth.login` → `/login`); "Hesap Aç" korundu. Hem MoreSheet hem ProfilePopover. Gerekçe:
+  zaten hesabı olan misafir giriş yapabilmeli (kayıt tek yol değildi).
+- **Calendar Month açık tema stroke** (§8.1.1 rev16 follow-up): normal günlerde border
+  **tema-duyarlı** — açık temada app-bg tonu + hairline (beyaz kart + krem gutter; gri 1px
+  stroke kalktı), koyu temada 1px subtle (grid ayrımı korunur). Bugün/seçili/rest hâlâ 1px
+  gold/cyan vurgulu.
+- **Calendar Month gün arası gap** 2 → 1 (daha sıkı grid; kullanıcı talebi).
+
+**Sonuç:** UI cila kampanyasının **tüm ekranları bitti** (Auth, Calendar, Day Detail,
+Library D1-D3, E1 More, F1/F2). Dashboard/Social MVP'de işlevsiz placeholder kalır (§3).
+
 ## 8.7 Misafir tercih aktarımı
 
 - Misafir kullanıcının dil/tema tercihi (`@logwise/guest/profile` içinde `locale`, `theme`) hesap açtıktan sonra `app_profiles.preferences`'a **aktarılır**. Veri aktarımının doğal parçası.
@@ -799,4 +832,5 @@ Tüm kararlar §10'da.
 | 2026-06-18 | §3.2, §4.3 (şema), §8.8, §8.11, değişiklik kaydı | **rev 18 — Day Detail Checkpoint 2: drag handle + reorder (cihazda doğrulandı).** Görünür 6-nokta handle + long-press reorder UYGULANDI. **Paketsiz custom drag** (Reanimated 4 + gesture-handler; `react-native-draggable-flatlist` EKLENMEDİ — RNA4 uyum/Expo Go bundle riski). **Reorder kapsamı = TÜM kartlar (persisted + lazy + tek kart)** (kullanıcı kararı; "yalnızca persisted" iptal — program günü lazy kartlarda handle görünmüyordu). Sıra yeni **`app_day_meta.card_order text[]`** kolonunda; **lazy kartlar workout YAZILMADAN sıralanır** (lazy-write korunur), persisted `position` da senkronlanır. Yazma: `reorderDayCards` / `useReorderDayCards` (optimistic). Drop "flash" fix (kartlar sabit sırada render, görsel sıra translateY ile). Program egzersizi silme fix: loglu program kartı günden çıkarılırken workout da silinir + skip (sadece skip persisted kartı gizlemiyordu). Handle tetik 220ms, yalnız handle'da → SetRow input çakışması yok. |
 | 2026-06-19 | §8.12 (yeni), §8.9 (override notları), değişiklik kaydı | **rev 19 — Library (D1-D2) cila turu (cihazda doğrulandı).** Yeni §8.12 eklendi. **D1 Egzersizler:** app bar hamburger → **avatar + ProfilePopover** (§8.9 hamburger GEÇERSİZ — Calendar tutarlılığı, kullanıcı kararı); D1 kapsamı **custom + TÜM 54 preset KORUNUR** (§8.9 "kullanılan slug" GEÇERSİZ — kullanıcı kararı); satır = accent rayı + ad + kategori-chip alt-satır + custom "(Özel)"; her satırda **"Son: kg × tekrar"** (en ağır set, tek batch `fetchLastSessionByRef`); alfabetik **sticky letter-head** = `ScrollView` + `stickyHeaderIndices` (SectionList virtualization yukarı scroll'da blank-row yapıyordu → ~80 satır tümü render); "+ Yeni" pill her iki sekmede. **D2 Programlar:** pasif satır = ad + meta ("N gün · N hareket", batch `fetchProgramDayCounts`) + tip rozeti; empty state 2 CTA ("Hazır Seç" PresetProgramModal reuse + "+ Yeni Program"); ActiveProgramCard meta "Haftalık · Hafta N" + streak "{n}g" (yeni i18n `weekLabel`/`streakValue`). **Bug fix:** "Haftayı gör" CTA artık `/calendar?view=week&ts=<nonce>` → Calendar hafta görünümüne geçip bugünün haftasına döner (tab state korunduğu için eskiden çalışmıyordu). **Açık:** D3 Program Edit cila turu (ayrı seans); gün-chip "5e/5 ex" formatı; D1 satır menüsü Alert→sheet (opsiyonel). |
 | 2026-06-19 | §8.13 (yeni), değişiklik kaydı | **rev 20 — D3 Program Edit cila turu (cihazda doğrulandı).** Yeni §8.13. **CP1 görsel:** egzersiz satırı D1/Day Detail diline hizalandı (kategori accent rayı + kategori-chip + custom "(Özel)" + satıra tap → `ExPreviewModal`); off-day rozeti emoji `💤` → lucide `Moon`; app bar alt-başlığı mono "{cycle} · N hareket". **CP2 drag (kullanıcı "drag" seçti):** gün içi sıralama ▲▼ ok-tuşlarından **6-nokta `GripVertical` handle + long-press sürükleme**ye geçti — Day Detail `ReorderableCardList` **yeniden kullanıldı** (paketsiz, Reanimated 4 + gesture-handler); satırlar ayrık gap'li kartlara döndü (tam border + radius + `background.subtle`); sürükleme aktifken ana ScrollView gate'lenir (`scrollEnabled=false`); kenar autoscroll yok (MVP sınırı, Day Detail ile aynı). Gün-gün taşıma değişmedi (⋮ → MoveToDaySheet, §8.10 Opsiyon A). **Açık:** E1+F1+F2 cila turu (sıradaki); autosave debounce (§8.10) hâlâ uygulanmadı (anında yazıyor — işlevsel sorun yok). |
+| 2026-06-19 | §8.14 (yeni), §8.1.1 (açık-tema follow-up), değişiklik kaydı | **rev 21 — E1 More + F1/F2 placeholder cila turu (cihazda doğrulandı).** Yeni §8.14. **CP1:** PlaceholderScreen → goldMuted halka içinde gold ikon + "ÇOK YAKINDA" pill rozeti (yeni i18n `placeholder.soon`). **CP2:** ortak `components/shared/profile-menu.tsx` çıkarıldı (`useProfileMenu` + `TogglePill` + `ProfileMenuHeader`) → MoreSheet + ProfilePopover paylaşır, kod tekrarı bitti, davranış aynı (kullanıcı "rol ayrımını koru" seçti); MoreSheet disabled satırlara "Çok Yakında" çipi (rev15 opacity 0.38 yerine). **Kullanıcı bulguları:** misafir More'a "Giriş Yap" satırı (`auth.login` → /login, kayıt tek yol değil); Calendar Month açık tema normal-gün stroke'u tema-duyarlı yumuşatıldı (app-bg + hairline; koyu tema 1px subtle korunur — grid ayrımı); gün arası gap 2→1. **UI cila kampanyasının TÜM ekranları bitti.** |
 | 2026-05-23 | §8.10 (yeni), §9 Grup G (yeni) | **rev 14 — D3 Program Edit spec yazımı kararları + seans sonu karar oturumu.** Yeni §8.10 eklendi: D3 tam ekran route (modal değil), state ayırt etmez (NewProgramSheet save + ✎ edit + "Düzenle" hepsi aynı route'a push); gün layout = dikey scroll + collapsible panels (bugün açık default, multi-expand izinli); cycle type **3 seçenek `weekly` (default) / `deload` / `none`** (web `app.html`'de `weekly` yoktu — mobil için yeni eklendi, haftalık tekrar standart mental model); `none` MVP'de kalır ama default değil, compliance hesaplanmaz; autosave debounced (300-500ms, manuel "Kaydet" yok); off-day toggle = Opsiyon A (dolu gün off-day yapılınca app_program_days satırları silinir, confirm sorar); gün-gün taşıma = Opsiyon A (long-press ⋯ → MoveToDaySheet; drag-cross-panel MVP sonrası); aktif et CTA disabled koşul = en az 1 toplam egzersiz; bottom nav D3'te gizli (tam ekran edit); D2+D3 ortak component'ler (ActivateConfirmModal, DeleteProgramModal); 6-dot drag handle (§8.8 ile aynı); program adı validation (1-60 char, trim, duplicate OK). Grup G karar oturumu: 4 sorudan 3'üne kullanıcı karar verdi (cycle `none` kalır, off-day Opsiyon A, taşıma Opsiyon A); 1'i (aktif et koşulu) önerimle kapatıldı. |
