@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-20 — Yirminci exercise guide enrichment batch'i eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-20 — Yirmi birinci exercise guide enrichment batch'i ve tam içerik kapsamı tamamlandı. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-84)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-85)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -242,6 +242,7 @@ LogWise/
 - **Exercise guide enrichment batch 18** (Bölüm 82): Yedi cable/preacher/incline curl varyasyonunun tam TR/EN içeriği, ekipman geçmişi ayrımları, izolasyon ve zorunlu uzama miti düzeltmeleri, toplam 129 content-ready guide ✅
 - **Exercise guide enrichment batch 19** (Bölüm 83): Yedi ön kol/kavrama/bar çekiş hareketinin tam TR/EN içeriği, dead-active hang, wrist tedavi iddiası ve typewriter tekrar standardı düzeltmeleri, toplam 136 content-ready guide ✅
 - **Exercise guide enrichment batch 20** (Bölüm 84): Altı row/pullover ve bir arch hareketinin tam TR/EN içeriği, makine-landmine ayrımları, pullover menzili ve statik arch standardı düzeltmeleri, toplam 143 content-ready guide ✅
+- **Exercise guide enrichment batch 21 + tam kapsam** (Bölüm 85): Superman ve air-walker Ay Yürüyüşü kayıtlarının tam TR/EN içeriği, dinamik-statik arch ayrımı ve Moonwalk cihaz anlamı; 145/145 preview-ready ve content-ready guide ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

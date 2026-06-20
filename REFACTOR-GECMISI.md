@@ -4151,6 +4151,54 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 85 — Exercise Guide Enrichment Batch 21 ve Tam İçerik Kapsamı (2026-06-20)
+
+### Amaç
+
+Son iki eksik preset olan Superman ve Ay Yürüyüşü kayıtlarını tam guide seviyesine taşımak; Arch Hold/Superman tekrar standardını ayırmak, belirsiz `moonwalk` presetini tarihsel repo bağlamına göre doğru kardiyo cihazına bağlamak ve enrichment fazını 145/145 tam preview/content kapsamıyla kapatmak.
+
+### Kapsam
+
+- Superman
+- Ay Yürüyüşü / Moonwalk (air-walker/glider kardiyo cihazı)
+
+### İçerik Kararları
+
+- **Superman standardı:** Yüzüstü pozisyonda kolların, göğsün ve bacakların eşzamanlı kaldırılıp indirildiği dinamik tekrar standardı kullanıldı. Maksimum bel kavsi ve kaldırma yüksekliği yerine nötr boyun, küçük tekrarlanabilir menzil ve kontrollü tempo önceliklendirildi.
+- **Arch Hold ayrımı:** `arch-hold` süreli statik calisthenics beden şekli, `superman` ise dinamik tekrar hareketi olarak ayrı yük geçmişlerine bağlandı. İki kaydın related ve tracking alanları bu ayrımı açıkça taşır.
+- **Moonwalk anlamı:** Git geçmişindeki Kardiyo kategorisi ve “Eliptik/özel yürüyüş” açıklaması incelendi. Preset dans adımı olarak değil, zıt yönde kayan pedlere sahip air-walker/glider kardiyo cihazı olarak kilitlendi.
+- **Moonwalk güvenlik ve tracking:** Sabit tutacakla kontrollü binme/inme, rahat adım boyu ve yavaşlama standardı yazıldı. Cihaz modeli, direnç, süre, kadans, RPE, adım boyu ve hareketli kol kullanımı birlikte takip edilir; air-walker, elliptical ve treadmill ekran verileri doğrudan karşılaştırılmaz.
+- **Legacy kısa açıklama:** Uygulama egzersiz listesinde kullanılan `data/ex-descriptions.js` moonwalk metni de “air-walker/glider cihazında kayar pedli kardiyo” olarak güncellendi; canonical guide ile legacy liste anlamı eşitlendi.
+- **Readiness kapanışı:** 145 total, 145 preview-ready, 145 content-ready, 0 media-ready, 0 published. Tüm kayıtlarda dolu formSteps, mistakes, tips, progression, anatomik kas slug'ları ve web metadata bulunur.
+- **Global metadata kapanışı:** 145 kayıtlık final taramada Bench Press İngilizce meta title'ının 66 karakterle 65 sınırını tek başına aştığı görüldü. Sondaki `| LogWise` kaldırıldı; tüm meta title/description alanları sırasıyla 65/180 sınırına getirildi. `publish: false` pilot HTML legacy üretimde kaldığı için canlı Bench Press sayfası değişmedi.
+- **Sonraki faz:** Metin enrichment tamamlandı. Bir sonraki çalışma, versiyonlu MP4/poster/muscle-map üretimi, R2 yükleme/header doğrulaması, `mediaReady` geçişi ve ardından `publish` kontrollü web cutover'dır.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; mevcut veri dosyalarının içeriği değiştiği için `docs/SW-VERSION-BUMP.md` uyarınca ek cache bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Superman ve Moonwalk için tam TR/EN guide, anatomik kas ve web içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen 145/145 wrapper |
+| `data/ex-descriptions.js` | Moonwalk legacy kısa açıklamasının air-walker cihaz standardıyla eşitlenmesi |
+| `library/exercises.html` | Güncellenen Moonwalk kısa açıklamasıyla yeniden üretilen Library dizini |
+| `AGENTS.md` | Enrichment kapanış özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Final batch, anlam kararları ve tam kapsam doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 145 preview-ready, 145 content-ready, 0 media-ready, 0 published` olmalı.
+- 145 kaydın tamamı `isContentReady` kontrolünü geçmeli; draft kas grubu slug'ı kalmamalı.
+- Final batch'te `superman` ve `moonwalk` içerikleri ile global kapanış için yalnız Bench Press İngilizce meta title'ı değişmeli; `moonwalk.previewReady` false → true olmalı.
+- `data/ex-descriptions.js` içindeki TR/EN Moonwalk kısa açıklamaları air-walker anlamını taşımalı.
+- `library/exercises.html` Moonwalk kartı güncellenen air-walker kısa açıklamasını göstermeli.
+- Related exercise slug'ları preset kataloğunda bulunmalı; meta title 65 ve meta description 180 karakter sınırını aşmamalı.
+- JSON ile web wrapper birebir eşleşmeli; değişen tüm JS dosyaları syntax kontrolünden geçmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 84 — Exercise Guide Enrichment Batch 20 (2026-06-20)
 
 ### Amaç

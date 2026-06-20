@@ -1219,7 +1219,7 @@ window.LOGWISE_EX_GUIDES = {
     "web": {
       "metaTitle": [
         "Bench Press Rehberi: Form, Kaslar, Hatalar ve İlerleme | LogWise",
-        "Bench Press Guide: Form, Muscles, Mistakes & Progression | LogWise"
+        "Bench Press Guide: Form, Muscles, Mistakes & Progression"
       ],
       "metaDescription": [
         "Bench press formunu geliştir, yaygın hatalardan kaçın, setlerini ilerlet ve antrenmanlarını LogWise ile takip et.",
@@ -22897,35 +22897,91 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/superman",
     "summary": [
-      "Yerde sırt uzatma. Arka zincir aktivasyonu.",
-      "Prone back extension. Posterior-chain activation."
+      "Yüzüstü eşzamanlı kol-bacak kaldırma tekrarları.",
+      "Prone repetitions that raise the arms and legs together."
     ],
     "description": [
-      "Yüzüstü yerde yapılan basit arka zincir aktivasyon hareketi. Alt sırt, glute ve sırt üst kısmını hafif ama etkili biçimde devreye sokar. Özellikle ekipmansız antrenmanlarda destekleyici olarak kullanılır.",
-      "A simple posterior-chain activation movement performed face down on the floor. It lightly but effectively engages the lower back, glutes, and upper back. It is especially useful as a supportive drill in equipment-free training."
+      "Superman, yüzüstü pozisyonda kolları ve bacakları eşzamanlı kaldırıp kontrollü indirdiğin dinamik arka hat hareketidir. Erector spinae, gluteus ve hamstringler katkı verir; amaç maksimum bel kavsi değil, küçük ve tekrarlanabilir hareket üretmektir.",
+      "The Superman is a dynamic posterior-chain movement performed prone by raising the arms and legs together and lowering them under control. The erector spinae, glutes, and hamstrings contribute; the goal is a small, repeatable motion rather than maximal lower-back arching."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kolları ve bacakları kaldırırken boynu kasma; bakışı yere yakın tut.",
-        "Do not crank the neck while lifting the arms and legs; keep the gaze down."
+        "Yüzüstü uzan, kollarını baş üstüne ve bacaklarını arkaya uzun biçimde yerleştir.",
+        "Lie prone with the arms reaching overhead and the legs extended long behind."
       ],
       [
-        "Çok yükseğe çıkmak yerine kontrollü sıkışma hedefle.",
-        "Aim for a controlled contraction rather than trying to lift as high as possible."
+        "Bakışını zemine yönelt, boynunu nötr ve nefesini akıcı tut.",
+        "Keep the gaze toward the floor, the neck neutral, and breathing steady."
       ],
       [
-        "Kısa duraklamalar hareketin verimini artırır.",
-        "Short pauses at the top make the drill more effective."
+        "Glute ve arka hattı kontrollü çalıştırarak kolları, göğsü ve bacakları hafif kaldır.",
+        "Engage the glutes and posterior chain to lift the arms, chest, and legs slightly."
+      ],
+      [
+        "Kontrollü üst noktada kısa biçimde yön değiştir; yüksekliği zorlamaya çalışma.",
+        "Reverse briefly at a controlled top point without chasing extra height."
+      ],
+      [
+        "Gövde ve uzuvları zemine kontrollü indirip bir sonraki tekrara sıfırla.",
+        "Lower the torso and limbs under control and reset for the next repetition."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Daha yükseğe çıkmak için boynu geriye atmak.",
+        "Cranking the neck backward to lift higher."
+      ],
+      [
+        "Glute ve bacak katkısı olmadan yalnız belden aşırı kavs yapmak.",
+        "Creating excessive arch only through the lower back without glute and leg contribution."
+      ],
+      [
+        "Kolları ve bacakları zemine bırakıp her tekrarda sekmek.",
+        "Dropping the arms and legs to the floor and bouncing between reps."
+      ],
+      [
+        "Hareketi süreli Arch Hold ile aynı tekrar geçmişinde takip etmek.",
+        "Tracking the movement in the same history as a timed Arch Hold."
+      ]
+    ],
+    "tips": [
+      [
+        "Superman dinamik tekrarlarla, Arch Hold ise sabit süreyle takip edilir.",
+        "Track Superman as dynamic reps and Arch Hold as a timed static position."
+      ],
+      [
+        "Kaldırma yüksekliği küçük olabilir; boyun ve bel kontrolü daha önemlidir.",
+        "Lift height can be small; neck and lower-back control matter more."
+      ],
+      [
+        "Omuz hareketliliği kolları baş üstünde sınırlıyorsa kolları yana veya gövdeye yakın tut.",
+        "If shoulder mobility limits the overhead position, move the arms outward or closer to the torso."
+      ]
+    ],
+    "progression": [
+      [
+        "Kollar gövde yanında, düşük yükseltide kontrollü tekrarlarla başla.",
+        "Begin with controlled low lifts and the arms beside the torso."
+      ],
+      [
+        "Kolları baş üstüne uzatıp aynı yükseklik ve tempoda tekrarları artır.",
+        "Reach the arms overhead and increase reps at the same height and tempo."
+      ],
+      [
+        "Kontrol yerleşince üstte kısa duraklama veya alternating varyasyonu ayrı kayıt olarak ekle.",
+        "Once control is established, add a brief top pause or log an alternating variation separately."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "erector-spinae",
+        "gluteus-maximus"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "posterior-deltoid",
+        "lower-trapezius"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -22941,30 +22997,146 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Superman exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Superman Egzersizi Rehberi ve Formu",
+        "Superman Exercise Guide and Form"
+      ],
+      "metaDescription": [
+        "Superman egzersizi için yüzüstü kurulum, kontrollü kol-bacak kaldırma, nötr boyun, sık hatalar ve dinamik tekrar progresyonunu öğren.",
+        "Learn prone setup, controlled arm-leg lifts, neutral neck, common mistakes, and dynamic-rep progression for the Superman exercise."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Erector spinae ve gluteus",
+          "Erector spinae and glutes"
+        ],
+        "equipment": [
+          "Egzersiz matı",
+          "Exercise mat"
+        ],
+        "movementPattern": [
+          "Dinamik yüzüstü arka hat ekstansiyonu",
+          "Dynamic prone posterior-chain extension"
+        ],
+        "bestFor": [
+          "Ekipmansız arka hat kontrolü",
+          "Equipment-free posterior-chain control"
+        ]
+      },
+      "tracking": [
+        [
+          "Kol pozisyonu ve kaldırma yüksekliği",
+          "Arm position and lift height"
+        ],
+        [
+          "Tekrar, tempo ve RIR",
+          "Reps, tempo, and RIR"
+        ],
+        [
+          "Üst duraklama ve boyun-bel kontrolü",
+          "Top pause and neck-lower-back control"
+        ]
+      ],
+      "related": [
+        "arch-hold",
+        "back-extension",
+        "glute-bridge"
+      ]
+    }
   },
   "moonwalk": {
     "publish": false,
-    "previewReady": false,
+    "previewReady": true,
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/moonwalk",
     "summary": [
-      "Eliptik/özel yürüyüş.",
-      "Elliptical/special walk."
+      "Air-walker/glider cihazında kayar pedli kardiyo.",
+      "Gliding cardio on an air-walker machine."
     ],
     "description": [
-      "Eliptik/özel yürüyüş.",
-      "Elliptical/special walk."
+      "Ay Yürüyüşü, air-walker veya glider tipi kardiyo cihazında iki ayak pedini zıt yönlerde kontrollü kaydırarak yapılan düşük darbeli çalışmadır. Bu preset dans hareketini değil kardiyo cihazını ifade eder; cihaz geometrisi ve varsa direnç ayarı performansı değiştirir.",
+      "Moonwalk refers here to low-impact cardio on an air-walker or glider machine, moving two foot platforms in opposite directions under control. This preset describes the cardio machine, not the dance step; machine geometry and any resistance setting affect performance."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [],
-    "progression": [],
+    "formSteps": [
+      [
+        "Cihazın sabit olduğunu, pedlerin ve tutacakların hasarsız çalıştığını kontrol et.",
+        "Check that the machine is stable and that the pedals and handles operate without damage."
+      ],
+      [
+        "Sabit tutacağı kullanarak pedlere kontrollü çık ve iki ayağını pedlerin merkezine yerleştir.",
+        "Use a fixed handle to step on under control and place both feet near the centers of the pedals."
+      ],
+      [
+        "Gövdeni rahat dik tutup kısa, kontrollü ileri-geri kayışlarla harekete başla.",
+        "Keep the torso comfortably upright and begin with short, controlled forward-backward glides."
+      ],
+      [
+        "Pedleri zıt yönlerde akıcı biçimde sürerken rahat bir kadans ve nefes ritmi koru.",
+        "Move the pedals smoothly in opposite directions while maintaining a comfortable cadence and breathing rhythm."
+      ],
+      [
+        "İnmeden önce adım boyunu ve hızı azalt, pedler kontrol altındayken sabit tutacağa geç.",
+        "Before stepping off, shorten the stride and slow down, then use the fixed handle while the pedals are controlled."
+      ]
+    ],
+    "mistakes": [
+      [
+        "Bu preset’i dans tipi moonwalk adımıyla aynı hareket olarak kaydetmek.",
+        "Logging the preset as the dance-style moonwalk step."
+      ],
+      [
+        "Cihaza hareketli pedler kontrol edilmeden çıkmak veya inmek.",
+        "Stepping on or off before the moving pedals are controlled."
+      ],
+      [
+        "Kalça ve diz hareketliliğini aşan uzun adımları zorlamak.",
+        "Forcing stride lengths beyond comfortable hip and knee motion."
+      ],
+      [
+        "Farklı air-walker, elliptical ve treadmill cihazlarındaki mesafe veya kaloriyi doğrudan karşılaştırmak.",
+        "Directly comparing distance or calories across air walkers, ellipticals, and treadmills."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu guide air-walker/glider kardiyo cihazı içindir; klasik elliptical farklı bir mekanik kullanabilir.",
+        "This guide covers an air-walker/glider cardio machine; a standard elliptical can use different mechanics."
+      ],
+      [
+        "Cihaz ekranındaki kalori ve mesafeyi yaklaşık cihaz verisi olarak gör; süre, kadans ve RPE’yi birlikte takip et.",
+        "Treat displayed calories and distance as machine estimates and track time, cadence, and RPE as well."
+      ],
+      [
+        "Tutacaklara aşırı yüklenmeden dengeyi koru; cihazın hareketli kol sistemi varsa kullanım biçimini kaydet.",
+        "Maintain balance without leaning heavily on the handles and record whether moving arm handles are used."
+      ]
+    ],
+    "progression": [
+      [
+        "Rahat adım boyunda kısa ve düşük RPE’li seanslarla başla.",
+        "Begin with short, low-RPE sessions at a comfortable stride length."
+      ],
+      [
+        "Aynı cihazda toplam süreyi veya kadansı küçük adımlarla artır.",
+        "Increase total time or cadence in small steps on the same machine."
+      ],
+      [
+        "Cihazda direnç ayarı varsa süre ve form sabit kaldıktan sonra kademeli yükselt.",
+        "If the machine has resistance, increase it gradually after duration and form are consistent."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "cardiovascular"
+        "quadriceps",
+        "gluteus-maximus"
       ],
-      "secondary": []
+      "secondary": [
+        "hamstrings",
+        "gastrocnemius",
+        "soleus",
+        "rectus-abdominis"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -22972,14 +23144,60 @@ window.LOGWISE_EX_GUIDES = {
       "poster": null,
       "muscleMap": null,
       "demoLabel": [
-        "Ay Yürüyüşü hareket formu gösterimi",
-        "Moonwalk exercise form demonstration"
+        "Air-walker Ay Yürüyüşü cihaz formu gösterimi",
+        "Air-walker Moonwalk machine form demonstration"
       ],
       "muscleMapAlt": [
-        "Ay Yürüyüşü hareketinde çalışan kasların haritası",
-        "Muscle map for the Moonwalk exercise"
+        "Air-walker Ay Yürüyüşü cihazında çalışan kasların haritası",
+        "Muscle map for the air-walker Moonwalk machine"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Ay Yürüyüşü Air-Walker Kardiyo Rehberi",
+        "Air-Walker Moonwalk Cardio Guide"
+      ],
+      "metaDescription": [
+        "Air-walker Ay Yürüyüşü cihazı için güvenli çıkış, kayar adım tekniği, süre-kadans-RPE takibi, sık hatalar ve progresyonu öğren.",
+        "Learn safe setup, gliding stride technique, time-cadence-RPE tracking, common mistakes, and progression for air-walker cardio."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Quadriceps ve gluteus",
+          "Quadriceps and glutes"
+        ],
+        "equipment": [
+          "Air-walker veya glider cihazı",
+          "Air-walker or glider machine"
+        ],
+        "movementPattern": [
+          "Düşük darbeli kayar kardiyo",
+          "Low-impact gliding cardio"
+        ],
+        "bestFor": [
+          "Düşük darbeli aerobik kondisyon",
+          "Low-impact aerobic conditioning"
+        ]
+      },
+      "tracking": [
+        [
+          "Cihaz modeli ve direnç ayarı",
+          "Machine model and resistance setting"
+        ],
+        [
+          "Süre, kadans ve RPE",
+          "Duration, cadence, and RPE"
+        ],
+        [
+          "Adım boyu ve hareketli kol kullanımı",
+          "Stride length and moving-handle use"
+        ]
+      ],
+      "related": [
+        "treadmill",
+        "stair-climber",
+        "cycling"
+      ]
+    }
   }
 };

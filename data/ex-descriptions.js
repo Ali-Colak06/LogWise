@@ -59,7 +59,7 @@ window.LOGWISE_EX_DESCS = {
   "jumping-jack": ["Zıplama. Kardiyo.", "Jumping jack. Cardio."],
   "treadmill": ["Koşu bandında yürüyüş/koşu.", "Treadmill walking/running."],
   "cycling": ["Bisiklet kardiyo.", "Cycling cardio."],
-  "moonwalk": ["Eliptik/özel yürüyüş.", "Elliptical/special walk."],
+  "moonwalk": ["Air-walker/glider cihazında kayar pedli kardiyo.", "Gliding cardio on an air-walker machine."],
   "romanian-deadlift": ["Kalça menteşesi. Hamstring ve glute odaklı.", "Hip hinge. Hamstring and glute focused."],
   "bulgarian-split-squat": ["Arka ayak yükseltili tek bacak squat.", "Rear-foot-elevated single leg squat."],
   "chin-up": ["Ters tutuş barfiks. Biceps vurgusu yüksek.", "Supinated pull-up. More biceps emphasis."],
