@@ -4151,6 +4151,54 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 84 — Exercise Guide Enrichment Batch 20 (2026-06-20)
+
+### Amaç
+
+Altı row/pullover deseni ile Arch Hold'u tam guide seviyesine taşımak; ring instabilitesinin üstünlüğü, row hareketlerinde zorunlu maksimum skapula sıkıştırma, T-bar makine/landmine belirsizliği, pullover için zorunlu baş-altı menzili ve Arch Hold'da maksimum bel kavsi hakkındaki legacy cue'ları düzeltmek.
+
+### Kapsam
+
+- Ring Row
+- Seal Row
+- Meadow Row
+- Single Arm Row Machine
+- T-Bar Row
+- Pullover
+- Arch Hold
+
+### İçerik Kararları
+
+- **Ring Row:** Eşit ring yüksekliği, dikey kayış, nötr tutuş ve ayarlanabilir gövde açısı standardı oluşturuldu. İnstabilite ek koordinasyon talebi olarak yazıldı; sabit bar row'a otomatik üstünlük sayılmadı.
+- **Seal Row:** Sağlam biçimde yükseltilmiş düz bench ve barbell standardı kilitlendi. Bench yüksekliği, bar tutuşu ve göğüs temas noktası tracking alanına eklendi; destek momentumun tamamını sıfırlayan bir yapı olarak sunulmadı.
+- **Meadow Row:** Landmine'a sabitlenmiş barın plaka tarafındaki sleeve'ini tek elle çekme standardı kullanıldı. Plaka çapı, duruş, hinge açısı ve doğal gövde rotasyonu performans bağlamına eklendi.
+- **Single Arm Row Machine:** Bağımsız tutacaklı göğüs destekli makine varyasyonu kilitlendi. Makine modeli, koltuk, tutuş ve taraf bazlı yük/RIR ayrı takip edilir; maksimum skapula retraksiyonu ve iki tarafa zorunlu eşit tekrar kaldırıldı.
+- **T-Bar Row:** Legacy `Lying_T-Bar_Row` görseliyle uyumlu göğüs destekli T-bar makinesi standardına bağlandı ve landmine T-bar row'dan ayrıldı. Sabit 45 derece gövde açısı kaldırıldı; makine pedi, tutuş ve göğüs teması temel ölçüt yapıldı.
+- **Dumbbell Pullover:** Üst sırt bench'e enlemesine destekli, tek dumbbellı iki elle kavrama standardı kullanıldı. Yalnız kürek kemiklerinin benche değmesi ve dumbbellın mutlaka baş altına inmesi cue'ları kaldırıldı; alt menzil omuz kontrolüne bağlandı.
+- **Arch Hold:** Yüzüstü, kollar baş üstünde ve bacaklar birleşik süreli calisthenics beden şekli olarak tanımlandı. Maksimum bel kavsi yerine uzun tam-vücut gerilimi ve nötr boyun önceliklendirildi; dinamik Superman tekrarlarından ayrıldı.
+- **Readiness sonucu:** 145 total, 144 preview-ready, 143 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; mevcut guide verisi ve wrapper içeriği değiştiği için ek cache bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Altı row/pullover ve bir arch hareketi için tam TR/EN guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 144 preview-ready, 143 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Yalnızca hedeflenen yedi guide kaydı değişmeli; related exercise slug'ları preset kataloğunda bulunmalı.
+- Meta title 65, meta description 180 karakter sınırını aşmamalı ve JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 83 — Exercise Guide Enrichment Batch 19 (2026-06-20)
 
 ### Amaç

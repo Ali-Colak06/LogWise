@@ -12011,36 +12011,93 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/ring-row",
     "summary": [
-      "Ring row. Stabilite isteyen yatay çekiş.",
-      "Ring row. Stability-demanding horizontal pull."
+      "Ayarlanabilir gövde açısıyla yapılan ring row.",
+      "A ring row performed at an adjustable body angle."
     ],
     "description": [
-      "Ring üzerinde yapılan yatay çekiş hareketi. Sabit bara göre daha fazla stabilite talep eder ve skapular kontrolü geliştirir. Calisthenics çekiş gücünü artırmak için çok iyi bir temel varyasyondur.",
-      "A horizontal pulling movement performed on rings. Compared with a fixed bar, it demands more stability and improves scapular control. It is an excellent foundational variation for building calisthenics pulling strength."
+      "Ring row, eşit yükseklikteki halkaları göğse çekerek yapılan vücut ağırlığı yatay çekişidir. Ringlerin serbest hareketi ek koordinasyon ister; ancak instabilite hareketi sabit bar row’dan otomatik olarak daha iyi yapmaz.",
+      "The ring row is a bodyweight horizontal pull performed by drawing equal-height rings toward the chest. The freely moving rings add coordination demands, but instability does not automatically make it superior to a fixed-bar row."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ringleri sabit tutmaya çalışırken göğsü onlara çek.",
-        "Pull the chest toward the rings while trying to keep them stable."
+        "Ringleri aynı yüksekliğe ayarla ve kayışların sağlam ankrajdan dikey indiğini kontrol et.",
+        "Set the rings to the same height and confirm the straps hang vertically from secure anchors."
       ],
       [
-        "Vücut çizgisini sıkı tutarak core'u da aktif kullan.",
-        "Use the core actively by keeping a tight body line."
+        "Ringleri nötr tutuşla kavra, ayaklarını öne al ve kontrollü gövde çizgisi kur.",
+        "Grip the rings neutrally, walk the feet forward, and establish a controlled body line."
       ],
       [
-        "Ayak konumu ile zorluğu kolayca ayarlayabilirsin.",
-        "You can easily scale difficulty by changing foot position."
+        "Dirseklerini büküp ringleri göğsünün iki yanına doğru çek.",
+        "Flex the elbows and pull the rings toward the sides of the chest."
+      ],
+      [
+        "Omuzları zorla geriye sıkmadan tekrarlanabilir üst noktada yön değiştir.",
+        "Reverse at a repeatable top point without forcing the shoulders into a hard squeeze."
+      ],
+      [
+        "Ringleri sabit tutup dirseklerini kontrollü açarak başlangıca dön.",
+        "Keep the rings controlled and extend the elbows to return to the start."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ringleri farklı yüksekliğe ayarlayıp asimetrik çekmek.",
+        "Setting the rings at different heights and pulling asymmetrically."
+      ],
+      [
+        "Kalçayı düşürmek veya yalnız göğsü yükselterek gövde çizgisini bozmak.",
+        "Dropping the hips or raising only the chest and losing the body line."
+      ],
+      [
+        "Ringlerin üst noktada kontrolsüz dışa açılmasına izin vermek.",
+        "Letting the rings flare outward without control at the top."
+      ],
+      [
+        "Ring yüksekliği ve ayak konumunu kaydetmeden performansı karşılaştırmak.",
+        "Comparing performance without recording ring height and foot position."
+      ]
+    ],
+    "tips": [
+      [
+        "Ringleri yükseltmek ve ayakları ankraja yaklaştırmak genellikle hareketi kolaylaştırır.",
+        "Raising the rings and moving the feet toward the anchor generally makes the movement easier."
+      ],
+      [
+        "Nötr tutuş doğal olarak biraz dönebilir; zorunlu bir bitiş açısı yoktur.",
+        "The neutral grip can rotate naturally; there is no mandatory finishing angle."
+      ],
+      [
+        "Ring row ve Australian pull-up farklı stabilite talepleridir; yük geçmişlerini ayrı tut.",
+        "Ring rows and Australian pull-ups have different stability demands, so keep separate loading histories."
+      ]
+    ],
+    "progression": [
+      [
+        "Ringleri göğüs yüksekliğinde kurup daha dik gövde açısıyla başla.",
+        "Begin with the rings around chest height and a more upright body angle."
+      ],
+      [
+        "Ringleri alçaltıp ayakları ileri taşıyarak gövdeyi kademeli yataylaştır.",
+        "Lower the rings and walk the feet forward to make the body gradually more horizontal."
+      ],
+      [
+        "Gövde açısı sabitlenince ayak yükseltisi, tempo veya harici yük ekle.",
+        "Once body angle is consistent, add foot elevation, tempo, or external load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "rhomboids",
+        "middle-trapezius"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis",
+        "rectus-abdominis",
+        "gluteus-maximus"
       ]
     },
     "media": {
@@ -12057,7 +12114,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Ring Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Ring Row Rehberi: Kurulum ve Vücut Açısı",
+        "Ring Row Guide: Setup and Body Angle"
+      ],
+      "metaDescription": [
+        "Ring row için eşit askı kurulumu, gövde çizgisi, ring kontrolü, ayarlanabilir yük, sık hatalar ve progresyonu öğren.",
+        "Learn even suspension setup, body line, ring control, adjustable loading, common mistakes, and progression for ring rows."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus, romboidler, orta trapez",
+          "Lats, rhomboids, middle traps"
+        ],
+        "equipment": [
+          "Çift jimnastik halkası",
+          "Pair of gymnastic rings"
+        ],
+        "movementPattern": [
+          "İnstabil yatay çekiş",
+          "Unstable horizontal pull"
+        ],
+        "bestFor": [
+          "Ayarlanabilir bodyweight row kuvveti",
+          "Adjustable bodyweight rowing strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Ring yüksekliği ve ayak konumu",
+          "Ring height and foot position"
+        ],
+        [
+          "Gövde açısı, tekrar ve RIR",
+          "Body angle, reps, and RIR"
+        ],
+        [
+          "Göğüs çekiş noktası ve ring açıklığı",
+          "Chest pull point and ring spacing"
+        ]
+      ],
+      "related": [
+        "australian-pull-up",
+        "seal-row",
+        "ring-push-up"
+      ]
+    }
   },
   "tuck-front-lever-row": {
     "publish": false,
@@ -12884,36 +12987,92 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/seal-row",
     "summary": [
-      "Bench üstü seal row. Momentum çok az.",
-      "Seal row on bench. Very little momentum."
+      "Yüksek düz benchte yüzüstü barbell row.",
+      "A prone barbell row on an elevated flat bench."
     ],
     "description": [
-      "Bench üzerinde yüzüstü destekle yapılan row varyasyonu. Alt gövde yardımı ve momentum neredeyse tamamen çıkarıldığı için sırt kasına çok temiz yük biner. Daha disiplinli yatay çekiş isteyen kullanıcılar için harika bir harekettir.",
-      "A row variation performed face down on a bench. Because lower-body assistance and momentum are almost completely removed, it places very clean stress on the back muscles. It is excellent for lifters who want a stricter horizontal pull."
+      "Seal row, barın serbestçe hareket edebileceği kadar yükseltilmiş düz benchte yüzüstü yapılan barbell row’dur. Göğüs ve pelvis desteği alt gövde momentumunu sınırlar; bench yüksekliği, bar tutuşu ve temas noktası hareket menzilini belirler.",
+      "The seal row is a prone barbell row performed on a flat bench elevated high enough for the bar to move freely. Chest and pelvic support limit lower-body momentum, while bench height, grip, and bar endpoint determine the available range."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Barı her tekrarda kontrollü başlat; zıplatma yapma.",
-        "Start each rep under control instead of bouncing into it."
+        "Düz benchi sağlam yükseltilere yerleştir ve bar için yeterli zemin boşluğu olduğunu kontrol et.",
+        "Securely elevate a flat bench and confirm there is enough floor clearance for the bar."
       ],
       [
-        "Boynu nötr tutup gövde desteğini bozma.",
-        "Keep the neck neutral and do not lose the bench support position."
+        "Benche yüzüstü uzan, göğüs ve pelvis desteğini koru; ayaklarını dengeli yerleştir.",
+        "Lie prone with chest and pelvis supported and place the feet securely."
       ],
       [
-        "Temiz tekrar kalitesi burada ağırlıktan daha önemlidir.",
-        "Strict rep quality matters more than load on this movement."
+        "Barı rahat pronasyonlu tutuşla kavra ve omuzlarını kontrollü alt pozisyonda başlat.",
+        "Grip the bar with a comfortable pronated grip and begin from a controlled bottom shoulder position."
+      ],
+      [
+        "Dirseklerini büküp barı bench altındaki tekrarlanabilir göğüs noktasına çek.",
+        "Flex the elbows and row the bar toward a repeatable chest point beneath the bench."
+      ],
+      [
+        "Göğüs desteğini bozmadan barı kontrollü biçimde alt uzamaya indir.",
+        "Lower the bar to the bottom under control without losing chest support."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Benchi dengesiz yükseltilere kurmak veya bar için yetersiz boşluk bırakmak.",
+        "Using unstable bench supports or leaving insufficient clearance for the bar."
+      ],
+      [
+        "Barı kaldırmak için göğsü veya pelvisi benchten ayırmak.",
+        "Lifting the chest or pelvis from the bench to raise the bar."
+      ],
+      [
+        "Alt noktada barı zemine vurarak tekrarları sektirmek.",
+        "Bouncing repetitions by striking the bar against the floor at the bottom."
+      ],
+      [
+        "Bench yüksekliği ve bar çapını kaydetmeden menzil karşılaştırmak.",
+        "Comparing range without recording bench height and bar diameter."
+      ]
+    ],
+    "tips": [
+      [
+        "Göğüs desteği momentumu azaltır, ancak tamamen sıfırlamaz; temas kalitesini takip et.",
+        "Chest support reduces momentum but does not eliminate it completely, so monitor contact quality."
+      ],
+      [
+        "Barın benche veya zemine çarpması menzili sınırlıyorsa kurulumu değiştir; omuzları zorla çekme.",
+        "If the bar hits the bench or floor, adjust the setup rather than forcing the shoulders."
+      ],
+      [
+        "Barın göğse temas etmesi anatomi ve bench yüksekliğine bağlıdır; aynı üst noktayı kullan.",
+        "Bar-to-chest contact depends on anatomy and bench height; use a consistent top point."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif barla güvenli bench kurulumu, tutuş ve temas noktasını yerleştir.",
+        "Use a light bar to establish safe bench setup, grip, and endpoint."
+      ],
+      [
+        "Göğüs-pelvis teması korunurken tekrar ve kontrollü eksantriği geliştir.",
+        "Progress reps and eccentric control while maintaining chest and pelvic contact."
+      ],
+      [
+        "Aynı menzilde temiz tekrarlar kaldığında küçük plaka artışları yap.",
+        "Add small plate increments once clean reps remain within the same range."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "rhomboids",
+        "middle-trapezius"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis",
+        "brachioradialis"
       ]
     },
     "media": {
@@ -12930,7 +13089,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Seal Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Seal Row Rehberi: Bench Kurulumu ve Form",
+        "Seal Row Guide: Bench Setup and Form"
+      ],
+      "metaDescription": [
+        "Barbell seal row için güvenli yüksek bench kurulumu, göğüs desteği, bar yolu, kontrollü menzil, sık hatalar ve progresyonu öğren.",
+        "Learn safe elevated-bench setup, chest support, bar path, controlled range, common mistakes, and progression for barbell seal rows."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus, romboidler, orta trapez",
+          "Lats, rhomboids, middle traps"
+        ],
+        "equipment": [
+          "Yükseltilmiş düz bench ve barbell",
+          "Elevated flat bench and barbell"
+        ],
+        "movementPattern": [
+          "Göğüs destekli yatay çekiş",
+          "Chest-supported horizontal pull"
+        ],
+        "bestFor": [
+          "Momentum sınırlı barbell row",
+          "Momentum-limited barbell rowing"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench yüksekliği ve bar tutuşu",
+          "Bench height and bar grip"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Bar temas noktası ve göğüs desteği",
+          "Bar endpoint and chest support"
+        ]
+      ],
+      "related": [
+        "chest-supported-row",
+        "t-bar-row",
+        "ring-row"
+      ]
+    }
   },
   "meadow-row": {
     "publish": false,
@@ -12938,36 +13143,93 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/meadow-row",
     "summary": [
-      "Meadow row. Tek taraflı yoğun çekiş.",
-      "Meadow row. Intense unilateral row."
+      "Landmine bar ucuyla yapılan tek kol row.",
+      "A single-arm row using the sleeve of a landmine bar."
     ],
     "description": [
-      "Landmine düzenine benzer tek taraflı row varyasyonu. Lat ve üst sırtı yoğun biçimde çalıştırır, aynı zamanda farklı bir çekiş hattı sunar. Bodybuilding sırt günleri için etkilidir.",
-      "A unilateral row variation similar to a landmine setup. It trains the lats and upper back intensely while adding a different pulling path. It is effective on bodybuilding-style back days."
+      "Meadow row, landmine’a sabitlenmiş barın plaka tarafındaki ucunu tek elle çektiğin asimetrik row varyasyonudur. Bar yayı, plaka çapı, gövde açısı ve duruş çekiş hattını değiştirir; taraflar aynı kurulumla ayrı takip edilmelidir.",
+      "The Meadow row is an asymmetrical row performed by pulling the loaded sleeve of a landmine bar with one hand. Bar arc, plate diameter, torso angle, and stance change the pulling path, so both sides should be tracked with the same setup."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kalçayı ve gövde açını sabit tut.",
-        "Keep the hip and torso angle stable."
+        "Barı sağlam landmine aparatına sabitle ve plaka tarafında bara yaklaşık dik dur.",
+        "Secure the bar in a landmine attachment and stand roughly perpendicular to the loaded sleeve."
       ],
       [
-        "Dirseği yukarı değil geriye/yanına sür.",
-        "Drive the elbow back and toward the side rather than straight up."
+        "Kalçadan öne eğil, dengeli staggered duruş kur ve bar ucunu çalışan elle kavra.",
+        "Hinge at the hips, take a stable staggered stance, and grip the sleeve with the working hand."
       ],
       [
-        "Momentum yerine lat hissine odaklan.",
-        "Focus on lat feel instead of momentum."
+        "Gövde açısını kontrollü tutup dirseğini geriye-yana doğru çek.",
+        "Maintain a controlled torso angle and drive the elbow back and slightly outward."
+      ],
+      [
+        "Plaka gövdeye çarpmadan tekrarlanabilir üst noktada yön değiştir.",
+        "Reverse at a repeatable top point before the plate collides with the torso."
+      ],
+      [
+        "Omuz ve gövde kontrolünü koruyarak barı yay boyunca indir.",
+        "Lower the bar along its arc while maintaining shoulder and torso control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Landmine’ı sabitlemeden bar ucunu köşeye kontrolsüz yerleştirmek.",
+        "Using an unsecured bar end in a corner without a stable landmine setup."
+      ],
+      [
+        "Yükü kaldırmak için gövdeyi aşırı döndürmek veya kalçayla savurmak.",
+        "Over-rotating the torso or swinging with the hips to raise the load."
+      ],
+      [
+        "Farklı plaka çaplarında aynı hareket menzilini varsaymak.",
+        "Assuming the same range with plates of different diameters."
+      ],
+      [
+        "Sadece lat hissini arayıp üst sırt ve dirsek fleksörlerinin katkısını yok saymak.",
+        "Chasing only lat sensation and ignoring upper-back and elbow-flexor contribution."
+      ]
+    ],
+    "tips": [
+      [
+        "Plaka çapı ve barın landmine’a uzaklığı hareket yolunu etkiler; kurulum fotoğrafı faydalı olabilir.",
+        "Plate diameter and distance from the landmine affect the path, so a setup photo can be useful."
+      ],
+      [
+        "Bir miktar doğal gövde rotasyonu olabilir; amaç taraflar arasında tekrarlanabilir kontrol sağlamaktır.",
+        "Some natural torso rotation can occur; aim for repeatable control between sides."
+      ],
+      [
+        "Strap kullanımı kavrama sınırını değiştirir; straplı ve strapsız setleri ayrı kaydet.",
+        "Straps change the grip limitation, so log strapped and unstrapped sets separately."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif plakayla duruş, hinge açısı ve bar yayını yerleştir.",
+        "Use a light plate to establish stance, hinge angle, and bar arc."
+      ],
+      [
+        "İki tarafta aynı üst nokta ve gövde kontrolüyle tekrarları artır.",
+        "Increase reps with the same endpoint and torso control on both sides."
+      ],
+      [
+        "Plaka eklerken çap ve kurulum değişimini de performans bağlamına yaz.",
+        "When adding plates, record changes in plate diameter and setup as performance context."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "rhomboids",
+        "middle-trapezius"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis",
+        "external-oblique",
+        "erector-spinae"
       ]
     },
     "media": {
@@ -12984,7 +13246,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Meadow Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Meadow Row Rehberi: Landmine Kurulumu",
+        "Meadow Row Guide: Landmine Setup"
+      ],
+      "metaDescription": [
+        "Meadow row için güvenli landmine kurulumu, duruş, bar yayı, plaka çapı, gövde kontrolü, sık hatalar ve progresyonu öğren.",
+        "Learn safe landmine setup, stance, bar arc, plate diameter, torso control, common mistakes, and progression for Meadow rows."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus, romboidler, orta trapez",
+          "Lats, rhomboids, middle traps"
+        ],
+        "equipment": [
+          "Landmine, barbell ve plakalar",
+          "Landmine, barbell, and plates"
+        ],
+        "movementPattern": [
+          "Tek kol asimetrik yatay çekiş",
+          "Single-arm asymmetrical row"
+        ],
+        "bestFor": [
+          "Landmine tabanlı tek taraflı sırt çalışması",
+          "Landmine-based unilateral back work"
+        ]
+      },
+      "tracking": [
+        [
+          "Plaka çapı ve landmine kurulumu",
+          "Plate diameter and landmine setup"
+        ],
+        [
+          "Taraf başına yük, tekrar ve RIR",
+          "Load, reps, and RIR per side"
+        ],
+        [
+          "Gövde açısı ve üst bitiş noktası",
+          "Torso angle and top endpoint"
+        ]
+      ],
+      "related": [
+        "dumbell-row",
+        "t-bar-row",
+        "barbell-row"
+      ]
+    }
   },
   "single-arm-row-machine": {
     "publish": false,
@@ -12992,36 +13300,92 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/single-arm-row-machine",
     "summary": [
-      "Tek kol makine row. Dengesizliği azaltır.",
-      "Single-arm machine row. Helps reduce imbalances."
+      "Göğüs destekli makinede bağımsız tek kol row.",
+      "An independent single-arm row on a chest-supported machine."
     ],
     "description": [
-      "Tek kol kullanılan makine row varyasyonu. Sağ ve sol tarafı ayrı çalıştırarak kuvvet farklarını takip etmeyi kolaylaştırır. Sabit gövde desteği sayesinde sırt kasına odaklanmak daha rahattır.",
-      "A single-arm machine row variation. By training each side separately, it makes it easier to spot and address strength imbalances. The fixed body support also makes it easier to focus directly on the back musculature."
+      "Single-arm row machine, göğüs pedine destek verip bağımsız bir tutacağı tek kolla çektiğin makine row’dur. Tarafları ayrı takip etmeyi kolaylaştırır; makine modeli, koltuk, göğüs pedi ve tutuş seçimi çekiş hattını değiştirir.",
+      "The single-arm row machine uses a chest pad and an independently moving handle for unilateral rowing. It makes side-specific tracking convenient, while machine model, seat, chest pad, and grip selection change the pulling path."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Her tekrarın sonunda kürek kemiğini bilinçli şekilde geriye çek.",
-        "Actively retract the shoulder blade at the end of each rep."
+        "Koltuğu, göğüs pedine rahat temas ve omuz için kontrollü başlangıç menzili sağlayacak şekilde ayarla.",
+        "Adjust the seat for comfortable chest-pad contact and a controlled shoulder starting range."
       ],
       [
-        "Gövdeyi döndürmeden tek taraflı çekiş yap.",
-        "Perform the pull without twisting the torso."
+        "Ayaklarını sabitle, çalışmayan elini desteğe koy ve seçtiğin tutacağı kavra.",
+        "Plant the feet, place the non-working hand on the support, and grip the chosen handle."
       ],
       [
-        "Zayıf tarafı önce çalıştırmak denge kurmaya yardımcı olabilir.",
-        "Training the weaker side first can help keep both sides balanced."
+        "Göğüs temasını koruyup dirseğini makinenin çekiş hattı boyunca geriye çek.",
+        "Maintain chest contact and pull the elbow back along the machine’s path."
+      ],
+      [
+        "Gövdeyi zorla döndürmeden tekrarlanabilir üst noktada yön değiştir.",
+        "Reverse at a repeatable top point without forcing torso rotation."
+      ],
+      [
+        "Ağırlık plakalarını çarptırmadan omzu kontrollü başlangıç menziline uzat.",
+        "Return the shoulder to a controlled starting range without slamming the stack."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Makine modeli, koltuk ve tutuşu kaydetmeden taraf veya seans karşılaştırmak.",
+        "Comparing sides or sessions without recording machine model, seat, and grip."
+      ],
+      [
+        "Tutacağı çekmek için göğsü pedden ayırmak.",
+        "Lifting the chest from the pad to pull the handle."
+      ],
+      [
+        "Her tekrarda gövdeyi farklı miktarda döndürmek.",
+        "Rotating the torso by a different amount on each rep."
+      ],
+      [
+        "Zayıf tarafı mutlaka güçlü tarafın yük ve tekrarına zorlamak.",
+        "Forcing the weaker side to match the stronger side’s load and reps."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu kayıt bağımsız tutacaklı göğüs destekli makine içindir; farklı makineleri ayrı varyasyon gibi izle.",
+        "This entry is for an independent-handle chest-supported machine; track different machines as separate variations."
+      ],
+      [
+        "Skapulanın doğal biçimde ileri-geri hareket etmesine izin ver; maksimum sıkıştırmayı zorlama.",
+        "Allow the shoulder blade to move naturally forward and back without forcing maximal retraction."
+      ],
+      [
+        "Zayıf tarafla başlamak faydalı olabilir, ancak iki tarafa aynı tekrar sayısı zorunlu değildir.",
+        "Starting with the weaker side can help, but identical reps on both sides are not mandatory."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle makine, koltuk, tutuş ve rahat omuz menzilini standartlaştır.",
+        "Standardize machine, seat, grip, and comfortable shoulder range with a light load."
+      ],
+      [
+        "İki tarafta göğüs teması korunurken tekrarları taraf bazında artır.",
+        "Increase reps by side while preserving chest contact on both."
+      ],
+      [
+        "Hedef tekrarlar aynı çekiş hattında kaldığında yükü küçük adımlarla yükselt.",
+        "Raise load in small steps once target reps remain on the same pulling path."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "rhomboids",
+        "middle-trapezius"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis",
+        "brachioradialis"
       ]
     },
     "media": {
@@ -13038,7 +13402,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Single Arm Row Machine exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Single-Arm Row Machine Rehberi ve Ayarı",
+        "Single-Arm Row Machine Guide and Setup"
+      ],
+      "metaDescription": [
+        "Tek kol row makinesi için koltuk, göğüs pedi, tutuş, taraf takibi, kontrollü omuz menzili, sık hatalar ve progresyonu öğren.",
+        "Learn seat, chest pad, grip, side tracking, controlled shoulder range, common mistakes, and progression for single-arm row machines."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus, romboidler, orta trapez",
+          "Lats, rhomboids, middle traps"
+        ],
+        "equipment": [
+          "Bağımsız tutacaklı row makinesi",
+          "Independent-handle row machine"
+        ],
+        "movementPattern": [
+          "Tek kol makine yatay çekişi",
+          "Single-arm machine horizontal pull"
+        ],
+        "bestFor": [
+          "Taraf bazlı destekli sırt hacmi",
+          "Side-specific supported back volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, koltuk ve tutuş",
+          "Machine model, seat, and grip"
+        ],
+        [
+          "Taraf başına yük, tekrar ve RIR",
+          "Load, reps, and RIR per side"
+        ],
+        [
+          "Omuz menzili ve göğüs teması",
+          "Shoulder range and chest contact"
+        ]
+      ],
+      "related": [
+        "machine-row",
+        "dumbell-row",
+        "cable-row"
+      ]
+    }
   },
   "barbell-row": {
     "publish": false,
@@ -13211,36 +13621,92 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/t-bar-row",
     "summary": [
-      "T-bar sıra çekme. Sırt kalınlığı.",
-      "T-bar row. Back thickness."
+      "Göğüs destekli T-bar row makinesi.",
+      "A chest-supported T-bar row machine movement."
     ],
     "description": [
-      "T-bar makinesinde veya köşeye sıkıştırılmış barbell ile sıra çekme. Sırt kalınlığını geliştirmede çok etkilidir. Orta sırt kaslarını güçlü çalıştırır.",
-      "Row using a T-bar machine or landmine setup. Very effective for building back thickness. Powerfully works mid-back muscles."
+      "T-bar row, eğimli göğüs pedine destek verip makinenin T-bar tutacaklarını çektiğin yatay row varyasyonudur. Gövde desteği bel ve kalçadan ivmeyi sınırlar; tutuş, ped ayarı ve makine geometrisi sırt kaslarının katkısını değiştirir.",
+      "The T-bar row is a horizontal row performed against an angled chest pad using the machine’s T-bar handles. Torso support limits momentum from the hips and lower back, while grip, pad setup, and machine geometry change back-muscle contribution."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Gövdeyi yaklaşık 45° eğik tut — fazla dik durma.",
-        "Keep torso roughly 45° — don't stand too upright."
+        "Ayak platformuna çık ve göğüs pedine rahat temas sağlayacak konumu ayarla.",
+        "Step onto the foot platform and set a position that provides comfortable chest-pad contact."
       ],
       [
-        "Bar göbeğe veya alt göğse çekilmeli.",
-        "Pull toward abdomen or lower chest."
+        "Seçtiğin tutacağı simetrik kavra; omuzları kontrollü alt menzilde başlat.",
+        "Grip the chosen handles symmetrically and begin with a controlled bottom shoulder range."
       ],
       [
-        "Çekiş boyunca kürek kemiklerini sıkıştır ve tut.",
-        "Squeeze and hold shoulder blades together throughout the pull."
+        "Göğüs temasını koruyup dirseklerini makinenin hattı boyunca geriye çek.",
+        "Maintain chest contact and pull the elbows backward along the machine’s path."
+      ],
+      [
+        "Omuzları zorla sıkıştırmadan tekrarlanabilir üst noktada yön değiştir.",
+        "Reverse at a repeatable top point without forcing a maximal shoulder squeeze."
+      ],
+      [
+        "Yükü çarptırmadan dirsekleri açıp kontrollü başlangıca dön.",
+        "Extend the elbows and return under control without slamming the load."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Hareketi landmine T-bar row ile aynı yük geçmişinde takip etmek.",
+        "Tracking the movement in the same loading history as a landmine T-bar row."
+      ],
+      [
+        "Tutacakları çekmek için göğsü pedden ayırmak.",
+        "Lifting the chest from the pad to pull the handles."
+      ],
+      [
+        "Gövde açısını sabit 45 dereceye zorlamak; makine pedi açıyı zaten belirler.",
+        "Forcing a fixed 45-degree torso angle when the machine pad already determines it."
+      ],
+      [
+        "Tüm çekiş boyunca kürek kemiklerini maksimum sıkılı tutmaya çalışmak.",
+        "Trying to hold maximal shoulder-blade retraction throughout the entire pull."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu guide legacy Lying T-Bar Row görseliyle uyumlu göğüs destekli makine varyasyonu içindir.",
+        "This guide covers the chest-supported machine variation shown by the legacy Lying T-Bar Row visual."
+      ],
+      [
+        "Nötr, geniş veya dar tutuşlar çekiş hattını değiştirir; tutuş değişimini ayrı kaydet.",
+        "Neutral, wide, and narrow grips change the pulling path, so record grip changes separately."
+      ],
+      [
+        "Skapulaların kontrollü biçimde öne ve geriye hareket etmesine izin ver.",
+        "Allow the shoulder blades to move forward and backward under control."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle ayak, göğüs pedi ve tutuş konumunu standartlaştır.",
+        "Standardize foot, chest-pad, and grip positions with a light load."
+      ],
+      [
+        "Göğüs teması ve aynı üst nokta korunurken tekrarları artır.",
+        "Increase reps while preserving chest contact and the same top point."
+      ],
+      [
+        "Makine plakasını küçük adımlarla artır; farklı makineyi ayrı varyasyon say.",
+        "Increase the stack in small steps and treat a different machine as a separate variation."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "rhomboids",
+        "middle-trapezius"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis",
+        "brachioradialis"
       ]
     },
     "media": {
@@ -13257,7 +13723,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the T-Bar Row exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "T-Bar Row Rehberi: Makine Ayarı ve Form",
+        "T-Bar Row Guide: Machine Setup and Form"
+      ],
+      "metaDescription": [
+        "Göğüs destekli T-bar row için ped ve tutuş ayarı, kontrollü skapula yolu, sık hatalar, makine farkları ve progresyonu öğren.",
+        "Learn pad and grip setup, controlled scapular path, common mistakes, machine differences, and progression for chest-supported T-bar rows."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus, romboidler, orta trapez",
+          "Lats, rhomboids, middle traps"
+        ],
+        "equipment": [
+          "Göğüs destekli T-bar row makinesi",
+          "Chest-supported T-bar row machine"
+        ],
+        "movementPattern": [
+          "Makinede yatay çekiş",
+          "Machine horizontal pull"
+        ],
+        "bestFor": [
+          "Destekli sırt hacmi",
+          "Supported back volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli, ped ve tutuş",
+          "Machine model, pad, and grip"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Üst bitiş noktası ve göğüs teması",
+          "Top endpoint and chest contact"
+        ]
+      ],
+      "related": [
+        "chest-supported-row",
+        "seal-row",
+        "barbell-row"
+      ]
+    }
   },
   "pullover": {
     "publish": false,
@@ -13265,36 +13777,90 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/pullover",
     "summary": [
-      "Dumbbell pullover. Sırt + göğüs.",
-      "Dumbbell pullover. Back + chest."
+      "Üst sırt bench destekli tek dumbbell pullover.",
+      "A one-dumbbell pullover with the upper back supported on a bench."
     ],
     "description": [
-      "Banka en-çapraz yatarak dumbbell hareketi. Hem lat'ları hem göğüsü (serratus anterior dahil) çalıştıran benzersiz bir egzersizdir.",
-      "Lying dumbbell pullover. A unique movement working both lats and chest (including serratus anterior)."
+      "Dumbbell pullover, üst sırtı benche enlemesine destekleyip tek dumbbellı iki elle göğüs üzerinden baş arkasına taşıdığın omuz ekstansiyonu hareketidir. Latissimus, göğüs ve triceps katkısı üst kol yolu ve menzile göre değişir.",
+      "The dumbbell pullover is a shoulder-extension movement performed with the upper back across a bench while one dumbbell travels from above the chest toward behind the head. Lat, chest, and triceps contribution changes with arm path and range."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bankta sadece omuz bıçakları temas etmeli — en-çapraz yat.",
-        "Lie across bench with only shoulder blades touching — perpendicular position."
+        "Üst sırtını sağlam bench üzerine enlemesine yerleştir, ayaklarını zemine sabitle.",
+        "Place the upper back securely across a bench and plant the feet on the floor."
       ],
       [
-        "Dirsekleri hafifçe bükük tut; kilitleme.",
-        "Maintain a soft elbow bend throughout — don't lock out."
+        "Dumbbellın bir ucunu iki avuçla güvenli kavra ve göğsünün üzerinde tut.",
+        "Secure one end of the dumbbell with both hands and hold it above the chest."
       ],
       [
-        "Başın altına kadar in — lat'lar tam gerilsin.",
-        "Lower to below head level for a full lat stretch."
+        "Dirseklerde hafif ve büyük ölçüde sabit bir bükülme oluştur.",
+        "Set a soft elbow bend and keep it mostly consistent."
+      ],
+      [
+        "Dumbbellı omuz kontrolünü koruyarak başının arkasına doğru yayla indir.",
+        "Lower the dumbbell in an arc behind the head while maintaining shoulder control."
+      ],
+      [
+        "Ağrısız alt noktadan aynı yayla dumbbellı göğüs üzerine döndür.",
+        "Return the dumbbell along the same arc from the pain-free bottom point."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Benchte yalnız kürek kemiklerinin uçlarını tutup dengesiz destek oluşturmak.",
+        "Balancing only on the tips of the shoulder blades and creating unstable support."
+      ],
+      [
+        "Dumbbellı baş seviyesinin altına indirmeyi zorunlu sayıp omuz kontrolünü aşmak.",
+        "Treating below-head depth as mandatory and exceeding shoulder control."
+      ],
+      [
+        "Dirsekleri sürekli büküp açarak hareketi triceps extension’a çevirmek.",
+        "Repeatedly flexing and extending the elbows and turning the movement into a triceps extension."
+      ],
+      [
+        "Kalçayı aşırı düşürerek belden menzil yaratmak.",
+        "Dropping the hips excessively to create range through the lower back."
+      ]
+    ],
+    "tips": [
+      [
+        "Üst sırt desteği sağlam olmalıdır; yalnız omuz bıçaklarının benche değmesi zorunlu değildir.",
+        "Upper-back support should be secure; contact only at the shoulder blades is not required."
+      ],
+      [
+        "Alt menzil omuz hareketliliğine özeldir; dumbbellın baş altına geçmesi kalite ölçütü değildir.",
+        "Bottom range is individual to shoulder mobility; passing below head level is not a quality standard."
+      ],
+      [
+        "Lat, göğüs ve triceps birlikte katkı verebilir; hareketi tek kas izolasyonu olarak değerlendirme.",
+        "The lats, chest, and triceps can contribute together, so do not treat it as single-muscle isolation."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbell ile güvenli kavrayış, bench desteği ve rahat alt menzili oluştur.",
+        "Use a light dumbbell to establish secure grip, bench support, and comfortable bottom range."
+      ],
+      [
+        "Aynı dirsek açısı ve yayda tekrar ile eksantrik kontrolü geliştir.",
+        "Progress reps and eccentric control with the same elbow angle and arc."
+      ],
+      [
+        "Omuz veya gövde pozisyonu bozulmadan küçük dumbbell artışları yap.",
+        "Add dumbbell load in small steps without changing shoulder or torso position."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "pectoralis-major"
       ],
       "secondary": [
-        "biceps"
+        "serratus-anterior",
+        "triceps-brachii",
+        "rectus-abdominis"
       ]
     },
     "media": {
@@ -13311,7 +13877,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Pullover exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dumbbell Pullover Rehberi: Bench ve Menzil",
+        "Dumbbell Pullover Guide: Bench and Range"
+      ],
+      "metaDescription": [
+        "Dumbbell pullover için güvenli bench desteği, kavrayış, dirsek açısı, omuza uygun alt menzil, sık hatalar ve progresyonu öğren.",
+        "Learn secure bench support, grip, elbow angle, shoulder-appropriate bottom range, common mistakes, and progression for dumbbell pullovers."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus ve göğüs",
+          "Lats and chest"
+        ],
+        "equipment": [
+          "Tek dumbbell ve düz bench",
+          "One dumbbell and flat bench"
+        ],
+        "movementPattern": [
+          "Yatarak omuz ekstansiyonu",
+          "Lying shoulder extension"
+        ],
+        "bestFor": [
+          "Göğüs-lat aksesuar çalışması",
+          "Chest-lat accessory work"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench desteği ve dumbbell kavrayışı",
+          "Bench support and dumbbell grip"
+        ],
+        [
+          "Ağırlık, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Dirsek açısı ve alt menzil",
+          "Elbow angle and bottom range"
+        ]
+      ],
+      "related": [
+        "straight-arm-pulldown",
+        "lat-pulldown",
+        "dumbell-fly"
+      ]
+    }
   },
   "deadlift": {
     "publish": false,
@@ -18163,36 +18775,90 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/arch-hold",
     "summary": [
-      "Yüzüstü arch tutuşu. Arka zincir aktivasyonu.",
-      "Prone arch hold. Posterior-chain activation."
+      "Yüzüstü tam vücut arch pozisyonunda izometrik tutuş.",
+      "A prone full-body isometric hold in an arch position."
     ],
     "description": [
-      "Hollow hold'un arka zincir karşılığı gibi düşünülebilecek izometrik tutuş. Glute, sırt ve omuzların arka hattını aktif çalıştırır. Özellikle calisthenics'te beden hattı kontrolünü tamamlamak için yararlıdır.",
-      "An isometric hold that can be thought of as the posterior-chain counterpart to the hollow hold. It activates the glutes, back, and posterior shoulder line. It is especially helpful for complete body-line control in calisthenics."
+      "Arch hold, yüzüstü pozisyonda kolları baş üstünde uzatıp göğüs ve bacakları hafif kaldırarak tüm arka hattı izometrik tuttuğun calisthenics beden şeklidir. Amaç maksimum bel kavsi değil, tekrarlanabilir tam vücut gerilimidir.",
+      "The arch hold is a calisthenics body shape performed prone with the arms overhead and the chest and legs lifted slightly while the posterior chain holds isometrically. The goal is repeatable whole-body tension, not maximal lower-back arching."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Boynu sıkmadan göğsü ve bacakları hafif yükselt.",
-        "Lightly raise the chest and legs without cranking the neck."
+        "Yüzüstü uzan, kollarını baş üstüne ve bacaklarını arkaya uzun biçimde yerleştir.",
+        "Lie prone with the arms reaching overhead and the legs extended long behind."
       ],
       [
-        "Belden ezilmek yerine tüm arka hattı aktif tut.",
-        "Keep the whole posterior chain active instead of collapsing into the low back."
+        "Bacaklarını birleştir, glute ve arka bacaklarını kontrollü biçimde ger.",
+        "Bring the legs together and engage the glutes and hamstrings under control."
       ],
       [
-        "Kısa ama temiz setler uzun bozuk setlerden iyidir.",
-        "Short clean sets are better than longer sloppy ones."
+        "Boynu nötr tutarak göğsü, kolları ve bacakları zeminden hafif kaldır.",
+        "Keep the neck neutral and lift the chest, arms, and legs slightly from the floor."
+      ],
+      [
+        "Nefes almayı sürdürürken uzun ve sabit arch şeklini planlanan süre boyunca koru.",
+        "Continue breathing and hold a long, stable arch shape for the planned time."
+      ],
+      [
+        "Bel veya boyun kontrolü bozulmadan zemine kontrollü dön.",
+        "Return to the floor under control before lower-back or neck position breaks down."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Daha yükseğe çıkmak için boynu geriye atmak.",
+        "Cranking the neck backward to lift higher."
+      ],
+      [
+        "Glute ve bacak katkısı olmadan yalnız belden aşırı kavs yapmak.",
+        "Creating excessive arch only through the lower back without glute and leg contribution."
+      ],
+      [
+        "Nefesi tutup karın basıncını kontrolsüz artırmak.",
+        "Holding the breath and increasing trunk pressure without control."
+      ],
+      [
+        "Pozisyon yüksekliğini süre ve tam vücut geriliminin önüne koymak.",
+        "Prioritizing position height over duration and whole-body tension."
+      ]
+    ],
+    "tips": [
+      [
+        "Arch hold ile dinamik Superman tekrarlarını ayrı kaydet; burada pozisyon süreyle tutulur.",
+        "Track arch holds separately from dynamic Superman reps; this movement is held for time."
+      ],
+      [
+        "Kolları yana veya gövdeye yaklaştırmak omuz talebini azaltan bir regresyon olabilir.",
+        "Moving the arms outward or closer to the torso can reduce shoulder demand as a regression."
+      ],
+      [
+        "Yükseklik küçük olabilir; gövdenin uzun ve kontrol edilen şekli daha önemlidir.",
+        "The lift can be small; a long, controlled body shape matters more."
+      ]
+    ],
+    "progression": [
+      [
+        "Kollar gövde yanında ve düşük yükseltide kısa tutuşlarla başla.",
+        "Begin with short, low holds and the arms beside the torso."
+      ],
+      [
+        "Kolları baş üstüne uzatıp aynı beden şeklinde toplam süreyi artır.",
+        "Reach the arms overhead and increase total time with the same body shape."
+      ],
+      [
+        "Süre yerleşince hafif kol-bacak salınımı veya hollow-arch geçişlerini ayrı varyasyon olarak ekle.",
+        "Once duration is established, add light rocking or hollow-to-arch transitions as separate variations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "erector-spinae",
+        "gluteus-maximus"
       ],
       "secondary": [
-        "glutes"
+        "hamstrings",
+        "posterior-deltoid",
+        "lower-trapezius"
       ]
     },
     "media": {
@@ -18209,7 +18875,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Arch Hold exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Arch Hold Rehberi: Beden Hattı ve Süre",
+        "Arch Hold Guide: Body Line and Duration"
+      ],
+      "metaDescription": [
+        "Arch hold için yüzüstü kurulum, tam vücut gerilimi, nötr boyun, süre takibi, sık hatalar ve calisthenics progresyonunu öğren.",
+        "Learn prone setup, whole-body tension, neutral neck, time tracking, common mistakes, and calisthenics progression for the arch hold."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Erector spinae ve gluteus",
+          "Erector spinae and glutes"
+        ],
+        "equipment": [
+          "Egzersiz matı",
+          "Exercise mat"
+        ],
+        "movementPattern": [
+          "Yüzüstü arka hat izometrisi",
+          "Prone posterior-chain isometric"
+        ],
+        "bestFor": [
+          "Calisthenics arch beden şekli",
+          "Calisthenics arch body shape"
+        ]
+      },
+      "tracking": [
+        [
+          "Kol pozisyonu ve yükselti",
+          "Arm position and lift height"
+        ],
+        [
+          "Set süresi ve toplam süre",
+          "Set duration and total time"
+        ],
+        [
+          "Boyun-bel kontrolü ve nefes",
+          "Neck-lower-back control and breathing"
+        ]
+      ],
+      "related": [
+        "hollow-body-hold",
+        "superman",
+        "back-extension"
+      ]
+    }
   },
   "support-hold": {
     "publish": false,
