@@ -7014,33 +7014,84 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/overhead-cable-triceps-extension",
     "summary": [
-      "Kablo baş üstü triceps uzatma.",
-      "Overhead cable triceps extension."
+      "Rope ile baş üstü kablo triceps extension.",
+      "An overhead cable triceps extension with a rope."
     ],
     "description": [
-      "Kabloyla baş üstünde yapılan triceps uzatma hareketi. Uzun başı güçlü şekilde gererek triceps hipertrofisi için çok faydalı olur. Kablo gerilimi sayesinde dumbbell versiyonuna göre daha sabit direnç sunar.",
-      "A cable triceps-extension movement performed overhead. It strongly stretches the long head of the triceps, making it very effective for hypertrophy. The cable provides steadier resistance than many dumbbell versions."
+      "Overhead cable triceps extension, yüksek makaraya bağlı rope ile gövdeden uzağa doğru yapılan dirsek ekstansiyonudur. Baş üstü kol pozisyonu tricepsin uzun başını daha uzun kas boyunda yükleyebilir; kablo dış yükü sürdürse de eklem torku hareket boyunca sabit değildir.",
+      "The overhead cable triceps extension is an elbow-extension movement performed away from a high pulley with a rope. The overhead arm position can load the triceps long head at a longer muscle length, but joint torque is not constant even though the cable maintains external load."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri kulaklara yakın tut.",
-        "Keep the elbows close to the ears."
+        "Rope’u yüksek makaraya bağla, yüzünü istasyondan uzağa çevir ve dengeli bir adım pozisyonu al.",
+        "Attach a rope to a high pulley, face away from the station, and take a balanced staggered stance."
       ],
       [
-        "Alt noktada tam gerilmeyi hisset ama omuzu zorlamadan dön.",
-        "Feel the stretch at the bottom, but return before shoulder comfort is lost."
+        "Rope’u başının arkasına getir; üst kollarını rahat baş üstü açısında sabitle.",
+        "Bring the rope behind the head and set the upper arms at a comfortable overhead angle."
       ],
       [
-        "Kablo yönüne göre tek veya çift kol varyasyonu deneyebilirsin.",
-        "Depending on the setup, you can use single- or double-arm variations."
+        "Kaburgaları ve pelvisi kontrol ederken dirseklerini öne-yukarı doğru aç.",
+        "Extend the elbows forward and upward while controlling the ribs and pelvis."
+      ],
+      [
+        "Dirsek ekstansiyonunu kontrollü tamamla; rope uçlarını zorla ayırmak zorunda değilsin.",
+        "Complete elbow extension under control without forcing the rope ends apart."
+      ],
+      [
+        "Üst kol konumunu büyük ölçüde koruyarak ön kolları rahat alt noktaya geri getir.",
+        "Keep the upper-arm position mostly stable as the forearms return to a comfortable bottom."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Yükü hareket ettirmek için beli aşırı çukurlaştırmak veya gövdeyi savurmak.",
+        "Overarching the lower back or swinging the torso to move the load."
+      ],
+      [
+        "Dirsekleri zorla kulaklara yapıştırıp omuz konforunu bozmak.",
+        "Forcing the elbows against the ears and compromising shoulder comfort."
+      ],
+      [
+        "Maksimum esneme uğruna kontrol edilen alt menzili aşmak.",
+        "Exceeding the controlled bottom range in pursuit of maximum stretch."
+      ],
+      [
+        "Kablo gerilimini sabit triceps veya dirsek torkuyla eşitlemek.",
+        "Equating cable tension with constant triceps or elbow torque."
+      ]
+    ],
+    "tips": [
+      [
+        "Makara yüksekliği, gövdeden uzaklık ve üst kol açısını birlikte standartlaştır.",
+        "Standardize pulley height, distance from the stack, and upper-arm angle together."
+      ],
+      [
+        "Dirseklerin tamamen paralel olması gerekmez; ağrısız ve tekrarlanabilir hattı kullan.",
+        "The elbows do not need to stay perfectly parallel; use a pain-free, repeatable path."
+      ],
+      [
+        "Rope dışındaki aparatlar direnç ve bilek hissini değiştirir; aparat değişimini ayrı kaydet.",
+        "Attachments other than a rope change resistance and wrist feel, so record attachment changes separately."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle duruşu, kaburga kontrolünü ve rahat alt menzili oluştur.",
+        "Establish stance, rib control, and a comfortable bottom range with light load."
+      ],
+      [
+        "Aynı üst kol açısında hedef tekrarları tamamladığında yükü küçük adımlarla artır.",
+        "Increase load in small steps when target reps stay at the same upper-arm angle."
+      ],
+      [
+        "Yük eklemeden önce kontrollü eksantrik veya uzamış pozisyonda kısa duraklama kullan.",
+        "Use a controlled eccentric or brief pause in the lengthened position before adding load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "triceps"
+        "triceps-brachii"
       ],
       "secondary": []
     },
@@ -7058,7 +7109,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Overhead Cable Triceps Extension exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Overhead Cable Triceps Extension Rehberi",
+        "Overhead Cable Triceps Extension Guide"
+      ],
+      "metaDescription": [
+        "Rope overhead cable triceps extension için makara ayarı, üst kol açısı, kontrollü menzil, sık hatalar ve progresyonu öğren.",
+        "Learn pulley setup, upper-arm angle, controlled range, common mistakes, and progression for rope overhead cable triceps extensions."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps",
+          "Triceps"
+        ],
+        "equipment": [
+          "Yüksek kablo ve rope",
+          "High cable and rope"
+        ],
+        "movementPattern": [
+          "Baş üstü dirsek ekstansiyonu",
+          "Overhead elbow extension"
+        ],
+        "bestFor": [
+          "Uzun kas boyunda triceps hacmi",
+          "Long-length triceps volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makara yüksekliği ve rope aparatı",
+          "Pulley height and rope attachment"
+        ],
+        [
+          "Gövdeden uzaklık ve üst kol açısı",
+          "Distance from stack and upper-arm angle"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ]
+      ],
+      "related": [
+        "overhead-triceps-extension",
+        "triceps-pushdown",
+        "cross-body-triceps-extension"
+      ]
+    }
   },
   "kickback": {
     "publish": false,
@@ -7066,35 +7163,88 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/kickback",
     "summary": [
-      "Dumbbell kickback. Triceps izolasyonu.",
-      "Dumbbell kickback. Triceps isolation."
+      "Tek dumbbell ile öne eğimli triceps kickback.",
+      "A bent-over single-dumbbell triceps kickback."
     ],
     "description": [
-      "Dumbbell ile triceps izolasyon hareketi. Öne eğilerek yapılır. Triceps'in medial ve lateral başlarını çalıştırır.",
-      "Dumbbell triceps isolation done bent over. Works the medial and lateral heads of the triceps."
+      "Dumbbell kickback, öne eğimli gövdede üst kolu geride tutarak yapılan tek kol dirsek ekstansiyonudur. Dirence karşı moment kolu bitişe yaklaştıkça büyür; bu nedenle hafif yük, sabit üst kol ve kontrollü bitiş genellikle yüksek ağırlıktan daha kullanışlıdır.",
+      "The dumbbell kickback is a single-arm elbow extension performed with the torso hinged and the upper arm held behind the body. The resistance moment arm grows near the finish, so a light load, stable upper arm, and controlled lockout are usually more useful than chasing heavy weight."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Gövde yere paralel — yeterince öne eğil.",
-        "Torso should be parallel to floor — lean forward enough."
+        "Bir elini benche destekle, kalçadan öne eğil ve omurganı rahat nötr konumda tut.",
+        "Support one hand on a bench, hinge at the hips, and keep the spine comfortably neutral."
       ],
       [
-        "Üst kol sabit ve omuz hizasında; sadece ön kol hareket eder.",
-        "Upper arm stationary at shoulder height — only the forearm moves."
+        "Çalışan üst kolu gövdenin yanına veya hafif arkasına getir; dirseği bükülü başla.",
+        "Set the working upper arm beside or slightly behind the torso and begin with the elbow flexed."
       ],
       [
-        "Üst noktada tam uzat ve güçlüce sık.",
-        "Fully extend and squeeze hard at the top."
+        "Üst kolu büyük ölçüde sabit tutup dumbbellı geriye doğru uzatarak dirseğini aç.",
+        "Keep the upper arm mostly stable and extend the elbow to move the dumbbell backward."
+      ],
+      [
+        "Dirsek ekstansiyonunu kontrollü tamamla; omuzu zorla geriye çekme.",
+        "Complete elbow extension under control without forcing the shoulder farther back."
+      ],
+      [
+        "Ön kolu yerçekimine karşı kontrollü indirip başlangıca dön.",
+        "Lower the forearm against gravity under control and return to the start."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Gövdeyi mutlaka yere paralel yapmaya çalışıp bel veya hamstring konforunu bozmak.",
+        "Forcing the torso perfectly parallel to the floor at the expense of back or hamstring comfort."
+      ],
+      [
+        "Üst kolu her tekrarda sallayarak dumbbellı fırlatmak.",
+        "Swinging the upper arm each rep and throwing the dumbbell backward."
+      ],
+      [
+        "Ağır yük nedeniyle dirsek ekstansiyonunu tamamlayamamak.",
+        "Using a load so heavy that controlled elbow extension cannot be completed."
+      ],
+      [
+        "Bitişte bileği bükerek daha fazla triceps kasılması aramak.",
+        "Flexing the wrist at the finish to seek a stronger triceps contraction."
+      ]
+    ],
+    "tips": [
+      [
+        "Gövdenin yere tam paralel olması zorunlu değildir; üst kolun yerçekimine göre konumu daha önemlidir.",
+        "The torso does not need to be perfectly parallel; upper-arm position relative to gravity matters more."
+      ],
+      [
+        "Hareket en zor hâle çoğunlukla dirsek açıldıkça gelir; yükü bu bitiş kontrolüne göre seç.",
+        "The movement is usually hardest as the elbow extends, so choose load by finish-position control."
+      ],
+      [
+        "Tricepsin tüm başları katkı verir; varyasyonu medial ve lateral baş izolasyonu olarak görme.",
+        "All triceps heads contribute, so do not treat the variation as medial- and lateral-head isolation."
+      ]
+    ],
+    "progression": [
+      [
+        "Çok hafif dumbbell ile destek, üst kol konumu ve bitiş kontrolünü yerleştir.",
+        "Use a very light dumbbell to establish support, upper-arm position, and finish control."
+      ],
+      [
+        "Aynı üst kol açısında tekrar sayısını ve kontrollü eksantriği geliştir.",
+        "Progress reps and eccentric control while preserving the same upper-arm angle."
+      ],
+      [
+        "Bitiş bozulmadan hedef tekrarlar tamamlandığında küçük ağırlık artışları yap.",
+        "Add weight in small steps once target reps finish without technical loss."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "triceps"
+        "triceps-brachii"
       ],
-      "secondary": []
+      "secondary": [
+        "posterior-deltoid"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -7110,7 +7260,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Kickback exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dumbbell Kickback Rehberi: Form ve Yükleme",
+        "Dumbbell Kickback Guide: Form and Loading"
+      ],
+      "metaDescription": [
+        "Dumbbell triceps kickback için bench desteği, üst kol konumu, bitiş kontrolü, sık hatalar ve doğru yük progresyonunu öğren.",
+        "Learn bench support, upper-arm position, finish control, common mistakes, and loading progression for dumbbell triceps kickbacks."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps",
+          "Triceps"
+        ],
+        "equipment": [
+          "Dumbbell ve bench",
+          "Dumbbell and bench"
+        ],
+        "movementPattern": [
+          "Öne eğimli dirsek ekstansiyonu",
+          "Bent-over elbow extension"
+        ],
+        "bestFor": [
+          "Hafif yüklü triceps aksesuarı",
+          "Light-load triceps accessory work"
+        ]
+      },
+      "tracking": [
+        [
+          "Gövde ve üst kol açısı",
+          "Torso and upper-arm angle"
+        ],
+        [
+          "Taraf başına ağırlık, tekrar ve RIR",
+          "Load, reps, and RIR per side"
+        ],
+        [
+          "Kontrollü bitiş menzili",
+          "Controlled finish range"
+        ]
+      ],
+      "related": [
+        "cross-body-triceps-extension",
+        "triceps-pushdown",
+        "overhead-triceps-extension"
+      ]
+    }
   },
   "overhead-triceps-extension": {
     "publish": false,
@@ -7118,33 +7314,84 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/overhead-triceps-extension",
     "summary": [
-      "Baş üstü triceps uzatma.",
-      "Overhead triceps extension."
+      "Tek dumbbell ile iki kollu baş üstü triceps extension.",
+      "A two-arm overhead triceps extension with one dumbbell."
     ],
     "description": [
-      "Baş üstü triceps uzatma. Triceps uzun başını tam gerilimde çalıştırır. Dumbbell, barbell veya kablo ile yapılabilir.",
-      "Overhead triceps extension. Works the long head of triceps under full stretch. Can be done with dumbbell, barbell, or cable."
+      "Overhead triceps extension, tek dumbbellı iki elle baş üstünde tutup dirsekleri bükerek yapılan triceps hareketidir. Baş üstü kol pozisyonu tricepsin uzun başını daha uzun kas boyunda yükleyebilir; güvenli ve tekrarlanabilir menzil omuz, dirsek ve gövde kontrolüne göre belirlenir.",
+      "The overhead triceps extension uses both hands to hold one dumbbell overhead while the elbows flex and extend. The overhead arm position can load the triceps long head at a longer muscle length, while a safe, repeatable range depends on shoulder, elbow, and trunk control."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri kulak yanında sabit tut — öne gelmemeli.",
-        "Keep elbows by ears, pointing upward — don't let them drift forward."
+        "Oturur veya ayakta dengeli pozisyon al; dumbbellın bir ucunu iki avuçla güvenli kavra.",
+        "Take a balanced seated or standing position and secure one end of the dumbbell with both hands."
       ],
       [
-        "Tam aşağı in — maksimum uzama bu hareketin temel avantajıdır.",
-        "Lower fully — maximum stretch is the primary benefit of this movement."
+        "Dumbbellı baş üstüne getir; kaburgaları ve pelvisi kontrol et.",
+        "Bring the dumbbell overhead and control the ribs and pelvis."
       ],
       [
-        "Kablo versiyonu sürekli gerilim için tercih edilebilir.",
-        "Cable version is preferred for constant tension throughout."
+        "Üst kollar rahat baş üstü konumdayken dirsekleri büküp dumbbellı başının arkasına indir.",
+        "With the upper arms in a comfortable overhead position, bend the elbows and lower the dumbbell behind the head."
+      ],
+      [
+        "Omuz ve dirsek konforunu koruduğun alt noktada yön değiştir.",
+        "Reverse at the deepest point where shoulder and elbow comfort remain."
+      ],
+      [
+        "Tricepsle dirsekleri açıp dumbbellı yeniden baş üstünde sabitle.",
+        "Extend the elbows with the triceps and stabilize the dumbbell overhead."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dumbbellı hareket ettirmek için beli aşırı çukurlaştırmak.",
+        "Overarching the lower back to move the dumbbell."
+      ],
+      [
+        "Dirsekleri zorla kulaklara yapıştırıp doğal omuz yolunu bozmak.",
+        "Forcing the elbows against the ears and disrupting a natural shoulder path."
+      ],
+      [
+        "Maksimum uzama uğruna kontrol edilen alt menzili aşmak.",
+        "Exceeding the controlled bottom range in pursuit of maximum stretch."
+      ],
+      [
+        "Dumbbell kavrayışını kontrol etmeden ağır yük kullanmak.",
+        "Using a heavy load without a secure dumbbell grip."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu kayıt iki elle tek dumbbell varyasyonu içindir; cable ve bar varyasyonlarını ayrı takip et.",
+        "This entry is for the two-hand, one-dumbbell variation; track cable and bar versions separately."
+      ],
+      [
+        "Dirseklerin bir miktar açılması normal olabilir; ağrısız ve simetrik yolu koru.",
+        "Some elbow separation can be normal; preserve a pain-free, symmetrical path."
+      ],
+      [
+        "Tam aşağı iniş zorunlu değildir; uzun kas boyu çalışması eklem kontrolünün önüne geçmez.",
+        "Maximum depth is not required; long-length training does not override joint control."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbell ile güvenli kavrayış, gövde kontrolü ve alt menzil oluştur.",
+        "Use a light dumbbell to establish a secure grip, trunk control, and bottom range."
+      ],
+      [
+        "Aynı dirsek yolu ve menzilde hedef tekrarları tamamla.",
+        "Complete target reps with the same elbow path and range."
+      ],
+      [
+        "Tek dumbbell artışları büyükse önce tekrar veya tempo ilerlet.",
+        "If dumbbell jumps are large, progress reps or tempo before load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "triceps"
+        "triceps-brachii"
       ],
       "secondary": []
     },
@@ -7162,7 +7409,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Overhead Triceps Extension exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Overhead Triceps Extension Rehberi",
+        "Overhead Triceps Extension Guide"
+      ],
+      "metaDescription": [
+        "Tek dumbbell overhead triceps extension için güvenli kavrayış, dirsek yolu, gövde kontrolü, menzil ve progresyonu öğren.",
+        "Learn secure grip, elbow path, trunk control, range, and progression for the one-dumbbell overhead triceps extension."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps",
+          "Triceps"
+        ],
+        "equipment": [
+          "Tek dumbbell",
+          "One dumbbell"
+        ],
+        "movementPattern": [
+          "İki kollu baş üstü dirsek ekstansiyonu",
+          "Two-arm overhead elbow extension"
+        ],
+        "bestFor": [
+          "Uzun kas boyunda triceps çalışması",
+          "Long-length triceps training"
+        ]
+      },
+      "tracking": [
+        [
+          "Oturur veya ayakta kurulum",
+          "Seated or standing setup"
+        ],
+        [
+          "Dumbbell ağırlığı, tekrar ve RIR",
+          "Dumbbell load, reps, and RIR"
+        ],
+        [
+          "Alt menzil ve dirsek yolu",
+          "Bottom range and elbow path"
+        ]
+      ],
+      "related": [
+        "overhead-cable-triceps-extension",
+        "skull-crusher",
+        "kickback"
+      ]
+    }
   },
   "skull-crusher": {
     "publish": false,
@@ -7170,33 +7463,84 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/skull-crusher",
     "summary": [
-      "Yatarak barbell triceps uzatma.",
-      "Lying barbell triceps extension."
+      "EZ-bar ile yatarak yapılan triceps extension.",
+      "A lying triceps extension performed with an EZ-bar."
     ],
     "description": [
-      "Yatarak barbell triceps uzatma. Triceps uzun başını (long head) en iyi çalıştıran hareketlerden biridir. Ciddi yüklenme yapılabilir.",
-      "Lying triceps extension with barbell. One of the best exercises for the triceps long head. Can be loaded significantly."
+      "Skull crusher, düz benchte EZ-bar ile yapılan yatarak dirsek ekstansiyonudur. Barın alnın önüne veya başın biraz arkasına ilerlemesi üst kol açısını ve direnç profilini değiştirir; seçilen bitiş noktası dirsek ve omuz konforuyla birlikte sabit tutulmalıdır.",
+      "The skull crusher is a lying elbow extension performed on a flat bench with an EZ-bar. Lowering toward the forehead or slightly behind the head changes upper-arm angle and the resistance profile, so the chosen endpoint should remain consistent and comfortable for the elbows and shoulders."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Barı alnın hizasına değil, başın biraz arkasına getir — uzun başı daha iyi çalıştırır.",
-        "Lower bar slightly behind the forehead — better long head stretch."
+        "Düz benche dengeli yerleş ve EZ-barın rahat kıvrımını omuz genişliği çevresinde kavra.",
+        "Set up securely on a flat bench and grip a comfortable bend of the EZ-bar around shoulder width."
       ],
       [
-        "Dirsekler yukarıya bakmalı — dışa açılmamalı.",
-        "Keep elbows pointing toward ceiling — don't let them flare out."
+        "Barı omuzların üzerinde sabitle; üst kolları tekrarlanabilir bir açıda tut.",
+        "Stabilize the bar over the shoulders and set the upper arms at a repeatable angle."
       ],
       [
-        "EZ-bar düz bar'a göre bileği/dirseği daha az zorlar.",
-        "EZ-bar reduces wrist/elbow discomfort compared to straight bar."
+        "Dirsekleri bükerek barı alnın önüne veya başının biraz arkasındaki kontrollü noktaya indir.",
+        "Bend the elbows and lower the bar toward a controlled point near the forehead or slightly behind the head."
+      ],
+      [
+        "Barı başa temas ettirmeden, eklem konforunu koruduğun alt noktada yön değiştir.",
+        "Reverse at a joint-comfortable bottom without touching the bar to the head."
+      ],
+      [
+        "Üst kol açısını büyük ölçüde koruyup dirsekleri açarak barı başlangıca döndür.",
+        "Keep the upper-arm angle mostly stable and extend the elbows to return the bar to the start."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Barı kontrolsüz biçimde yüz veya baş bölgesine indirmek.",
+        "Lowering the bar toward the face or head without control."
+      ],
+      [
+        "Dirsekleri zorla dar tutup rahat eklem yolunu bozmak.",
+        "Forcing the elbows excessively narrow and disrupting a comfortable joint path."
+      ],
+      [
+        "Her tekrarda farklı bitiş noktası kullanarak direnç profilini değiştirmek.",
+        "Changing the endpoint every rep and altering the resistance profile."
+      ],
+      [
+        "EZ-barın herkeste düz bardan daha rahat olacağını varsaymak.",
+        "Assuming an EZ-bar will always be more comfortable than a straight bar for everyone."
+      ]
+    ],
+    "tips": [
+      [
+        "Alın ve baş arkası bitişleri farklı varyasyonlar gibi takip edilebilir; tek doğru nokta yoktur.",
+        "Forehead and behind-head endpoints can be tracked as different variations; there is no single correct point."
+      ],
+      [
+        "Dirsekler doğal olarak biraz açılabilir; amaç simetrik ve tekrarlanabilir dirsek ekstansiyonudur.",
+        "The elbows can separate slightly; aim for symmetrical, repeatable elbow extension."
+      ],
+      [
+        "Spotter veya güvenli bar teslimi, özellikle ağır setlerde baş çevresindeki riski azaltır.",
+        "A spotter or safe handoff reduces risk around the head, especially on heavier sets."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif EZ-bar ile tutuş, üst kol açısı ve alt bitiş noktasını yerleştir.",
+        "Use a light EZ-bar to establish grip, upper-arm angle, and bottom endpoint."
+      ],
+      [
+        "Aynı bar yolunda hedef tekrarları tamamladıktan sonra küçük yük artışları yap.",
+        "Add load in small steps after target reps follow the same bar path."
+      ],
+      [
+        "Dirsek konforu bozulursa yük yerine tekrar, tempo veya aparat seçimini ayarla.",
+        "If elbow comfort declines, adjust reps, tempo, or implement rather than forcing load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "triceps"
+        "triceps-brachii"
       ],
       "secondary": []
     },
@@ -7214,7 +7558,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Skull Crusher exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Skull Crusher Rehberi: EZ-Bar Formu",
+        "Skull Crusher Guide: EZ-Bar Form"
+      ],
+      "metaDescription": [
+        "EZ-bar skull crusher için tutuş, güvenli bar yolu, alın ve baş arkası bitişleri, dirsek konforu ve progresyonu öğren.",
+        "Learn grip, safe bar path, forehead and behind-head endpoints, elbow comfort, and progression for EZ-bar skull crushers."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps",
+          "Triceps"
+        ],
+        "equipment": [
+          "EZ-bar ve düz bench",
+          "EZ-bar and flat bench"
+        ],
+        "movementPattern": [
+          "Yatarak dirsek ekstansiyonu",
+          "Lying elbow extension"
+        ],
+        "bestFor": [
+          "Yüklenebilir triceps hacmi",
+          "Loadable triceps volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş ve alt bitiş noktası",
+          "Grip and bottom endpoint"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Üst kol açısı ve dirsek konforu",
+          "Upper-arm angle and elbow comfort"
+        ]
+      ],
+      "related": [
+        "jm-press",
+        "overhead-triceps-extension",
+        "close-grip-bench-press"
+      ]
+    }
   },
   "biceps-curl": {
     "publish": false,
@@ -7383,35 +7773,89 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/spider-curl",
     "summary": [
-      "Spider curl. Tepe sıkışması güçlü.",
-      "Spider curl. Strong peak contraction."
+      "Eğik benchte göğüs destekli EZ-bar curl.",
+      "A chest-supported EZ-bar curl on an incline bench."
     ],
     "description": [
-      "Göğüs destekli eğimli pozisyonda yapılan biceps curl varyasyonu. Alt noktada momentum azalır, üst noktada ise biceps kasılmasını çok net hissettirir. Kol hipertrofisi için güçlü bir izolasyon hareketidir.",
-      "A biceps curl variation performed in a chest-supported inclined position. Momentum is reduced at the bottom, while the top creates a very clear biceps contraction. It is a strong isolation move for arm hypertrophy."
+      "Spider curl, eğik benchin arka yüzüne göğüs desteği vererek kolları aşağı sarkıttığın EZ-bar curl varyasyonudur. Destek gövde momentumunu sınırlar; direnç profili üst noktaya yaklaştıkça otomatik olarak en yüksek biceps gerilimini garanti etmez.",
+      "The spider curl is an EZ-bar curl performed chest-down on the back of an incline bench with the arms hanging freely. Support limits torso momentum, but the resistance profile does not automatically guarantee maximum biceps tension at the top."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri sabit tut ve omuzla çekme.",
-        "Keep the elbows fixed and avoid pulling with the shoulders."
+        "Benchi rahat bir eğime ayarla ve göğsünü üst kenarın üzerinde destekle.",
+        "Set the bench to a comfortable incline and support the chest over its top edge."
       ],
       [
-        "Üstte kısa sıkışma ekle.",
-        "Add a brief squeeze at the top."
+        "EZ-barı rahat kıvrımından kavra; kollarını omuzların altında serbestçe uzat.",
+        "Grip a comfortable bend of the EZ-bar and let the arms hang beneath the shoulders."
       ],
       [
-        "Ağırlıktan çok his odaklı gitmek daha iyi çalışır.",
-        "Prioritizing feel over load often works better here."
+        "Göğsünü pedde tutarak dirseklerini bük ve barı kontrollü yukarı kaldır.",
+        "Keep the chest on the pad, flex the elbows, and curl the bar upward under control."
+      ],
+      [
+        "Omuzları öne yuvarlamadan ulaşabildiğin üst noktada yön değiştir.",
+        "Reverse at the highest point reached without rolling the shoulders forward."
+      ],
+      [
+        "Dirsekleri kontrol ederek barı rahat alt uzamaya indir.",
+        "Control the elbows and lower the bar to a comfortable bottom extension."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Barı kaldırmak için göğsü benchten ayırmak veya omuzları savurmak.",
+        "Lifting the chest from the bench or swinging the shoulders to raise the bar."
+      ],
+      [
+        "Alt noktada dirsekleri yük altında sertçe kilitlemek.",
+        "Hard-locking the elbows under load at the bottom."
+      ],
+      [
+        "Üstte barı daha fazla kaldırmak için dirsekleri öne taşımak.",
+        "Driving the elbows forward just to lift the bar higher at the top."
+      ],
+      [
+        "Kas hissini hareket kalitesinin tek ölçütü saymak.",
+        "Treating muscle sensation as the only measure of movement quality."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu kayıt göğüs destekli EZ-bar varyasyonu içindir; dumbbell spider curl’ü ayrı takip et.",
+        "This entry is for the chest-supported EZ-bar variation; track dumbbell spider curls separately."
+      ],
+      [
+        "Bench açısı ve bar tutuşu omuz-dirsek konumunu değiştirir; ikisini de sabit tut.",
+        "Bench angle and bar grip change shoulder and elbow position, so keep both consistent."
+      ],
+      [
+        "Üstte kısa duraklama kullanılabilir, ancak maksimum sıkışma zorunlu değildir.",
+        "A brief top pause can be used, but a maximal squeeze is not required."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif EZ-bar ile bench açısı, tutuş ve rahat alt menzili yerleştir.",
+        "Establish bench angle, grip, and comfortable bottom range with a light EZ-bar."
+      ],
+      [
+        "Göğüs desteği bozulmadan hedef tekrarları ve kontrollü eksantriği geliştir.",
+        "Progress target reps and eccentric control without losing chest support."
+      ],
+      [
+        "Aynı menzilde temiz tekrarlar kaldığında küçük plaka artışları yap.",
+        "Add small plate increments once clean reps remain within the same range."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis"
       ],
-      "secondary": []
+      "secondary": [
+        "brachioradialis"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -7427,7 +7871,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Spider Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Spider Curl Rehberi: EZ-Bar ve Bench Ayarı",
+        "Spider Curl Guide: EZ-Bar and Bench Setup"
+      ],
+      "metaDescription": [
+        "EZ-bar spider curl için bench eğimi, göğüs desteği, tutuş, kontrollü menzil, sık hatalar ve progresyonu öğren.",
+        "Learn bench angle, chest support, grip, controlled range, common mistakes, and progression for the EZ-bar spider curl."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Biceps ve brachialis",
+          "Biceps and brachialis"
+        ],
+        "equipment": [
+          "Eğik bench ve EZ-bar",
+          "Incline bench and EZ-bar"
+        ],
+        "movementPattern": [
+          "Göğüs destekli dirsek fleksiyonu",
+          "Chest-supported elbow flexion"
+        ],
+        "bestFor": [
+          "Momentum sınırlı biceps hacmi",
+          "Momentum-limited biceps volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench açısı ve bar tutuşu",
+          "Bench angle and bar grip"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Alt menzil ve göğüs teması",
+          "Bottom range and chest contact"
+        ]
+      ],
+      "related": [
+        "preacher-curl",
+        "incline-dumbell-curl",
+        "drag-curl"
+      ]
+    }
   },
   "hammer-curl": {
     "publish": false,
@@ -7596,36 +8086,90 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/zottman-curl",
     "summary": [
-      "Zottman curl. Biceps ve ön kol birlikte.",
-      "Zottman curl. Biceps and forearms together."
+      "Yukarı supine, aşağı prone tutuşlu dumbbell curl.",
+      "A dumbbell curl with a supinated ascent and pronated descent."
     ],
     "description": [
-      "Yukarı çıkışta supinasyon, inişte pronasyon kullanılan curl varyasyonu. Biceps ve ön kolu tek sette birlikte zorlar. Kol gelişiminde çok verimli bir kombinasyon hareketidir.",
-      "A curl variation that uses supination on the way up and pronation on the way down. It challenges the biceps and forearms in the same set. It is a very efficient combination move for arm development."
+      "Zottman curl, dumbbellları avuçlar yukarı bakarak kaldırıp üstte avuçları aşağı çevirerek indirdiğin curl varyasyonudur. Yükselişte biceps ve brachialis, pronasyonlu inişte brachioradialis ile ön kol kasları önemli katkı verir.",
+      "The Zottman curl raises the dumbbells with palms up, rotates at the top, and lowers them with palms down. The biceps and brachialis contribute strongly on the ascent, while the brachioradialis and forearm muscles are challenged during the pronated descent."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dönüşleri kontrollü yap.",
-        "Control the rotation phases."
+        "Dumbbellları nötr tutuşla yanında tut ve dengeli duruş kur.",
+        "Hold the dumbbells at the sides with a neutral grip and set a balanced stance."
       ],
       [
-        "İnişi yavaşlatmak ön kol hissini artırır.",
-        "Slowing the lowering phase increases the forearm stimulus."
+        "Dirsekleri rahatça gövde yanında tutup avuçları yukarı çevirerek curl yap.",
+        "Keep the elbows comfortably near the torso and curl while turning the palms upward."
       ],
       [
-        "Temiz tekrarlar ağır yükten daha önemlidir.",
-        "Clean reps matter more than heavy loading here."
+        "Üst noktada dumbbellları kontrollü biçimde avuçlar aşağı bakacak şekilde döndür.",
+        "At the top, rotate the dumbbells under control until the palms face down."
+      ],
+      [
+        "Pronasyonlu tutuşu koruyarak dumbbellları yavaşça alt noktaya indir.",
+        "Maintain the pronated grip and lower the dumbbells slowly to the bottom."
+      ],
+      [
+        "Altta nötr veya supine başlangıç tutuşuna kontrollü dön.",
+        "At the bottom, rotate under control back to the neutral or supinated starting grip."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dumbbellları döndürürken bilekleri hızla savurmak.",
+        "Whipping the wrists while rotating the dumbbells."
+      ],
+      [
+        "Pronasyonlu inişi kontrol edemeyecek kadar ağır yük seçmek.",
+        "Choosing a load too heavy to control the pronated descent."
+      ],
+      [
+        "Dirsekleri öne taşıyıp omuzla curl yaparak yükselişi kısaltmak.",
+        "Driving the elbows forward and curling with the shoulders to shorten the ascent."
+      ],
+      [
+        "Sağ ve sol kolun dönüş zamanını kontrol etmeden tekrarları hızlandırmak.",
+        "Rushing reps without controlling rotation timing on both sides."
+      ]
+    ],
+    "tips": [
+      [
+        "Dönüşü dirsekten değil ön kol rotasyonundan yap; bileği mümkün olduğunca nötr tut.",
+        "Rotate through the forearm rather than the elbow and keep the wrist as neutral as practical."
+      ],
+      [
+        "İniş kapasitesi genellikle yükü sınırlar; normal dumbbell curl ağırlığını doğrudan kullanma.",
+        "The lowering phase often limits load, so do not copy your normal dumbbell-curl weight directly."
+      ],
+      [
+        "Yavaş iniş faydalı olabilir, ancak tek zorunlu tempo standardı değildir.",
+        "A slower descent can be useful, but it is not the only valid tempo standard."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbelllarla üst ve alt dönüş noktalarını koordine et.",
+        "Coordinate the top and bottom rotations with light dumbbells."
+      ],
+      [
+        "Pronasyonlu iniş aynı sürede ve menzilde kalırken tekrarları artır.",
+        "Increase reps while the pronated descent stays consistent in time and range."
+      ],
+      [
+        "Dönüş ve bilek kontrolü bozulmadan küçük ağırlık artışları yap.",
+        "Add weight in small steps without losing rotation or wrist control."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis",
+        "brachioradialis"
       ],
       "secondary": [
-        "forearms"
+        "forearm-flexors",
+        "forearm-extensors"
       ]
     },
     "media": {
@@ -7642,7 +8186,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Zottman Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Zottman Curl Rehberi: Dönüş ve Form",
+        "Zottman Curl Guide: Rotation and Form"
+      ],
+      "metaDescription": [
+        "Zottman curl için supine yükseliş, kontrollü pronasyon, ön kol odaklı iniş, sık hatalar ve yük progresyonunu öğren.",
+        "Learn the supinated ascent, controlled rotation, forearm-focused descent, common mistakes, and loading progression for Zottman curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Biceps, brachialis, brachioradialis",
+          "Biceps, brachialis, brachioradialis"
+        ],
+        "equipment": [
+          "Çift dumbbell",
+          "Pair of dumbbells"
+        ],
+        "movementPattern": [
+          "Dönüşlü dirsek fleksiyonu",
+          "Rotational elbow flexion"
+        ],
+        "bestFor": [
+          "Biceps ve ön kolu birlikte çalıştırma",
+          "Combined biceps and forearm training"
+        ]
+      },
+      "tracking": [
+        [
+          "Dumbbell ağırlığı, tekrar ve RIR",
+          "Dumbbell load, reps, and RIR"
+        ],
+        [
+          "Üst ve alt dönüş noktası",
+          "Top and bottom rotation points"
+        ],
+        [
+          "Pronasyonlu iniş temposu",
+          "Pronated lowering tempo"
+        ]
+      ],
+      "related": [
+        "reverse-curl",
+        "biceps-curl",
+        "rope-hammer-curl"
+      ]
+    }
   },
   "rope-hammer-curl": {
     "publish": false,
@@ -7650,36 +8240,89 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/rope-hammer-curl",
     "summary": [
-      "Halatla hammer curl. Brachialis ve ön kol.",
-      "Rope hammer curl. Brachialis and forearms."
+      "Rope ile nötr tutuşlu cable hammer curl.",
+      "A neutral-grip cable hammer curl with a rope."
     ],
     "description": [
-      "Kablo ve halatla yapılan hammer curl varyasyonu. Nötr tutuş sayesinde brachialis ve brachioradialis üzerine iyi yük bindirir. Sürekli kablo gerilimi kol kalınlığı geliştirmek için faydalıdır.",
-      "A hammer-curl variation performed with a rope on a cable station. The neutral grip loads the brachialis and brachioradialis effectively. The constant cable tension is useful for building overall arm thickness."
+      "Rope hammer curl, alt makaraya bağlı rope ile nötr tutuşta yapılan dirsek fleksiyonudur. Brachialis, brachioradialis ve biceps birlikte çalışır; kablo dış yükü sürdürür ancak eklem torku ve kas gerilimi hareket boyunca tamamen sabit değildir.",
+      "The rope hammer curl is a neutral-grip elbow flexion performed with a rope on a low pulley. The brachialis, brachioradialis, and biceps work together; the cable maintains external load, but joint torque and muscle tension are not perfectly constant throughout the movement."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Halatı çekerken uçları hafif ayırarak bitir.",
-        "Finish the rep by slightly separating the rope ends as you curl."
+        "Rope’u alt makaraya bağla, uçları nötr tutuşla kavra ve dengeli dur.",
+        "Attach a rope to a low pulley, take a neutral grip on the ends, and stand balanced."
       ],
       [
-        "Dirsekler gövde yanında sabit kalsın.",
-        "Keep the elbows fixed by the sides of the body."
+        "Omuzlarını rahat tutup dirseklerini gövdenin yanında tekrarlanabilir konuma al.",
+        "Keep the shoulders relaxed and set the elbows in a repeatable position beside the torso."
       ],
       [
-        "Kablo gerilimini altta da kaybetmemeye çalış.",
-        "Try to maintain cable tension even at the bottom."
+        "Bilekleri nötr tutarak rope’u dirsek fleksiyonuyla yukarı çek.",
+        "Keep the wrists neutral and curl the rope upward through elbow flexion."
+      ],
+      [
+        "Omuzları öne taşımadan ulaşabildiğin üst noktada yön değiştir.",
+        "Reverse at the highest point reached without driving the shoulders forward."
+      ],
+      [
+        "Ağırlık plakalarını çarptırmadan dirsekleri kontrollü aç.",
+        "Extend the elbows under control without letting the weight stack slam."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Rope’u kaldırmak için gövdeyi geriye yatırmak veya kalçayla ivme üretmek.",
+        "Leaning back or using the hips to generate momentum."
+      ],
+      [
+        "Üstte rope uçlarını zorla aşırı ayırıp bilekleri bükmek.",
+        "Forcing the rope ends excessively apart and bending the wrists at the top."
+      ],
+      [
+        "Dirsekleri her tekrarda öne taşıyarak hareket menzilini değiştirmek.",
+        "Driving the elbows forward each rep and changing the range."
+      ],
+      [
+        "Kabloyu sürekli kas gerilimiyle eşitleyip alt ve üst kontrolü ihmal etmek.",
+        "Equating cable load with constant muscle tension and neglecting end-range control."
+      ]
+    ],
+    "tips": [
+      [
+        "Rope uçlarını hafif ayırmak konforlu olabilir, ancak tekrarın zorunlu bitişi değildir.",
+        "Slightly separating the rope ends can be comfortable, but it is not a required finish."
+      ],
+      [
+        "Makaradan uzaklık alt başlangıç açısını değiştirir; ayak konumunu standartlaştır.",
+        "Distance from the pulley changes the starting angle, so standardize foot position."
+      ],
+      [
+        "Nötr tutuş brachialis ve brachioradialis katkısını artırabilir; biceps yine harekete katılır.",
+        "A neutral grip can increase brachialis and brachioradialis contribution, while the biceps still participates."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle ayak mesafesi, dirsek konumu ve nötr bilek standardını oluştur.",
+        "Establish foot distance, elbow position, and neutral wrists with a light load."
+      ],
+      [
+        "Aynı menzil ve gövde pozisyonunda hedef tekrarları tamamla.",
+        "Complete target reps with the same range and torso position."
+      ],
+      [
+        "Kablo plakasını küçük adımlarla artır; büyük sıçramalarda tekrar progresyonu kullan.",
+        "Increase the stack in small steps and use rep progression when jumps are large."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "brachialis",
+        "brachioradialis"
       ],
       "secondary": [
-        "forearms"
+        "biceps-brachii",
+        "forearm-flexors"
       ]
     },
     "media": {
@@ -7696,7 +8339,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Rope Hammer Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Rope Hammer Curl Rehberi: Kablo Formu",
+        "Rope Hammer Curl Guide: Cable Form"
+      ],
+      "metaDescription": [
+        "Rope hammer curl için alt makara kurulumu, nötr bilek, dirsek konumu, sık hatalar ve kablo yük progresyonunu öğren.",
+        "Learn low-pulley setup, neutral wrists, elbow position, common mistakes, and cable-load progression for rope hammer curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Brachialis ve brachioradialis",
+          "Brachialis and brachioradialis"
+        ],
+        "equipment": [
+          "Alt kablo ve rope",
+          "Low cable and rope"
+        ],
+        "movementPattern": [
+          "Nötr tutuş dirsek fleksiyonu",
+          "Neutral-grip elbow flexion"
+        ],
+        "bestFor": [
+          "Kol ve ön kol kalınlığı",
+          "Upper-arm and forearm development"
+        ]
+      },
+      "tracking": [
+        [
+          "Makara mesafesi ve rope aparatı",
+          "Pulley distance and rope attachment"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Dirsek konumu ve bilek nötrlüğü",
+          "Elbow position and wrist neutrality"
+        ]
+      ],
+      "related": [
+        "hammer-curl",
+        "reverse-curl",
+        "zottman-curl"
+      ]
+    }
   },
   "one-arm-cable-curl": {
     "publish": false,

@@ -4151,6 +4151,58 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 81 — Exercise Guide Enrichment Batch 17 (2026-06-20)
+
+### Amaç
+
+Dört triceps izolasyonu ile üç curl varyasyonunu tam guide seviyesine taşımak; çakışan overhead ekipman tanımları, zorunlu maksimum esneme, tek triceps başı izolasyonu, sabit kablo gerilimi ve maksimum tepe sıkışması hakkındaki legacy iddiaları düzeltmek.
+
+### Kapsam
+
+- Overhead Cable Triceps Extension
+- Kickback
+- Overhead Triceps Extension
+- Skull Crusher
+- Spider Curl
+- Zottman Curl
+- Rope Hammer Curl
+
+### İçerik Kararları
+
+- **Overhead ekipman ayrımı:** `overhead-cable-triceps-extension` yüksek makarada rope ile ayakta yapılan varyasyona, `overhead-triceps-extension` ise iki elle tek dumbbell kullanılan varyasyona bağlandı. Makara/aparat değişimleri ile dumbbell kayıtları ayrı performans geçmişleri olarak tutulur.
+- **Legacy görsel uyumu:** Dumbbell standardına bağlanan `overhead-triceps-extension` için `data/ex-images.js` fallback'i kablo görselinden `Seated_Triceps_Press` kaynağına taşındı. Ağ erişimi kapalı olduğundan uzak URL HEAD doğrulaması bu seansta yapılamadı.
+- **Overhead menzili:** Dirsekleri zorla kulaklara yapıştırma ve maksimum alt esneme zorunluluğu kaldırıldı. Üst kol açısı, gövde kontrolü ve ağrısız alt menzil birlikte standardize edildi; kablo dış yükü sabit eklem torku olarak sunulmadı.
+- **Dumbbell Kickback:** Gövdenin yere tam paralel olması zorunlu tutulmadı. Üst kolun yerçekimine göre konumu ve kontrollü bitiş temel ölçüt yapıldı; hareket medial/lateral triceps başı izolasyonu olarak yazılmadı.
+- **Skull Crusher:** EZ-bar ve düz bench standardı kilitlendi. Alın önü ile başın hafif arkası farklı ama geçerli bitişler olarak tanımlandı; tek doğru alt nokta, zorunlu dar dirsek veya EZ-barın herkes için daha rahat olduğu iddia edilmedi.
+- **Spider Curl:** Göğüs destekli eğik bench ve EZ-bar standardı kullanıldı. Bench açısı, bar tutuşu ve göğüs teması tracking alanına eklendi; üst noktanın otomatik maksimum biceps gerilimi sağladığı iddiası kaldırıldı.
+- **Zottman Curl:** Supine yükseliş, kontrollü üst dönüş ve prone iniş açıkça ayrıldı. Yükü pronasyonlu iniş kontrolü sınırlar; dönüş zamanı ve iniş temposu performans bağlamına eklendi.
+- **Rope Hammer Curl:** Alt makara, rope ve nötr tutuş standardı kilitlendi. Rope uçlarını ayırmak opsiyonel tutuldu; kablo dış yükü sabit kas gerilimiyle eşitlenmedi ve biceps katkısı yok sayılmadı.
+- **Readiness sonucu:** 145 total, 144 preview-ready, 122 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; mevcut veri dosyalarının içeriği değiştiği için `docs/SW-VERSION-BUMP.md` uyarınca ek cache bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi triceps/curl hareketi için tam TR/EN guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `data/ex-images.js` | Dumbbell overhead triceps extension için varyasyonla uyumlu legacy fallback |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 144 preview-ready, 122 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Yalnızca hedeflenen yedi guide kaydı değişmeli; related exercise slug'ları preset kataloğunda bulunmalı.
+- Meta title 65, meta description 180 karakter sınırını aşmamalı ve JSON ile web wrapper birebir eşleşmeli.
+- `data/ex-images.js`, guide wrapper ve generator scriptleri syntax kontrolünden geçmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+- `Seated_Triceps_Press` legacy fallback URL'si ağ erişimi olan bir ortamda ayrıca HEAD/render kontrolünden geçirilmeli.
+
+---
+
 ## Bölüm 80 — Exercise Guide Enrichment Batch 16 (2026-06-20)
 
 ### Amaç
