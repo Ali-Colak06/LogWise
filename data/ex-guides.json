@@ -4983,36 +4983,91 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/pike-push-up",
     "summary": [
-      "Kalça yukarı şınav. Omuz odaklı.",
-      "Hips-high push-up. Shoulder focused."
+      "Kalça yükseltili, omuz ağırlıklı vücut ağırlığı pressi.",
+      "A hips-elevated bodyweight press with greater shoulder demand."
     ],
     "description": [
-      "Kalça yukarıda V pozisyonuna yakın yapılan vücut ağırlığı press hareketi. Omuzlara klasik push-up'tan daha fazla yük bindirir ve handstand press paternine hazırlık sağlar. Ev tipi antrenmanlar için güçlü bir omuz seçeneğidir.",
-      "A bodyweight pressing movement performed with the hips high in a V-like position. It loads the shoulders more than a standard push-up and helps build toward handstand-press mechanics. It is a strong shoulder option for minimalist training."
+      "Pike push-up, kalçanın yükseltildiği ters V pozisyonundan yapılan bir press varyasyonudur. Gövde açısı yükü standart şınava göre omuzlara doğru kaydırır; triceps, üst göğüs ve skapulayı kontrol eden kaslar da harekete katkı verir.",
+      "The pike push-up is a pressing variation performed from an inverted-V position with the hips elevated. The torso angle shifts more load toward the shoulders than a standard push-up, while the triceps, upper chest, and scapular-control muscles also contribute."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kalçayı yukarı taşıyarak gövde açısını omuz odaklı hale getir.",
-        "Raise the hips high so the body angle shifts the work toward the shoulders."
+        "Ellerini rahat omuz genişliğinde yerleştir ve kalçanı yukarı taşıyarak ters V şekli kur.",
+        "Place the hands at a comfortable shoulder width and raise the hips into an inverted V."
       ],
       [
-        "Başını ellerin arasına değil, hafif önüne indir.",
-        "Lower the head slightly in front of the hands rather than straight between them."
+        "Avuçlarını zemine yay, dirseklerini rahat bir hatta bükmeye hazırlan.",
+        "Spread pressure through the palms and prepare to bend the elbows along a comfortable path."
       ],
       [
-        "Zorsa elleri yükseltiye koyarak başlayabilirsin.",
-        "If needed, start with the hands elevated to make the variation easier."
+        "Başını ellerin biraz önüne doğru indirirken kalçanı yüksek tut.",
+        "Lower the head slightly in front of the hands while keeping the hips high."
+      ],
+      [
+        "Omuz ve boyun kontrolünü koruduğun alt noktada yön değiştir.",
+        "Reverse at the deepest point where shoulder and neck control remain."
+      ],
+      [
+        "Zemini itip dirseklerini açarak başlangıçtaki ters V pozisyonuna dön.",
+        "Press the floor away and extend the elbows to return to the inverted-V position."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kalçayı düşürüp hareketi standart şınava çevirmek.",
+        "Letting the hips drop and turning the movement into a standard push-up."
+      ],
+      [
+        "Başın tepesini dik olarak ellerin tam arasına zorlamak.",
+        "Forcing the crown of the head straight down exactly between the hands."
+      ],
+      [
+        "Dirsekleri zorla tamamen yana açmak veya gövdeye yapıştırmak.",
+        "Forcing the elbows either fully outward or tightly against the torso."
+      ],
+      [
+        "Boyun kontrolünü kaybederek alt noktaya hızla düşmek.",
+        "Dropping quickly into the bottom and losing neck control."
+      ]
+    ],
+    "tips": [
+      [
+        "Kalça yüksekliği ve el-ayak mesafesi yük dağılımını değiştirir; ikisini de takip et.",
+        "Hip height and hand-to-foot distance change load distribution, so track both."
+      ],
+      [
+        "Başın zemine değmesi zorunlu değildir; ağrısız ve kontrollü menzili kullan.",
+        "The head does not need to touch the floor; use a pain-free, controlled range."
+      ],
+      [
+        "Omuz fleksiyonu veya hamstring hareketliliği pozisyonu sınırlıyorsa elleri yükseltmek faydalı olabilir.",
+        "If shoulder flexion or hamstring mobility limits the position, elevating the hands can help."
+      ]
+    ],
+    "progression": [
+      [
+        "Eller yüksek bir yüzeydeyken ters V pozisyonunu ve baş yolunu öğren.",
+        "Learn the inverted-V position and head path with the hands elevated."
+      ],
+      [
+        "Eller zeminde aynı menzilde temiz tekrarlar oluştur.",
+        "Build clean floor repetitions through a consistent range."
+      ],
+      [
+        "Zorluğu artırmak için ayakları yükselt veya pike handstand press negative varyasyonuna geç.",
+        "To increase difficulty, elevate the feet or progress to pike handstand press negatives."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "shoulders"
+        "anterior-deltoid",
+        "triceps-brachii"
       ],
       "secondary": [
-        "triceps"
+        "pectoralis-major-clavicular-head",
+        "serratus-anterior",
+        "upper-trapezius",
+        "rectus-abdominis"
       ]
     },
     "media": {
@@ -5029,7 +5084,53 @@
         "Muscle map for the Pike Push Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Pike Push-Up Rehberi: Form ve Progresyon",
+        "Pike Push-Up Guide: Form and Progression"
+      ],
+      "metaDescription": [
+        "Pike push-up için ters V kurulumu, kontrollü baş yolu, sık hatalar, omuz odaklı takip ölçütleri ve progresyonları öğren.",
+        "Learn inverted-V setup, controlled head path, common mistakes, tracking, and progressions for the pike push-up."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön omuz ve triceps",
+          "Front delts and triceps"
+        ],
+        "equipment": [
+          "Vücut ağırlığı",
+          "Bodyweight"
+        ],
+        "movementPattern": [
+          "Eğik dikey itiş",
+          "Inclined vertical press"
+        ],
+        "bestFor": [
+          "Ekipmansız omuz press progresyonu",
+          "Equipment-free shoulder-press progression"
+        ]
+      },
+      "tracking": [
+        [
+          "El-ayak mesafesi ve kalça yüksekliği",
+          "Hand-to-foot distance and hip height"
+        ],
+        [
+          "Baş derinliği, tekrar ve RIR",
+          "Head depth, reps, and RIR"
+        ],
+        [
+          "El veya ayak yükseltisi",
+          "Hand or foot elevation"
+        ]
+      ],
+      "related": [
+        "push-up",
+        "pike-handstand-press-negative",
+        "wall-handstand-hold"
+      ]
+    }
   },
   "pike-handstand-press-negative": {
     "publish": false,
@@ -5838,36 +5939,88 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/dip-machine",
     "summary": [
-      "Dip makinesi. Kontrollü press varyasyonu.",
-      "Dip machine. Controlled pressing variation."
+      "Oturarak yapılan, makine yollu dip press varyasyonu.",
+      "A seated dip-press variation on a fixed machine path."
     ],
     "description": [
-      "Makinede yapılan dip benzeri press hareketi. Paralel bar dip'lerine göre daha kontrollü ve erişilebilir bir seçenek sunar. Göğüs ve triceps hacmi için kullanışlıdır.",
-      "A machine pressing movement that mimics the dip pattern. It offers a more controlled and accessible option than parallel-bar dips. It is useful for chest and triceps volume."
+      "Dip machine, oturarak tutacakları aşağı bastırdığın makine pressidir. Sabit yol denge ihtiyacını azaltır ve yükü kademeli ayarlamayı kolaylaştırır; ancak makine geometrisi, koltuk ayarı ve hareket menzili göğüs, triceps ve omuz katkılarını değiştirir.",
+      "The dip machine is a seated machine press in which the handles are driven downward. Its fixed path reduces balance demands and makes load adjustment straightforward, but machine geometry, seat setup, and range affect chest, triceps, and shoulder contribution."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Göğüs mü triceps mi istediğine göre gövde açını ayarla.",
-        "Adjust torso angle depending on whether you want more chest or triceps."
+        "Koltuğu, tutacakları rahat bileklerle kavrayıp omuzları kontrol edebileceğin yüksekliğe ayarla.",
+        "Adjust the seat so you can grip the handles with comfortable wrists and controlled shoulders."
       ],
       [
-        "Omuz konforunu koruyacak menzilde çalış.",
-        "Work through a range that keeps the shoulders comfortable."
+        "Ayaklarını sabitle, pelvisini ve gövdeni makinenin desteğine yerleştir.",
+        "Plant the feet and set the pelvis and torso against the machine support."
       ],
       [
-        "Kontrollü eksantrik hareketi daha verimli yapar.",
-        "A controlled eccentric makes the movement more effective."
+        "Dirseklerini makinenin izin verdiği rahat hatta tutarak tutacakları aşağı bastır.",
+        "Press the handles down with the elbows following the machine’s comfortable path."
+      ],
+      [
+        "Dirsekleri kontrol altında aç; eklemleri sertçe kilitlemek zorunda değilsin.",
+        "Extend the elbows under control without forcing a hard joint lockout."
+      ],
+      [
+        "Ağırlık plakalarını çarptırmadan rahat başlangıç açısına dön.",
+        "Return to a comfortable starting angle without slamming the weight stack."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Koltuk ayarını ve makine modelini kaydetmeden yükleri karşılaştırmak.",
+        "Comparing loads without recording the seat setting and machine model."
+      ],
+      [
+        "Daha derin her tekrar daha iyidir diye omuzları rahatsız eden başlangıç açısını zorlamak.",
+        "Forcing a shoulder-irritating start because every deeper rep is assumed to be better."
+      ],
+      [
+        "Yükü hareket ettirmek için gövdeyi pedden kaldırmak veya sekmek.",
+        "Lifting the torso off the pad or bouncing to move the load."
+      ],
+      [
+        "Gövde açısıyla göğüs ve tricepsi tamamen izole edebileceğini varsaymak.",
+        "Assuming torso angle can completely isolate either the chest or triceps."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu guide oturarak bastırılan dip makinesi içindir; destekli paralel bar makinesini aynı kayıtla karşılaştırma.",
+        "This guide covers the seated pressing dip machine; do not compare it directly with an assisted parallel-bar machine."
+      ],
+      [
+        "Gövde açısı katkıları değiştirebilir, ancak göğüs ve triceps birlikte çalışmaya devam eder.",
+        "Torso angle can shift contributions, but the chest and triceps continue to work together."
+      ],
+      [
+        "Sabit makine yolu dengeyi azaltır; omuz konforu için yine uygun koltuk ve menzil gerekir.",
+        "The fixed path reduces balance demands, but shoulder comfort still requires an appropriate seat and range."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle koltuk ve rahat başlangıç açısını standartlaştır.",
+        "Standardize the seat and comfortable starting angle with a light load."
+      ],
+      [
+        "Tüm tekrarlar aynı menzilde kaldığında yükü küçük plaka adımlarıyla artır.",
+        "Increase the stack in small steps once every rep stays within the same range."
+      ],
+      [
+        "Yük eklemeden önce kontrollü eksantrik veya alt noktada kısa duraklama kullan.",
+        "Use a controlled eccentric or brief bottom pause before adding load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "triceps-brachii",
+        "pectoralis-major"
       ],
       "secondary": [
-        "triceps"
+        "anterior-deltoid"
       ]
     },
     "media": {
@@ -5884,7 +6037,53 @@
         "Muscle map for the Dip Machine exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dip Machine Rehberi: Koltuk Ayarı ve Form",
+        "Dip Machine Guide: Seat Setup and Form"
+      ],
+      "metaDescription": [
+        "Oturarak dip machine için koltuk ayarı, omuza uygun menzil, makine farkları, sık hatalar ve yük progresyonunu öğren.",
+        "Learn seat setup, shoulder-appropriate range, machine differences, common mistakes, and loading progression for the dip machine."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps ve göğüs",
+          "Triceps and chest"
+        ],
+        "equipment": [
+          "Oturarak dip press makinesi",
+          "Seated dip-press machine"
+        ],
+        "movementPattern": [
+          "Makinede aşağı itiş",
+          "Machine downward press"
+        ],
+        "bestFor": [
+          "Kontrollü göğüs ve triceps hacmi",
+          "Controlled chest and triceps volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli ve koltuk ayarı",
+          "Machine model and seat setting"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Başlangıç açısı ve ağrısız menzil",
+          "Starting angle and pain-free range"
+        ]
+      ],
+      "related": [
+        "dips",
+        "bench-dips",
+        "triceps-pushdown"
+      ]
+    }
   },
   "bench-dips": {
     "publish": false,
@@ -5892,35 +6091,89 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/bench-dips",
     "summary": [
-      "Bench üzerinde dip. Kolay triceps varyasyonu.",
-      "Bench dip. Easier triceps variation."
+      "Eller arkadaki sabit yüzeyde yapılan triceps ağırlıklı dip.",
+      "A triceps-emphasized dip with the hands on a stable surface behind the body."
     ],
     "description": [
-      "Ellerin bench arkasında destek aldığı dip varyasyonu. Triceps odaklıdır ve paralel bar dip'ine göre daha erişilebilirdir. Vücut ağırlığıyla kol hacmi ve dayanıklılığı geliştirmek için sık kullanılır.",
-      "A dip variation performed with the hands supported behind the body on a bench. It is triceps-focused and more accessible than parallel-bar dips. It is often used to build arm size and endurance with bodyweight."
+      "Bench dip, ellerin gövdenin arkasındaki sabit bir bench üzerinde kaldığı vücut ağırlığı triceps hareketidir. Omuz ekstansiyonu gereksinimi paralel bar dipinden farklıdır; bu nedenle hareket otomatik olarak daha kolay veya herkes için uygun kabul edilmemelidir.",
+      "The bench dip is a bodyweight triceps movement with the hands supported on a stable bench behind the torso. Its shoulder-extension demand differs from a parallel-bar dip, so the exercise should not be treated as automatically easier or suitable for everyone."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Omuzun rahatsız olduğu derinliğe zorlamadan çalış.",
-        "Do not force the range deeper than your shoulders comfortably allow."
+        "Kaymayan sabit bir bench seç ve ellerini kalçanın iki yanına rahat genişlikte koy.",
+        "Choose a stable, non-slip bench and place the hands beside the hips at a comfortable width."
       ],
       [
-        "Dirsekleri geriye bükerek triceps yükünü koru.",
-        "Bend the elbows backward to keep the stress on the triceps."
+        "Kalçanı benchin önüne al; ayaklarını zorluk seviyene uygun mesafeye yerleştir.",
+        "Move the hips just in front of the bench and set the feet at a distance that matches your level."
       ],
       [
-        "Ayak pozisyonunu değiştirerek zorluğu ayarlayabilirsin.",
-        "You can adjust difficulty by changing the foot position."
+        "Gövdeyi benche yakın tutarak dirseklerini kontrollü biçimde bük.",
+        "Keep the torso close to the bench and bend the elbows under control."
+      ],
+      [
+        "Omuzların rahat kaldığı alt noktada dur; belirli bir dirsek açısını zorunlu sayma.",
+        "Stop where the shoulders remain comfortable rather than forcing a prescribed elbow angle."
+      ],
+      [
+        "Avuçları benche bastırıp dirseklerini açarak başlangıca dön.",
+        "Press the palms into the bench and extend the elbows to return to the start."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Omuz konforunu aşarak kalçayı gereğinden fazla aşağı indirmek.",
+        "Lowering the hips beyond a shoulder-comfortable range."
+      ],
+      [
+        "Benchten uzaklaşıp omuz ekstansiyonu ve bilek yükünü kontrolsüz artırmak.",
+        "Drifting away from the bench and increasing shoulder and wrist demand without control."
+      ],
+      [
+        "Dengesiz bench veya kayan ayak konumu kullanmak.",
+        "Using an unstable bench or a foot position that slips."
+      ],
+      [
+        "Hareketi paralel bar dipine otomatik ve risksiz bir hazırlık saymak.",
+        "Treating the movement as an automatic, risk-free preparation for parallel-bar dips."
+      ]
+    ],
+    "tips": [
+      [
+        "Ayakları yaklaştırmak veya dizleri bükmek yükü azaltabilir; omuz menzilini yine ayrıca ayarla.",
+        "Bringing the feet closer or bending the knees can reduce load, but shoulder range still needs its own adjustment."
+      ],
+      [
+        "Omuzun arkadaki pozisyonu rahatsız ediyorsa dar şınav veya triceps pushdown daha uygun olabilir.",
+        "If the behind-the-body shoulder position is uncomfortable, a narrow push-up or triceps pushdown may fit better."
+      ],
+      [
+        "Dirsekleri zorla gövdeye yapıştırma; rahat ve tekrarlanabilir bir yol kullan.",
+        "Do not force the elbows against the torso; use a comfortable, repeatable path."
+      ]
+    ],
+    "progression": [
+      [
+        "Dizler bükülü ve ayaklar benche yakınken kısa, rahat menzille başla.",
+        "Start with bent knees, feet close to the bench, and a short comfortable range."
+      ],
+      [
+        "Kontrol geliştikçe ayakları uzaklaştır veya bacakları düzleştir.",
+        "As control improves, move the feet farther away or straighten the legs."
+      ],
+      [
+        "Harici yük eklemek yerine önce aynı omuz menzilinde tekrar ve tempo ilerlet.",
+        "Before adding external load, progress reps and tempo through the same shoulder range."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "triceps"
+        "triceps-brachii"
       ],
-      "secondary": []
+      "secondary": [
+        "anterior-deltoid",
+        "pectoralis-major"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -5936,7 +6189,53 @@
         "Muscle map for the Bench Dips exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Bench Dips Rehberi: Omuz Menzili ve Form",
+        "Bench Dips Guide: Shoulder Range and Form"
+      ],
+      "metaDescription": [
+        "Bench dips için sabit kurulum, omuza uygun derinlik, ayak pozisyonuyla yük ayarı, sık hatalar ve progresyonları öğren.",
+        "Learn stable setup, shoulder-appropriate depth, foot-position loading, common mistakes, and progressions for bench dips."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps",
+          "Triceps"
+        ],
+        "equipment": [
+          "Sabit bench veya yükselti",
+          "Stable bench or platform"
+        ],
+        "movementPattern": [
+          "Arkada destekli dirsek ekstansiyonu",
+          "Rear-supported elbow extension"
+        ],
+        "bestFor": [
+          "Ekipmansız triceps çalışması",
+          "Equipment-light triceps training"
+        ]
+      },
+      "tracking": [
+        [
+          "El ve ayak konumu",
+          "Hand and foot position"
+        ],
+        [
+          "Omuz derinliği, tekrar ve RIR",
+          "Shoulder depth, reps, and RIR"
+        ],
+        [
+          "Diz bükülme düzeyi",
+          "Degree of knee bend"
+        ]
+      ],
+      "related": [
+        "dips",
+        "dip-machine",
+        "diamond-push-up"
+      ]
+    }
   },
   "ring-push-up": {
     "publish": false,
@@ -5944,37 +6243,91 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/ring-push-up",
     "summary": [
-      "Ring push-up. Göğüs ve denge.",
-      "Ring push-up. Chest and stability."
+      "Askı yüksekliği ayarlanabilen, kontrollü ring şınavı.",
+      "A controlled ring push-up with adjustable suspension height."
     ],
     "description": [
-      "Ring üzerinde yapılan şınav varyasyonu. Instabilite nedeniyle göğüs, omuz, triceps ve stabilizatör kaslara standart push-up'tan daha farklı bir yük bindirir. Ring antrenmanına giriş için güçlü ama kontrol isteyen bir harekettir.",
-      "A push-up variation performed on rings. Because of the instability, it loads the chest, shoulders, triceps, and stabilizers differently than a standard push-up. It is a strong but control-demanding entry point into ring training."
+      "Ring push-up, serbest hareket eden halkalarda yapılan şınav varyasyonudur. Halkaları kontrol etmek göğüs, triceps, ön omuz ve skapular stabilizatörlerden ek koordinasyon ister; bu instabilite hareketi otomatik olarak standart şınavdan üstün yapmaz.",
+      "The ring push-up is a push-up variation performed on freely moving rings. Controlling the rings adds coordination demands for the chest, triceps, front delts, and scapular stabilizers, but that instability does not automatically make it superior to a standard push-up."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ringleri vücuda yakın ve kontrollü tut.",
-        "Keep the rings close to the body and under control."
+        "Ringleri aynı yüksekliğe ayarla ve kayışların sabit bir noktadan dikey indiğini kontrol et.",
+        "Set both rings to the same height and make sure the straps hang vertically from stable anchors."
       ],
       [
-        "Omuzları öne kaçırmadan alt noktada stabil kal.",
-        "Stay stable at the bottom without letting the shoulders drift forward."
+        "Ringleri rahat nötr tutuşla kavra; vücudunu baştan topuğa gergin bir çizgiye al.",
+        "Grip the rings in a comfortable neutral position and brace a line from head to heel."
       ],
       [
-        "Önce yüksek ring ile başlayıp sonra alçaltmak mantıklıdır.",
-        "Starting with the rings set higher and then lowering them over time is a smart progression."
+        "Dirseklerini rahat bir hatta büküp ringleri gövdene yakın tutarak göğsünü indir.",
+        "Bend the elbows along a comfortable path and lower the chest while keeping the rings near the torso."
+      ],
+      [
+        "Omuz ve ring kontrolünü koruduğun alt noktada yön değiştir.",
+        "Reverse at the deepest point where shoulder and ring control remain."
+      ],
+      [
+        "Ringleri aşağı itip dirseklerini aç; bitişte halkaları sabit tut.",
+        "Press down through the rings, extend the elbows, and stabilize the finish."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Ringleri farklı yüksekliğe ayarlamak veya kayışları gevşek bırakmak.",
+        "Setting the rings at different heights or leaving the straps uncontrolled."
+      ],
+      [
+        "Halkaların hızla dışa kaçmasına izin verip omuz kontrolünü kaybetmek.",
+        "Letting the rings fly outward and losing shoulder control."
+      ],
+      [
+        "Bitişte zorunlu ring turn-out yaparak bilek ve omzu rahatsız etmek.",
+        "Forcing a ring turn-out at the finish despite wrist or shoulder discomfort."
+      ],
+      [
+        "Ring yüksekliğini kaydetmeden tekrar performansını karşılaştırmak.",
+        "Comparing repetition performance without recording ring height."
+      ]
+    ],
+    "tips": [
+      [
+        "Ringleri yükseltmek hareketi genellikle kolaylaştırır; zemine yaklaştırmak yükü artırır.",
+        "Raising the rings generally makes the movement easier; lowering them increases loading."
+      ],
+      [
+        "Ring turn-out bir seçenek olabilir, ancak standart tekrar için zorunlu değildir.",
+        "A ring turn-out can be an option, but it is not required for a standard repetition."
+      ],
+      [
+        "İnstabilite daha fazla koordinasyon ister; daha iyi hipertrofi veya güç sonucu garantilemez.",
+        "Instability demands more coordination but does not guarantee better hypertrophy or strength outcomes."
+      ]
+    ],
+    "progression": [
+      [
+        "Ringleri göğüs yüksekliğinde kurup kontrollü eğik tekrarlarla başla.",
+        "Begin with the rings around chest height and perform controlled incline reps."
+      ],
+      [
+        "Ringleri kademeli alçaltarak daha yatay gövde açısına ilerle.",
+        "Lower the rings gradually to progress toward a more horizontal body angle."
+      ],
+      [
+        "Zemin seviyesinde menzil sabitlenince ayak yükseltisi, tempo veya harici yük ekle.",
+        "Once floor-level range is consistent, add foot elevation, tempo, or external load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "pectoralis-major",
+        "triceps-brachii",
+        "anterior-deltoid"
       ],
       "secondary": [
-        "shoulders",
-        "triceps"
+        "serratus-anterior",
+        "rectus-abdominis",
+        "external-oblique"
       ]
     },
     "media": {
@@ -5991,7 +6344,53 @@
         "Muscle map for the Ring Push Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Ring Push-Up Rehberi: Kurulum ve Form",
+        "Ring Push-Up Guide: Setup and Form"
+      ],
+      "metaDescription": [
+        "Ring push-up için eşit askı kurulumu, ring kontrolü, omuza uygun menzil, sık hatalar ve yük progresyonunu öğren.",
+        "Learn even suspension setup, ring control, shoulder-appropriate range, common mistakes, and progression for ring push-ups."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Göğüs, triceps, ön omuz",
+          "Chest, triceps, front delts"
+        ],
+        "equipment": [
+          "Çift jimnastik halkası",
+          "Pair of gymnastic rings"
+        ],
+        "movementPattern": [
+          "İnstabil yatay itiş",
+          "Unstable horizontal press"
+        ],
+        "bestFor": [
+          "Ring kontrolü ve ayarlanabilir şınav yükü",
+          "Ring control and adjustable push-up loading"
+        ]
+      },
+      "tracking": [
+        [
+          "Ring yüksekliği ve ayak konumu",
+          "Ring height and foot position"
+        ],
+        [
+          "Tekrar, tempo ve RIR",
+          "Reps, tempo, and RIR"
+        ],
+        [
+          "Göğüs derinliği ve ring açıklığı",
+          "Chest depth and ring spacing"
+        ]
+      ],
+      "related": [
+        "push-up",
+        "dips",
+        "deficit-push-up"
+      ]
+    }
   },
   "pseudo-planche-push-up": {
     "publish": false,
@@ -5999,37 +6398,91 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/pseudo-planche-push-up",
     "summary": [
-      "Pseudo planche şınavı. İleri itiş varyasyonu.",
-      "Pseudo planche push-up. Advanced pressing variation."
+      "Omuzları ellerin önüne taşıyan ileri lean şınavı.",
+      "An advanced lean push-up with the shoulders shifted ahead of the hands."
     ],
     "description": [
-      "Eller kalçaya daha yakın yerleşimde yapılan ileri seviye şınav varyasyonu. Omuz ön hattı, göğüs ve düz kol baskı kapasitesini zorlar. Planche yönündeki itiş ilerlemeleri için önemli bir basamaktır.",
-      "An advanced push-up variation performed with the hands placed closer toward the hips. It heavily challenges the anterior shoulder line, chest, and straight-arm pressing capacity. It is an important step toward planche-oriented pressing progressions."
+      "Pseudo planche push-up, elleri gövdeye daha yakın yerleştirip omuzları bileklerin önüne taşıyarak yapılan ileri seviye bent-arm itiştir. Öne eğilme ön omuz, göğüs, triceps ve gövde kontrolü talebini artırır; planche’e hazırlık sağlar ama düz kol planche ile aynı beceri değildir.",
+      "The pseudo planche push-up is an advanced bent-arm press performed with the hands closer to the torso and the shoulders shifted ahead of the wrists. The forward lean increases demands on the front delts, chest, triceps, and trunk, but it is not the same skill as a straight-arm planche."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Omuzları ellerin önüne taşırken core'u sıkı tut.",
-        "Keep the core tight as the shoulders move in front of the hands."
+        "Ellerini omuz genişliği çevresinde, parmakların rahat ettiği hafif dışa dönük açıda yerleştir.",
+        "Place the hands around shoulder width with the fingers turned slightly outward if comfortable."
       ],
       [
-        "Menzili küçültmek gerekirse bile vücut hattını bozma.",
-        "Even if you shorten the range, do not lose the body line."
+        "Gövde çizgisini sabitleyip omuzlarını kontrollü biçimde bileklerinin önüne taşı.",
+        "Brace the body line and shift the shoulders ahead of the wrists under control."
       ],
       [
-        "Bilek konforu için ısınma ve açı ayarı önemli olur.",
-        "Wrist warm-up and angle management are important for comfort here."
+        "Öne eğilme miktarını koruyarak dirseklerini bük ve göğsünü ellerin arasına indir.",
+        "Maintain the forward lean as you bend the elbows and lower the chest between the hands."
+      ],
+      [
+        "Bilek ve omuz kontrolünü koruduğun alt noktada dur.",
+        "Stop at the deepest point where wrist and shoulder control remain."
+      ],
+      [
+        "Zemini itip dirsekleri açarken omuzların öndeki konumunu mümkün olduğunca koru.",
+        "Press the floor away and extend the elbows while preserving the forward shoulder position."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "İnişte omuzları geriye kaçırıp öne eğilmeyi tamamen kaybetmek.",
+        "Letting the shoulders drift back and losing the forward lean during the descent."
+      ],
+      [
+        "Bilek hazırlığı olmadan lean miktarını hızla artırmak.",
+        "Increasing lean rapidly without preparing the wrists."
+      ],
+      [
+        "Kalçayı düşürmek veya yükseltmek için gövde çizgisini bozmak.",
+        "Breaking the body line by dropping or piking the hips."
+      ],
+      [
+        "Bent-arm tekrarlarını düz kol planche süresiyle doğrudan karşılaştırmak.",
+        "Directly comparing bent-arm repetitions with straight-arm planche holds."
+      ]
+    ],
+    "tips": [
+      [
+        "İlerlemeyi elin kalçaya yakınlığından çok omuz-bilek yatay mesafesiyle takip et.",
+        "Track progression by the horizontal shoulder-to-wrist distance rather than hand-to-hip position alone."
+      ],
+      [
+        "Parmak yönünü ve el genişliğini bilek konforuna göre ayarla; tek zorunlu açı yoktur.",
+        "Adjust finger direction and hand width for wrist comfort; there is no single mandatory angle."
+      ],
+      [
+        "Bu bent-arm bir press progresyonudur; düz kol planche hazırlığı ayrıca çalışılmalıdır.",
+        "This is a bent-arm pressing progression; straight-arm planche preparation still needs separate work."
+      ]
+    ],
+    "progression": [
+      [
+        "Plankte küçük planche lean tekrarlarıyla bilek ve skapula kontrolü oluştur.",
+        "Build wrist and scapular control with small planche leans from a plank."
+      ],
+      [
+        "Yüksek bir yüzeyde pseudo planche push-up yapıp sabit lean geliştir.",
+        "Develop a consistent lean with elevated pseudo planche push-ups."
+      ],
+      [
+        "Zeminde menzil sabit kaldıkça omuz-bilek mesafesini küçük adımlarla artır.",
+        "On the floor, increase shoulder-to-wrist distance gradually while preserving range."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "chest"
+        "anterior-deltoid",
+        "pectoralis-major",
+        "triceps-brachii"
       ],
       "secondary": [
-        "shoulders",
-        "triceps"
+        "serratus-anterior",
+        "rectus-abdominis",
+        "gluteus-maximus"
       ]
     },
     "media": {
@@ -6046,7 +6499,53 @@
         "Muscle map for the Pseudo Planche Push Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Pseudo Planche Push-Up Rehberi ve Formu",
+        "Pseudo Planche Push-Up Guide and Form"
+      ],
+      "metaDescription": [
+        "Pseudo planche push-up için öne lean, bilek ayarı, gövde çizgisi, sık hatalar, takip ölçütleri ve progresyonları öğren.",
+        "Learn forward lean, wrist setup, body line, common mistakes, tracking, and progressions for the pseudo planche push-up."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön omuz, göğüs, triceps",
+          "Front delts, chest, triceps"
+        ],
+        "equipment": [
+          "Vücut ağırlığı",
+          "Bodyweight"
+        ],
+        "movementPattern": [
+          "Öne eğimli bent-arm itiş",
+          "Forward-lean bent-arm press"
+        ],
+        "bestFor": [
+          "Planche yönlü bent-arm kuvvet",
+          "Planche-oriented bent-arm strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Omuz-bilek yatay mesafesi",
+          "Horizontal shoulder-to-wrist distance"
+        ],
+        [
+          "El açısı ve el genişliği",
+          "Hand angle and hand width"
+        ],
+        [
+          "Tekrar, göğüs derinliği ve RIR",
+          "Reps, chest depth, and RIR"
+        ]
+      ],
+      "related": [
+        "push-up",
+        "pike-push-up",
+        "wall-handstand-hold"
+      ]
+    }
   },
   "triceps-pushdown": {
     "publish": false,
@@ -6213,33 +6712,84 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/cross-body-triceps-extension",
     "summary": [
-      "Çapraz tek kol triceps uzatma.",
-      "Cross-body single-arm triceps extension."
+      "Kabloyu gövde çaprazında uzattığın tek kol triceps hareketi.",
+      "A single-arm cable triceps extension across the torso."
     ],
     "description": [
-      "Kabloyla tek kol çapraz triceps uzatma hareketi. Özellikle triceps uzun başını kontrollü şekilde hissettirmek için faydalıdır. Hafif-orta yüklerle çok iyi çalışır.",
-      "A single-arm cross-body triceps extension performed on cable. It is especially useful for feeling the long head of the triceps under control. It works very well with light-to-moderate loads."
+      "Cross-body triceps extension, karşı taraftaki kabloyu gövde önünde çapraz bir hatta uzattığın tek kol dirsek ekstansiyonudur. Kablo açısı tarafları ayrı çalıştırmayı ve yükü küçük adımlarla ayarlamayı kolaylaştırır; hareket tricepsin tek bir başını tamamen izole etmez.",
+      "The cross-body triceps extension is a single-arm elbow extension performed by moving a cable diagonally across the front of the torso. The cable angle makes unilateral work and small load adjustments convenient, but the exercise does not completely isolate one head of the triceps."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Üst kolu sabit tut.",
-        "Keep the upper arm fixed."
+        "Makarayı omuz yüksekliği çevresine ayarla ve çalışan kolun karşı tarafındaki kabloyu kavra.",
+        "Set the pulley around shoulder height and take the cable from the side opposite the working arm."
       ],
       [
-        "Çapraz hatta ama kontrollü ilerle.",
-        "Move across the body line, but under control."
+        "Dengeli duruş kurup üst kolunu gövde önünde rahat ve tekrarlanabilir bir konuma getir.",
+        "Set a balanced stance and place the upper arm in a comfortable, repeatable position across the torso."
       ],
       [
-        "Bitişte triceps sıkışmasını hisset.",
-        "Feel the triceps squeeze at the finish."
+        "Omuzu büyük ölçüde sabit tutarak dirseğini çapraz-aşağı hatta aç.",
+        "Keep the shoulder mostly still and extend the elbow along a diagonal downward path."
+      ],
+      [
+        "Dirsek ekstansiyonunu kontrollü tamamla; bileği zorla bükme.",
+        "Complete elbow extension under control without forcing the wrist to bend."
+      ],
+      [
+        "Ağırlık plağını çarptırmadan ön kolunu başlangıca geri getir.",
+        "Return the forearm to the start without letting the stack slam."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Gövdeyi döndürerek kabloyu savurmak.",
+        "Rotating the torso and swinging the cable."
+      ],
+      [
+        "Üst kolu her tekrarda farklı konuma taşıyıp dirsek hareketini değiştirmek.",
+        "Moving the upper arm to a different position each rep and changing the elbow action."
+      ],
+      [
+        "Bitişte bileği aşırı bükerek daha fazla triceps kasılması aramak.",
+        "Over-flexing the wrist at the finish in search of a stronger triceps contraction."
+      ],
+      [
+        "Kas hissini triceps başı izolasyonunun kanıtı saymak.",
+        "Treating muscle sensation as proof that one triceps head is isolated."
+      ]
+    ],
+    "tips": [
+      [
+        "Makara yüksekliği ve üst kol pozisyonu direnç çizgisini değiştirir; ikisini de standartlaştır.",
+        "Pulley height and upper-arm position change the resistance line, so standardize both."
+      ],
+      [
+        "Kabloyu tutacak olmadan kavramak rahatsızsa tek el tutacağı veya manşet kullan.",
+        "If gripping the bare cable is uncomfortable, use a single handle or cuff."
+      ],
+      [
+        "Omuz tamamen donmak zorunda değildir; amaç dirsek ekstansiyonunu baskın ve tekrarlanabilir tutmaktır.",
+        "The shoulder does not need to be perfectly motionless; keep elbow extension dominant and repeatable."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle makara yüksekliği ve çapraz hareket hattını yerleştir.",
+        "Establish pulley height and the diagonal path with a light load."
+      ],
+      [
+        "İki tarafta aynı menzil ve tempo oluştuğunda tekrarları artır.",
+        "Increase reps once both sides use the same range and tempo."
+      ],
+      [
+        "Hedef tekrarlar temiz kaldığında yükü küçük plaka adımlarıyla yükselt.",
+        "Raise the load in small stack increments once target reps remain clean."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "triceps"
+        "triceps-brachii"
       ],
       "secondary": []
     },
@@ -6257,7 +6807,53 @@
         "Muscle map for the Cross Body Triceps Extension exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Cross-Body Triceps Extension Rehberi",
+        "Cross-Body Triceps Extension Guide"
+      ],
+      "metaDescription": [
+        "Cross-body triceps extension için makara ayarı, üst kol konumu, çapraz kablo yolu, sık hatalar ve tek taraflı progresyonu öğren.",
+        "Learn pulley setup, upper-arm position, diagonal cable path, common mistakes, and unilateral progression for cross-body extensions."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps",
+          "Triceps"
+        ],
+        "equipment": [
+          "Kablo istasyonu ve tek el aparatı",
+          "Cable station and single-arm attachment"
+        ],
+        "movementPattern": [
+          "Tek kol dirsek ekstansiyonu",
+          "Single-arm elbow extension"
+        ],
+        "bestFor": [
+          "Taraf bazlı triceps hacmi",
+          "Side-specific triceps volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makara yüksekliği ve aparat",
+          "Pulley height and attachment"
+        ],
+        [
+          "Taraf başına yük, tekrar ve RIR",
+          "Load, reps, and RIR per side"
+        ],
+        [
+          "Üst kol konumu ve bitiş hattı",
+          "Upper-arm position and finish path"
+        ]
+      ],
+      "related": [
+        "triceps-pushdown",
+        "overhead-cable-triceps-extension",
+        "kickback"
+      ]
+    }
   },
   "jm-press": {
     "publish": false,
@@ -6265,36 +6861,88 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/jm-press",
     "summary": [
-      "JM press. Triceps odaklı press.",
-      "JM press. Triceps-focused press."
+      "Close-grip press ile triceps extension arasında barbell hareketi.",
+      "A barbell movement between a close-grip press and a triceps extension."
     ],
     "description": [
-      "Bench press ile skull crusher arasında düşünülebilecek triceps odaklı bir press varyasyonu. Özellikle lockout gücü ve triceps hacmi için kullanılır. Teknik açıdan biraz daha niş ama doğru uygulandığında çok etkilidir.",
-      "A triceps-focused pressing variation that sits somewhere between a bench press and a skull crusher. It is often used for lockout strength and triceps size. The movement is more niche technically, but very effective when performed well."
+      "JM Press, yakın tutuşlu bench press ile lying triceps extension arasında yer alan teknik bir barbell hareketidir. Dirsek fleksiyonu baskındır ve tricepsi yüksek yüklerle çalıştırabilir; barın iniş noktası ve dirsek yolu anatomiye göre standardize edilmelidir.",
+      "The JM Press is a technical barbell movement between a close-grip bench press and a lying triceps extension. Elbow flexion is prominent and the triceps can be trained with substantial loads, but bar endpoint and elbow path should be standardized to the lifter’s anatomy."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Bar yolunu yüzüne değil orta-alt göğse yakın tut.",
-        "Keep the bar path closer to the mid-lower chest rather than the face."
+        "Benche dengeli yerleş, barı omuz genişliği çevresinde rahat bir yakın tutuşla al.",
+        "Set up securely on the bench and take a comfortable close grip around shoulder width."
       ],
       [
-        "Dirsekleri kontrollü kırıp tekrar press çizgisine dön.",
-        "Bend the elbows under control and then return to the press path."
+        "Barı omuzların üzerinde sabitle; bileklerini ön kolun üzerinde kontrollü tut.",
+        "Stabilize the bar over the shoulders and keep the wrists controlled over the forearms."
       ],
       [
-        "İlk denemelerde hafif yükle teknik oturt.",
-        "Dial in the technique with lighter weight at first."
+        "Dirsekleri büküp barı üst göğüs ile boğaz önü arasındaki tekrarlanabilir hatta indir.",
+        "Bend the elbows and lower the bar toward a repeatable line between the upper chest and the area in front of the throat."
+      ],
+      [
+        "Barı boyna bastırmadan ve omuz kontrolünü kaybetmeden alt noktada yön değiştir.",
+        "Reverse without pressing the bar into the neck or losing shoulder control."
+      ],
+      [
+        "Tricepsle dirsekleri açıp barı kontrollü biçimde başlangıç noktasına döndür.",
+        "Extend the elbows with the triceps and return the bar to the start under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Barı orta-alt göğse indirip hareketi yakın tutuş bench press haline getirmek.",
+        "Lowering toward the mid-lower chest and turning the movement into a close-grip bench press."
+      ],
+      [
+        "Barı yüze veya boyna kontrolsüz biçimde yaklaştırmak.",
+        "Bringing the bar toward the face or neck without control."
+      ],
+      [
+        "Dirsek yolunu her tekrarda değiştirip bar uçlarını dengesiz indirmek.",
+        "Changing elbow path each rep and lowering the bar unevenly."
+      ],
+      [
+        "Teknik yerleşmeden normal bench press yüklerine yaklaşmak.",
+        "Approaching normal bench-press loads before the technique is established."
+      ]
+    ],
+    "tips": [
+      [
+        "İniş noktası kişiye göre değişebilir; barın boyna temas etmesi veya tek bir anatomik noktaya gelmesi zorunlu değildir.",
+        "The endpoint can vary by lifter; the bar does not need to touch the neck or one exact anatomical point."
+      ],
+      [
+        "Tutuşu aşırı daraltmak bilek ve dirsek konforunu bozabilir.",
+        "An excessively narrow grip can compromise wrist and elbow comfort."
+      ],
+      [
+        "Hareket ne tam bench press ne de tam skull crusher’dır; ayrı bir teknik ve yük geçmişiyle takip et.",
+        "The movement is neither a full bench press nor a full skull crusher, so track it with its own technique and loading history."
+      ]
+    ],
+    "progression": [
+      [
+        "Boş bar veya hafif yükle sabit tutuş, dirsek yolu ve iniş noktası oluştur.",
+        "Use an empty bar or light load to establish grip, elbow path, and endpoint."
+      ],
+      [
+        "Teknik bozulmadan hedef tekrarları tamamladığında küçük yük artışları yap.",
+        "Add load in small steps once target reps are completed without technical drift."
+      ],
+      [
+        "Ağır setlerden önce aynı bar yoluyla kontrollü ısınma setleri kullan.",
+        "Before heavier work, use controlled warm-up sets with the same bar path."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "triceps"
+        "triceps-brachii"
       ],
       "secondary": [
-        "chest"
+        "pectoralis-major",
+        "anterior-deltoid"
       ]
     },
     "media": {
@@ -6311,7 +6959,53 @@
         "Muscle map for the JM Press exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "JM Press Rehberi: Bar Yolu ve Triceps Formu",
+        "JM Press Guide: Bar Path and Triceps Form"
+      ],
+      "metaDescription": [
+        "JM Press için yakın tutuş, güvenli bar iniş hattı, dirsek yolu, bench press ve skull crusher ayrımı ile progresyonu öğren.",
+        "Learn close-grip setup, a controlled bar endpoint, elbow path, movement distinctions, and progression for the JM Press."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Triceps",
+          "Triceps"
+        ],
+        "equipment": [
+          "Barbell ve düz bench",
+          "Barbell and flat bench"
+        ],
+        "movementPattern": [
+          "Triceps ağırlıklı barbell press-extension",
+          "Triceps-dominant barbell press-extension"
+        ],
+        "bestFor": [
+          "Triceps kuvveti ve hacmi",
+          "Triceps strength and size"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş genişliği ve iniş noktası",
+          "Grip width and bar endpoint"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Dirsek yolu ve kontrollü menzil",
+          "Elbow path and controlled range"
+        ]
+      ],
+      "related": [
+        "close-grip-bench-press",
+        "skull-crusher",
+        "bench-press"
+      ]
+    }
   },
   "overhead-cable-triceps-extension": {
     "publish": false,

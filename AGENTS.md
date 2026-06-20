@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-20 — On beşinci exercise guide enrichment batch'i eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-20 — On altıncı exercise guide enrichment batch'i eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-79)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-80)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -237,6 +237,7 @@ LogWise/
 - **Exercise guide enrichment batch 13** (Bölüm 77): Yedi omuz press/raise varyasyonunun tam TR/EN içeriği, makine-kablo ve izolasyon iddiası düzeltmeleri, toplam 94 content-ready guide ✅
 - **Exercise guide enrichment batch 14** (Bölüm 78): Yedi skapula/omuz kuşağı hareketinin tam TR/EN içeriği, elevasyon-depresyon ve hang standardı ayrımları, toplam 101 content-ready guide ✅
 - **Exercise guide enrichment batch 15** (Bölüm 79): Yedi fly/şınav varyasyonunun tam TR/EN içeriği, makine fly ayrımı, menzil ve yük dağılımı miti düzeltmeleri, toplam 108 content-ready ve 144 preview-ready guide ✅
+- **Exercise guide enrichment batch 16** (Bölüm 80): Yedi şınav/dip/triceps hareketinin tam TR/EN içeriği, seated dip standardı, ring instabilitesi ve JM Press bar yolu düzeltmeleri, toplam 115 content-ready guide ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

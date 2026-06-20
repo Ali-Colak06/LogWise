@@ -4151,6 +4151,54 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 80 — Exercise Guide Enrichment Batch 16 (2026-06-20)
+
+### Amaç
+
+Beş şınav/dip deseni ile iki triceps hareketini tam guide seviyesine taşımak; bench dip'in otomatik kolaylığı, ring instabilitesinin üstünlüğü, pseudo planche push-up'ın düz kol planche ile eşitliği, tek triceps başı izolasyonu ve JM Press için sabit orta-alt göğüs bar yolu hakkındaki legacy iddiaları düzeltmek.
+
+### Kapsam
+
+- Pike Push Up
+- Dip Machine
+- Bench Dips
+- Ring Push Up
+- Pseudo Planche Push Up
+- Cross Body Triceps Extension
+- JM Press
+
+### İçerik Kararları
+
+- **Pike Push Up:** Ters V gövde açısı, başın ellerin hafif önüne ilerlediği kontrollü yol ve kalça yüksekliği standartlaştırıldı. Başın zemine teması zorunlu tutulmadı; el-ayak mesafesi ile el/ayak yükseltisi tracking alanına eklendi.
+- **Dip Machine standardı:** Guide, tutacakların aşağı bastırıldığı oturarak dip press makinesine bağlandı. Destekli paralel bar makinesiyle aynı kayıt altında karşılaştırılmadı; makine modeli, koltuk ayarı ve başlangıç açısı performans bağlamına eklendi.
+- **Bench Dips:** Hareket paralel bar dipinin otomatik olarak kolay veya risksiz regresyonu sayılmadı. Omuz ekstansiyonu kişisel menzille sınırlandı; sabit bench, el-ayak konumu ve diz bükülme düzeyi standardize edildi.
+- **Ring Push Up:** Eşit ring yüksekliği, dikey kayış ve kontrollü ring açıklığı temel kurulum yapıldı. Ring turn-out opsiyonel tutuldu; instabilitenin koordinasyon talebini artırdığı fakat daha iyi kuvvet veya hipertrofi sonucunu garanti etmediği belirtildi.
+- **Pseudo Planche Push Up:** İlerleme ölçütü elin kalçaya yakınlığından çok omuz-bilek yatay mesafesine bağlandı. Hareket bent-arm press olarak sınıflandırıldı; düz kol planche becerisiyle aynı kabul edilmedi ve bilek açısı kişisel konfora bırakıldı.
+- **Cross Body Triceps Extension:** Karşı taraftaki omuz yüksekliği çevresindeki makaradan çapraz-aşağı tek kol kablo yolu kilitlendi. Makara yüksekliği ve üst kol konumu ayrı takip edilir; kas hissi tek bir triceps başının tamamen izole edildiğinin kanıtı sayılmaz.
+- **JM Press:** Hareket close-grip bench press ile lying triceps extension arasında ayrı bir teknik olarak tanımlandı. Orta-alt göğüs bar yolu kaldırıldı; üst göğüs ile boğaz önü arasındaki kontrollü, kişiye göre tekrarlanabilir iniş hattı kullanıldı ve boyun teması zorunlu tutulmadı.
+- **Readiness sonucu:** 145 total, 144 preview-ready, 115 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; mevcut `data/ex-guides.js` wrapper'ı yeniden üretildiği için ek cache bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi şınav/dip/triceps hareketi için tam TR/EN guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 144 preview-ready, 115 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Yalnızca hedeflenen yedi guide kaydı değişmeli; related exercise slug'ları preset kataloğunda bulunmalı.
+- Meta title 65, meta description 180 karakter sınırını aşmamalı ve JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 79 — Exercise Guide Enrichment Batch 15 (2026-06-20)
 
 ### Amaç
