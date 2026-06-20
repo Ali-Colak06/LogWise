@@ -4151,6 +4151,54 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 83 — Exercise Guide Enrichment Batch 19 (2026-06-20)
+
+### Amaç
+
+Yedi ön kol, kavrama ve bar çekiş hareketini tam guide seviyesine taşımak; dead hang için zorunlu aktif depresyon, wrist hareketlerinin tedavi/önleme garantisi, typewriter pull-up'ın tek kol çekiş sayılması ve Australian pull-up'ta maksimum skapula sıkıştırma hakkındaki legacy cue'ları düzeltmek.
+
+### Kapsam
+
+- Reverse Curl
+- Dead Hang
+- Wrist Extensions
+- Wrist Curls
+- Chin Up Hold
+- Typewriter Pull Up
+- Australian Pull Up
+
+### İçerik Kararları
+
+- **Reverse Curl:** Düz barbell ve pronasyonlu tutuş standardı kilitlendi. Bilek konumu ana takip alanı oldu; daha düşük yük normal kabul edildi ve hareket yalnız ön kol izolasyonu olarak yazılmadı.
+- **Dead Hang:** Düz dirsekli süreli asılma standardı kullanıldı. Omuz pozisyonu ağrısız pasif ile hafif destekli aralıkta kişiselleştirildi; zorunlu maksimum depresyon `active-hang` kaydına bırakıldı ve iki varyasyonun süreleri ayrı tutuldu.
+- **Wrist Extensions:** Bench destekli, çift dumbbell ve avuç aşağı standart oluşturuldu. Zorunlu tam menzil ve tenisçi dirseği tedavi/önleme garantisi kaldırıldı; belirti durumu tracking alanına eklendi.
+- **Wrist Curls:** Bench destekli, çift dumbbell ve avuç yukarı standart oluşturuldu. Parmaklara yuvarlatılan finger curl ayrı varyasyon sayıldı; wrist curl yükü genel kavrama gücünün tek ölçütü olarak kullanılmadı.
+- **Chin Up Hold:** Supine tutuşlu tepe izometrisi, nötr boyun ve sabit çene-dirsek-omuz açısıyla tanımlandı. Tepeye kontrolsüz sıçrama kaldırıldı; izometrinin tam chin-up menzilinin yerine geçmediği belirtildi.
+- **Typewriter Pull Up:** Geniş pronasyonlu tutuşta tepe konumunda yana geçiş standardı yazıldı. Destek kolunun yük taşımaya devam ettiği açıklandı; tekrar tanımı tek taraf geçişi veya tam sağ-sol döngüsü olarak antrenman öncesinde kilitlenir.
+- **Australian Pull Up:** Alçak sabit bar altındaki bodyweight row standardına bağlandı ve `ring-row`dan ayrıldı. Bar yüksekliği, ayak konumu, diz açısı ve göğüs çekiş noktası birlikte takip edilir; maksimum skapula sıkıştırma zorunlu tutulmadı.
+- **Readiness sonucu:** 145 total, 144 preview-ready, 136 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; mevcut guide verisi ve wrapper içeriği değiştiği için ek cache bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi ön kol/kavrama/bar çekiş hareketi için tam TR/EN guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 144 preview-ready, 136 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Yalnızca hedeflenen yedi guide kaydı değişmeli; related exercise slug'ları preset kataloğunda bulunmalı.
+- Meta title 65, meta description 180 karakter sınırını aşmamalı ve JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 82 — Exercise Guide Enrichment Batch 18 (2026-06-20)
 
 ### Amaç

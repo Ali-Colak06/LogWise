@@ -9464,36 +9464,89 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/reverse-curl",
     "summary": [
-      "Ters tutuş curl. Ön kol + brachialis.",
-      "Reverse curl. Forearm + brachialis."
+      "Pronasyonlu tutuşla yapılan barbell curl.",
+      "A barbell curl performed with a pronated grip."
     ],
     "description": [
-      "Ters tutuşla (pronated) curl. Brachialis ve brachioradialis kaslarını güçlü çalıştırır. Ön kol kalınlığı için değerlidir.",
-      "Reverse (pronated) grip curl. Powerfully works brachialis and brachioradialis. Valuable for forearm thickness."
+      "Reverse curl, düz barı avuçlar aşağı bakacak şekilde kaldırdığın dirsek fleksiyonudur. Pronasyon bicepsin mekanik katkısını değiştirirken brachioradialis, brachialis ve ön kol ekstansörlerinden daha fazla destek isteyebilir.",
+      "The reverse curl is an elbow-flexion movement performed with a straight bar and the palms facing down. Pronation changes the biceps’ mechanical contribution and can increase demands on the brachioradialis, brachialis, and forearm extensors."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Ellerimizi aşağı bakacak şekilde tut — overhand kavrama.",
-        "Hold with palms facing down — overhand grip."
+        "Barı rahat omuz genişliği çevresinde pronasyonlu tutuşla kavra.",
+        "Grip the bar with a comfortable pronated grip around shoulder width."
       ],
       [
-        "Dirsekleri sabit tut; sadece ön kol hareket etmeli.",
-        "Keep elbows stationary; only the forearms should move."
+        "Dengeli dur, bileklerini ön kolların devamında kontrollü tut.",
+        "Stand balanced and keep the wrists controlled in line with the forearms."
       ],
       [
-        "Küçük ağırlıkla başla — bu kavramada daha az güç üretilir.",
-        "Start with lighter weight — grip is generally weaker in this position."
+        "Dirseklerini bükerek barı gövdenin önünde yukarı kaldır.",
+        "Flex the elbows and curl the bar upward in front of the torso."
+      ],
+      [
+        "Bilek veya omuz konumunu bozmadan ulaştığın üst noktada yön değiştir.",
+        "Reverse at the highest point reached without losing wrist or shoulder position."
+      ],
+      [
+        "Barı dirsek kontrolünü koruyarak rahat alt uzamaya indir.",
+        "Lower the bar to a comfortable bottom extension while maintaining elbow control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Barı kaldırmak için kalça ve belden ivme üretmek.",
+        "Using hip and back momentum to raise the bar."
+      ],
+      [
+        "Yük ağırlaştıkça bilekleri aşağı düşürmek.",
+        "Letting the wrists collapse downward as load increases."
+      ],
+      [
+        "Dirsekleri her tekrarda öne taşıyıp hareket menzilini değiştirmek.",
+        "Driving the elbows forward each rep and changing the range."
+      ],
+      [
+        "Normal supine curl yükünü doğrudan pronasyonlu varyasyona taşımak.",
+        "Copying normal supinated-curl loads directly to the pronated variation."
+      ]
+    ],
+    "tips": [
+      [
+        "Pronasyonlu tutuşta daha düşük yük kullanmak normaldir; performansı biceps curl ile doğrudan karşılaştırma.",
+        "Using less load with a pronated grip is normal, so do not compare it directly with a biceps curl."
+      ],
+      [
+        "Bilekleri tamamen donmuş tutmak yerine kontrollü ve ağrısız nötr çizgiye yakın kal.",
+        "Rather than forcing perfectly rigid wrists, stay near a controlled, pain-free neutral line."
+      ],
+      [
+        "Hareket yalnızca ön kol değildir; brachialis ve biceps de dirsek fleksiyonuna katkı verir.",
+        "The movement is not forearm-only; the brachialis and biceps also contribute to elbow flexion."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif barla pronasyonlu tutuş, bilek kontrolü ve rahat menzili öğren.",
+        "Learn the pronated grip, wrist control, and comfortable range with a light bar."
+      ],
+      [
+        "Gövde ivmesi olmadan hedef tekrarları ve kontrollü inişi geliştir.",
+        "Progress target reps and controlled lowering without torso momentum."
+      ],
+      [
+        "Bilek konumu bozulmadan küçük plaka artışları yap.",
+        "Add small plate increments without losing wrist position."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "brachioradialis",
+        "brachialis"
       ],
       "secondary": [
-        "forearms"
+        "biceps-brachii",
+        "forearm-extensors"
       ]
     },
     "media": {
@@ -9510,7 +9563,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Reverse Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Reverse Curl Rehberi: Tutuş ve Bilek Formu",
+        "Reverse Curl Guide: Grip and Wrist Form"
+      ],
+      "metaDescription": [
+        "Barbell reverse curl için pronasyonlu tutuş, bilek ve dirsek kontrolü, uygun yük seçimi, sık hatalar ve progresyonu öğren.",
+        "Learn pronated grip, wrist and elbow control, load selection, common mistakes, and progression for barbell reverse curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Brachioradialis ve brachialis",
+          "Brachioradialis and brachialis"
+        ],
+        "equipment": [
+          "Düz barbell",
+          "Straight barbell"
+        ],
+        "movementPattern": [
+          "Pronasyonlu dirsek fleksiyonu",
+          "Pronated elbow flexion"
+        ],
+        "bestFor": [
+          "Ön kol ve üst kol aksesuarı",
+          "Forearm and upper-arm accessory work"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş genişliği ve bilek konumu",
+          "Grip width and wrist position"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Üst bitiş ve alt menzil",
+          "Top endpoint and bottom range"
+        ]
+      ],
+      "related": [
+        "biceps-curl",
+        "zottman-curl",
+        "rope-hammer-curl"
+      ]
+    }
   },
   "dead-hang": {
     "publish": false,
@@ -9518,35 +9617,89 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/dead-hang",
     "summary": [
-      "Barfikse asılma. Kavrama gücü.",
-      "Bar hang. Grip strength."
+      "Düz dirseklerle bar üzerinde süreli asılı kalma.",
+      "A timed straight-arm hang from a pull-up bar."
     ],
     "description": [
-      "Barfikse ağırlıkla asılı durmak. Kavrama gücünü, ön kol kaslarını ve omuz sağlığını geliştirir. Basit ama çok etkilidir.",
-      "Hanging from a bar under load. Develops grip strength, forearm muscles, and shoulder health. Simple but very effective."
+      "Dead hang, barı kavrayıp dirsekler açık şekilde vücut ağırlığını taşıdığın süreli asılmadır. Kavrama dayanıklılığını ve bar toleransını geliştirir; omuzların tamamen pasif yükselmesi veya zorla aşağı bastırılması herkes için zorunlu değildir.",
+      "The dead hang is a timed bar hang with straight elbows while supporting bodyweight through the grip. It develops grip endurance and bar tolerance; neither a fully passive shoulder position nor forced depression is required for every lifter."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Omuzları kulağa doğru çöktürme — omuzlar aktif ve aşağıda kalmalı.",
-        "Don't let shoulders shrug to ears — keep them active and depressed."
+        "Sağlam bir barı rahat genişlikte kavra ve ayaklarını kontrollü biçimde yerden kes.",
+        "Grip a secure bar at a comfortable width and lift the feet from the floor under control."
       ],
       [
-        "Ön kol kaslarını kasarak tut; pasif sarkmak yerine aktif asıl.",
-        "Actively engage forearms; active hanging is better than passive sagging."
+        "Dirseklerini açık tut; başını ve gövdeni rahat bir çizgide bırak.",
+        "Keep the elbows straight and let the head and torso settle into a comfortable line."
       ],
       [
-        "Süreyi kademeli artır — 20-30 sn'den başla.",
-        "Gradually increase duration — start at 20-30 seconds."
+        "Omuzlarını ağrısız pasif veya hafif destekli bir konumda tut.",
+        "Keep the shoulders in a pain-free passive or lightly supported position."
+      ],
+      [
+        "Nefes almayı sürdürürken barı güvenli biçimde kavra ve planlanan süreyi tut.",
+        "Maintain a secure grip and continue breathing for the planned duration."
+      ],
+      [
+        "Tutuş bitmeden veya form bozulmadan ayaklarını kontrollü biçimde desteğe indir.",
+        "Return the feet to support under control before grip or position fails."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dead hang’i active hang’e çevirip omuzları sürekli maksimum aşağı bastırmak.",
+        "Turning the dead hang into an active hang by forcing maximal shoulder depression."
+      ],
+      [
+        "Omuz rahatsızlığına rağmen tamamen pasif pozisyonu zorlamak.",
+        "Forcing a fully passive position despite shoulder discomfort."
+      ],
+      [
+        "Tutuş açılırken bara son ana kadar asılı kalıp kontrolsüz düşmek.",
+        "Hanging until the grip opens and dropping without control."
+      ],
+      [
+        "Her bar kalınlığı ve tutuş biçimindeki süreleri doğrudan karşılaştırmak.",
+        "Directly comparing times across different bar thicknesses and grips."
+      ]
+    ],
+    "tips": [
+      [
+        "Dead hang ile active hang farklı omuz-kuşağı talepleridir; sürelerini ayrı kaydet.",
+        "Dead hangs and active hangs have different shoulder-girdle demands, so log their times separately."
+      ],
+      [
+        "Omuz pozisyonu kişiye göre pasif ile hafif aktif arasında olabilir; ağrısız kontrolü önceliklendir.",
+        "Shoulder position can range from passive to lightly active by individual; prioritize pain-free control."
+      ],
+      [
+        "Başlangıç süresini sabit bir sayıdan değil, güvenli kavrama ve omuz toleransından seç.",
+        "Choose starting duration from safe grip and shoulder tolerance rather than a fixed number."
+      ]
+    ],
+    "progression": [
+      [
+        "Ayakları hafif destekleyerek kısa, kontrollü asılmalarla başla.",
+        "Begin with short controlled hangs and light foot assistance."
+      ],
+      [
+        "Aynı bar ve tutuşta toplam süreyi küçük adımlarla artır.",
+        "Increase total time in small steps on the same bar and grip."
+      ],
+      [
+        "Süre yerleşince havlu, kalın bar veya harici yükü ayrı varyasyon olarak ekle.",
+        "Once duration is established, add towel, thick-bar, or weighted hangs as separate variations."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "forearms"
+        "forearm-flexors"
       ],
-      "secondary": []
+      "secondary": [
+        "brachioradialis",
+        "latissimus-dorsi"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -9562,7 +9715,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Dead Hang exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Dead Hang Rehberi: Kavrama ve Omuz Konumu",
+        "Dead Hang Guide: Grip and Shoulder Position"
+      ],
+      "metaDescription": [
+        "Dead hang için bar tutuşu, pasif ve hafif aktif omuz seçenekleri, güvenli süre takibi, sık hatalar ve progresyonu öğren.",
+        "Learn grip setup, passive and lightly active shoulder options, safe time tracking, common mistakes, and progression for dead hangs."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön kol fleksörleri",
+          "Forearm flexors"
+        ],
+        "equipment": [
+          "Sabit barfiks barı",
+          "Secure pull-up bar"
+        ],
+        "movementPattern": [
+          "Düz kol izometrik asılma",
+          "Straight-arm isometric hang"
+        ],
+        "bestFor": [
+          "Kavrama dayanıklılığı ve bar toleransı",
+          "Grip endurance and bar tolerance"
+        ]
+      },
+      "tracking": [
+        [
+          "Bar kalınlığı ve tutuş genişliği",
+          "Bar thickness and grip width"
+        ],
+        [
+          "Set süresi ve toplam süre",
+          "Set duration and total time"
+        ],
+        [
+          "Omuz pozisyonu ve ayak desteği",
+          "Shoulder position and foot assistance"
+        ]
+      ],
+      "related": [
+        "active-hang",
+        "farmer-carry",
+        "chin-up-hold"
+      ]
+    }
   },
   "active-hang": {
     "publish": false,
@@ -9903,35 +10102,88 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/wrist-extensions",
     "summary": [
-      "Bilek uzatma. Ön kol.",
-      "Wrist extensions. Forearms."
+      "Bench destekli, avuç aşağı dumbbell bilek ekstansiyonu.",
+      "Bench-supported palms-down dumbbell wrist extensions."
     ],
     "description": [
-      "Bilek uzatma hareketi. Ön kolun ekstansör kaslarını çalıştırır. Bilek dengesi ve dirsek sağlığı için önemlidir.",
-      "Wrist extension movement. Works the extensor muscles of the forearm. Important for wrist balance and elbow health."
+      "Wrist extension, ön kolları benche destekleyip avuçlar aşağı bakarken dumbbellları bilekten kaldırdığın harekettir. Ön kol ekstansörlerini doğrudan yükler; hareket tedavi veya sakatlık önleme garantisi değildir ve toleransa göre dozlanmalıdır.",
+      "The wrist extension supports the forearms on a bench while dumbbells are raised at the wrist with the palms facing down. It directly loads the forearm extensors, but it is not a guaranteed treatment or injury-prevention exercise and should be dosed to tolerance."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Fleksörlerden daha zayıf olan ekstansörler için hafif ağırlık kullan.",
-        "Use lighter weight — extensors are generally weaker than flexors."
+        "İki dumbbellı avuçlar aşağı bakacak şekilde kavra ve ön kollarını benche destekle.",
+        "Hold two dumbbells with the palms down and support the forearms on a bench."
       ],
       [
-        "Aşırı yükleme 'tenis dirseği' (lateral epikondilitis) riskini artırır.",
-        "Overloading increases risk of lateral epicondylitis (tennis elbow)."
+        "Bileklerini bench kenarının dışına çıkar; dirsek ve ön kolları sabit tut.",
+        "Place the wrists just beyond the bench edge while keeping elbows and forearms supported."
       ],
       [
-        "Rehabilitasyon veya önleyici olarak düzenli çalıştır.",
-        "Train regularly as rehabilitation or preventive care."
+        "Dumbbellları kontrollü biçimde aşağı indirerek bilekleri rahat fleksiyona bırak.",
+        "Lower the dumbbells under control into comfortable wrist flexion."
+      ],
+      [
+        "Ön kol ekstansörleriyle dumbbellları yukarı kaldır.",
+        "Raise the dumbbells with the forearm extensors."
+      ],
+      [
+        "Bilekleri zorla aşırı geriye çekmeden kontrollü üst noktada yön değiştir.",
+        "Reverse at a controlled top point without forcing excessive wrist extension."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dirsekleri veya ön kolları benchten kaldırarak dumbbellları savurmak.",
+        "Lifting the elbows or forearms from the bench and swinging the dumbbells."
+      ],
+      [
+        "Küçük eklem hareketine göre aşırı yük seçmek.",
+        "Selecting excessive load for the small joint movement."
+      ],
+      [
+        "Ağrı veya uyuşmaya rağmen rehabilitasyon amacıyla devam etmek.",
+        "Continuing through pain or numbness because the movement is assumed to be rehabilitative."
+      ],
+      [
+        "Her tekrarda farklı alt ve üst menzil kullanmak.",
+        "Using a different bottom and top range on every rep."
+      ]
+    ],
+    "tips": [
+      [
+        "Wrist extension yükleri wrist curl’den düşük olabilir; iki hareketi kilogramla doğrudan karşılaştırma.",
+        "Wrist-extension loads can be lower than wrist-curl loads, so do not compare them directly by weight."
+      ],
+      [
+        "Hareket menzilini zorunlu tam açı yerine ağrısız ve tekrarlanabilir aralıkta tut.",
+        "Use a pain-free, repeatable range rather than forcing a prescribed full angle."
+      ],
+      [
+        "Devam eden dirsek veya bilek şikâyetlerinde egzersizi tedavi yerine değerlendirme gerektiren bir sinyal olarak gör.",
+        "With persistent elbow or wrist symptoms, treat the issue as a signal for assessment rather than relying on the exercise as treatment."
+      ]
+    ],
+    "progression": [
+      [
+        "Çok hafif dumbbelllarla ön kol desteği ve kontrollü menzil oluştur.",
+        "Establish forearm support and controlled range with very light dumbbells."
+      ],
+      [
+        "Aynı menzilde tekrar ve yavaş eksantrik kontrolünü geliştir.",
+        "Progress reps and slow eccentric control through the same range."
+      ],
+      [
+        "Belirti ve teknik değişmeden küçük ağırlık artışları yap.",
+        "Add weight in small steps without symptom or technical changes."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "forearms"
+        "forearm-extensors"
       ],
-      "secondary": []
+      "secondary": [
+        "brachioradialis"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -9947,7 +10199,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Wrist Extensions exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Wrist Extensions Rehberi: Dumbbell Formu",
+        "Wrist Extensions Guide: Dumbbell Form"
+      ],
+      "metaDescription": [
+        "Dumbbell wrist extension için bench desteği, avuç aşağı tutuş, kontrollü bilek menzili, sık hatalar ve güvenli progresyonu öğren.",
+        "Learn bench support, palms-down grip, controlled wrist range, common mistakes, and safe progression for dumbbell wrist extensions."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön kol ekstansörleri",
+          "Forearm extensors"
+        ],
+        "equipment": [
+          "Çift dumbbell ve bench",
+          "Dumbbells and bench"
+        ],
+        "movementPattern": [
+          "Bilek ekstansiyonu",
+          "Wrist extension"
+        ],
+        "bestFor": [
+          "Doğrudan ön kol ekstansör yüklemesi",
+          "Direct forearm-extensor loading"
+        ]
+      },
+      "tracking": [
+        [
+          "Dumbbell ağırlığı ve tutuş",
+          "Dumbbell load and grip"
+        ],
+        [
+          "Tekrar, tempo ve RIR",
+          "Reps, tempo, and RIR"
+        ],
+        [
+          "Alt-üst menzil ve belirti durumu",
+          "Bottom-top range and symptom status"
+        ]
+      ],
+      "related": [
+        "wrist-curls",
+        "reverse-curl",
+        "farmer-carry"
+      ]
+    }
   },
   "wrist-curls": {
     "publish": false,
@@ -9955,33 +10253,84 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/wrist-curls",
     "summary": [
-      "Bilek bükme. Ön kol.",
-      "Wrist curls. Forearms."
+      "Bench destekli, avuç yukarı dumbbell bilek curl.",
+      "Bench-supported palms-up dumbbell wrist curls."
     ],
     "description": [
-      "Bilek bükme hareketi. Ön kolun fleksör kaslarını çalıştırır. Kavrama gücü ve ön kol dengesi için kullanılır.",
-      "Wrist curling movement. Works the flexor muscles of the forearm. Used for grip strength and forearm balance."
+      "Wrist curl, ön kolları benche destekleyip avuçlar yukarı bakarken dumbbellları bilekten kaldırdığın harekettir. Ön kol fleksörlerini doğrudan yükler; kavrama performansına katkı sağlayabilir ancak tek başına genel kavrama gücünü temsil etmez.",
+      "The wrist curl supports the forearms on a bench while dumbbells are raised at the wrist with the palms facing up. It directly loads the forearm flexors and can support grip performance, but it does not represent overall grip strength by itself."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Hafif ağırlıkla başla; bu kaslar küçük ve kolay yaralanabilir.",
-        "Start light; these are small muscles that fatigue and injure easily."
+        "İki dumbbellı avuçlar yukarı bakacak şekilde kavra ve ön kollarını benche destekle.",
+        "Hold two dumbbells with the palms up and support the forearms on a bench."
       ],
       [
-        "Hareketi tam yapın; bilek yukarı ve aşağı tam gidebilmeli.",
-        "Use full range of motion; wrist should flex and extend fully."
+        "Bileklerini bench kenarının dışına çıkar; dirsekleri ve ön kolları sabit tut.",
+        "Place the wrists just beyond the bench edge while keeping elbows and forearms supported."
       ],
       [
-        "Ön kolu banka üstüne koy — sadece bilek hareket etmeli.",
-        "Rest forearm on a bench — only the wrist should move."
+        "Dumbbellları kontrollü biçimde rahat bilek ekstansiyonuna indir.",
+        "Lower the dumbbells under control into comfortable wrist extension."
+      ],
+      [
+        "Ön kol fleksörleriyle dumbbellları yukarı doğru curl yap.",
+        "Curl the dumbbells upward with the forearm flexors."
+      ],
+      [
+        "Parmakları açıp dumbbellı yuvarlatmadan kontrollü üst noktada yön değiştir.",
+        "Reverse at a controlled top point without opening the fingers and rolling the dumbbells."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dumbbellları parmak uçlarına kontrolsüz yuvarlatmak.",
+        "Rolling the dumbbells uncontrollably into the fingertips."
+      ],
+      [
+        "Ön kolları benchten kaldırıp dirsek fleksiyonuyla ağırlığı hareket ettirmek.",
+        "Lifting the forearms from the bench and moving the load through elbow flexion."
+      ],
+      [
+        "Tam menzil zorunluluğuyla bileği rahatsız eden alt açıyı zorlamak.",
+        "Forcing a wrist-irritating bottom angle because full range is assumed mandatory."
+      ],
+      [
+        "Kavrama gücünü yalnız wrist curl ağırlığıyla değerlendirmek.",
+        "Evaluating grip strength only by wrist-curl load."
+      ]
+    ],
+    "tips": [
+      [
+        "Parmak curl eklemek ayrı bir varyasyondur; kullanıyorsan standart wrist curl’den ayrı kaydet.",
+        "Adding a finger curl is a separate variation, so log it apart from a standard wrist curl."
+      ],
+      [
+        "Tam hareket menzili kişiye özeldir; ağrısız ve tekrarlanabilir açıyı kullan.",
+        "Full range is individual; use a pain-free, repeatable angle."
+      ],
+      [
+        "Kavrama hedefi için dead hang ve carry gibi bütün el yüklemeleriyle birlikte kullanılabilir.",
+        "For grip goals, combine it with whole-hand loading such as dead hangs and carries."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbelllarla ön kol desteği, tutuş ve kontrollü menzil oluştur.",
+        "Establish forearm support, grip, and controlled range with light dumbbells."
+      ],
+      [
+        "Aynı menzilde tekrar ve eksantrik kontrolünü artır.",
+        "Increase reps and eccentric control through the same range."
+      ],
+      [
+        "Tutuş veya bilek konumu bozulmadan küçük ağırlık artışları yap.",
+        "Add weight in small steps without losing grip or wrist position."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "forearms"
+        "forearm-flexors"
       ],
       "secondary": []
     },
@@ -9999,7 +10348,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Wrist Curls exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Wrist Curls Rehberi: Dumbbell ve Bench Formu",
+        "Wrist Curls Guide: Dumbbell and Bench Form"
+      ],
+      "metaDescription": [
+        "Dumbbell wrist curl için bench desteği, avuç yukarı tutuş, kontrollü bilek menzili, sık hatalar ve progresyonu öğren.",
+        "Learn bench support, palms-up grip, controlled wrist range, common mistakes, and progression for dumbbell wrist curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Ön kol fleksörleri",
+          "Forearm flexors"
+        ],
+        "equipment": [
+          "Çift dumbbell ve bench",
+          "Dumbbells and bench"
+        ],
+        "movementPattern": [
+          "Bilek fleksiyonu",
+          "Wrist flexion"
+        ],
+        "bestFor": [
+          "Doğrudan ön kol fleksör yüklemesi",
+          "Direct forearm-flexor loading"
+        ]
+      },
+      "tracking": [
+        [
+          "Dumbbell ağırlığı ve tutuş",
+          "Dumbbell load and grip"
+        ],
+        [
+          "Tekrar, tempo ve RIR",
+          "Reps, tempo, and RIR"
+        ],
+        [
+          "Alt-üst bilek menzili",
+          "Bottom-to-top wrist range"
+        ]
+      ],
+      "related": [
+        "wrist-extensions",
+        "dead-hang",
+        "farmer-carry"
+      ]
+    }
   },
   "lat-pulldown": {
     "publish": false,
@@ -10985,36 +11380,91 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/chin-up-hold",
     "summary": [
-      "Tepe noktada chin-up tutuşu.",
-      "Top-position chin-up hold."
+      "Chin-up tepe konumunda süreli izometrik tutuş.",
+      "A timed isometric hold at the top of a chin-up."
     ],
     "description": [
-      "Chin-up tepe noktasında izometrik tutuş. Bar üstündeki kontrolü, skapular stabiliteyi ve biceps-sırt dayanıklılığını geliştirir. Tam chin-up'a geçişte çok faydalı bir ara basamaktır.",
-      "An isometric hold at the top position of a chin-up. It builds control above the bar, scapular stability, and biceps-back endurance. It is a very useful stepping stone toward full chin-ups."
+      "Chin-up hold, supine tutuşla çeneyi bar seviyesinin üzerinde tuttuğun tepe izometrisidir. Latissimus, biceps ve dirsek fleksörlerinden yüksek pozisyon dayanıklılığı ister; tek başına tam chin-up hareket menzilini geliştirmez.",
+      "The chin-up hold is a top-position isometric with a supinated grip and the chin above bar level. It demands high-position endurance from the lats, biceps, and elbow flexors, but does not train the full chin-up range by itself."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Çeneyi bar üstünde tutarken omuzları kulağa yükseltme.",
-        "Do not shrug the shoulders up toward the ears while holding above the bar."
+        "Barı rahat omuz genişliği çevresinde supine tutuşla kavra.",
+        "Grip the bar with a comfortable supinated grip around shoulder width."
       ],
       [
-        "Tutuş süresi kısa olsa da kaliteli pozisyonu koru.",
-        "Even if the hold is short, maintain a clean high-quality position."
+        "Bir kutu, kontrollü çekiş veya güvenli destekle tepe pozisyonuna gel.",
+        "Reach the top position with a box, controlled pull, or safe assistance."
       ],
       [
-        "Negatif inişi de kontrollü eklemek ilerlemeyi hızlandırır.",
-        "Adding a controlled negative afterward can speed up progress."
+        "Çeneyi nötr boyunla bar seviyesinin üzerinde tut; göğsü zorla bara bastırma.",
+        "Hold the chin above bar level with a neutral neck without forcing the chest into the bar."
+      ],
+      [
+        "Omuz ve dirsek açısını tekrarlanabilir tutarken nefes almayı sürdür.",
+        "Continue breathing while keeping shoulder and elbow angles repeatable."
+      ],
+      [
+        "Pozisyon bozulmadan kontrollü olarak desteğe dön veya planlı negatif iniş yap.",
+        "Return to support or perform a planned negative before the position breaks down."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Çeneyi yükseltmek için boynu aşırı geriye atmak.",
+        "Cranking the neck backward to raise the chin."
+      ],
+      [
+        "Omuzları zorla maksimum aşağı bastırarak tepe pozisyonunu değiştirmek.",
+        "Forcing maximal shoulder depression and changing the top position."
+      ],
+      [
+        "Tepeye kontrolsüz zıplayıp bar veya omuzlarda salınım oluşturmak.",
+        "Jumping uncontrolled into the top and creating bar or shoulder swing."
+      ],
+      [
+        "Farklı dirsek açılarındaki süreleri aynı standart gibi karşılaştırmak.",
+        "Comparing hold times at different elbow angles as if they were the same standard."
+      ]
+    ],
+    "tips": [
+      [
+        "Çenenin bar üzerinde görünmesi boynu uzatmadan sağlanmalıdır; tepe standardını videoyla sabitlemek yararlı olabilir.",
+        "The chin should clear the bar without neck extension; video can help standardize the top position."
+      ],
+      [
+        "İzometrik tutuş tam menzili yerine yalnız belirli açıyı güçlendirir; chin-up tekrarları veya negatiflerle tamamla.",
+        "The hold trains a specific angle rather than full range, so pair it with chin-up reps or negatives."
+      ],
+      [
+        "Süreyi pozisyon bozulmadan bitir; başarısızlığa kadar sallanmak zorunlu değildir.",
+        "End the hold before position fails; swinging to failure is not required."
+      ]
+    ],
+    "progression": [
+      [
+        "Ayak veya bant desteğiyle kısa, standart tepe tutuşları oluştur.",
+        "Build short standardized top holds with foot or band assistance."
+      ],
+      [
+        "Aynı çene, dirsek ve omuz konumunda süreyi küçük adımlarla artır.",
+        "Increase duration in small steps at the same chin, elbow, and shoulder position."
+      ],
+      [
+        "Kontrol yerleşince negatif iniş ekle veya desteği azalt.",
+        "Once control is established, add a negative descent or reduce assistance."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "biceps-brachii"
       ],
       "secondary": [
-        "biceps"
+        "brachialis",
+        "brachioradialis",
+        "middle-trapezius",
+        "rhomboids"
       ]
     },
     "media": {
@@ -11031,7 +11481,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Chin Up Hold exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Chin-Up Hold Rehberi: Tepe Tutuşu ve Süre",
+        "Chin-Up Hold Guide: Top Position and Time"
+      ],
+      "metaDescription": [
+        "Chin-up hold için supine tutuş, nötr boyun, standart tepe açısı, güvenli süre takibi, sık hatalar ve progresyonu öğren.",
+        "Learn supinated grip, neutral neck, standardized top angle, safe time tracking, common mistakes, and progression for chin-up holds."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus ve biceps",
+          "Lats and biceps"
+        ],
+        "equipment": [
+          "Sabit barfiks barı",
+          "Secure pull-up bar"
+        ],
+        "movementPattern": [
+          "Tepe çekiş izometrisi",
+          "Top-position pulling isometric"
+        ],
+        "bestFor": [
+          "Chin-up tepe pozisyon dayanıklılığı",
+          "Chin-up top-position endurance"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş genişliği ve destek türü",
+          "Grip width and assistance type"
+        ],
+        [
+          "Set süresi ve toplam süre",
+          "Set duration and total time"
+        ],
+        [
+          "Çene, dirsek ve omuz konumu",
+          "Chin, elbow, and shoulder position"
+        ]
+      ],
+      "related": [
+        "chin-up",
+        "assisted-pull-up",
+        "dead-hang"
+      ]
+    }
   },
   "typewriter-pull-up": {
     "publish": false,
@@ -11039,36 +11535,92 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/typewriter-pull-up",
     "summary": [
-      "Sağa-sola kayan barfiks.",
-      "Side-to-side pull-up."
+      "Tepe konumunda sağa-sola geçişli geniş tutuş pull-up.",
+      "A wide-grip pull-up with side-to-side travel at the top."
     ],
     "description": [
-      "Üst pozisyonda sağa-sola kayarak yapılan ileri seviye barfiks varyasyonu. Çekiş kuvveti, tek taraflı kontrol ve omuz stabilitesini aynı anda zorlar. Çok ileri bir calisthenics çekiş hareketidir.",
-      "An advanced pull-up variation where you shift side to side in the top position. It challenges pulling strength, unilateral control, and shoulder stability at the same time. It is a very advanced calisthenics pulling movement."
+      "Typewriter pull-up, geniş pronasyonlu tutuşla tepeye çekilip gövdeyi bar boyunca bir elden diğerine taşıdığın ileri seviye çekiştir. Bir kol daha fazla yük taşırken diğer kol daha açık kalır; hareket gerçek tek kol pull-up değildir.",
+      "The typewriter pull-up is an advanced pull performed with a wide pronated grip by reaching the top and shifting the torso along the bar from one hand toward the other. One arm bears more load while the other stays longer, but this is not a true one-arm pull-up."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Önce güçlü standart ve archer pull-up tabanı kur.",
-        "Build a strong base of standard and archer pull-ups first."
+        "Barı omuz genişliğinden daha geniş, iki tarafta eşit pronasyonlu tutuşla kavra.",
+        "Grip the bar evenly with a pronated grip wider than shoulder width."
       ],
       [
-        "Üst pozisyonda kontrolü kaybetmeden yana geç.",
-        "Shift side to side without losing top-position control."
+        "Kontrollü pull-up ile göğsünü ve çeneni bar seviyesine yaklaştır.",
+        "Use a controlled pull-up to bring the chest and chin near bar level."
       ],
       [
-        "Kısa tekrarlar bile çok zorlayıcı olabilir.",
-        "Even short reps can be very challenging here."
+        "Yükü bir kola aktarırken gövdeyi o ele doğru taşı ve karşı kolu daha uzun tut.",
+        "Shift load to one arm, move the torso toward that hand, and keep the opposite arm longer."
+      ],
+      [
+        "Tepe yüksekliğini mümkün olduğunca koruyarak merkezden diğer tarafa geç.",
+        "Travel through center toward the other side while preserving top height as much as possible."
+      ],
+      [
+        "Planlanan döngüyü tamamlayıp kontrollü biçimde alt pozisyona dön.",
+        "Complete the planned cycle and lower to the bottom under control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Standart pull-up tabanı olmadan hareketi tepe pozisyonda zorlamak.",
+        "Forcing the movement at the top without an adequate pull-up base."
+      ],
+      [
+        "Yana geçmek için bacak ve kalçayı kontrolsüz savurmak.",
+        "Swinging the legs and hips uncontrollably to travel sideways."
+      ],
+      [
+        "Destek kolunu tamamen pasif sanıp dirsek veya omzu kontrolsüz kilitlemek.",
+        "Treating the support arm as passive and locking the elbow or shoulder without control."
+      ],
+      [
+        "Bir sağ-sol döngüsü ile tek taraf geçişini aynı tekrar standardı saymak.",
+        "Counting one full side-to-side cycle and a single-side shift as the same rep standard."
+      ]
+    ],
+    "tips": [
+      [
+        "Tekrar tanımını önceden belirle: bir taraf geçişi veya tam sağ-sol döngüsü.",
+        "Define the rep before the set: one side shift or a complete side-to-side cycle."
+      ],
+      [
+        "Destek kolu hâlâ yük taşır; hareketi tek kol pull-up olarak kaydetme.",
+        "The support arm still bears load, so do not log the movement as a one-arm pull-up."
+      ],
+      [
+        "Tepe yüksekliği azalabilir; ilerlemeyi yatay mesafe ve yükseklikle birlikte değerlendir.",
+        "Top height may decrease, so evaluate progression by both horizontal travel and height."
+      ]
+    ],
+    "progression": [
+      [
+        "Güçlü geniş tutuş pull-up ve tepe izometrisi oluştur.",
+        "Build strong wide-grip pull-ups and top-position isometrics."
+      ],
+      [
+        "Tepe konumunda küçük sağ-sol ağırlık aktarmalarıyla başla.",
+        "Begin with small side-to-side weight shifts at the top."
+      ],
+      [
+        "Kontrol geliştikçe destek kolunu uzat ve yatay mesafeyi kademeli artır.",
+        "As control improves, lengthen the support arm and increase horizontal travel gradually."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "biceps-brachii"
       ],
       "secondary": [
-        "biceps"
+        "brachialis",
+        "brachioradialis",
+        "middle-trapezius",
+        "rhomboids",
+        "rectus-abdominis"
       ]
     },
     "media": {
@@ -11085,7 +11637,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Typewriter Pull Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Typewriter Pull-Up Rehberi ve Progresyonu",
+        "Typewriter Pull-Up Guide and Progression"
+      ],
+      "metaDescription": [
+        "Typewriter pull-up için geniş tutuş, tepe yüksekliği, yana yük aktarımı, tekrar standardı, sık hatalar ve progresyonu öğren.",
+        "Learn wide-grip setup, top height, side-to-side loading, rep standards, common mistakes, and progression for typewriter pull-ups."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus ve biceps",
+          "Lats and biceps"
+        ],
+        "equipment": [
+          "Sabit barfiks barı",
+          "Secure pull-up bar"
+        ],
+        "movementPattern": [
+          "Yana geçişli dikey çekiş",
+          "Side-to-side vertical pull"
+        ],
+        "bestFor": [
+          "İleri tek taraf ağırlıklı çekiş",
+          "Advanced side-biased pulling"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş genişliği ve tekrar tanımı",
+          "Grip width and rep definition"
+        ],
+        [
+          "Taraf başına geçiş ve RIR",
+          "Shifts per side and RIR"
+        ],
+        [
+          "Tepe yüksekliği ve yatay mesafe",
+          "Top height and horizontal travel"
+        ]
+      ],
+      "related": [
+        "pull-up",
+        "chin-up-hold",
+        "assisted-pull-up"
+      ]
+    }
   },
   "assisted-pull-up": {
     "publish": false,
@@ -11256,36 +11854,93 @@ window.LOGWISE_EX_GUIDES = {
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/australian-pull-up",
     "summary": [
-      "Yatay vücut row. Başlangıç dostu çekiş.",
-      "Horizontal body row. Beginner-friendly pull."
+      "Sabit bar altında yapılan vücut ağırlığı row.",
+      "A bodyweight row performed under a fixed bar."
     ],
     "description": [
-      "Barın altında yatay açıyla yapılan vücut ağırlığı row hareketi. Pull-up'tan daha erişilebilir olduğu için çekiş kaslarını geliştirmek ve form öğrenmek için idealdir. Sırt, biceps ve core aynı anda çalışır.",
-      "A bodyweight row performed under a bar at a horizontal angle. Because it is more accessible than a pull-up, it is ideal for building pulling strength and learning good mechanics. It trains the back, biceps, and core together."
+      "Australian pull-up, alçak sabit barın altında gövdeyi düz tutarak göğsü bara çektiğin yatay vücut ağırlığı row’dur. Bar yüksekliği, ayak konumu ve diz açısı yükü değiştirir; ring row’dan farklı olarak eller ve bar sabittir.",
+      "The Australian pull-up is a horizontal bodyweight row under a low fixed bar, performed by pulling the chest toward the bar while maintaining a controlled body line. Bar height, foot position, and knee angle change loading; unlike a ring row, the hands and bar remain fixed."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Vücudu düz çizgide tutarak göğsü bara yaklaştır.",
-        "Keep the body in a straight line and pull the chest toward the bar."
+        "Sağlam alçak barı rahat pronasyonlu tutuşla kavra ve ayaklarını öne yerleştir.",
+        "Grip a secure low bar with a comfortable pronated grip and place the feet forward."
       ],
       [
-        "Ayak pozisyonu değiştikçe zorluk artar veya azalır.",
-        "Adjusting foot position can increase or reduce the difficulty."
+        "Topuktan başa kontrollü bir gövde çizgisi kur; gerekirse dizlerini bük.",
+        "Establish a controlled line from heels to head, bending the knees if needed."
       ],
       [
-        "Kürek kemiklerini çekişin sonunda birleştirmeyi düşün.",
-        "Think about bringing the shoulder blades together at the end of the pull."
+        "Dirseklerini büküp göğsünü barın aynı noktasına doğru çek.",
+        "Flex the elbows and pull the chest toward the same point on the bar."
+      ],
+      [
+        "Omuzları zorla geriye sıkmadan kontrollü üst noktada yön değiştir.",
+        "Reverse at a controlled top point without forcing the shoulders into a hard squeeze."
+      ],
+      [
+        "Gövde çizgisini koruyarak dirseklerini kontrollü aç.",
+        "Extend the elbows under control while preserving the body line."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Kalçayı düşürmek veya yalnız göğsü yükselterek gövde çizgisini bozmak.",
+        "Dropping the hips or raising only the chest and losing the body line."
+      ],
+      [
+        "Her tekrarda barın farklı noktasına çekmek.",
+        "Pulling toward a different point on the bar each rep."
+      ],
+      [
+        "Kürek kemiklerini maksimum sıkıştırmak için omuz başlarını öne taşımak.",
+        "Driving the shoulder heads forward to force a maximal shoulder-blade squeeze."
+      ],
+      [
+        "Bar yüksekliği veya ayak konumunu kaydetmeden tekrarları karşılaştırmak.",
+        "Comparing reps without recording bar height or foot position."
+      ]
+    ],
+    "tips": [
+      [
+        "Dizleri bükmek ve ayakları bara yaklaştırmak genellikle yükü azaltır.",
+        "Bending the knees and moving the feet closer to the bar generally reduces loading."
+      ],
+      [
+        "Göğsün bara değmesi zorunlu değildir; aynı kontrollü üst noktayı kullan.",
+        "The chest does not need to touch the bar; use the same controlled top point."
+      ],
+      [
+        "Sabit bar ve ring row farklı stabilite talepleridir; performanslarını ayrı takip et.",
+        "A fixed bar and rings have different stability demands, so track their performance separately."
+      ]
+    ],
+    "progression": [
+      [
+        "Barı yükseltip dizleri bükerek daha dik gövde açısıyla başla.",
+        "Begin with a higher bar, bent knees, and a more upright torso angle."
+      ],
+      [
+        "Ayakları ileri taşıyıp bacakları düzleştirerek gövdeyi yataylaştır.",
+        "Move the feet forward and straighten the legs to make the torso more horizontal."
+      ],
+      [
+        "Gövde açısı sabitlenince ayak yükseltisi, tempo veya harici yük ekle.",
+        "Once body angle is consistent, add foot elevation, tempo, or external load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "back"
+        "latissimus-dorsi",
+        "rhomboids",
+        "middle-trapezius"
       ],
       "secondary": [
-        "biceps"
+        "posterior-deltoid",
+        "biceps-brachii",
+        "brachialis",
+        "rectus-abdominis",
+        "gluteus-maximus"
       ]
     },
     "media": {
@@ -11302,7 +11957,53 @@ window.LOGWISE_EX_GUIDES = {
         "Muscle map for the Australian Pull Up exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Australian Pull-Up Rehberi ve Formu",
+        "Australian Pull-Up Guide and Form"
+      ],
+      "metaDescription": [
+        "Australian pull-up için sabit bar kurulumu, vücut açısı, göğüs çekiş noktası, sık hatalar, yük ayarı ve progresyonu öğren.",
+        "Learn fixed-bar setup, body angle, chest pull point, common mistakes, loading adjustments, and progression for Australian pull-ups."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Latissimus, romboidler, orta trapez",
+          "Lats, rhomboids, middle traps"
+        ],
+        "equipment": [
+          "Alçak sabit bar",
+          "Low fixed bar"
+        ],
+        "movementPattern": [
+          "Vücut ağırlığı yatay çekiş",
+          "Bodyweight horizontal pull"
+        ],
+        "bestFor": [
+          "Ayarlanabilir bodyweight row kuvveti",
+          "Adjustable bodyweight rowing strength"
+        ]
+      },
+      "tracking": [
+        [
+          "Bar yüksekliği ve ayak konumu",
+          "Bar height and foot position"
+        ],
+        [
+          "Diz açısı, tekrar ve RIR",
+          "Knee angle, reps, and RIR"
+        ],
+        [
+          "Göğüs çekiş noktası ve gövde çizgisi",
+          "Chest pull point and body line"
+        ]
+      ],
+      "related": [
+        "ring-row",
+        "pull-up",
+        "assisted-pull-up"
+      ]
+    }
   },
   "ring-row": {
     "publish": false,
