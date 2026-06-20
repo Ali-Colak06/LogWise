@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-20 — On yedinci exercise guide enrichment batch'i eklendi. -->
+<!-- SON GÜNCELLEME: 2026-06-20 — On sekizinci exercise guide enrichment batch'i eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-81)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-82)
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
@@ -239,6 +239,7 @@ LogWise/
 - **Exercise guide enrichment batch 15** (Bölüm 79): Yedi fly/şınav varyasyonunun tam TR/EN içeriği, makine fly ayrımı, menzil ve yük dağılımı miti düzeltmeleri, toplam 108 content-ready ve 144 preview-ready guide ✅
 - **Exercise guide enrichment batch 16** (Bölüm 80): Yedi şınav/dip/triceps hareketinin tam TR/EN içeriği, seated dip standardı, ring instabilitesi ve JM Press bar yolu düzeltmeleri, toplam 115 content-ready guide ✅
 - **Exercise guide enrichment batch 17** (Bölüm 81): Dört triceps ve üç curl hareketinin tam TR/EN içeriği, overhead ekipman ayrımı, skull-crusher bitiş standardı ve curl direnç profili düzeltmeleri, toplam 122 content-ready guide ✅
+- **Exercise guide enrichment batch 18** (Bölüm 82): Yedi cable/preacher/incline curl varyasyonunun tam TR/EN içeriği, ekipman geçmişi ayrımları, izolasyon ve zorunlu uzama miti düzeltmeleri, toplam 129 content-ready guide ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

@@ -4151,6 +4151,54 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 82 — Exercise Guide Enrichment Batch 18 (2026-06-20)
+
+### Amaç
+
+Yedi cable, preacher ve incline curl varyasyonunu tam guide seviyesine taşımak; saf biceps izolasyonu, sürekli kablo gerilimi, sabit üst kol, zorunlu maksimum alt uzama ve tepe sıkışmasının kalite garantisi olduğu hakkındaki legacy cue'ları düzeltmek.
+
+### Kapsam
+
+- One Arm Cable Curl
+- Drag Curl
+- Preacher Curl
+- Machine Preacher Curl
+- Preacher Hammer Curl
+- Incline Dumbell Curl
+- Concentration Curl
+
+### İçerik Kararları
+
+- **One Arm Cable Curl:** Alçak makara ve tek el tutacağı standardı kilitlendi. Makara yüksekliği, makaradan uzaklık ve taraf başına yük/menzil/RIR ayrı takip edilir; kablo dış yükü sabit biceps torku olarak sunulmadı.
+- **Drag Curl:** Barbell, gövdeye yakın dikey bar yolu ve geriye giden dirsekler varyasyonun tanımlayıcı özellikleri yapıldı. Üst kolu sabit tutma cue'su kaldırıldı; klasik curl'den farklı üst bitiş noktası ayrı performans bağlamı olarak kabul edildi.
+- **Preacher Curl:** Kayıt EZ-bar ve preacher bench standardına bağlandı. Koltuk/pad ayarı, EZ-bar kıvrımı ve kontrollü alt menzil takip edilir; pad desteği saf biceps izolasyonu veya zorunlu dirsek kilidi olarak yorumlanmadı.
+- **Machine Preacher Curl:** Makine modeli, koltuk ve başlangıç ayarı performans bağlamına eklendi. Sabit yol otomatik güvenlik veya izolasyon sayılmadı; farklı makine direnç profilleri ayrı varyasyonlar gibi takip edilir.
+- **Preacher Hammer Curl:** Çift dumbbell ve nötr tutuş standardı kilitlendi. Brachialis/brachioradialis vurgusu bicepsin hareketten tamamen çıktığı iddiasına dönüştürülmedi; taraflar ayrı yük, tekrar ve RIR ile izlenir.
+- **Incline Dumbell Curl:** Eğik bench ve çift dumbbell standardı kullanıldı. Bench açısı omuz ekstansiyonunu belirleyen ana tracking alanı oldu; dirsekleri gövdenin gerisinde zorla sabitleme ve maksimum alt uzama zorunluluğu kaldırıldı.
+- **Concentration Curl:** Oturarak tek dumbbell ve iç uylukta üst kol desteği standardı yazıldı. Dirsek noktasını uyluğa bastırma kaldırıldı; üst kol desteği saf izolasyon değil momentum sınırlayıcı olarak tanımlandı.
+- **Readiness sonucu:** 145 total, 144 preview-ready, 129 content-ready, 0 media-ready, 0 published.
+- **Service worker:** Yeni statik URL veya runtime mantığı eklenmedi; mevcut guide verisi ve wrapper içeriği değiştiği için ek cache bump yapılmadı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/ex-guides.json` | Yedi cable/preacher/incline curl varyasyonu için tam TR/EN guide ve anatomik kas içeriği |
+| `data/ex-guides.js` | Kanonik JSON'dan yeniden üretilen wrapper |
+| `AGENTS.md` | Refactor özeti ve bölüm sayısı |
+| `REFACTOR-GECMISI.md` | Batch kapsamı, içerik kararları ve doğrulama kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 144 preview-ready, 129 content-ready, 0 media-ready, 0 published` olmalı.
+- Yedi batch kaydı `isContentReady` kontrolünü geçmeli; `publish` ve `mediaReady` false kalmalı.
+- Yalnızca hedeflenen yedi guide kaydı değişmeli; related exercise slug'ları preset kataloğunda bulunmalı.
+- Meta title 65, meta description 180 karakter sınırını aşmamalı ve JSON ile web wrapper birebir eşleşmeli.
+- `node scripts/build-blog.js` tüm Learn/Library/sitemap çıktılarını hatasız üretmeli.
+- Bench Press, Squat ve Deadlift Library HTML dosyaları `HEAD` ile byte-for-byte aynı kalmalı.
+
+---
+
 ## Bölüm 81 — Exercise Guide Enrichment Batch 17 (2026-06-20)
 
 ### Amaç

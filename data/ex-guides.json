@@ -8392,35 +8392,90 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/one-arm-cable-curl",
     "summary": [
-      "Tek kol kablo curl.",
-      "Single arm cable curl."
+      "Alçak makaradan tek kol cable curl.",
+      "A single-arm cable curl from a low pulley."
     ],
     "description": [
-      "Tek kol kablo curl. Her kolu bağımsız çalıştırır, sürekli gerilim sağlar. Kasların eşit gelişimi için faydalıdır.",
-      "Single arm cable curl. Works each arm independently with constant tension. Useful for equal muscular development."
+      "One-arm cable curl, alçak makaraya bağlı tek el tutacağıyla yapılan unilateral dirsek fleksiyonudur. Her kolu ayrı takip etmeyi ve küçük yük artışlarını kolaylaştırır; kablo dış yükü sürdürse de biceps torku hareket boyunca sabit değildir.",
+      "The one-arm cable curl is a unilateral elbow-flexion movement performed with a single handle on a low pulley. It makes side-specific tracking and small load changes convenient, but biceps torque is not constant even though the cable maintains external load."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Kablo alçak pozisyonda — ayak seviyesinden çek.",
-        "Cable set to low position — pull from ankle level."
+        "Tek el tutacağını alçak makaraya bağla ve çalışan kolun kabloyla hizalanacağı dengeli bir duruş al.",
+        "Attach a single handle to a low pulley and take a balanced stance with the working arm aligned to the cable."
       ],
       [
-        "Dirsek sabit kalmalı; sadece ön kol hareket eder.",
-        "Upper arm stays fixed; only the forearm moves."
+        "Omzunu rahat tut, üst kolunu gövdenin yanında tekrarlanabilir bir konuma getir.",
+        "Keep the shoulder relaxed and set the upper arm in a repeatable position beside the torso."
       ],
       [
-        "Her iki kola eşit tekrar uygula.",
-        "Apply equal reps to both arms."
+        "Bileği kontrollü tutarak dirseğini bük ve tutacağı yukarı çek.",
+        "Keep the wrist controlled, flex the elbow, and curl the handle upward."
+      ],
+      [
+        "Omzu öne taşımadan ulaşabildiğin üst noktada yön değiştir.",
+        "Reverse at the highest point reached without driving the shoulder forward."
+      ],
+      [
+        "Ağırlık plakalarını çarptırmadan dirseğini rahat alt uzamaya aç.",
+        "Extend the elbow to a comfortable bottom without letting the stack slam."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Gövdeyi yana eğerek veya döndürerek tutacağı kaldırmak.",
+        "Leaning or rotating the torso to raise the handle."
+      ],
+      [
+        "Dirseği her tekrarda öne taşıyıp hareket menzilini değiştirmek.",
+        "Driving the elbow forward each rep and changing the range."
+      ],
+      [
+        "Bileği bükerek curl hareketini tamamlamaya çalışmak.",
+        "Trying to finish the curl by flexing the wrist."
+      ],
+      [
+        "Kablo gerilimini hareket boyunca sabit biceps gerilimi saymak.",
+        "Treating cable load as constant biceps tension throughout the movement."
+      ]
+    ],
+    "tips": [
+      [
+        "Makara yüksekliği ve makaradan uzaklık başlangıç açısını değiştirir; ikisini de kaydet.",
+        "Pulley height and distance from the stack change the starting angle, so record both."
+      ],
+      [
+        "İki kola aynı tekrar sayısını zorlamak yerine yük, menzil ve RIR’ı taraf bazında karşılaştır.",
+        "Instead of forcing identical reps, compare load, range, and RIR by side."
+      ],
+      [
+        "Üst kol tamamen donmak zorunda değildir; hareketi baskın olarak dirsek fleksiyonu tut.",
+        "The upper arm need not be perfectly motionless; keep elbow flexion as the dominant action."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle ayak konumu, makara mesafesi ve rahat menzili yerleştir.",
+        "Establish foot position, pulley distance, and comfortable range with a light load."
+      ],
+      [
+        "İki tarafta aynı teknik standart korunurken tekrarları artır.",
+        "Increase reps while preserving the same technical standard on both sides."
+      ],
+      [
+        "Hedef tekrarlar temiz kaldığında kablo yükünü küçük adımlarla yükselt.",
+        "Raise cable load in small increments once target reps remain clean."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis"
       ],
-      "secondary": []
+      "secondary": [
+        "brachioradialis",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -8436,7 +8491,53 @@
         "Muscle map for the One Arm Cable Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "One-Arm Cable Curl Rehberi ve Formu",
+        "One-Arm Cable Curl Guide and Form"
+      ],
+      "metaDescription": [
+        "Tek kol cable curl için alçak makara kurulumu, dirsek ve bilek kontrolü, taraf takibi, sık hatalar ve progresyonu öğren.",
+        "Learn low-pulley setup, elbow and wrist control, side-specific tracking, common mistakes, and progression for one-arm cable curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Biceps ve brachialis",
+          "Biceps and brachialis"
+        ],
+        "equipment": [
+          "Alçak kablo ve tek el tutacağı",
+          "Low cable and single handle"
+        ],
+        "movementPattern": [
+          "Tek kol dirsek fleksiyonu",
+          "Single-arm elbow flexion"
+        ],
+        "bestFor": [
+          "Taraf bazlı biceps hacmi",
+          "Side-specific biceps volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makara yüksekliği ve ayak mesafesi",
+          "Pulley height and foot distance"
+        ],
+        [
+          "Taraf başına yük, tekrar ve RIR",
+          "Load, reps, and RIR per side"
+        ],
+        [
+          "Dirsek konumu ve alt menzil",
+          "Elbow position and bottom range"
+        ]
+      ],
+      "related": [
+        "biceps-curl",
+        "concentration-curl",
+        "machine-preacher-curl"
+      ]
+    }
   },
   "drag-curl": {
     "publish": false,
@@ -8444,35 +8545,90 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/drag-curl",
     "summary": [
-      "Bar gövdeye yakın curl. Farklı biceps hattı.",
-      "Bar-close curl. Different biceps line."
+      "Barı gövdeye yakın taşıyan barbell curl varyasyonu.",
+      "A barbell curl variation that keeps the bar close to the torso."
     ],
     "description": [
-      "Barı gövdeye yakın sürterek yapılan curl varyasyonu. Dirseklerin geriye gitmesi bicepsin farklı bir kasılma açısını öne çıkarır. Klasik curl'lere iyi bir çeşitlilik ekler.",
-      "A curl variation performed by dragging the bar close to the torso. Letting the elbows move back emphasizes a different biceps contraction angle. It adds useful variety beside standard curls."
+      "Drag curl, barı gövdeye yakın dikey bir hatta kaldırırken dirseklerin geriye gitmesine izin verilen barbell curl varyasyonudur. Omuz ekstansiyonu klasik curl’den farklı bir kol yolu oluşturur; hareket bicepsin tek bir bölümünü izole etmez.",
+      "The drag curl is a barbell curl variation in which the bar travels vertically close to the torso as the elbows move backward. Shoulder extension creates a different arm path from a standard curl, but the movement does not isolate one portion of the biceps."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Barı gövdeden uzaklaştırma.",
-        "Do not let the bar drift away from the torso."
+        "Barı rahat omuz genişliği çevresinde supine tutuşla kavra ve dengeli dur.",
+        "Grip the bar with a comfortable supinated grip around shoulder width and stand balanced."
       ],
       [
-        "Omuzları yükseltmeden dirsekleri geriye taşı.",
-        "Move the elbows back without shrugging the shoulders."
+        "Barı uylukların önünde tut; omuzlarını rahat ve bileklerini kontrollü konumda başlat.",
+        "Hold the bar in front of the thighs with relaxed shoulders and controlled wrists."
       ],
       [
-        "Kısa ama sıkı menzil iyi çalışabilir.",
-        "A slightly shorter but tighter range can work well."
+        "Dirseklerini geriye taşıyarak barı gövdene yakın dikey hatta yukarı sür.",
+        "Move the elbows backward and drag the bar upward along a vertical path close to the torso."
+      ],
+      [
+        "Bar gövdeden uzaklaşmadan ulaşabildiğin üst noktada yön değiştir.",
+        "Reverse at the highest point reached without letting the bar drift away from the torso."
+      ],
+      [
+        "Aynı yakın bar yolunu koruyarak kontrollü biçimde alt noktaya dön.",
+        "Return under control while preserving the same close bar path."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Barı öne doğru yay çizdirip hareketi standart curl’e çevirmek.",
+        "Arcing the bar forward and turning the movement into a standard curl."
+      ],
+      [
+        "Dirsekleri geri taşımak yerine omuzları yukarı silkerek barı kaldırmak.",
+        "Shrugging the shoulders instead of moving the elbows backward."
+      ],
+      [
+        "Kalça ve belden ivme üreterek barı gövde boyunca fırlatmak.",
+        "Using hip and back momentum to throw the bar up the torso."
+      ],
+      [
+        "Kısa üst menzili başarısız tekrar sanıp bilekleri aşırı bükmek.",
+        "Treating the shorter top range as failure and over-flexing the wrists."
+      ]
+    ],
+    "tips": [
+      [
+        "Barın gövdeye temas etmesi şart değildir; yakın ve tekrarlanabilir bir yol yeterlidir.",
+        "The bar does not need to touch the torso; a close, repeatable path is enough."
+      ],
+      [
+        "Drag curl üst noktası klasik curl’den daha aşağıda kalabilir; iki hareketin yüklerini doğrudan karşılaştırma.",
+        "The drag-curl endpoint can be lower than in a standard curl, so do not compare their loads directly."
+      ],
+      [
+        "Dirseklerin geriye gitmesi varyasyonun parçasıdır; üst kolu sabit tutma cue’su burada geçerli değildir.",
+        "Backward elbow travel is part of the variation, so a fixed-upper-arm cue does not apply here."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif barla yakın bar yolu ve simetrik dirsek hareketini öğren.",
+        "Learn the close bar path and symmetrical elbow travel with a light bar."
+      ],
+      [
+        "Aynı üst bitiş noktası korunurken tekrar ve eksantrik kontrolü geliştir.",
+        "Progress reps and eccentric control while preserving the same top endpoint."
+      ],
+      [
+        "Gövde ivmesi oluşmadan hedef tekrarlar tamamlandığında küçük yük artışları yap.",
+        "Add load in small steps once target reps are completed without torso momentum."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis"
       ],
-      "secondary": []
+      "secondary": [
+        "brachioradialis",
+        "posterior-deltoid"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -8488,7 +8644,53 @@
         "Muscle map for the Drag Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Drag Curl Rehberi: Bar Yolu ve Form",
+        "Drag Curl Guide: Bar Path and Form"
+      ],
+      "metaDescription": [
+        "Barbell drag curl için gövdeye yakın bar yolu, geriye dirsek hareketi, farklı üst menzil, sık hatalar ve progresyonu öğren.",
+        "Learn the close bar path, backward elbow travel, distinct top range, common mistakes, and progression for barbell drag curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Biceps ve brachialis",
+          "Biceps and brachialis"
+        ],
+        "equipment": [
+          "Barbell",
+          "Barbell"
+        ],
+        "movementPattern": [
+          "Omuz ekstansiyonlu dirsek fleksiyonu",
+          "Elbow flexion with shoulder extension"
+        ],
+        "bestFor": [
+          "Barbell curl çeşitliliği",
+          "Barbell curl variation"
+        ]
+      },
+      "tracking": [
+        [
+          "Tutuş genişliği ve bar yolu",
+          "Grip width and bar path"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Üst bitiş noktası ve dirsek hareketi",
+          "Top endpoint and elbow travel"
+        ]
+      ],
+      "related": [
+        "biceps-curl",
+        "spider-curl",
+        "preacher-curl"
+      ]
+    }
   },
   "preacher-curl": {
     "publish": false,
@@ -8496,35 +8698,90 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/preacher-curl",
     "summary": [
-      "Scott sehpasında curl.",
-      "Preacher bench curl."
+      "Preacher bench üzerinde EZ-bar curl.",
+      "An EZ-bar curl performed on a preacher bench."
     ],
     "description": [
-      "Scott sehpasında (preacher bench) biceps curl. Dirsekleri sehpaya kilitler, momentum kullanımını engeller. Saf biceps izolasyonu sağlar.",
-      "Biceps curl on a preacher bench. Locks elbows on the pad, eliminating momentum. Provides pure biceps isolation."
+      "Preacher curl, üst kolları eğimli pede destekleyerek EZ-bar ile yapılan dirsek fleksiyonudur. Ped gövde momentumunu sınırlar ve omuzu önde tutar; biceps, brachialis ve brachioradialis birlikte çalışmaya devam eder.",
+      "The preacher curl is an EZ-bar elbow-flexion movement with the upper arms supported on an angled pad. The pad limits torso momentum and places the shoulders forward, while the biceps, brachialis, and brachioradialis continue to work together."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Koltuk altları sehpanın üstünde; dirsekler pad'e tam oturmalı.",
-        "Armpits at the top of the pad; elbows fully supported on the pad."
+        "Koltuğu, koltuk altların padin üst kenarına rahatça yaklaşacak şekilde ayarla.",
+        "Adjust the seat so the armpits sit comfortably near the top edge of the pad."
       ],
       [
-        "Tam gerilim için tam aşağı in ama dirseği hiperekstanse etme.",
-        "Go to full extension at the bottom but don't hyperextend the elbow."
+        "Üst kollarını pede eşit yerleştir ve EZ-barın rahat kıvrımını kavra.",
+        "Place both upper arms evenly on the pad and grip a comfortable bend of the EZ-bar."
       ],
       [
-        "İniş kontrolü çok kritik — yavaş ve kasılı indir.",
-        "Eccentric (lowering) control is crucial — slow and controlled."
+        "Dirseklerini bükerek barı kontrollü biçimde yukarı kaldır.",
+        "Flex the elbows and curl the bar upward under control."
+      ],
+      [
+        "Üst kollar pedden ayrılmadan ulaşabildiğin üst noktada yön değiştir.",
+        "Reverse at the highest point reached without lifting the upper arms from the pad."
+      ],
+      [
+        "Barı, dirsek kontrolünü koruduğun rahat alt uzamaya indir.",
+        "Lower the bar to a comfortable bottom extension while maintaining elbow control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Koltuğu yanlış ayarlayıp omuzları yukarı sıkıştırmak veya pedden uzak kalmak.",
+        "Using a poor seat setting that jams the shoulders upward or leaves the arms away from the pad."
+      ],
+      [
+        "Alt noktaya hızla düşüp dirsekleri yük altında sertçe kilitlemek.",
+        "Dropping quickly into the bottom and hard-locking the elbows under load."
+      ],
+      [
+        "Barı yükseltmek için üst kolları pedden kaldırmak.",
+        "Lifting the upper arms from the pad to raise the bar."
+      ],
+      [
+        "Ped desteğini saf biceps izolasyonu olarak yorumlamak.",
+        "Interpreting pad support as pure biceps isolation."
+      ]
+    ],
+    "tips": [
+      [
+        "Bu kayıt EZ-bar preacher curl içindir; dumbbell ve makine varyasyonlarını ayrı takip et.",
+        "This entry is for the EZ-bar preacher curl; track dumbbell and machine versions separately."
+      ],
+      [
+        "Tam dirsek kilidi zorunlu değildir; kontrol edilen ve ağrısız alt menzili kullan.",
+        "A hard elbow lockout is not required; use a controlled, pain-free bottom range."
+      ],
+      [
+        "EZ-bar kıvrımı bilek hissini değiştirir, ancak herkes için tek doğru tutuş yoktur.",
+        "EZ-bar bends change wrist feel, but there is no single correct grip for everyone."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif EZ-bar ile koltuk ayarı, tutuş ve rahat alt menzili yerleştir.",
+        "Use a light EZ-bar to establish seat setting, grip, and comfortable bottom range."
+      ],
+      [
+        "Üst kol teması bozulmadan hedef tekrarları ve kontrollü inişi geliştir.",
+        "Progress target reps and controlled lowering without losing upper-arm contact."
+      ],
+      [
+        "Aynı menzilde temiz tekrarlar kaldığında küçük plaka artışları yap.",
+        "Add small plate increments once clean reps remain within the same range."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis"
       ],
-      "secondary": []
+      "secondary": [
+        "brachioradialis",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -8540,7 +8797,53 @@
         "Muscle map for the Preacher Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Preacher Curl Rehberi: EZ-Bar ve Pad Ayarı",
+        "Preacher Curl Guide: EZ-Bar and Pad Setup"
+      ],
+      "metaDescription": [
+        "EZ-bar preacher curl için koltuk ve pad ayarı, bilek dostu tutuş, kontrollü alt menzil, sık hatalar ve progresyonu öğren.",
+        "Learn seat and pad setup, comfortable EZ-bar grip, controlled bottom range, common mistakes, and progression for preacher curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Biceps ve brachialis",
+          "Biceps and brachialis"
+        ],
+        "equipment": [
+          "Preacher bench ve EZ-bar",
+          "Preacher bench and EZ-bar"
+        ],
+        "movementPattern": [
+          "Destekli dirsek fleksiyonu",
+          "Supported elbow flexion"
+        ],
+        "bestFor": [
+          "Momentum sınırlı biceps hacmi",
+          "Momentum-limited biceps volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Koltuk ayarı ve EZ-bar tutuşu",
+          "Seat setting and EZ-bar grip"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Alt menzil ve üst kol teması",
+          "Bottom range and upper-arm contact"
+        ]
+      ],
+      "related": [
+        "machine-preacher-curl",
+        "preacher-hammer-curl",
+        "spider-curl"
+      ]
+    }
   },
   "machine-preacher-curl": {
     "publish": false,
@@ -8548,35 +8851,90 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/machine-preacher-curl",
     "summary": [
-      "Makinede preacher curl. Sabit izolasyon.",
-      "Machine preacher curl. Stable isolation."
+      "Sabit makine yolunda preacher curl.",
+      "A preacher curl on a fixed machine path."
     ],
     "description": [
-      "Makinede yapılan preacher curl hareketi. Sabit yol ve destekli yapı sayesinde biceps izolasyonu kolaylaşır. Özellikle kontrollü tekrarlar ve kas hissi odaklı kol antrenmanları için çok uygundur.",
-      "A preacher-curl movement performed on a machine. The fixed path and supported setup make biceps isolation easier. It is especially suitable for controlled repetitions and mind-muscle focused arm work."
+      "Machine preacher curl, üst kolları pede destekleyip makinenin tutacaklarını kaldırdığın dirsek fleksiyonudur. Sabit yol ve destek denge ihtiyacını azaltır; makine geometrisi, koltuk ayarı ve direnç profili performansı önemli ölçüde değiştirir.",
+      "The machine preacher curl is an elbow-flexion movement performed with the upper arms supported on a pad and the hands on machine handles. The fixed path reduces balance demands, while machine geometry, seat setup, and resistance profile substantially affect performance."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Alt noktada kontrolü kaybetmeden tam uzamaya yaklaş.",
-        "Approach full extension at the bottom without losing control."
+        "Koltuğu, üst kolların pede eşit oturacağı ve omuzların rahat kalacağı yüksekliğe ayarla.",
+        "Adjust the seat so both upper arms rest evenly on the pad and the shoulders stay comfortable."
       ],
       [
-        "Makinenin direnci izin veriyorsa üstte sıkışma ekle.",
-        "If the machine resistance profile allows, add a squeeze at the top."
+        "Tutacakları rahat bilek konumuyla kavra ve makinenin başlangıç ayarını kontrol et.",
+        "Grip the handles with comfortable wrists and check the machine’s starting setting."
       ],
       [
-        "Hareketi omuzla değil bicepsle başlat.",
-        "Initiate the movement with the biceps rather than the shoulders."
+        "Üst kolları pedde tutarak dirseklerini bük ve tutacakları kaldır.",
+        "Keep the upper arms on the pad, flex the elbows, and raise the handles."
+      ],
+      [
+        "Omuzları öne taşımadan kontrollü üst noktada yön değiştir.",
+        "Reverse at a controlled top point without driving the shoulders forward."
+      ],
+      [
+        "Ağırlık plakalarını çarptırmadan rahat alt uzamaya dön.",
+        "Return to a comfortable bottom extension without slamming the stack."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Makine modeli ve koltuk ayarını kaydetmeden yükleri karşılaştırmak.",
+        "Comparing loads without recording machine model and seat setting."
+      ],
+      [
+        "Alt noktada kontrolü bırakıp ağırlık plağını sektirmek.",
+        "Losing control at the bottom and bouncing the weight stack."
+      ],
+      [
+        "Tutacakları kaldırmak için üst kolları pedden ayırmak.",
+        "Lifting the upper arms from the pad to move the handles."
+      ],
+      [
+        "Sabit makine yolunu otomatik güvenlik veya saf izolasyon saymak.",
+        "Treating a fixed machine path as automatic safety or pure isolation."
+      ]
+    ],
+    "tips": [
+      [
+        "Makine kolları ve pivotları farklı direnç profilleri üretir; farklı modelleri ayrı egzersiz gibi takip et.",
+        "Machine arms and pivots create different resistance profiles, so track different models as separate variations."
+      ],
+      [
+        "Üstte maksimum sıkışma ancak makine hâlâ anlamlı direnç sağlıyorsa yararlıdır.",
+        "A maximal top squeeze is useful only if the machine still provides meaningful resistance there."
+      ],
+      [
+        "Tam alt uzama zorunlu değildir; dirsek ve omuz kontrolünü koruyan menzili seç.",
+        "Maximum bottom extension is not required; choose a range that preserves elbow and shoulder control."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif yükle koltuk, başlangıç ayarı ve rahat menzili standartlaştır.",
+        "Standardize seat, start setting, and comfortable range with a light load."
+      ],
+      [
+        "Aynı pad teması ve menzilde hedef tekrarları tamamla.",
+        "Complete target reps with the same pad contact and range."
+      ],
+      [
+        "Makine plakasını küçük adımlarla artır; büyük sıçramalarda tekrar progresyonu kullan.",
+        "Increase the stack in small steps and use rep progression when jumps are large."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis"
       ],
-      "secondary": []
+      "secondary": [
+        "brachioradialis",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -8592,7 +8950,53 @@
         "Muscle map for the Machine Preacher Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Machine Preacher Curl Rehberi ve Ayarı",
+        "Machine Preacher Curl Guide and Setup"
+      ],
+      "metaDescription": [
+        "Machine preacher curl için koltuk ve başlangıç ayarı, pad teması, makine farkları, kontrollü menzil ve progresyonu öğren.",
+        "Learn seat and start settings, pad contact, machine differences, controlled range, and progression for machine preacher curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Biceps ve brachialis",
+          "Biceps and brachialis"
+        ],
+        "equipment": [
+          "Preacher curl makinesi",
+          "Preacher curl machine"
+        ],
+        "movementPattern": [
+          "Makinede destekli dirsek fleksiyonu",
+          "Machine-supported elbow flexion"
+        ],
+        "bestFor": [
+          "Dengesi azaltılmış biceps hacmi",
+          "Low-balance-demand biceps volume"
+        ]
+      },
+      "tracking": [
+        [
+          "Makine modeli ve koltuk ayarı",
+          "Machine model and seat setting"
+        ],
+        [
+          "Yük, tekrar ve RIR",
+          "Load, reps, and RIR"
+        ],
+        [
+          "Başlangıç ayarı ve alt menzil",
+          "Start setting and bottom range"
+        ]
+      ],
+      "related": [
+        "preacher-curl",
+        "preacher-hammer-curl",
+        "one-arm-cable-curl"
+      ]
+    }
   },
   "preacher-hammer-curl": {
     "publish": false,
@@ -8600,36 +9004,89 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/preacher-hammer-curl",
     "summary": [
-      "Scott sehpasında hammer curl.",
-      "Hammer curl on preacher bench."
+      "Preacher bench üzerinde nötr tutuşlu dumbbell curl.",
+      "A neutral-grip dumbbell curl on a preacher bench."
     ],
     "description": [
-      "Scott sehpasında nötr tutuşla yapılan hammer curl varyasyonu. Biceps ile birlikte brachialis ve ön kolu daha net hedefler. Momentumun sınırlı olması kol hissini artırır.",
-      "A hammer-curl variation performed on a preacher bench with a neutral grip. It targets the biceps together with the brachialis and forearms more directly. The restricted momentum increases direct arm tension."
+      "Preacher hammer curl, üst kolları preacher padine destekleyip iki dumbbellı nötr tutuşla kaldırdığın dirsek fleksiyonudur. Nötr tutuş brachialis ve brachioradialis katkısını artırabilir; biceps de hareket üretmeye devam eder.",
+      "The preacher hammer curl supports the upper arms on a preacher pad while two dumbbells are curled with a neutral grip. The neutral grip can increase brachialis and brachioradialis contribution, while the biceps continues to produce movement."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri pad üzerinde sabit tut.",
-        "Keep the elbows fixed on the pad."
+        "Koltuğu, üst kolların pede eşit ve rahat oturacağı yüksekliğe ayarla.",
+        "Adjust the seat so both upper arms rest evenly and comfortably on the pad."
       ],
       [
-        "Ağır yük yerine temiz menzil kullan.",
-        "Use a clean range of motion over chasing heavy weight."
+        "Dumbbellları avuçlar birbirine bakacak nötr tutuşla kavra.",
+        "Grip the dumbbells with the palms facing each other in a neutral position."
       ],
       [
-        "Üstte kısa sıkışma eklemek hissi artırır.",
-        "A brief squeeze at the top improves the contraction."
+        "Bilekleri nötr tutup dirseklerini bükerek dumbbellları kaldır.",
+        "Keep the wrists neutral and flex the elbows to raise the dumbbells."
+      ],
+      [
+        "Üst kollar pedden ayrılmadan kontrollü üst noktada yön değiştir.",
+        "Reverse at a controlled top point without lifting the upper arms from the pad."
+      ],
+      [
+        "Dumbbellları, dirsek kontrolünü koruduğun rahat alt uzamaya indir.",
+        "Lower the dumbbells to a comfortable bottom extension while maintaining elbow control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Nötr tutuşu kaybedip bilekleri içe veya dışa kırmak.",
+        "Losing the neutral grip and bending the wrists inward or outward."
+      ],
+      [
+        "Dumbbellları kaldırmak için üst kolları pedden çekmek.",
+        "Pulling the upper arms from the pad to raise the dumbbells."
+      ],
+      [
+        "Alt noktada kontrolü bırakıp dirsekleri sertçe kilitlemek.",
+        "Dropping into the bottom and hard-locking the elbows."
+      ],
+      [
+        "Nötr tutuşun bicepsi hareketten tamamen çıkardığını varsaymak.",
+        "Assuming a neutral grip removes the biceps from the movement entirely."
+      ]
+    ],
+    "tips": [
+      [
+        "İki dumbbell taraf farklarını görünür kılar; zayıf ve güçlü tarafı ayrı izle.",
+        "Two dumbbells make side differences visible, so track the stronger and weaker sides separately."
+      ],
+      [
+        "Dumbbellların aynı anda hareket etmesi zorunlu değildir; alternating tekrar yapıyorsan bunu kaydet.",
+        "The dumbbells need not move simultaneously; record it if you use alternating reps."
+      ],
+      [
+        "Üstte kısa duraklama opsiyoneldir; bilek nötrlüğü ve pad teması daha temel standartlardır.",
+        "A brief top pause is optional; wrist neutrality and pad contact are more fundamental standards."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbelllarla koltuk ayarı, nötr bilek ve alt menzili yerleştir.",
+        "Use light dumbbells to establish seat setting, neutral wrists, and bottom range."
+      ],
+      [
+        "İki tarafta pad teması korunurken tekrarları artır.",
+        "Increase reps while pad contact remains consistent on both sides."
+      ],
+      [
+        "Dumbbell artışları büyükse önce tekrar, tempo veya kısa duraklama ilerlet.",
+        "If dumbbell jumps are large, progress reps, tempo, or a brief pause first."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "brachialis",
+        "brachioradialis"
       ],
       "secondary": [
-        "forearms"
+        "biceps-brachii",
+        "forearm-flexors"
       ]
     },
     "media": {
@@ -8646,7 +9103,53 @@
         "Muscle map for the Preacher Hammer Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Preacher Hammer Curl Rehberi ve Formu",
+        "Preacher Hammer Curl Guide and Form"
+      ],
+      "metaDescription": [
+        "Preacher hammer curl için pad ayarı, nötr dumbbell tutuşu, bilek ve dirsek kontrolü, taraf takibi ve progresyonu öğren.",
+        "Learn pad setup, neutral dumbbell grip, wrist and elbow control, side tracking, and progression for preacher hammer curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Brachialis ve brachioradialis",
+          "Brachialis and brachioradialis"
+        ],
+        "equipment": [
+          "Preacher bench ve çift dumbbell",
+          "Preacher bench and dumbbells"
+        ],
+        "movementPattern": [
+          "Destekli nötr tutuş curl",
+          "Supported neutral-grip curl"
+        ],
+        "bestFor": [
+          "Kol ve ön kol kalınlığı",
+          "Upper-arm and forearm development"
+        ]
+      },
+      "tracking": [
+        [
+          "Koltuk ayarı ve dumbbell tutuşu",
+          "Seat setting and dumbbell grip"
+        ],
+        [
+          "Taraf başına yük, tekrar ve RIR",
+          "Load, reps, and RIR per side"
+        ],
+        [
+          "Alt menzil ve pad teması",
+          "Bottom range and pad contact"
+        ]
+      ],
+      "related": [
+        "preacher-curl",
+        "machine-preacher-curl",
+        "hammer-curl"
+      ]
+    }
   },
   "incline-dumbell-curl": {
     "publish": false,
@@ -8654,35 +9157,90 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/incline-dumbell-curl",
     "summary": [
-      "Eğik bankta biceps curl. Uzamış pozisyon.",
-      "Incline biceps curl. Lengthened position."
+      "Eğik benchte çift dumbbell biceps curl.",
+      "A two-dumbbell biceps curl on an incline bench."
     ],
     "description": [
-      "Eğik bankta yapılan biceps curl varyasyonu. Omuz geride ve kol uzamış pozisyonda olduğu için biceps uzun başını güçlü şekilde gerer. Hipertrofi odaklı kol çalışmalarında çok değerli bir izolasyon hareketidir.",
-      "A biceps-curl variation performed on an incline bench. Because the shoulders stay back and the arms begin in a lengthened position, it strongly stretches the long head of the biceps. It is a very valuable isolation movement in hypertrophy-focused arm training."
+      "Incline dumbbell curl, eğik benchte sırt destekliyken kollar gövdenin gerisinde başlayacak şekilde yapılan curl varyasyonudur. Omuz ekstansiyonu bicepsi daha uzun kas boyunda yükleyebilir; bench açısı ve kişisel omuz hareketliliği başlangıç konumunu belirler.",
+      "The incline dumbbell curl is performed with the back supported on an incline bench and the arms beginning behind the torso. Shoulder extension can load the biceps at a longer muscle length, while bench angle and individual shoulder mobility determine the starting position."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Dirsekleri gövdenin gerisinde sabit tut; omuzu öne kaçırma.",
-        "Keep the elbows fixed behind the torso and avoid rolling the shoulders forward."
+        "Benchi omuzlarının rahatça geride kalabileceği tekrarlanabilir bir eğime ayarla.",
+        "Set the bench to a repeatable incline that allows the shoulders to rest comfortably back."
       ],
       [
-        "Ağırlığı sallamak yerine alt noktadaki gerilimi koru.",
-        "Do not swing the weight; preserve the stretch at the bottom."
+        "Sırtını ve başını destekle; dumbbellları rahat supine veya nötrden supine dönen tutuşla al.",
+        "Support the back and head and hold the dumbbells with a comfortable supinated or rotating grip."
       ],
       [
-        "Tam açılıp kontrollü kapanan tekrarlar bu harekette daha değerlidir.",
-        "Full controlled reps with a deep stretch are especially valuable here."
+        "Üst kolları rahat başlangıç konumunda tutup dirseklerini bükerek dumbbellları kaldır.",
+        "Keep the upper arms in a comfortable starting position and curl the dumbbells upward."
+      ],
+      [
+        "Omuzları öne yuvarlamadan kontrollü üst noktada yön değiştir.",
+        "Reverse at a controlled top point without rolling the shoulders forward."
+      ],
+      [
+        "Dumbbellları, omuz ve dirsek kontrolünü koruduğun alt uzamaya indir.",
+        "Lower the dumbbells to the bottom extension that preserves shoulder and elbow control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Bank açısını her seansta değiştirip yükleri doğrudan karşılaştırmak.",
+        "Changing bench angle each session and comparing loads directly."
+      ],
+      [
+        "Maksimum uzama için omuzları rahatsız edici biçimde geriye zorlamak.",
+        "Forcing the shoulders backward uncomfortably in pursuit of maximum stretch."
+      ],
+      [
+        "Dumbbellları kaldırmak için omuzları öne taşıyıp sırtı benchten ayırmak.",
+        "Driving the shoulders forward and lifting the back from the bench to curl."
+      ],
+      [
+        "Alt noktada kontrolü bırakıp dirsekleri yük altında sertçe kilitlemek.",
+        "Dropping into the bottom and hard-locking the elbows under load."
+      ]
+    ],
+    "tips": [
+      [
+        "Dirseklerin gövdenin tam gerisinde sabitlenmesi zorunlu değildir; rahat üst kol yolunu koru.",
+        "The elbows do not need to stay fixed far behind the torso; preserve a comfortable upper-arm path."
+      ],
+      [
+        "Bench açısı omuz ekstansiyonunu değiştirir; derece veya kademe bilgisini kaydet.",
+        "Bench angle changes shoulder extension, so record the degree or bench setting."
+      ],
+      [
+        "Uzun kas boyu hedefi ağrısız omuz ve dirsek kontrolünün önüne geçmez.",
+        "A long-muscle-length goal does not override pain-free shoulder and elbow control."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbelllarla bench açısı, tutuş ve rahat alt menzili yerleştir.",
+        "Use light dumbbells to establish bench angle, grip, and comfortable bottom range."
+      ],
+      [
+        "Sırt desteği ve aynı kol yolu korunurken tekrarları artır.",
+        "Increase reps while preserving back support and the same arm path."
+      ],
+      [
+        "Dumbbell sıçramaları büyükse yükten önce tekrar veya tempo ilerlet.",
+        "If dumbbell jumps are large, progress reps or tempo before load."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis"
       ],
-      "secondary": []
+      "secondary": [
+        "brachioradialis",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -8698,7 +9256,53 @@
         "Muscle map for the Incline Dumbell Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Incline Dumbbell Curl Rehberi ve Formu",
+        "Incline Dumbbell Curl Guide and Form"
+      ],
+      "metaDescription": [
+        "Incline dumbbell curl için bench açısı, omuz konumu, kontrollü alt menzil, sık hatalar ve dumbbell progresyonunu öğren.",
+        "Learn bench angle, shoulder position, controlled bottom range, common mistakes, and dumbbell progression for incline curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Biceps ve brachialis",
+          "Biceps and brachialis"
+        ],
+        "equipment": [
+          "Eğik bench ve çift dumbbell",
+          "Incline bench and dumbbells"
+        ],
+        "movementPattern": [
+          "Omuz ekstansiyonunda dirsek fleksiyonu",
+          "Elbow flexion in shoulder extension"
+        ],
+        "bestFor": [
+          "Uzun kas boyunda biceps çalışması",
+          "Long-length biceps training"
+        ]
+      },
+      "tracking": [
+        [
+          "Bench açısı ve tutuş biçimi",
+          "Bench angle and grip style"
+        ],
+        [
+          "Dumbbell ağırlığı, tekrar ve RIR",
+          "Dumbbell load, reps, and RIR"
+        ],
+        [
+          "Alt menzil ve omuz konforu",
+          "Bottom range and shoulder comfort"
+        ]
+      ],
+      "related": [
+        "biceps-curl",
+        "spider-curl",
+        "concentration-curl"
+      ]
+    }
   },
   "concentration-curl": {
     "publish": false,
@@ -8706,35 +9310,90 @@
     "mediaReady": false,
     "webGuideUrl": "https://logwise.fit/library/exercises/concentration-curl",
     "summary": [
-      "Oturarak tek kol curl. Saf biceps hissi.",
-      "Seated single-arm curl. Pure biceps focus."
+      "Oturarak, uyluk destekli tek dumbbell curl.",
+      "A seated single-dumbbell curl supported by the inner thigh."
     ],
     "description": [
-      "Oturarak tek kol yapılan klasik biceps izolasyon hareketi. Dirsek uyluğa dayandığı için momentum kullanımı azalır ve kas hissi artar. Daha hafif ağırlıklarla temiz biceps çalışmak için idealdir.",
-      "A classic single-arm biceps isolation movement performed seated. Because the elbow is braced against the thigh, it reduces momentum and increases direct muscle feel. It is ideal for clean biceps work with lighter loads."
+      "Concentration curl, oturarak çalışan üst kolu iç uyluğa desteklediğin tek dumbbell curl varyasyonudur. Destek gövde momentumunu sınırlar ve tarafları ayrı takip etmeyi kolaylaştırır; hareket saf biceps izolasyonu sağlamaz.",
+      "The concentration curl is a seated single-dumbbell curl with the working upper arm supported against the inner thigh. Support limits torso momentum and makes side-specific tracking easy, but the movement does not provide pure biceps isolation."
     ],
-    "formSteps": [],
-    "mistakes": [],
-    "tips": [
+    "formSteps": [
       [
-        "Üst kolu sabit tutup sadece ön kolu hareket ettir.",
-        "Keep the upper arm fixed and move only the forearm."
+        "Benche otur, ayaklarını aç ve çalışan üst kolunu iç uyluğa rahatça destekle.",
+        "Sit on a bench, spread the feet, and support the working upper arm comfortably against the inner thigh."
       ],
       [
-        "Tepe noktada kısa sıkışma eklemek hissi belirgin artırır.",
-        "A short squeeze at the top noticeably improves the contraction."
+        "Dumbbellı supine tutuşla kavra; omuzunu rahat ve gövdeni dengeli tut.",
+        "Grip the dumbbell with a supinated hand while keeping the shoulder relaxed and torso balanced."
       ],
       [
-        "Ağırdan çok temiz formu kovalamak bu harekette daha anlamlıdır.",
-        "Prioritizing strict form over heavy load makes more sense on this exercise."
+        "Üst kol desteğini koruyup dirseğini bükerek dumbbellı kaldır.",
+        "Maintain upper-arm support and flex the elbow to raise the dumbbell."
+      ],
+      [
+        "Omzu öne taşımadan kontrollü üst noktada yön değiştir.",
+        "Reverse at a controlled top point without driving the shoulder forward."
+      ],
+      [
+        "Dumbbellı dirsek kontrolünü koruduğun rahat alt uzamaya indir.",
+        "Lower the dumbbell to a comfortable bottom extension while maintaining elbow control."
       ]
     ],
-    "progression": [],
+    "mistakes": [
+      [
+        "Dirsek ucunu uyluğa sertçe bastırıp eklem üzerinde basınç oluşturmak.",
+        "Driving the point of the elbow hard into the thigh and creating joint pressure."
+      ],
+      [
+        "Dumbbellı kaldırmak için gövdeyi döndürmek veya omzu öne taşımak.",
+        "Rotating the torso or driving the shoulder forward to raise the dumbbell."
+      ],
+      [
+        "Üstte daha fazla sıkışma için bileği aşırı bükmek.",
+        "Over-flexing the wrist at the top to seek a stronger squeeze."
+      ],
+      [
+        "Daha hafif yük kullanılmasını hareketin ilerletilemeyeceği şeklinde yorumlamak.",
+        "Assuming the movement cannot be progressed because it often uses lighter loads."
+      ]
+    ],
+    "tips": [
+      [
+        "Üst kolun orta-alt bölümünü uyluğa destekle; dirsek noktasını sıkıştırma.",
+        "Support the mid-to-lower upper arm against the thigh rather than jamming the elbow point."
+      ],
+      [
+        "Üstte kısa duraklama opsiyoneldir; menzil ve bilek kontrolü daha temel ölçütlerdir.",
+        "A brief top pause is optional; range and wrist control are more fundamental measures."
+      ],
+      [
+        "Sağ ve sol kolu yük, tekrar, menzil ve RIR ile ayrı karşılaştır.",
+        "Compare the right and left arms separately by load, reps, range, and RIR."
+      ]
+    ],
+    "progression": [
+      [
+        "Hafif dumbbell ile oturuş, üst kol desteği ve rahat menzili yerleştir.",
+        "Use a light dumbbell to establish the seated position, upper-arm support, and comfortable range."
+      ],
+      [
+        "İki tarafta aynı teknik standardı korurken tekrarları artır.",
+        "Increase reps while preserving the same technical standard on both sides."
+      ],
+      [
+        "Dumbbell artışları büyükse önce tempo veya tekrar progresyonu kullan.",
+        "If dumbbell jumps are large, use tempo or rep progression first."
+      ]
+    ],
     "muscles": {
       "primary": [
-        "biceps"
+        "biceps-brachii",
+        "brachialis"
       ],
-      "secondary": []
+      "secondary": [
+        "brachioradialis",
+        "forearm-flexors"
+      ]
     },
     "media": {
       "demoMp4": null,
@@ -8750,7 +9409,53 @@
         "Muscle map for the Concentration Curl exercise"
       ]
     },
-    "web": null
+    "web": {
+      "metaTitle": [
+        "Concentration Curl Rehberi ve Formu",
+        "Concentration Curl Guide and Form"
+      ],
+      "metaDescription": [
+        "Concentration curl için oturuş, uyluk desteği, bilek ve dirsek kontrolü, taraf takibi, sık hatalar ve progresyonu öğren.",
+        "Learn seated setup, thigh support, wrist and elbow control, side tracking, common mistakes, and progression for concentration curls."
+      ],
+      "quickFacts": {
+        "primaryMuscles": [
+          "Biceps ve brachialis",
+          "Biceps and brachialis"
+        ],
+        "equipment": [
+          "Tek dumbbell ve bench",
+          "One dumbbell and bench"
+        ],
+        "movementPattern": [
+          "Uyluk destekli tek kol curl",
+          "Thigh-supported single-arm curl"
+        ],
+        "bestFor": [
+          "Taraf bazlı kontrollü biceps çalışması",
+          "Side-specific controlled biceps work"
+        ]
+      },
+      "tracking": [
+        [
+          "Üst kol destek noktası",
+          "Upper-arm support point"
+        ],
+        [
+          "Taraf başına yük, tekrar ve RIR",
+          "Load, reps, and RIR per side"
+        ],
+        [
+          "Alt menzil ve bilek kontrolü",
+          "Bottom range and wrist control"
+        ]
+      ],
+      "related": [
+        "one-arm-cable-curl",
+        "incline-dumbell-curl",
+        "preacher-curl"
+      ]
+    }
   },
   "reverse-curl": {
     "publish": false,
