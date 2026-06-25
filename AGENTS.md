@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-20 — Yirmi birinci exercise guide enrichment batch'i ve tam içerik kapsamı tamamlandı. -->
+<!-- SON GÜNCELLEME: 2026-06-26 — Web ve Expo mobil uygulaması gerçek monorepo tabanında birleştirildi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -8,7 +8,10 @@ Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) 
 
 ## 1. Proje Özeti
 
-LogWise — React 18 + Supabase tabanlı, Cloudflare Pages üzerinde yayınlanan bir antrenman takip PWA'sı. Build step yok. Ürün uygulaması `/app`/`app.html` altında React ile çalışır; landing sayfaları (`/`, `/tr`) statik SEO HTML'dir. React, doğrudan `React.createElement()` çağrılarıyla kullanılır; JSX yoktur. Dil desteği: Türkçe + İngilizce.
+LogWise tek Git reposunda iki istemci barındırır:
+
+- **Web:** React 18 + Supabase tabanlı, Cloudflare üzerinde yayınlanan build'siz PWA. Ürün uygulaması `/app`/`app.html` altında çalışır; landing sayfaları (`/`, `/tr`) statik SEO HTML'dir. Web React kodu doğrudan `React.createElement()` kullanır; JSX yoktur.
+- **Mobil:** `logwise-mobile/` altında Expo + React Native + TypeScript uygulaması. Metro/Babel ve TSX yalnız bu alt proje içinde kullanılır.
 
 Prod URL: https://logwise.fit
 
@@ -20,23 +23,24 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 59 — TR Learn URL yerelleştirmesi).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 86 — Web/Mobil monorepo entegrasyonu).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
    - **Yeni React bileşeni** → `docs/YENI-COMPONENT.md`
    - **sw.js versiyon bump** → `docs/SW-VERSION-BUMP.md`
+5. Mobil görevlerde ayrıca `logwise-mobile/README.md` ve ilgili `docs/mobile-design-system/` belgesini oku.
 
 ---
 
 ## 3. Mutlak Kurallar (İhlal Edilemez)
 
 ### 3.1 Kod
-- **JSX yasak.** Her React render `React.createElement(...)` ile yazılır. Build aracı yok, tarayıcı script tag'leri ile çalışır.
-- **Babel kaldırıldı** (bkz. REFACTOR-GECMISI.md Bölüm 27). Hiçbir dosyada JSX syntax veya Babel yönergesi olmamalı.
-- **Global namespace:** Tüm yeniden-kullanılabilir modüller `window.LOGWISE_*` altında yaşar. Her yeni modül kendi isim uzayını alır.
-- **Component pattern:** Her React bileşeni IIFE içinde tanımlanır, defensive init pattern'iyle `window.LOGWISE_COMPONENTS`'a bağlanır. Detay: `docs/YENI-COMPONENT.md`.
-- **i18n zorunlu:** Kullanıcıya görünen her string TR+EN çift dillidir. `window.LOGWISE_TR` / `window.LOGWISE_EN` sözlüklerinden çözülür. Hardcode Türkçe veya İngilizce yasak.
+- **Web kökünde JSX yasak.** Web React render'ları `React.createElement(...)` ile yazılır. Web için build aracı yoktur.
+- **Web kökünde Babel yasak.** Babel, TSX ve Expo/Metro yalnız `logwise-mobile/` alt projesinde kullanılabilir.
+- **Global namespace:** Tüm yeniden-kullanılabilir Web modülleri `window.LOGWISE_*` altında yaşar. Her yeni Web modülü kendi isim uzayını alır.
+- **Component pattern:** Her Web React bileşeni IIFE içinde tanımlanır, defensive init pattern'iyle `window.LOGWISE_COMPONENTS`'a bağlanır. Detay: `docs/YENI-COMPONENT.md`.
+- **i18n zorunlu:** Web string'leri `window.LOGWISE_TR` / `window.LOGWISE_EN`; mobil string'leri `logwise-mobile/data/i18n-*.ts` üzerinden çözülür. Kullanıcıya görünen tek dilli hardcode metin yasaktır.
 
 ### 3.2 Dosya Mimarisi
 - `data/` — yalnızca sabit veri + i18n sözlükleri (React bağımlılığı yok).
@@ -46,8 +50,10 @@ Her AI seansı başlamadan **önce**:
 - `styles/landing.css` — statik landing ortak CSS (`index.html` + `tr.html`).
 - `index.html` / `tr.html` — statik SEO landing sayfaları (React/Babel yok).
 - `app.html` / `profile.html` / `share.html` / `program.html` — uygulama ve paylaşım sayfa dosyaları.
+- `logwise-mobile/` — bağımsız Expo alt projesi; kendi `package.json`, TypeScript, Metro/Babel ve React Native bileşen kurallarına sahiptir.
+- `.assetsignore` — repo kökündeki geliştirme/mobil kaynaklarının Cloudflare Web asset deploy'una girmesini engeller.
 
-### 3.3 PWA / Service Worker
+### 3.3 Web PWA / Service Worker
 - **Yeni `data/`, `lib/` veya `components/` dosyası eklediğinde** `sw.js`'de iki değişiklik zorunlu: `CACHE_NAME` bump + `PRECACHE_URLS`'e yeni dosyayı ekle. Detay: `docs/SW-VERSION-BUMP.md`.
 - `CACHE_NAME` bump unutulursa eski kullanıcıların tarayıcısı yeni dosyayı **almaz**; site kırılabilir.
 
@@ -55,7 +61,8 @@ Her AI seansı başlamadan **önce**:
 - Her commit mantıksal bir birim içerir (bir bileşen, bir bölüm, bir fix). Dev commit'leri yok.
 - `Co-Authored-By:` satırı AI'yı belirtir (Claude için: `Co-Authored-By: Claude <noreply@anthropic.com>`; Codex için eşdeğer satır).
 - Sensitive dosyalar (`.env`, credentials) commit'e girmez. `git add .` yerine dosyaları ismen ekle.
-- `main` branch'i deploy'dur; büyük işler önce feature branch'te geliştirilir (opsiyonel).
+- `master` branch'i deploy'dur; büyük işler önce feature branch'te geliştirilir.
+- Web ve mobil için ayrı uzun ömürlü clone yerine aynı repo tabanlı ayrı worktree'ler kullan; ortak dosya değişikliklerini kısa ömürlü entegrasyon branch'lerinde birleştir.
 
 ---
 
@@ -64,8 +71,10 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-85)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-86)
+├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
 ├── docs/                      ← Görev-tipi reçeteler
+│   ├── mobile-design-system/  ← Mobil ürün kararları, ekran spesifikasyonları ve prototipler
 │   ├── PRESET-EXERCISE-EKLEME.md
 │   ├── PRESET-PROGRAM-EKLEME.md
 │   ├── YENI-COMPONENT.md
@@ -141,11 +150,14 @@ LogWise/
 ├── r2-exercise-media-cors.json ← `media.logwise.fit` R2 CORS konfigürasyonu
 ├── sw.js                      ← Service Worker (PWA)
 ├── manifest.json              ← PWA manifest
-├── _redirects, _headers       ← Cloudflare Pages konfigürasyonu
-├── supabase_setup.sql         ← Supabase tablo şemaları + RLS
-└── logwise-worker/            ← Cloudflare Worker (resim API)
-    ├── src/worker.js
-    └── wrangler.toml
+├── _redirects, _headers       ← Cloudflare Web yönlendirme/header konfigürasyonu
+├── supabase_setup.sql         ← Web + mobil `app_` Supabase tablo şemaları ve RLS
+├── logwise-worker/            ← Cloudflare Worker (resim API)
+│   ├── src/worker.js
+│   └── wrangler.toml
+└── logwise-mobile/            ← Expo + React Native + TypeScript mobil uygulaması
+    ├── app/, components/, data/, lib/, queries/, stores/, theme/, types/
+    └── package.json, app.json, eas.json
 ```
 
 ---
@@ -172,6 +184,9 @@ LogWise/
 | Exercise guide ortak veri/medya eklemek | `docs/EXERCISE-GUIDE-SCHEMA.md` + `data/ex-guides.json` |
 | Exercise medyası encode/yükleme/doğrulama | `docs/R2-EXERCISE-MEDIA-SETUP.md` + `scripts/validate-exercise-media.js` |
 | Yeni sayfa eklemek | `.html` dosyası + gerekirse `_redirects` + sw.js PRECACHE |
+| Mobil ekran/bileşen değiştirmek | `logwise-mobile/app/` + `logwise-mobile/components/` + ilgili `docs/mobile-design-system/` belgesi |
+| Mobil veri/query değiştirmek | `logwise-mobile/lib/` + `logwise-mobile/queries/` + `logwise-mobile/types/` |
+| Web/Mobil ortak domain verisi değiştirmek | Kanonik Web JSON sözleşmesi + ilgili generator; iki platform çıktısını elle ayrı güncelleme |
 
 ---
 
@@ -179,31 +194,33 @@ LogWise/
 
 İşi bitirmeden **önce** şunları geç:
 
-1. **Syntax kontrol:** Yeni/değişen her `.js` dosyası için `node --check <path>`.
+1. **Web syntax kontrolü:** Yeni/değişen her Web `.js` dosyası için `node --check <path>`.
 2. **Inline script kontrol:** `app.html` veya diğer sayfalarda inline script değiştiyse, inline kısmı ayıklayıp `node --check` yap.
 3. **Bracket balance:** Büyük component dosyalarında `(` `{` `[` dengesi 0 olmalı.
 4. **sw.js güncel mi?** Yeni statik dosya eklediysen → `CACHE_NAME` bump + `PRECACHE_URLS` ekle.
 5. **i18n senkron mu?** Yeni TR string eklediysen EN karşılığını da ekledin mi?
-6. **REFACTOR-GECMISI.md** — büyük bir iş (yeni dosya, yeni pattern, mimari karar) yaptıysan yeni bir Bölüm ekle.
-7. **AGENTS.md dosya haritası** — yeni dosya/klasör eklediysen haritayı güncelle + `SON GÜNCELLEME` tarihini yenile.
-8. **Çalıştırma testi:** mümkünse tarayıcıda aç, en az etkilenen view'ı render et.
-9. **Commit disiplini:** `git add <dosyalar>` ismen; mesaj kısa ama anlamlı; `Co-Authored-By:` satırı.
+6. **Mobil kontrol:** Mobil dosya değiştiyse `cd logwise-mobile && npm run typecheck`; ilgili test varsa `npm test -- --runInBand`.
+7. **REFACTOR-GECMISI.md** — büyük bir iş (yeni dosya, yeni pattern, mimari karar) yaptıysan yeni bir Bölüm ekle.
+8. **AGENTS.md dosya haritası** — yeni dosya/klasör eklediysen haritayı güncelle + `SON GÜNCELLEME` tarihini yenile.
+9. **Çalıştırma testi:** mümkünse etkilenen Web view'ını ve/veya Expo ekranını render et.
+10. **Commit disiplini:** `git add <dosyalar>` ismen; mesaj kısa ama anlamlı; `Co-Authored-By:` satırı.
 
 ---
 
 ## 7. Yasak Listesi
 
-- ❌ JSX kullanmak
-- ❌ Babel veya herhangi bir build aracı eklemek
+- ❌ Web kökünde JSX kullanmak
+- ❌ Web köküne Babel veya build aracı eklemek (`logwise-mobile/` Expo toolchain'i istisnadır)
 - ❌ Landing CSS'i `styles/landing.css` dışında inline büyütmek
 - ❌ Yeni klasör açmadan önce bu dosyayı güncellemeden açmak
 - ❌ Kullanıcıya görünen metinleri TR veya EN'den sadece birini yazmak
-- ❌ `data/`, `lib/`, `components/` altına React-dışı / namespace-dışı dosya eklemek
-- ❌ `window.LOGWISE_*` dışında global değişken oluşturmak
+- ❌ Web `data/`, `lib/`, `components/` altına React-dışı / namespace-dışı dosya eklemek
+- ❌ Web kökünde `window.LOGWISE_*` dışında global değişken oluşturmak
 - ❌ `sw.js` `CACHE_NAME` bump'ını unutarak yeni statik dosya eklemek
 - ❌ Supabase `SUPABASE_URL` / `SUPABASE_ANON_KEY` gibi sabitleri `lib/db.js` dışında duplicate etmek
 - ❌ Commit'e sensitive dosya (.env, credentials) eklemek
-- ❌ `git push --force` main'e atmak
+- ❌ `git push --force` ile `master`ı güncellemek
+- ❌ `logwise-mobile/` veya dahili monorepo kaynaklarını Cloudflare Web asset deploy'una dahil etmek
 
 ---
 
@@ -243,6 +260,7 @@ LogWise/
 - **Exercise guide enrichment batch 19** (Bölüm 83): Yedi ön kol/kavrama/bar çekiş hareketinin tam TR/EN içeriği, dead-active hang, wrist tedavi iddiası ve typewriter tekrar standardı düzeltmeleri, toplam 136 content-ready guide ✅
 - **Exercise guide enrichment batch 20** (Bölüm 84): Altı row/pullover ve bir arch hareketinin tam TR/EN içeriği, makine-landmine ayrımları, pullover menzili ve statik arch standardı düzeltmeleri, toplam 143 content-ready guide ✅
 - **Exercise guide enrichment batch 21 + tam kapsam** (Bölüm 85): Superman ve air-walker Ay Yürüyüşü kayıtlarının tam TR/EN içeriği, dinamik-statik arch ayrımı ve Moonwalk cihaz anlamı; 145/145 preview-ready ve content-ready guide ✅
+- **Web/Mobil monorepo entegrasyonu** (Bölüm 86): Expo uygulaması `logwise-mobile/` altında güncel mobil checkpoint'ten eklendi; mobil tasarım belgeleri ve `app_` Supabase şeması korundu; Web SEO/build'siz mimarisi ve Cloudflare asset sınırı güvenceye alındı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
@@ -251,13 +269,15 @@ Detay için `REFACTOR-GECMISI.md`'ye bak.
 
 ## 9. İletişim ve Çakışma Önleme
 
-Bu projede iki AI aracı (Claude + Codex) **farklı seanslarda, ayrı ayrı** çalışır. Çakışma engellemek için:
+Web ve mobil aynı Git ağacında, tercihen ayrı worktree'lerde geliştirilir:
 
-- Büyük refactor işleri → Claude
-- Küçük fix + preset ekleme → Codex (veya Claude, sen karar verirsin)
-- Her seansta ilk iş: `git pull` sonra bu dosyayı oku
-- Seans sonunda: `git push` + (büyük işse) REFACTOR-GECMISI.md'ye Bölüm ekle
-- Eğer yarım iş bırakıyorsan: `git commit` yap, mesaja "WIP:" ön ek koy; diğer AI bunu görüp üstüne inşa etmez
+- Seans başında `git fetch --prune`, ardından `git status` ve branch karşılaştırması yap. Temiz ve yalnız fast-forward mümkünse `git pull --ff-only` kullan.
+- Web işi Web worktree/feature branch'inde; mobil işi mobil worktree/feature branch'inde yürütülür.
+- `AGENTS.md`, `REFACTOR-GECMISI.md`, `supabase_setup.sql`, kanonik ortak veri ve generator dosyaları ortak sahipliktedir; değişiklikten önce karşı branch kontrol edilir.
+- Ortak dosya değişiklikleri küçük, ayrı commit olarak önce entegrasyon branch'inde doğrulanır.
+- Aynı dosya iki ajan tarafından eşzamanlı değiştirilmez; devirde branch + commit hash açıkça yazılır.
+- Yarım iş yalnız zorunluysa `WIP:` checkpoint commit ile bırakılır; commit edilmemiş çalışma diğer worktree'ye taşınmaz.
+- Seans sonunda ilgili testleri çalıştır, dosyaları ismen stage et, push sonrası hash'i karşı tarafa bildir.
 
 ---
 

@@ -4151,6 +4151,56 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 86 — Web/Mobil Monorepo Entegrasyonu (2026-06-26)
+
+### Amaç
+
+Aynı GitHub reposunda ayrı uzun ömürlü branch ve çalışma kopyalarında gelişen build'siz Web uygulaması ile Expo/React Native mobil uygulamasını tek güncel Git ağacında birleştirmek; Web'in güncel SEO/guide altyapısını geriye götürmeden mobil kaynakları, mobil mimari belgelerini ve Supabase `app_` şemasını korumak.
+
+### Kaynak ve Entegrasyon Kararları
+
+- **Web tabanı:** `codex/exercise-guide-data-foundation` branch'inin `2e997ec` checkpoint'i; `origin/master` üstünde lineer 26 Web commit'i.
+- **Mobil kaynak:** `mobile-design-system` branch'inin temiz ve push edilmiş `8c9b4a5` checkpoint'i.
+- **Mobil ağaç:** `logwise-mobile/` altındaki 136 dosya güncel mobil checkpoint'ten seçici olarak eklendi. Mobil klasör `master`/Web ağacında daha önce bulunmadığı için bu bir dizin eklemesidir.
+- **Mobil belgeler:** `docs/mobile-design-system/` altındaki ürün kararları, ekran spesifikasyonları ve prototipler korundu.
+- **Supabase:** Mobil `app_profiles`, `app_exercises`, `app_programs`, `app_program_days`, `app_workouts`, `app_sets` ve `app_day_meta` tabloları mevcut Web şemasının sonuna namespace'li, additive blok olarak eklendi. Mevcut Web tabloları değiştirilmedi.
+- **Web kök triyajı:** Mobil branch'teki eski `blog/`, eski Learn kaynakları, landing, sitemap ve `scripts/build-blog.js` sürümleri alınmadı. Güncel Web `learn/` + `ogren/` + Library generator hattı korundu.
+- **Temizlik kapsamı:** Mobil branch'in eski preset öneri/local-server dosya silmeleri entegrasyonla ilgisiz olduğu için uygulanmadı.
+- **AGENTS kapsamı:** Web'e özgü JSX/Babel yasağı monorepo sonrası açıkça Web köküyle sınırlandı; Expo/TSX toolchain'i yalnız `logwise-mobile/` altında izinli hale getirildi.
+
+### Cloudflare Deploy Sınırı
+
+Web asset konfigürasyonu repo kökünü (`assets.directory: "."`) servis ettiği için mobil kaynakların ve iç geliştirme belgelerinin deploy edilmesi yeni `.assetsignore` ile engellendi. `logwise-mobile/`, `docs/`, `scripts/`, `blog-content/`, Worker kaynakları, SQL/refactor belgeleri ve yerel yardımcı dosyalar Web asset manifestine girmez.
+
+### Sonraki Fazlar
+
+1. `presets-exercises` için mevcut Web/Mobil runtime çıktılarını değiştirmeyen kanonik JSON + deterministik codegen pilotu.
+2. `--check` modu ve CI drift kontrolü.
+3. Kategori/kas taksonomisi için dual-read, slug-only write ve Web local/profile + Mobil Supabase/AsyncStorage'ı kapsayan idempotent kalıcı-veri migration'ı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `logwise-mobile/` | `8c9b4a5` mobil checkpoint'inden Expo uygulamasının tamamı |
+| `docs/mobile-design-system/` | Mobil karar/spec/prototip belgeleri |
+| `supabase_setup.sql` | Namespace'li mobil `app_` tablo, index, FK, trigger ve RLS politikaları |
+| `.assetsignore` | Mobil ve iç monorepo kaynaklarının Cloudflare Web deploy'undan çıkarılması |
+| `AGENTS.md` | Monorepo kapsamı, Web/Mobil kural ayrımı, dosya haritası ve worktree iş akışı |
+| `logwise-mobile/package.json`, `package-lock.json` | Expo SDK 54 resmi şablonuyla uyumlu TypeScript `~5.9.2` (`5.9.3` lock) |
+| `REFACTOR-GECMISI.md` | Entegrasyon kaynağı, triyaj kararları ve sonraki fazlar |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js --check` sonucu `145 total, 145 preview-ready, 145 content-ready, 0 media-ready, 0 published` olarak doğrulandı.
+- `node scripts/build-blog.js` başarıyla çalıştı; üretilen Web çıktılarında satır sonları dışında içerik farkı oluşmadı.
+- Mobil checkpoint'teki TypeScript 5.3, Expo SDK 54 `module: "preserve"` ayarını okuyamadığı için resmi SDK 54 şablonundaki `~5.9.2` aralığına yükseltildi; TypeScript 5.9.3 ile `tsc --noEmit` geçti.
+- Mobil Jest komutu `--runInBand --passWithNoTests --no-cache` ile geçti; mevcut checkpoint henüz test dosyası içermiyor.
+- `.assetsignore` kalıpları Git'in aynı-format ignore matcher'ıyla doğrulandı: mobil/iç dosyalar ignore edilirken Web runtime dosyaları korunuyor. Wrangler 4.83 dry-run, Codex sandbox'ının esbuild alt sürecine yol erişimi vermemesi nedeniyle normal host/CI üzerinde ayrıca çalıştırılmalı.
+- Eklenen 7 mobil/prototip `.js` dosyası `node --check` kontrolünü geçti. Yeni Web runtime URL'si eklenmediği için `sw.js` cache bump gerekmez.
+
+---
+
 ## Bölüm 85 — Exercise Guide Enrichment Batch 21 ve Tam İçerik Kapsamı (2026-06-20)
 
 ### Amaç
