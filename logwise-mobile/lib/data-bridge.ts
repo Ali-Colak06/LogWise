@@ -16,6 +16,7 @@ import { supabase } from './supabase';
 import * as gs from './guest-storage';
 import { useAuthMode, useAuthSession } from '../stores/auth-store';
 import { useMemo } from 'react';
+import type { DashboardSet } from './dashboard';
 import type {
   AppExercisesRow,
   AppProgramsRow,
@@ -1107,6 +1108,40 @@ export async function fetchLastSessionByRef(
       if (!best || s.weight > best.weight) best = { weight: s.weight, reps };
     }
     if (best) out[ref] = best;
+  }
+  return out;
+}
+
+/**
+ * F1 Dashboard — tüm geçmiş set'ler + her birinin {ref, date}'i (§3.11). Tek kaynak:
+ * tüm metrikler (hacim/antrenman/hafta trendi/kas dağılımı/PR) bundan hesaplanır
+ * (`lib/dashboard.computeDashboard`). Pattern fetchLastSessionByRef ile aynı: workouts
+ * çek → tüm id'lerle sets çek → client-side join.
+ */
+export async function fetchDashboardSets(ctx: DataCtx): Promise<DashboardSet[]> {
+  type WkLite = { id: string; exercise_ref: string; workout_date: string };
+  let workouts: WkLite[];
+  if (ctx.mode === 'guest') {
+    const all = await gs.getGuestWorkouts();
+    workouts = all.map((w) => ({ id: w.id, exercise_ref: w.exercise_ref, workout_date: w.workout_date }));
+  } else {
+    if (!ctx.userId) return [];
+    const { data, error } = await supabase
+      .from('app_workouts')
+      .select('id, exercise_ref, workout_date')
+      .eq('user_id', ctx.userId);
+    if (error) throw error;
+    workouts = (data as WkLite[] | null) ?? [];
+  }
+  if (workouts.length === 0) return [];
+
+  const byId = new Map(workouts.map((w) => [w.id, w]));
+  const sets = await fetchSetsForWorkouts(ctx, workouts.map((w) => w.id));
+  const out: DashboardSet[] = [];
+  for (const s of sets) {
+    const wk = byId.get(s.workout_id);
+    if (!wk) continue;
+    out.push({ weight: s.weight, reps: s.reps, ref: wk.exercise_ref, date: wk.workout_date });
   }
   return out;
 }

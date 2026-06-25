@@ -568,6 +568,20 @@ export interface Translations {
     socialTitle: string;
     socialDesc: string;
   };
+  dashboard: {
+    title: string;
+    statWorkouts: string;
+    statVolumeKg: string;
+    statThisWeek: string;
+    statSets: string;
+    weeklyVolumeTitle: string;
+    muscleTitle: string;
+    muscleSubtitle: string;       // "Son 30 gün"
+    prTitle: string;
+    emptyTitle: string;
+    emptyDesc: string;
+    emptyCta: string;
+  };
   profile: {
     title: string;
     account: string;
