@@ -1,0 +1,66 @@
+{
+  "expo": {
+    "name": "LogWise",
+    "slug": "logwise-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "logwise",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "icon": "./assets/icon.png",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "fit.logwise.mobile"
+    },
+    "android": {
+      "package": "fit.logwise.mobile",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png",
+        "backgroundColor": "#000000"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      "expo-secure-store",
+      "expo-localization",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#000000",
+          "dark": {
+            "backgroundColor": "#000000"
+          }
+        }
+      ],
+      "@sentry/react-native"
+    ],
+    "extra": {
+      "supabaseUrl": "https://hfmqywyfnqmpvskkzksv.supabase.co",
+      "supabaseAnonKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhmbXF5d3lmbnFtcHZza2t6a3N2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODEyNTExNzIsImV4cCI6MjA5NjgyNzE3Mn0.qRdNSj4No6GI9NLEFG-w9FbtFH4SP3xZGwA2j6yWJHM",
+      "sentryDsn": "https://7d99a740f91e12690f622af22e0cb560@o4511488560529408.ingest.us.sentry.io/4511488571670528",
+      "resetPasswordRedirect": "https://logwise.fit/reset-password",
+      "router": {},
+      "eas": {
+        "projectId": "2863f167-35c7-4f2d-8448-149a61ab7d53"
+      }
+    },
+    "owner": "logwise",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/2863f167-35c7-4f2d-8448-149a61ab7d53"
+    }
+  }
+}

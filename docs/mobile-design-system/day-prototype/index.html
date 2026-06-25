@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogWise — Day View Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="page-hero">
+    <p class="eyebrow"><span class="dot"></span>LogWise mobile — day view</p>
+    <h1>Workout logging — <span class="gold">idle & active</span>.</h1>
+    <p>Two phones, two states of the same screen. Left: workout planned for today, ready to start. Right: workout in progress — top-bar elapsed timer, set rows filling in, sticky rest timer at the bottom. Set entry mirrors the web app's six-column grid (#, type, kg, reps, RIR, ×) so existing muscle memory transfers; only the layout breathes for thumb reach.</p>
+  </header>
+
+  <main class="phone-grid">
+
+    <!-- =================================================================
+         PHONE 1 — IDLE (planned workout, not started)
+         ================================================================= -->
+    <section class="phone-cell" aria-label="Day view — idle (planned, not started)">
+      <div class="phone">
+        <div class="phone-screen" data-state="idle">
+
+          <div class="status-bar">
+            <span>9:41</span>
+            <span class="status-icons">
+              <span class="signal" aria-hidden="true"></span>
+              <span class="wifi" aria-hidden="true"></span>
+              <span class="battery" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <header class="app-bar">
+            <div class="app-bar-left">
+              <button class="icon-btn" type="button" aria-label="Back to calendar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="bar-title">
+              <h1>Tue 15 Sep</h1>
+              <span class="sub">Pull day <span class="today-tag">· Today</span></span>
+            </div>
+            <div class="bar-actions">
+              <button class="icon-btn" type="button" aria-label="Previous day">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+              <button class="icon-btn" type="button" aria-label="Next day">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </button>
+            </div>
+          </header>
+
+          <div class="day-summary">
+            <div class="stat">
+              <span class="k">Exercises</span>
+              <span class="v" id="idle-stat-ex">5</span>
+            </div>
+            <div class="stat">
+              <span class="k">Sets</span>
+              <span class="v" id="idle-stat-sets">0 / 20</span>
+            </div>
+            <div class="stat">
+              <span class="k">Volume</span>
+              <span class="v" id="idle-stat-vol">—</span>
+            </div>
+          </div>
+
+          <div class="day-body" id="idle-body"></div>
+
+          <div class="day-footer">
+            <button class="cta-start" type="button">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="6 4 20 12 6 20 6 4"></polygon></svg>
+              Start workout
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="phone-caption">
+        <span class="step">State 1</span>
+        <h2>Idle — planned</h2>
+        <p>Workout is planned but not started. Sets sit empty with previous-time placeholders. Bottom CTA: Start workout. FAB adds a new exercise.</p>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         PHONE 2 — ACTIVE (workout in progress)
+         ================================================================= -->
+    <section class="phone-cell" aria-label="Day view — active workout">
+      <div class="phone">
+        <div class="phone-screen" data-state="active">
+
+          <div class="status-bar">
+            <span>9:41</span>
+            <span class="status-icons">
+              <span class="signal" aria-hidden="true"></span>
+              <span class="wifi" aria-hidden="true"></span>
+              <span class="battery" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <header class="app-bar">
+            <div class="app-bar-left">
+              <button class="icon-btn" type="button" aria-label="Back to calendar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+              </button>
+            </div>
+            <div class="bar-title">
+              <h1>Tue 15 Sep</h1>
+              <span class="sub">Pull day <span class="today-tag">· Today</span></span>
+            </div>
+            <div class="bar-actions">
+              <span class="workout-clock" aria-label="Workout elapsed time">
+                <span class="pulse" aria-hidden="true"></span>
+                <span id="active-clock">00:24:18</span>
+              </span>
+            </div>
+          </header>
+
+          <div class="day-summary">
+            <div class="stat is-active">
+              <span class="k">Exercises</span>
+              <span class="v" id="active-stat-ex">2 / 5</span>
+            </div>
+            <div class="stat is-active">
+              <span class="k">Sets</span>
+              <span class="v" id="active-stat-sets">9 / 20</span>
+            </div>
+            <div class="stat is-active">
+              <span class="k">Volume</span>
+              <span class="v" id="active-stat-vol">3 240 kg</span>
+            </div>
+          </div>
+
+          <div class="day-body" id="active-body"></div>
+
+          <div class="day-footer">
+            <div class="rest-timer" id="rest-timer">
+              <div class="rt-left">
+                <div class="rt-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"></circle><polyline points="12 9 12 13 15 15"></polyline><line x1="10" y1="2" x2="14" y2="2"></line></svg>
+                </div>
+                <div class="rt-text">
+                  <span class="rt-label">Rest</span>
+                  <span class="rt-value" id="rest-value">01:12</span>
+                </div>
+              </div>
+              <div class="rt-actions">
+                <button class="rt-add" type="button" aria-label="Add 15 seconds">+15s</button>
+                <button class="rt-skip" type="button" aria-label="Skip rest">
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><polygon points="5 4 15 12 5 20"></polygon><rect x="17" y="4" width="2" height="16" rx="1"></rect></svg>
+                  Skip
+                </button>
+              </div>
+            </div>
+
+            <div class="active-controls">
+              <button class="btn-pause" type="button">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"></rect><rect x="14" y="5" width="4" height="14" rx="1"></rect></svg>
+                Pause
+              </button>
+              <button class="btn-finish" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Finish
+              </button>
+            </div>
+          </div>
+
+          <button class="fab" type="button" aria-label="Add exercise">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+
+        </div>
+      </div>
+
+      <div class="phone-caption">
+        <span class="step">State 2</span>
+        <h2>Active workout</h2>
+        <p>Workout in progress: top-bar elapsed timer, set rows filling in (last completed values highlighted in gold), sticky rest countdown above Pause / Finish controls.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

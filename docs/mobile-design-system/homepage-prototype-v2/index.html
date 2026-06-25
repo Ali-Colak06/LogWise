@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogWise Calendar Home Prototype</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell" aria-label="LogWise mobile calendar home prototype">
+    <button class="profile-trigger" type="button" aria-expanded="false" aria-controls="profile-menu">
+      <span>LW</span>
+    </button>
+
+    <nav class="profile-menu" id="profile-menu" aria-label="Profile menu">
+      <button type="button">Profile</button>
+      <button type="button">Settings</button>
+      <button type="button">Feedback</button>
+    </nav>
+
+    <section class="calendar-screen">
+      <header class="month-header">
+        <div>
+          <p class="screen-kicker">Workout Calendar</p>
+          <h1 id="month-title">May 2026</h1>
+        </div>
+        <button class="today-button" type="button">Today</button>
+      </header>
+
+      <div class="swipe-hint" aria-hidden="true">
+        <span id="previous-month-label">April</span>
+        <span>Swipe month</span>
+        <span id="next-month-label">June</span>
+      </div>
+
+      <section class="calendar-zone" aria-label="Calendar">
+        <button class="month-nav month-nav-left" type="button" aria-label="Previous month">&lsaquo;</button>
+        <div class="weekday-row" aria-hidden="true">
+          <span>Mon</span>
+          <span>Tue</span>
+          <span>Wed</span>
+          <span>Thu</span>
+          <span>Fri</span>
+          <span>Sat</span>
+          <span>Sun</span>
+        </div>
+        <div class="calendar-grid" id="calendar-grid"></div>
+        <button class="month-nav month-nav-right" type="button" aria-label="Next month">&rsaquo;</button>
+      </section>
+
+      <section class="selected-detail" aria-live="polite">
+        <div>
+          <p class="detail-label">Selected day</p>
+          <h2 id="selected-date">Thursday, May 14</h2>
+        </div>
+        <div class="planned-list" id="planned-list"></div>
+      </section>
+    </section>
+
+    <nav class="bottom-nav" aria-label="Main navigation">
+      <button class="active" type="button" aria-current="page">
+        <span class="nav-icon calendar-icon"></span>
+        <span>Calendar</span>
+      </button>
+      <button type="button">
+        <span class="nav-icon exercise-icon"></span>
+        <span>My Exercises</span>
+      </button>
+      <button type="button">
+        <span class="nav-icon program-icon"></span>
+        <span>My Programs</span>
+      </button>
+      <button type="button">
+        <span class="nav-icon dashboard-icon"></span>
+        <span>Dashboard</span>
+      </button>
+      <button type="button">
+        <span class="nav-icon social-icon"></span>
+        <span>Social</span>
+      </button>
+      <button type="button">
+        <span class="nav-icon more-icon"></span>
+        <span>More</span>
+      </button>
+    </nav>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

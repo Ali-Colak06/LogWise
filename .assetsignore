@@ -1,0 +1,16 @@
+# Internal monorepo sources and development-only files.
+logwise-mobile/
+docs/
+scripts/
+blog-content/
+logwise-worker/
+
+AGENTS.md
+REFACTOR-GECMISI.md
+supabase_setup.sql
+r2-exercise-media-cors.json
+wrangler.jsonc
+
+*.bat
+*.md
+*.pdf

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LogWise — Workout (Exercises & Programs) Prototype</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header class="page-hero">
+    <p class="eyebrow"><span class="dot"></span>LogWise mobile — workout</p>
+    <h1>Exercises & programs — <span class="gold">one screen</span>.</h1>
+    <p>Single Workout tab with a segmented control: Exercises ↔ Programs. Left phone: the user's exercise library, grouped by first letter, with category accent bars and quick PR/usage stats. Right phone: the active program featured at the top (compliance, weekly day-chip grid), other saved programs compact below.</p>
+  </header>
+
+  <main class="phone-grid">
+
+    <!-- =================================================================
+         PHONE 1 — EXERCISES TAB
+         ================================================================= -->
+    <section class="phone-cell" aria-label="Workout — Exercises tab">
+      <div class="phone">
+        <div class="phone-screen" data-tab="exercises">
+
+          <div class="status-bar">
+            <span>9:41</span>
+            <span class="status-icons">
+              <span class="signal" aria-hidden="true"></span>
+              <span class="wifi" aria-hidden="true"></span>
+              <span class="battery" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <header class="app-bar">
+            <button class="icon-btn" type="button" aria-label="Menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <div class="bar-title">
+              <h1>Workout</h1>
+              <span class="sub" id="ex-count-sub">24 exercises</span>
+            </div>
+            <div class="bar-actions">
+              <button class="add-pill" type="button" aria-label="Add exercise">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span class="label">New</span>
+              </button>
+            </div>
+          </header>
+
+          <nav class="seg-tabs" role="tablist" aria-label="Workout view">
+            <button class="seg-tab is-active" role="tab" aria-selected="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11"></path><path d="M3 14l7-7"></path><path d="M14 3l7 7"></path><path d="M2 22l3-3"></path><path d="M19 19l3 3"></path><path d="M9 11l4 4"></path></svg>
+              Exercises<span class="count">24</span>
+            </button>
+            <button class="seg-tab" role="tab" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="9" y1="4" x2="9" y2="22"></line></svg>
+              Programs<span class="count">4</span>
+            </button>
+          </nav>
+
+          <div class="filters-block">
+            <div class="search-row">
+              <label class="search-input">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                <input type="search" placeholder="Search exercises" aria-label="Search exercises">
+              </label>
+              <button class="filter-btn has-filter" type="button" aria-label="Filter by category">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
+              </button>
+            </div>
+
+            <div class="cat-strip" aria-label="Category filters">
+              <button class="filter-chip is-active" type="button"><span class="dot" style="background: var(--accent);"></span>All</button>
+              <button class="filter-chip" type="button"><span class="dot" style="background: var(--cat-chest);"></span>Chest</button>
+              <button class="filter-chip" type="button"><span class="dot" style="background: var(--cat-back);"></span>Back</button>
+              <button class="filter-chip" type="button"><span class="dot" style="background: var(--cat-shoulder);"></span>Shoulder</button>
+              <button class="filter-chip" type="button"><span class="dot" style="background: var(--cat-biceps);"></span>Biceps</button>
+              <button class="filter-chip" type="button"><span class="dot" style="background: var(--cat-triceps);"></span>Triceps</button>
+              <button class="filter-chip" type="button"><span class="dot" style="background: var(--cat-leg);"></span>Leg</button>
+              <button class="filter-chip" type="button"><span class="dot" style="background: var(--cat-core);"></span>Core</button>
+            </div>
+          </div>
+
+          <div class="tab-body" id="ex-body">
+            <div class="ex-list" id="ex-list"></div>
+          </div>
+
+          <nav class="bottom-nav" aria-label="Main navigation">
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span class="label">Calendar</span>
+            </button>
+            <button class="is-active" type="button" aria-current="page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"></path><path d="M3 14l7-7"></path><path d="M14 3l7 7"></path><path d="M2 22l3-3"></path><path d="M19 19l3 3"></path><path d="M9 11l4 4"></path></svg>
+              <span class="label">Workout</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span class="label">Dashboard</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span class="label">Social</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle></svg>
+              <span class="label">More</span>
+            </button>
+          </nav>
+
+        </div>
+      </div>
+
+      <div class="phone-caption">
+        <span class="step">Tab 1</span>
+        <h2>Exercises</h2>
+        <p>Your library — search, filter by muscle category, browse by letter. Each row shows the exercise, its category, and a quick stat (PR weight or last-used hint).</p>
+      </div>
+    </section>
+
+
+    <!-- =================================================================
+         PHONE 2 — PROGRAMS TAB
+         ================================================================= -->
+    <section class="phone-cell" aria-label="Workout — Programs tab">
+      <div class="phone">
+        <div class="phone-screen" data-tab="programs">
+
+          <div class="status-bar">
+            <span>9:41</span>
+            <span class="status-icons">
+              <span class="signal" aria-hidden="true"></span>
+              <span class="wifi" aria-hidden="true"></span>
+              <span class="battery" aria-hidden="true"></span>
+            </span>
+          </div>
+
+          <header class="app-bar">
+            <button class="icon-btn" type="button" aria-label="Menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <div class="bar-title">
+              <h1>Workout</h1>
+              <span class="sub">4 programs</span>
+            </div>
+            <div class="bar-actions">
+              <button class="add-pill" type="button" aria-label="New program">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                <span class="label">New</span>
+              </button>
+            </div>
+          </header>
+
+          <nav class="seg-tabs" role="tablist" aria-label="Workout view">
+            <button class="seg-tab" role="tab" aria-selected="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 6.5l11 11"></path><path d="M3 14l7-7"></path><path d="M14 3l7 7"></path><path d="M2 22l3-3"></path><path d="M19 19l3 3"></path><path d="M9 11l4 4"></path></svg>
+              Exercises<span class="count">24</span>
+            </button>
+            <button class="seg-tab is-active" role="tab" aria-selected="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="9" y1="4" x2="9" y2="22"></line></svg>
+              Programs<span class="count">4</span>
+            </button>
+          </nav>
+
+          <div class="tab-body" id="pg-body"></div>
+
+          <nav class="bottom-nav" aria-label="Main navigation">
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+              <span class="label">Calendar</span>
+            </button>
+            <button class="is-active" type="button" aria-current="page">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5l11 11"></path><path d="M3 14l7-7"></path><path d="M14 3l7 7"></path><path d="M2 22l3-3"></path><path d="M19 19l3 3"></path><path d="M9 11l4 4"></path></svg>
+              <span class="label">Workout</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+              <span class="label">Dashboard</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              <span class="label">Social</span>
+            </button>
+            <button type="button">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="12" r="1.6"></circle><circle cx="12" cy="12" r="1.6"></circle><circle cx="19" cy="12" r="1.6"></circle></svg>
+              <span class="label">More</span>
+            </button>
+          </nav>
+
+        </div>
+      </div>
+
+      <div class="phone-caption">
+        <span class="step">Tab 2</span>
+        <h2>Programs</h2>
+        <p>Active program at the top with compliance, current cycle and the week's day-chip grid. Other saved programs follow as compact rows you can activate or edit with one tap.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

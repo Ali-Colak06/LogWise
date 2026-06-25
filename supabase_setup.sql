@@ -282,3 +282,327 @@ create policy "comment_likes_delete" on comment_likes
 create trigger shared_workout_comments_updated_at
   before update on shared_workout_comments
   for each row execute function update_updated_at();
+
+-- ============================================================
+-- ============================================================
+-- MOBILE — app_ namespace (LogWise Mobile MVP)
+-- Eklenme: ADIM 2 (rev 15 — 03-mvp-decisions.md §4.3 + §4.4)
+--
+-- Bu blok mobil uygulama için yeni tablolar tanımlar.
+-- Web tabloları (user_data, profiles, feedback, shared_workouts,
+-- user_prs, follows, shared_workout_comments, comment_likes)
+-- DOKUNULMAZ. app_ prefix'i namespace çakışmasını önler.
+--
+-- Sözleşme:
+--   - Preset 145 hareket Supabase'e KOPYALANMAZ (bundle'da statik veri).
+--     app_exercises sadece KULLANICI CUSTOM egzersizleri için.
+--   - exercise_ref POLYMORPHIC text alanı: preset slug ("bench-press")
+--     VEYA custom UUID — FK DEĞİL (soft reference, §8.9 rev 13).
+--   - RIR enum: 'F' | '-' | '1' | '2' | '3' | '4+'  (§8.8 rev 12 —
+--     "F" = Failure; web'deki "0" yerine; UI ile DB tek dil).
+--   - Set type enum: 'working' | 'warmup' | 'drop'  (MVP — §8.8 rev 12;
+--     'superset' MVP sonrası). superset_group field şemada kalır
+--     (yer tutar).
+--   - Misafir kullanıcı bu tablolara dokunmaz (sadece AsyncStorage).
+--   - Tek aktif program kuralı: app_programs.activated_at not null
+--     olan bir kullanıcı için yalnızca bir satır olmalı (uygulama
+--     katmanı garantisi — §8.4.1 + §8.9).
+-- ============================================================
+
+-- ----------------------------------------------------------------
+-- app_profiles — kullanıcı tercihleri + aktif program referansı
+-- ----------------------------------------------------------------
+create table if not exists app_profiles (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  username text unique,
+  display_name text default '',
+  avatar text default '',
+  locale text default 'tr',
+  theme text default 'dark',
+  preferences jsonb not null default '{}'::jsonb,
+  active_program_id uuid,                       -- FK eklemesi aşağıda (forward ref)
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+-- ----------------------------------------------------------------
+-- app_exercises — SADECE kullanıcı custom egzersizleri
+-- (preset hareketler bundle'da; bu tabloya kopyalanmaz)
+-- ----------------------------------------------------------------
+create table if not exists app_exercises (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  name text not null,
+  categories text[] not null default '{}',      -- ["Göğüs","Triceps"]
+  notes text default '',
+  created_at timestamptz not null default now()
+);
+
+create index if not exists app_exercises_user_idx
+  on app_exercises(user_id);
+
+-- ----------------------------------------------------------------
+-- app_programs — kullanıcı programları (preset'ten kopyalanmış veya custom)
+-- ----------------------------------------------------------------
+create table if not exists app_programs (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  name text not null,
+  description text default '',
+  preset_origin text,                           -- preset'ten kopyalandıysa slug (opsiyonel)
+  cycle_type text not null default 'weekly'
+    check (cycle_type in ('none','weekly','deload')),
+  deload_every int,                             -- cycle_type='deload' iken 3..8
+  off_days int[] not null default '{}',         -- 0=Pzt ... 6=Paz (örn. [5,6])
+  activated_at timestamptz,                     -- null = pasif, set = aktif (tek aktif kuralı §8.9)
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+create index if not exists app_programs_user_idx
+  on app_programs(user_id);
+create index if not exists app_programs_user_active_idx
+  on app_programs(user_id) where activated_at is not null;
+
+-- app_profiles.active_program_id forward FK (programlar tablosu artık var)
+alter table app_profiles
+  drop constraint if exists app_profiles_active_program_fk;
+alter table app_profiles
+  add constraint app_profiles_active_program_fk
+  foreign key (active_program_id) references app_programs(id) on delete set null;
+
+-- ----------------------------------------------------------------
+-- app_program_days — programın haftalık günlerinin egzersiz dizilimi
+-- exercise_ref POLYMORPHIC: slug VEYA UUID (FK DEĞİL — bundle preset'leri DB'de yok)
+-- ----------------------------------------------------------------
+create table if not exists app_program_days (
+  program_id uuid not null references app_programs(id) on delete cascade,
+  day_index int not null check (day_index between 0 and 6),  -- 0=Pzt ... 6=Paz
+  position int not null check (position >= 0),               -- gün içindeki sıra
+  exercise_ref text not null,                                -- POLYMORPHIC: slug | uuid
+  primary key (program_id, day_index, position)
+);
+
+create index if not exists app_program_days_program_idx
+  on app_program_days(program_id);
+
+-- ----------------------------------------------------------------
+-- app_workouts — bir günde bir egzersiz için yapılan antrenman başlığı
+-- exercise_ref POLYMORPHIC + UNIQUE (user_id, workout_date, exercise_ref)
+-- superset_group MVP'de YAZILMAZ (§8.8 rev 12 — yer tutar)
+-- ----------------------------------------------------------------
+create table if not exists app_workouts (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references auth.users(id) on delete cascade,
+  workout_date date not null,                  -- YYYY-MM-DD (local günle eşleştirme app katmanında)
+  exercise_ref text not null,                  -- POLYMORPHIC: slug | uuid (soft ref §8.9)
+  position int not null default 0,             -- gün içindeki sıra
+  superset_group int,                          -- MVP'de yazılmaz; gelecek için (§8.8)
+  duration_minutes int,                        -- MVP'de yazılmaz; gelecek için
+  notes text default '',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  unique (user_id, workout_date, exercise_ref)
+);
+
+create index if not exists app_workouts_user_date_idx
+  on app_workouts(user_id, workout_date);
+create index if not exists app_workouts_user_ref_idx
+  on app_workouts(user_id, exercise_ref);
+
+-- ----------------------------------------------------------------
+-- app_sets — en yoğun yazılan tablo
+-- set_type: 'working' | 'warmup' | 'drop'  (superset MVP'de YOK — §8.8 rev 12)
+-- rir: 'F' | '-' | '1' | '2' | '3' | '4+'  ("F" = Failure; UI+DB tek dil — §8.8 rev 12)
+-- ----------------------------------------------------------------
+create table if not exists app_sets (
+  id uuid primary key default gen_random_uuid(),
+  workout_id uuid not null references app_workouts(id) on delete cascade,
+  set_index int not null check (set_index >= 0),
+  set_type text not null default 'working'
+    check (set_type in ('working','warmup','drop')),
+  weight numeric,
+  reps int,
+  rir text check (rir in ('F','-','1','2','3','4+')),
+  created_at timestamptz not null default now()
+);
+
+create index if not exists app_sets_workout_idx
+  on app_sets(workout_id);
+
+-- ----------------------------------------------------------------
+-- app_day_meta — gün-bazlı meta (not, süre, "sadece bugün skip" listesi)
+-- skipped_exercise_ids: slug VEYA uuid string'leri (§4.3 + §8.8)
+-- ----------------------------------------------------------------
+create table if not exists app_day_meta (
+  user_id uuid not null references auth.users(id) on delete cascade,
+  workout_date date not null,
+  day_note text default '',
+  total_duration_minutes int,                  -- MVP'de yazılmaz
+  skipped_exercise_ids text[] not null default '{}',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now(),
+  primary key (user_id, workout_date)
+);
+
+-- ============================================================
+-- Mobile — Row Level Security
+-- Her tabloda RLS aktif; her satır user_id'siyle eşleşmeli.
+-- Policy: auth.uid() = user_id  (her kullanıcı sadece kendi verisi)
+-- ============================================================
+
+alter table app_profiles      enable row level security;
+alter table app_exercises     enable row level security;
+alter table app_programs      enable row level security;
+alter table app_program_days  enable row level security;
+alter table app_workouts      enable row level security;
+alter table app_sets          enable row level security;
+alter table app_day_meta      enable row level security;
+
+-- app_profiles
+create policy "app_profiles_select" on app_profiles
+  for select using (auth.uid() = user_id);
+create policy "app_profiles_insert" on app_profiles
+  for insert with check (auth.uid() = user_id);
+create policy "app_profiles_update" on app_profiles
+  for update using (auth.uid() = user_id);
+create policy "app_profiles_delete" on app_profiles
+  for delete using (auth.uid() = user_id);
+
+-- app_exercises
+create policy "app_exercises_select" on app_exercises
+  for select using (auth.uid() = user_id);
+create policy "app_exercises_insert" on app_exercises
+  for insert with check (auth.uid() = user_id);
+create policy "app_exercises_update" on app_exercises
+  for update using (auth.uid() = user_id);
+create policy "app_exercises_delete" on app_exercises
+  for delete using (auth.uid() = user_id);
+
+-- app_programs
+create policy "app_programs_select" on app_programs
+  for select using (auth.uid() = user_id);
+create policy "app_programs_insert" on app_programs
+  for insert with check (auth.uid() = user_id);
+create policy "app_programs_update" on app_programs
+  for update using (auth.uid() = user_id);
+create policy "app_programs_delete" on app_programs
+  for delete using (auth.uid() = user_id);
+
+-- app_program_days — user_id yok; sahiplik program_id üzerinden çözülür
+create policy "app_program_days_select" on app_program_days
+  for select using (
+    exists (
+      select 1 from app_programs p
+      where p.id = app_program_days.program_id
+      and p.user_id = auth.uid()
+    )
+  );
+create policy "app_program_days_insert" on app_program_days
+  for insert with check (
+    exists (
+      select 1 from app_programs p
+      where p.id = app_program_days.program_id
+      and p.user_id = auth.uid()
+    )
+  );
+create policy "app_program_days_update" on app_program_days
+  for update using (
+    exists (
+      select 1 from app_programs p
+      where p.id = app_program_days.program_id
+      and p.user_id = auth.uid()
+    )
+  );
+create policy "app_program_days_delete" on app_program_days
+  for delete using (
+    exists (
+      select 1 from app_programs p
+      where p.id = app_program_days.program_id
+      and p.user_id = auth.uid()
+    )
+  );
+
+-- app_workouts
+create policy "app_workouts_select" on app_workouts
+  for select using (auth.uid() = user_id);
+create policy "app_workouts_insert" on app_workouts
+  for insert with check (auth.uid() = user_id);
+create policy "app_workouts_update" on app_workouts
+  for update using (auth.uid() = user_id);
+create policy "app_workouts_delete" on app_workouts
+  for delete using (auth.uid() = user_id);
+
+-- app_sets — user_id yok; sahiplik workout_id üzerinden çözülür
+create policy "app_sets_select" on app_sets
+  for select using (
+    exists (
+      select 1 from app_workouts w
+      where w.id = app_sets.workout_id
+      and w.user_id = auth.uid()
+    )
+  );
+create policy "app_sets_insert" on app_sets
+  for insert with check (
+    exists (
+      select 1 from app_workouts w
+      where w.id = app_sets.workout_id
+      and w.user_id = auth.uid()
+    )
+  );
+create policy "app_sets_update" on app_sets
+  for update using (
+    exists (
+      select 1 from app_workouts w
+      where w.id = app_sets.workout_id
+      and w.user_id = auth.uid()
+    )
+  );
+create policy "app_sets_delete" on app_sets
+  for delete using (
+    exists (
+      select 1 from app_workouts w
+      where w.id = app_sets.workout_id
+      and w.user_id = auth.uid()
+    )
+  );
+
+-- app_day_meta
+create policy "app_day_meta_select" on app_day_meta
+  for select using (auth.uid() = user_id);
+create policy "app_day_meta_insert" on app_day_meta
+  for insert with check (auth.uid() = user_id);
+create policy "app_day_meta_update" on app_day_meta
+  for update using (auth.uid() = user_id);
+create policy "app_day_meta_delete" on app_day_meta
+  for delete using (auth.uid() = user_id);
+
+-- ============================================================
+-- Mobile — updated_at triggers
+-- (web'in update_updated_at() fonksiyonu yukarıda zaten tanımlı)
+-- ============================================================
+
+drop trigger if exists app_profiles_updated_at on app_profiles;
+create trigger app_profiles_updated_at
+  before update on app_profiles
+  for each row execute function update_updated_at();
+
+drop trigger if exists app_programs_updated_at on app_programs;
+create trigger app_programs_updated_at
+  before update on app_programs
+  for each row execute function update_updated_at();
+
+drop trigger if exists app_workouts_updated_at on app_workouts;
+create trigger app_workouts_updated_at
+  before update on app_workouts
+  for each row execute function update_updated_at();
+
+drop trigger if exists app_day_meta_updated_at on app_day_meta;
+create trigger app_day_meta_updated_at
+  before update on app_day_meta
+  for each row execute function update_updated_at();
+
+-- ============================================================
+-- Mobile — Sonu (ADIM 2)
+-- Sonraki migration buranın altına eklenir.
+-- ============================================================
