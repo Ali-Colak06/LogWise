@@ -75,7 +75,8 @@ Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **
 | `C:/Users/colak/Documents/LogWise-master/` | `web/work` | **Codex — web** (repo kökü) |
 
 - **Master'ı `LogWise/` (Claude) tutar.** Claude mobil değişiklikleri + ortak yönetim dosyalarını (AGENTS.md, REFACTOR-GECMISI.md) doğrudan `master`'a commit'ler.
-- **Codex web tarafını `web/work` dalında yürütür** (her zaman güncel `origin/master` tabanlı). `web/work`'e commit + push; sonra `origin/master`'a ff/merge ile indirir. Web ve mobil ayrı dosyalara dokunduğu için bu normalde temiz ff/rebase'dir.
+- **Codex web tarafını `web/work` dalında yürütür** (her zaman güncel `origin/master` tabanlı). `web/work`'e commit + push.
+- **Web → master inişi:** `git push origin web/work:master` (server-side fast-forward — **kimsenin worktree'sine dokunmaz**; diverge varsa otomatik reddedilir → `web/work`'ü `origin/master` üzerine rebase edip tekrar dene). **Başka ajanın worktree'sinde (`git -C .../LogWise ...`) komut çalıştırma** — o ajan o sırada commit'siz işte olabilir. Riskli/büyük işte PR tercih et. İniş sonrası iki worktree de `git fetch && git merge --ff-only origin/master` ile senkronlanır.
 - **Çalışmadan önce `git fetch`; handoff'ta `push`.** `origin` ortak doğruluk kaynağıdır. Diğer worktree `git merge --ff-only origin/master` ile senkronlanır.
 - **Çift-taraflı iş** (HEM web HEM mobil dosyaya dokunan; ör. kas taksonomisi göçü): iki ayrı dalda paralel YAPMA → **tek dalda topla, tek merge ile indir** (yoksa aynı dosyalarda gerçek çakışma çıkar).
 - **`mobile-design-system` dalı SİLİNMEZ** — squash öncesi mobil geçmişin tek arşividir.
