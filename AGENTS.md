@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-26 — Codegen drift kontrolleri tek komut ve GitHub Actions ile otomasyona bağlandı. -->
+<!-- SON GÜNCELLEME: 2026-06-26 — Çoklu-ajan worktree iş akışı (§3.5) eklendi: Claude=master/mobil, Codex=web/work. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -64,7 +64,22 @@ Her AI seansı başlamadan **önce**:
 - `Co-Authored-By:` satırı AI'yı belirtir (Claude için: `Co-Authored-By: Claude <noreply@anthropic.com>`; Codex için eşdeğer satır).
 - Sensitive dosyalar (`.env`, credentials) commit'e girmez. `git add .` yerine dosyaları ismen ekle.
 - `master` branch'i deploy'dur; büyük işler önce feature branch'te geliştirilir.
-- Web ve mobil için ayrı uzun ömürlü clone yerine aynı repo tabanlı ayrı worktree'ler kullan; ortak dosya değişikliklerini kısa ömürlü entegrasyon branch'lerinde birleştir.
+
+### 3.5 Çoklu-ajan worktree iş akışı (BAĞLAYICI — "Seçenek 1")
+
+Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **worktree**'lerde çalışır; ayrı clone YOKTUR. Git aynı dalı iki worktree'de aynı anda açtırmadığı için roller sabittir:
+
+| Worktree | Dal | Ajan / alan |
+|---|---|---|
+| `C:/Users/colak/Documents/LogWise/` | `master` | **Claude — mobil** (`logwise-mobile/`) + repo-yönetim dosyaları |
+| `C:/Users/colak/Documents/LogWise-master/` | `web/work` | **Codex — web** (repo kökü) |
+
+- **Master'ı `LogWise/` (Claude) tutar.** Claude mobil değişiklikleri + ortak yönetim dosyalarını (AGENTS.md, REFACTOR-GECMISI.md) doğrudan `master`'a commit'ler.
+- **Codex web tarafını `web/work` dalında yürütür** (her zaman güncel `origin/master` tabanlı). `web/work`'e commit + push; sonra `origin/master`'a ff/merge ile indirir. Web ve mobil ayrı dosyalara dokunduğu için bu normalde temiz ff/rebase'dir.
+- **Çalışmadan önce `git fetch`; handoff'ta `push`.** `origin` ortak doğruluk kaynağıdır. Diğer worktree `git merge --ff-only origin/master` ile senkronlanır.
+- **Çift-taraflı iş** (HEM web HEM mobil dosyaya dokunan; ör. kas taksonomisi göçü): iki ayrı dalda paralel YAPMA → **tek dalda topla, tek merge ile indir** (yoksa aynı dosyalarda gerçek çakışma çıkar).
+- **`mobile-design-system` dalı SİLİNMEZ** — squash öncesi mobil geçmişin tek arşividir.
+- Generated çıktılara elle dokunma; `node scripts/check-codegen.js` yeşil olmadan push etme (§3.2, §3.3).
 
 ---
 
