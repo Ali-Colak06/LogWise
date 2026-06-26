@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-26 — Web ve Expo mobil uygulaması gerçek monorepo tabanında birleştirildi. -->
+<!-- SON GÜNCELLEME: 2026-06-26 — Preset hareketler Web/Mobil ortak kanonik JSON + codegen hattına taşındı. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -23,7 +23,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 86 — Web/Mobil monorepo entegrasyonu).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 87 — Preset exercise codegen pilotu).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -52,6 +52,7 @@ Her AI seansı başlamadan **önce**:
 - `app.html` / `profile.html` / `share.html` / `program.html` — uygulama ve paylaşım sayfa dosyaları.
 - `logwise-mobile/` — bağımsız Expo alt projesi; kendi `package.json`, TypeScript, Metro/Babel ve React Native bileşen kurallarına sahiptir.
 - `.assetsignore` — repo kökündeki geliştirme/mobil kaynaklarının Cloudflare Web asset deploy'una girmesini engeller.
+- Web/Mobil ortak domain verilerinde kanonik kaynak + generator modeli kullanılır. `presets-exercises` için kaynak `data/presets-exercises.json`; üretilen çıktılar `data/presets-exercises.js` ve `logwise-mobile/data/generated/presets-exercises.ts` dosyalarıdır. Generated dosyalar elle değiştirilmez.
 
 ### 3.3 Web PWA / Service Worker
 - **Yeni `data/`, `lib/` veya `components/` dosyası eklediğinde** `sw.js`'de iki değişiklik zorunlu: `CACHE_NAME` bump + `PRECACHE_URLS`'e yeni dosyayı ekle. Detay: `docs/SW-VERSION-BUMP.md`.
@@ -71,7 +72,7 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-86)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-87)
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── mobile-design-system/  ← Mobil ürün kararları, ekran spesifikasyonları ve prototipler
@@ -92,7 +93,8 @@ LogWise/
 │   ├── i18n-tr-profile.js     ← window.LOGWISE_TR_PROFILE
 │   ├── i18n-en-profile.js     ← window.LOGWISE_EN_PROFILE
 │   ├── badges.js              ← window.LOGWISE_BADGES (30 rozet)
-│   ├── presets-exercises.js   ← window.LOGWISE_PRESET_EXERCISES (145 hareket, slug-id'li)
+│   ├── presets-exercises.json ← Kanonik Web/Mobil preset exercise kaynağı (145 hareket)
+│   ├── presets-exercises.js   ← Üretilmiş window.LOGWISE_PRESET_EXERCISES web wrapper'ı
 │   ├── ex-descriptions.js     ← window.LOGWISE_EX_DESCS (slug-anahtarlı kısa açıklamalar)
 │   ├── ex-preview.js          ← window.LOGWISE_EX_PREVIEW (slug-anahtarlı gif + uzun desc + tips)
 │   ├── ex-images.js           ← window.LOGWISE_EX_IMAGES (legacy harici görsel fallback'leri)
@@ -123,6 +125,7 @@ LogWise/
 ├── library/                   ← Üretilmiş statik Library dizinleri ve alt sayfaları (`/library/exercises`, `/library/programs`, nested sayfalar)
 ├── scripts/
 │   ├── build-blog.js          ← blog-content/*.md → learn/*.html + ogren/*.html üretici + TR/EN hreflang + landing Learn/Öğren kart enjeksiyonu
+│   ├── build-presets-exercises.js ← presets-exercises.json → Web JS + mobil TS generated çıktıları ve --check drift kontrolü
 │   ├── build-ex-guides.js     ← ex-guides.json doğrulama + ex-guides.js wrapper üretimi
 │   ├── validate-exercise-media.js ← Yerel MP4 + uzak R2 header/range doğrulaması
 │   ├── build-programmatic-seo.js ← data/*.js → library.html + library/exercises.html + library/programs.html + nested Library HTML üretici
@@ -186,7 +189,7 @@ LogWise/
 | Yeni sayfa eklemek | `.html` dosyası + gerekirse `_redirects` + sw.js PRECACHE |
 | Mobil ekran/bileşen değiştirmek | `logwise-mobile/app/` + `logwise-mobile/components/` + ilgili `docs/mobile-design-system/` belgesi |
 | Mobil veri/query değiştirmek | `logwise-mobile/lib/` + `logwise-mobile/queries/` + `logwise-mobile/types/` |
-| Web/Mobil ortak domain verisi değiştirmek | Kanonik Web JSON sözleşmesi + ilgili generator; iki platform çıktısını elle ayrı güncelleme |
+| Web/Mobil ortak domain verisi değiştirmek | Kanonik JSON sözleşmesi + ilgili generator; generated Web/Mobil çıktılarını elle değiştirme |
 
 ---
 
@@ -199,11 +202,12 @@ LogWise/
 3. **Bracket balance:** Büyük component dosyalarında `(` `{` `[` dengesi 0 olmalı.
 4. **sw.js güncel mi?** Yeni statik dosya eklediysen → `CACHE_NAME` bump + `PRECACHE_URLS` ekle.
 5. **i18n senkron mu?** Yeni TR string eklediysen EN karşılığını da ekledin mi?
-6. **Mobil kontrol:** Mobil dosya değiştiyse `cd logwise-mobile && npm run typecheck`; ilgili test varsa `npm test -- --runInBand`.
-7. **REFACTOR-GECMISI.md** — büyük bir iş (yeni dosya, yeni pattern, mimari karar) yaptıysan yeni bir Bölüm ekle.
-8. **AGENTS.md dosya haritası** — yeni dosya/klasör eklediysen haritayı güncelle + `SON GÜNCELLEME` tarihini yenile.
-9. **Çalıştırma testi:** mümkünse etkilenen Web view'ını ve/veya Expo ekranını render et.
-10. **Commit disiplini:** `git add <dosyalar>` ismen; mesaj kısa ama anlamlı; `Co-Authored-By:` satırı.
+6. **Preset codegen:** `data/presets-exercises.json` değiştiyse `node scripts/build-presets-exercises.js` ve ardından `node scripts/build-presets-exercises.js --check` çalıştır.
+7. **Mobil kontrol:** Mobil dosya değiştiyse `cd logwise-mobile && npm run typecheck`; ilgili test varsa `npm test -- --runInBand`.
+8. **REFACTOR-GECMISI.md** — büyük bir iş (yeni dosya, yeni pattern, mimari karar) yaptıysan yeni bir Bölüm ekle.
+9. **AGENTS.md dosya haritası** — yeni dosya/klasör eklediysen haritayı güncelle + `SON GÜNCELLEME` tarihini yenile.
+10. **Çalıştırma testi:** mümkünse etkilenen Web view'ını ve/veya Expo ekranını render et.
+11. **Commit disiplini:** `git add <dosyalar>` ismen; mesaj kısa ama anlamlı; `Co-Authored-By:` satırı.
 
 ---
 
@@ -221,6 +225,7 @@ LogWise/
 - ❌ Commit'e sensitive dosya (.env, credentials) eklemek
 - ❌ `git push --force` ile `master`ı güncellemek
 - ❌ `logwise-mobile/` veya dahili monorepo kaynaklarını Cloudflare Web asset deploy'una dahil etmek
+- ❌ Generated preset çıktılarını (`data/presets-exercises.js`, `logwise-mobile/data/generated/presets-exercises.ts`) elle düzenlemek; kaynak JSON'u değiştir ve generator çalıştır
 
 ---
 
@@ -261,6 +266,7 @@ LogWise/
 - **Exercise guide enrichment batch 20** (Bölüm 84): Altı row/pullover ve bir arch hareketinin tam TR/EN içeriği, makine-landmine ayrımları, pullover menzili ve statik arch standardı düzeltmeleri, toplam 143 content-ready guide ✅
 - **Exercise guide enrichment batch 21 + tam kapsam** (Bölüm 85): Superman ve air-walker Ay Yürüyüşü kayıtlarının tam TR/EN içeriği, dinamik-statik arch ayrımı ve Moonwalk cihaz anlamı; 145/145 preview-ready ve content-ready guide ✅
 - **Web/Mobil monorepo entegrasyonu** (Bölüm 86): Expo uygulaması `logwise-mobile/` altında güncel mobil checkpoint'ten eklendi; mobil tasarım belgeleri ve `app_` Supabase şeması korundu; Web SEO/build'siz mimarisi ve Cloudflare asset sınırı güvenceye alındı ✅
+- **Preset exercise codegen pilotu** (Bölüm 87): `data/presets-exercises.json` kanonik kaynak; Web `data/presets-exercises.js` ve mobil `logwise-mobile/data/generated/presets-exercises.ts` deterministik generator + `--check` ile doğrulanır ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

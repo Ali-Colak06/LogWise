@@ -4151,6 +4151,56 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 87 — Preset Exercise Codegen Pilotu (2026-06-26)
+
+### Amaç
+
+Web ve mobilde ayrı dosyalarda tutulan 145 preset hareket listesini tek kanonik kaynağa bağlamak; runtime çıktıları byte-birebir koruyarak Web/Mobil veri drift riskini kapatmak ve ilerideki ortak domain veri çalışmaları için küçük, doğrulanabilir codegen pilotu oluşturmak.
+
+### Kapsam ve İş Bölümü
+
+- **Mobil hazırlık:** `feeef6f` ile mobil taraf `presets-exercises.types.ts`, `generated/presets-exercises.ts` ve wrapper `presets-exercises.ts` ayrımına geçti. Public import API'si değişmedi.
+- **Kanonik kaynak:** `data/presets-exercises.json` eklendi. Her kayıt `id`, `name`, opsiyonel `nameEN` ve `categories` alanlarını taşır; sıra mevcut Web/Mobil preset sırasıdır.
+- **Generator:** `scripts/build-presets-exercises.js` eklendi. Tek komut iki çıktı üretir:
+  - `data/presets-exercises.js` — build'siz Web runtime için `window.LOGWISE_PRESET_EXERCISES`.
+  - `logwise-mobile/data/generated/presets-exercises.ts` — mobil wrapper'ın tükettiği typed generated veri.
+- **Elle düzenleme sınırı:** `data/presets-exercises.js` ve `logwise-mobile/data/generated/presets-exercises.ts` artık generated çıktıdır; değişiklikler `data/presets-exercises.json` üzerinden yapılır.
+
+### Format Kararları
+
+- Web çıktısı mevcut dosya biçimini korur: CRLF, çift tırnak, çok satırlı obje ve `window.LOGWISE_PRESET_EXERCISES = [...]`.
+- Mobil çıktı mevcut `feeef6f` hedefini korur: LF, tek tırnak, satır başına bir obje, `nameEN` yalnız tanımlıysa.
+- Generator `--check` modunda iki çıktıyı yeniden üretip commit'li dosyayla byte karşılaştırır; drift varsa exit 1 verir.
+- JSON doğrulaması duplicate slug, boş string, slug regex'i, zorunlu alanlar ve beklenmeyen anahtarları yakalar.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `data/presets-exercises.json` | 145 preset için kanonik Web/Mobil kaynak |
+| `scripts/build-presets-exercises.js` | Web JS + mobil TS generated çıktı üretimi ve `--check` drift kontrolü |
+| `data/presets-exercises.js` | Generator hedefi; mevcut runtime formatı byte-birebir korunur |
+| `logwise-mobile/data/generated/presets-exercises.ts` | Generator hedefi; mobil `feeef6f` formatı byte-birebir korunur |
+| `sw.js` | Yeni kanonik JSON precache'e eklendi; cache `logwise-v48` |
+| `docs/PRESET-EXERCISE-EKLEME.md` | Yeni preset akışı JSON kaynak + generator komutlarına taşındı |
+| `AGENTS.md` | Preset codegen kuralı, dosya haritası, seans sonu kontrolü ve yasak listesi güncellendi |
+
+### Doğrulama Notları
+
+- `node scripts/build-presets-exercises.js --check` sonucu `145 records, 2 outputs` olarak geçti.
+- Generator, mevcut `data/presets-exercises.js` ve `logwise-mobile/data/generated/presets-exercises.ts` dosyalarını değiştirmeden doğruladı.
+- Web syntax kontrolü için `node --check scripts/build-presets-exercises.js`, `node --check data/presets-exercises.js` ve `node --check sw.js` çalıştırıldı.
+- Mobil taraf için `cd logwise-mobile && npm run typecheck` ve `npm test -- --runInBand --passWithNoTests --no-cache` yeşil doğrulandı.
+- `node scripts/build-ex-guides.js --check` ile mevcut guide kapsamı değişmeden kaldı.
+
+### Sonraki Fazlar
+
+1. CI veya pre-merge check içine `node scripts/build-presets-exercises.js --check` eklemek.
+2. Mobil tarafın aynı check'i kendi doğrulamasında çalıştırması.
+3. Kategori/kas taksonomisi için bu pilotun üstüne dual-read → slug-only write → idempotent migration → contract-last sırasıyla ilerlemek.
+
+---
+
 ## Bölüm 86 — Web/Mobil Monorepo Entegrasyonu (2026-06-26)
 
 ### Amaç

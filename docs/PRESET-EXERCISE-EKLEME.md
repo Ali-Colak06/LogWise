@@ -1,6 +1,6 @@
 # Yeni Preset Hareket Ekleme Reçetesi
 
-<!-- SON GÜNCELLEME: 2026-06-18 — Kanonik exercise guide kaydı zorunluluğu. -->
+<!-- SON GÜNCELLEME: 2026-06-26 — Preset hareket kaynağı kanonik JSON + Web/Mobil codegen hattına taşındı. -->
 
 Bu belge, LogWise'a yeni bir hazır hareket (preset exercise) nasıl eklenir adım adım anlatır.
 
@@ -10,16 +10,18 @@ Bu belge, LogWise'a yeni bir hazır hareket (preset exercise) nasıl eklenir ad�
 
 ## Etkilenen Dosyalar
 
-Bir hareket eklerken 2 zorunlu + migration boyunca 2 önerilen dosya vardır:
+Bir hareket eklerken 2 zorunlu kaynak + migration boyunca 2 önerilen kaynak vardır. Web/Mobil preset çıktıları generator ile üretilir; generated dosyalar elle düzenlenmez.
 
 | Dosya | Zorunlu? | Amaç |
 |---|---|---|
-| `data/presets-exercises.js` | ✅ Zorunlu | Hareketin kendisi (id + name + kategori) |
+| `data/presets-exercises.json` | ✅ Zorunlu | Kanonik hareket kaynağı (id + name + kategori); Web ve mobil buradan üretilir |
 | `data/ex-guides.json` | ✅ Zorunlu | Ortak web/mobile guide kaydı ve readiness durumu |
 | `data/ex-descriptions.js` | Önerilir | Kısa açıklama (tek satır, TR+EN) |
 | `data/ex-preview.js` | Migration boyunca önerilir | Legacy web preview fallback'i |
+| `data/presets-exercises.js` | Üretilmiş | Web runtime çıktısı; `scripts/build-presets-exercises.js` üretir |
+| `logwise-mobile/data/generated/presets-exercises.ts` | Üretilmiş | Mobil runtime çıktısı; `scripts/build-presets-exercises.js` üretir |
 
-Bu içerik dosyalarının ortak anahtarı hareketin `id` alanıdır (slug). Hepsinde aynı slug kullanılır. `name` alanı sadece `presets-exercises.js`'tedir ve UI başlığı içindir.
+Bu içerik dosyalarının ortak anahtarı hareketin `id` alanıdır (slug). Hepsinde aynı slug kullanılır. `name` alanı kanonik `presets-exercises.json` içindedir ve UI başlığı içindir.
 
 `scripts/build-ex-guides.js`, her preset için kanonik guide kaydı bulunmasını zorunlu kılar. Yeni hareketin tam içeriği hazır değilse bile `data/ex-guides.json` içine `publish: false`, `mediaReady: false` ve uygun readiness değerleriyle draft kayıt eklenir. Tam alan sözleşmesi için `docs/EXERCISE-GUIDE-SCHEMA.md` belgesine bak.
 
@@ -50,18 +52,27 @@ Bu içerik dosyalarının ortak anahtarı hareketin `id` alanıdır (slug). Heps
 
 ---
 
-## 1. `data/presets-exercises.js` — Zorunlu Giriş
+## 1. `data/presets-exercises.json` — Zorunlu Kanonik Giriş
 
 Format:
 
-```js
+```json
 {
-  id: "slug",                  // zorunlu — slug, yukarıdaki kurallara göre
-  name: "Türkçe İsim",         // zorunlu — UI başlığı
-  nameEN: "English Name",      // opsiyonel — yoksa name kullanılır
-  categories: ["Göğüs"]        // zorunlu — 1 veya daha fazla kategori
+  "id": "slug",
+  "name": "Türkçe İsim",
+  "nameEN": "English Name",
+  "categories": ["Göğüs"]
 }
 ```
+
+`nameEN` opsiyoneldir; yoksa alanı hiç yazma. Anahtar sırası `id` → `name` → `nameEN` → `categories` olmalı. Değişiklikten sonra:
+
+```bash
+node scripts/build-presets-exercises.js
+node scripts/build-presets-exercises.js --check
+```
+
+komutları Web `data/presets-exercises.js` ve mobil `logwise-mobile/data/generated/presets-exercises.ts` çıktılarını deterministik üretir/doğrular.
 
 ### Kategori Listesi (Sabit)
 
@@ -125,17 +136,17 @@ Hareket önizleme modal'ında (ExPreviewModal) görünür. Anahtar yine slug. Fo
 
 ## 4. Tam Örnek: "Reverse Fly" Eklemek
 
-### Adım A — `data/presets-exercises.js`
+### Adım A — `data/presets-exercises.json`
 
 Omuz bloğunun içinde uygun yere ekle:
 
-```js
-}, {
-  id: "reverse-fly",
-  name: "Reverse Fly",
-  nameEN: "Reverse Fly",
-  categories: ["Omuz"]
-}, {
+```json
+{
+  "id": "reverse-fly",
+  "name": "Reverse Fly",
+  "nameEN": "Reverse Fly",
+  "categories": ["Omuz"]
+}
 ```
 
 ### Adım B — `data/ex-descriptions.js`
@@ -167,17 +178,20 @@ Omuz bloğunun içinde uygun yere ekle:
 
 Ekledikten sonra mutlaka:
 
-- [ ] `presets-exercises.js` giriş eklenmiş (`id` + `name` + `categories`)
+- [ ] Asıl değişiklik `data/presets-exercises.json` içine yapılmış (`id` + `name` + `categories`)
+- [ ] `node scripts/build-presets-exercises.js` çalıştırılmış
+- [ ] `node scripts/build-presets-exercises.js --check` ✅
 - [ ] `ex-guides.json` draft veya hazır guide kaydı aynı slug ile eklenmiş
 - [ ] `id` global benzersiz (mevcut listede çakışma yok)
 - [ ] `id` slug formatına uygun: `^[a-z0-9-]+$`
-- [ ] `ex-descriptions.js` ve `ex-preview.js` key'leri `presets-exercises.js`'teki `id` ile **birebir** aynı
+- [ ] `ex-descriptions.js` ve `ex-preview.js` key'leri `presets-exercises.json` içindeki `id` ile **birebir** aynı
 - [ ] TR ve EN eşit miktarda — birini atlama
 - [ ] `node --check data/presets-exercises.js` ✅
 - [ ] `node --check data/ex-descriptions.js` ✅
 - [ ] `node --check data/ex-preview.js` ✅
 - [ ] `node scripts/build-ex-guides.js --check` ✅
 - [ ] `node scripts/build-ex-guides.js` ile `data/ex-guides.js` wrapper'ı yenilenmiş
+- [ ] Generated dosyalar (`data/presets-exercises.js`, `logwise-mobile/data/generated/presets-exercises.ts`) elle düzenlenmemiş
 - [ ] JSON obje sırasında virgül hatası yok (özellikle son giriş ve yeni girişin virgülü)
 - [ ] **`sw.js` bump GEREKLI DEĞİL** — bu dosyalar zaten PRECACHE'te. Sadece içerik değişti, URL yok.
 - [ ] Tarayıcıda dashboard → "Hazır Hareketler" altında yeni hareket görünüyor mu?
@@ -187,14 +201,14 @@ Ekledikten sonra mutlaka:
 
 ## 6. Sık Yapılan Hatalar
 
-- **Slug tutarsızlığı:** `presets-exercises.js`'te `id: "incline-dumbell-press"` yazıp `ex-preview.js`'te `"incline-dumbbell-press"` (çift b!) yazmak — lookup fail olur.
+- **Slug tutarsızlığı:** `presets-exercises.json` içinde `"id": "incline-dumbell-press"` yazıp `ex-preview.js`'te `"incline-dumbbell-press"` (çift b!) yazmak — lookup fail olur.
 - **Türkçe karakteri slug'a koymak:** `"şınav"` slug olmaz; `İ` → `i`, `ş` → `s` çeviri yap.
 - **Slug değil, isim kullanmak:** `ex-descriptions.js`'e `"Bench Press"` yazmak (eski format) → key bulunmaz; `"bench-press"` doğru.
 - **Kategori yazımı:** "göğüs" (küçük) yerine "Göğüs" (büyük + noktalı g) yazmayı unutmak.
 - **Virgül patlaması:** Son obje sonrası virgül unutmak → syntax error.
 - **`desc` tek string:** `desc` dizi olmalı `[TR, EN]`; yanlışlıkla tek string yazılırsa render patlar.
 - **EN atlamak:** i18n zorunlu; EN olmayınca İngilizce kullanıcı boş içerik görür.
-- **Slug duplicate:** Listede zaten aynı slug varsa ikincisi sessizce eziyor olabilir; ekleme öncesi `grep "id: \"slug-adayi\"" data/presets-exercises.js` ile kontrol et.
+- **Slug duplicate:** Listede zaten aynı slug varsa generator hata verir; ekleme öncesi `rg '"id": "slug-adayi"' data/presets-exercises.json` ile kontrol et.
 
 ---
 
@@ -203,13 +217,14 @@ Ekledikten sonra mutlaka:
 Birden fazla hareket eklerken:
 
 1. Önce slug listesi çıkar (yukarıdaki kurallara göre); kendi içinde benzersizliği kontrol et.
-2. `presets-exercises.js`'e tüm girişleri ekle (id + name + nameEN + categories).
+2. `data/presets-exercises.json` içine tüm girişleri ekle (id + name + nameEN + categories).
 3. `ex-guides.json` içine aynı slug'larla en az draft guide kayıtlarını ekle.
 4. Migration gerekiyorsa `ex-descriptions.js` ve `ex-preview.js` içine aynı slug'larla legacy fallback içeriğini ekle.
-5. `node scripts/build-ex-guides.js --check` ve tüm `node --check` kontrollerini geç.
-6. `node scripts/build-ex-guides.js` ile web wrapper'ını yeniden üret.
-7. Çapraz referans testi: programlardan veya bu yeni hareketleri gerektiren bir yerden lookup başarısız oluyor mu?
-8. Tek commit: `"data: N yeni preset hareket ekle (kategori/grup)"`.
+5. `node scripts/build-presets-exercises.js` ile Web/Mobil preset çıktılarını yeniden üret.
+6. `node scripts/build-presets-exercises.js --check`, `node scripts/build-ex-guides.js --check` ve tüm `node --check` kontrollerini geç.
+7. `node scripts/build-ex-guides.js` ile web guide wrapper'ını yeniden üret.
+8. Çapraz referans testi: programlardan veya bu yeni hareketleri gerektiren bir yerden lookup başarısız oluyor mu?
+9. Tek commit: `"data: N yeni preset hareket ekle (kategori/grup)"`.
 
 Slug listesini önce hazırlamak, Türkçe karakter tutarsızlıklarını ve tekrar slug'larını yakalamak için kritik.
 
