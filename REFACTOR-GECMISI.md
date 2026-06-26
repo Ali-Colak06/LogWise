@@ -4151,6 +4151,50 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 88 — Exercise Guide Mobil Projection Codegen (2026-06-26)
+
+### Amaç
+
+`data/ex-guides.json` kanonik guide kaynağını yalnız Web wrapper'ı için değil, mobilin ince egzersiz içerik projection'ı için de tek üretim hattına bağlamak. Böylece mobil `EX_DESCS`/`EX_PREVIEW` wrapper'larının tükettiği `logwise-mobile/data/generated/ex-content.ts` dosyası elle taşınmış statik port olmaktan çıkıp Web ile aynı kanonik JSON'dan üretilen deterministic çıktıya dönüşür.
+
+### Kapsam
+
+- `scripts/build-ex-guides.js` artık iki generated çıktı üretir:
+  - `data/ex-guides.js` — mevcut Web `window.LOGWISE_EX_GUIDES` wrapper'ı.
+  - `logwise-mobile/data/generated/ex-content.ts` — mobilin render ettiği ince projection.
+- Mobil projection alanları bilinçli olarak sınırlıdır: `summary`, `description`, `tips`, `gif`, `webGuideUrl`.
+- `gif`, `media.demoMp4 ?? media.demoWebm ?? null` kuralıyla türetilir.
+- `muscles`, `formSteps`, `mistakes`, `progression` ve `web` mobil projection'a dahil edilmez; kas/taksonomi alanı Faz 3 migration sonrasına bırakılır.
+
+### Check Davranışı
+
+`node scripts/build-ex-guides.js --check`, doğrulama yanında iki generated çıktıyı da yeniden hesaplayıp commit'li dosyalarla byte karşılaştırır. Drift varsa komut exit 1 verir ve stale dosyaları listeler.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `scripts/build-ex-guides.js` | Web wrapper + mobil `ex-content.ts` çıktısını üreten ve `--check` ile ikisini de doğrulayan hale getirildi |
+| `AGENTS.md` | Exercise guide codegen kontrolü, generated çıktı yasağı ve Bölüm 88 özeti eklendi |
+| `REFACTOR-GECMISI.md` | Bu bölüm |
+
+### Doğrulama Notları
+
+- `node scripts/build-ex-guides.js` çalıştırıldığında `data/ex-guides.js` ve `logwise-mobile/data/generated/ex-content.ts` için diff oluşmadı.
+- `node scripts/build-ex-guides.js --check` exit 0 verdi ve `145 total, 145 preview-ready, 145 content-ready, 0 media-ready, 0 published` sonucunu korudu.
+- `node --check scripts/build-ex-guides.js` geçti.
+- `node scripts/build-presets-exercises.js --check` geçti; önceki preset codegen hattında drift oluşmadı.
+- `cd logwise-mobile && npm run typecheck` geçti.
+- Yeni Web runtime URL'si eklenmediği için `sw.js` bump gerekmedi.
+
+### Sonraki Fazlar
+
+1. Mobil taraftan `--check` sıfır-drift ve typecheck teyidi.
+2. CI/pre-merge doğrulamasına `build-ex-guides.js --check` ve `build-presets-exercises.js --check` eklenmesi.
+3. Faz 3 taksonomi migration'ı: muscles projection bu migration tamamlandıktan sonra yeniden değerlendirilir.
+
+---
+
 ## Bölüm 87 — Preset Exercise Codegen Pilotu (2026-06-26)
 
 ### Amaç
