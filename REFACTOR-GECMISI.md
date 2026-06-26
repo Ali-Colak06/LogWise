@@ -4151,6 +4151,39 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 89 — Codegen Drift Otomasyonu (2026-06-26)
+
+### Amaç
+
+Preset ve exercise guide generated çıktılarının güncel kalmasını yalnız AI checklist'ine bırakmamak; tek local komut ve GitHub Actions ile drift kontrolünü makine zorlamasına bağlamak.
+
+### Kapsam
+
+- `scripts/check-codegen.js` eklendi. Sırayla şu kontrolleri çalıştırır:
+  - `node scripts/build-presets-exercises.js --check`
+  - `node scripts/build-ex-guides.js --check`
+- `.github/workflows/codegen-check.yml` eklendi. `push` ve `pull_request` olaylarında checkout + Node kurulumu + `node scripts/check-codegen.js` çalıştırır.
+- Root `package.json` olmadığı için komut plain Node script olarak bırakıldı; ekstra bağımlılık yok.
+- Mobil `npm ci && npm run typecheck` bu hızlı codegen job'ına eklenmedi; mobil typecheck ayrı doğrulama olarak kalır.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `scripts/check-codegen.js` | Preset + ex-guides generated drift kontrollerini tek komutta çalıştırır |
+| `.github/workflows/codegen-check.yml` | Push/PR üzerinde birleşik codegen check |
+| `AGENTS.md` | Per-generator checklist tek `node scripts/check-codegen.js` satırına indirildi |
+| `REFACTOR-GECMISI.md` | Bu bölüm |
+
+### Doğrulama Notları
+
+- `node --check scripts/check-codegen.js` geçti.
+- Temiz ağaçta `node scripts/check-codegen.js` exit 0 verdi.
+- Kasıtlı generated dosya drift testinde komut exit 1 döndü; dosya geri alındıktan sonra check tekrar yeşile döndü.
+- `git diff --check` geçti.
+
+---
+
 ## Bölüm 88 — Exercise Guide Mobil Projection Codegen (2026-06-26)
 
 ### Amaç

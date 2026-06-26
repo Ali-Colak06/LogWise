@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-26 — Exercise guide mobil projection çıktısı Web generator hattına bağlandı. -->
+<!-- SON GÜNCELLEME: 2026-06-26 — Codegen drift kontrolleri tek komut ve GitHub Actions ile otomasyona bağlandı. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -23,7 +23,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 88 — Exercise guide mobil projection codegen).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 89 — Codegen drift otomasyonu).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -73,7 +73,9 @@ Her AI seansı başlamadan **önce**:
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-88)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-89)
+├── .github/workflows/         ← CI otomasyonları
+│   └── codegen-check.yml      ← Generated çıktı drift kontrolü
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── mobile-design-system/  ← Mobil ürün kararları, ekran spesifikasyonları ve prototipler
@@ -126,6 +128,7 @@ LogWise/
 ├── library/                   ← Üretilmiş statik Library dizinleri ve alt sayfaları (`/library/exercises`, `/library/programs`, nested sayfalar)
 ├── scripts/
 │   ├── build-blog.js          ← blog-content/*.md → learn/*.html + ogren/*.html üretici + TR/EN hreflang + landing Learn/Öğren kart enjeksiyonu
+│   ├── check-codegen.js       ← Preset + exercise guide generated çıktı drift kontrollerini tek komutta çalıştırır
 │   ├── build-presets-exercises.js ← presets-exercises.json → Web JS + mobil TS generated çıktıları ve --check drift kontrolü
 │   ├── build-ex-guides.js     ← ex-guides.json doğrulama + Web ex-guides.js + mobil generated ex-content.ts üretimi
 │   ├── validate-exercise-media.js ← Yerel MP4 + uzak R2 header/range doğrulaması
@@ -203,13 +206,12 @@ LogWise/
 3. **Bracket balance:** Büyük component dosyalarında `(` `{` `[` dengesi 0 olmalı.
 4. **sw.js güncel mi?** Yeni statik dosya eklediysen → `CACHE_NAME` bump + `PRECACHE_URLS` ekle.
 5. **i18n senkron mu?** Yeni TR string eklediysen EN karşılığını da ekledin mi?
-6. **Preset codegen:** `data/presets-exercises.json` değiştiyse `node scripts/build-presets-exercises.js` ve ardından `node scripts/build-presets-exercises.js --check` çalıştır.
-7. **Exercise guide codegen:** `data/ex-guides.json` veya `scripts/build-ex-guides.js` değiştiyse `node scripts/build-ex-guides.js` ve ardından `node scripts/build-ex-guides.js --check` çalıştır.
-8. **Mobil kontrol:** Mobil dosya değiştiyse `cd logwise-mobile && npm run typecheck`; ilgili test varsa `npm test -- --runInBand`.
-9. **REFACTOR-GECMISI.md** — büyük bir iş (yeni dosya, yeni pattern, mimari karar) yaptıysan yeni bir Bölüm ekle.
-10. **AGENTS.md dosya haritası** — yeni dosya/klasör eklediysen haritayı güncelle + `SON GÜNCELLEME` tarihini yenile.
-11. **Çalıştırma testi:** mümkünse etkilenen Web view'ını ve/veya Expo ekranını render et.
-12. **Commit disiplini:** `git add <dosyalar>` ismen; mesaj kısa ama anlamlı; `Co-Authored-By:` satırı.
+6. **Codegen:** Kanonik JSON veya generator değiştiyse `node scripts/check-codegen.js` çalıştır (presets + ex-guides drift kontrolü).
+7. **Mobil kontrol:** Mobil dosya değiştiyse `cd logwise-mobile && npm run typecheck`; ilgili test varsa `npm test -- --runInBand`.
+8. **REFACTOR-GECMISI.md** — büyük bir iş (yeni dosya, yeni pattern, mimari karar) yaptıysan yeni bir Bölüm ekle.
+9. **AGENTS.md dosya haritası** — yeni dosya/klasör eklediysen haritayı güncelle + `SON GÜNCELLEME` tarihini yenile.
+10. **Çalıştırma testi:** mümkünse etkilenen Web view'ını ve/veya Expo ekranını render et.
+11. **Commit disiplini:** `git add <dosyalar>` ismen; mesaj kısa ama anlamlı; `Co-Authored-By:` satırı.
 
 ---
 
@@ -270,6 +272,7 @@ LogWise/
 - **Web/Mobil monorepo entegrasyonu** (Bölüm 86): Expo uygulaması `logwise-mobile/` altında güncel mobil checkpoint'ten eklendi; mobil tasarım belgeleri ve `app_` Supabase şeması korundu; Web SEO/build'siz mimarisi ve Cloudflare asset sınırı güvenceye alındı ✅
 - **Preset exercise codegen pilotu** (Bölüm 87): `data/presets-exercises.json` kanonik kaynak; Web `data/presets-exercises.js` ve mobil `logwise-mobile/data/generated/presets-exercises.ts` deterministik generator + `--check` ile doğrulanır ✅
 - **Exercise guide mobil projection codegen** (Bölüm 88): `data/ex-guides.json` kanonik kaynak; Web `data/ex-guides.js` ve mobil `logwise-mobile/data/generated/ex-content.ts` aynı generator + `--check` ile doğrulanır ✅
+- **Codegen drift otomasyonu** (Bölüm 89): `scripts/check-codegen.js` tek komutu ve GitHub Actions `codegen-check.yml` ile generated çıktı drift'i push/PR seviyesinde zorlanır ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
