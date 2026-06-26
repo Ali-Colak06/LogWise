@@ -4181,7 +4181,7 @@ Web ve mobilde ayrı dosyalarda tutulan 145 preset hareket listesini tek kanonik
 | `scripts/build-presets-exercises.js` | Web JS + mobil TS generated çıktı üretimi ve `--check` drift kontrolü |
 | `data/presets-exercises.js` | Generator hedefi; mevcut runtime formatı byte-birebir korunur |
 | `logwise-mobile/data/generated/presets-exercises.ts` | Generator hedefi; mobil `feeef6f` formatı byte-birebir korunur |
-| `sw.js` | Yeni kanonik JSON precache'e eklendi; cache `logwise-v48` |
+| `sw.js` | Runtime'da kullanılmayan kanonik JSON precache'ten çıkarıldı; cache `logwise-v49` |
 | `docs/PRESET-EXERCISE-EKLEME.md` | Yeni preset akışı JSON kaynak + generator komutlarına taşındı |
 | `AGENTS.md` | Preset codegen kuralı, dosya haritası, seans sonu kontrolü ve yasak listesi güncellendi |
 
@@ -4189,6 +4189,7 @@ Web ve mobilde ayrı dosyalarda tutulan 145 preset hareket listesini tek kanonik
 
 - `node scripts/build-presets-exercises.js --check` sonucu `145 records, 2 outputs` olarak geçti.
 - Generator, mevcut `data/presets-exercises.js` ve `logwise-mobile/data/generated/presets-exercises.ts` dosyalarını değiştirmeden doğruladı.
+- `data/presets-exercises.json` yalnız codegen girdisi olduğu ve Web runtime tarafından fetch edilmediği için `PRECACHE_URLS` dışında bırakıldı; Web runtime çıktısı `data/presets-exercises.js` precache'te kalır.
 - Web syntax kontrolü için `node --check scripts/build-presets-exercises.js`, `node --check data/presets-exercises.js` ve `node --check sw.js` çalıştırıldı.
 - Mobil taraf için `cd logwise-mobile && npm run typecheck` ve `npm test -- --runInBand --passWithNoTests --no-cache` yeşil doğrulandı.
 - `node scripts/build-ex-guides.js --check` ile mevcut guide kapsamı değişmeden kaldı.

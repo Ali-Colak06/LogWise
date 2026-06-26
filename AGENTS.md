@@ -56,6 +56,7 @@ Her AI seansı başlamadan **önce**:
 
 ### 3.3 Web PWA / Service Worker
 - **Yeni `data/`, `lib/` veya `components/` dosyası eklediğinde** `sw.js`'de iki değişiklik zorunlu: `CACHE_NAME` bump + `PRECACHE_URLS`'e yeni dosyayı ekle. Detay: `docs/SW-VERSION-BUMP.md`.
+- **Generator girdileri istisnası:** Kanonik JSON yalnız build/codegen girdisiyse ve Web runtime tarafından fetch edilmiyorsa `PRECACHE_URLS`'e eklenmez. Precache yalnız runtime'da yüklenen Web çıktıları içindir.
 - `CACHE_NAME` bump unutulursa eski kullanıcıların tarayıcısı yeni dosyayı **almaz**; site kırılabilir.
 
 ### 3.4 Git / Commit
