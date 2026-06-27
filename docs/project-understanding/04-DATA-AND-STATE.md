@@ -25,12 +25,18 @@
 | 13 | Generated preset çıktı | `data/*.js` | `logwise-mobile/data/generated/*.ts` | `DOĞRULANDI` |
 
 > **Kritik:** Web'in ana kullanıcı verisi **oturum durumuna göre** farklı katmandadır.
-> **Authenticated** kullanıcıda ana veri **yalnızca** `user_data` Supabase tablosundadır
-> (`app.html` load `.from("user_data")` ~`line 533`, save `debouncedSave`/`upsert` ~`line 564-607`);
-> **oturumsuz (guest)** kullanıcıda (`isGuest = !user`) ana veri `localStorage["gym-log-v3"]` (`SK`)
-> blob'undadır (`app.html` ~`line 520/561/591`). Ayrıca tema (`gym-log-theme`/`TK`, `line 549`) ve
-> dil (`gym-log-lang`/`LK`, `line 8816`) tüm kullanıcılarda localStorage'da tutulur; `gym-timer` ve
-> `logwise-onboard-done` da kullanılır. `DOĞRULANDI` — `app.html`.
+> **Authenticated** kullanıcıda ana verinin **işlevsel kaynağı yalnızca** `user_data` Supabase
+> tablosudur (`app.html` load `.from("user_data")` ~`line 533`, save `debouncedSave`/`upsert`
+> ~`line 564-607`); **oturumsuz (guest)** kullanıcıda (`isGuest = !user`) ana veri
+> `localStorage["gym-log-v3"]` (`SK`) blob'undadır (`app.html` ~`line 520/561/591`). Ayrıca tema
+> (`gym-log-theme`/`TK`, `line 549`) ve dil (`gym-log-lang`/`LK`, `line 8816`) tüm kullanıcılarda
+> localStorage'da tutulur; `gym-timer` ve `logwise-onboard-done` da kullanılır. `DOĞRULANDI` — `app.html`.
+>
+> *Dipnot (yetim/orphan localStorage yazımı):* `beforeunload` handler'ı (`app.html` ~`line 683-694`)
+> authenticated kullanıcıda da bekleyen veriyi `localStorage["gym-log-v3"]`'e JSON olarak yazar; ancak
+> authenticated yükleme yolu bu değeri **okumaz** (Supabase'den çeker) → bu yazım **kullanılabilir bir
+> offline yedek/restore mekanizması değildir**. Sonuç değişmez: authenticated web, kullanıcı verisi
+> açısından **online-only**dur.
 
 ---
 

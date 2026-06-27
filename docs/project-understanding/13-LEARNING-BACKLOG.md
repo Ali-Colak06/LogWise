@@ -127,7 +127,9 @@ Gruplar: **1) Şimdi · 2) Sonraki büyük özellikten önce · 3) Production ö
 
 ### 3.2 Offline ve sync sınırları
 - **Neden:** Kullanıcıya yanlış offline vaadi vermemek + veri kaybını anlamak.
-- **LogWise örneği:** Web offline'da yazamaz; mobil auth offline rollback; çoklu cihaz LWW.
+- **LogWise örneği:** Authenticated web, kullanıcı verisini offline olarak kaydedemez (önceden cache
+  edilmiş web guest modu ise `localStorage` üzerinden workout verisini ağsız yazabilir — bu authenticated
+  web için geçerli değildir); mobil auth offline rollback; çoklu cihaz LWW.
 - **İncele:** [07-OFFLINE-AND-SYNC](07-OFFLINE-AND-SYNC.md).
 - **Minimum seviye:** "PWA = offline-first değil" + çoklu-cihaz riskini bilmek.
 - **Gerekmeyen:** Service worker API detayı.

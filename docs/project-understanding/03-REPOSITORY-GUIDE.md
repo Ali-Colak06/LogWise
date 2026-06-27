@@ -34,8 +34,9 @@
 | `logwise-worker/` | Cloudflare Worker (R2 resim API) | `worker.js`, `wrangler.toml` `DOĞRULANDI` |
 | `logwise-mobile/` | Bağımsız Expo alt projesi (kendi `package.json`/TS/Metro) | `AGENTS.md §3.2` `DOĞRULANDI` |
 
-**Kök config/deploy dosyaları:** `_redirects`, `_headers` (Cloudflare edge routing/headers; dosya
-başlıkları "Cloudflare Pages"); `wrangler.jsonc` (Cloudflare web static asset config); `.assetsignore`
+**Kök config/deploy dosyaları:** `_redirects`, `_headers` (Cloudflare edge routing/headers; `_headers`
+başlığı "Cloudflare Pages", `_redirects` başlığı "Netlify / Cloudflare Pages" — ikisini de anar);
+`wrangler.jsonc` (Cloudflare web static asset config); `.assetsignore`
 (asset deploy filtresi); `netlify.toml` (repo'da bulunur ama `AGENTS.md §4` dosya haritasında yer
 almaz ve `_redirects` ile çelişir → **legacy görünür**, `ESKİ OLABİLİR`); `sw.js` + `manifest.json`
 (PWA); `supabase_setup.sql` (web + `app_*` şema/RLS); `robots.txt` + `sitemap*.xml` + `sitemap.txt`

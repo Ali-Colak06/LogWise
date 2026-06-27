@@ -31,7 +31,8 @@
 - **Authenticated web:** ❌ **Hayır.** Ana veri `user_data` upsert'tir; SW Supabase isteğini
   offline'da 503 ile keser (`sw.js` `hostname.includes('supabase.co')` → 503). Okuma da Supabase'den
   gelir (`app.html line ~533`), offline'da 503. Offline mutation queue / authenticated yerel yedek
-  **yok** → kullanıcı verisi açısından **online-only**.
+  **yok** → kullanıcı verisi açısından **online-only**. (`beforeunload` `localStorage["gym-log-v3"]`'e
+  bir JSON yazar ama authenticated yükleme yolu bunu okumaz → yetim/orphan yazım, kullanılabilir yedek değil.)
 - **Önceden yüklenmiş guest web** (SW cache'i oluşmuş): ✅ App shell açılır (cached) **ve** guest
   workout verisi `localStorage["gym-log-v3"]` üzerinden **ağsız okunup yazılabilir** (`app.html`
   `isGuest`, `line ~520/591`). Ağ gerektiren sosyal/auth/profil/Supabase özellikleri çalışmaz.
@@ -129,5 +130,5 @@ ederse **duplikasyon** riski (guest hâlâ dolu + kısmi cloud). Tam başarı d�
 ## 5. Bu turdaki yokluk kanıtları (önemli)
 - Repoda offline mutation queue / background sync / `persistQueryClient` / `BackgroundSync` API **yok**.
 - Conflict resolution / vector clock / `updated_at` tabanlı merge mantığı **yok**.
-- **Authenticated** web `user_data` için localStorage yedeği / offline draft **yok** (guest verisi ise zaten `localStorage["gym-log-v3"]`'tedir).
+- **Authenticated** web `user_data` için **kullanılabilir** localStorage yedeği / offline draft **yok**: `beforeunload` `localStorage["gym-log-v3"]`'e yazsa da authenticated yükleme yolu bunu okumaz (yetim/orphan yazım) → restore edilmez. (Guest verisi ise zaten `localStorage["gym-log-v3"]`'tedir.)
 `DOĞRULANDI` (negatif kanıt — ilgili semboller/araçlar kodda bulunamadı).

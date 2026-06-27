@@ -105,7 +105,8 @@ ve dil (`gym-log-lang`/`LK`) tüm kullanıcılarda localStorage'da tutulur; `gym
 `app.html` (200) ve SPA route'ları `/social`, `/dashboard`, `/feedback`, `/data` → `app.html` (200);
 **`/exercises` → `/library/exercises` (301)** ve **`/programs` → `/library/programs` (301)** (SEO
 Library sayfalarına, app'e DEĞİL). React içinde `setView` ile view değişir. `DOĞRULANDI` —
-`_redirects` (başlık "Cloudflare Pages"), `_headers`. **Not:** `netlify.toml` `/exercises`,`/programs`'ı
+`_redirects` (başlık "Netlify / Cloudflare Pages" — ikisini de anar), `_headers` (başlık yalnız
+"Cloudflare Pages"). **Not:** `netlify.toml` `/exercises`,`/programs`'ı
 `app.html`'e yönlendirir ama bu config repo'da legacy görünür ve `_redirects` ile çelişir
 (`ESKİ OLABİLİR`); canlı production platformu repodan kesinleşmez (`BELİRSİZ`).
 

@@ -16,7 +16,10 @@ doğrudan yükler (`window.LOGWISE_*`). React/Supabase/Chart.js CDN UMD. `DOĞRU
 ### Deployment
 - **Repo-otoritatif hedef: Cloudflare.** `wrangler.jsonc` (`name: "logwise"`, `assets.directory: "."`,
   `compatibility_flags: ["nodejs_compat"]`, `observability.enabled`) → repo kökü statik asset olarak
-  servis edilir; `_redirects`/`_headers` dosya başlıkları açıkça "Cloudflare Pages" der. `DOĞRULANDI` —
+  servis edilir; `_headers` başlığı yalnız "Cloudflare Pages" der, `_redirects` başlığı ise "Netlify /
+  Cloudflare Pages" (ikisini de anar). Cloudflare'ın repo'da güncel/otoritatif görünmesi tek bir başlığa
+  değil; `AGENTS.md`, `wrangler.jsonc`, `_headers`, `.assetsignore` ve genel config bütününe dayanır
+  (canlı platform yine `BELİRSİZ`). `DOĞRULANDI` —
   `wrangler.jsonc`, `_redirects`, `_headers`; `AGENTS.md §1` ("Cloudflare üzerinde yayınlanan"), `§4`
   dosya haritası (`netlify.toml`'u anmaz).
 - **`.assetsignore`** mobil/iç kaynakları bu asset deploy'undan çıkarır. `DOĞRULANDI`.
@@ -85,9 +88,11 @@ doğrudan yükler (`window.LOGWISE_*`). React/Supabase/Chart.js CDN UMD. `DOĞRU
   "https://logwise-images-worker.colak-ali1928.workers.dev"`) avatar yazar → kullanımda. **Mobilde
   worker çağrısı bulunamadı** (avatar yükleme mobilde henüz bağlı değil). `DOĞRULANDI` (web) /
   `BELİRSİZ` (mobil).
-- **Ayrı medya yüzeyi:** `media.logwise.fit` (read-only R2, GET/HEAD CORS — `r2-exercise-media-cors.json`)
-  egzersiz rehberi medyasını sunar; `scripts/build-ex-guides.js` + `profile.html` referans verir.
-  Worker upload API'sinden **farklı** bir okuma yüzeyi. `DOĞRULANDI`.
+- **Ayrı medya yüzeyi:** `media.logwise.fit` egzersiz medya **okuma** yüzeyidir (read-only R2,
+  GET/HEAD CORS — altyapı kanıtı `r2-exercise-media-cors.json`). Doğrulanmış referans
+  `scripts/build-ex-guides.js` içindeki `MEDIA_ORIGIN` değeridir; worker upload API'sinden **farklı**
+  bir okuma yüzeyidir. `profile.html` bu yüzeyin tüketicisi **değildir** — oradaki `WORKER_URL` ayrı
+  avatar/upload worker'ına (`…workers.dev`) gider. `DOĞRULANDI`.
 
 ---
 
