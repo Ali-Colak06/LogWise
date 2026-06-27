@@ -14,21 +14,23 @@
 | 2 | Global client store | **Yok** (tek App React state'i) | zustand `auth-store.ts` (session+mode), `theme-store.ts` (in-memory) | `DOĞRULANDI` |
 | 3 | Server-state cache | **Yok** | TanStack Query `lib/query-client.ts` | `DOĞRULANDI` |
 | 4 | Kalıcı OLMAYAN in-memory cache | App `data` nesnesi + `gym-timer` React state | RQ cache (staleTime 60s, gcTime 5dk) | `DOĞRULANDI` |
-| 5 | localStorage (web) | **yalnız** `gym-timer`, `logwise-onboard-done` | — | `DOĞRULANDI` — `app.html` grep |
+| 5 | localStorage (web) | guest ana veri blob'u (`gym-log-v3`), tema (`gym-log-theme`), dil (`gym-log-lang`), `gym-timer`, `logwise-onboard-done` | — | `DOĞRULANDI` — `app.html` (`SK/TK/LK`, `isGuest`) |
 | 6 | SecureStore (mobil) | — | Supabase oturum token'ları (chunk'lı) | `DOĞRULANDI` — `lib/supabase.ts` `secureStorage` |
 | 7 | Guest storage (mobil) | — | AsyncStorage `@logwise/guest/*` | `DOĞRULANDI` — `lib/guest-storage.ts` `GUEST_KEYS` |
 | 8 | Supabase Auth session | `auth.users` (ortak) | `auth.users` (ortak) | `DOĞRULANDI` |
-| 9 | Web `user_data` JSON blob | tek satır/kullanıcı, 11 anahtar | (mobil yazmaz) | `DOĞRULANDI` — `app.html` `.from("user_data")` |
+| 9 | Web ana veri (11 anahtar) | authenticated: `user_data` tek satır (Supabase); guest: `localStorage["gym-log-v3"]` blob | (mobil yazmaz) | `DOĞRULANDI` — `app.html` (`.from("user_data")`, `isGuest`/`SK`) |
 | 10 | Mobil `app_*` normalize tablolar | (web yazmaz) | 7 tablo | `DOĞRULANDI` — `supabase_setup.sql` |
 | 11 | Derived/hesaplanan | `lib/calc.js` (PR/1RM/compliance) | `lib/calc.ts` + `lib/dashboard.ts` | `DOĞRULANDI` |
 | 12 | Kanonik preset | `data/presets-exercises.json`, `ex-guides.json` | (aynı) | `DOĞRULANDI` |
 | 13 | Generated preset çıktı | `data/*.js` | `logwise-mobile/data/generated/*.ts` | `DOĞRULANDI` |
 
-> **Kritik:** Web'in ana kullanıcı verisi `localStorage`'da **tutulmaz**. `localStorage` yalnızca
-> kronometre (`gym-timer`) ve onboarding bayrağıdır. Ana veri **yalnızca** `user_data` Supabase
-> tablosundadır ve oturum açıkken React state'e yüklenir. `DOĞRULANDI` — `app.html` (load `line ~533`,
-> save `debouncedSave`/`upsert` `line ~564-594`); `localStorage` anahtarları yalnız `gym-timer` +
-> `logwise-onboard-done`.
+> **Kritik:** Web'in ana kullanıcı verisi **oturum durumuna göre** farklı katmandadır.
+> **Authenticated** kullanıcıda ana veri **yalnızca** `user_data` Supabase tablosundadır
+> (`app.html` load `.from("user_data")` ~`line 533`, save `debouncedSave`/`upsert` ~`line 564-607`);
+> **oturumsuz (guest)** kullanıcıda (`isGuest = !user`) ana veri `localStorage["gym-log-v3"]` (`SK`)
+> blob'undadır (`app.html` ~`line 520/561/591`). Ayrıca tema (`gym-log-theme`/`TK`, `line 549`) ve
+> dil (`gym-log-lang`/`LK`, `line 8816`) tüm kullanıcılarda localStorage'da tutulur; `gym-timer` ve
+> `logwise-onboard-done` da kullanılır. `DOĞRULANDI` — `app.html`.
 
 ---
 
@@ -63,14 +65,15 @@ guest/auth → web/mobil → risk → semboller.**
   (aynı kullanıcı iki ayrı profil satırı taşır). `DOĞRULANDI` (iki ayrı tablo).
 
 ### 3.2 Workout
-- **Web:** `user_data.data.workouts[date][]` (gün-anahtarlı dizi). Güncelleyen: `app.html`
-  `debouncedSave` → `user_data` upsert (debounce). `DOĞRULANDI`.
+- **Web:** `user_data.data.workouts[date][]` (gün-anahtarlı dizi). Authenticated güncelleyen:
+  `app.html` `debouncedSave` → `user_data` upsert (debounce); oturumsuz (guest) güncelleyen:
+  `debouncedSave` → `localStorage["gym-log-v3"]` (ağsız). `DOĞRULANDI`.
 - **Mobil:** `app_workouts` satırı; lazy-write (ilk set girilince `ensureWorkout`). Oluşturan/okuyan:
   `queries/workouts.ts` (`useEnsureWorkoutAndAddSet`, `useWorkoutsByDate`). Köprü: `data-bridge.ts`.
   Guest: `@logwise/guest/workouts`. `DOĞRULANDI`.
 - **Cache:** Mobil optimistic + RQ; web React state + debounced cloud save.
-- **Risk:** Web debounced save online'a bağımlı; offline'da kayıp (bkz. 07). Mobil optimistic
-  rollback var. `DOĞRULANDI`.
+- **Risk:** Authenticated web debounced save online'a bağımlı; offline'da kayıp (guest'te
+  localStorage'a yazıldığı için bu risk yok — bkz. 07). Mobil optimistic rollback var. `DOĞRULANDI`.
 
 ### 3.3 Set / tekrar / ağırlık
 - **Web:** workout nesnesi içinde gömülü `sets[]` (`{weight, reps, ...}`). `DOĞRULANDI` — `lib/calc.js` `f.sets`.
@@ -103,8 +106,10 @@ guest/auth → web/mobil → risk → semboller.**
 - **Web vs mobil:** Aynı kavram, ayrı implementasyon (imza/şekil farklı). `DOĞRULANDI`.
 
 ### 3.7 PR (Personal Record)
-- **Web:** Hesap `lib/calc.js` `getAllPRs` (maxWeight/maxVolume/est1RM). **Denormalize** kalıcı:
-  `user_prs` tablosu (`upsert`, `app.html line ~1837`); liderlik okuması `line ~1682`. `DOĞRULANDI`.
+- **Web:** İki ayrı hesap yolu: (1) `user_prs` upsert'i `app.html` içinde **inline** hesaplanır
+  (`line ~1812-1839`, `calc1RM`/Epley ile); liderlik okuması `line ~1682`. (2) Dashboard gösterimi
+  `lib/calc.js` `getAllPRs` (maxWeight/maxVolume/est1RM, `app.html line ~3276`). Aynı formül (Epley)
+  kullanılsa da **ayrı kod yollarıdır** — `user_prs` upsert'i `getAllPRs`'i çağırmaz. `DOĞRULANDI`.
 - **Mobil:** `lib/calc.ts` `calcPRDisplay` = en yüksek **weight×reps** (1RM **değil**). Kalıcı PR
   tablosu **yok**; her seferinde set'lerden hesaplanır. `DOĞRULANDI`.
 - **Risk:** "PR" anlamı platformlar arası farklı (web est1RM-temelli ↔ mobil hacim-temelli). `DOĞRULANDI`.
@@ -129,8 +134,9 @@ guest/auth → web/mobil → risk → semboller.**
 - **Mobil:** `app_profiles.locale`/`theme` (auth) ya da `@logwise/guest/profile` (guest). `theme-store.ts`
   şu an **in-memory** (kalıcı AsyncStorage entegrasyonu "henüz yok" notu); persist app_profiles üzerinden.
   `DOĞRULANDI`/`ÇIKARIM` — `theme-store.ts` yorumu, `app_profiles` kolonları, `migration.ts` `syncProfile`.
-- **Web:** dil seçimi i18n (`window.LOGWISE_TR/EN`); web ayar/tema persist kapsamı bu sette
-  doğrulanmadı. `BELİRSİZ`.
+- **Web:** tema `localStorage["gym-log-theme"]` (`TK`, `app.html line 549`) ve dil
+  `localStorage["gym-log-lang"]` (`LK`, `app.html line 8816`) ile **tüm kullanıcılarda** persist edilir;
+  i18n sözlükleri `window.LOGWISE_TR/EN`. `DOĞRULANDI` — `app.html`.
 
 ---
 
@@ -139,6 +145,7 @@ guest/auth → web/mobil → risk → semboller.**
 | Eksen | Fark | Kanıt |
 |---|---|---|
 | Guest (mobil) | Tüm veri `@logwise/guest/*` AsyncStorage; Supabase'e gitmez | `data-bridge.ts` guest dalları `DOĞRULANDI` |
+| Guest (web) | Oturumsuz kullanıcı; tüm veri `localStorage["gym-log-v3"]` blob'unda; Supabase'e gitmez | `app.html` `isGuest`/`SK` `DOĞRULANDI` |
 | Guest→Auth (mobil) | **Gerçek migration** (UUID remap + insert + rollback) | `lib/migration.ts` `migrateGuestToAccount` `DOĞRULANDI` |
 | Web→Mobil | **Migration YOK** — yalnız tespit + karşılama modalı | `data-bridge.ts` `countWebUserData` + `WebUserWelcomeModal.tsx` `DOĞRULANDI` |
 | Veri modeli | Web blob ↔ mobil normalize | `user_data` ↔ `app_*` `DOĞRULANDI` |
@@ -147,8 +154,10 @@ guest/auth → web/mobil → risk → semboller.**
 ---
 
 ## 5. En ciddi veri tutarsızlık / kayıp riskleri (detay 10'da)
-1. **Web offline yazma kaybı:** Ana veri localStorage'da değil; offline `user_data` upsert 503 →
-   React state'teki değişiklik reload'da kaybolur. `DOĞRULANDI` (bkz. 07).
+1. **Authenticated web offline yazma kaybı:** Authenticated kullanıcıda ana veri localStorage'da
+   **değil**; offline `user_data` upsert 503 → React state'teki değişiklik reload'da kaybolur.
+   (Oturumsuz/guest kullanıcıda veri `localStorage["gym-log-v3"]`'te olduğundan bu kayıp yaşanmaz.)
+   `DOĞRULANDI` (bkz. 07).
 2. **Tek-aktif program DB'de zorlanmıyor** → çok-cihaz/yarış iki aktif program. `ÇIKARIM`.
 3. **Web↔mobil iki ayrı veri evreni:** Aynı kullanıcı web'de ve mobilde **farklı** antrenman geçmişi
    görür (blob ↔ app_*); köprü yok. `DOĞRULANDI`.

@@ -10,12 +10,12 @@
 
 | Yüzey | Nerede | Rol | Kanıt |
 |---|---|---|---|
-| **Web uygulaması (PWA)** | `/app` → `app.html` | Tam özellikli ürün | `netlify.toml` (`/app`→`/app.html`) `DOĞRULANDI` |
+| **Web uygulaması (PWA)** | `/app` → `app.html` | Tam özellikli ürün | `_redirects` / `wrangler.jsonc` (Cloudflare; `/app/*`→`app.html`) `DOĞRULANDI` |
 | **Mobil uygulama** | `logwise-mobile/` (Expo) | iOS/Android ürün | `logwise-mobile/app/` `DOĞRULANDI` |
 | **Landing / SEO** | `/` (`index.html`), `/tr` (`tr.html`) | Pazarlama + edinim | `AGENTS.md §3.2`, `index.html` `DOĞRULANDI` |
 | **Learn / Öğren** | `/learn`, `/ogren` | İçerik SEO (blog) | `learn/` (6 dosya), `ogren/` (4) `DOĞRULANDI` |
 | **Library / Tools** | `/library`, `/tools` + hesaplayıcılar | Programmatic SEO | `library/` (6 html), `tools.html` `DOĞRULANDI` |
-| **Resim Worker** | `media.logwise.fit` | Avatar/antrenman fotoğrafı CDN | `logwise-worker/src/worker.js` `DOĞRULANDI` |
+| **Resim Worker (upload)** | `…workers.dev` (upload) + ayrı `media.logwise.fit` (read-only medya) | Avatar/antrenman fotoğrafı | `logwise-worker/src/worker.js`, `profile.html` (`WORKER_URL`) `DOĞRULANDI` |
 
 ---
 
@@ -77,7 +77,7 @@ sosyal + "More" sheet. `DOĞRULANDI` — `logwise-mobile/app/(app)/(tabs)/_layou
 | Konu | Web | Mobil | Etiket |
 |---|---|---|---|
 | **Veri modeli** | Tek JSON blob (`user_data`) + localStorage | Normalize `app_*` tablolar | `DOĞRULANDI` |
-| **Misafir modu** | Yok (oturum gerekir) | Var (AsyncStorage) | `DOĞRULANDI` (`data-bridge.ts` guest) |
+| **Misafir modu** | Var (oturumsuz; `localStorage["gym-log-v3"]`) | Var (AsyncStorage `@logwise/guest/*`) | `DOĞRULANDI` (web `app.html` `isGuest`; mobil `data-bridge.ts`) |
 | **Sosyal (takip/paylaşım)** | Canlı | Ertelendi (gizli) | `DOĞRULANDI` |
 | **Render** | `React.createElement` (JSX yok) | TSX | `DOĞRULANDI` (`AGENTS.md §3.1`) |
 | **Egzersiz rehberi içeriği** | `ex-guides.js` (web wrapper) | `data/generated/ex-content.ts` | `DOĞRULANDI` (ortak JSON'dan) |
@@ -110,7 +110,7 @@ sosyal + "More" sheet. `DOĞRULANDI` — `logwise-mobile/app/(app)/(tabs)/_layou
 - **Tamamlanmış çekirdek (web + mobil):** auth, takvim/gün, antrenman+set kaydı, programlar,
   egzersiz kütüphanesi, dashboard temel. `DOĞRULANDI`.
 - **Web'de tam, mobilde ertelenmiş:** sosyal (takip/paylaşım/yorum). `DOĞRULANDI`.
-- **Mobile özgü:** misafir modu. `DOĞRULANDI`.
+- **Her iki platformda:** misafir modu (web oturumsuz `localStorage["gym-log-v3"]`; mobil `@logwise/guest/*`). `DOĞRULANDI`.
 - **Netleşti (Tur 2):** web→mobil veri taşıma **yoktur** (yalnız tespit + karşılama); guest→auth
   migration **vardır**. `DOĞRULANDI`.
 - **Kısmi/belirsiz:** mobil dashboard içerik zenginliği, web `data` (içe/dışa aktarma) kapsamı,

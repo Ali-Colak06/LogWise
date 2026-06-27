@@ -36,11 +36,14 @@
 
 ## D4 — Guest (misafir) modu
 - **Tarih:** Mobil ADIM 4-5 (`03-mvp §3.9`).
-- **Kanıt:** `lib/guest-storage.ts` (`@logwise/guest/*`), `data-bridge.ts` guest dalları, `auth-store.ts`.
+- **Kanıt:** `lib/guest-storage.ts` (`@logwise/guest/*`), `data-bridge.ts` guest dalları, `auth-store.ts`;
+  web `app.html` (`isGuest = !user`, `localStorage["gym-log-v3"]`).
 - **Problem:** Kayıt sürtünmesi olmadan denemeye izin vermek.
-- **Yaklaşım:** Tüm veri cihazda (AsyncStorage), Supabase'e hiç gitmez; DB tablo adlarıyla bire bir anahtar.
+- **Yaklaşım:** Mobil: tüm veri cihazda (AsyncStorage), Supabase'e hiç gitmez, DB tablo adlarıyla
+  bire bir anahtar. Web: oturumsuz kullanıcı misafir sayılır, veri `localStorage` blob'unda.
 - **Alternatifler:** Zorunlu kayıt.
-- **Etki:** Mobile özgü; web'de yok. **Geçerli mi?** Evet. **Güven:** Yüksek (`DOĞRULANDI`).
+- **Etki:** **Hem web hem mobilde var** (ayrı implementasyonlar — web localStorage blob'u ↔ mobil
+  normalize `@logwise/guest/*`). **Geçerli mi?** Evet. **Güven:** Yüksek (`DOĞRULANDI`).
 
 ## D5 — Guest → hesap migration
 - **Tarih:** Mobil ADIM 5 (`03-mvp §3.9.1`).

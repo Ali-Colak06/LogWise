@@ -15,13 +15,19 @@ grup layout'larında `Redirect` ile (kök değil). `DOĞRULANDI` — `useAuth.ts
 - **Edge:** 5 sn safety timeout → splash kilitlenmesini önler. `DOĞRULANDI` — `useAuth.ts` `safetyTimer`.
 
 ## 2. Kayıt / giriş / çıkış / session restore
-- **Kayıt:** `queries/auth.ts` `useAuthSignUp` → RPC `check_app_username_available` → `supabase.auth.signUp`
-  (email confirmation **kapalı**, session döner) → `app_profiles` upsert (username/display_name).
-  `DOĞRULANDI`.
+- **Kayıt:** `queries/auth.ts` `useAuthSignUp` → RPC `check_app_username_available` →
+  `supabase.auth.signUp`. Kod **email doğrulaması bekleyen** akışı destekler: `signUp` session
+  döndürmezse kullanıcı `verify.tsx`'e yönlenir ve `app_profiles` satırı sonradan `ensureAppProfile`
+  (`lib/account.ts`) ile yazılır; `signUp` session **dönerse** (`if (data.session)`) `app_profiles`
+  upsert'i doğrudan signUp içinde yapılır (koşullu yol). `DOĞRULANDI` (kod akışı: `register.tsx`,
+  `verify.tsx`, `auth.ts` `needsConfirmation = data.session === null`, `account.ts`). **Not:** Bazı
+  `queries/auth.ts` yorumları "confirmation kapalı, signUp session döner" der; bu **eski**dir ve
+  mevcut doğrulama-bekleyen kodla uyumsuzdur. Canlı Supabase Auth ayarı repodan doğrulanamaz (`BELİRSİZ`).
 - **Giriş:** `useAuthSignIn` → `signInWithPassword`. **Çıkış:** `useAuthSignOut` → `signOut`.
 - **Restore:** `useAuthBootstrap` mount'ta `getSession()` (SecureStore'dan) + `onAuthStateChange`
   aboneliği → `auth-store.setSession`. `DOĞRULANDI`.
-- **Edge:** `needsConfirmation = session===null` (Supabase yanlış konfigüre ise). `DOĞRULANDI`.
+- **Edge:** `needsConfirmation = session===null` — doğrulama-bekleyen akışın normal göstergesi
+  (yanlış konfigürasyon değil). `DOĞRULANDI`.
 
 ## 3. Guest moda geçme
 Welcome "Misafir Devam Et" → `auth-store` `enterGuest()` (`mode='guest'`) + `@logwise/guest/mode`
@@ -99,14 +105,23 @@ veri okunmaz/taşınmaz. `DOĞRULANDI`.
 yazma/okuma yok, yalnız i18n metin + butonlar).
 
 ## 17. Guest → authenticated taşıma (GERÇEK migration)
-Register (A4) `signUp` success → UI **manuel** `migrateGuestToAccount(userId)` çağırır
+Migration **register success handler'ında doğrudan çağrılmaz.** Kayıt sırasında bir "pending
+migration" bayrağı işaretlenir; kullanıcı authenticated app grubuna **ilk girdiğinde**
+`app/(app)/_layout.tsx` içindeki effect çalışır (`mode==='auth' && session`): (1) `ensureAppProfile()`,
+(2) `readPendingMigration()` kontrolü, (3) bayrak varsa `migrateGuestToAccount(userId)`
 (`lib/migration.ts`): tüm guest tabloları oku → UUID remap (`exerciseIdMap/programIdMap/workoutIdMap`,
 `remapRef` slug'ı korur) → parent→child sırayla `app_*` batch insert → başarı: `clearAllGuestData` +
-`syncProfile` (locale/theme→`app_profiles`); hata: AsyncStorage'a dokunmaz (rollback) + `partialCounts`.
-UI overlay: `components/auth/MigrationLoadingOverlay.tsx`. `DOĞRULANDI`.
-- **Edge/risk:** Batch tablo bazlı; ortada hata olursa **kısmi insert kalır** (önceki tablolar
-  Supabase'e yazıldı) ama guest temizlenmez → retry'de **duplikasyon** olasılığı. `ÇIKARIM` —
-  `migration.ts` (insert sırası, `fail` erken çıkış, `clearAllGuestData` yalnız tam başarıda).
+`writePendingMigration(false)` + `writeGuestModeFlag(false)` + `invalidateQueries` + `syncProfile`
+(locale/theme→`app_profiles`); hata: AsyncStorage'a dokunmaz (best-effort rollback) + `partialCounts`
+ve **pending bayrağı bırakılır → sonraki açılışta otomatik retry**. UI overlay:
+`components/auth/MigrationLoadingOverlay.tsx`. `DOĞRULANDI` — `app/(app)/_layout.tsx` (`:48-75`),
+`migration.ts`.
+- **Edge/risk:** Batch tablo bazlı, **DB transaction yok**; ortada hata olursa **kısmi insert kalır**
+  (önceki tablolar Supabase'e yazıldı) ama guest temizlenmez → otomatik retry'de `uuidv4()` yeni
+  id'ler üretildiğinden `app_exercises`/`app_programs` **duplikasyon**, slug-ref `app_workouts` ise
+  `UNIQUE(user_id,workout_date,exercise_ref)` ihlaliyle patlar. `DOĞRULANDI` — `migration.ts`
+  (insert sırası, `fail` erken çıkış, `clearAllGuestData` yalnız tam başarıda); `(app)/_layout.tsx`
+  (retry bayrağı); `supabase_setup.sql` (unique kısıtlar).
 
 ## 18. Hata / loading / retry
 - Query'ler `retry: 1`, mutations `retry: 0` (`query-client.ts`). `DOĞRULANDI`.

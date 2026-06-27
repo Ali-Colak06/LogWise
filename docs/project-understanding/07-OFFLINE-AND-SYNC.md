@@ -11,7 +11,8 @@
 | Kavram | Var mı? | Nerede | Kanıt |
 |---|---|---|---|
 | SW ile statik asset cache | ✅ Var | `sw.js` `PRECACHE_URLS` (app shell + statik) | `DOĞRULANDI` |
-| Web localStorage persistence (ana veri) | ❌ Yok | yalnız `gym-timer`, `logwise-onboard-done` | `DOĞRULANDI` |
+| Web localStorage persistence (guest ana veri) | ✅ Var (guest) | `localStorage["gym-log-v3"]` (oturumsuz); ayrıca tema/dil | `DOĞRULANDI` |
+| Web localStorage persistence (authenticated ana veri) | ❌ Yok | authenticated ana veri `user_data` Supabase'de | `DOĞRULANDI` |
 | Authenticated web verisi | ☁️ Online | `user_data` Supabase (debounced upsert) | `DOĞRULANDI` |
 | Mobil React Query cache | ✅ Var (in-memory) | `query-client.ts` | `DOĞRULANDI` |
 | Kalıcı OLMAYAN in-memory cache | ✅ | web React state + mobil RQ cache | `DOĞRULANDI` |
@@ -26,12 +27,17 @@
 
 ## 2. 13 soruya yanıt
 
-**1) Web çevrimdışıyken workout kaydedebilir mi?** ❌ **Hayır.** Ana veri localStorage'da değil;
-kaydetme `user_data` upsert'tir ve SW Supabase isteğini offline'da 503 ile keser. Hatta **okuma**
-bile çalışmaz: veri açılışta Supabase'den çekilir (`app.html line ~533`), offline'da 503. App
-shell (cached) açılır ama kullanıcı verisi yüklenmez/yazılmaz. `DOĞRULANDI` — `sw.js`
-(`hostname.includes('supabase.co')` → 503), `app.html` (load/`debouncedSave` upsert), localStorage
-yalnız timer+onboard.
+**1) Web çevrimdışıyken workout kaydedebilir mi?** **Oturum durumuna bağlı — üç durumu ayır:**
+- **Authenticated web:** ❌ **Hayır.** Ana veri `user_data` upsert'tir; SW Supabase isteğini
+  offline'da 503 ile keser (`sw.js` `hostname.includes('supabase.co')` → 503). Okuma da Supabase'den
+  gelir (`app.html line ~533`), offline'da 503. Offline mutation queue / authenticated yerel yedek
+  **yok** → kullanıcı verisi açısından **online-only**.
+- **Önceden yüklenmiş guest web** (SW cache'i oluşmuş): ✅ App shell açılır (cached) **ve** guest
+  workout verisi `localStorage["gym-log-v3"]` üzerinden **ağsız okunup yazılabilir** (`app.html`
+  `isGuest`, `line ~520/591`). Ağ gerektiren sosyal/auth/profil/Supabase özellikleri çalışmaz.
+- **İlk ziyaret tamamen offline** (SW/cache henüz yok): ❌ Uygulamanın açılması beklenmez
+  (app shell indirilemez).
+`DOĞRULANDI` — `sw.js`, `app.html` (`isGuest`/`SK`, `.from("user_data")`).
 
 **2) SW hangi dosya/istekleri cache'liyor?** App shell + statik (`/app.html`, `/`, landing,
 learn/ogren/library, CSS/JS/görseller, CDN React/Supabase/Chart.js). Navigasyon: network-first →
@@ -80,12 +86,14 @@ cihaz blob ezişmesi → tüm gün kaybı. `ÇIKARIM`.
 
 ---
 
-## 3. Net özet: LogWise "offline-first" DEĞİL
-- **Web:** PWA'dır ama yalnız **app shell offline açılır**; kullanıcı verisi tamamen **online**
-  (`user_data` Supabase). Offline'da veri ne okunur ne yazılır. `DOĞRULANDI` — `supabase.ts` yorumu
-  da mobil için "§4.2 Online-only MVP".
+## 3. Net özet: LogWise "offline-first" DEĞİL (ama web guest sınırlı offline çalışır)
+- **Web (authenticated):** Kullanıcı verisi tamamen **online** (`user_data` Supabase); offline'da
+  veri ne okunur ne yazılır, offline mutation queue/yerel yedek yok. `DOĞRULANDI`.
+- **Web (guest):** Önceden yüklenmiş (SW cache'i olan) uygulamada guest workout verisi
+  `localStorage["gym-log-v3"]` üzerinden **ağsız** okunup yazılabilir; ağ gerektiren özellikler
+  çalışmaz; ilk ziyaret offline ise uygulama açılmaz. `DOĞRULANDI`.
 - **Mobil:** Authenticated = **online-only** (offline değişiklik rollback'lenir). **Guest = tam
-  yerel** (offline çalışır ama tek cihaz, bulut yok). `DOĞRULANDI`.
+  yerel** (offline çalışır ama tek cihaz, bulut yok). `DOĞRULANDI` — `supabase.ts` "§4.2 Online-only MVP".
 
 ---
 
@@ -103,8 +111,10 @@ ancak rollback'le anlar; kuyruk yok. `DOĞRULANDI`/`ÇIKARIM`.
 
 **D) Uygulama kapat/aç (cache/storage):**
 - Mobil RQ cache uçar → açılışta yeniden fetch (auth) / AsyncStorage'dan oku (guest).
-- Web: SW shell'i cache'ten verir; veri Supabase'den yeniden çekilir.
-- Web timer (`gym-timer`) ve onboarding bayrağı localStorage'da kalır. `DOĞRULANDI`.
+- Web (authenticated): SW shell'i cache'ten verir; ana veri Supabase'den yeniden çekilir.
+- Web (guest): ana veri `localStorage["gym-log-v3"]`'ten geri yüklenir (kalıcı).
+- Web tema (`gym-log-theme`), dil (`gym-log-lang`), `gym-timer` ve onboarding bayrağı
+  (`logwise-onboard-done`) localStorage'da kalır. `DOĞRULANDI`.
 
 **E) İki cihazda aynı workout:** LWW. Mobil satır-bazlı (daha az yıkıcı); web blob-bazlı (tüm
 değişiklik kaybı olası). Uyarı/merge yok. `ÇIKARIM`.
@@ -119,5 +129,5 @@ ederse **duplikasyon** riski (guest hâlâ dolu + kısmi cloud). Tam başarı d�
 ## 5. Bu turdaki yokluk kanıtları (önemli)
 - Repoda offline mutation queue / background sync / `persistQueryClient` / `BackgroundSync` API **yok**.
 - Conflict resolution / vector clock / `updated_at` tabanlı merge mantığı **yok**.
-- Web `user_data` için localStorage yedeği / offline draft **yok**.
+- **Authenticated** web `user_data` için localStorage yedeği / offline draft **yok** (guest verisi ise zaten `localStorage["gym-log-v3"]`'tedir).
 `DOĞRULANDI` (negatif kanıt — ilgili semboller/araçlar kodda bulunamadı).

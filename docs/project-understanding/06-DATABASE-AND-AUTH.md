@@ -67,7 +67,7 @@ web kullanıcısını saptar (karşılama modalı). Mobil `user_data` içeriğin
 
 | Tablo | SELECT | INSERT/UPDATE/DELETE | Not |
 |---|---|---|---|
-| `user_data` | `auth.uid()=user_id` **VE** ayrıca `user_data_select_public`² | sahip | ⚠️ public okuma riski² |
+| `user_data` | `auth.uid()=user_id` **VEYA** (OR) `user_data_select_public`² — permissive policy'ler OR ile birleşir | sahip | ⚠️ public okuma riski² |
 | `feedback` | sahip | insert: sahip (update/delete policy yok) | yalnız select+insert |
 | `profiles` | `is_public=true OR sahip` | sahip | public profil okunur |
 | `shared_workouts` | **`using(true)`** | insert/delete: sahip | herkese açık okuma (paylaşım) |
@@ -103,8 +103,12 @@ antrenman geçmişini dünyaya açar. `DOĞRULANDI` — `supabase_setup.sql`.
   mobil `@supabase/supabase-js` + SecureStore (`lib/supabase.ts`). `DOĞRULANDI`.
 - **Session:** Mobil token'lar SecureStore'da (chunk'lı, AsyncStorage'a sızmaz); `autoRefreshToken`,
   `persistSession`, `detectSessionInUrl:false`. Web supabase-js default (localStorage tabanlı). `DOĞRULANDI`.
-- **Kayıt:** Mobil email confirmation **kapalı** (signUp session döner). Username benzersizliği RPC
-  `check_app_username_available` ile ön-kontrol + `app_profiles.username unique` index. `DOĞRULANDI`.
+- **Kayıt:** Mobil kayıt kodu **email doğrulaması bekleyen** akışı uygular (`register.tsx`,
+  `verify.tsx`, `needsConfirmation = session===null`, `ensureAppProfile`, `(app)/_layout.tsx`
+  finalize); `signUp` session dönerse koşullu doğrudan-devam yolu da vardır. "Confirmation kapalı,
+  signUp her zaman session döndürür" ifadesi mevcut kodla **uyumsuz**dur; canlı Supabase Auth ayarı
+  repodan doğrulanamaz (`BELİRSİZ`). Username benzersizliği RPC `check_app_username_available` ile
+  ön-kontrol + `app_profiles.username unique` index. `DOĞRULANDI` (kod akışı) / `BELİRSİZ` (canlı ayar).
 - **Ownership zinciri:** RLS her satırı `auth.uid()`'e bağlar; `auth.users` silinince tüm FK
   `on delete cascade` → kullanıcının tüm verisi silinir. `delete_own_account()` (security definer)
   `auth.uid()`'i siler → cascade. `DOĞRULANDI` — `supabase_setup.sql`; mobil `queries/account.ts`
@@ -136,7 +140,7 @@ antrenman geçmişini dünyaya açar. `DOĞRULANDI` — `supabase_setup.sql`.
 
 | Bulgu | Durum | Kanıt |
 |---|---|---|
-| `check_app_username_available` RPC kodda çağrılıyor ama `supabase_setup.sql`'de **tanımlı değil** | **Canlı DB'de var, repoda yok** | `queries/auth.ts` `rpc(...)` ↔ SQL'de yalnız `update_updated_at`, `delete_own_account` `DOĞRULANDI` |
+| `check_app_username_available` RPC: kod çağırır + `database.generated.ts` içerir, ama `supabase_setup.sql` tanımlamaz | Generated tip, RPC'nin **tip üretim anında** canlı şemada olduğuna dolaylı kanıt; gövde/güvenlik repodan doğrulanamaz | `queries/auth.ts` `rpc('check_app_username_available')`, `database.generated.ts` (`:526`) ↔ SQL'de yalnız `update_updated_at`, `delete_own_account` `DOĞRULANDI`/`BELİRSİZ` |
 | `supabase/migrations/` dizini yok; tek `supabase_setup.sql` snapshot | Şema geçmişi izlenmiyor | `find` (yalnız `supabase_setup.sql`) `DOĞRULANDI` |
 | SQL'deki şema = canlı şema? | Doğrulanamaz | `BELİRSİZ` (canlı sorgu yapılmadı) |
 | `database.generated.ts` güncel mi / neyi kapsıyor? | Üreten komut repoda görünmedi | `ESKİ OLABİLİR` (üretim adımı doğrulanamadı) |

@@ -14,21 +14,28 @@ doğrudan yükler (`window.LOGWISE_*`). React/Supabase/Chart.js CDN UMD. `DOĞRU
 ("Web için build aracı yoktur"), kökte `package.json` yok. → **npm build komutu önerme.**
 
 ### Deployment
-- **Asıl hedef: Cloudflare.** `wrangler.jsonc` (`name: "logwise"`, `assets.directory: "."`,
+- **Repo-otoritatif hedef: Cloudflare.** `wrangler.jsonc` (`name: "logwise"`, `assets.directory: "."`,
   `compatibility_flags: ["nodejs_compat"]`, `observability.enabled`) → repo kökü statik asset olarak
-  servis edilir. `DOĞRULANDI` — `wrangler.jsonc`; `AGENTS.md §1` ("Cloudflare üzerinde yayınlanan").
+  servis edilir; `_redirects`/`_headers` dosya başlıkları açıkça "Cloudflare Pages" der. `DOĞRULANDI` —
+  `wrangler.jsonc`, `_redirects`, `_headers`; `AGENTS.md §1` ("Cloudflare üzerinde yayınlanan"), `§4`
+  dosya haritası (`netlify.toml`'u anmaz).
 - **`.assetsignore`** mobil/iç kaynakları bu asset deploy'undan çıkarır. `DOĞRULANDI`.
-- **`netlify.toml` de mevcut** (Netlify rewrite/headers). Hangisinin canlı olduğu repodan kesin
-  değil; `_redirects`/`_headers` her iki platformla uyumlu. `BELİRSİZ` (Cloudflare birincil sayılır;
-  `netlify.toml` ikincil/legacy olabilir — `ESKİ OLABİLİR`).
+- **`netlify.toml` repo'da mevcut ama legacy görünür:** `AGENTS.md §4` haritasında yer almaz ve
+  routing'i `_redirects` ile **çelişir** (aşağıya bakın) → güncel/otoritatif config değil. `ESKİ OLABİLİR`.
+- **Canlı production'ın gerçekten hangi platformda koştuğu repodan kesinleşmez** (ağ/panel
+  doğrulaması gerekir); herhangi bir config dosyasının varlığı tek başına aktiflik kanıtı değildir.
+  `BELİRSİZ`.
 
 ### `/app` → `app.html` ve yönlendirmeler
-- `netlify.toml`: `/app`,`/app/*` → `/app.html` (200 rewrite); SPA route'ları (`/social`,`/dashboard`,
-  `/exercises`,`/programs`,`/feedback`,`/data`) → `app.html`; catch-all → `404.html`. `DOĞRULANDI`.
-- `_redirects`: `/app/*`→`app.html`; eski blog/guides URL'leri → `learn`/`ogren`/`library` (301);
-  `/kutuphane/*` → `/library/*` (200 alias). `DOĞRULANDI`.
-- `_headers`: `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`,
-  `Cache-Control` (sw.js `no-cache`). `DOĞRULANDI` — `netlify.toml [[headers]]`, `_headers`.
+- **Otorite `_redirects` (Cloudflare)**: `/app/*`→`app.html` (200); SPA route'ları `/social`,
+  `/dashboard`, `/feedback`, `/data` → `app.html` (200); **`/exercises` → `/library/exercises` (301)**
+  ve **`/programs` → `/library/programs` (301)** (SEO Library'ye, app'e DEĞİL); eski blog/guides
+  URL'leri → `learn`/`ogren`/`library` (301); `/kutuphane/*` → `/library/*` (200 alias). `DOĞRULANDI`.
+- **`netlify.toml` (legacy, çelişik)**: `/exercises`,`/programs`'ı `/app.html`'e (200) yönlendirir —
+  bu, `_redirects` ile **çelişir** ve repo'da legacy görünür; **aktif gerçeklik olarak alınmamalı**.
+  `ESKİ OLABİLİR`.
+- `_headers` (Cloudflare): `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`,
+  `Referrer-Policy`, `Cache-Control` (sw.js + `*.html` + `/` `no-cache`). `DOĞRULANDI` — `_headers`.
 
 ### Service worker versiyonlama + cache
 - `sw.js` `CACHE_NAME='logwise-v49'`; `PRECACHE_URLS` = app shell + statik + CDN. Yeni statik dosya
@@ -74,8 +81,10 @@ doğrudan yükler (`window.LOGWISE_*`). React/Supabase/Chart.js CDN UMD. `DOĞRU
   (kod ↔ wrangler yorum farkı).
 - **Deploy/rollback:** `wrangler deploy` / `wrangler rollback` (standart). **[Çıkarım]** — repoda
   worker deploy script'i/CI yok.
-- **Aktif kullanım:** **Web `profile.html`** worker'a (avatar) yazar → kullanımda. **Mobilde worker
-  çağrısı bulunamadı** (avatar yükleme mobilde henüz bağlı değil). `DOĞRULANDI` (web) / `BELİRSİZ` (mobil).
+- **Aktif kullanım:** **Web `profile.html`** upload worker'ına (`WORKER_URL =
+  "https://logwise-images-worker.colak-ali1928.workers.dev"`) avatar yazar → kullanımda. **Mobilde
+  worker çağrısı bulunamadı** (avatar yükleme mobilde henüz bağlı değil). `DOĞRULANDI` (web) /
+  `BELİRSİZ` (mobil).
 - **Ayrı medya yüzeyi:** `media.logwise.fit` (read-only R2, GET/HEAD CORS — `r2-exercise-media-cors.json`)
   egzersiz rehberi medyasını sunar; `scripts/build-ex-guides.js` + `profile.html` referans verir.
   Worker upload API'sinden **farklı** bir okuma yüzeyi. `DOĞRULANDI`.

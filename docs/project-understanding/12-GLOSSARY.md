@@ -129,14 +129,17 @@ ile çıktı uyuşmazlığı; codegen-dışı kopyalar tehlikeli."
 
 ## Depolama & offline
 
-**localStorage** — Tarayıcıda kalıcı küçük depo. *LogWise:* web **yalnız** `gym-timer` +
-`logwise-onboard-done` (ana veri **değil**). *Bilmen yeterli:* "Web'de sadece küçük yardımcılar burada."
+**localStorage** — Tarayıcıda kalıcı küçük depo. *LogWise:* web'de oturumsuz (guest) kullanıcının
+**ana veri blob'u** `gym-log-v3`, ayrıca tema `gym-log-theme`, dil `gym-log-lang`, `gym-timer`,
+`logwise-onboard-done` burada. Authenticated kullanıcının ana verisi ise Supabase `user_data`'da
+(`app.html` `isGuest`/`SK`). *Bilmen yeterli:* "Web guest verisi + tema/dil/ayar burada; authenticated ana veri Supabase'de."
 
 **SecureStore** — Mobilde şifreli güvenli depo. *LogWise:* Supabase token'ları (`lib/supabase.ts`,
 chunk'lı). *Bilmen yeterli:* "Hassas oturum bilgisi burada."
 
-**Guest storage** — Misafir verisinin yerel deposu. *LogWise:* AsyncStorage `@logwise/guest/*`
-(`lib/guest-storage.ts`). *Bilmen yeterli:* "Misafir verisi sadece cihazda."
+**Guest storage** — Misafir verisinin yerel deposu. *LogWise:* mobil AsyncStorage `@logwise/guest/*`
+(`lib/guest-storage.ts`); web ise oturumsuz kullanıcı için `localStorage["gym-log-v3"]`
+(`app.html` `isGuest`). *Bilmen yeterli:* "Misafir verisi sadece cihazda (mobil AsyncStorage / web localStorage)."
 
 **Service worker** — Tarayıcıda istekleri yakalayan arka plan scripti. *LogWise:* `sw.js`
 (`logwise-v49`, app shell cache). *Bilmen yeterli:* "Statik dosyaları cache'ler; veri senkronu yapmaz."
@@ -144,8 +147,9 @@ chunk'lı). *Bilmen yeterli:* "Hassas oturum bilgisi burada."
 **PWA** — Web'i app gibi yükleten teknoloji. *LogWise:* `manifest.json` + `sw.js`. *Bilmen yeterli:*
 "Ana ekrana eklenir; ama offline-first değil."
 
-**Offline-first** — Çevrimdışı tam çalışıp sonra senkronlama. *LogWise:* **uygulanmadı** (web online,
-mobil auth online, guest yerel). *Bilmen yeterli:* "LogWise bunu YAPMAZ; PWA olması bunu sağlamaz."
+**Offline-first** — Çevrimdışı tam çalışıp sonra senkronlama. *LogWise:* **uygulanmadı**
+(authenticated web/mobil online; mobil guest yerel; **web guest** önceden yüklenmişse `localStorage`
+ile sınırlı offline çalışır ama bulut senkronu yok). *Bilmen yeterli:* "LogWise genel offline-first DEĞİL; yalnız guest yerel veri ağsız tutulur."
 
 **Offline mutation queue** — Çevrimdışı yazıları biriktirip bağlanınca gönderme. *LogWise:* **yok**.
 *Bilmen yeterli:* "Offline yazma kaydedilmez/kuyruğa girmez."
@@ -160,8 +164,9 @@ kaybı olası. *Bilmen yeterli:* "İki cihaz çakışırsa biri silinir."
 
 ## Deploy & platform
 
-**Netlify** — Statik site barındırma servisi. *LogWise:* `netlify.toml` mevcut (birincil olup olmadığı
-belirsiz). *Bilmen yeterli:* "Olası deploy hedefi; Cloudflare birincil görünüyor."
+**Netlify** — Statik site barındırma servisi. *LogWise:* `netlify.toml` repo'da var ama
+`AGENTS.md §4` haritasında yer almaz ve `_redirects` ile çelişir → **legacy görünür** (`ESKİ OLABİLİR`).
+*Bilmen yeterli:* "Repo'da eski kalıntı gibi; routing otoritesi Cloudflare `_redirects`/`_headers`; canlı platform repodan kesinleşmez."
 
 **Cloudflare Worker** — Cloudflare'de çalışan küçük sunucu fonksiyonu. *LogWise:* `logwise-worker`
 (resim API). *Bilmen yeterli:* "Resim yükle/sun/sil servisi."

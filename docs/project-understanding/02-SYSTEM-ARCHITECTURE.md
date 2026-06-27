@@ -15,8 +15,8 @@ flowchart TB
     end
 
     subgraph Edge["Cloudflare / Netlify Edge"]
-        STATIC["Statik hosting<br/>netlify.toml + _redirects + _headers"]
-        WORKER["Image Worker<br/>logwise-worker (R2)<br/>media.logwise.fit"]
+        STATIC["Statik hosting (Cloudflare)<br/>_redirects + _headers + wrangler.jsonc<br/>(netlify.toml = legacy)"]
+        WORKER["Image Worker (upload)<br/>logwise-worker (R2)<br/>…workers.dev"]
         R2[("R2 bucket<br/>LOGWISE_IMAGES")]
     end
 
@@ -79,28 +79,35 @@ flowchart LR
     ROOT --> comp
     ROOT -->|debounced upsert| DB
     DB --> SUPA[("Supabase user_data")]
-    ROOT -->|yalnız gym-timer + onboard| LS[("localStorage<br/>yalnız UI/yardımcı değerler")]
+    ROOT -->|guest blob + tema + dil| LS[("localStorage<br/>gym-log-v3 guest ana veri,<br/>gym-log-theme, gym-log-lang,<br/>gym-timer, logwise-onboard-done")]
 ```
 
 **Veri akışı (web):** Kullanıcı verisi tek nesnedir (`lib/data-schema.js` `init()` → 11 anahtar:
 `exercises/workouts/programs/dailyPrograms/activeProgram/durations/measurements/dayNotes/
-exerciseNotes/programMeta/badges`) ve **yalnız** `user_data` Supabase tablosuna **debounced upsert**
-ile yazılır (`app.html` `debouncedSave`); yüklemede `migrateData()` eski şemayı yükseltir.
-`localStorage` ana veriyi **tutmaz** — yalnız `gym-timer` + `logwise-onboard-done`. `DOĞRULANDI` —
-`lib/data-schema.js`; `app.html` (`.from("user_data")`, `debouncedSave`); `localStorage` anahtarları
-yalnız `gym-timer` + `logwise-onboard-done`.
+exerciseNotes/programMeta/badges`). **Authenticated** kullanıcıda bu nesne **yalnız** `user_data`
+Supabase tablosuna **debounced upsert** ile yazılır (`app.html` `debouncedSave`); **oturumsuz
+(guest)** kullanıcıda (`isGuest = !user`) aynı nesne `localStorage["gym-log-v3"]` (`SK`) blob'una
+yazılır/okunur. Yüklemede `migrateData()` eski şemayı yükseltir. Ek olarak tema (`gym-log-theme`/`TK`)
+ve dil (`gym-log-lang`/`LK`) tüm kullanıcılarda localStorage'da tutulur; `gym-timer` ve
+`logwise-onboard-done` da kullanılır. `DOĞRULANDI` — `lib/data-schema.js`; `app.html` (`isGuest`,
+`.from("user_data")`, `debouncedSave`, `localStorage[SK/TK/LK]`).
 
 **Veri yolu ayrımı (özet — karıştırma!):**
-- Web UI → `debouncedSave` → Supabase `user_data` (ana veri, online). `DOĞRULANDI`.
-- Web `localStorage` → yalnız doğrulanmış yardımcı/UI değerleri (`gym-timer`, `logwise-onboard-done`). `DOĞRULANDI`.
+- Web authenticated UI → `debouncedSave` → Supabase `user_data` (ana veri, online). `DOĞRULANDI`.
+- Web guest (`isGuest = !user`) → `localStorage["gym-log-v3"]` (ana veri blob'u, ağsız). `DOĞRULANDI`.
+- Web `localStorage` ayrıca → tema (`gym-log-theme`), dil (`gym-log-lang`), `gym-timer`, `logwise-onboard-done`. `DOĞRULANDI`.
 - Mobil authenticated → `queries/*` → `data-bridge.ts` → Supabase `app_*`. `DOĞRULANDI`.
 - Mobil guest → `data-bridge.ts` → `guest-storage.ts` (AsyncStorage, Supabase YOK). `DOĞRULANDI`.
 - Mobil guest→authenticated → `migration.ts` `migrateGuestToAccount` (gerçek veri taşıma). `DOĞRULANDI`.
 - Web kullanıcı tespiti → `countWebUserData` = `user_data` **sayımı** (veri aktarımı DEĞİL). `DOĞRULANDI`.
 
-**Routing:** Temiz URL'ler edge'de rewrite edilir (`/app`,`/app/*` → `app.html` 200; `/social`,
-`/dashboard`, `/exercises`, `/programs`, `/feedback`, `/data` → `app.html`), React içinde
-`setView` ile view değişir. `DOĞRULANDI` — `netlify.toml`, `_redirects`.
+**Routing (repo-otoritatif Cloudflare config'ine göre):** `_redirects`'e göre `/app`,`/app/*` →
+`app.html` (200) ve SPA route'ları `/social`, `/dashboard`, `/feedback`, `/data` → `app.html` (200);
+**`/exercises` → `/library/exercises` (301)** ve **`/programs` → `/library/programs` (301)** (SEO
+Library sayfalarına, app'e DEĞİL). React içinde `setView` ile view değişir. `DOĞRULANDI` —
+`_redirects` (başlık "Cloudflare Pages"), `_headers`. **Not:** `netlify.toml` `/exercises`,`/programs`'ı
+`app.html`'e yönlendirir ama bu config repo'da legacy görünür ve `_redirects` ile çelişir
+(`ESKİ OLABİLİR`); canlı production platformu repodan kesinleşmez (`BELİRSİZ`).
 
 ---
 

@@ -10,7 +10,7 @@
 
 | Platform | Entry | Açıklama | Kanıt |
 |---|---|---|---|
-| Web — ürün | `app.html` | SPA monolit; `/app` rewrite ile sunulur | `netlify.toml` `DOĞRULANDI` |
+| Web — ürün | `app.html` | SPA monolit; `/app` rewrite ile sunulur | `_redirects`, `wrangler.jsonc` (Cloudflare) `DOĞRULANDI` |
 | Web — landing | `index.html` (`/`), `tr.html` (`/tr`) | Statik SEO | `AGENTS.md §3.2` `DOĞRULANDI` |
 | Web — diğer sayfalar | `profile.html`, `share.html`, `program.html`, `reset-password.html`, `404.html` | Bağımsız HTML | dosyalar `DOĞRULANDI` |
 | Mobil | `logwise-mobile/app/_layout.tsx` + `app/index.tsx` | `expo-router/entry` → root layout → mode redirect | `package.json` (`"main"`), `app/index.tsx` `DOĞRULANDI` |
@@ -34,10 +34,12 @@
 | `logwise-worker/` | Cloudflare Worker (R2 resim API) | `worker.js`, `wrangler.toml` `DOĞRULANDI` |
 | `logwise-mobile/` | Bağımsız Expo alt projesi (kendi `package.json`/TS/Metro) | `AGENTS.md §3.2` `DOĞRULANDI` |
 
-**Kök config/deploy dosyaları:** `netlify.toml`, `_redirects`, `_headers` (edge routing/headers);
-`sw.js` + `manifest.json` (PWA); `wrangler.jsonc` (web/worker wrangler); `.assetsignore`
-(asset deploy filtresi); `supabase_setup.sql` (web + `app_*` şema/RLS); `robots.txt` + `sitemap*.xml`
-+ `sitemap.txt` (SEO). `DOĞRULANDI` — dosyalar + `AGENTS.md §4`.
+**Kök config/deploy dosyaları:** `_redirects`, `_headers` (Cloudflare edge routing/headers; dosya
+başlıkları "Cloudflare Pages"); `wrangler.jsonc` (Cloudflare web static asset config); `.assetsignore`
+(asset deploy filtresi); `netlify.toml` (repo'da bulunur ama `AGENTS.md §4` dosya haritasında yer
+almaz ve `_redirects` ile çelişir → **legacy görünür**, `ESKİ OLABİLİR`); `sw.js` + `manifest.json`
+(PWA); `supabase_setup.sql` (web + `app_*` şema/RLS); `robots.txt` + `sitemap*.xml` + `sitemap.txt`
+(SEO). `DOĞRULANDI` — dosyalar + `AGENTS.md §1, §4`.
 
 ---
 

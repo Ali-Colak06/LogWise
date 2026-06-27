@@ -31,13 +31,17 @@
 - **Çözüm:** Alan-bazlı upsert veya `updated_at` tabanlı merge/uyarı. **Önce doğrula:** Gerçek
   çok-cihaz kullanım sıklığı. **Kapsam:** Büyük (veri modeli dokunuşu).
 
-## R3 — Web offline veri desteğinin bulunmaması
-- **Alan:** Web offline · **Öncelik:** **P2**.
-- **Kanıt:** `sw.js` Supabase→503; ana veri localStorage'da değil (yalnız `gym-timer`/onboard).
-- **Kanıt durumu:** `DOĞRULANDI`.
-- **Olasılık:** Yüksek (salon Wi-Fi/mobil) · **Etki:** Orta-Yüksek.
-- **Yansıma:** Offline'da web ne okur ne yazar; oturumda girilen veri reload'da kaybolabilir.
-- **Çözüm:** localStorage draft + reconnect sync, ya da "offline" net uyarısı. **Kapsam:** Orta.
+## R3 — Authenticated web'de offline veri desteğinin bulunmaması
+- **Alan:** Web offline (authenticated) · **Öncelik:** **P2**.
+- **Kanıt:** `sw.js` Supabase→503; **authenticated** kullanıcının ana verisi localStorage'da değil
+  (Supabase `user_data`). **İstisna:** oturumsuz (guest) kullanıcının verisi `localStorage["gym-log-v3"]`'tedir
+  → guest, önceden yüklenmiş (SW cache'i olan) uygulamada offline okuyup yazabilir.
+- **Kanıt durumu:** `DOĞRULANDI` — `app.html` (`isGuest`/`SK`, `.from("user_data")`), `sw.js`.
+- **Olasılık:** Yüksek (salon Wi-Fi/mobil) · **Etki:** Orta-Yüksek (yalnız authenticated).
+- **Yansıma:** Authenticated offline'da web ne okur ne yazar; oturumda girilen veri reload'da
+  kaybolabilir. Guest bu riski taşımaz (yerel localStorage).
+- **Çözüm:** Authenticated için localStorage draft + reconnect sync, ya da "offline" net uyarısı.
+  **Kapsam:** Orta.
 
 ## R4 — Mobil authenticated offline mutation queue yokluğu
 - **Alan:** Mobil offline · **Öncelik:** **P2**.

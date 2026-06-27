@@ -34,23 +34,27 @@ projesini** (`hfmqywyfnqmpvskkzksv`) kullanır, ama web ile mobil **farklı tabl
    `.from(...)` kullanımları (`app.html`, `profile.html` ↔ `logwise-mobile/lib/data-bridge.ts`).
 
 2. **Web = tek JSON blob; Mobil = normalize tablolar.** Web tüm kullanıcı verisini tek nesnede
-   tutar (11 anahtar: `exercises/workouts/programs/...`) ve **yalnız** `user_data` Supabase
-   tablosuna yazar (debounced upsert). Web `localStorage` **ana veriyi tutmaz** — yalnız gerçek
-   kodda doğrulanan sınırlı UI/yardımcı değerleri (`gym-timer` kronometre + `logwise-onboard-done`
-   bayrağı). SW + localStorage bulunması web'i **offline-first YAPMAZ** (bkz. [07](07-OFFLINE-AND-SYNC.md)).
+   tutar (11 anahtar: `exercises/workouts/programs/...`). **Authenticated** web kullanıcısının ana
+   verisi **yalnız** `user_data` Supabase tablosundadır (debounced upsert); **oturumsuz (guest)**
+   kullanıcının (`isGuest = !user`) aynı verisi `localStorage["gym-log-v3"]` blob'undadır. Ayrıca tema
+   (`gym-log-theme`) ve dil (`gym-log-lang`) tüm kullanıcılarda localStorage'da tutulur; `gym-timer`
+   ve `logwise-onboard-done` da kullanılır. SW + localStorage bulunması authenticated web'i
+   **offline-first YAPMAZ** (bkz. [07](07-OFFLINE-AND-SYNC.md)).
    Mobil aynı kavramları ayrı ilişkisel tablolara böler — "aynı ürün, bambaşka veri modeli".
    `DOĞRULANDI` — `lib/data-schema.js` (`init`, `migrateData`); `app.html` (`.from("user_data")`,
-   `debouncedSave`); `localStorage` yalnız `gym-timer` + `logwise-onboard-done`.
+   `debouncedSave`, `isGuest`, `localStorage[SK="gym-log-v3"]`, `TK="gym-log-theme"`, `LK="gym-log-lang"`).
 
 3. **Gerçekten paylaşılan tek şey: 2 kanonik JSON + codegen.** `data/presets-exercises.json` ve
    `data/ex-guides.json` kanonik kaynaktır; generator'lar bunlardan **hem** web JS **hem** mobil TS
    üretir. Başka her şey platforma özel kopya/kod. `DOĞRULANDI` — `scripts/build-presets-exercises.js`,
    `scripts/build-ex-guides.js`, `scripts/check-codegen.js`.
 
-4. **Guest (misafir) modu mobile özgüdür ve Supabase'e hiç gitmez.** Misafir verisi
-   AsyncStorage'da (`@logwise/guest/*`). Tüm mobil sorgular mode-aware bir köprüden geçer.
-   `DOĞRULANDI` — `logwise-mobile/lib/data-bridge.ts` (`useDataCtx`, her fonksiyonda
-   `ctx.mode === 'guest'` dalı), `logwise-mobile/lib/guest-storage.ts`.
+4. **Guest (misafir) modu hem mobilde hem webde vardır (ayrı implementasyonlar).** Mobil misafir
+   verisi AsyncStorage'da (`@logwise/guest/*`) tutulur, Supabase'e hiç gitmez; tüm mobil sorgular
+   mode-aware bir köprüden geçer. Web'de oturumsuz kullanıcı (`isGuest = !user`) misafir sayılır ve
+   verisi `localStorage["gym-log-v3"]` blob'undadır. `DOĞRULANDI` —
+   `logwise-mobile/lib/data-bridge.ts` (`useDataCtx`, `ctx.mode === 'guest'`),
+   `logwise-mobile/lib/guest-storage.ts`; web `app.html` (`isGuest`, `SK`).
 
 5. **Web SPA "monolit"tir.** Tüm view'lar tek `app.html` içinde `setView(...)` ile değişir
    (`calendar`, `day`, `dashboard`, `exercises`, `programs`, `social`, `feedback`, `data`).
@@ -133,4 +137,4 @@ projesini** (`hfmqywyfnqmpvskkzksv`) kullanır, ama web ile mobil **farklı tabl
 | Mobil state | TanStack Query + zustand + guest AsyncStorage | `lib/query-client.ts`, `stores/auth-store.ts` `DOĞRULANDI` |
 | SW cache | `logwise-v49` | `sw.js` (`CACHE_NAME`) `DOĞRULANDI` |
 | CI | `.github/workflows/codegen-check.yml` (codegen drift) | dosya mevcut `DOĞRULANDI` |
-| Worker | R2 resim API (`media.logwise.fit`) | `logwise-worker/src/worker.js` `DOĞRULANDI` |
+| Worker (upload) | Avatar/foto upload API (`…workers.dev`); egzersiz medyası ayrı `media.logwise.fit` (read-only) | `logwise-worker/src/worker.js`, `profile.html` (`WORKER_URL`) `DOĞRULANDI` |
