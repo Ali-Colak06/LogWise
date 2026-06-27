@@ -1,0 +1,163 @@
+# 06 — DATABASE & AUTH
+
+> Etiketler: `DOĞRULANDI` / `ÇIKARIM` / `BELİRSİZ` / `ESKİ OLABİLİR`. Kanıt = dosya + sembol/policy.
+> **Uyarı:** `supabase_setup.sql` bir **kurulum anlık görüntüsüdür**, migration geçmişi değildir
+> ("Sonraki migration buranın altına eklenir."). Repoda `supabase/migrations/` **yok**. Bu yüzden
+> aşağıdaki şema **canlı production ile birebir aynı olmayabilir**; farklar açıkça işaretlendi.
+
+---
+
+## 1. Tablo envanteri ve sınıflandırma
+
+| Tablo | SQL'de tanımlı | Kodda sorgulanıyor | Generated type'ta | Sınıf |
+|---|---|---|---|---|
+| `user_data` | ✓ `supabase_setup.sql` | Web `.from("user_data")`; Mobil `countWebUserData` | `BELİRSİZ`¹ | **Web blob + köprü** `DOĞRULANDI` |
+| `feedback` | ✓ | Web `.from("feedback")` | `BELİRSİZ`¹ | Web `DOĞRULANDI` |
+| `profiles` | ✓ | Web `lib/db.js` `syncProfileRecord`, `profile.html` | — | Web `DOĞRULANDI` |
+| `shared_workouts` | ✓ | Web `.from("shared_workouts")`, `share.html` | — | Web sosyal `DOĞRULANDI` |
+| `shared_workout_comments` | ✓ | Web `components/comment-section.js` | — | Web sosyal `DOĞRULANDI` |
+| `comment_likes` | ✓ | Web (yorum beğeni) | — | Web sosyal `DOĞRULANDI` |
+| `user_prs` | ✓ | Web `.from("user_prs")` (`app.html`) | — | Web liderlik `DOĞRULANDI` |
+| `follows` | ✓ | Web `.from("follows")` | — | Web sosyal `DOĞRULANDI` |
+| `app_profiles` | ✓ | Mobil `queries/auth.ts`, `data-bridge.ts` | ✓ `database.generated.ts` | Mobil `DOĞRULANDI` |
+| `app_exercises` | ✓ | Mobil `data-bridge.ts` | ✓ | Mobil `DOĞRULANDI` |
+| `app_programs` | ✓ | Mobil `data-bridge.ts` | ✓ | Mobil `DOĞRULANDI` |
+| `app_program_days` | ✓ | Mobil `data-bridge.ts` | ✓ | Mobil `DOĞRULANDI` |
+| `app_workouts` | ✓ | Mobil `data-bridge.ts` | ✓ | Mobil `DOĞRULANDI` |
+| `app_sets` | ✓ | Mobil `data-bridge.ts` | ✓ | Mobil `DOĞRULANDI` |
+| `app_day_meta` | ✓ | Mobil `data-bridge.ts` | ✓ | Mobil `DOĞRULANDI` |
+
+¹ `logwise-mobile/types/database.generated.ts` mobil `app_*` tipleri için; web tablolarını içerip
+içermediği bu turda satır-satır doğrulanmadı. `BELİRSİZ`.
+
+**Yalnız eski dokümanda geçen / kodda bulunamayan:** Bu turda SQL'de olup hiç sorgulanmayan tablo
+saptanmadı. Tersine, **kodda çağrılıp SQL'de OLMAYAN** bir fonksiyon var (bkz. §5). `DOĞRULANDI`.
+
+---
+
+## 2. İki şema, tek proje — net ayrım
+
+```
+auth.users  ← PAYLAŞILAN Supabase Auth (web + mobil aynı kimlik)
+   │
+   ├── WEB ŞEMASI (blob + sosyal)
+   │     user_data(data jsonb)  profiles  feedback  shared_workouts
+   │     shared_workout_comments  comment_likes  user_prs  follows
+   │
+   └── MOBİL ŞEMASI (app_ namespace, normalize)
+         app_profiles  app_exercises  app_programs  app_program_days
+         app_workouts  app_sets  app_day_meta
+```
+- **Aynı projeyi kullanmak ≠ aynı veri modelini kullanmak.** Web kullanıcı verisi `user_data.data`
+  JSON blob'unda; mobil aynı kavramları normalize `app_*` tablolarında tutar. Ortak olan **yalnız
+  kimlik** (`auth.users`) ve tek köprü `user_data` okumasıdır. `DOĞRULANDI` — `supabase_setup.sql`
+  yorumu ("Web tabloları ... DOKUNULMAZ. app_ prefix'i namespace çakışmasını önler").
+
+### `user_data` köprüsü
+Mobil `data-bridge.ts` `countWebUserData` yalnızca `user_data`'da satır **sayar** (head count) →
+web kullanıcısını saptar (karşılama modalı). Mobil `user_data` içeriğini **okumaz/yazmaz/taşımaz**.
+`DOĞRULANDI` — `data-bridge.ts` (`select('*', {count:'exact', head:true})`), `WebUserWelcomeModal.tsx`.
+
+---
+
+## 3. RLS — politika-politika (genelleme YOK)
+
+> `auth.uid() = user_id` **her tabloda doğru değildir**; bazı tablolar `using (true)` (herkese açık
+> okuma) ya da parent üzerinden sahiplik kullanır. Aşağıdaki tablo `supabase_setup.sql`'den birebir.
+
+| Tablo | SELECT | INSERT/UPDATE/DELETE | Not |
+|---|---|---|---|
+| `user_data` | `auth.uid()=user_id` **VE** ayrıca `user_data_select_public`² | sahip | ⚠️ public okuma riski² |
+| `feedback` | sahip | insert: sahip (update/delete policy yok) | yalnız select+insert |
+| `profiles` | `is_public=true OR sahip` | sahip | public profil okunur |
+| `shared_workouts` | **`using(true)`** | insert/delete: sahip | herkese açık okuma (paylaşım) |
+| `user_prs` | **`using(true)`** | sahip | herkese açık (liderlik) |
+| `follows` | **`using(true)`** (drop+recreate ile) | insert/delete: `follower_id` | başta dar, sonra açıldı |
+| `shared_workout_comments` | **`using(true)`** | insert/update: sahip; delete: sahip **veya** paylaşım sahibi | public feed |
+| `comment_likes` | **`using(true)`** | insert/delete: sahip | beğeni sayısı |
+| `app_profiles` | `auth.uid()=user_id` | sahip | tam owner-only |
+| `app_exercises` | `auth.uid()=user_id` | sahip | owner-only |
+| `app_programs` | `auth.uid()=user_id` | sahip | owner-only |
+| `app_program_days` | **parent** `EXISTS app_programs.user_id=auth.uid()` | parent | user_id kolonu yok |
+| `app_workouts` | `auth.uid()=user_id` | sahip | owner-only |
+| `app_sets` | **parent** `EXISTS app_workouts.user_id=auth.uid()` | parent | workout_id üzerinden |
+| `app_day_meta` | `auth.uid()=user_id` | sahip | owner-only |
+
+² **`user_data_select_public` (SQL `line 193-201`):** Profili `is_public=true` **VE**
+`show_profile_info=true` olan kullanıcının **tüm `user_data.data` blob'u** (egzersizler, antrenmanlar,
+programlar...) **herkes tarafından okunabilir**. Bu bilinçli bir public-profil özelliğidir ama tüm
+antrenman geçmişini dünyaya açar. `DOĞRULANDI` — `supabase_setup.sql`.
+
+**Önemli RLS gözlemleri:**
+- `feedback` yalnız `select`+`insert` policy'sine sahip → `update`/`delete` **hiç kimseye açık değil**
+  (RLS varsayılan reddi). `DOĞRULANDI`.
+- Mobil `app_*` modeli **owner-only**; sosyal/public okuma yok (mobil sosyal ertelenmiş). `DOĞRULANDI`.
+- Parent-tabanlı sahiplik (`app_program_days`, `app_sets`) doğru kurulmuş (alt satır parent'ın
+  sahibine bağlı). `DOĞRULANDI`.
+
+---
+
+## 4. Authentication / session / ownership
+
+- **Kimlik:** Supabase Auth (`auth.users`), web + mobil ortak. Web UMD supabase-js (`lib/db.js`);
+  mobil `@supabase/supabase-js` + SecureStore (`lib/supabase.ts`). `DOĞRULANDI`.
+- **Session:** Mobil token'lar SecureStore'da (chunk'lı, AsyncStorage'a sızmaz); `autoRefreshToken`,
+  `persistSession`, `detectSessionInUrl:false`. Web supabase-js default (localStorage tabanlı). `DOĞRULANDI`.
+- **Kayıt:** Mobil email confirmation **kapalı** (signUp session döner). Username benzersizliği RPC
+  `check_app_username_available` ile ön-kontrol + `app_profiles.username unique` index. `DOĞRULANDI`.
+- **Ownership zinciri:** RLS her satırı `auth.uid()`'e bağlar; `auth.users` silinince tüm FK
+  `on delete cascade` → kullanıcının tüm verisi silinir. `delete_own_account()` (security definer)
+  `auth.uid()`'i siler → cascade. `DOĞRULANDI` — `supabase_setup.sql`; mobil `queries/account.ts`
+  `rpc('delete_own_account')`.
+
+### Güven sınırları (trust boundaries)
+- **anon key** istemcide gömülü (web `lib/db.js` hardcoded; mobil `app.json extra`). Bu **gizli
+  değildir** — güvenlik tamamen **RLS**'e dayanır. `DOĞRULANDI`.
+- **service_role** repoda **yok** (olmamalı; bulunmadı). `DOĞRULANDI` (negatif kanıt).
+- **Client-side kontrol ≠ yetkilendirme:** Duplicate guard, tek-aktif program gibi kurallar
+  uygulama katmanındadır; DB onları zorlamaz → asıl koruma RLS + DB kısıtlarıdır. `DOĞRULANDI`.
+
+---
+
+## 5. Worker'ın token doğrulaması
+`logwise-worker/src/worker.js`:
+- Yazma (`PUT`/`DELETE`) için `Authorization: Bearer <token>` zorunlu.
+- `verifyWithSupabase(token, SUPABASE_URL, ANON_KEY)` → `GET ${SUPABASE_URL}/auth/v1/user` çağrısı;
+  200 + `user.id` dönerse geçerli. **JWT'yi worker kendi doğrulamaz**, Supabase'e sorar (algoritma-
+  bağımsız). `DOĞRULANDI`.
+- Sahiplik: `key.startsWith('avatars/${userId}/')` veya `workouts/${userId}/` → kullanıcı yalnız
+  kendi klasörüne yazar/siler; aksi 403. Boyut limiti 5 MB. `DOĞRULANDI`.
+- **Not:** GET (okuma) **public** — herhangi bir `key` auth'suz servis edilir (resimler public CDN).
+  `DOĞRULANDI`.
+
+---
+
+## 6. Repository ↔ canlı production boşlukları (kesin bilgi gibi yazma!)
+
+| Bulgu | Durum | Kanıt |
+|---|---|---|
+| `check_app_username_available` RPC kodda çağrılıyor ama `supabase_setup.sql`'de **tanımlı değil** | **Canlı DB'de var, repoda yok** | `queries/auth.ts` `rpc(...)` ↔ SQL'de yalnız `update_updated_at`, `delete_own_account` `DOĞRULANDI` |
+| `supabase/migrations/` dizini yok; tek `supabase_setup.sql` snapshot | Şema geçmişi izlenmiyor | `find` (yalnız `supabase_setup.sql`) `DOĞRULANDI` |
+| SQL'deki şema = canlı şema? | Doğrulanamaz | `BELİRSİZ` (canlı sorgu yapılmadı) |
+| `database.generated.ts` güncel mi / neyi kapsıyor? | Üreten komut repoda görünmedi | `ESKİ OLABİLİR` (üretim adımı doğrulanamadı) |
+| Web `user_prs.estimated_1rm` üretimi | Web `getAllPRs`→upsert | `DOĞRULANDI` |
+
+---
+
+## 7. En ciddi auth/DB riskleri (detay 10'da)
+1. **`user_data_select_public` ile tüm antrenman blob'unun public okunabilirliği** — gizlilik yüzeyi.
+   `DOĞRULANDI`.
+2. **`user_prs`/`shared_workouts`/`follows` `using(true)`** — denormalize PR + paylaşımlar dünyaya
+   açık (tasarım gereği, ama beklenti yönetilmeli). `DOĞRULANDI`.
+3. **Repo SQL ≠ canlı şema garantisi yok** (migration yok, RPC eksik) → deploy/denetim güçleşir.
+   `DOĞRULANDI`.
+4. **anon key client'ta** → güvenlik tamamen RLS'e bağlı; bir tabloda yanlış policy = veri sızıntısı.
+   `DOĞRULANDI`.
+
+---
+
+## 8. Canlı doğrulama gerektiren açık sorular (read-only önerilir, otomatik çalıştırılmadı)
+- Canlı şema `supabase_setup.sql` ile aynı mı? (örn. `app_*` üzerinde ek kolon/policy var mı?)
+- `check_app_username_available` canlıda hangi gövdeye sahip? (RLS-safe mi?)
+- `database.generated.ts` canlı şemayla güncel mi?
+- `user_data_select_public` production'da aktif mi (kasıtlı mı)?
