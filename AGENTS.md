@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-26 — Çoklu-ajan worktree iş akışı (§3.5) eklendi: Claude=master/mobil, Codex=web/work. -->
+<!-- SON GÜNCELLEME: 2026-06-28 — `supabase/migrations/` klasörü eklendi (ilk tarihli migration: user_data public SELECT açığının kaldırılması — §4 haritası). -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -174,7 +174,8 @@ LogWise/
 ├── sw.js                      ← Service Worker (PWA)
 ├── manifest.json              ← PWA manifest
 ├── _redirects, _headers       ← Cloudflare Web yönlendirme/header konfigürasyonu
-├── supabase_setup.sql         ← Web + mobil `app_` Supabase tablo şemaları ve RLS
+├── supabase_setup.sql         ← Web + mobil `app_` Supabase tablo şemaları ve RLS (kurulum snapshot'ı)
+├── supabase/migrations/       ← Supabase tarihli migration'lar (snapshot üzerine uygulanan değişiklikler; ilk: 20260628120000 user_data public SELECT açığını kaldırır)
 ├── logwise-worker/            ← Cloudflare Worker (resim API)
 │   ├── src/worker.js
 │   └── wrangler.toml

@@ -6,21 +6,23 @@
 
 ---
 
-## R1 — `user_data_select_public` ile antrenman blob'unun public okunabilirliği
-- **Alan:** Web DB / gizlilik · **Öncelik:** repo-tasarımı **P1**, **canlıda doğrulanırsa P0**.
-- **Kanıt:** `supabase_setup.sql line 193-201` policy: profili `is_public=true` **ve**
-  `show_profile_info=true` olan kullanıcının `user_data` satırı `select` ile herkese açık.
-- **Kanıt durumu / Production:**
-  - `DOĞRULANDI`: Repo SQL'i bu policy'yi içeriyor.
-  - `ÇIKARIM`: `user_data.data` **tüm** antrenman/egzersiz/program blob'unu içerdiğinden, policy
-    beklenenden çok daha fazla kişisel veriyi açabilir (yalnız "profil özeti" değil).
-  - `BELİRSİZ`: Aynı policy'nin **canlı production'da şu an aktif** olup olmadığı repodan doğrulanamaz
-    (migration yok, canlı sorgu yapılmadı).
-- **Olasılık:** Orta (public profil seçen kullanıcı sayısına bağlı) · **Etki:** Yüksek (gizlilik).
-- **Kullanıcıya yansıma:** Public profilli kullanıcının tüm antrenman geçmişi 3. kişilerce okunabilir.
-- **Önerilen çözüm:** Public okuma yüzeyini özel bir "public özet" view'ına daralt; ham blob'u asla
-  public select'e açma. **Önce doğrula:** Canlı policy aktif mi + kaç public profil var.
-- **Kapsam:** Küçük-orta (1 policy + olası view). 
+## R1 — `user_data_select_public` ile antrenman blob'unun public okunabilirliği — **GİDERİLDİ (2026-06-28)**
+- **Alan:** Web DB / gizlilik · **Öncelik:** ~~repo-tasarımı P1 / canlıda doğrulanırsa P0~~ → **giderildi / izlenmeli**.
+- **Durum:** **Canlıda doğrulandı ve giderildi.** Salt-okunur denetim (2026-06-28), eski
+  `user_data_select_public` politikasının canlıda **aktif** olduğunu ve `anon` rolünün **7 `user_data`
+  satırı** görebildiğini doğruladı. Politika owner-only authenticated'a düzeltildi
+  (`for select to authenticated using ((select auth.uid()) = user_id)`); düzeltme sonrası anon görünür
+  satır **0**. Tekrar üretilebilir kayıt: `supabase/migrations/20260628120000_restrict_user_data_select.sql`
+  + `supabase_setup.sql` snapshot güncellendi. `DOĞRULANDI`.
+- **Smoke kontrolleri (geçti):** Public profil sayfası **hata vermeden** açıldı; profil temelleri
+  (avatar, bio, PR, shared workouts, takipçi verisi) çalışmaya devam etti. **Beklenen güvenlik sonucu:**
+  ham `user_data`ya bağlı Programs/Badges/Measurements bölümü ziyaretçilere **artık yüklenmez** — bu tam
+  özellik parity'sinin korunması DEĞİL, bilinçli bir daraltmadır.
+- **Kalan risk (izlenmeli):** Canlı değişiklik ile repo'nun tekrar ayrışması (R8), migration'ın yeni
+  ortamlara uygulanmaması, ya da eski public policy'nin yanlışlıkla geri getirilmesi. **Ham `user_data`
+  blob'u public profil için yeniden AÇILMAMALI.** Gelecekte public istatistik gerekirse sınırlı bir
+  view / RPC / ayrı tablo tasarla (asla ham blob'u public select'e açma).
+- **Kapsam:** Tamamlandı (1 policy düzeltmesi). İleride public özet istenirse: küçük-orta (view/RPC).
 
 ## R2 — Web blob modelinde çoklu cihaz last-write-wins
 - **Alan:** Web veri modeli · **Öncelik:** **P1**.
@@ -157,11 +159,11 @@
 ## Öncelik özeti
 | P | Riskler |
 |---|---|
-| **P0 (koşullu)** | R1 (canlı policy repo ile eşleşirse) |
-| **P1** | R1 (repo-tasarımı), R2, R5, R6, R8, R16 |
+| **✅ Giderildi** | R1 (canlıda doğrulandı + owner-only'a düzeltildi, 2026-06-28 — izlenmeli) |
+| **P1** | R2, R5, R6, R8, R16 |
 | **P2** | R3, R4, R7, R9, R11, R13, R15 |
 | **P3** | R10, R12, R14 |
 
 ## En çok "önce doğrula" gerektirenler (canlı, read-only)
-- R1: `user_data_select_public` canlıda aktif mi? · R8/R9: canlı şema + `check_app_username_available`
-  gövdesi · R10: generated type güncel mi? · R2: gerçek çok-cihaz kullanım hacmi.
+- R8/R9: canlı şema + `check_app_username_available` gövdesi · R10: generated type güncel mi? ·
+  R2: gerçek çok-cihaz kullanım hacmi. (R1 artık doğrulandı ve giderildi — yalnız regresyon izlenir.)

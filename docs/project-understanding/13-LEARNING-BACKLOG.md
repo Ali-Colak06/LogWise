@@ -116,7 +116,10 @@ Gruplar: **1) Şimdi · 2) Sonraki büyük özellikten önce · 3) Production ö
 
 ### 3.1 Supabase Auth ve RLS
 - **Neden:** LogWise'ın güvenliği tamamen RLS'e bağlı; yanlış policy = veri sızıntısı.
-- **LogWise örneği:** `user_data_select_public` (public blob okuma), `app_*` owner-only.
+- **LogWise örneği (vaka çalışması):** Eski `user_data_select_public` policy'si ham `user_data`
+  blob'unu public profillerde anon'a açıyordu; canlı denetimde doğrulanıp 2026-06-28'de owner-only
+  authenticated'a düzeltildi (bkz. [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md), [11/D14](11-DECISION-HISTORY.md)).
+  Karşıt örnek: `app_*` tabloları baştan owner-only.
 - **İncele:** [06-DATABASE-AND-AUTH §3](06-DATABASE-AND-AUTH.md).
 - **Minimum seviye:** "Bu tabloyu kim okuyabilir?" sorusunu policy'den okumak.
 - **Gerekmeyen:** PostgreSQL ileri SQL.

@@ -69,8 +69,11 @@
 
 ### Database / RLS değişikliği
 - [ ] Politika her tabloda **ayrı** doğrulanır (genelleme yok — bkz. 06). `DOĞRULANDI`.
-- [ ] `user_data_select_public` gibi public-okuma policy'leri gözden geçirilir.
-- [ ] `supabase_setup.sql` güncellenir **ve** canlı DB'ye uygulanır (migration dosyası yok — manuel risk).
+- [ ] Public-okuma (`using(true)` / koşullu) SELECT policy'leri ayrı gözden geçirilir; ham `user_data`
+      blob'unu public'e açan policy **eklenmez** (vaka: eski `user_data_select_public` 2026-06-28'de
+      kaldırıldı — bkz. [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md), [11/D14](11-DECISION-HISTORY.md)).
+- [ ] `supabase_setup.sql` snapshot'ı **ve** `supabase/migrations/` tarihli dosyası birlikte güncellenir,
+      sonra canlı DB'ye uygulanır (genel migration disiplini hâlâ kısmi — snapshot↔canlı ayrışma riski R8).
 - [ ] (Yoksa eklenmeli) RPC'ler repoya yazılır (`check_app_username_available` eksik — bkz. 06).
 
 ### Worker release

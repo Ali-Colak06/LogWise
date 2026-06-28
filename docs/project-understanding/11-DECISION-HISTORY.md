@@ -115,6 +115,27 @@
 - **Yaklaşım:** Ayrı worktree/dal sabit roller; `origin/master` ortak doğruluk; server-side ff iniş.
 - **Geçerli mi?** Evet (aktif düzen). **Güven:** Yüksek (`DOĞRULANDI`).
 
+## D14 — `user_data` public profil erişiminin kaldırılması (RLS güvenlik düzeltmesi)
+- **Tarih:** 2026-06-28. Canlıda manuel uygulandı; repoya migration + snapshot olarak kaydedildi.
+- **Kanıt:** `supabase/migrations/20260628120000_restrict_user_data_select.sql`; `supabase_setup.sql`
+  (eski `user_data_select_public` kaldırıldı, `user_data_select` owner-only authenticated). Tersine
+  döndürdüğü bağlam: `REFACTOR-GECMISI.md` Bölüm 23 (2026-04-12, `user_data_select_public` eklenmişti).
+- **Problem:** Public profil açıldığında (`is_public=true` + `show_profile_info=true`) kullanıcının **ham
+  `user_data` blob'u** (antrenman/egzersiz/program/ölçüm geçmişi) **anon dahil herkese** okunabiliyordu;
+  canlı denetimde anon rolü **7 `user_data` satırı** görüyordu.
+- **Karar / Yaklaşım:** `user_data` SELECT yalnız authenticated satır sahibine açılır
+  (`to authenticated using ((select auth.uid()) = user_id)`). `DROP IF EXISTS + CREATE` ile hem repo
+  (iki policy) hem canlı (tek birleşik policy) başlangıç durumu aynı güvenli sonuca yakınsar.
+- **Alternatifler:** Public okuma yüzeyini ayrı bir "public özet" view/RPC'ye daraltmak (gelecek iş;
+  ham blob asla public select'e açılmaz).
+- **Etki:** Düzeltme sonrası anon görünür satır **0**. Public profil **temel** akışları smoke testte
+  çalışmaya devam etti (sayfa hatasız açıldı; avatar/bio/PR/shared workouts/takipçi verisi sürüyor).
+  Ham `user_data`ya bağlı **Programs/Badges/Measurements** bölümü ziyaretçilere artık yüklenmez —
+  **tam özellik parity'si korunmadı**, bilinçli güvenlik daraltması (`profile.html` değiştirilmedi;
+  sorgu 0 satır döndürür, hata sessizce yutulur).
+- **Gelecek:** Public istatistik gerekirse ayrı ve sınırlı bir veri yüzeyi (view/RPC/ayrı tablo).
+- **Geçerli mi?** Evet. **Güven:** Yüksek (`DOĞRULANDI`).
+
 ---
 
 ## Kararların bugünkü durumu (özet)
@@ -127,6 +148,7 @@
 | D8 Codegen | Aktif/kısmi | Evet (kapsam genişlet) |
 | D11 Sosyal erteleme | Aktif | v2'de |
 | D12 Monolit | Borç | Evet (Aşama 3) |
+| D14 `user_data` public erişim kaldırıldı | Aktif (güvenlik) | Public özet istenirse (sınırlı view/RPC) |
 
 > **Belirsizlik:** Mobil kararların gerekçeleri `03-mvp-decisions.md`'ye atıfta bulunur; bu doküman
 > bu turda okunmadı → gerekçeler "koddaki atıf" düzeyinde `DOĞRULANDI`, içerik detayı `BELİRSİZ`.

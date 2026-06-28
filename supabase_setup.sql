@@ -28,8 +28,11 @@ alter table user_data enable row level security;
 alter table feedback enable row level security;
 
 -- user_data politikaları
+-- SELECT yalnız authenticated satır sahibine açıktır. Ham user_data blob'u
+-- (egzersizler/antrenmanlar/programlar/ölçümler) public/anon'a ASLA açılmaz.
+-- (2026-06-28 RLS güvenlik düzeltmesi — bkz. supabase/migrations/20260628120000_*.)
 create policy "user_data_select" on user_data
-  for select using (auth.uid() = user_id);
+  for select to authenticated using ((select auth.uid()) = user_id);
 
 create policy "user_data_insert" on user_data
   for insert with check (auth.uid() = user_id);
@@ -189,16 +192,17 @@ create trigger user_prs_updated_at
 -- profiles tablosuna show_profile_info kolonu ekle (default true)
 alter table profiles add column if not exists show_profile_info boolean default true;
 
--- user_data: profili public VE show_profile_info=true olan kullanıcıların verisini herkes okuyabilir
-create policy "user_data_select_public" on user_data
-  for select using (
-    exists (
-      select 1 from profiles
-      where profiles.user_id = user_data.user_id
-      and profiles.is_public = true
-      and profiles.show_profile_info = true
-    )
-  );
+-- GÜVENLİK NOTU (2026-06-28): Eskiden burada `user_data_select_public` adlı bir
+-- SELECT politikası vardı; profili is_public=true VE show_profile_info=true olan
+-- kullanıcının TÜM user_data blob'unu (egzersiz/antrenman/program/ölçüm) anon
+-- dahil herkese açıyordu. Permissive SELECT politikaları OR ile birleştiğinden bu,
+-- ham antrenman geçmişini dünyaya açıyordu. Canlı denetimde (read-only) anon rolü
+-- 7 user_data satırı görebiliyordu. Politika KALDIRILDI; user_data SELECT artık
+-- yalnız authenticated satır sahibine açık (yukarı bkz.). Public profiller yalnız
+-- `profiles` temellerini ve public `user_prs` / `shared_workouts`'u yüzeyler —
+-- ham `user_data` blob'unu DEĞİL. Bu blob'u public select'e tekrar AÇMA; gelecekte
+-- public istatistik gerekirse sınırlı bir view / RPC / ayrı tablo tasarla.
+-- Tekrar üretilebilir kayıt: supabase/migrations/20260628120000_restrict_user_data_select.sql.
 
 -- follows: takip listelerini herkes görebilir (profil sayfasında takipçi/takip listesi için)
 drop policy if exists "follows_select" on follows;

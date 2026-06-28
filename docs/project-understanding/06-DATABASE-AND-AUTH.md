@@ -1,9 +1,14 @@
 # 06 — DATABASE & AUTH
 
 > Etiketler: `DOĞRULANDI` / `ÇIKARIM` / `BELİRSİZ` / `ESKİ OLABİLİR`. Kanıt = dosya + sembol/policy.
-> **Uyarı:** `supabase_setup.sql` bir **kurulum anlık görüntüsüdür**, migration geçmişi değildir
-> ("Sonraki migration buranın altına eklenir."). Repoda `supabase/migrations/` **yok**. Bu yüzden
-> aşağıdaki şema **canlı production ile birebir aynı olmayabilir**; farklar açıkça işaretlendi.
+> **Uyarı:** `supabase_setup.sql` bir **kurulum anlık görüntüsüdür**. Repoda artık tek bir tarihli
+> migration vardır (`supabase/migrations/20260628120000_restrict_user_data_select.sql`); genel bir
+> migration geçmişi disiplini henüz yok. Bu yüzden aşağıdaki şema **canlı production ile birebir
+> aynı olmayabilir**; farklar açıkça işaretlendi.
+>
+> **2026-06-28 — canlı RLS güvenlik düzeltmesi `DOĞRULANDI`:** `user_data` üzerindeki public okuma
+> açığı canlıda salt-okunur denetimle doğrulandı ve giderildi (anon görünür satır 7 → 0). Snapshot
+> ve migration bu güvenli son duruma getirildi. Detay: §3 dipnot ² + §7 + [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md).
 
 ---
 
@@ -67,7 +72,7 @@ web kullanıcısını saptar (karşılama modalı). Mobil `user_data` içeriğin
 
 | Tablo | SELECT | INSERT/UPDATE/DELETE | Not |
 |---|---|---|---|
-| `user_data` | `auth.uid()=user_id` **VEYA** (OR) `user_data_select_public`² — permissive policy'ler OR ile birleşir | sahip | ⚠️ public okuma riski² |
+| `user_data` | `auth.uid()=user_id` — **yalnız authenticated satır sahibi**² | sahip | ✅ public okuma açığı 2026-06-28'de giderildi² |
 | `feedback` | sahip | insert: sahip (update/delete policy yok) | yalnız select+insert |
 | `profiles` | `is_public=true OR sahip` | sahip | public profil okunur |
 | `shared_workouts` | **`using(true)`** | insert/delete: sahip | herkese açık okuma (paylaşım) |
@@ -83,10 +88,18 @@ web kullanıcısını saptar (karşılama modalı). Mobil `user_data` içeriğin
 | `app_sets` | **parent** `EXISTS app_workouts.user_id=auth.uid()` | parent | workout_id üzerinden |
 | `app_day_meta` | `auth.uid()=user_id` | sahip | owner-only |
 
-² **`user_data_select_public` (SQL `line 193-201`):** Profili `is_public=true` **VE**
-`show_profile_info=true` olan kullanıcının **tüm `user_data.data` blob'u** (egzersizler, antrenmanlar,
-programlar...) **herkes tarafından okunabilir**. Bu bilinçli bir public-profil özelliğidir ama tüm
-antrenman geçmişini dünyaya açar. `DOĞRULANDI` — `supabase_setup.sql`.
+² **`user_data` SELECT — public okuma açığı giderildi (2026-06-28):** Eskiden `user_data_select_public`
+politikası, profili `is_public=true` **VE** `show_profile_info=true` olan kullanıcının **tüm
+`user_data.data` blob'unu** (egzersizler, antrenmanlar, programlar, ölçümler...) **anon dahil herkese**
+açıyordu (permissive SELECT'ler OR ile birleşir). Canlı denetim (salt-okunur, 2026-06-28) anon rolünün
+**7 `user_data` satırı** gördüğünü doğruladı. Politika **owner-only authenticated** olacak şekilde
+düzeltildi (`for select to authenticated using ((select auth.uid()) = user_id)`); düzeltme sonrası anon
+görünür satır **0**. Smoke kontrolleri geçti: public profil sayfası **hatasız** açıldı ve temeller
+(avatar, bio, PR, shared workouts, takipçi verisi) çalışmaya devam etti. **Beklenen güvenlik sonucu:**
+ham `user_data`ya bağlı Programs/Badges/Measurements bölümü ziyaretçilere **artık yüklenmez** — bu tam
+özellik parity'si DEĞİL, bilinçli bir daraltmadır (`profile.html:358-363` sorgusu 0 satır döndürür ve
+hata sessizce yutulur, çökme yok). `DOĞRULANDI` — `supabase_setup.sql`,
+`supabase/migrations/20260628120000_restrict_user_data_select.sql`.
 
 **Önemli RLS gözlemleri:**
 - `feedback` yalnız `select`+`insert` policy'sine sahip → `update`/`delete` **hiç kimseye açık değil**
@@ -149,8 +162,10 @@ antrenman geçmişini dünyaya açar. `DOĞRULANDI` — `supabase_setup.sql`.
 ---
 
 ## 7. En ciddi auth/DB riskleri (detay 10'da)
-1. **`user_data_select_public` ile tüm antrenman blob'unun public okunabilirliği** — gizlilik yüzeyi.
-   `DOĞRULANDI`.
+1. **`user_data_select_public` ile tüm antrenman blob'unun public okunabilirliği — GİDERİLDİ (2026-06-28).**
+   Canlıda doğrulandı (anon 7 satır görüyordu), owner-only authenticated'a düzeltildi (anon 0 satır),
+   snapshot + migration güncellendi. Kalan: repo↔canlı tekrar ayrışması / migration uygulanmaması / eski
+   policy'nin geri gelmesi (bkz. [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md), R8). `DOĞRULANDI`.
 2. **`user_prs`/`shared_workouts`/`follows` `using(true)`** — denormalize PR + paylaşımlar dünyaya
    açık (tasarım gereği, ama beklenti yönetilmeli). `DOĞRULANDI`.
 3. **Repo SQL ≠ canlı şema garantisi yok** (migration yok, RPC eksik) → deploy/denetim güçleşir.
@@ -164,4 +179,6 @@ antrenman geçmişini dünyaya açar. `DOĞRULANDI` — `supabase_setup.sql`.
 - Canlı şema `supabase_setup.sql` ile aynı mı? (örn. `app_*` üzerinde ek kolon/policy var mı?)
 - `check_app_username_available` canlıda hangi gövdeye sahip? (RLS-safe mi?)
 - `database.generated.ts` canlı şemayla güncel mi?
-- `user_data_select_public` production'da aktif mi (kasıtlı mı)?
+- ~~`user_data_select_public` production'da aktif mi (kasıtlı mı)?~~ **Yanıtlandı (2026-06-28):**
+  canlıda aktifti, doğrulandı (anon 7 satır) ve **kaldırıldı**; user_data SELECT artık owner-only
+  authenticated (bkz. §3 dipnot ² + [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md)).

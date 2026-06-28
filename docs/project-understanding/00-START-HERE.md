@@ -106,10 +106,13 @@ projesini** (`hfmqywyfnqmpvskkzksv`) kullanır, ama web ile mobil **farklı tabl
   verisinin authenticated hesaba aktarımı (`migrateGuestToAccount`). `DOĞRULANDI` —
   `logwise-mobile/lib/data-bridge.ts` (`countWebUserData`), `components/auth/WebUserWelcomeModal.tsx`,
   `logwise-mobile/lib/migration.ts`.
-- **Gizlilik — `user_data_select_public` policy'si.** `supabase_setup.sql`'de public profilli
-  kullanıcının **tüm `user_data` blob'unu** (antrenman/program geçmişi) herkese açan bir SELECT
-  policy'si var. `DOĞRULANDI` (repo SQL); canlıda aktif mi `BELİRSİZ` → eşleşirse ciddi gizlilik
-  riski. Detay: [06 §3](06-DATABASE-AND-AUTH.md), [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md).
+- **Gizlilik — `user_data` public okuma açığı GİDERİLDİ (2026-06-28).** Eski `user_data_select_public`
+  policy'si public profilli kullanıcının **tüm `user_data` blob'unu** (antrenman/program geçmişi)
+  anon dahil herkese açıyordu. Canlı salt-okunur denetim bunu **doğruladı** (anon **7 satır** görüyordu)
+  ve policy owner-only authenticated'a düzeltildi (anon görünür satır **0**); migration + snapshot
+  güncellendi. Public profil temelleri sürüyor; ham `user_data`ya bağlı Programs/Badges/Measurements
+  bölümü ziyaretçilere artık yüklenmez (bilinçli daraltma — tam parity değil). `DOĞRULANDI`. Detay:
+  [06 §3](06-DATABASE-AND-AUTH.md), [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md), [11/D14](11-DECISION-HISTORY.md).
 - **Guest→hesap migration atomik değil + duplicate riski.** `migrateGuestToAccount` DB transaction
   kullanmaz; yarıda hata → kısmi cloud insert + guest temizlenmez → retry duplikasyonu. `DOĞRULANDI`
   — [05 §17](05-CORE-USER-FLOWS.md), [10/R5-R6](10-RISKS-AND-TECHNICAL-DEBT.md).

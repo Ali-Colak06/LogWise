@@ -4151,6 +4151,45 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 90 — `user_data` Public SELECT Politikasının Kaldırılması (RLS Güvenlik Düzeltmesi) (2026-06-28)
+
+### Amaç
+
+Public profil özelliğiyle birlikte gelen (Bölüm 23, 2026-04-12) `user_data_select_public` politikasının ham `user_data` blob'unu anonim okumaya açması canlıda doğrulandı ve giderildi. Bu bölüm düzeltmeyi repository geçmişine, yeni ortamlara ve tekrar üretilebilirliğe kaydeder.
+
+### Bulgu (canlı, salt-okunur denetim — 2026-06-28)
+
+- `public.user_data` üzerinde RLS açıktı ve `anon` rolünde `SELECT` grant'i vardı.
+- Canlı `user_data_select` politikası "satır sahibi VEYA (ilgili `profiles` satırında `is_public=true` ve `show_profile_info=true`)" mantığındaydı.
+- Permissive SELECT politikaları OR ile birleştiğinden, public profil seçen her kullanıcının **tüm** `user_data.data` blob'u (egzersiz/antrenman/program/ölçüm) anon dahil herkese okunabiliyordu.
+- Anon rol testi: **7 görünür `user_data` satırı**.
+
+### Düzeltme
+
+- Politika owner-only authenticated'a daraltıldı: `for select to authenticated using ((select auth.uid()) = user_id)`.
+- Düzeltme sonrası anon görünür satır: **0**.
+- Smoke kontrolleri geçti: public profil sayfası **hata vermeden** açıldı; temeller (avatar, bio, PR, shared workouts, takipçi verisi) sürdü. Ham `user_data`ya bağlı **Programs/Badges/Measurements** bölümü ziyaretçilere artık yüklenmez — **tam özellik parity'si korunmadı**, bilinçli güvenlik daraltması (`profile.html:358-363` sorgusu 0 satır döndürür ve hata sessizce yutulur; uygulama kodu değiştirilmedi).
+
+### Migration tasarımı (idempotent)
+
+`DROP IF EXISTS user_data_select_public` + `DROP IF EXISTS user_data_select` + tek owner-only `CREATE POLICY` kullanıldı; çünkü iki geçerli başlangıç durumu farklıdır: repo snapshot'ında **iki** policy (owner-only `user_data_select` + public `user_data_select_public`), canlıda **tek** birleşik `user_data_select`. İki ad da önce düşürülüp tek policy yeniden yaratıldığında her iki durum aynı güvenli sonuca yakınsar ve tekrar çalıştırılabilir.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `supabase/migrations/20260628120000_restrict_user_data_select.sql` | Yeni tarihli migration (yeni `supabase/migrations/` klasörü) |
+| `supabase_setup.sql` | `user_data_select_public` kaldırıldı; `user_data_select` owner-only authenticated'a hizalandı; güvenlik notu eklendi |
+| `docs/project-understanding/00,06,09,10,11,13` | Risk "koşullu P0" → "canlıda doğrulandı ve 2026-06-28'de giderildi" |
+| `AGENTS.md` | §4 dosya haritasına `supabase/migrations/` satırı + tarih yenileme |
+| `REFACTOR-GECMISI.md` | Bu bölüm |
+
+### Gelecek
+
+Public istatistik gerekirse ham blob yerine ayrı ve sınırlı bir veri yüzeyi (view / RPC / ayrı tablo). Ham `user_data` blob'u public select'e tekrar açılmamalı.
+
+---
+
 ## Bölüm 89 — Codegen Drift Otomasyonu (2026-06-26)
 
 ### Amaç
