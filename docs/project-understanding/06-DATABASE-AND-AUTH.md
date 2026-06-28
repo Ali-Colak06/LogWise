@@ -1,10 +1,17 @@
 # 06 — DATABASE & AUTH
 
 > Etiketler: `DOĞRULANDI` / `ÇIKARIM` / `BELİRSİZ` / `ESKİ OLABİLİR`. Kanıt = dosya + sembol/policy.
-> **Uyarı:** `supabase_setup.sql` bir **kurulum anlık görüntüsüdür**. Repoda artık tek bir tarihli
-> migration vardır (`supabase/migrations/20260628120000_restrict_user_data_select.sql`); genel bir
-> migration geçmişi disiplini henüz yok. Bu yüzden aşağıdaki şema **canlı production ile birebir
-> aynı olmayabilir**; farklar açıkça işaretlendi.
+> **Uyarı:** `supabase_setup.sql` bir **kurulum anlık görüntüsüdür**. Repoda artık iki tarihli
+> migration vardır (`supabase/migrations/20260628120000_restrict_user_data_select.sql` ve
+> `…20260629120000_app_username_normalized_unique.sql`); genel bir migration geçmişi disiplini henüz
+> tam değil. Bu yüzden aşağıdaki şema **canlı production ile birebir aynı olmayabilir**; farklar açıkça
+> işaretlendi.
+>
+> **2026-06-29 — username normalize benzersizliği `REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR`:**
+> `app_profiles` için RPC `check_app_username_available` repoya kalıcılaştırıldı ve gövdesi normalize
+> mantığa (`lower(btrim(...))` + null/boş reddi) getirildi; ayrıca eşleşen partial unique index
+> (`app_profiles_username_normalized_key`) eklendi. **Canlıya henüz uygulanmadı** (index yok, canlı RPC
+> gövdesi hâlâ eski). Detay: §4 + §6 + [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md) + [11/D15](11-DECISION-HISTORY.md).
 >
 > **2026-06-28 — canlı RLS güvenlik düzeltmesi `DOĞRULANDI`:** `user_data` üzerindeki public okuma
 > açığı canlıda salt-okunur denetimle doğrulandı ve giderildi (anon görünür satır 7 → 0). Snapshot
@@ -121,7 +128,12 @@ hata sessizce yutulur, çökme yok). `DOĞRULANDI` — `supabase_setup.sql`,
   finalize); `signUp` session dönerse koşullu doğrudan-devam yolu da vardır. "Confirmation kapalı,
   signUp her zaman session döndürür" ifadesi mevcut kodla **uyumsuz**dur; canlı Supabase Auth ayarı
   repodan doğrulanamaz (`BELİRSİZ`). Username benzersizliği RPC `check_app_username_available` ile
-  ön-kontrol + `app_profiles.username unique` index. `DOĞRULANDI` (kod akışı) / `BELİRSİZ` (canlı ayar).
+  ön-kontrol + `app_profiles.username unique`. **2026-06-29:** repoya ek olarak normalize partial unique
+  index (`app_profiles_username_normalized_key on lower(btrim(username)) where username is not null`)
+  yazıldı ve RPC gövdesi bununla eşleşecek şekilde güncellendi (`lower(btrim(...))` + null/boş `false`).
+  Bu DB-seviyesi normalize garantisi **repoda hazır ama canlıya henüz uygulanmadı** (`REPO ÇÖZÜMÜ HAZIR
+  — CANLI UYGULAMA BEKLİYOR` — bkz. [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md)). `DOĞRULANDI` (kod akışı +
+  repo SQL) / `BELİRSİZ` (canlı şema/ayar).
 - **Ownership zinciri:** RLS her satırı `auth.uid()`'e bağlar; `auth.users` silinince tüm FK
   `on delete cascade` → kullanıcının tüm verisi silinir. `delete_own_account()` (security definer)
   `auth.uid()`'i siler → cascade. `DOĞRULANDI` — `supabase_setup.sql`; mobil `queries/account.ts`
@@ -153,7 +165,7 @@ hata sessizce yutulur, çökme yok). `DOĞRULANDI` — `supabase_setup.sql`,
 
 | Bulgu | Durum | Kanıt |
 |---|---|---|
-| `check_app_username_available` RPC: kod çağırır + `database.generated.ts` içerir, ama `supabase_setup.sql` tanımlamaz | Generated tip, RPC'nin **tip üretim anında** canlı şemada olduğuna dolaylı kanıt; gövde/güvenlik repodan doğrulanamaz | `queries/auth.ts` `rpc('check_app_username_available')`, `database.generated.ts` (`:526`) ↔ SQL'de yalnız `update_updated_at`, `delete_own_account` `DOĞRULANDI`/`BELİRSİZ` |
+| `check_app_username_available` RPC: kod çağırır + `database.generated.ts` içerir; **2026-06-29 itibarıyla `supabase_setup.sql` + migration'da TANIMLI** (önceden eksikti) | RPC artık repoda; ANCAK repo gövdesi normalize'a güncellendi, **canlı gövde hâlâ eski** → repo↔canlı farkı *uygulamaya kadar* sürüyor | `queries/auth.ts` `rpc('check_app_username_available')`, `database.generated.ts` (`:526`), `supabase_setup.sql` (mobil RPC bloğu) + `migrations/20260629120000_*` `DOĞRULANDI` (repo) / `BELİRSİZ` (canlı) |
 | `supabase/migrations/` dizini yok; tek `supabase_setup.sql` snapshot | Şema geçmişi izlenmiyor | `find` (yalnız `supabase_setup.sql`) `DOĞRULANDI` |
 | SQL'deki şema = canlı şema? | Doğrulanamaz | `BELİRSİZ` (canlı sorgu yapılmadı) |
 | `database.generated.ts` güncel mi / neyi kapsıyor? | Üreten komut repoda görünmedi | `ESKİ OLABİLİR` (üretim adımı doğrulanamadı) |
@@ -177,7 +189,10 @@ hata sessizce yutulur, çökme yok). `DOĞRULANDI` — `supabase_setup.sql`,
 
 ## 8. Canlı doğrulama gerektiren açık sorular (read-only önerilir, otomatik çalıştırılmadı)
 - Canlı şema `supabase_setup.sql` ile aynı mı? (örn. `app_*` üzerinde ek kolon/policy var mı?)
-- `check_app_username_available` canlıda hangi gövdeye sahip? (RLS-safe mi?)
+- `check_app_username_available` canlıda hangi gövdeye sahip? (RLS-safe mi?) **Kısmi yanıt (2026-06-29):**
+  repoya normalize gövde (`lower(btrim(...))` + null/boş `false`, `SECURITY DEFINER`, `search_path=''`)
+  yazıldı; **canlı gövde doğrulaması migration apply sonrası** `pg_get_functiondef(...)` ile yapılacak
+  (bkz. [09 §doğrulama](09-QUALITY-TESTING.md), [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md)).
 - `database.generated.ts` canlı şemayla güncel mi?
 - ~~`user_data_select_public` production'da aktif mi (kasıtlı mı)?~~ **Yanıtlandı (2026-06-28):**
   canlıda aktifti, doğrulandı (anon 7 satır) ve **kaldırıldı**; user_data SELECT artık owner-only

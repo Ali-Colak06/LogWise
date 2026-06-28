@@ -136,6 +136,32 @@
 - **Gelecek:** Public istatistik gerekirse ayrı ve sınırlı bir veri yüzeyi (view/RPC/ayrı tablo).
 - **Geçerli mi?** Evet. **Güven:** Yüksek (`DOĞRULANDI`).
 
+## D15 — `app_profiles` kullanıcı adı benzersizliğini DB seviyesinde normalize etme
+- **Tarih:** 2026-06-29. **Statü: `REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR`** (canlıya henüz uygulanmadı).
+- **Kanıt:** `supabase/migrations/20260629120000_app_username_normalized_unique.sql`; `supabase_setup.sql`
+  (mobil RPC bloğu + `app_profiles_username_normalized_key` index); `queries/auth.ts`
+  (`rpc('check_app_username_available')` + `23505`/regex işleme), `lib/account.ts`.
+- **Problem:** RPC ön-kontrolü username'leri `lower(trim(...))` ile karşılaştırırken DB benzersizliği
+  yalnız ham `UNIQUE(username)` ile sağlanıyordu → DB `Ali`/`ali`/`ali ` değerlerini farklı kabul
+  edebilir; yarışta (aynı anda iki kayıt) RPC ön-kontrolü DB constraint'inin yerini tutmaz. Ayrıca RPC
+  tanımı **repoda yoktu** (canlıda vardı) — bkz. eski [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md), [06 §6](06-DATABASE-AND-AUTH.md).
+- **Karar / Yaklaşım:** (1) RPC repoya kalıcılaştırıldı ve gövdesi index ile **birebir aynı** normalize
+  mantığa getirildi (`lower(btrim(...))`; `null`/boş girdi `false`; `SECURITY DEFINER`, `search_path=''`,
+  açık `revoke/grant`). (2) Eşleşen **partial unique index** eklendi:
+  `app_profiles_username_normalized_key on (lower(btrim(username))) where username is not null`
+  (NULL'a izin → akış nullable kalır, `NOT NULL` yapılmadı). (3) Mevcut `app_profiles_username_key
+  UNIQUE(username)` **kasıten korundu** (hiçbir kod constraint adına bağlı değil; ihlalde `23505` +
+  mesaj regex'i zaten doğru `errUsernameTaken` üretir → ek kod yok).
+- **Alternatifler:** (a) `lower(username)` (btrim'siz, partial'siz) — web `profiles` precedent'i; RPC
+  trim mantığıyla eşleşmezdi. (b) `CONCURRENTLY` — transaction bloğunda çalışamadığı + tablo küçük
+  olduğu için seçilmedi. (c) `UNIQUE(username)`'i kaldırmak — bu turda kapsam dışı.
+- **Lock/risk:** Düz `CREATE UNIQUE INDEX` `SHARE` kilidi alır (okumalar sürer; yazmalar build boyunca
+  bekleyebilir); tablo çok küçük → alt-saniye. Apply anında normalize-duplicate olursa `begin/commit`
+  temiz rollback. Canlı denetim (2026-06-28): duplicate 0, NULL 1, boş 0.
+- **Geçerli mi?** **Repo'da hazır; canlı uygulama bekliyor.** Apply + index/RPC doğrulaması + davranış
+  testi (bkz. [09](09-QUALITY-TESTING.md)) geçince R9/D15 `GİDERİLDİ`'ye çevrilecek. **Güven:** Yüksek
+  (`DOĞRULANDI` repo) / `BELİRSİZ` (canlı).
+
 ---
 
 ## Kararların bugünkü durumu (özet)
@@ -149,6 +175,7 @@
 | D11 Sosyal erteleme | Aktif | v2'de |
 | D12 Monolit | Borç | Evet (Aşama 3) |
 | D14 `user_data` public erişim kaldırıldı | Aktif (güvenlik) | Public özet istenirse (sınırlı view/RPC) |
+| D15 username DB-seviyesi normalize benzersizlik | Repo hazır, canlı bekliyor | Apply + doğrulama sonrası `GİDERİLDİ` |
 
 > **Belirsizlik:** Mobil kararların gerekçeleri `03-mvp-decisions.md`'ye atıfta bulunur; bu doküman
 > bu turda okunmadı → gerekçeler "koddaki atıf" düzeyinde `DOĞRULANDI`, içerik detayı `BELİRSİZ`.

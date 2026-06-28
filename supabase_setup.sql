@@ -329,6 +329,16 @@ create table if not exists app_profiles (
   updated_at timestamptz not null default now()
 );
 
+-- Username normalize benzersizlik (case-insensitive + dış boşluk) — RPC
+-- check_app_username_available'in lower(btrim(...)) mantığıyla EŞLEŞİR (trim == btrim).
+-- 'Ali'/'ali'/'ALI '/' ali' aynı kabul edilir; partial WHERE ile NULL'a izin verilir.
+-- (Web `profiles` tablosundaki profiles_username_lower_idx precedent'inin daha katı mobil sürümü.)
+-- Mevcut inline `username text unique` (app_profiles_username_key) kasıten korunur.
+-- Migration: supabase/migrations/20260629120000_app_username_normalized_unique.sql
+create unique index if not exists app_profiles_username_normalized_key
+  on app_profiles (lower(btrim(username)))
+  where username is not null;
+
 -- ----------------------------------------------------------------
 -- app_exercises — SADECE kullanıcı custom egzersizleri
 -- (preset hareketler bundle'da; bu tabloya kopyalanmaz)
@@ -605,6 +615,40 @@ drop trigger if exists app_day_meta_updated_at on app_day_meta;
 create trigger app_day_meta_updated_at
   before update on app_day_meta
   for each row execute function update_updated_at();
+
+-- ============================================================
+-- Mobile — check_app_username_available RPC
+-- (app_profiles tablosuna başvurur → bu tablo tanımından SONRA gelmeli)
+-- Kayıt sırasında istemci ön-kontrolü (RLS-safe): app_profiles "own only" olduğundan
+-- istemci başkalarının username'ini doğrudan göremez. RPC SECURITY DEFINER ile boolean döner.
+-- Gövde, app_profiles_username_normalized_key index'iyle birebir aynı normalize mantığı kullanır
+-- (lower(btrim(...)); null/boş -> false). Migration:
+-- supabase/migrations/20260629120000_app_username_normalized_unique.sql
+-- ============================================================
+create or replace function public.check_app_username_available(p_username text)
+returns boolean
+language sql
+stable
+security definer
+set search_path to ''
+as $function$
+  select
+    case
+      when p_username is null or btrim(p_username) = '' then false
+      else not exists (
+        select 1
+        from public.app_profiles
+        where lower(btrim(username)) = lower(btrim(p_username))
+      )
+    end;
+$function$;
+
+revoke all
+  on function public.check_app_username_available(text)
+  from public;
+grant execute
+  on function public.check_app_username_available(text)
+  to anon, authenticated, service_role;
 
 -- ============================================================
 -- Mobile — Sonu (ADIM 2)

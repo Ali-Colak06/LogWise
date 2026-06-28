@@ -4151,6 +4151,73 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 91 — `app_profiles` Kullanıcı Adı DB-Seviyesi Normalize Benzersizlik + RPC Kalıcılaştırma (2026-06-29)
+
+### Durum
+
+**REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR.** Bu bölüm yalnız repo dosyalarını (migration + snapshot +
+docs) hazırlar. Canlı Supabase'e bağlanılmadı, SQL çalıştırılmadı. Normalize index canlıda **henüz yok**
+ve RPC gövdesi canlıda **eski** (`lower(trim)` / `lower(username)`, guard'sız). Apply + doğrulama +
+davranış testi geçince [10/R9](docs/project-understanding/10-RISKS-AND-TECHNICAL-DEBT.md) /
+[11/D15](docs/project-understanding/11-DECISION-HISTORY.md) `GİDERİLDİ`'ye çevrilecek.
+
+### Amaç
+
+Kayıt akışı username'leri RPC `check_app_username_available` ile `lower(trim(...))` mantığıyla ön-kontrol
+ediyordu, ama DB benzersizliği yalnız ham `UNIQUE(username)` ile sağlanıyordu → DB teorik olarak
+`Ali`/`ali`/`ali ` değerlerini farklı kabul edebiliyordu (yarış riski; istemci ön-kontrolü constraint'in
+yerini tutmaz). Ayrıca RPC tanımı repoda yoktu (yalnız canlıda). Bu bölüm DB-seviyesi normalize garantisini
+ekler ve RPC'yi repoya kalıcılaştırır.
+
+### Bulgu (repo + canlı denetim)
+
+- Constraint-name bağımlılığı YOK: `app_profiles_username_key` repoda 0 eşleşme; hata işleme SQLSTATE
+  `23505` + `/duplicate|unique|username/i` mesaj regex'ine dayanır (`queries/auth.ts`, `lib/account.ts`,
+  `register.tsx`). Yeni index ihlali de aynı şekilde `errUsernameTaken` üretir → ek kod yok.
+- Tek username yazıcıları: signUp upsert (`queries/auth.ts`) + `ensureAppProfile` (`lib/account.ts`);
+  ikisi de normalize değer yazar. Username UPDATE özelliği yok (Profile ekranı salt-okunur).
+- Canlı salt-okunur denetim (2026-06-28): normalize-duplicate grubu 0, NULL username 1, boş 0.
+
+### Çözüm (repoda)
+
+- RPC normalize gövdeye getirildi: kolon+parametre `lower(btrim(...))`; `null`/boş girdi `false`;
+  `SECURITY DEFINER`, `set search_path to ''`, açık `revoke all from public` + `grant execute to
+  anon, authenticated, service_role`.
+- Eşleşen partial unique index: `app_profiles_username_normalized_key on (lower(btrim(username)))
+  where username is not null` (NULL'a izin → akış nullable kalır, `NOT NULL` yapılmadı).
+- Mevcut `UNIQUE(username)` kasıten korundu.
+
+### Lock / risk
+
+Düz `CREATE UNIQUE INDEX` (CONCURRENTLY değil) `SHARE` kilidi alır (ACCESS EXCLUSIVE değil): okumalar
+sürer, yazmalar build boyunca bekleyebilir; tablo çok küçük → alt-saniye → düz index uygun. CONCURRENTLY
+transaction bloğunda çalışamadığı için kullanılmadı. Apply anında normalize-duplicate olursa `begin/commit`
+temiz rollback verir.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `supabase/migrations/20260629120000_app_username_normalized_unique.sql` | Yeni migration (RPC normalize gövde + grants + partial unique index) |
+| `supabase_setup.sql` | `app_profiles` tablo bloğundan sonra normalize index; mobil kapanış bloğuna RPC (yeni gövde) + grants |
+| `docs/project-understanding/06,09,10,11,13` | Repo↔canlı ayrımıyla statü `REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR`; R9 ara statüye, D15 eklendi |
+| `REFACTOR-GECMISI.md` | Bu bölüm |
+
+`AGENTS.md` değiştirilmedi (migration klasörü kaydı zaten var).
+
+### Doğrulama (canlı apply sonrası — bu turun parçası değil)
+
+`pg_indexes`'te `app_profiles_username_normalized_key` tanımı `UNIQUE` + `lower(btrim(username))` +
+`WHERE (username IS NOT NULL)` içermeli; `pg_get_functiondef(...)` RPC normalize gövdeyi göstermeli;
+`check_app_username_available(null)` ve `'   '` → `false`; farklı harf/boşlukla ikinci yazım `23505`.
+
+### Gelecek
+
+Canlı apply + doğrulama geçince statü `GİDERİLDİ`. İsteğe bağlı sonraki adım: redundant `UNIQUE(username)`
+constraint'ini kaldırmak (normalize index zaten daha katı) — ayrı, kapsamlandırılmış bir iş.
+
+---
+
 ## Bölüm 90 — `user_data` Public SELECT Politikasının Kaldırılması (RLS Güvenlik Düzeltmesi) (2026-06-28)
 
 ### Amaç

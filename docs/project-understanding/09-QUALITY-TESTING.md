@@ -74,7 +74,16 @@
       kaldırıldı — bkz. [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md), [11/D14](11-DECISION-HISTORY.md)).
 - [ ] `supabase_setup.sql` snapshot'ı **ve** `supabase/migrations/` tarihli dosyası birlikte güncellenir,
       sonra canlı DB'ye uygulanır (genel migration disiplini hâlâ kısmi — snapshot↔canlı ayrışma riski R8).
-- [ ] (Yoksa eklenmeli) RPC'ler repoya yazılır (`check_app_username_available` eksik — bkz. 06).
+- [x] RPC'ler repoya yazılır — `check_app_username_available` 2026-06-29'da `supabase_setup.sql` +
+      `migrations/20260629120000_app_username_normalized_unique.sql`'e eklendi (önceden eksikti; bkz. 06,
+      [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md)). **Statü: `REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR`.**
+- [ ] (Canlı uygulama sonrası) `app_profiles_username_normalized_key` index'i + RPC gövdesi canlıda
+      doğrulanır — index tanımı `UNIQUE` + `lower(btrim(username))` + `WHERE (username IS NOT NULL)`:
+      `select indexname, indexdef from pg_indexes where schemaname='public' and tablename='app_profiles'
+      and indexname='app_profiles_username_normalized_key';`. RPC: `pg_get_functiondef(...)` normalize
+      gövdeyi içerir; `check_app_username_available(null)` ve `'   '` → `false`. **Davranış testi:** aynı
+      adı farklı harf/boşlukla ikinci kez yazmak `23505` → app `errUsernameTaken`. Geçince R9/D15 →
+      `GİDERİLDİ`.
 
 ### Worker release
 - [ ] `wrangler deploy`; secret'lar (`SUPABASE_URL`/`ANON_KEY`/`WORKER_URL`/`ALLOWED_ORIGIN`) ayarlı.
