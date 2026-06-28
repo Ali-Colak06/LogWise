@@ -137,7 +137,7 @@
 - **Geçerli mi?** Evet. **Güven:** Yüksek (`DOĞRULANDI`).
 
 ## D15 — `app_profiles` kullanıcı adı benzersizliğini DB seviyesinde normalize etme
-- **Tarih:** 2026-06-29. **Statü: `REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR`** (canlıya henüz uygulanmadı).
+- **Tarih:** 2026-06-29. **Statü: `GİDERİLDİ — CANLIDA UYGULANDI VE DOĞRULANDI (2026-06-29)`** (production'da manuel apply).
 - **Kanıt:** `supabase/migrations/20260629120000_app_username_normalized_unique.sql`; `supabase_setup.sql`
   (mobil RPC bloğu + `app_profiles_username_normalized_key` index); `queries/auth.ts`
   (`rpc('check_app_username_available')` + `23505`/regex işleme), `lib/account.ts`.
@@ -158,9 +158,12 @@
 - **Lock/risk:** Düz `CREATE UNIQUE INDEX` `SHARE` kilidi alır (okumalar sürer; yazmalar build boyunca
   bekleyebilir); tablo çok küçük → alt-saniye. Apply anında normalize-duplicate olursa `begin/commit`
   temiz rollback. Canlı denetim (2026-06-28): duplicate 0, NULL 1, boş 0.
-- **Geçerli mi?** **Repo'da hazır; canlı uygulama bekliyor.** Apply + index/RPC doğrulaması + davranış
-  testi (bkz. [09](09-QUALITY-TESTING.md)) geçince R9/D15 `GİDERİLDİ`'ye çevrilecek. **Güven:** Yüksek
-  (`DOĞRULANDI` repo) / `BELİRSİZ` (canlı).
+- **Canlı sonuç (2026-06-29):** Migration production'da manuel uygulandı. Index `indisready/indisvalid/
+  indisunique=true` ve tanımı doğru; RPC gövdesi (NULL/boş → false, `lower(btrim(...))`) ve izinleri
+  (anon/authenticated/service_role) doğrulandı; exact/uppercase/boşluklu varyasyonlar "müsait değil".
+  **Uygulama kodu değişikliği gerekmedi**; SQLSTATE `23505` hata işleme mevcut kodla **uyumlu kaldı**
+  (`errUsernameTaken`). Nullable username akışı korundu.
+- **Geçerli mi?** **Evet — canlıda uygulandı ve doğrulandı.** **Güven:** Yüksek (`DOĞRULANDI` repo + canlı).
 
 ---
 
@@ -175,7 +178,7 @@
 | D11 Sosyal erteleme | Aktif | v2'de |
 | D12 Monolit | Borç | Evet (Aşama 3) |
 | D14 `user_data` public erişim kaldırıldı | Aktif (güvenlik) | Public özet istenirse (sınırlı view/RPC) |
-| D15 username DB-seviyesi normalize benzersizlik | Repo hazır, canlı bekliyor | Apply + doğrulama sonrası `GİDERİLDİ` |
+| D15 username DB-seviyesi normalize benzersizlik | Aktif (giderildi, canlıda doğrulandı 2026-06-29) | RPC↔index normalizasyon paritesi korunmalı |
 
 > **Belirsizlik:** Mobil kararların gerekçeleri `03-mvp-decisions.md`'ye atıfta bulunur; bu doküman
 > bu turda okunmadı → gerekçeler "koddaki atıf" düzeyinde `DOĞRULANDI`, içerik detayı `BELİRSİZ`.

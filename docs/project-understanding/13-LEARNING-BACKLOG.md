@@ -120,12 +120,13 @@ Gruplar: **1) Şimdi · 2) Sonraki büyük özellikten önce · 3) Production ö
   blob'unu public profillerde anon'a açıyordu; canlı denetimde doğrulanıp 2026-06-28'de owner-only
   authenticated'a düzeltildi (bkz. [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md), [11/D14](11-DECISION-HISTORY.md)).
   Karşıt örnek: `app_*` tabloları baştan owner-only.
-- **İkinci vaka (istemci kontrolü ≠ DB constraint):** Kullanıcı adı benzersizliği uzun süre yalnız RPC
-  `check_app_username_available` ön-kontrolüyle + ham `UNIQUE(username)` ile tutuldu; bu bir yarışta
-  (`Ali`/`ali`/`ali `) yetmez. 2026-06-29'da RPC ile **birebir eşleşen** normalize partial unique index
-  (`lower(btrim(username))`) eklendi — yarışı yalnız DB constraint kapatır. **Repo↔canlı uygulama farkı
-  izlenmeli** (repo'da hazır, canlıda henüz değil — bkz. [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md),
-  [11/D15](11-DECISION-HISTORY.md)).
+- **İkinci vaka (tamamlandı — istemci/RPC ön-kontrolü ≠ DB constraint):** Kullanıcı adı benzersizliği
+  uzun süre yalnız RPC `check_app_username_available` ön-kontrolüyle + ham `UNIQUE(username)` ile tutuldu;
+  bu bir yarışta (`Ali`/`ali`/`ali `) yetmez — istemci/RPC ön-kontrolü **database constraint'inin yerini
+  tutmaz**. Gerçek yarış güvenliği RPC ile **birebir eşleşen** expression (normalize) unique index
+  (`lower(btrim(username))`) ile sağlandı. 2026-06-29'da **canlıya uygulanıp doğrulandı** (`GİDERİLDİ`).
+  **Ders:** repo çözümü, canlı uygulama ve doğrulama **ayrı adımlardır** (bkz.
+  [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md), [11/D15](11-DECISION-HISTORY.md)).
 - **İncele:** [06-DATABASE-AND-AUTH §3](06-DATABASE-AND-AUTH.md).
 - **Minimum seviye:** "Bu tabloyu kim okuyabilir?" sorusunu policy'den okumak.
 - **Gerekmeyen:** PostgreSQL ileri SQL.

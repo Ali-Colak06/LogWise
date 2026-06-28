@@ -4155,11 +4155,12 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ### Durum
 
-**REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR.** Bu bölüm yalnız repo dosyalarını (migration + snapshot +
-docs) hazırlar. Canlı Supabase'e bağlanılmadı, SQL çalıştırılmadı. Normalize index canlıda **henüz yok**
-ve RPC gövdesi canlıda **eski** (`lower(trim)` / `lower(username)`, guard'sız). Apply + doğrulama +
-davranış testi geçince [10/R9](docs/project-understanding/10-RISKS-AND-TECHNICAL-DEBT.md) /
-[11/D15](docs/project-understanding/11-DECISION-HISTORY.md) `GİDERİLDİ`'ye çevrilecek.
+**GİDERİLDİ — CANLIDA UYGULANDI VE DOĞRULANDI (2026-06-29).** Önce yalnız repo dosyaları (migration +
+snapshot + docs) hazırlandı; ardından migration production'da **manuel uygulandı ve doğrulandı**. Index
+canlıda `indisready/indisvalid/indisunique=true` ve tanımı doğru; RPC gövdesi/izinleri doğrulandı;
+davranış testleri geçti (aşağı bkz.). [10/R9](docs/project-understanding/10-RISKS-AND-TECHNICAL-DEBT.md) /
+[11/D15](docs/project-understanding/11-DECISION-HISTORY.md) `GİDERİLDİ`. Migration SQL gövdesi ve dosya
+adı, tekrar üretilebilirlik için **değiştirilmedi** (yalnız üst `Durum:` yorumu güncellendi).
 
 ### Amaç
 
@@ -4200,21 +4201,27 @@ temiz rollback verir.
 |---|---|
 | `supabase/migrations/20260629120000_app_username_normalized_unique.sql` | Yeni migration (RPC normalize gövde + grants + partial unique index) |
 | `supabase_setup.sql` | `app_profiles` tablo bloğundan sonra normalize index; mobil kapanış bloğuna RPC (yeni gövde) + grants |
-| `docs/project-understanding/06,09,10,11,13` | Repo↔canlı ayrımıyla statü `REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR`; R9 ara statüye, D15 eklendi |
+| `docs/project-understanding/06,09,10,11,13` | Statü `GİDERİLDİ — CANLIDA UYGULANDI VE DOĞRULANDI` (2026-06-29); R9 kapatıldı (düşük-seviye izleme kaldı), D15 canlı sonuçla tamamlandı |
 | `REFACTOR-GECMISI.md` | Bu bölüm |
 
 `AGENTS.md` değiştirilmedi (migration klasörü kaydı zaten var).
 
-### Doğrulama (canlı apply sonrası — bu turun parçası değil)
+### Doğrulama (canlı, 2026-06-29 — TAMAMLANDI)
 
-`pg_indexes`'te `app_profiles_username_normalized_key` tanımı `UNIQUE` + `lower(btrim(username))` +
-`WHERE (username IS NOT NULL)` içermeli; `pg_get_functiondef(...)` RPC normalize gövdeyi göstermeli;
-`check_app_username_available(null)` ve `'   '` → `false`; farklı harf/boşlukla ikinci yazım `23505`.
+- Duplicate ön-kontrol (apply öncesi, read-only): **0 satır**.
+- `app_profiles_username_normalized_key`: `indisready/indisvalid/indisunique=true`; tanım `UNIQUE` +
+  `lower(btrim(username))` + `WHERE (username IS NOT NULL)` (`pg_indexes`).
+- RPC (`pg_get_functiondef(...)`): NULL/boş → `false`; kolon+parametre `lower(btrim(...))`.
+- İzinler: `anon`, `authenticated`, `service_role` EXECUTE.
+- Username varyasyon: exact / UPPERCASE / dış-boşluklu → "müsait değil".
+- Uygulama smoke: gözle görülür regresyon yok.
 
 ### Gelecek
 
-Canlı apply + doğrulama geçince statü `GİDERİLDİ`. İsteğe bağlı sonraki adım: redundant `UNIQUE(username)`
-constraint'ini kaldırmak (normalize index zaten daha katı) — ayrı, kapsamlandırılmış bir iş.
+Statü `GİDERİLDİ` (canlı apply + doğrulama tamam). Düşük-seviye izleme: RPC↔index normalizasyon paritesi,
+index'in kaldırılmaması/INVALID olmaması, yeni username yazma yollarının DB garantisini koruması (bkz.
+[10/R9](docs/project-understanding/10-RISKS-AND-TECHNICAL-DEBT.md)). İsteğe bağlı sonraki adım: redundant
+`UNIQUE(username)` constraint'ini kaldırmak (normalize index zaten daha katı) — ayrı, kapsamlandırılmış iş.
 
 ---
 

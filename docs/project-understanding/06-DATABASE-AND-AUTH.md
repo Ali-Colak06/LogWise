@@ -7,11 +7,13 @@
 > tam değil. Bu yüzden aşağıdaki şema **canlı production ile birebir aynı olmayabilir**; farklar açıkça
 > işaretlendi.
 >
-> **2026-06-29 — username normalize benzersizliği `REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR`:**
+> **2026-06-29 — username normalize benzersizliği `GİDERİLDİ — CANLIDA UYGULANDI VE DOĞRULANDI`:**
 > `app_profiles` için RPC `check_app_username_available` repoya kalıcılaştırıldı ve gövdesi normalize
 > mantığa (`lower(btrim(...))` + null/boş reddi) getirildi; ayrıca eşleşen partial unique index
-> (`app_profiles_username_normalized_key`) eklendi. **Canlıya henüz uygulanmadı** (index yok, canlı RPC
-> gövdesi hâlâ eski). Detay: §4 + §6 + [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md) + [11/D15](11-DECISION-HISTORY.md).
+> (`app_profiles_username_normalized_key`) eklendi. **Canlıda uygulanıp doğrulandı (2026-06-29):** index
+> `indisready/indisvalid/indisunique = true`; RPC gövdesi NULL/boş → false ve `lower(btrim(...))`
+> karşılaştırma; exact/uppercase/dış-boşluklu varyasyonlar "müsait değil". Detay: §4 + §6 +
+> [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md) + [11/D15](11-DECISION-HISTORY.md).
 >
 > **2026-06-28 — canlı RLS güvenlik düzeltmesi `DOĞRULANDI`:** `user_data` üzerindeki public okuma
 > açığı canlıda salt-okunur denetimle doğrulandı ve giderildi (anon görünür satır 7 → 0). Snapshot
@@ -128,12 +130,14 @@ hata sessizce yutulur, çökme yok). `DOĞRULANDI` — `supabase_setup.sql`,
   finalize); `signUp` session dönerse koşullu doğrudan-devam yolu da vardır. "Confirmation kapalı,
   signUp her zaman session döndürür" ifadesi mevcut kodla **uyumsuz**dur; canlı Supabase Auth ayarı
   repodan doğrulanamaz (`BELİRSİZ`). Username benzersizliği RPC `check_app_username_available` ile
-  ön-kontrol + `app_profiles.username unique`. **2026-06-29:** repoya ek olarak normalize partial unique
-  index (`app_profiles_username_normalized_key on lower(btrim(username)) where username is not null`)
-  yazıldı ve RPC gövdesi bununla eşleşecek şekilde güncellendi (`lower(btrim(...))` + null/boş `false`).
-  Bu DB-seviyesi normalize garantisi **repoda hazır ama canlıya henüz uygulanmadı** (`REPO ÇÖZÜMÜ HAZIR
-  — CANLI UYGULAMA BEKLİYOR` — bkz. [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md)). `DOĞRULANDI` (kod akışı +
-  repo SQL) / `BELİRSİZ` (canlı şema/ayar).
+  ön-kontrol + `app_profiles.username unique`. **2026-06-29:** normalize partial unique index
+  (`app_profiles_username_normalized_key on lower(btrim(username)) where username is not null`) eklendi
+  ve RPC gövdesi bununla eşleşecek şekilde güncellendi (`lower(btrim(...))` + null/boş `false`).
+  `NULL username` akışı **bilinçli korundu** (partial index NULL'a izin verir; `username NOT NULL`
+  YAPILMADI). Bu DB-seviyesi normalize garantisi **canlıda uygulandı ve doğrulandı (2026-06-29)** —
+  index valid/ready/unique, RPC gövdesi/izinleri doğrulandı; eski canlı RPC gövdesi/index belirsizliği
+  **KAPANDI** (`GİDERİLDİ` — bkz. [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md)). `DOĞRULANDI` (kod akışı +
+  repo SQL + canlı doğrulama).
 - **Ownership zinciri:** RLS her satırı `auth.uid()`'e bağlar; `auth.users` silinince tüm FK
   `on delete cascade` → kullanıcının tüm verisi silinir. `delete_own_account()` (security definer)
   `auth.uid()`'i siler → cascade. `DOĞRULANDI` — `supabase_setup.sql`; mobil `queries/account.ts`

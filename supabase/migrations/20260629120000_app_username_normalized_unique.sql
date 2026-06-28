@@ -1,9 +1,11 @@
 -- 20260629120000 — app_profiles kullanıcı adı: normalize benzersizlik + RPC normalize paritesi.
 --
--- Durum: REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR.
---   Bu migration repoya yazıldı; canlıya HENÜZ uygulanmadı. Canlıda normalize index YOK ve RPC
---   gövdesi eski (lower(trim) / lower(username), null/boş guard'ı yok). Apply + doğrulama + davranış
---   testi geçince docs'ta R9/D15 statüsü GİDERİLDİ'ye çevrilecek (bkz. 09/10/11 + REFACTOR Bölüm 91).
+-- Durum: GİDERİLDİ — CANLIDA UYGULANDI VE DOĞRULANDI (2026-06-29).
+--   Production'da 2026-06-29 tarihinde manuel olarak uygulandı. Index (indisready/indisvalid/
+--   indisunique = true; UNIQUE + lower(btrim(username)) + WHERE username IS NOT NULL) ve RPC gövdesi
+--   (NULL/boş -> false; lower(btrim(...)) karşılaştırma; anon/authenticated/service_role EXECUTE)
+--   canlıda doğrulandı. Migration, repository geçmişi ve yeni ortamların tekrar üretilebilirliği için
+--   korunuyor (daha önce canlıya uygulandığından SQL gövdesi ve dosya adı DEĞİŞTİRİLMEZ).
 --
 -- Amaç:
 --   1) check_app_username_available RPC'sini repoya kalıcılaştır VE gövdesini normalize index ile

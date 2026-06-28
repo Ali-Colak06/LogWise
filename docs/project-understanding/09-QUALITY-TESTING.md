@@ -74,16 +74,23 @@
       kaldırıldı — bkz. [10/R1](10-RISKS-AND-TECHNICAL-DEBT.md), [11/D14](11-DECISION-HISTORY.md)).
 - [ ] `supabase_setup.sql` snapshot'ı **ve** `supabase/migrations/` tarihli dosyası birlikte güncellenir,
       sonra canlı DB'ye uygulanır (genel migration disiplini hâlâ kısmi — snapshot↔canlı ayrışma riski R8).
-- [x] RPC'ler repoya yazılır — `check_app_username_available` 2026-06-29'da `supabase_setup.sql` +
+- [x] RPC'ler repoya yazılır — `check_app_username_available` `supabase_setup.sql` +
       `migrations/20260629120000_app_username_normalized_unique.sql`'e eklendi (önceden eksikti; bkz. 06,
-      [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md)). **Statü: `REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR`.**
-- [ ] (Canlı uygulama sonrası) `app_profiles_username_normalized_key` index'i + RPC gövdesi canlıda
-      doğrulanır — index tanımı `UNIQUE` + `lower(btrim(username))` + `WHERE (username IS NOT NULL)`:
-      `select indexname, indexdef from pg_indexes where schemaname='public' and tablename='app_profiles'
-      and indexname='app_profiles_username_normalized_key';`. RPC: `pg_get_functiondef(...)` normalize
-      gövdeyi içerir; `check_app_username_available(null)` ve `'   '` → `false`. **Davranış testi:** aynı
-      adı farklı harf/boşlukla ikinci kez yazmak `23505` → app `errUsernameTaken`. Geçince R9/D15 →
-      `GİDERİLDİ`.
+      [10/R9](10-RISKS-AND-TECHNICAL-DEBT.md)).
+- [x] **Username normalize benzersizliği canlıda uygulandı ve doğrulandı (2026-06-29) — `GİDERİLDİ`.**
+      Tamamlanmış vaka; gelecekteki username/RPC migration'larında **release checklist örneği** olarak
+      korunur:
+  - **Duplicate ön-kontrol (apply öncesi, read-only):** `select lower(btrim(username)) k, count(*) from
+    public.app_profiles where username is not null group by 1 having count(*) > 1;` → **0 satır**.
+  - **Index geçerliliği:** `app_profiles_username_normalized_key` → `indisready=true`, `indisvalid=true`,
+    `indisunique=true`; tanım `UNIQUE` + `lower(btrim(username))` + `WHERE (username IS NOT NULL)`
+    (`select indexname, indexdef from pg_indexes where schemaname='public' and tablename='app_profiles'
+    and indexname='app_profiles_username_normalized_key';`).
+  - **RPC NULL/boş testi:** `check_app_username_available(null)` → `false`; `'   '` → `false`
+    (gövde `pg_get_functiondef(...)` ile doğrulandı; kolon+parametre `lower(btrim(...))`).
+  - **Username varyasyon testi:** mevcut adın exact, UPPERCASE ve dış-boşluklu varyasyonları → "müsait değil".
+  - **RPC izinleri:** `anon`, `authenticated`, `service_role` için EXECUTE doğrulandı.
+  - **Uygulama smoke testi:** gözle görülür regresyon yok (kayıt akışı + `23505` → `errUsernameTaken`).
 
 ### Worker release
 - [ ] `wrangler deploy`; secret'lar (`SUPABASE_URL`/`ANON_KEY`/`WORKER_URL`/`ALLOWED_ORIGIN`) ayarlı.

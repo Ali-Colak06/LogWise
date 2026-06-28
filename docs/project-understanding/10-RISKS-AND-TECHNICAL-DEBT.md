@@ -92,22 +92,29 @@
 - **Olasılık:** Yüksek · **Etki:** Yüksek (yanlış güvenlik/şema varsayımı).
 - **Çözüm:** Migration disiplinine geç (Supabase CLI migrations). **Kapsam:** Orta (süreç).
 
-## R9 — `check_app_username_available` RPC + username normalize benzersizliği — **REPO ÇÖZÜMÜ HAZIR — CANLI UYGULAMA BEKLİYOR (2026-06-29)**
-- **Alan:** DB/auth · **Öncelik:** **P2** (canlı uygulamaya kadar açık).
-- **Önceki durum:** `queries/auth.ts` `supabase.rpc('check_app_username_available')` çağırır; RPC
-  `supabase_setup.sql`'de **tanımlı değildi**. Ayrıca DB benzersizliği yalnız ham `UNIQUE(username)`
-  idi → RPC'nin `lower(trim(...))` ön-kontrolüyle **uyuşmuyordu** (yarış/`Ali`≠`ali`≠`ali ` riski).
-- **Repo çözümü (yazıldı):** `migrations/20260629120000_app_username_normalized_unique.sql` +
+## R9 — `check_app_username_available` RPC + username normalize benzersizliği — **GİDERİLDİ — CANLIDA UYGULANDI VE DOĞRULANDI (2026-06-29)**
+- **Alan:** DB/auth · **Önceki öncelik:** P2 → **kapatıldı**.
+- **Önceki durum:** `queries/auth.ts` `supabase.rpc('check_app_username_available')` çağırıyordu ama RPC
+  repoda **tanımlı değildi**; DB benzersizliği yalnız ham `UNIQUE(username)` idi → RPC'nin
+  `lower(trim(...))` ön-kontrolüyle **uyuşmuyordu** (yarış/`Ali`≠`ali`≠`ali ` riski).
+- **Çözüm (uygulandı):** `migrations/20260629120000_app_username_normalized_unique.sql` +
   `supabase_setup.sql` — (a) RPC repoya kalıcılaştırıldı ve gövdesi normalize'a getirildi
   (`lower(btrim(...))` + null/boş `false`); (b) eşleşen partial unique index
   `app_profiles_username_normalized_key on lower(btrim(username)) where username is not null` eklendi.
-  Mevcut `UNIQUE(username)` korundu; akış nullable kaldı.
-- **Kalan (canlı):** Migration canlıya **henüz uygulanmadı** → canlıda index yok, RPC gövdesi eski.
-  Apply + index/RPC tanımı doğrulaması + davranış testi (bkz. [09 §Database/RLS](09-QUALITY-TESTING.md))
-  geçince bu risk **`GİDERİLDİ`**'ye çevrilecek.
-- **Kanıt durumu:** `DOĞRULANDI` (repo SQL) / `BELİRSİZ` (canlı şema).
-- **Olasılık:** — · **Etki:** Orta · **Yansıma:** Apply'a kadar DB-seviyesi yarış garantisi yok;
-  istemci ön-kontrolü tek savunma. **Kapsam:** Küçük (apply + doğrulama).
+  Mevcut `UNIQUE(username)` korundu; akış nullable kaldı (`NOT NULL` yapılmadı).
+- **Canlı doğrulama (2026-06-29):** index `indisready/indisvalid/indisunique=true`, tanım doğru; RPC
+  NULL/boş → false, `lower(btrim(...))` karşılaştırma, izinler anon/authenticated/service_role;
+  exact/uppercase/boşluklu varyasyon "müsait değil"; uygulamada regresyon yok (bkz.
+  [09 §Database/RLS](09-QUALITY-TESTING.md), [11/D15](11-DECISION-HISTORY.md)).
+- **Kanıt durumu:** `DOĞRULANDI` (repo SQL + canlı).
+- **Kalan düşük-seviye izleme riskleri (ana risk kapandı):**
+  - RPC ile index normalizasyonunun ileride **ayrışması** (biri değişip diğeri değişmezse garanti bozulur)
+    → ikisi her zaman aynı `lower(btrim(...))` mantığını paylaşmalı.
+  - Index'in **yanlışlıkla kaldırılması / INVALID olması** → DB-seviyesi yarış garantisi sessizce kaybolur.
+  - Yeni username **yazma yollarının** DB garantisini atlamaya çalışması (yeni mutation/servis) → her zaman
+    normalize yazıp `23505`'i işlemeli.
+  - **Rate limiting olmadan username enumeration** — RPC boolean döndüğü için ad varlığı taranabilir
+    (düşük etki; gerekirse ön-kontrole hız sınırı).
 
 ## R10 — Generated database type'ın güncelliğinin bilinmemesi
 - **Alan:** Mobil tip güvenliği · **Öncelik:** **P3**.
@@ -168,13 +175,11 @@
 ## Öncelik özeti
 | P | Riskler |
 |---|---|
-| **✅ Giderildi** | R1 (canlıda doğrulandı + owner-only'a düzeltildi, 2026-06-28 — izlenmeli) |
-| **🟡 Repo hazır, canlı bekliyor** | R9 (RPC repoya yazıldı + normalize index, 2026-06-29 — apply + doğrulama sonrası ✅) |
+| **✅ Giderildi** | R1 (owner-only'a düzeltildi, 2026-06-28 — izlenmeli) · R9 (username normalize benzersizliği canlıda uygulandı+doğrulandı, 2026-06-29 — düşük-seviye izleme kaldı) |
 | **P1** | R2, R5, R6, R8, R16 |
 | **P2** | R3, R4, R7, R11, R13, R15 |
 | **P3** | R10, R12, R14 |
 
 ## En çok "önce doğrula" gerektirenler (canlı, read-only)
-- R8: canlı şema ↔ repo farkı · R9: repo çözümü hazır → **canlı apply + index/RPC gövdesi doğrulaması**
-  (normalize benzersizlik) bekliyor · R10: generated type güncel mi? ·
-  R2: gerçek çok-cihaz kullanım hacmi. (R1 artık doğrulandı ve giderildi — yalnız regresyon izlenir.)
+- R8: canlı şema ↔ repo farkı · R10: generated type güncel mi? · R2: gerçek çok-cihaz kullanım hacmi.
+  (R1 + R9 artık doğrulandı ve giderildi — yalnız regresyon/izleme.)
