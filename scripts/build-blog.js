@@ -42,9 +42,6 @@ const LANDING_FILES = [
   { file: path.join(ROOT, 'tr.html'), lang: 'tr' }
 ];
 const SITEMAP = path.join(ROOT, 'sitemap.xml');
-const SITEMAP_INDEX = path.join(ROOT, 'sitemap_index.xml');
-const SITEMAP_BASIC = path.join(ROOT, 'sitemap-basic.xml');
-const SITEMAP_TXT = path.join(ROOT, 'sitemap.txt');
 
 const SITE = 'https://logwise.fit';
 const OG_IMAGE = `${SITE}/icon-512.png`;
@@ -728,26 +725,14 @@ const sitemapEntries = [
   ...STATIC_SITEMAP_PAGES.map(sitemapStaticEntry),
   ...posts.map(sitemapPostEntry)
 ];
-const sitemapTextUrls = [
-  ...STATIC_SITEMAP_PAGES.map(page => sitemapUrlForPath(page.path)),
-  ...posts.map(postUrl)
-];
+// Tek kanonik sitemap: sitemap.xml. Fallback dosyaları (sitemap-basic.xml,
+// sitemap_index.xml, sitemap.txt) GSC "Getirilemedi" sorununu çözmediği ve
+// gürültü yarattığı için kaldırıldı.
 fs.writeFileSync(
   SITEMAP,
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries.join('\n')}\n</urlset>\n`,
   'utf8'
 );
-fs.writeFileSync(
-  SITEMAP_BASIC,
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${sitemapTextUrls.map(url => `  <url>\n    <loc>${esc(url)}</loc>\n  </url>`).join('\n')}\n</urlset>\n`,
-  'utf8'
-);
-fs.writeFileSync(
-  SITEMAP_INDEX,
-  `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n  <sitemap>\n    <loc>${SITE}/sitemap-basic.xml</loc>\n  </sitemap>\n</sitemapindex>\n`,
-  'utf8'
-);
-fs.writeFileSync(SITEMAP_TXT, sitemapTextUrls.join('\n') + '\n', 'utf8');
 
 // ---------------------------------------------------------------- landing injection
 
@@ -813,7 +798,7 @@ for (const group of postGroups) {
   console.log(`  ${group.key}  [en:/learn/${group.postsByLang.en.slug}] [tr:/ogren/${group.postsByLang.tr.slug}]`);
 }
 console.log(
-  'Updated: learn/index.html, ogren/index.html, learn/posts.json, sitemap.xml, sitemap_index.xml, sitemap-basic.xml, sitemap.txt' +
+  'Updated: learn/index.html, ogren/index.html, learn/posts.json, sitemap.xml' +
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
 console.log(`Exercise guides: ${exerciseGuideResult.total} total, ${exerciseGuideResult.previewReady} preview-ready, ${exerciseGuideResult.contentReady} content-ready, ${exerciseGuideResult.mediaReady} media-ready, ${exerciseGuideResult.published} published.`);
