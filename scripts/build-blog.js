@@ -54,6 +54,7 @@ const STATIC_SITEMAP_PAGES = [
   { path: '/ogren', changefreq: 'weekly', priority: '0.8' },
   { path: '/tools', lastmod: '2026-06-15', changefreq: 'monthly', priority: '0.8' },
   { path: '/one-rep-max-calculator', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
+  { path: '/barbell-plate-calculator', lastmod: '2026-06-30', changefreq: 'monthly', priority: '0.8' },
   { path: '/workout-log-template', lastmod: '2026-06-12', changefreq: 'monthly', priority: '0.8' },
   { path: '/workout-volume-calculator', lastmod: '2026-06-15', changefreq: 'monthly', priority: '0.8' },
   ...programmaticSeo.sitemapPages()

@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Barbell Plate Calculator - Load Plates Per Side | LogWise</title>
+<meta name="description" content="Calculate which plates to load on each side of a barbell. Switch kg/lb, set bar weight, customize plate inventory, and find the closest load."/>
+<link rel="canonical" href="https://logwise.fit/barbell-plate-calculator"/>
+<link rel="alternate" hreflang="en" href="https://logwise.fit/barbell-plate-calculator"/>
+<link rel="alternate" hreflang="x-default" href="https://logwise.fit/barbell-plate-calculator"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:site_name" content="LogWise"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Barbell Plate Calculator - Load Plates Per Side | LogWise"/>
+<meta property="og:description" content="Calculate which plates to load on each side of a barbell. Switch kg/lb, set bar weight, customize plate inventory, and find the closest load."/>
+<meta property="og:url" content="https://logwise.fit/barbell-plate-calculator"/>
+<meta property="og:image" content="https://logwise.fit/icon-512.png"/>
+<meta property="og:locale" content="en_US"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Barbell Plate Calculator - Load Plates Per Side | LogWise"/>
+<meta name="twitter:description" content="Calculate which plates to load on each side of a barbell. Switch kg/lb, set bar weight, customize plate inventory, and find the closest load."/>
+<meta name="twitter:image" content="https://logwise.fit/icon-512.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/styles/landing.css"/>
+<link rel="stylesheet" href="/styles/site-nav.css"/>
+<script src="/site-nav.js" defer></script>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebPage","name":"Barbell Plate Calculator","url":"https://logwise.fit/barbell-plate-calculator","description":"Calculate which plates to load on each side of a barbell. Switch kg/lb, set bar weight, customize plate inventory, and find the closest load.","inLanguage":"en","datePublished":"2026-06-30","dateModified":"2026-06-30","isPartOf":{"@type":"WebSite","name":"LogWise","url":"https://logwise.fit"},"about":["barbell plate calculator","plate calculator","barbell loading","strength training","workout tracking"]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do you calculate plates for a barbell?","acceptedAnswer":{"@type":"Answer","text":"Subtract the bar weight from the target weight, divide the remaining weight by two, then load that amount on each side using available plates."}},{"@type":"Question","name":"Does the calculator support kg and lb plates?","acceptedAnswer":{"@type":"Answer","text":"Yes. You can switch between kg and lb defaults, then edit the bar weight, plate sizes, and total plates available."}},{"@type":"Question","name":"What happens if the exact weight is not possible?","acceptedAnswer":{"@type":"Answer","text":"The calculator shows the closest load possible with the plate inventory you entered and displays the difference from your target."}}]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"LogWise","item":"https://logwise.fit/"},{"@type":"ListItem","position":2,"name":"Barbell Plate Calculator","item":"https://logwise.fit/barbell-plate-calculator"}]}]</script>
+</head>
+<body>
+<header class="nav">
+  <div class="shell nav-row">
+    <a href="/" class="brand">
+      <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+      <span class="brand-name">LOG <b>WISE</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/library">Library</a>
+      <a href="/learn">Learn</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="/app" class="btn btn-primary"><span class="desktop-label">START TRACKING</span><span class="mobile-label">OPEN</span> &rarr;</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="tool-hero plate-hero">
+  <div class="shell tool-hero-grid">
+    <div class="tool-hero-copy">
+      <div class="tag"><span class="tag-dot"></span>Free barbell loading calculator</div>
+      <h1 class="display">Barbell Plate <span class="gold">Calculator</span></h1>
+      <p class="lead">Enter your target weight, bar weight, and available plates to see exactly what to load on each side of the bar.</p>
+      <div class="hero-ctas">
+        <a href="/tools" class="btn btn-primary">SEE OTHER TOOLS &rarr;</a>
+        <a href="/app" class="btn btn-ghost">TRACK THE LIFT IN LOGWISE &rarr;</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>KG OR LB</b></span><span class="dot"></span><span><b>CUSTOM PLATES</b></span><span class="dot"></span><span><b>CLOSEST LOAD</b></span>
+      </div>
+    </div>
+
+    <section id="calculator" class="tool-card plate-card" aria-label="Barbell plate calculator">
+      <div class="tool-card-head">
+        <div>
+          <div class="section-kicker">PLATES PER SIDE</div>
+          <h2>Enter the target. Pick the setup.</h2>
+        </div>
+        <div class="unit-toggle" role="group" aria-label="Weight unit">
+          <button type="button" class="on" data-unit="kg">KG</button>
+          <button type="button" data-unit="lb">LB</button>
+        </div>
+      </div>
+
+      <div class="plate-target-panel">
+        <div class="plate-target-fields">
+          <label>
+            <span>Target loaded bar weight</span>
+            <input id="plate-target" name="target" type="number" min="1" max="500" step="0.25" value="100" inputmode="decimal"/>
+          </label>
+          <label>
+            <span>Bar weight</span>
+            <input id="plate-bar" name="bar" type="number" min="0" max="200" step="0.25" value="20" inputmode="decimal"/>
+          </label>
+        </div>
+        <p>LogWise shows up to three distinct balanced setups first. Customize only if your gym rack is unusual.</p>
+      </div>
+
+      <div class="plate-scenario-shell">
+        <div id="plate-scenarios" class="plate-scenarios" aria-live="polite"></div>
+      </div>
+
+      <details class="plate-custom-panel">
+        <summary>
+          <span>Customize bar or available plates</span>
+          <small>Optional: use this only when your rack is missing plates or your bar is different.</small>
+        </summary>
+
+        <section class="plate-inventory-card" aria-label="Available plate inventory">
+          <div class="plate-card-subhead">
+            <div>
+              <h3>Available plates</h3>
+              <p>Enter the total number of plates you have for each size. Singles are ignored because both sides must stay balanced.</p>
+            </div>
+            <div class="volume-actions plate-actions">
+              <button type="button" data-plate-action="default">LOAD DEFAULTS</button>
+              <button type="button" data-plate-action="add">ADD PLATE</button>
+            </div>
+          </div>
+          <div id="plate-inventory" class="plate-inventory-grid"></div>
+        </section>
+      </details>
+
+      <a href="/app" class="tool-inline-cta">Track this lift in LogWise &rarr;</a>
+    </section>
+  </div>
+</section>
+
+<section id="guide" class="section-pad section-alt">
+  <div class="shell tool-content-grid">
+    <article class="tool-copy-block">
+      <div class="section-kicker">HOW TO USE IT</div>
+      <h2 class="section-title">Start with the target, not the plate rack.</h2>
+      <p>A plate calculator is fastest when it gives you the likely loading options first. Use the generated setup options, then customize only if your bar or rack is different.</p>
+      <ol class="tool-steps">
+        <li><b>Enter the loaded bar target.</b> Use the full weight you want on the bar, including the bar itself.</li>
+        <li><b>Compare the available setups.</b> LogWise shows one, two, or three distinct balanced loads depending on what can be built for the target.</li>
+        <li><b>Customize only when needed.</b> If your gym is missing plates or your bar is unusual, open the custom panel and adjust the rack.</li>
+      </ol>
+    </article>
+    <aside class="tool-note-panel">
+      <h3>Plate formula</h3>
+      <p><b>Per side:</b> (target - bar) / 2</p>
+      <p><b>Example:</b> 100 kg target - 20 kg bar = 80 kg, so load 40 kg on each side.</p>
+      <p>If the exact per-side load cannot be made from your inventory, LogWise shows the closest available loaded bar weight.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">WHY LOG IT</div>
+      <h2 class="section-title">Loading the bar is the moment before the set. Tracking starts right after.</h2>
+    </div>
+    <p class="section-sub">Once the set is done, save the real reps, weight, and RIR so next week's target is based on history instead of memory.</p>
+  </div>
+  <div class="shell tool-feature-grid">
+    <article>
+      <span>01</span>
+      <h3>Repeat exact loads</h3>
+      <p>Consistent bar weights make strength progress easier to compare across weeks.</p>
+    </article>
+    <article>
+      <span>02</span>
+      <h3>Plan jumps cleanly</h3>
+      <p>Use small plates to move from 100 kg to 102.5 kg without guessing what belongs on the bar.</p>
+    </article>
+    <article>
+      <span>03</span>
+      <h3>Keep PR context</h3>
+      <p>LogWise keeps the weight, reps, notes, and estimated 1RM together after the bar is unloaded.</p>
+    </article>
+  </div>
+</section>
+
+<section id="tools" class="section-pad section-alt">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">SEE OTHER TOOLS</div>
+      <h2 class="section-title">Use the loaded bar with better training numbers.</h2>
+    </div>
+    <p class="section-sub">Estimate strength, calculate volume, or keep a printable backup sheet.</p>
+  </div>
+  <div class="shell tool-related-grid">
+    <a href="/one-rep-max-calculator" class="tool-related-card">
+      <span>1RM</span>
+      <h3>One Rep Max Calculator</h3>
+      <p>Estimate your max from a recent set and turn it into useful training loads.</p>
+      <em>OPEN CALCULATOR &rarr;</em>
+    </a>
+    <a href="/workout-volume-calculator" class="tool-related-card">
+      <span>VOLUME</span>
+      <h3>Workout Volume Calculator</h3>
+      <p>Add exercises, sets, reps, and weight to calculate total session volume.</p>
+      <em>OPEN CALCULATOR &rarr;</em>
+    </a>
+  </div>
+</section>
+
+<section class="tool-faq">
+  <div class="shell tool-content-grid">
+    <div>
+      <div class="section-kicker">FAQ</div>
+      <h2 class="section-title">Barbell plate questions</h2>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary>How do I calculate plates per side?</summary>
+        <p>Subtract the bar weight from your target, divide by two, then load that amount on each side using the largest useful plates first.</p>
+      </details>
+      <details>
+        <summary>What if my bar is not 20 kg or 45 lb?</summary>
+        <p>Edit the bar weight field. The calculator works for training bars, women's Olympic bars, trap bars, safety squat bars, or any custom bar weight.</p>
+      </details>
+      <details>
+        <summary>Why does the calculator show a closest load?</summary>
+        <p>Your target may not be possible with the plates you entered. In that case, the result shows the closest loaded bar weight available from your inventory.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="shell">
+    <div class="cta-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></div>
+    <h2>Load the bar. <span class="gold">Log the set.</span></h2>
+    <p>Start a free workout log in LogWise and keep your sets, reps, weights, PRs, and notes in one clean place.</p>
+    <div class="ctas">
+      <a href="/app" class="btn btn-primary">TRACK THIS LIFT IN LOGWISE &rarr;</a>
+      <a href="/tools" class="btn btn-ghost">SEE ALL TOOLS</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="shell foot-row">
+    <div class="footer-brand-block">
+      <a href="/" class="brand">
+        <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+        <span class="brand-name">LOG <b>WISE</b></span>
+      </a>
+      <p class="foot-tagline">Free browser-based workout tracking for lifters who want clearer progress.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Tool</h5>
+      <a href="#calculator">Calculator</a>
+      <a href="#guide">Guide</a>
+      <a href="/app">Workout log</a>
+    </div>
+    <div class="foot-col">
+      <h5>More tools</h5>
+      <a href="/one-rep-max-calculator">1RM Calculator</a>
+      <a href="/workout-volume-calculator">Volume Calculator</a>
+      <a href="/workout-log-template">Workout Log Template</a>
+    </div>
+    <div class="foot-col">
+      <h5>LogWise</h5>
+      <a href="/">Home</a>
+      <a href="/learn">Learn</a>
+      <a href="/tr">Turkish</a>
+    </div>
+  </div>
+  <div class="shell foot-bottom">
+    <span>&copy; 2026 LOG WISE</span>
+    <span>BARBELL PLATE CALCULATOR &middot; LOGWISE.FIT</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const SCALE = 100;
+  const MAX_TARGET_WEIGHT = 500;
+  const targetInput = document.getElementById('plate-target');
+  const barInput = document.getElementById('plate-bar');
+  const inventoryBody = document.getElementById('plate-inventory');
+  const scenarioWrap = document.getElementById('plate-scenarios');
+  const customPanel = document.querySelector('.plate-custom-panel');
+  const unitButtons = Array.from(document.querySelectorAll('[data-unit]'));
+  const actionButtons = Array.from(document.querySelectorAll('[data-plate-action]'));
+  let unit = 'kg';
+  let activeScenario = 0;
+  let currentScenarioOptions = [];
+
+  const CUSTOM_DEFAULTS = {
+    kg: {
+      target: 100,
+      bar: 20,
+      plates: [
+        { size: 25, count: 4 },
+        { size: 20, count: 8 },
+        { size: 15, count: 4 },
+        { size: 10, count: 4 },
+        { size: 5, count: 4 },
+        { size: 2.5, count: 4 },
+        { size: 1.25, count: 4 }
+      ]
+    },
+    lb: {
+      target: 225,
+      bar: 45,
+      plates: [
+        { size: 55, count: 4 },
+        { size: 45, count: 8 },
+        { size: 35, count: 4 },
+        { size: 25, count: 4 },
+        { size: 10, count: 4 },
+        { size: 5, count: 4 },
+        { size: 2.5, count: 4 }
+      ]
+    }
+  };
+
+  const COMMON_PLATE_SIZES = {
+    kg: [25, 20, 15, 10, 5, 2.5, 1.25],
+    lb: [55, 45, 35, 25, 10, 5, 2.5]
+  };
+
+  const COMMON_PLATE_PRIORITY = {
+    kg: { 20: 0, 25: 1, 15: 2, 10: 3, 5: 4, 2.5: 6, 1.25: 8 },
+    lb: { 45: 0, 55: 1, 35: 2, 25: 3, 10: 5, 5: 7, 2.5: 8 }
+  };
+
+  const COMMON_PAIRS_PER_SIZE = 4;
+  const MAX_SCENARIO_OPTIONS = 3;
+
+  function toUnits(value) {
+    return Math.round(Number(value || 0) * SCALE);
+  }
+
+  function fromUnits(value) {
+    return value / SCALE;
+  }
+
+  function numberFrom(input) {
+    const value = Number(input.value);
+    return Number.isFinite(value) ? value : 0;
+  }
+
+  function enforceTargetLimit() {
+    const value = Number(targetInput.value);
+    if (Number.isFinite(value) && value > MAX_TARGET_WEIGHT) {
+      targetInput.value = String(MAX_TARGET_WEIGHT);
+    }
+  }
+
+  function formatNumber(value) {
+    const rounded = Math.round(value * SCALE) / SCALE;
+    return new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: Number.isInteger(rounded) ? 0 : rounded * 10 % 1 === 0 ? 1 : 2
+    }).format(rounded);
+  }
+
+  function formatWeight(value) {
+    return formatNumber(value) + ' ' + unit;
+  }
+
+  function clearChildren(node) {
+    while (node.firstChild) node.removeChild(node.firstChild);
+  }
+
+  function scenarioInventory(sizes) {
+    return sizes.map(size => ({ size, pairs: COMMON_PAIRS_PER_SIZE }));
+  }
+
+  function makeInventoryRow(plate) {
+    const row = document.createElement('article');
+    row.className = 'plate-inventory-item';
+    row.setAttribute('data-plate-row', '');
+
+    const visual = document.createElement('div');
+    visual.className = 'plate-inventory-disc';
+    const visualText = document.createElement('span');
+    visualText.setAttribute('data-plate-card-size', '');
+    visualText.textContent = formatWeight(plate.size);
+    visual.appendChild(visualText);
+
+    const controls = document.createElement('div');
+    controls.className = 'plate-inventory-controls';
+
+    const sizeLabel = document.createElement('label');
+    const sizeLabelText = document.createElement('span');
+    sizeLabelText.textContent = 'Plate size';
+    const sizeInput = document.createElement('input');
+    sizeInput.type = 'number';
+    sizeInput.min = '0';
+    sizeInput.step = '0.25';
+    sizeInput.value = String(plate.size);
+    sizeInput.setAttribute('inputmode', 'decimal');
+    sizeInput.setAttribute('aria-label', 'Plate size');
+    sizeInput.setAttribute('data-plate-size-input', '');
+    sizeLabel.append(sizeLabelText, sizeInput);
+
+    const countLabel = document.createElement('label');
+    const countLabelText = document.createElement('span');
+    countLabelText.textContent = 'Plates';
+    const countInput = document.createElement('input');
+    countInput.type = 'number';
+    countInput.min = '0';
+    countInput.step = '1';
+    countInput.value = String(plate.count ?? (plate.pairs || 0) * 2);
+    countInput.setAttribute('inputmode', 'numeric');
+    countInput.setAttribute('aria-label', 'Total plates available');
+    countInput.setAttribute('data-plate-count-input', '');
+    countLabel.append(countLabelText, countInput);
+    controls.append(sizeLabel, countLabel);
+
+    const removeButton = document.createElement('button');
+    removeButton.type = 'button';
+    removeButton.className = 'plate-inventory-remove';
+    removeButton.setAttribute('data-plate-remove', '');
+    removeButton.setAttribute('aria-label', 'Remove plate row');
+    removeButton.title = 'Remove plate row';
+    removeButton.textContent = 'x';
+
+    const count = document.createElement('div');
+    count.className = 'plate-inventory-count';
+    count.setAttribute('data-plate-card-count', '');
+    const plateCount = plate.count ?? (plate.pairs || 0) * 2;
+    count.textContent = plateCount === 1 ? '1 plate' : plateCount + ' plates';
+
+    row.append(visual, controls, count, removeButton);
+    return row;
+  }
+
+  function loadInventoryDefaults(nextUnit) {
+    const defaults = CUSTOM_DEFAULTS[nextUnit];
+    clearChildren(inventoryBody);
+    defaults.plates.forEach(plate => inventoryBody.appendChild(makeInventoryRow(plate)));
+  }
+
+  function setDefaults(nextUnit) {
+    const defaults = CUSTOM_DEFAULTS[nextUnit];
+    unit = nextUnit;
+    activeScenario = 0;
+    targetInput.value = String(defaults.target);
+    barInput.value = String(defaults.bar);
+    loadInventoryDefaults(nextUnit);
+    unitButtons.forEach(button => {
+      button.classList.toggle('on', button.getAttribute('data-unit') === unit);
+    });
+    update();
+  }
+
+  function readInventory() {
+    return Array.from(inventoryBody.querySelectorAll('[data-plate-row]'))
+      .map(row => {
+        const inputs = row.querySelectorAll('input');
+        const plateCount = Math.max(0, Math.floor(numberFrom(inputs[1])));
+        return {
+          size: Math.max(0, numberFrom(inputs[0])),
+          count: plateCount,
+          pairs: Math.floor(plateCount / 2)
+        };
+      })
+      .filter(plate => plate.size > 0 && plate.pairs > 0)
+      .sort((a, b) => b.size - a.size);
+  }
+
+  function syncInventoryCards() {
+    const rows = Array.from(inventoryBody.querySelectorAll('[data-plate-row]'));
+    const sizes = rows.map(row => Math.max(0, numberFrom(row.querySelectorAll('input')[0])));
+    const maxSize = Math.max(1, ...sizes);
+    rows.forEach(row => {
+      const inputs = row.querySelectorAll('input');
+      const size = Math.max(0, numberFrom(inputs[0]));
+      const plateCount = Math.max(0, Math.floor(numberFrom(inputs[1])));
+      const sizeEl = row.querySelector('[data-plate-card-size]');
+      const countEl = row.querySelector('[data-plate-card-count]');
+      const ratio = Math.max(0.42, Math.min(1, size / maxSize));
+      row.style.setProperty('--plate-ratio', String(ratio));
+      row.style.setProperty('--plate-scale', String(0.78 + 0.22 * ratio));
+      if (sizeEl) sizeEl.textContent = size > 0 ? formatWeight(size) : '--';
+      if (countEl) countEl.textContent = plateCount === 1 ? '1 plate' : plateCount + ' plates';
+    });
+  }
+
+  function compareCombo(candidate, best, targetUnits) {
+    if (!best) return true;
+    const candidateDiff = Math.abs(candidate.sum - targetUnits);
+    const bestDiff = Math.abs(best.sum - targetUnits);
+    if (candidateDiff !== bestDiff) return candidateDiff < bestDiff;
+    const candidateUnder = candidate.sum <= targetUnits;
+    const bestUnder = best.sum <= targetUnits;
+    if (candidateUnder !== bestUnder) return candidateUnder;
+    if (candidate.plateCount !== best.plateCount) return candidate.plateCount < best.plateCount;
+    return candidate.sum > best.sum;
+  }
+
+  function findBestCombo(sideTarget, inventory) {
+    const targetUnits = Math.max(0, toUnits(sideTarget));
+    const items = inventory.map(plate => ({
+      size: plate.size,
+      sizeUnits: toUnits(plate.size),
+      pairs: plate.pairs
+    }));
+    let best = null;
+
+    function search(index, sum, counts, plateCount) {
+      if (index === items.length) {
+        const candidate = { sum, counts: counts.slice(), plateCount };
+        if (compareCombo(candidate, best, targetUnits)) best = candidate;
+        return;
+      }
+      const item = items[index];
+      for (let count = item.pairs; count >= 0; count -= 1) {
+        counts[index] = count;
+        search(index + 1, sum + item.sizeUnits * count, counts, plateCount + count);
+      }
+      counts[index] = 0;
+    }
+
+    search(0, 0, [], 0);
+    return { items, best: best || { sum: 0, counts: [], plateCount: 0 } };
+  }
+
+  function plateColors(size) {
+    if (unit === 'kg') {
+      if (size >= 25) return { fill: '#8e1f28', edge: '#d84b58', text: '#fff4f4' };
+      if (size >= 20) return { fill: '#1f4f8e', edge: '#6ea7e8', text: '#eef6ff' };
+      if (size >= 15) return { fill: '#d5aa32', edge: '#f2d675', text: '#17130a' };
+      if (size >= 10) return { fill: '#2e7a4f', edge: '#75c99a', text: '#effff5' };
+      if (size >= 5) return { fill: '#d7d9d6', edge: '#ffffff', text: '#171717' };
+      if (size >= 2.5) return { fill: '#202226', edge: '#6d7179', text: '#f2f2f2' };
+      return { fill: '#9aa0a6', edge: '#d7dbdf', text: '#111' };
+    }
+    if (size >= 45) return { fill: '#202226', edge: '#6d7179', text: '#f2f2f2' };
+    if (size >= 35) return { fill: '#1f4f8e', edge: '#6ea7e8', text: '#eef6ff' };
+    if (size >= 25) return { fill: '#2e7a4f', edge: '#75c99a', text: '#effff5' };
+    if (size >= 10) return { fill: '#d7d9d6', edge: '#ffffff', text: '#171717' };
+    if (size >= 5) return { fill: '#202226', edge: '#6d7179', text: '#f2f2f2' };
+    return { fill: '#9aa0a6', edge: '#d7dbdf', text: '#111' };
+  }
+
+  function formatPlateLabel(size) {
+    return formatNumber(size);
+  }
+
+  function makeBarPlate(size, maxSize) {
+    const plate = document.createElement('span');
+    const colors = plateColors(size);
+    plate.className = 'plate-load';
+    const ratio = Math.max(0.45, Math.min(1, size / Math.max(1, maxSize)));
+    plate.style.setProperty('--plate-width', Math.round(26 + 12 * ratio) + 'px');
+    plate.style.setProperty('--plate-height', Math.round(112 + 76 * ratio) + 'px');
+    plate.style.setProperty('--plate-fill', colors.fill);
+    plate.style.setProperty('--plate-edge', colors.edge);
+    plate.style.setProperty('--plate-text', colors.text);
+    plate.textContent = formatPlateLabel(size);
+    return plate;
+  }
+
+  function plateList(items, counts) {
+    const plates = [];
+    items.forEach((item, index) => {
+      for (let count = 0; count < (counts[index] || 0); count += 1) {
+        plates.push(item.size);
+      }
+    });
+    return plates;
+  }
+
+  function visualPlateOrder(plates) {
+    return plates.slice().sort((a, b) => b - a);
+  }
+
+  function plateKey(plates) {
+    const counts = new Map();
+    visualPlateOrder(plates).forEach(size => {
+      counts.set(size, (counts.get(size) || 0) + 1);
+    });
+    return Array.from(counts.entries()).map(item => item[0] + 'x' + item[1]).join('|') || 'bar-only';
+  }
+
+  function scenarioBaseScore(candidate) {
+    const priority = COMMON_PLATE_PRIORITY[unit] || {};
+    return candidate.plateCount * 100 + candidate.plates.reduce((sum, size) => {
+      return sum + (priority[size] == null ? 12 : priority[size]);
+    }, 0);
+  }
+
+  function scenarioSimilarity(candidate, selected) {
+    if (!selected.length) return 0;
+    const candidateCounts = new Map();
+    candidate.plates.forEach(size => candidateCounts.set(size, (candidateCounts.get(size) || 0) + 1));
+    return selected.reduce((penalty, option) => {
+      const optionCounts = new Map();
+      option.plates.forEach(size => optionCounts.set(size, (optionCounts.get(size) || 0) + 1));
+      let overlap = 0;
+      candidateCounts.forEach((count, size) => {
+        overlap += Math.min(count, optionCounts.get(size) || 0);
+      });
+      return penalty + overlap * 18;
+    }, 0);
+  }
+
+  function collectScenarioCandidates(sideTarget, bar) {
+    const targetUnits = Math.max(0, toUnits(sideTarget));
+    const inventory = scenarioInventory(COMMON_PLATE_SIZES[unit]);
+    const items = inventory.map(plate => ({
+      size: plate.size,
+      sizeUnits: toUnits(plate.size),
+      pairs: plate.pairs
+    }));
+    const smallestUnits = Math.min(...items.map(item => item.sizeUnits));
+    const upperUnits = targetUnits + smallestUnits;
+    const byKey = new Map();
+    const remainingMax = new Array(items.length + 1).fill(0);
+    for (let index = items.length - 1; index >= 0; index -= 1) {
+      remainingMax[index] = remainingMax[index + 1] + items[index].sizeUnits * items[index].pairs;
+    }
+
+    function record(sum, counts, plateCount) {
+      const plates = plateList(items, counts);
+      const key = plateKey(plates);
+      const diffUnits = Math.abs(sum - targetUnits);
+      const candidate = {
+        items,
+        counts: counts.slice(),
+        plates,
+        key,
+        sum,
+        diffUnits,
+        sideLoaded: fromUnits(sum),
+        loadedWeight: bar + fromUnits(sum) * 2,
+        difference: bar + fromUnits(sum) * 2 - (bar + sideTarget * 2),
+        exact: diffUnits === 0,
+        plateCount
+      };
+      const existing = byKey.get(key);
+      if (!existing || candidate.diffUnits < existing.diffUnits || (
+        candidate.diffUnits === existing.diffUnits && scenarioBaseScore(candidate) < scenarioBaseScore(existing)
+      )) {
+        byKey.set(key, candidate);
+      }
+    }
+
+    function searchExact(index, sum, counts, plateCount) {
+      if (sum > targetUnits || sum + remainingMax[index] < targetUnits) return;
+      if (index === items.length) {
+        if (sum === targetUnits) record(sum, counts, plateCount);
+        return;
+      }
+      const item = items[index];
+      for (let count = item.pairs; count >= 0; count -= 1) {
+        const nextSum = sum + item.sizeUnits * count;
+        if (nextSum <= targetUnits) {
+          counts[index] = count;
+          searchExact(index + 1, nextSum, counts, plateCount + count);
+        }
+      }
+      counts[index] = 0;
+    }
+
+    function searchClosest(index, sum, counts, plateCount) {
+      if (index === items.length) {
+        record(sum, counts, plateCount);
+        return;
+      }
+      const item = items[index];
+      for (let count = item.pairs; count >= 0; count -= 1) {
+        const nextSum = sum + item.sizeUnits * count;
+        if (nextSum <= upperUnits) {
+          counts[index] = count;
+          searchClosest(index + 1, nextSum, counts, plateCount + count);
+        }
+      }
+      counts[index] = 0;
+    }
+
+    searchExact(0, 0, [], 0);
+    if (byKey.size) return Array.from(byKey.values());
+
+    searchClosest(0, 0, [], 0);
+    return Array.from(byKey.values());
+  }
+
+  function selectScenarioCandidates(candidates) {
+    const exact = candidates.filter(candidate => candidate.exact);
+    const pool = exact.length ? exact : candidates.slice().sort((a, b) => {
+      if (a.diffUnits !== b.diffUnits) return a.diffUnits - b.diffUnits;
+      return scenarioBaseScore(a) - scenarioBaseScore(b);
+    }).slice(0, 48);
+    const selected = [];
+    const remaining = pool.slice();
+
+    while (selected.length < MAX_SCENARIO_OPTIONS && remaining.length) {
+      let bestIndex = 0;
+      let bestScore = Infinity;
+      remaining.forEach((candidate, index) => {
+        const score = (candidate.exact ? 0 : candidate.diffUnits * 1000) + scenarioBaseScore(candidate) + scenarioSimilarity(candidate, selected);
+        if (score < bestScore) {
+          bestScore = score;
+          bestIndex = index;
+        }
+      });
+      selected.push(remaining.splice(bestIndex, 1)[0]);
+    }
+
+    return selected;
+  }
+
+  function describeScenario(option, index, total) {
+    const setupName = total === 1
+      ? (option.exact ? 'Only balanced setup' : 'Closest setup')
+      : (option.exact ? 'Balanced setup ' + (index + 1) : 'Closest setup ' + (index + 1));
+    const tag = option.exact ? 'Exact option' : 'Closest option';
+    const plateText = option.plates.length
+      ? 'Per side: ' + visualPlateOrder(option.plates).map(formatPlateLabel).join(' + ') + '.'
+      : 'Bar only.';
+    const foundText = total === 1
+      ? 'Only one distinct balanced setup was found for this target.'
+      : total + ' distinct ' + (option.exact ? 'exact' : 'closest') + ' setups were found for this target.';
+    return {
+      title: setupName,
+      tag,
+      description: foundText + ' ' + plateText
+    };
+  }
+
+  function buildScenarioOptions(target, bar) {
+    if (target <= 0) return [{ ok: false, message: 'Enter a target loaded bar weight.' }];
+    if (target < bar) return [{ ok: false, message: 'Target weight is lower than the bar.' }];
+
+    const sideTarget = (target - bar) / 2;
+    const candidates = collectScenarioCandidates(sideTarget, bar);
+    const selected = selectScenarioCandidates(candidates);
+    return selected.map((candidate, index) => {
+      const copy = Object.assign({}, candidate, describeScenario(candidate, index, selected.length));
+      copy.ok = true;
+      copy.plateCount = candidate.plateCount * 2;
+      return copy;
+    });
+  }
+
+  function buildBarVisual(plates, barLabel) {
+    const visual = document.createElement('div');
+    visual.className = 'plate-bar-visual';
+    visual.setAttribute('aria-label', 'Loaded bar using a ' + barLabel);
+
+    const left = document.createElement('div');
+    left.className = 'plate-side plate-side-left';
+    const center = document.createElement('div');
+    center.className = 'plate-bar-center';
+    const right = document.createElement('div');
+    right.className = 'plate-side plate-side-right';
+
+    if (!plates.length) {
+      const emptyLeft = document.createElement('span');
+      emptyLeft.className = 'plate-empty';
+      emptyLeft.textContent = 'bar only';
+      const emptyRight = emptyLeft.cloneNode(true);
+      left.appendChild(emptyLeft);
+      right.appendChild(emptyRight);
+    } else {
+      const orderedPlates = visualPlateOrder(plates);
+      const maxPlate = Math.max(...orderedPlates);
+      orderedPlates.forEach(size => right.appendChild(makeBarPlate(size, maxPlate)));
+      orderedPlates.slice().reverse().forEach(size => left.appendChild(makeBarPlate(size, maxPlate)));
+    }
+
+    visual.append(left, center, right);
+    return visual;
+  }
+
+  function calculateLoad(target, bar, inventory) {
+    const fixedWeight = bar;
+    if (target <= 0) return { ok: false, message: 'Enter a target loaded bar weight.' };
+    if (target < fixedWeight) return { ok: false, message: 'Target weight is lower than the bar.' };
+    if (!inventory.length) return { ok: false, message: 'Add at least two matching plates for any size.' };
+
+    const sideTarget = (target - fixedWeight) / 2;
+    const combo = findBestCombo(sideTarget, inventory);
+    const sideLoaded = fromUnits(combo.best.sum);
+    const loadedWeight = fixedWeight + sideLoaded * 2;
+    const difference = loadedWeight - target;
+    return {
+      ok: true,
+      items: combo.items,
+      counts: combo.best.counts,
+      sideLoaded,
+      loadedWeight,
+      difference,
+      exact: Math.abs(difference) < 0.005,
+      plateCount: combo.best.plateCount * 2,
+      plates: plateList(combo.items, combo.best.counts)
+    };
+  }
+
+  function formatDifference(value) {
+    return (value > 0 ? '+' : '') + formatWeight(value);
+  }
+
+  function buildCustomScenarioOptions(target, bar, inventory) {
+    const custom = calculateLoad(target, bar, inventory);
+    if (!custom.ok) {
+      return [{
+        ok: false,
+        tag: 'Custom rack',
+        title: 'Custom setup',
+        description: 'Adjust the available plates below to build this target.',
+        message: custom.message
+      }];
+    }
+    const plateText = custom.plates.length
+      ? 'Per side: ' + visualPlateOrder(custom.plates).map(formatPlateLabel).join(' + ') + '.'
+      : 'Bar only.';
+    return [{
+      ok: true,
+      tag: custom.exact ? 'Custom exact' : 'Custom closest',
+      title: custom.exact ? 'Custom setup' : 'Custom closest load',
+      description: (custom.exact
+        ? 'Exact load matched with your available plates. '
+        : 'Exact target is not possible with your available plates. ') + plateText,
+      loadedWeight: custom.loadedWeight,
+      exact: custom.exact,
+      difference: custom.difference,
+      plates: custom.plates,
+      sideLoaded: custom.sideLoaded,
+      plateCount: custom.plateCount
+    }];
+  }
+
+  function setScenario(index) {
+    const total = currentScenarioOptions.length;
+    if (!total) return;
+    activeScenario = (index + total) % total;
+    renderScenarioCards();
+  }
+
+  function makeScenarioNav(action) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'plate-visual-nav plate-visual-nav-' + action;
+    button.setAttribute('data-scenario-action', action);
+    button.setAttribute('aria-label', action === 'next' ? 'Next plate setup' : 'Previous plate setup');
+    button.innerHTML = action === 'next' ? '&rsaquo;' : '&lsaquo;';
+    return button;
+  }
+
+  function makeScenarioDots(total) {
+    const dots = document.createElement('div');
+    dots.className = 'plate-scenario-dots';
+    dots.setAttribute('aria-label', 'Plate setup selector');
+    currentScenarioOptions.forEach((scenario, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = index === activeScenario ? 'on' : '';
+      dot.setAttribute('data-scenario-index', String(index));
+      dot.setAttribute('aria-label', 'Show ' + scenario.title);
+      dots.appendChild(dot);
+    });
+    return dots;
+  }
+
+  function renderScenarioCards() {
+    clearChildren(scenarioWrap);
+    const target = numberFrom(targetInput);
+    const bar = Math.max(0, numberFrom(barInput));
+    currentScenarioOptions = customPanel.open
+      ? buildCustomScenarioOptions(target, bar, readInventory())
+      : buildScenarioOptions(target, bar);
+    if (activeScenario >= currentScenarioOptions.length) {
+      activeScenario = Math.max(0, currentScenarioOptions.length - 1);
+    }
+
+    currentScenarioOptions.forEach((scenario, index) => {
+      const card = document.createElement('article');
+      card.className = 'plate-scenario-card';
+
+      const head = document.createElement('div');
+      head.className = 'plate-scenario-head';
+      const meta = document.createElement('span');
+      meta.textContent = '0' + (index + 1) + ' / ' + scenario.tag;
+      const title = document.createElement('h3');
+      title.textContent = scenario.title;
+      const desc = document.createElement('p');
+      desc.textContent = scenario.description || '';
+      head.append(meta, title, desc);
+      card.appendChild(head);
+
+      if (!scenario.ok) {
+        const message = document.createElement('p');
+        message.className = 'plate-warning';
+        message.textContent = scenario.message;
+        card.appendChild(message);
+      } else {
+        const resultRow = document.createElement('div');
+        resultRow.className = 'plate-scenario-result';
+        const loaded = document.createElement('strong');
+        loaded.textContent = formatWeight(scenario.loadedWeight);
+        const badge = document.createElement('span');
+        badge.className = scenario.exact ? 'plate-badge-exact' : 'plate-badge-near';
+        badge.textContent = scenario.exact ? 'Exact' : 'Closest ' + formatDifference(scenario.difference);
+        resultRow.append(loaded, badge);
+        card.appendChild(resultRow);
+
+        const stage = document.createElement('div');
+        stage.className = 'plate-bar-stage';
+        if (currentScenarioOptions.length > 1) stage.appendChild(makeScenarioNav('prev'));
+        stage.appendChild(buildBarVisual(scenario.plates, formatWeight(bar) + ' bar'));
+        if (currentScenarioOptions.length > 1) stage.appendChild(makeScenarioNav('next'));
+        card.appendChild(stage);
+        if (currentScenarioOptions.length > 1) card.appendChild(makeScenarioDots(currentScenarioOptions.length));
+
+        const stats = document.createElement('div');
+        stats.className = 'plate-mini-stats';
+        [
+          ['Per side', formatWeight(scenario.sideLoaded)],
+          ['Plates', String(scenario.plateCount)],
+          ['Bar', formatWeight(bar)]
+        ].forEach(item => {
+          const box = document.createElement('div');
+          const label = document.createElement('span');
+          label.textContent = item[0];
+          const value = document.createElement('b');
+          value.textContent = item[1];
+          box.append(label, value);
+          stats.appendChild(box);
+        });
+        card.appendChild(stats);
+      }
+
+      card.classList.toggle('is-active', index === activeScenario);
+      scenarioWrap.appendChild(card);
+    });
+  }
+
+  function update() {
+    enforceTargetLimit();
+    if (customPanel.open) syncInventoryCards();
+    renderScenarioCards();
+  }
+
+  [targetInput, barInput].forEach(input => {
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+  });
+
+  inventoryBody.addEventListener('input', update);
+  inventoryBody.addEventListener('change', update);
+  inventoryBody.addEventListener('click', event => {
+    const button = event.target.closest('[data-plate-remove]');
+    if (!button) return;
+    const rows = Array.from(inventoryBody.querySelectorAll('[data-plate-row]'));
+    if (rows.length <= 1) return;
+    button.closest('[data-plate-row]').remove();
+    update();
+  });
+
+  customPanel.addEventListener('toggle', () => {
+    activeScenario = 0;
+    update();
+  });
+
+  unitButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      setDefaults(button.getAttribute('data-unit'));
+    });
+  });
+
+  scenarioWrap.addEventListener('click', event => {
+    const nav = event.target.closest('[data-scenario-action]');
+    if (nav) {
+      const direction = nav.getAttribute('data-scenario-action') === 'next' ? 1 : -1;
+      setScenario(activeScenario + direction);
+      return;
+    }
+    const dot = event.target.closest('[data-scenario-index]');
+    if (dot) {
+      setScenario(Number(dot.getAttribute('data-scenario-index')));
+    }
+  });
+
+  actionButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const action = button.getAttribute('data-plate-action');
+      if (action === 'default') {
+        activeScenario = 0;
+        loadInventoryDefaults(unit);
+        update();
+      }
+      if (action === 'add') {
+        inventoryBody.appendChild(makeInventoryRow({ size: unit === 'kg' ? 1.25 : 2.5, count: 2 }));
+        update();
+      }
+    });
+  });
+
+  setDefaults(unit);
+})();
+</script>
+</body>
+</html>

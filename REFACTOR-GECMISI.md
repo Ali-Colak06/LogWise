@@ -4151,6 +4151,61 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 92 — Barbell Plate Calculator Statik SEO Tool (2026-06-30)
+
+### Amaç
+
+Tools yüzeyini gerçek antrenman anında kullanılan, düşük sürtünmeli bir hesaplayıcıyla genişletmek:
+hedef bar ağırlığına göre her yana yüklenecek plakaları kg/lb, bar ağırlığı ve custom plaka envanteriyle
+hesaplayan statik bir SEO sayfası eklemek.
+
+### Kapsam
+
+- `/barbell-plate-calculator` canonical statik tool sayfası eklendi.
+- Hesaplayıcı; target weight ve bar weight'i ana panelde alır, üst öneri alanında hedefe göre 1-3 benzersiz
+  balanced/closest plaka dizilimini tek kartlık carousel olarak gösterir, custom envanter girişini ise opsiyonel
+  details panelinde tutar.
+- Kg default plaka seti `1.25, 2.5, 5, 10, 15, 20, 25`; lb default plaka seti
+  `2.5, 5, 10, 25, 35, 45, 55` olarak sabitlendi.
+- Envanter sınırlı olduğunda greedy yerine küçük kombinasyon aramasıyla exact veya closest loaded bar weight
+  sonucu üretir; yüklenmiş bar görseli, iki yana düşen plakalar, total plates ve target farkını gösterir.
+- Üst öneri algoritması sabit senaryo isimlerinden çıkarıldı; tüm dengeli kombinasyonlar dedupe edilip exact seçenek
+  varsa yalnız exact seçeneklerden, exact yoksa closest seçeneklerden en fazla üç farklı stack seçilir.
+- İlk tablo taslağı görsel olarak sade bulunduğu için envanter satırları plate-card grid'e, sonuç alanı ise
+  daha ince, renkli plaka katmanları olan barbell preview paneline çevrildi; plaka label'ları yalnız sayı gösterir.
+- Carousel okları bar görselinin yanlarına taşındı; bar merkezi boş bırakıldı, plaka grupları uçlara yaklaştırıldı
+  ve görsel sıralama her zaman bardan dışa doğru büyükten küçüğe normalize edildi.
+- Custom envanter girişi "pair" yerine toplam plaka adedi olarak düzenlendi; tek kalan plakalar simetrik
+  yükleme için kullanılamadığı için hesaplamada `floor(adet / 2)` çift mantığı uygulanır.
+- Custom details paneli yalnız plaka envanteri/adedi girişini gösterir; panel kapalıyken üst öneriler default common
+  senaryolardan, panel açıkken aynı üst bar görseli custom envanter sonucundan beslenir.
+- `/tools` hub sayfası, EN `/` landing tool kartları ve TR `/tr` landing tool kartları yeni tool'u gösterecek
+  şekilde dörtlü grid'e taşındı.
+- `scripts/build-blog.js` statik sitemap listesine yeni canonical path eklendi; `sw.js` `logwise-v51`
+  bump ile `/barbell-plate-calculator` ve `.html` varyantlarını precache'e aldı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `barbell-plate-calculator.html` | Yeni statik SEO tool sayfası + inline hesaplayıcı + barbell preview |
+| `tools.html` | Hub metadata/schema ve tool kart listesi 4 tool'a çıkarıldı |
+| `index.html`, `tr.html` | Landing tool kartları ve footer linkleri güncellendi |
+| `styles/landing.css` | 4'lü tool grid, plate mini preview ve plate calculator layout stilleri |
+| `scripts/build-blog.js` | Statik sitemap sayfa listesine `/barbell-plate-calculator` eklendi |
+| `sw.js` | `logwise-v51` bump + yeni tool URL'leri precache listesi |
+| `AGENTS.md` | Dosya haritası, son bölüm referansı ve refactor özeti güncellendi |
+| `REFACTOR-GECMISI.md` | Bu bölüm |
+
+### Doğrulama Notları
+
+- `node scripts/build-blog.js` ile sitemap çıktıları yeniden üretilmeli.
+- `node --check sw.js` ve yeni inline hesaplayıcı script'i syntax kontrolünden geçmeli.
+- `node scripts/check-codegen.js` generated ortak veri drift'i olmadığını doğrulamalı.
+- Desktop ve mobile viewport'ta `/barbell-plate-calculator.html`, `/tools.html`, `/`, `/tr` görsel smoke kontrolünden geçmeli.
+
+---
+
 ## Bölüm 91 — `app_profiles` Kullanıcı Adı DB-Seviyesi Normalize Benzersizlik + RPC Kalıcılaştırma (2026-06-29)
 
 ### Durum

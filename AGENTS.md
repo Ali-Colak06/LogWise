@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-28 — `supabase/migrations/` klasörü eklendi (ilk tarihli migration: user_data public SELECT açığının kaldırılması — §4 haritası). -->
+<!-- SON GÜNCELLEME: 2026-06-30 — `barbell-plate-calculator.html` statik SEO tool sayfası eklendi; §4 haritası ve §8 özet güncellendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -23,7 +23,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 89 — Codegen drift otomasyonu).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 92 — Barbell Plate Calculator statik SEO tool).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -158,6 +158,7 @@ LogWise/
 ├── library/exercises.html     ← EN statik SEO exercise library dizin sayfası
 ├── library/programs.html      ← EN statik SEO program library dizin sayfası
 ├── one-rep-max-calculator.html ← EN statik SEO tool sayfası
+├── barbell-plate-calculator.html ← EN statik SEO barbell plate calculator tool sayfası
 ├── workout-log-template.html  ← EN statik SEO printable template sayfası
 ├── workout-volume-calculator.html ← EN statik SEO workout volume calculator sayfası
 ├── app.html                   ← Ana uygulama (App + Root monolit)
@@ -166,10 +167,7 @@ LogWise/
 ├── program.html               ← Program paylaşım sayfası
 ├── 404.html                   ← 404
 ├── robots.txt                 ← Arama motoru crawl yönergeleri + sitemap referansları
-├── sitemap.xml                ← XML sitemap (hreflang destekli)
-├── sitemap_index.xml          ← Sitemap index fallback'i
-├── sitemap-basic.xml          ← Minimal XML sitemap fallback'i
-├── sitemap.txt                ← Düz metin sitemap fallback'i
+├── sitemap.xml                ← Tek kanonik XML sitemap (hreflang destekli)
 ├── r2-exercise-media-cors.json ← `media.logwise.fit` R2 CORS konfigürasyonu
 ├── sw.js                      ← Service Worker (PWA)
 ├── manifest.json              ← PWA manifest
@@ -290,6 +288,9 @@ LogWise/
 - **Preset exercise codegen pilotu** (Bölüm 87): `data/presets-exercises.json` kanonik kaynak; Web `data/presets-exercises.js` ve mobil `logwise-mobile/data/generated/presets-exercises.ts` deterministik generator + `--check` ile doğrulanır ✅
 - **Exercise guide mobil projection codegen** (Bölüm 88): `data/ex-guides.json` kanonik kaynak; Web `data/ex-guides.js` ve mobil `logwise-mobile/data/generated/ex-content.ts` aynı generator + `--check` ile doğrulanır ✅
 - **Codegen drift otomasyonu** (Bölüm 89): `scripts/check-codegen.js` tek komutu ve GitHub Actions `codegen-check.yml` ile generated çıktı drift'i push/PR seviyesinde zorlanır ✅
+- **`user_data` public SELECT güvenlik düzeltmesi** (Bölüm 90): Ham `user_data` blob'unu anonim/public okumaya açan politika kaldırıldı; owner-only authenticated SELECT ve tarihli Supabase migration kaydedildi ✅
+- **`app_profiles` username normalize benzersizlik** (Bölüm 91): Mobil `app_profiles` username için `lower(btrim(username))` partial unique index'i, normalize RPC gövdesi ve canlı doğrulama kaydı eklendi ✅
+- **Barbell Plate Calculator statik SEO tool** (Bölüm 92): `/barbell-plate-calculator` sayfası, Tools hub/landing kartları, sitemap generator kaydı ve `sw.js` precache bump'ı eklendi ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
