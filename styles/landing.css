@@ -844,6 +844,7 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
 .template-card{max-width:760px}
 .tools-hub-hero .tool-hero-grid{grid-template-columns:1fr;gap:48px;align-items:start}
 .tools-hub-hero .tool-hero-copy{max-width:980px}
+.tools-hub-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .tools-hub-grid .tool-link-card{min-height:430px}
 .rpe-hero .tool-hero-grid{align-items:start}
 .volume-hero .tool-hero-grid{grid-template-columns:1fr;gap:48px;align-items:start}
@@ -958,6 +959,7 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
   .plate-inventory-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .template-hero .template-table{min-width:840px}
 }
+@media (max-width:900px){.tools-hub-grid{grid-template-columns:1fr}}
 @media (max-width:640px){
   .tool-hero{padding:52px 0 64px}
   .tool-hero-copy .display{font-size:clamp(44px,12vw,58px)}
