@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>RPE / RIR Calculator - Estimate 1RM and Backoff Sets | LogWise</title>
+<meta name="description" content="Use a recent set with weight, reps, and RPE or RIR to estimate 1RM, plan target loads, and optionally get a practical backoff set suggestion."/>
+<link rel="canonical" href="https://logwise.fit/rpe-rir-calculator"/>
+<link rel="alternate" hreflang="en" href="https://logwise.fit/rpe-rir-calculator"/>
+<link rel="alternate" hreflang="x-default" href="https://logwise.fit/rpe-rir-calculator"/>
+<link rel="icon" type="image/x-icon" href="/favicon.ico"/>
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<link rel="manifest" href="/manifest.json"/>
+<meta property="og:site_name" content="LogWise"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="RPE / RIR Calculator - Estimate 1RM and Backoff Sets | LogWise"/>
+<meta property="og:description" content="Use a recent set with weight, reps, and RPE or RIR to estimate 1RM, plan target loads, and optionally get a practical backoff set suggestion."/>
+<meta property="og:url" content="https://logwise.fit/rpe-rir-calculator"/>
+<meta property="og:image" content="https://logwise.fit/icon-512.png"/>
+<meta property="og:locale" content="en_US"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="RPE / RIR Calculator - Estimate 1RM and Backoff Sets | LogWise"/>
+<meta name="twitter:description" content="Use a recent set with weight, reps, and RPE or RIR to estimate 1RM, plan target loads, and optionally get a practical backoff set suggestion."/>
+<meta name="twitter:image" content="https://logwise.fit/icon-512.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="/styles/landing.css"/>
+<link rel="stylesheet" href="/styles/site-nav.css"/>
+<script src="/site-nav.js" defer></script>
+<script type="application/ld+json">[{"@context":"https://schema.org","@type":"WebPage","name":"RPE / RIR Calculator","url":"https://logwise.fit/rpe-rir-calculator","description":"Use a recent set with weight, reps, and RPE or RIR to estimate 1RM, plan target loads, and optionally get a practical backoff set suggestion.","inLanguage":"en","datePublished":"2026-07-06","dateModified":"2026-07-06","isPartOf":{"@type":"WebSite","name":"LogWise","url":"https://logwise.fit"},"about":["RPE calculator","RIR calculator","reps in reserve","estimated one rep max","backoff sets","workout tracking"]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How do you convert RPE to RIR?","acceptedAnswer":{"@type":"Answer","text":"A common lifting convention is RIR equals 10 minus RPE. RPE 8 means about 2 reps in reserve, RPE 9 means about 1 rep in reserve, and RPE 10 means no reps left. You can also enter RIR directly and calculate RPE as 10 minus RIR."}},{"@type":"Question","name":"How does this RPE calculator estimate 1RM?","acceptedAnswer":{"@type":"Answer","text":"The calculator adds completed reps and estimated reps in reserve, then applies an Epley-style estimated 1RM formula. For example, 5 reps with 2 RIR is treated like roughly 7 reps to failure."}},{"@type":"Question","name":"Are RPE-based loads exact?","acceptedAnswer":{"@type":"Answer","text":"No. RPE and RIR depend on judgment, fatigue, exercise, and technique. Use the result as a planning estimate and compare it against your logged workout history."}}]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"LogWise","item":"https://logwise.fit/"},{"@type":"ListItem","position":2,"name":"RPE / RIR Calculator","item":"https://logwise.fit/rpe-rir-calculator"}]}]</script>
+</head>
+<body>
+<header class="nav">
+  <div class="shell nav-row">
+    <a href="/" class="brand">
+      <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+      <span class="brand-name">LOG <b>WISE</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="/">Home</a>
+      <a href="/library">Library</a>
+      <a href="/learn">Learn</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="/app" class="btn btn-primary"><span class="desktop-label">START TRACKING</span><span class="mobile-label">OPEN</span> &rarr;</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="tool-hero rpe-hero">
+  <div class="shell tool-hero-grid">
+    <div class="tool-hero-copy">
+      <div class="tag"><span class="tag-dot"></span>Free RPE and reps-in-reserve calculator</div>
+      <h1 class="display">RPE / RIR <span class="gold">Calculator</span></h1>
+      <p class="lead">Enter a recent set like 100 kg x 5 with 2 RIR to estimate 1RM, plan target effort, and optionally choose a backoff set.</p>
+      <div class="hero-ctas">
+        <a href="/tools" class="btn btn-primary">SEE OTHER TOOLS &rarr;</a>
+        <a href="/app" class="btn btn-ghost">TRACK RPE IN LOGWISE &rarr;</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>RPE TO RIR</b></span><span class="dot"></span><span><b>ESTIMATED 1RM</b></span><span class="dot"></span><span><b>BACKOFF SETS</b></span>
+      </div>
+    </div>
+
+    <section id="calculator" class="tool-card rpe-card" aria-label="RPE RIR calculator">
+      <div class="tool-card-head">
+        <div>
+          <div class="section-kicker">EFFORT-BASED LOADS</div>
+          <h2>Enter a set and plan the next one</h2>
+        </div>
+        <div class="unit-toggle" role="group" aria-label="Weight unit">
+          <button type="button" class="on" data-unit="kg">KG</button>
+          <button type="button" data-unit="lb">LB</button>
+        </div>
+      </div>
+
+      <div class="rpe-mode-panel">
+        <div>
+          <span>Calculate from</span>
+          <p>Choose the effort scale you want to enter.</p>
+        </div>
+        <div class="effort-toggle" role="group" aria-label="Effort input mode">
+          <button type="button" class="on" data-effort-mode="rir">RIR</button>
+          <button type="button" data-effort-mode="rpe">RPE</button>
+        </div>
+      </div>
+
+      <form class="rpe-form" id="rpe-form">
+        <label>
+          <span>Weight lifted</span>
+          <input id="rpe-weight" name="weight" type="number" min="1" max="999" step="0.5" value="100" inputmode="decimal"/>
+        </label>
+        <label>
+          <span>Reps completed</span>
+          <input id="rpe-reps" name="reps" type="number" min="1" max="30" step="1" value="5" inputmode="numeric"/>
+        </label>
+        <label>
+          <span>Set RIR</span>
+          <input id="rpe-rir-input" name="rir" type="number" min="0" max="5" step="0.5" value="2" inputmode="decimal"/>
+        </label>
+        <label hidden>
+          <span>Set RPE</span>
+          <input id="rpe-set" name="rpe" type="number" min="5" max="10" step="0.5" value="8" inputmode="decimal"/>
+        </label>
+        <label>
+          <span>Target reps</span>
+          <input id="rpe-target-reps" name="target-reps" type="number" min="1" max="30" step="1" value="6" inputmode="numeric"/>
+        </label>
+        <label>
+          <span>Target RIR</span>
+          <input id="rpe-target-rir" name="target-rir" type="number" min="0" max="5" step="0.5" value="2" inputmode="decimal"/>
+        </label>
+        <label hidden>
+          <span>Target RPE</span>
+          <input id="rpe-target-rpe" name="target-rpe" type="number" min="5" max="10" step="0.5" value="8" inputmode="decimal"/>
+        </label>
+        <label>
+          <span>Backoff sets <em>optional</em></span>
+          <input id="rpe-backoff-sets" name="backoff-sets" type="number" min="0" max="8" step="1" value="0" inputmode="numeric"/>
+        </label>
+      </form>
+
+      <div class="rpe-output-grid" aria-live="polite">
+        <div class="rpe-main-output">
+          <span>Target load</span>
+          <strong id="rpe-target-load">97.5 kg</strong>
+          <small id="rpe-note">For 6 reps @ RIR 2, based on an estimated 1RM of 123.3 kg.</small>
+        </div>
+        <div class="rpe-metric-grid">
+          <div class="rpe-metric">
+            <span>Estimated 1RM</span>
+            <b id="rpe-e1rm">123.3 kg</b>
+            <small id="rpe-e1rm-note">100 kg x 5 with 2 RIR is treated as roughly 7 reps to failure.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="rpe-plan-grid">
+        <article class="rpe-plan-card">
+          <span>Target set</span>
+          <strong id="rpe-target-summary">6 reps @ RIR 2</strong>
+          <p id="rpe-target-note">Use about 97.5 kg if the estimated 1RM is reliable today.</p>
+        </article>
+        <article class="rpe-plan-card">
+          <span>Backoff suggestion</span>
+          <strong id="rpe-backoff-summary">No backoff planned</strong>
+          <p id="rpe-backoff-note">Leave backoff sets at 0 when this is the only set you plan to do.</p>
+        </article>
+      </div>
+
+      <div class="rpe-table-wrap">
+        <table class="rpe-table">
+          <thead>
+            <tr>
+          <th>Reps</th>
+              <th data-effort-column="6">RIR 4</th>
+              <th data-effort-column="7">RIR 3</th>
+              <th data-effort-column="8">RIR 2</th>
+              <th data-effort-column="9">RIR 1</th>
+              <th data-effort-column="10">RIR 0</th>
+            </tr>
+          </thead>
+          <tbody id="rpe-load-table"></tbody>
+        </table>
+      </div>
+
+      <a href="/app" class="tool-inline-cta">Track RPE and progress in LogWise &rarr;</a>
+    </section>
+  </div>
+</section>
+
+<section id="guide" class="section-pad section-alt">
+  <div class="shell tool-content-grid">
+    <article class="tool-copy-block">
+      <div class="section-kicker">HOW TO USE IT</div>
+      <h2 class="section-title">Use effort as context, not just decoration.</h2>
+      <p>RPE and RIR help separate a true strength change from a day where the same weight simply felt easier or harder. The most useful input is a recent set with clean technique and honest effort.</p>
+      <ol class="tool-steps">
+        <li><b>Choose the effort scale.</b> Work in RIR if you think in reps left, or switch to RPE if that is how your program is written.</li>
+        <li><b>Enter a real top set.</b> Use the weight, completed reps, and the selected effort input.</li>
+        <li><b>Pick the next target.</b> Change the target reps and target effort to see a load that matches the set you want.</li>
+        <li><b>Use backoffs only when planned.</b> Leave backoff sets at 0 if you are done after the target set, or add a count for a lighter follow-up target.</li>
+      </ol>
+    </article>
+    <aside class="tool-note-panel">
+      <h3>RPE / RIR formula</h3>
+      <p><b>RIR:</b> reps in reserve = 10 - RPE</p>
+      <p><b>RPE:</b> 10 - RIR when you enter RIR directly</p>
+      <p><b>Adjusted reps:</b> completed reps + RIR</p>
+      <p><b>Estimated 1RM:</b> weight x (1 + adjusted reps / 30)</p>
+      <p>This is a planning estimate. Your logged trend matters more than a single perfect number.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">WHY LOG IT</div>
+      <h2 class="section-title">Effort only becomes useful when you can compare it.</h2>
+    </div>
+    <p class="section-sub">A 100 kg set means something different at RPE 10 than it does at RPE 7. LogWise keeps the load and effort together.</p>
+  </div>
+  <div class="shell tool-feature-grid">
+    <article>
+      <span>01</span>
+      <h3>Track strength without maxing</h3>
+      <p>Estimated 1RM can move up even when you are not testing a true one rep max.</p>
+    </article>
+    <article>
+      <span>02</span>
+      <h3>Manage hard weeks</h3>
+      <p>RPE and RIR make fatigue visible before the weight on the bar has to drop.</p>
+    </article>
+    <article>
+      <span>03</span>
+      <h3>Plan repeatable backoffs</h3>
+      <p>Use backoff targets to add productive volume after a top set without guessing the load.</p>
+    </article>
+  </div>
+</section>
+
+<section id="tools" class="section-pad section-alt">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">SEE OTHER TOOLS</div>
+      <h2 class="section-title">Use effort, strength, and volume together.</h2>
+    </div>
+    <p class="section-sub">Estimate max strength, load the bar, or calculate session volume with the rest of the LogWise toolset.</p>
+  </div>
+  <div class="shell tool-related-grid">
+    <a href="/one-rep-max-calculator" class="tool-related-card">
+      <span>1RM</span>
+      <h3>One Rep Max Calculator</h3>
+      <p>Estimate your max from weight and reps, with Epley and Brzycki comparison.</p>
+      <em>OPEN CALCULATOR &rarr;</em>
+    </a>
+    <a href="/workout-volume-calculator" class="tool-related-card">
+      <span>VOLUME</span>
+      <h3>Workout Volume Calculator</h3>
+      <p>Add exercises, sets, reps, and weight to calculate total session workload.</p>
+      <em>OPEN CALCULATOR &rarr;</em>
+    </a>
+  </div>
+</section>
+
+<section class="tool-faq">
+  <div class="shell tool-content-grid">
+    <div>
+      <div class="section-kicker">FAQ</div>
+      <h2 class="section-title">RPE and RIR questions</h2>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary>What is the difference between RPE and RIR?</summary>
+        <p>RPE rates how hard a set felt, usually from 1 to 10. RIR estimates how many reps you had left. In lifting, RPE 8 is commonly treated as about 2 RIR.</p>
+      </details>
+      <details>
+        <summary>Why does the calculator add RIR to reps?</summary>
+        <p>If you complete 5 reps with 2 RIR, that set behaves roughly like a 7-rep set taken to failure for estimation.</p>
+      </details>
+      <details>
+        <summary>Should every set have an RPE or RIR?</summary>
+        <p>Not always. Effort tracking is most useful for top sets, important accessories, and weeks where fatigue management matters. Keep the basics easy first.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="shell">
+    <div class="cta-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></div>
+    <h2>Log the effort. <span class="gold">Watch the trend.</span></h2>
+    <p>Start a free workout log in LogWise and keep sets, reps, weights, RIR, PRs, and notes in one clean place.</p>
+    <div class="ctas">
+      <a href="/app" class="btn btn-primary">TRACK RPE IN LOGWISE &rarr;</a>
+      <a href="/tools" class="btn btn-ghost">SEE ALL TOOLS</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="shell foot-row">
+    <div class="footer-brand-block">
+      <a href="/" class="brand">
+        <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+        <span class="brand-name">LOG <b>WISE</b></span>
+      </a>
+      <p class="foot-tagline">Free browser-based workout tracking for lifters who want clearer progress.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Tool</h5>
+      <a href="#calculator">Calculator</a>
+      <a href="#guide">Guide</a>
+      <a href="/app">Workout log</a>
+    </div>
+    <div class="foot-col">
+      <h5>More tools</h5>
+      <a href="/one-rep-max-calculator">1RM Calculator</a>
+      <a href="/barbell-plate-calculator">Plate Calculator</a>
+      <a href="/workout-volume-calculator">Volume Calculator</a>
+      <a href="/workout-log-template">Workout Log Template</a>
+    </div>
+    <div class="foot-col">
+      <h5>LogWise</h5>
+      <a href="/">Home</a>
+      <a href="/learn">Learn</a>
+      <a href="/tr">Turkish</a>
+    </div>
+  </div>
+  <div class="shell foot-bottom">
+    <span>&copy; 2026 LOG WISE</span>
+    <span>RPE / RIR CALCULATOR &middot; LOGWISE.FIT</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  const weightInput = document.getElementById('rpe-weight');
+  const repsInput = document.getElementById('rpe-reps');
+  const setRirInput = document.getElementById('rpe-rir-input');
+  const setRpeInput = document.getElementById('rpe-set');
+  const targetRepsInput = document.getElementById('rpe-target-reps');
+  const targetRirInput = document.getElementById('rpe-target-rir');
+  const targetRpeInput = document.getElementById('rpe-target-rpe');
+  const backoffSetsInput = document.getElementById('rpe-backoff-sets');
+  const e1rmEl = document.getElementById('rpe-e1rm');
+  const e1rmNoteEl = document.getElementById('rpe-e1rm-note');
+  const noteEl = document.getElementById('rpe-note');
+  const targetLoadEl = document.getElementById('rpe-target-load');
+  const targetSummaryEl = document.getElementById('rpe-target-summary');
+  const targetNoteEl = document.getElementById('rpe-target-note');
+  const backoffSummaryEl = document.getElementById('rpe-backoff-summary');
+  const backoffNoteEl = document.getElementById('rpe-backoff-note');
+  const tableBody = document.getElementById('rpe-load-table');
+  const unitButtons = Array.from(document.querySelectorAll('[data-unit]'));
+  const effortModeButtons = Array.from(document.querySelectorAll('[data-effort-mode]'));
+  const effortColumnEls = Array.from(document.querySelectorAll('[data-effort-column]'));
+  const tableReps = [3, 5, 6, 8, 10, 12];
+  const tableRpes = [6, 7, 8, 9, 10];
+  let unit = 'kg';
+  let effortMode = 'rir';
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function numberFrom(input, fallback) {
+    const value = Number(input.value);
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function formatNumber(value, digits) {
+    const rounded = Math.round(value * Math.pow(10, digits)) / Math.pow(10, digits);
+    return new Intl.NumberFormat('en-US', {
+      maximumFractionDigits: digits,
+      minimumFractionDigits: Number.isInteger(rounded) ? 0 : digits
+    }).format(rounded);
+  }
+
+  function formatRpe(value) {
+    return formatNumber(value, value % 1 === 0 ? 0 : 1);
+  }
+
+  function formatLoad(value) {
+    const rounded = Math.round(value * 2) / 2;
+    return formatNumber(rounded, rounded % 1 === 0 ? 0 : 1) + ' ' + unit;
+  }
+
+  function formatDeltaLoad(value) {
+    const abs = Math.abs(Math.round(value * 2) / 2);
+    const load = formatNumber(abs, abs % 1 === 0 ? 0 : 1) + ' ' + unit;
+    if (value < 0) return load + ' below';
+    if (value > 0) return load + ' above';
+    return 'the same load as';
+  }
+
+  function rirFromRpe(rpe) {
+    return clamp(10 - rpe, 0, 5);
+  }
+
+  function rpeFromRir(rir) {
+    return clamp(10 - rir, 5, 10);
+  }
+
+  function formatEffort(rir, rpe) {
+    if (effortMode === 'rpe') return 'RPE ' + formatRpe(rpe);
+    return 'RIR ' + formatRpe(rir);
+  }
+
+  function syncEffortModeView() {
+    effortModeButtons.forEach(button => {
+      button.classList.toggle('on', button.getAttribute('data-effort-mode') === effortMode);
+    });
+    setRirInput.closest('label').hidden = effortMode !== 'rir';
+    targetRirInput.closest('label').hidden = effortMode !== 'rir';
+    setRpeInput.closest('label').hidden = effortMode !== 'rpe';
+    targetRpeInput.closest('label').hidden = effortMode !== 'rpe';
+  }
+
+  function estimateOneRm(weight, reps, rir) {
+    const effectiveReps = reps + rir;
+    return weight * (1 + effectiveReps / 30);
+  }
+
+  function loadFor(oneRm, reps, rpe) {
+    const adjustedReps = reps + rirFromRpe(rpe);
+    return oneRm / (1 + adjustedReps / 30);
+  }
+
+  function normalizeInputs() {
+    const weight = clamp(numberFrom(weightInput, 100), 1, 999);
+    const reps = Math.round(clamp(numberFrom(repsInput, 5), 1, 30));
+    let setRir = Math.round(clamp(numberFrom(setRirInput, 2), 0, 5) * 2) / 2;
+    let setRpe = Math.round(clamp(numberFrom(setRpeInput, 8), 5, 10) * 2) / 2;
+    let targetRir = Math.round(clamp(numberFrom(targetRirInput, 2), 0, 5) * 2) / 2;
+    let targetRpe = Math.round(clamp(numberFrom(targetRpeInput, 8), 5, 10) * 2) / 2;
+    if (effortMode === 'rpe') {
+      setRir = Math.round(rirFromRpe(setRpe) * 2) / 2;
+      targetRir = Math.round(rirFromRpe(targetRpe) * 2) / 2;
+    } else {
+      setRpe = Math.round(rpeFromRir(setRir) * 2) / 2;
+      targetRpe = Math.round(rpeFromRir(targetRir) * 2) / 2;
+    }
+    const targetReps = Math.round(clamp(numberFrom(targetRepsInput, 6), 1, 30));
+    const backoffSets = Math.round(clamp(numberFrom(backoffSetsInput, 0), 0, 8));
+
+    if (document.activeElement !== weightInput) weightInput.value = String(weight);
+    if (document.activeElement !== repsInput) repsInput.value = String(reps);
+    if (document.activeElement !== setRirInput) setRirInput.value = String(setRir);
+    if (document.activeElement !== setRpeInput) setRpeInput.value = String(setRpe);
+    if (document.activeElement !== targetRepsInput) targetRepsInput.value = String(targetReps);
+    if (document.activeElement !== targetRirInput) targetRirInput.value = String(targetRir);
+    if (document.activeElement !== targetRpeInput) targetRpeInput.value = String(targetRpe);
+    if (document.activeElement !== backoffSetsInput) backoffSetsInput.value = String(backoffSets);
+
+    return { weight, reps, setRir, setRpe, targetReps, targetRir, targetRpe, backoffSets };
+  }
+
+  function renderTable(oneRm) {
+    effortColumnEls.forEach(el => {
+      const rpe = Number(el.getAttribute('data-effort-column'));
+      el.textContent = effortMode === 'rpe' ? 'RPE ' + formatRpe(rpe) : 'RIR ' + formatRpe(rirFromRpe(rpe));
+    });
+    tableBody.textContent = '';
+    tableReps.forEach(reps => {
+      const row = document.createElement('tr');
+      const repCell = document.createElement('th');
+      repCell.scope = 'row';
+      repCell.textContent = reps + ' reps';
+      row.appendChild(repCell);
+
+      tableRpes.forEach(rpe => {
+        const cell = document.createElement('td');
+        const strong = document.createElement('strong');
+        strong.textContent = formatLoad(loadFor(oneRm, reps, rpe));
+        const small = document.createElement('small');
+        small.textContent = effortMode === 'rpe' ? formatRpe(rirFromRpe(rpe)) + ' RIR' : 'RPE ' + formatRpe(rpe);
+        cell.append(strong, small);
+        row.appendChild(cell);
+      });
+
+      tableBody.appendChild(row);
+    });
+  }
+
+  function update() {
+    const values = normalizeInputs();
+    const rir = values.setRir;
+    const oneRm = estimateOneRm(values.weight, values.reps, rir);
+    const targetLoad = loadFor(oneRm, values.targetReps, values.targetRpe);
+    const backoffRpe = clamp(values.targetRpe - 1, 5, 10);
+    const backoffRir = rirFromRpe(backoffRpe);
+    const backoffLoad = loadFor(oneRm, values.targetReps, backoffRpe);
+    const backoffDelta = backoffLoad - targetLoad;
+
+    e1rmEl.textContent = formatNumber(oneRm, 1) + ' ' + unit;
+    e1rmNoteEl.textContent = formatLoad(values.weight) + ' x ' + values.reps + ' with ' + formatRpe(rir) + ' RIR (RPE ' + formatRpe(values.setRpe) + ') is treated as roughly ' + formatNumber(values.reps + rir, (values.reps + rir) % 1 === 0 ? 0 : 1) + ' reps to failure.';
+    noteEl.textContent = 'For ' + values.targetReps + ' reps @ ' + formatEffort(values.targetRir, values.targetRpe) + ', based on ' + formatLoad(values.weight) + ' x ' + values.reps + ' with ' + formatRpe(rir) + ' RIR and an estimated 1RM of ' + formatNumber(oneRm, 1) + ' ' + unit + '.';
+    targetLoadEl.textContent = formatLoad(targetLoad);
+    targetSummaryEl.textContent = values.targetReps + ' reps @ ' + formatEffort(values.targetRir, values.targetRpe);
+    targetNoteEl.textContent = 'Use about ' + formatLoad(targetLoad) + ' if the estimated 1RM is reliable today.';
+    if (values.backoffSets > 0) {
+      backoffSummaryEl.textContent = values.backoffSets + ' x ' + values.targetReps + ' @ ' + formatEffort(backoffRir, backoffRpe);
+      backoffNoteEl.textContent = 'Start around ' + formatLoad(backoffLoad) + ', about ' + formatDeltaLoad(backoffDelta) + ' the target set.';
+    } else {
+      backoffSummaryEl.textContent = 'No backoff planned';
+      backoffNoteEl.textContent = 'Leave backoff sets at 0 when this is the only set you plan to do.';
+    }
+    renderTable(oneRm);
+  }
+
+  unitButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      unit = button.getAttribute('data-unit');
+      unitButtons.forEach(item => item.classList.toggle('on', item === button));
+      update();
+    });
+  });
+
+  [weightInput, repsInput, targetRepsInput, targetRirInput, targetRpeInput, backoffSetsInput].forEach(input => {
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+  });
+
+  [setRirInput, setRpeInput].forEach(input => {
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+  });
+
+  effortModeButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      effortMode = button.getAttribute('data-effort-mode');
+      syncEffortModeView();
+      update();
+    });
+  });
+
+  syncEffortModeView();
+  update();
+})();
+</script>
+</body>
+</html>

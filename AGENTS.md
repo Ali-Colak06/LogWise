@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-06-30 — `barbell-plate-calculator.html` statik SEO tool sayfası eklendi; §4 haritası ve §8 özet güncellendi. -->
+<!-- SON GÜNCELLEME: 2026-07-06 — `rpe-rir-calculator.html` statik SEO tool sayfası eklendi; §4 haritası ve §8 özet güncellendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -23,7 +23,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 92 — Barbell Plate Calculator statik SEO tool).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 93 — RPE / RIR Calculator statik SEO tool).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -158,6 +158,7 @@ LogWise/
 ├── library/exercises.html     ← EN statik SEO exercise library dizin sayfası
 ├── library/programs.html      ← EN statik SEO program library dizin sayfası
 ├── one-rep-max-calculator.html ← EN statik SEO tool sayfası
+├── rpe-rir-calculator.html    ← EN statik SEO RPE/RIR calculator tool sayfası
 ├── barbell-plate-calculator.html ← EN statik SEO barbell plate calculator tool sayfası
 ├── workout-log-template.html  ← EN statik SEO printable template sayfası
 ├── workout-volume-calculator.html ← EN statik SEO workout volume calculator sayfası
@@ -291,6 +292,7 @@ LogWise/
 - **`user_data` public SELECT güvenlik düzeltmesi** (Bölüm 90): Ham `user_data` blob'unu anonim/public okumaya açan politika kaldırıldı; owner-only authenticated SELECT ve tarihli Supabase migration kaydedildi ✅
 - **`app_profiles` username normalize benzersizlik** (Bölüm 91): Mobil `app_profiles` username için `lower(btrim(username))` partial unique index'i, normalize RPC gövdesi ve canlı doğrulama kaydı eklendi ✅
 - **Barbell Plate Calculator statik SEO tool** (Bölüm 92): `/barbell-plate-calculator` sayfası, Tools hub/landing kartları, sitemap generator kaydı ve `sw.js` precache bump'ı eklendi ✅
+- **RPE / RIR Calculator statik SEO tool** (Bölüm 93): `/rpe-rir-calculator` sayfası, RPE/RIR tabanlı e1RM, hedef yük ve backoff set önerileri, Tools hub/landing kartları, sitemap generator kaydı ve `sw.js` precache bump'ı eklendi ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

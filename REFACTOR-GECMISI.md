@@ -4151,6 +4151,52 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 93 — RPE / RIR Calculator Statik SEO Tool (2026-07-06)
+
+### Amaç
+
+Tools yüzeyini LogWise'in progress tracking vaadine doğrudan bağlanan bir efor tabanlı hesaplayıcıyla genişletmek:
+kullanıcının `100 kg x 5 @ RPE 8` gibi bir setten tahmini 1RM, RIR, hedef tekrar/RPE yükleri ve backoff set önerisi
+alabildiği statik SEO sayfası eklemek.
+
+### Kapsam
+
+- `/rpe-rir-calculator` canonical statik tool sayfası eklendi.
+- Hesaplayıcı; weight, reps, set RPE, target reps, target RPE ve backoff set sayısını alır.
+- RPE/RIR dönüşümü `RIR = 10 - RPE`; tahmini 1RM ise completed reps + RIR ile Epley tarzı formül üzerinden hesaplanır.
+- Ana panelde e1RM, RIR, effective reps, target load ve otomatik backoff RPE gösterilir.
+- Target set ve backoff suggestion kartları, hedef yükü ve bir RPE daha düşük backoff yükünü pratik şekilde özetler.
+- Takip düzeltmesiyle effort girişi üstteki RIR/RPE mod seçiciye taşındı; seçilen moda göre yalnız Set/Target RIR veya Set/Target RPE inputları görünür, karşılık değerler otomatik türetilir.
+- Backoff set sayısı opsiyonel hale getirildi; `0` seçildiğinde backoff kartı "No backoff planned" durumuna geçer ve yalnız hedef set/e1RM çıktıları kullanılır.
+- RPE 6/7/8/9/10 kolonları ve 3/5/6/8/10/12 tekrar satırlarıyla hedef yük tablosu üretildi.
+- `/tools` hub sayfası, EN `/` landing tool kartları ve TR `/tr` landing tool kartları yeni tool'u gösterecek şekilde beşli grid'e taşındı.
+- `one-rep-max-calculator.html` related tools bölümüne yeni RPE/RIR iç linki eklendi.
+- `scripts/build-blog.js` statik sitemap listesine yeni canonical path eklendi; `/tools` lastmod tarihi güncellendi.
+- `sw.js` `logwise-v52` bump ile `/rpe-rir-calculator` ve `.html` varyantlarını precache'e aldı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `rpe-rir-calculator.html` | Yeni statik SEO tool sayfası + inline RPE/RIR hesaplayıcı |
+| `styles/landing.css` | Beşli tools grid, RPE mini preview, RPE form/sonuç/tablo stilleri |
+| `tools.html` | Hub metadata/schema ve tool kart listesi 5 tool'a çıkarıldı |
+| `index.html`, `tr.html` | Landing tool kartları ve footer linkleri güncellendi |
+| `one-rep-max-calculator.html` | Related tools ve footer iç linki eklendi |
+| `scripts/build-blog.js` | Statik sitemap sayfa listesine `/rpe-rir-calculator` eklendi |
+| `sw.js` | `logwise-v52` bump + yeni tool URL'leri precache listesi |
+| `AGENTS.md` | Dosya haritası, son bölüm referansı ve refactor özeti güncellendi |
+| `REFACTOR-GECMISI.md` | Bu bölüm |
+
+### Doğrulama Notları
+
+- `node scripts/build-blog.js` ile sitemap çıktıları yeniden üretilmeli.
+- `node --check sw.js` ve yeni inline hesaplayıcı script'i syntax kontrolünden geçmeli.
+- `node scripts/check-codegen.js` generated ortak veri drift'i olmadığını doğrulamalı.
+- Desktop ve mobile viewport'ta `/rpe-rir-calculator.html`, `/tools.html`, `/`, `/tr` görsel smoke kontrolünden geçmeli.
+
+---
+
 ## Bölüm 92 — Barbell Plate Calculator Statik SEO Tool (2026-06-30)
 
 ### Amaç
