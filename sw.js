@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v53';
+const CACHE_NAME = 'logwise-v54';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -6,6 +6,8 @@ const PRECACHE_URLS = [
   '/tr.html',
   '/tools',
   '/tools.html',
+  '/araclar',
+  '/araclar.html',
   '/learn',
   '/learn/index.html',
   '/learn/learn.css',
@@ -49,6 +51,7 @@ const PRECACHE_URLS = [
   '/library/programs/push-pull-legs',
   '/library/programs/push-pull-legs.html',
   '/kutuphane',
+  '/kutuphane.html',
   '/kutuphane/exercises',
   '/kutuphane/programs',
   '/kutuphane/exercises/bench-press',

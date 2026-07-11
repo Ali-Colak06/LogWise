@@ -411,7 +411,7 @@ footer{border-top:1px solid var(--brd);padding:48px 0 64px;color:var(--t3);font-
   .brand-name{font-size:15px}
   .nav-actions{gap:8px;flex-shrink:0}
   .lang-switch{font-size:11px}
-  .lang-switch button{padding:5px 8px}
+  .lang-switch button,.lang-switch a{padding:5px 8px}
   .nav-actions .btn-primary{padding:9px 12px;font-size:12px;white-space:nowrap;letter-spacing:.02em;min-width:0}
 
   /* Hero */

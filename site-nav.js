@@ -21,7 +21,7 @@
     ],
     tr: [
       { key: 'home', href: '/tr' },
-      { key: 'tools', href: '/tools' },
+      { key: 'tools', href: '/araclar' },
       { key: 'library', href: '/kutuphane' },
       { key: 'learn', href: '/ogren' }
     ]
@@ -30,7 +30,7 @@
   function activeRoute(pathname) {
     const path = pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
     if (path === '/' || path === '/index' || path === '/tr') return 'home';
-    if (path === '/tools' || path === '/one-rep-max-calculator' || path === '/workout-log-template' || path === '/workout-volume-calculator') return 'tools';
+    if (path === '/tools' || path === '/araclar' || path === '/one-rep-max-calculator' || path === '/rpe-rir-calculator' || path === '/barbell-plate-calculator' || path === '/workout-log-template' || path === '/workout-volume-calculator') return 'tools';
     if (path === '/library' || path.startsWith('/library/') || path === '/kutuphane' || path.startsWith('/kutuphane/')) return 'library';
     if (path === '/learn' || path.startsWith('/learn/') || path === '/ogren' || path.startsWith('/ogren/')) return 'learn';
     return '';

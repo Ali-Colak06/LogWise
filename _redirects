@@ -34,8 +34,8 @@
 /exercises/deadlift                                    /library/exercises/deadlift                             301
 /programs/push-pull-legs                               /library/programs/push-pull-legs                        301
 
-# Turkish library URL aliases. Canonical remains /library until localized pages exist.
-/kutuphane                                             /library                                                200
+# Turkish Library hub is served by kutuphane.html. Nested pages remain EN aliases
+# until their localized versions exist.
 /kutuphane/exercises                                   /library/exercises                                      200
 /kutuphane/programs                                    /library/programs                                       200
 /kutuphane/exercises/bench-press                       /library/exercises/bench-press                          200

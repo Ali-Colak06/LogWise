@@ -52,7 +52,28 @@ const STATIC_SITEMAP_PAGES = [
   { path: '/tr', changefreq: 'weekly', priority: '0.9' },
   { path: '/learn', changefreq: 'weekly', priority: '0.8' },
   { path: '/ogren', changefreq: 'weekly', priority: '0.8' },
-  { path: '/tools', lastmod: '2026-07-06', changefreq: 'monthly', priority: '0.8' },
+  {
+    path: '/tools',
+    lastmod: '2026-07-11',
+    changefreq: 'monthly',
+    priority: '0.8',
+    alternates: [
+      { lang: 'en', path: '/tools' },
+      { lang: 'tr', path: '/araclar' },
+      { lang: 'x-default', path: '/tools' }
+    ]
+  },
+  {
+    path: '/araclar',
+    lastmod: '2026-07-11',
+    changefreq: 'monthly',
+    priority: '0.8',
+    alternates: [
+      { lang: 'en', path: '/tools' },
+      { lang: 'tr', path: '/araclar' },
+      { lang: 'x-default', path: '/tools' }
+    ]
+  },
   { path: '/one-rep-max-calculator', lastmod: '2026-07-06', changefreq: 'monthly', priority: '0.8' },
   { path: '/rpe-rir-calculator', lastmod: '2026-07-06', changefreq: 'monthly', priority: '0.8' },
   { path: '/barbell-plate-calculator', lastmod: '2026-06-30', changefreq: 'monthly', priority: '0.8' },
@@ -248,7 +269,7 @@ const NAV = `
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="/" data-blog-copy="home">__HOME__</a>
-      <a href="/tools" data-blog-copy="tools">__TOOLS__</a>
+      <a href="__TOOLS_HREF__" data-blog-copy="tools">__TOOLS__</a>
       <a href="__LIBRARY_HREF__" data-blog-copy="library">__LIBRARY__</a>
     </nav>
     <div class="nav-actions">
@@ -321,6 +342,7 @@ function navFor(lang, alternates) {
   return NAV
     .replace('__LANG_SWITCH__', languageSwitch(lang, alternates))
     .replace('__TOOLS__', STR[lang].tools)
+    .replace('__TOOLS_HREF__', lang === 'tr' ? '/araclar' : '/tools')
     .replace('__LIBRARY__', STR[lang].library)
     .replace('__LIBRARY_HREF__', lang === 'tr' ? '/kutuphane' : '/library')
     .replace('__HOME__', STR[lang].home)
@@ -709,7 +731,10 @@ function sitemapUrlForPath(pathname) {
 }
 
 function sitemapStaticEntry(page) {
-  return `  <url>\n    <loc>${sitemapUrlForPath(page.path)}</loc>${page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : ''}\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>`;
+  const alternateLinks = (page.alternates || [])
+    .map(alt => `    <xhtml:link rel="alternate" hreflang="${alt.lang}" href="${sitemapUrlForPath(alt.path)}"/>`)
+    .join('\n');
+  return `  <url>\n    <loc>${sitemapUrlForPath(page.path)}</loc>${alternateLinks ? `\n${alternateLinks}` : ''}${page.lastmod ? `\n    <lastmod>${page.lastmod}</lastmod>` : ''}\n    <changefreq>${page.changefreq}</changefreq>\n    <priority>${page.priority}</priority>\n  </url>`;
 }
 
 function sitemapPostEntry(post) {
@@ -804,4 +829,4 @@ console.log(
   (landingUpdated.length ? `, ${landingUpdated.join(', ')} (BLOG_CARDS)` : '')
 );
 console.log(`Exercise guides: ${exerciseGuideResult.total} total, ${exerciseGuideResult.previewReady} preview-ready, ${exerciseGuideResult.contentReady} content-ready, ${exerciseGuideResult.mediaReady} media-ready, ${exerciseGuideResult.published} published.`);
-console.log(`Programmatic SEO: ${programmaticResult.library} library hub, ${programmaticResult.directories} library directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);
+console.log(`Programmatic SEO: ${programmaticResult.library} library hubs, ${programmaticResult.directories} library directories, ${programmaticResult.exercises} exercise pages and ${programmaticResult.programs} program pages generated.`);

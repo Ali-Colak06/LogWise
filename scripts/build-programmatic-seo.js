@@ -23,9 +23,12 @@ const { loadAndValidateExerciseGuides } = require('./build-ex-guides.js');
 
 const DEFAULT_ROOT = path.join(__dirname, '..');
 const DEFAULT_SITE = 'https://logwise.fit';
+const DATE_PUBLISHED = '2026-06-15';
 const LASTMOD = '2026-06-15';
+const HUB_LASTMOD = '2026-07-11';
 const OG_IMAGE = '/icon-512.png';
 const LIBRARY_PATH = '/library';
+const TURKISH_LIBRARY_PATH = '/kutuphane';
 const EXERCISE_LIBRARY_PATH = '/library/exercises';
 const PROGRAM_LIBRARY_PATH = '/library/programs';
 
@@ -35,9 +38,25 @@ const GENERATED_PROGRAMS = ['push-pull-legs'];
 const SITEMAP_PAGES = [
   {
     path: LIBRARY_PATH,
-    lastmod: LASTMOD,
+    lastmod: HUB_LASTMOD,
     changefreq: 'monthly',
-    priority: '0.8'
+    priority: '0.8',
+    alternates: [
+      { lang: 'en', path: LIBRARY_PATH },
+      { lang: 'tr', path: TURKISH_LIBRARY_PATH },
+      { lang: 'x-default', path: LIBRARY_PATH }
+    ]
+  },
+  {
+    path: TURKISH_LIBRARY_PATH,
+    lastmod: HUB_LASTMOD,
+    changefreq: 'monthly',
+    priority: '0.8',
+    alternates: [
+      { lang: 'en', path: LIBRARY_PATH },
+      { lang: 'tr', path: TURKISH_LIBRARY_PATH },
+      { lang: 'x-default', path: LIBRARY_PATH }
+    ]
   },
   {
     path: EXERCISE_LIBRARY_PATH,
@@ -324,6 +343,12 @@ function descriptionFor(data, id) {
   return short || long || '';
 }
 
+function descriptionForTR(data, id) {
+  const short = data.descriptions[id] && data.descriptions[id][0];
+  const long = data.previews[id] && data.previews[id].desc && data.previews[id].desc[0];
+  return short || long || '';
+}
+
 function localizedEN(value) {
   return Array.isArray(value) ? value[1] : '';
 }
@@ -372,16 +397,28 @@ function sourceTips(data, id, guide) {
   return preview.tips.map(tip => tip[1]).filter(Boolean).slice(0, 4);
 }
 
-function headBlock({ title, description, url, site, jsonLd, image }) {
+function headBlock({ title, description, url, site, jsonLd, image, lang = 'en', alternates }) {
   const socialImage = image || `${site}${OG_IMAGE}`;
   const twitterCard = image ? 'summary_large_image' : 'summary';
+  const locale = lang === 'tr' ? 'tr_TR' : 'en_US';
+  const alternateLocale = lang === 'tr' ? 'en_US' : 'tr_TR';
+  const languageAlternates = alternates || [
+    { lang: 'en', url },
+    { lang: 'x-default', url }
+  ];
+  const alternateLinks = languageAlternates
+    .map(item => `<link rel="alternate" hreflang="${item.lang}" href="${item.url}"/>`)
+    .join('\n');
+  const hasOtherLocale = languageAlternates.some(item => item.lang === (lang === 'tr' ? 'en' : 'tr'));
+  const alternateLocaleMeta = hasOtherLocale
+    ? `\n<meta property="og:locale:alternate" content="${alternateLocale}"/>`
+    : '';
   return `<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>${esc(title)}</title>
 <meta name="description" content="${esc(description)}"/>
 <link rel="canonical" href="${url}"/>
-<link rel="alternate" hreflang="en" href="${url}"/>
-<link rel="alternate" hreflang="x-default" href="${url}"/>
+${alternateLinks}
 <link rel="icon" type="image/x-icon" href="/favicon.ico"/>
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"/>
 <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png"/>
@@ -393,7 +430,7 @@ function headBlock({ title, description, url, site, jsonLd, image }) {
 <meta property="og:description" content="${esc(description)}"/>
 <meta property="og:url" content="${url}"/>
 <meta property="og:image" content="${esc(socialImage)}"/>
-<meta property="og:locale" content="en_US"/>
+<meta property="og:locale" content="${locale}"/>${alternateLocaleMeta}
 <meta name="twitter:card" content="${twitterCard}"/>
 <meta name="twitter:title" content="${esc(title)}"/>
 <meta name="twitter:description" content="${esc(description)}"/>
@@ -407,25 +444,75 @@ function headBlock({ title, description, url, site, jsonLd, image }) {
 <script type="application/ld+json">${jsonForScript(jsonLd)}</script>`;
 }
 
-function nav(linkSet) {
+function nav(linkSet, options = {}) {
+  const lang = options.lang === 'tr' ? 'tr' : 'en';
+  const homeHref = lang === 'tr' ? '/tr' : '/';
+  const primaryLabel = lang === 'tr' ? 'Ana yönlendirme' : 'Primary';
+  const appLabel = lang === 'tr' ? 'KAYDETMEYE BAŞLA' : 'START TRACKING';
+  const mobileAppLabel = lang === 'tr' ? 'AÇ' : 'OPEN';
+  const languageLabel = lang === 'tr' ? 'Dil' : 'Language';
+  const languageSwitch = options.translations ? `<div class="lang-switch" role="group" aria-label="${languageLabel}">
+        <a href="${options.translations.tr}" hreflang="tr" class="${lang === 'tr' ? 'on' : ''}"${lang === 'tr' ? ' aria-current="page"' : ''}>TR</a>
+        <a href="${options.translations.en}" hreflang="en" class="${lang === 'en' ? 'on' : ''}"${lang === 'en' ? ' aria-current="page"' : ''}>EN</a>
+      </div>` : '';
+  const languageControl = languageSwitch ? `${languageSwitch}\n      ` : '';
   const links = linkSet.map(link => `<a href="${link.href}">${esc(link.label)}</a>`).join('\n      ');
   return `<header class="nav">
   <div class="shell nav-row">
-    <a href="/" class="brand">
+    <a href="${homeHref}" class="brand">
       <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
       <span class="brand-name">LOG <b>WISE</b></span>
     </a>
-    <nav class="nav-links" aria-label="Primary">
+    <nav class="nav-links" aria-label="${primaryLabel}">
       ${links}
     </nav>
     <div class="nav-actions">
-      <a href="/app" class="btn btn-primary"><span class="desktop-label">START TRACKING</span><span class="mobile-label">OPEN</span> &rarr;</a>
+      ${languageControl}<a href="/app" class="btn btn-primary"><span class="desktop-label">${appLabel}</span><span class="mobile-label">${mobileAppLabel}</span> &rarr;</a>
     </div>
   </div>
 </header>`;
 }
 
-function footer() {
+function footer(lang = 'en') {
+  if (lang === 'tr') {
+    return `<footer>
+  <div class="shell foot-row">
+    <div class="footer-brand-block">
+      <a href="/tr" class="brand">
+        <span class="brand-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></span>
+        <span class="brand-name">LOG <b>WISE</b></span>
+      </a>
+      <p class="foot-tagline">Gelişimini daha net görmek isteyen sporcular için ücretsiz, tarayıcı tabanlı antrenman takibi.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Kütüphane</h5>
+      <a href="/kutuphane">Genel bakış</a>
+      <a href="/library/exercises" hreflang="en">Egzersizler</a>
+      <a href="/library/exercises/bench-press" hreflang="en">Bench Press</a>
+      <a href="/library/exercises/squat" hreflang="en">Squat</a>
+      <a href="/library/exercises/deadlift" hreflang="en">Deadlift</a>
+    </div>
+    <div class="foot-col">
+      <h5>Programlar</h5>
+      <a href="/library/programs" hreflang="en">Tüm programlar</a>
+      <a href="/library/programs/push-pull-legs" hreflang="en">Push Pull Legs</a>
+      <a href="/app">Antrenman günlüğü</a>
+      <a href="/araclar">Ücretsiz araçlar</a>
+    </div>
+    <div class="foot-col">
+      <h5>LogWise</h5>
+      <a href="/tr">Ana Sayfa</a>
+      <a href="/ogren">Öğren</a>
+      <a href="/library" hreflang="en">English library</a>
+    </div>
+  </div>
+  <div class="shell foot-bottom">
+    <span>&copy; 2026 LOG WISE</span>
+    <span>ANTRENMAN KÜTÜPHANESİ &middot; LOGWISE.FIT</span>
+  </div>
+</footer>`;
+  }
+
   return `<footer>
   <div class="shell foot-row">
     <div class="footer-brand-block">
@@ -477,6 +564,39 @@ function toolCards() {
     </a>`).join('\n');
 }
 
+function toolCardsTR() {
+  const tools = [
+    {
+      url: '/one-rep-max-calculator',
+      eyebrow: '1RM',
+      title: 'Tek Tekrar Maksimum Hesaplayıcı',
+      description: 'Zorlu bir setten tahmini maksimum gücünü ve antrenman yüklerini hesapla.',
+      action: 'HESAPLAYICIYI AÇ'
+    },
+    {
+      url: '/workout-volume-calculator',
+      eyebrow: 'HACİM',
+      title: 'Antrenman Hacmi Hesaplayıcı',
+      description: 'Programını değiştirmeden önce egzersiz bazında set × tekrar × ağırlık toplamını gör.',
+      action: 'HESAPLAYICIYI AÇ'
+    },
+    {
+      url: '/workout-log-template',
+      eyebrow: 'ŞABLON',
+      title: 'Antrenman Günlüğü Şablonu',
+      description: 'Egzersiz, set, tekrar, ağırlık, RIR ve notlar için sade bir çalışma sayfası kullan.',
+      action: 'ŞABLONU AÇ'
+    }
+  ];
+
+  return tools.map(tool => `<a href="${tool.url}" hreflang="en" class="tool-related-card">
+      <span>${esc(tool.eyebrow)}</span>
+      <h3>${esc(tool.title)}</h3>
+      <p>${esc(tool.description)}</p>
+      <em>${esc(tool.action)} &rarr;</em>
+    </a>`).join('\n');
+}
+
 function relatedExerciseCard(data, id, generatedIds) {
   const exercise = data.exerciseById.get(id);
   if (!exercise) return '';
@@ -494,6 +614,20 @@ function relatedExerciseCard(data, id, generatedIds) {
       <p>${esc(description)}</p>
       ${action}
     </${closeTag}>`;
+}
+
+function relatedExerciseCardTR(data, id) {
+  const exercise = data.exerciseById.get(id);
+  if (!exercise) return '';
+  const name = exercise.name || exerciseName(exercise);
+  const description = descriptionForTR(data, id) || `${name}, LogWise egzersiz kütüphanesinde yer alır.`;
+
+  return `    <a href="${exerciseGuidePath(id)}" hreflang="en" class="guide-link-card">
+      <span>${esc((exercise.categories || []).join(', '))}</span>
+      <h3>${esc(name)}</h3>
+      <p>${esc(description)}</p>
+      <em>EGZERSİZİ AÇ &rarr;</em>
+    </a>`;
 }
 
 function primaryCategory(exercise) {
@@ -599,7 +733,7 @@ function exerciseJsonLd({ site, slug, guide }) {
       url,
       description: guide.description,
       inLanguage: 'en',
-      datePublished: LASTMOD,
+      datePublished: DATE_PUBLISHED,
       dateModified: LASTMOD,
       isPartOf: { '@type': 'WebSite', name: 'LogWise', url: site },
       about: [guide.title, 'strength training', 'workout tracking']
@@ -835,7 +969,7 @@ function programJsonLd({ site, slug, guide, program, data }) {
       url,
       description: guide.description,
       inLanguage: 'en',
-      datePublished: LASTMOD,
+      datePublished: DATE_PUBLISHED,
       dateModified: LASTMOD,
       isPartOf: { '@type': 'WebSite', name: 'LogWise', url: site },
       about: ['push pull legs program', 'workout program', 'workout tracking']
@@ -1030,7 +1164,7 @@ function exerciseDirectoryJsonLd(data, site) {
       url: siteUrl(site, EXERCISE_LIBRARY_PATH),
       description: 'Browse the LogWise exercise library by muscle group, including bench press, squat, deadlift, rows, curls, presses, leg work, and core movements.',
       inLanguage: 'en',
-      datePublished: LASTMOD,
+      datePublished: DATE_PUBLISHED,
       dateModified: LASTMOD,
       isPartOf: { '@type': 'WebSite', name: 'LogWise', url: site },
       about: ['exercise library', 'strength training exercises', 'workout tracking']
@@ -1161,7 +1295,7 @@ function programDirectoryJsonLd(data, site) {
       url: siteUrl(site, PROGRAM_LIBRARY_PATH),
       description: 'Browse LogWise workout program templates, including Push Pull Legs, Upper Lower, Full Body, and Bro Split structures.',
       inLanguage: 'en',
-      datePublished: LASTMOD,
+      datePublished: DATE_PUBLISHED,
       dateModified: LASTMOD,
       isPartOf: { '@type': 'WebSite', name: 'LogWise', url: site },
       about: ['workout programs', 'training split', 'workout tracking']
@@ -1281,6 +1415,14 @@ ${footer()}
 `;
 }
 
+function libraryHubAlternates(site) {
+  return [
+    { lang: 'en', url: siteUrl(site, LIBRARY_PATH) },
+    { lang: 'tr', url: siteUrl(site, TURKISH_LIBRARY_PATH) },
+    { lang: 'x-default', url: siteUrl(site, LIBRARY_PATH) }
+  ];
+}
+
 function libraryHubJsonLd(site) {
   const items = [
     ...GENERATED_EXERCISES.map((slug, index) => ({
@@ -1305,8 +1447,8 @@ function libraryHubJsonLd(site) {
       url: siteUrl(site, LIBRARY_PATH),
       description: 'Browse the LogWise workout library for exercises, programs, key lifts, and practical workout tracking.',
       inLanguage: 'en',
-      datePublished: LASTMOD,
-      dateModified: LASTMOD,
+      datePublished: DATE_PUBLISHED,
+      dateModified: HUB_LASTMOD,
       isPartOf: { '@type': 'WebSite', name: 'LogWise', url: site },
       about: ['workout library', 'exercise library', 'training programs']
     },
@@ -1345,7 +1487,7 @@ function libraryHubPage(data, site) {
 <!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit library.html manually. -->
 <html lang="en">
 <head>
-${headBlock({ title, description, url, site, jsonLd: libraryHubJsonLd(site) })}
+${headBlock({ title, description, url, site, jsonLd: libraryHubJsonLd(site), alternates: libraryHubAlternates(site) })}
 </head>
 <body class="seo-guide-page">
 ${nav([
@@ -1354,7 +1496,7 @@ ${nav([
   { href: '/library/programs', label: 'Programs' },
   { href: '/tools', label: 'Tools' },
   { href: '/learn', label: 'Learn' }
-])}
+], { lang: 'en', translations: { tr: TURKISH_LIBRARY_PATH, en: LIBRARY_PATH } })}
 
 <main>
 <section class="guide-hero">
@@ -1443,6 +1585,172 @@ ${footer()}
 `;
 }
 
+function libraryHubJsonLdTR(site) {
+  const items = [
+    ...GENERATED_EXERCISES.map((slug, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: EXERCISE_GUIDES[slug].title,
+      url: siteUrl(site, exerciseGuidePath(slug))
+    })),
+    ...GENERATED_PROGRAMS.map((slug, index) => ({
+      '@type': 'ListItem',
+      position: GENERATED_EXERCISES.length + index + 1,
+      name: PROGRAM_GUIDES[slug].title,
+      url: siteUrl(site, programGuidePath(slug))
+    }))
+  ];
+
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: 'Antrenman Kütüphanesi',
+      url: siteUrl(site, TURKISH_LIBRARY_PATH),
+      description: 'Egzersizleri, antrenman programlarını ve gelişimini takip etmene yardımcı olacak pratik rehberleri keşfet.',
+      inLanguage: 'tr',
+      datePublished: HUB_LASTMOD,
+      dateModified: HUB_LASTMOD,
+      isPartOf: { '@type': 'WebSite', name: 'LogWise', url: site },
+      about: ['antrenman kütüphanesi', 'egzersiz kütüphanesi', 'antrenman programları']
+    },
+    jsonLdBreadcrumb(site, [
+      { name: 'LogWise', path: '/tr' },
+      { name: 'Kütüphane', path: TURKISH_LIBRARY_PATH }
+    ]),
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ItemList',
+      name: 'LogWise antrenman kütüphanesi',
+      itemListElement: items
+    }
+  ];
+}
+
+function libraryHubPageTR(data, site) {
+  const title = 'Antrenman Kütüphanesi: Egzersizler ve Programlar | LogWise';
+  const description = 'LogWise antrenman kütüphanesinde egzersizleri, programları, bench press, squat, deadlift ve Push Pull Legs rehberlerini keşfet.';
+  const url = siteUrl(site, TURKISH_LIBRARY_PATH);
+  const exerciseCards = GENERATED_EXERCISES
+    .map(id => relatedExerciseCardTR(data, id))
+    .join('\n');
+  const programCards = `    <a href="/library/programs/push-pull-legs" hreflang="en" class="guide-link-card">
+      <span>PROGRAM SAYFASI</span>
+      <h3>Push Pull Legs Programı</h3>
+      <p>Haftalık PPL düzenini, egzersizleri, ilerleme yaklaşımını ve programı LogWise içinde nasıl takip edeceğini incele.</p>
+      <em>PROGRAMI AÇ &rarr;</em>
+    </a>`;
+
+  return `<!DOCTYPE html>
+<!-- AUTO-GENERATED by scripts/build-programmatic-seo.js. Do not edit kutuphane.html manually. -->
+<html lang="tr">
+<head>
+${headBlock({
+    title,
+    description,
+    url,
+    site,
+    jsonLd: libraryHubJsonLdTR(site),
+    lang: 'tr',
+    alternates: libraryHubAlternates(site)
+  })}
+</head>
+<body class="seo-guide-page">
+${nav([
+  { href: '/tr', label: 'Ana Sayfa' },
+  { href: '/library/exercises', label: 'Egzersizler' },
+  { href: '/library/programs', label: 'Programlar' },
+  { href: '/araclar', label: 'Araçlar' },
+  { href: '/ogren', label: 'Öğren' }
+], { lang: 'tr', translations: { tr: TURKISH_LIBRARY_PATH, en: LIBRARY_PATH } })}
+
+<main>
+<section class="guide-hero">
+  <div class="shell guide-hero-grid">
+    <div class="guide-hero-copy">
+      <div class="tag"><span class="tag-dot"></span>Antrenman kütüphanesi</div>
+      <h1 class="display">Egzersiz ve Program <span class="gold">Kütüphanesi</span></h1>
+      <p class="lead">Bir egzersiz veya program seç; ardından set, tekrar, ağırlık, RIR, hacim ve notlarını LogWise ile düzenli biçimde takip et.</p>
+      <div class="hero-ctas">
+        <a href="/library/exercises" hreflang="en" class="btn btn-primary">EGZERSİZLERE GÖZ AT &rarr;</a>
+        <a href="/library/programs" hreflang="en" class="btn btn-ghost">PROGRAMLARI GÖR &rarr;</a>
+      </div>
+      <div class="hero-meta">
+        <span><b>BENCH PRESS</b></span><span class="dot"></span><span><b>SQUAT</b></span><span class="dot"></span><span><b>DEADLIFT</b></span><span class="dot"></span><span><b>PPL</b></span>
+      </div>
+    </div>
+    <aside class="guide-facts-card" aria-label="Kütüphane özeti">
+      <div class="section-kicker">KÜTÜPHANE</div>
+      <dl>
+        <div><dt>Egzersiz sayfaları</dt><dd>${GENERATED_EXERCISES.length} temel hareket</dd></div>
+        <div><dt>Program sayfaları</dt><dd>${GENERATED_PROGRAMS.length} başlangıç programı</dd></div>
+        <div><dt>İlgili araçlar</dt><dd>1RM, hacim, günlük şablonu</dd></div>
+        <div><dt>En uygun kullanım</dt><dd>Antrenman bilgisini kayıtlı gelişime dönüştürmek</dd></div>
+      </dl>
+    </aside>
+  </div>
+</section>
+
+<section id="exercises" class="section-pad">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">EGZERSİZ KÜTÜPHANESİ</div>
+      <h2 class="section-title">Hareketi öğren, ardından önemli sayıları takip et.</h2>
+      <a href="/library/exercises" hreflang="en" class="guide-side-link">TÜM EGZERSİZLERİ GÖR &rarr;</a>
+    </div>
+    <p class="section-sub">Her sayfa form, ilerleme, hacim ve kayıt alışkanlığını bir araya getirerek sonraki antrenmanın için net bir hedef oluşturur.</p>
+  </div>
+  <div class="shell guide-card-grid">
+${exerciseCards}
+  </div>
+</section>
+
+<section id="programs" class="section-pad section-alt">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">PROGRAM KÜTÜPHANESİ</div>
+      <h2 class="section-title">Yalnızca tekrar ettiğin değil, değerlendirebildiğin bir program kullan.</h2>
+      <a href="/library/programs" hreflang="en" class="guide-side-link">TÜM PROGRAMLARI GÖR &rarr;</a>
+    </div>
+    <p class="section-sub">Program sayfaları haftalık yapıyı gösterir; hacim, güç tahmini ve antrenman kaydı araçlarına bağlanır.</p>
+  </div>
+  <div class="shell guide-card-grid">
+${programCards}
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="shell section-head">
+    <div>
+      <div class="section-kicker">İLGİLİ ARAÇLAR</div>
+      <h2 class="section-title">Kütüphaneyi daha net antrenman verileriyle kullan.</h2>
+    </div>
+    <p class="section-sub">Her şeyi LogWise'a taşımadan önce gücünü tahmin et, iş yükünü hesapla veya sade bir antrenman günlüğü kullan.</p>
+  </div>
+  <div class="shell tool-related-grid guide-related-grid">
+${toolCardsTR()}
+  </div>
+</section>
+
+<section class="cta">
+  <div class="shell">
+    <div class="cta-mark"><img src="/Site_Logo180.svg" alt="LogWise logo" class="logo-img"/></div>
+    <h2>Rehberi oku. <span class="gold">Antrenmanı kaydet.</span></h2>
+    <p>LogWise; setlerini, tekrarlarını, ağırlıklarını, PR'larını, hacmini, programlarını ve notlarını tek bir düzenli antrenman günlüğünde tutar.</p>
+    <div class="ctas">
+      <a href="/app" class="btn btn-primary">KAYDETMEYE BAŞLA &rarr;</a>
+      <a href="/araclar" class="btn btn-ghost">ÜCRETSİZ ARAÇLARI AÇ</a>
+    </div>
+  </div>
+</section>
+</main>
+
+${footer('tr')}
+</body>
+</html>
+`;
+}
+
 function buildProgrammaticSeo(options = {}) {
   const root = options.root || DEFAULT_ROOT;
   const site = options.site || DEFAULT_SITE;
@@ -1456,6 +1764,7 @@ function buildProgrammaticSeo(options = {}) {
   fs.mkdirSync(programDir, { recursive: true });
 
   fs.writeFileSync(path.join(root, 'library.html'), libraryHubPage(data, site), 'utf8');
+  fs.writeFileSync(path.join(root, 'kutuphane.html'), libraryHubPageTR(data, site), 'utf8');
   fs.writeFileSync(path.join(libraryDir, 'exercises.html'), exercisesIndexPage(data, site), 'utf8');
   fs.writeFileSync(path.join(libraryDir, 'programs.html'), programsIndexPage(data, site), 'utf8');
 
@@ -1468,7 +1777,7 @@ function buildProgrammaticSeo(options = {}) {
   }
 
   return {
-    library: 1,
+    library: 2,
     directories: 2,
     exercises: GENERATED_EXERCISES.length,
     programs: GENERATED_PROGRAMS.length,
@@ -1478,7 +1787,7 @@ function buildProgrammaticSeo(options = {}) {
 
 if (require.main === module) {
   const result = buildProgrammaticSeo();
-  console.log(`Done: ${result.library} library hub, ${result.directories} library directories, ${result.exercises} exercise pages and ${result.programs} program pages generated.`);
+  console.log(`Done: ${result.library} library hubs, ${result.directories} library directories, ${result.exercises} exercise pages and ${result.programs} program pages generated.`);
   for (const page of result.pages) {
     console.log(`  ${page.path}`);
   }

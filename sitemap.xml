@@ -22,7 +22,19 @@
   </url>
   <url>
     <loc>https://logwise.fit/tools</loc>
-    <lastmod>2026-07-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/tools"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/araclar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/tools"/>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://logwise.fit/araclar</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/tools"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/araclar"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/tools"/>
+    <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -58,7 +70,19 @@
   </url>
   <url>
     <loc>https://logwise.fit/library</loc>
-    <lastmod>2026-06-15</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/library"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/kutuphane"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/library"/>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://logwise.fit/kutuphane</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/library"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/kutuphane"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/library"/>
+    <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

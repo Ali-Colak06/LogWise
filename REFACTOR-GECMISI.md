@@ -4151,6 +4151,48 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 94 — Tools / Library Türkçe Hub Yerelleştirmesi (2026-07-11)
+
+### Amaç
+
+İngilizce Tools ve Library ana sayfalarına, URL ve SEO sinyalleri bakımından gerçek Türkçe alternatifler eklemek; TR landing ve Öğren akışındaki geçici İngilizce hedefleri yerelleştirilmiş hub sayfalarına taşımak.
+
+### Mimari Kararlar
+
+- **Ayrı canonical rotalar:** Tools çifti `/tools` ↔ `/araclar`, Library çifti `/library` ↔ `/kutuphane` olarak tanımlandı. Her sayfa kendi canonical URL'sini, karşılıklı `hreflang="en"` / `hreflang="tr"` ve EN `x-default` bağlantısını taşır.
+- **Hub-only kapsam:** Bu bölüm yalnız ana Tools ve Library hub sayfalarını yerelleştirir. Hesaplayıcılar ile Library dizin/detay sayfaları EN canonical kalır; TR hub'lardaki bu bağlantılar `hreflang="en"` ile açıkça işaretlenir ve alt sayfalara sahte TR alternate eklenmez.
+- **Tools statik çifti:** Elle yönetilen `tools.html` sayfasına dil seçici eklendi; yeni `araclar.html` aynı tasarım dilinde tamamen Türkçe hub içeriği, metadata ve JSON-LD taşır.
+- **Library generator sınırı:** `library.html` ve yeni `kutuphane.html`, yalnız `scripts/build-programmatic-seo.js` üzerinden üretilir. Generator locale-aware head/nav/footer şablonları, TR hub kartları ve iki hub sitemap kaydı üretir.
+- **Geçici alias kaldırma:** `_redirects` içindeki `/kutuphane` → `/library` 200 rewrite kaldırıldı; clean URL artık gerçek `kutuphane.html` dosyasını sunar. Henüz yerelleştirilmeyen nested `/kutuphane/*` alias'ları EN sayfalara rewrite olmaya devam eder.
+- **Tutarlı TR navigasyon:** `site-nav.js`, TR Tools hedefini `/araclar` olarak kullanır. `scripts/build-blog.js` ile üretilen `/ogren` sayfalarının Tools bağlantıları ve `tr.html` ana hub bağlantıları da `/araclar` hedefine taşındı.
+- **Sitemap alternate'ları:** Statik sitemap üretimi, hub çiftleri için karşılıklı XHTML hreflang satırları üretecek biçimde genişletildi.
+- **PWA önbelleği:** `sw.js` `logwise-v53` → `logwise-v54` bump edildi; `/araclar`, `/araclar.html` ve `/kutuphane.html` precache listesine eklendi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `araclar.html`, `tools.html` | TR Tools hub + EN/TR dil seçici, canonical/hreflang ve locale metadata |
+| `scripts/build-programmatic-seo.js` | TR Library hub üretimi, locale-aware template parçaları ve sitemap kayıtları |
+| `library.html`, `kutuphane.html` | Üretilmiş EN/TR Library hub çıktıları |
+| `scripts/build-blog.js`, `sitemap.xml` | `/araclar` statik sayfası, TR nav hedefi ve hub hreflang sitemap satırları |
+| `site-nav.js`, `tr.html`, `ogren/*.html` | TR Tools hedefinin `/araclar` olarak güncellenmesi |
+| `_redirects` | Gerçek `/kutuphane` sayfasını gölgeleyen 200 rewrite'ın kaldırılması |
+| `styles/landing.css` | Mobil dil seçici link padding uyumu |
+| `sw.js` | `logwise-v54` bump + yeni TR hub precache kayıtları |
+| `docs/PROGRAMMATIC-SEO-PROMPT.md` | Gerçek TR hub ile EN kalan nested alias sınırının güncellenmesi |
+| `AGENTS.md`, `REFACTOR-GECMISI.md` | Dosya haritası, refactor özeti ve karar kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-blog.js`, iki Library hub'ı ve sitemap alternate satırlarını deterministik üretmeli.
+- `node --check scripts/build-programmatic-seo.js`, `scripts/build-blog.js`, `site-nav.js` ve `sw.js` başarılı olmalı.
+- `node scripts/check-codegen.js` ortak veri çıktılarında drift olmadığını doğrulamalı.
+- Sitemap XML parse edilmeli; `/tools`, `/araclar`, `/library` ve `/kutuphane` kayıtları karşılıklı hreflang taşımalı.
+- Desktop ve mobile viewport'ta dört hub sayfasının dil seçicisi, CTA'ları ve taşma davranışı smoke testten geçmeli.
+
+---
+
 ## Bölüm 93 — RPE / RIR Calculator Statik SEO Tool (2026-07-06)
 
 ### Amaç

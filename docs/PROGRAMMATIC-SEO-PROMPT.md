@@ -27,6 +27,7 @@ Mevcut SEO durumu:
 - Learn sistemi TR/EN varyantli, translationKey ile eslesiyor.
 - Tool sayfalari mevcut:
   - /tools
+  - /araclar (TR Tools hub; hesaplayici detaylari halen EN canonical)
   - /one-rep-max-calculator
   - /workout-log-template
   - /workout-volume-calculator
@@ -84,7 +85,8 @@ URL ve dosya yapisi:
 - Root /exercises ve /programs kullanilacaksa canonical dizinlere 301 alias olarak ele al:
   - /exercises -> /library/exercises
   - /programs -> /library/programs
-- TR kullanici akisi icin `/kutuphane` ve alt URL'ler `/library` sayfalarina 200 alias olarak verilebilir; canonical, TR icerik uretilene kadar `/library` kalmali.
+- TR Library hub artik `/kutuphane` adresinde ayri canonical statik sayfa olarak uretilir; `/library` ile karsilikli hreflang tasir.
+- Henuz yerellestirilmeyen `/kutuphane/exercises`, `/kutuphane/programs` ve nested URL'ler EN `/library/*` sayfalarina 200 alias olarak kalir; bu alt sayfalara sahte TR hreflang eklenmez.
 - Dosya ciktilari icin mevcut mimariye uygun bir yapi oner ve uygula. Ornek:
   - library.html
   - library/exercises.html

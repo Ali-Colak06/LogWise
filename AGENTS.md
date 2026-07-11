@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-07-06 — `rpe-rir-calculator.html` statik SEO tool sayfası eklendi; §4 haritası ve §8 özet güncellendi. -->
+<!-- SON GÜNCELLEME: 2026-07-11 — Tools ve Library ana sayfalarına gerçek TR canonical alternatifleri (`/araclar`, `/kutuphane`) eklendi; §4 haritası ve §8 özet güncellendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -23,7 +23,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 93 — RPE / RIR Calculator statik SEO tool).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 94 — Tools / Library TR hub yerelleştirmesi).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -89,7 +89,7 @@ Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-89)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-94)
 ├── .github/workflows/         ← CI otomasyonları
 │   └── codegen-check.yml      ← Generated çıktı drift kontrolü
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
@@ -154,7 +154,9 @@ LogWise/
 ├── tr.html                    ← TR statik SEO landing
 ├── site-nav.js                ← Public statik sayfaların ortak mobil navigasyon davranışı
 ├── tools.html                 ← EN statik SEO tools hub sayfası
-├── library.html               ← EN statik SEO Library hub sayfası
+├── araclar.html               ← TR statik SEO araçlar hub sayfası (`/araclar`)
+├── library.html               ← Üretilmiş EN statik SEO Library hub sayfası
+├── kutuphane.html             ← Üretilmiş TR statik SEO Kütüphane hub sayfası (`/kutuphane`)
 ├── library/exercises.html     ← EN statik SEO exercise library dizin sayfası
 ├── library/programs.html      ← EN statik SEO program library dizin sayfası
 ├── one-rep-max-calculator.html ← EN statik SEO tool sayfası
@@ -293,6 +295,7 @@ LogWise/
 - **`app_profiles` username normalize benzersizlik** (Bölüm 91): Mobil `app_profiles` username için `lower(btrim(username))` partial unique index'i, normalize RPC gövdesi ve canlı doğrulama kaydı eklendi ✅
 - **Barbell Plate Calculator statik SEO tool** (Bölüm 92): `/barbell-plate-calculator` sayfası, Tools hub/landing kartları, sitemap generator kaydı ve `sw.js` precache bump'ı eklendi ✅
 - **RPE / RIR Calculator statik SEO tool** (Bölüm 93): `/rpe-rir-calculator` sayfası, RPE/RIR tabanlı e1RM, hedef yük ve backoff set önerileri, Tools hub/landing kartları, sitemap generator kaydı ve `sw.js` precache bump'ı eklendi ✅
+- **Tools / Library TR hub yerelleştirmesi** (Bölüm 94): `/tools` ↔ `/araclar` ve `/library` ↔ `/kutuphane` canonical/hreflang çiftleri, TR hub içerikleri, iki dilli üst navigasyon, sitemap alternate kayıtları ve `sw.js` precache entegrasyonu eklendi; alt tool/Library detay sayfaları EN canonical kalır ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
