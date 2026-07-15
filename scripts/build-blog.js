@@ -253,7 +253,6 @@ const postGroups = Array.from(groupsByKey.values()).map(group => {
 
   return group;
 }).sort((a, b) =>
-  Number(b.featured) - Number(a.featured) ||
   b.sortDate.localeCompare(a.sortDate) ||
   a.key.localeCompare(b.key)
 );
