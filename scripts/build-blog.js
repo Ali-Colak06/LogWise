@@ -414,19 +414,11 @@ function blogRuntimeScript() {
 
   return `<script>
 (function(){
-  var STORAGE_KEY = 'logwise-blog-lang';
+  var STORAGE_KEY = 'gym-log-lang';
   var COPY = ${jsonForScript(copy)};
 
   function normalize(lang) {
     return lang === 'tr' || lang === 'en' ? lang : '';
-  }
-
-  function readLang() {
-    try {
-      return normalize(window.localStorage.getItem(STORAGE_KEY));
-    } catch (err) {
-      return '';
-    }
   }
 
   function saveLang(lang) {
@@ -501,10 +493,9 @@ function blogRuntimeScript() {
     } catch (err) {}
     var defaultLang = normalize(document.body.getAttribute('data-default-lang')) || 'en';
     var initialLang = requestedLang || defaultLang;
-    saveLang(initialLang);
+    if (requestedLang) saveLang(requestedLang);
     applyIndexLang(initialLang);
   } else {
-    saveLang(currentLang);
     setSwitch(currentLang);
     setCopy(currentLang);
   }

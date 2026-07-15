@@ -4151,6 +4151,41 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 95 — Site Geneli Kalıcı Dil Tercihi (2026-07-15)
+
+### Amaç
+
+Kullanıcının public sitede veya Web uygulamasında seçtiği Türkçe/İngilizce tercihini sayfalar arasında korumak; çeviri karşılığı bulunan canonical sayfalarda tercih edilen rotayı otomatik açmak.
+
+### Mimari Kararlar
+
+- **Tek ortak anahtar:** Public statik yüzeyler, Learn/Öğren ve mevcut Web uygulaması `localStorage` içindeki `gym-log-lang` (`tr` / `en`) anahtarını paylaşır. Böylece `/app`, profil ve public sayfalar aynı tercihi okur.
+- **Alternate tabanlı yönlendirme:** `site-nav.js`, kayıtlı dil mevcut belgenin dilinden farklıysa yalnız `<link rel="alternate" hreflang="...">` ile gerçek karşılığı ilan edilmiş rotaya `location.replace()` uygular. Eşlenmemiş veya yalnız İngilizce detay sayfalarında sahte çeviri rotası üretilmez.
+- **Tercih kaybı yok:** Yalnız İngilizce tool/Library detay sayfaları kullanıcıyı zorla başka rotaya göndermez; kayıtlı TR tercihi korunur ve sonraki çift dilli sayfada yeniden uygulanır. Mobil public menü de kayıtlı tercih dilindeki etiket ve hedefleri kullanır.
+- **Eski tercih taşıma:** Daha önce yalnız Learn/Öğren tarafından kullanılan `logwise-blog-lang`, yeni ortak anahtar boşsa otomatik olarak `gym-log-lang` değerine taşınır.
+- **Learn runtime uyumu:** Üretilen Learn/Öğren sayfaları yükleme sırasında mevcut sayfa dilini ortak tercihin üzerine yazmaz. Dil düğmesi seçimi ortak anahtara kaydedilir; canonical EN/TR rota geçişi korunur.
+- **PWA önbelleği:** Ortak navigasyon davranışının eski cache'te kalmaması için `sw.js` `logwise-v54` → `logwise-v55` bump edildi.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `site-nav.js` | Ortak dil tercihi, eski anahtar migrasyonu, dil seçici yakalama ve hreflang alternate yönlendirmesi |
+| `scripts/build-blog.js` | Learn/Öğren runtime'ının `gym-log-lang` kullanması ve sayfa yüklenirken tercihi ezmemesi |
+| `learn/*.html`, `ogren/*.html` | Generator ile yenilenen iki dilli runtime çıktıları |
+| `sw.js` | `logwise-v55` cache bump |
+| `AGENTS.md`, `REFACTOR-GECMISI.md` | Ortak dil anahtarı sözleşmesi ve karar kaydı |
+
+### Doğrulama Notları
+
+- `node --check site-nav.js`, `scripts/build-blog.js` ve `sw.js` başarılı olmalı.
+- `node scripts/build-blog.js` sonrasında Learn/Öğren çıktıları deterministik kalmalı.
+- `node scripts/check-codegen.js` ortak veri çıktılarında drift olmadığını doğrulamalı.
+- Tarayıcıda TR seçildikten sonra `/tools` → `/araclar`, `/library` → `/kutuphane`, `/learn` → `/ogren` ve `/` → `/tr` akışları; EN seçildiğinde ters yönleri doğrulanmalı.
+- `/app` aynı `gym-log-lang` değerini okumalı; yalnız EN canonical detaya geçildiğinde tercih silinmemeli.
+
+---
+
 ## Bölüm 94 — Tools / Library Türkçe Hub Yerelleştirmesi (2026-07-11)
 
 ### Amaç

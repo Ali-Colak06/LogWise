@@ -27,6 +27,76 @@
     ]
   };
 
+  const STORAGE_KEY = 'gym-log-lang';
+  const LEGACY_STORAGE_KEY = 'logwise-blog-lang';
+
+  function normalizeLanguage(lang) {
+    return lang === 'tr' || lang === 'en' ? lang : '';
+  }
+
+  function documentLanguage() {
+    return document.documentElement.lang.toLowerCase().startsWith('tr') ? 'tr' : 'en';
+  }
+
+  function readLanguage() {
+    try {
+      const saved = normalizeLanguage(window.localStorage.getItem(STORAGE_KEY));
+      if (saved) return saved;
+
+      const legacy = normalizeLanguage(window.localStorage.getItem(LEGACY_STORAGE_KEY));
+      if (legacy) {
+        window.localStorage.setItem(STORAGE_KEY, legacy);
+        return legacy;
+      }
+    } catch (err) {}
+    return '';
+  }
+
+  function saveLanguage(lang) {
+    const normalized = normalizeLanguage(lang);
+    if (!normalized) return;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, normalized);
+    } catch (err) {}
+  }
+
+  function languageFromControl(control) {
+    const declared = control.getAttribute('hreflang') || control.getAttribute('data-blog-lang-option');
+    return normalizeLanguage((declared || control.textContent || '').trim().toLowerCase());
+  }
+
+  function bindLanguageControls() {
+    document.addEventListener('click', function (event) {
+      if (!(event.target instanceof Element)) return;
+      const control = event.target.closest('.lang-switch a, [data-blog-lang-option]');
+      if (!control) return;
+      saveLanguage(languageFromControl(control));
+    }, true);
+  }
+
+  function comparablePath(pathname) {
+    return pathname
+      .replace(/\/index(?:\.html)?$/, '')
+      .replace(/\.html$/, '')
+      .replace(/\/$/, '') || '/';
+  }
+
+  function redirectToLanguage(preferredLang, currentLang) {
+    if (!preferredLang || preferredLang === currentLang) return false;
+
+    const alternate = document.querySelector('link[rel~="alternate"][hreflang="' + preferredLang + '"]');
+    if (!alternate) return false;
+
+    try {
+      const alternateUrl = new URL(alternate.getAttribute('href'), window.location.href);
+      if (comparablePath(alternateUrl.pathname) === comparablePath(window.location.pathname)) return false;
+      window.location.replace(alternateUrl.pathname + window.location.search + window.location.hash);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
   function activeRoute(pathname) {
     const path = pathname.replace(/\.html$/, '').replace(/\/$/, '') || '/';
     if (path === '/' || path === '/index' || path === '/tr') return 'home';
@@ -44,11 +114,11 @@
     return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>';
   }
 
-  function init() {
+  function init(preferredLang) {
     const navRow = document.querySelector('.nav .nav-row');
     if (!navRow || document.querySelector('[data-site-menu-toggle]')) return;
 
-    const lang = document.documentElement.lang.toLowerCase().startsWith('tr') ? 'tr' : 'en';
+    const lang = normalizeLanguage(preferredLang) || readLanguage() || documentLanguage();
     const copy = COPY[lang];
     const current = activeRoute(window.location.pathname);
 
@@ -144,10 +214,25 @@
     });
   }
 
-  window.LOGWISE_SITE_NAV = Object.freeze({ init: init });
+  function boot() {
+    bindLanguageControls();
+
+    const currentLang = documentLanguage();
+    const savedLang = readLanguage();
+    const preferredLang = savedLang || currentLang;
+    if (!savedLang) saveLanguage(preferredLang);
+    if (redirectToLanguage(preferredLang, currentLang)) return;
+    init(preferredLang);
+  }
+
+  window.LOGWISE_SITE_NAV = Object.freeze({
+    init: init,
+    getLanguage: function () { return readLanguage() || documentLanguage(); },
+    setLanguage: saveLanguage
+  });
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init, { once: true });
+    document.addEventListener('DOMContentLoaded', boot, { once: true });
   } else {
-    init();
+    boot();
   }
 })();

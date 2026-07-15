@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-07-11 — Tools ve Library ana sayfalarına gerçek TR canonical alternatifleri (`/araclar`, `/kutuphane`) eklendi; §4 haritası ve §8 özet güncellendi. -->
+<!-- SON GÜNCELLEME: 2026-07-15 — Public site ve Web uygulaması için `gym-log-lang` tabanlı kalıcı ortak dil tercihi eklendi; §3.1 sözleşmesi ve §8 özet güncellendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -23,7 +23,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 94 — Tools / Library TR hub yerelleştirmesi).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 95 — site geneli kalıcı dil tercihi).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -41,6 +41,7 @@ Her AI seansı başlamadan **önce**:
 - **Global namespace:** Tüm yeniden-kullanılabilir Web modülleri `window.LOGWISE_*` altında yaşar. Her yeni Web modülü kendi isim uzayını alır.
 - **Component pattern:** Her Web React bileşeni IIFE içinde tanımlanır, defensive init pattern'iyle `window.LOGWISE_COMPONENTS`'a bağlanır. Detay: `docs/YENI-COMPONENT.md`.
 - **i18n zorunlu:** Web string'leri `window.LOGWISE_TR` / `window.LOGWISE_EN`; mobil string'leri `logwise-mobile/data/i18n-*.ts` üzerinden çözülür. Kullanıcıya görünen tek dilli hardcode metin yasaktır.
+- **Web dil tercihi:** Public statik sayfalar ile Web uygulaması ortak `localStorage` anahtarı `gym-log-lang` (`tr` / `en`) kullanır. Public sayfalardaki kayıt, alternate rotaya yönlendirme ve eski `logwise-blog-lang` tercihini taşıma sorumluluğu `site-nav.js`'dedir.
 
 ### 3.2 Dosya Mimarisi
 - `data/` — yalnızca sabit veri + i18n sözlükleri (React bağımlılığı yok).
@@ -89,7 +90,7 @@ Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-94)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-95)
 ├── .github/workflows/         ← CI otomasyonları
 │   └── codegen-check.yml      ← Generated çıktı drift kontrolü
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
@@ -296,6 +297,7 @@ LogWise/
 - **Barbell Plate Calculator statik SEO tool** (Bölüm 92): `/barbell-plate-calculator` sayfası, Tools hub/landing kartları, sitemap generator kaydı ve `sw.js` precache bump'ı eklendi ✅
 - **RPE / RIR Calculator statik SEO tool** (Bölüm 93): `/rpe-rir-calculator` sayfası, RPE/RIR tabanlı e1RM, hedef yük ve backoff set önerileri, Tools hub/landing kartları, sitemap generator kaydı ve `sw.js` precache bump'ı eklendi ✅
 - **Tools / Library TR hub yerelleştirmesi** (Bölüm 94): `/tools` ↔ `/araclar` ve `/library` ↔ `/kutuphane` canonical/hreflang çiftleri, TR hub içerikleri, iki dilli üst navigasyon, sitemap alternate kayıtları ve `sw.js` precache entegrasyonu eklendi; alt tool/Library detay sayfaları EN canonical kalır ✅
+- **Site geneli kalıcı dil tercihi** (Bölüm 95): Public sayfalar, Learn/Öğren ve Web uygulaması `gym-log-lang` üzerinde birleştirildi; TR/EN seçimi canonical alternate bulunan tüm sayfalarda otomatik uygulanır, yalnız EN içeriği olan detaylarda tercih korunur ve `sw.js` v55 ile dağıtılır ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
