@@ -4151,6 +4151,42 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 96 — RPE / RIR Learn İçerik Kümesi (2026-07-15)
+
+### Amaç
+
+RPE/RIR hesaplayıcıya gelen kullanıcının efor ölçeklerini ayrı ayrı öğrenmesini, aralarındaki pratik dönüşümü görmesini ve hesaplayıcıda hangi modu seçmesi gerektiğine karar vermesini sağlayan iki dilli Learn/Öğren içerik kümesi oluşturmak.
+
+### Kapsam ve İçerik Kararları
+
+- **Üç iki dilli konu:** `What Is RPE?` / `RPE Nedir?`, `What Is RIR?` / `RIR Nedir?` ve `RPE vs RIR: Which Should You Use?` / `RPE ve RIR Arasındaki Fark Nedir?` yazıları aynı konu içindeki EN/TR varyantları ortak `translationKey` kullanacak biçimde eklendi.
+- **Pratik dönüşüm:** RIR 4–0 aralığı yaklaşık RPE 6–10 karşılıklarıyla verildi; tablonun kesin matematik değil, egzersiz, tekrar aralığı, yorgunluk, teknik ve deneyimden etkilenen pratik bir tahmin olduğu açıklandı.
+- **Mod seçimi:** Program RPE hedefi veriyorsa RPE, kullanıcı kalan temiz tekrarlar üzerinden düşünüyorsa RIR önerildi; iki ölçeği aynı set için birlikte kaydetmenin gerekli olmadığı belirtildi.
+- **İç bağlantılar:** İçerikler `/rpe-rir-calculator`, `/one-rep-max-calculator` ve `/workout-volume-calculator` rotalarına bağlandı.
+- **Statik üretim ve SEO:** Learn/Öğren indeksleri, `learn/posts.json`, landing kartları ve `sitemap.xml` generator üzerinden yenilendi; canonical ve karşılıklı EN/TR/x-default hreflang kayıtları üretildi.
+- **PWA önbelleği:** Altı yeni makale rotasının clean URL ve `.html` karşılıkları precache listesine eklendi; aynı teslimdeki URL listesi değişikliği için `logwise-v55` → `logwise-v56` bump kullanıldı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `blog-content/{what-is-rpe-in-training,rpe-nedir,what-is-rir,rir-nedir,rpe-vs-rir,rpe-rir-farki}.md` | Üç konunun EN/TR kanonik Markdown kaynakları |
+| `learn/*.html`, `ogren/*.html` | Yeni makale sayfaları ve yenilenen dil indeksleri |
+| `learn/posts.json`, `sitemap.xml` | Yeni konu manifesti, canonical ve hreflang kayıtları |
+| `index.html`, `tr.html` | Generator ile yenilenen Learn/Öğren landing kartları |
+| `sw.js` | `logwise-v56` cache bump + yeni makale rotalarının precache kayıtları |
+| `AGENTS.md`, `REFACTOR-GECMISI.md` | Refactor özeti ve teslim kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-blog.js` 12 dil varyantını 6 Learn konusu olarak hatasız üretmeli.
+- `node --check scripts/build-blog.js` ve `node --check sw.js` başarılı olmalı; `node scripts/check-codegen.js` drift göstermemeli.
+- `learn/posts.json` JSON, `sitemap.xml` XML olarak parse edilmeli; `git diff --check` temiz olmalı.
+- EN/TR hedef makalelerde dönüşüm tablosu, üç iç link, canonical ve karşılıklı hreflang kayıtları bulunmalı.
+- Desktop tarayıcı testinde iki makale, landing kartları ve Learn/Öğren indeksleri taşma veya konsol hatası olmadan render olmalı; landing dil geçişi doğru locale rotasına gitmeli.
+
+---
+
 ## Bölüm 95 — Site Geneli Kalıcı Dil Tercihi (2026-07-15)
 
 ### Amaç

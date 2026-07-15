@@ -1,5 +1,175 @@
 [
   {
+    "slug": "rir-nedir",
+    "title": "RIR Nedir? Kaç Tekrar Yedekte Bırakmalısın?",
+    "description": "RIR 0-4 ne demek, kaç tekrar yedekte bırakılmalı ve sürdürülebilir gelişim için set eforu nasıl kaydedilir? Pratik örneklerle öğren.",
+    "date": "2026-07-15",
+    "lang": "tr",
+    "translationKey": "what-is-rir",
+    "tags": [
+      "RIR",
+      "yedekte tekrar",
+      "antrenman şiddeti"
+    ],
+    "featured": true,
+    "readMins": 5,
+    "url": "/ogren/rir-nedir",
+    "alternates": {
+      "en": {
+        "slug": "what-is-rir",
+        "title": "What Is RIR?",
+        "url": "/learn/what-is-rir"
+      },
+      "tr": {
+        "slug": "rir-nedir",
+        "title": "RIR Nedir? Kaç Tekrar Yedekte Bırakmalısın?",
+        "url": "/ogren/rir-nedir"
+      }
+    }
+  },
+  {
+    "slug": "rpe-nedir",
+    "title": "RPE Nedir? Antrenmanda Nasıl Kullanılır?",
+    "description": "RPE nedir, 6-10 arası değerler ne anlatır ve set kaydında nasıl kullanılır? Hedef yük seçmek için sade ve pratik bir rehber.",
+    "date": "2026-07-15",
+    "lang": "tr",
+    "translationKey": "rpe-in-training",
+    "tags": [
+      "RPE",
+      "RIR",
+      "ağırlık antrenmanı"
+    ],
+    "featured": false,
+    "readMins": 5,
+    "url": "/ogren/rpe-nedir",
+    "alternates": {
+      "en": {
+        "slug": "what-is-rpe-in-training",
+        "title": "What Is RPE in Training?",
+        "url": "/learn/what-is-rpe-in-training"
+      },
+      "tr": {
+        "slug": "rpe-nedir",
+        "title": "RPE Nedir? Antrenmanda Nasıl Kullanılır?",
+        "url": "/ogren/rpe-nedir"
+      }
+    }
+  },
+  {
+    "slug": "rpe-rir-farki",
+    "title": "RPE ve RIR Arasındaki Fark Nedir?",
+    "description": "RPE mi RIR mı? Temel farkı, basit dönüşüm tablosunu ve LogWise hesaplayıcıda hangi modu seçmen gerektiğini öğren.",
+    "date": "2026-07-15",
+    "lang": "tr",
+    "translationKey": "rpe-vs-rir",
+    "tags": [
+      "RPE",
+      "RIR",
+      "antrenman şiddeti",
+      "hesaplayıcı"
+    ],
+    "featured": false,
+    "readMins": 4,
+    "url": "/ogren/rpe-rir-farki",
+    "alternates": {
+      "en": {
+        "slug": "rpe-vs-rir",
+        "title": "RPE vs RIR: Which Should You Use?",
+        "url": "/learn/rpe-vs-rir"
+      },
+      "tr": {
+        "slug": "rpe-rir-farki",
+        "title": "RPE ve RIR Arasındaki Fark Nedir?",
+        "url": "/ogren/rpe-rir-farki"
+      }
+    }
+  },
+  {
+    "slug": "rpe-vs-rir",
+    "title": "RPE vs RIR: Which Should You Use?",
+    "description": "RPE or RIR? Learn the practical difference, use a simple conversion table, and choose the right mode in the LogWise calculator.",
+    "date": "2026-07-15",
+    "lang": "en",
+    "translationKey": "rpe-vs-rir",
+    "tags": [
+      "RPE",
+      "RIR",
+      "training intensity",
+      "calculator"
+    ],
+    "featured": false,
+    "readMins": 5,
+    "url": "/learn/rpe-vs-rir",
+    "alternates": {
+      "en": {
+        "slug": "rpe-vs-rir",
+        "title": "RPE vs RIR: Which Should You Use?",
+        "url": "/learn/rpe-vs-rir"
+      },
+      "tr": {
+        "slug": "rpe-rir-farki",
+        "title": "RPE ve RIR Arasındaki Fark Nedir?",
+        "url": "/ogren/rpe-rir-farki"
+      }
+    }
+  },
+  {
+    "slug": "what-is-rir",
+    "title": "What Is RIR?",
+    "description": "Learn what RIR 0-4 means, how many reps to leave in reserve, and how to log effort for steady, sustainable training progress.",
+    "date": "2026-07-15",
+    "lang": "en",
+    "translationKey": "what-is-rir",
+    "tags": [
+      "RIR",
+      "reps in reserve",
+      "training intensity"
+    ],
+    "featured": true,
+    "readMins": 6,
+    "url": "/learn/what-is-rir",
+    "alternates": {
+      "en": {
+        "slug": "what-is-rir",
+        "title": "What Is RIR?",
+        "url": "/learn/what-is-rir"
+      },
+      "tr": {
+        "slug": "rir-nedir",
+        "title": "RIR Nedir? Kaç Tekrar Yedekte Bırakmalısın?",
+        "url": "/ogren/rir-nedir"
+      }
+    }
+  },
+  {
+    "slug": "what-is-rpe-in-training",
+    "title": "What Is RPE in Training?",
+    "description": "Learn what RPE means, how RPE 6-10 maps to reps in reserve, and how to use it to log sets and choose practical training loads.",
+    "date": "2026-07-15",
+    "lang": "en",
+    "translationKey": "rpe-in-training",
+    "tags": [
+      "RPE",
+      "RIR",
+      "strength training"
+    ],
+    "featured": false,
+    "readMins": 6,
+    "url": "/learn/what-is-rpe-in-training",
+    "alternates": {
+      "en": {
+        "slug": "what-is-rpe-in-training",
+        "title": "What Is RPE in Training?",
+        "url": "/learn/what-is-rpe-in-training"
+      },
+      "tr": {
+        "slug": "rpe-nedir",
+        "title": "RPE Nedir? Antrenmanda Nasıl Kullanılır?",
+        "url": "/ogren/rpe-nedir"
+      }
+    }
+  },
+  {
     "slug": "egzersiz-takip-uygulamasi-ne-kaydetmeli",
     "title": "Egzersiz Takip Uygulaması: Gerçek Gelişim İçin Neyi Takip Etmeli?",
     "description": "İyi bir egzersiz takip uygulaması hangi verileri tutmalı? Set, tekrar, ağırlık, RIR, PR ve haftalık kontrol listesi.",

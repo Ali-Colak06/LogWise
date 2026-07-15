@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-07-15 — Public site ve Web uygulaması için `gym-log-lang` tabanlı kalıcı ortak dil tercihi eklendi; §3.1 sözleşmesi ve §8 özet güncellendi. -->
+<!-- SON GÜNCELLEME: 2026-07-15 — RPE / RIR Learn içerik kümesi, statik SEO çıktıları ve PWA precache kaydı eklendi; §8 özet güncellendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -90,7 +90,7 @@ Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-95)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-96)
 ├── .github/workflows/         ← CI otomasyonları
 │   └── codegen-check.yml      ← Generated çıktı drift kontrolü
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
@@ -298,6 +298,7 @@ LogWise/
 - **RPE / RIR Calculator statik SEO tool** (Bölüm 93): `/rpe-rir-calculator` sayfası, RPE/RIR tabanlı e1RM, hedef yük ve backoff set önerileri, Tools hub/landing kartları, sitemap generator kaydı ve `sw.js` precache bump'ı eklendi ✅
 - **Tools / Library TR hub yerelleştirmesi** (Bölüm 94): `/tools` ↔ `/araclar` ve `/library` ↔ `/kutuphane` canonical/hreflang çiftleri, TR hub içerikleri, iki dilli üst navigasyon, sitemap alternate kayıtları ve `sw.js` precache entegrasyonu eklendi; alt tool/Library detay sayfaları EN canonical kalır ✅
 - **Site geneli kalıcı dil tercihi** (Bölüm 95): Public sayfalar, Learn/Öğren ve Web uygulaması `gym-log-lang` üzerinde birleştirildi; TR/EN seçimi canonical alternate bulunan tüm sayfalarda otomatik uygulanır, yalnız EN içeriği olan detaylarda tercih korunur ve `sw.js` v55 ile dağıtılır ✅
+- **RPE / RIR Learn içerik kümesi** (Bölüm 96): RPE, RIR ve aralarındaki pratik farkı anlatan üç konu EN/TR Markdown çiftleriyle eklendi; hesaplayıcı mod seçimi, dönüşüm tablosu, iç linkler, sitemap/hreflang çıktıları ve `sw.js` v56 precache entegrasyonu tamamlandı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

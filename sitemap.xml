@@ -123,6 +123,60 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://logwise.fit/ogren/rir-nedir</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/learn/what-is-rir"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/ogren/rir-nedir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/learn/what-is-rir"/>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://logwise.fit/ogren/rpe-nedir</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/learn/what-is-rpe-in-training"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/ogren/rpe-nedir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/learn/what-is-rpe-in-training"/>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://logwise.fit/ogren/rpe-rir-farki</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/learn/rpe-vs-rir"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/ogren/rpe-rir-farki"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/learn/rpe-vs-rir"/>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://logwise.fit/learn/rpe-vs-rir</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/learn/rpe-vs-rir"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/ogren/rpe-rir-farki"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/learn/rpe-vs-rir"/>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://logwise.fit/learn/what-is-rir</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/learn/what-is-rir"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/ogren/rir-nedir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/learn/what-is-rir"/>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://logwise.fit/learn/what-is-rpe-in-training</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/learn/what-is-rpe-in-training"/>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/ogren/rpe-nedir"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://logwise.fit/learn/what-is-rpe-in-training"/>
+    <lastmod>2026-07-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://logwise.fit/ogren/egzersiz-takip-uygulamasi-ne-kaydetmeli</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://logwise.fit/learn/workout-tracker-app-guide"/>
     <xhtml:link rel="alternate" hreflang="tr" href="https://logwise.fit/ogren/egzersiz-takip-uygulamasi-ne-kaydetmeli"/>
