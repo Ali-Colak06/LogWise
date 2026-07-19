@@ -11,7 +11,7 @@ featured: true
 
 Seti bitirip ağırlığı yerine bıraktığında kendine şu soruyu sor: **“Aynı formda kaç tekrar daha çıkarırdım?”** Vereceğin cevap, o setin RIR değeridir.
 
-RIR, ağırlık ve tekrar sayısının tek başına gösteremediği eforu kayda ekler. Rahatça bıraktığın 10 tekrarlık set ile son tekrarı zar zor tamamladığın 10 tekrarlık set aynı değildir. İkisini de yalnızca “10 tekrar” diye yazmak bu farkı gizler.
+RIR, ağırlık ve tekrar sayısının tek başına gösteremediği eforu kayda ekler. tükenişe çok uzakken bıraktığın 10 tekrarlık set ile son tekrarı zar zor tamamladığın 10 tekrarlık set aynı değildir. İkisini de yalnızca “10 tekrar” diye yazmak bu farkı gizler.
 
 ## RIR nedir?
 
@@ -50,7 +50,7 @@ Setini [RPE / RIR hesaplayıcıya](https://logwise.fit/rpe-rir-calculator) girer
 Her hareket, sporcu ve antrenman haftası için geçerli tek bir RIR hedefi yoktur. Aşağıdaki aralıkları pratik başlangıç noktaları olarak kullanabilirsin:
 
 - **Yeni bir hareketi öğrenmek veya tekniği pekiştirmek: RIR 3-4.** Biraz daha fazla yedek, form bozulmasını tekrar etmek yerine kaliteli tekrarlar yapmana alan açar.
-- **Kuvvet odaklı bileşik hareketler: çoğunlukla RIR 2-4, bazen RIR 1.** Ağır squat, press ve çekişlerde her seti maksimum denemeye çevirmeden de yeterince zorlayıcı çalışabilirsin.
+- **Kuvvet odaklı compound hareketler: çoğunlukla RIR 2-4, bazen RIR 1.** Ağır squat, itiş ve çekişlerde her seti rekor denemesine çevirmeden de yeterince zorlayıcı çalışabilirsin.
 - **Kas gelişimi odaklı çalışma setleri: çoğunlukla RIR 1-3.** Failure’a makul ölçüde yaklaşırken sonraki setler ve antrenmanlar için hareket alanı bırakırsın.
 - **Stabil izolasyon veya makine hareketleri: çoğunlukla RIR 1-2, ara sıra RIR 0.** Failure burada ağır serbest ağırlık hareketlerine göre daha kolay yönetilebilir, ama yine de ek yorgunluk yaratır.
 - **Test veya planlı bir son set: RIR 0-1.** Bunu her setin varsayılanı olarak değil, bilinçli bir seçim olarak kullan.
@@ -63,7 +63,7 @@ Yedekte tekrar bırakmak zor çalışmaktan kaçınmak değildir. Zor işi hafta
 
 ### Rahatsızlığı failure sanmak
 
-Kas yanması, nefesin hızlanması ve tekrarların yavaşlaması zorlayıcı olabilir; fakat hedef kasların gerçekten sınırına gelmeden önce başlayabilir. Yeni başlayanlar bazen RIR 0 diye bıraktıkları bir sette birkaç tekrar daha çıkarabileceklerini sonradan fark eder.
+Hedef kaslar tükenişe yaklaşana kadar nefesin hızlanması, kasların yanması ve tekrarların yavaşlaması çok zorlayıcı olabilir. Yeni başlayanlar çoğunlukla RIR 0 diye bıraktıkları bir sette birkaç tekrar daha çıkarabileceklerini sonradan fark eder.
 
 ### Bozuk tekrarları yedekten saymak
 
@@ -75,11 +75,11 @@ Failure; lateral raise, leg press, squat ve row’da aynı hissedilmez. Uzun sü
 
 ### Tahmini hiç kalibre etmemek
 
-Güvenli kuruluma sahip stabil bir harekette ara sıra “RIR 2” tahmini yapıp ardından gerçekten kaç temiz tekrar kaldığını görmek için sete devam edebilirsin. Kaçırdığın tekrarın seni sıkıştırabileceği veya yaralayabileceği hareketlerde riskli failure testleri yapma; safety barları, uygun bir spotter veya daha güvenli bir hareket kullan. Kalibrasyon her antrenmanın şartı değil, ara sıra yapılan bir pratiktir.
+Güvenli kuruluma sahip stabil bir harekette ara sıra “RIR 2” hedefini koyup ardından gerçekten kaç temiz tekrar kaldığını görmek için sete devam edebilirsin. Çıkarmadığın tekrarın seni sıkıştırabileceği veya yaralayabileceği hareketlerde riskli tükeniş testleri yapma; güvenlik önlemlerini al, uygun bir spotter veya daha güvenli bir hareket kullan. Kalibrasyon her antrenmanın şartı değil, ara sıra yapılan bir pratiktir.
 
 ### Ağırlık, tekrar ve RIR’ı aynı anda değiştirmek
 
-Ağırlık ve tekrar artarken RIR 3’ten 0’a düşerse neyin geliştiğini anlamak zorlaşır. Mümkün olduğunda bir ana değişkeni ilerlet ve benzer efordaki setleri karşılaştır.
+Ağırlık ve tekrar artarken RIR 3’ten 0’a düşerse neyin geliştiğini anlamak zorlaşır. Mümkün olduğunda bir ana değişkeni değiştir ve benzer efordaki setleri karşılaştır.
 
 ## RIR’ı LogWise’ta nasıl kullanırsın?
 
@@ -99,4 +99,4 @@ LogWise’ta her set için RIR alanı bulunur; böylece efor tahmini, sonraki an
 
 RIR tek bir faydalı soruyu cevaplar: **Seti bıraktığımda aynı kalitede kaç tekrar daha çıkarırdım?**
 
-Yedekte tekrar kalmadığında RIR 0’ı, failure’a yakın çok zor setlerde RIR 1-2’yi, bilinçli olarak daha fazla pay bırakmak istediğinde RIR 3-4’ü kullan. Kusursuz tahminlere veya her sette failure’a ihtiyacın yok. Zor çalışmanı, toparlanmanı ve bir sonraki küçük gelişimi planlamana yardım eden tutarlı bir kayda ihtiyacın var.
+Yedekte tekrar kalmadığında RIR 0’ı, failure’a yakın çok zor setlerde RIR 1-2’yi, bilinçli olarak cepte daha fazla tekrar bırakmak istediğinde RIR 3-4’ü kullan. Kusursuz tahminlere veya her sette failure’a ihtiyacın yok. Zor çalışmanı, toparlanmanı ve bir sonraki küçük gelişimi planlamana yardım eden tutarlı bir kayda ihtiyacın var.

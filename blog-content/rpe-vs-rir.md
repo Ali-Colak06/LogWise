@@ -53,7 +53,6 @@ Also, 0 RIR does not mean you failed a rep. It means you completed the set but e
 RPE is a good choice when:
 
 - Your coach or program already prescribes RPE targets.
-- You use autoregulated top sets, heavy doubles, or singles.
 - You are comfortable judging overall set difficulty on a 1–10 scale.
 - You want to keep your log in the same format as an existing RPE-based program.
 

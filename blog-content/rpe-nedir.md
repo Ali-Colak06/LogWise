@@ -9,7 +9,7 @@ tags: RPE, RIR, ağırlık antrenmanı
 featured: false
 ---
 
-RPE, ağırlık ve tekrar bilgisinin yanına önemli bir bağlam ekler. Basit bir soruya cevap verir: **Bu set bugün ne kadar zordu?**
+RPE, ağırlık ve tekrar bilgisinin yanına önemli bir bağlam ekler. Basit bir soruya cevap verir: **Bu set bugün ne kadar zordu? Nasıl hissettirdi?**
 
 Bu bilgi; ağırlığı artırmak, aynı yükü tekrarlamak veya o gün daha fazla zorlamamak arasında karar vermene yardımcı olabilir. Ancak RPE laboratuvar ölçümü değildir. **Subjektif, yani kişisel bir tahmindir.** Faydalı olması, dürüst ve tutarlı değerlendirme yapmana bağlıdır.
 
@@ -59,13 +59,13 @@ Tek bir sıra dışı güne fazla anlam yükleme. Benzer birkaç antrenmandaki e
 
 ## RPE’nin yeni başlayanlar için zor tarafları
 
-RPE, seti bıraktıktan sonra **daha ne yapabilirdim?** sorusunu tahmin etmeni ister. Bu zamanla gelişen bir beceridir; yeni başlayanların karşılaştırabileceği deneyim daha azdır.
+RPE, bir seti bıraktıktan sonra **Kaç tekrar daha çıkarabilirdim?** sorusunun cevabını tahmin etmeni ister. Bu zamanla gelişen bir beceridir; yeni başlayanlar tecrübe kazandıkça daha doğru tahminler yapmaya başlarlar.
 
 İlk dönemde sık görülen sorunlar şunlardır:
 
 - Rahatsız hissettiren her sete RPE 9 veya 10 demek
 - Nefes nefese kalmayı kas sınırına yaklaşmakla karıştırmak
-- Set sonuna doğru değişen tekniği hesaba katmamak
+- Set sonuna doğru hareket tekniğinin ne kadar değişebileceğini hafife almak
 - Benzer setlere tutarlı bir referans olmadan çok farklı puanlar vermek
 
 Basit başla. Tam sayılar kullan, puanı set biter bitmez kaydet ve sonraki performansınla karşılaştır. RPE 9 yazdığın bir setin ardından aynı ağırlıkla üç temiz tekrar daha yapabiliyorsan ilk tahminin muhtemelen yüksekti.

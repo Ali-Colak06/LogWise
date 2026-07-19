@@ -20,7 +20,7 @@ RPE ve RIR, bir setin tükenişe ne kadar yakın bittiğini anlatmanın iki fark
 
 ## RPE ve RIR kısa tanım
 
-**RPE**, İngilizce “Rate of Perceived Exertion” ifadesinin kısaltmasıdır ve algılanan zorlanma derecesini anlatır. Kuvvet antrenmanında genellikle tamamlanan bir setin ne kadar zor geldiğini 1–10 arasında puanlamak için kullanılır. Ölçeğin pratikte en sık kullanılan bölümü RPE 6–10’dur: RPE 10 maksimum eforu, RPE 8 ise hâlâ bir miktar pay kaldığını anlatır.
+**RPE**, İngilizce “Rate of Perceived Exertion” ifadesinin kısaltmasıdır ve algılanan zorlanma derecesini anlatır. Kuvvet antrenmanında genellikle tamamlanan bir setin ne kadar zor geldiğini 1–10 arasında puanlamak için kullanılır. Ölçeğin genelde en faydalı kısmı RPE 6–10’dur: RPE 10 maksimum eforu, RPE 8 ise hâlâ bir miktar pay kaldığını anlatır.
 
 **RIR**, “Reps in Reserve” ifadesinin kısaltmasıdır; Türkçede “yedekte kalan tekrar” diye düşünebilirsin. Set bittiğinde, tükenişe ulaşmadan önce düzgün teknikle kaç tekrar daha yapabileceğini tahmin edersin. İki temiz tekrar daha çıkarabileceğini düşünüyorsan o set 2 RIR’dır.
 
@@ -53,7 +53,6 @@ Ayrıca 0 RIR, başarısız bir tekrar denediğin anlamına gelmez. Seti tamamla
 Şu durumlarda RPE iyi bir seçimdir:
 
 - Koçun veya programın RPE hedefleri veriyorsa.
-- Günlük durumuna göre ayarlanan ağır üst setler, ikili tekrarlar veya tek tekrarlar yapıyorsan.
 - Bir setin genel zorluğunu 1–10 arasında puanlamaya alışkınsan.
 - Mevcut RPE tabanlı programınla aynı kayıt düzenini korumak istiyorsan.
 
