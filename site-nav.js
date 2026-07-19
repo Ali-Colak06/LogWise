@@ -68,7 +68,7 @@
 
   function prepareLanguageSwitches() {
     document.querySelectorAll('.lang-switch').forEach(function (languageSwitch) {
-      const selected = languageSwitch.querySelector('a.on, a[aria-current="page"]');
+      const selected = languageSwitch.querySelector('a.on, a[aria-current="page"], [data-blog-lang-option].on, [data-blog-lang-option][aria-pressed="true"]');
       const lang = selected ? languageFromControl(selected) : documentLanguage();
       languageSwitch.setAttribute('data-language', lang || documentLanguage());
       if (!languageSwitch.getAttribute('role')) languageSwitch.setAttribute('role', 'group');
@@ -78,14 +78,35 @@
     });
   }
 
-  function canAnimateLanguageSwitch(event, control, targetLang) {
+  function oppositeLanguage(lang) {
+    return lang === 'tr' ? 'en' : 'tr';
+  }
+
+  function controlForLanguage(languageSwitch, lang) {
+    const controls = languageSwitch.querySelectorAll('a, [data-blog-lang-option]');
+    for (let index = 0; index < controls.length; index += 1) {
+      if (languageFromControl(controls[index]) === lang) return controls[index];
+    }
+    return null;
+  }
+
+  function targetUrlForLanguage(control, targetLang) {
+    if (control) {
+      const directUrl = control.getAttribute('href') || control.getAttribute('data-target-url');
+      if (directUrl) return directUrl;
+    }
+
+    const alternate = document.querySelector('link[rel~="alternate"][hreflang="' + targetLang + '"]');
+    return alternate ? alternate.getAttribute('href') : '';
+  }
+
+  function canAnimateLanguageSwitch(event, control, targetUrl) {
     if (event.defaultPrevented || event.button !== 0) return false;
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return false;
-    if (control.hasAttribute('download')) return false;
-    const target = control.getAttribute('target');
+    if (control && control.hasAttribute('download')) return false;
+    const target = control && control.getAttribute('target');
     if (target && target !== '_self') return false;
-    if (!control.getAttribute('href')) return false;
-    return targetLang && targetLang !== documentLanguage();
+    return Boolean(targetUrl);
   }
 
   function animateLanguageSwitch(languageSwitch, targetLang, targetUrl) {
@@ -107,15 +128,24 @@
   function bindLanguageControls() {
     document.addEventListener('click', function (event) {
       if (!(event.target instanceof Element)) return;
-      const control = event.target.closest('.lang-switch a, [data-blog-lang-option]');
-      if (!control) return;
-      const targetLang = languageFromControl(control);
-      saveLanguage(targetLang);
+      const languageSwitch = event.target.closest('.lang-switch');
+      if (languageSwitch) {
+        const currentLang = normalizeLanguage(languageSwitch.getAttribute('data-language')) || documentLanguage();
+        const targetLang = oppositeLanguage(currentLang);
+        const targetControl = controlForLanguage(languageSwitch, targetLang);
+        const targetUrl = targetUrlForLanguage(targetControl, targetLang);
+        if (!canAnimateLanguageSwitch(event, targetControl, targetUrl)) return;
 
-      const languageSwitch = control.closest('.lang-switch');
-      if (!languageSwitch || !canAnimateLanguageSwitch(event, control, targetLang)) return;
-      event.preventDefault();
-      animateLanguageSwitch(languageSwitch, targetLang, control.href);
+        event.preventDefault();
+        event.stopPropagation();
+        saveLanguage(targetLang);
+        animateLanguageSwitch(languageSwitch, targetLang, targetUrl);
+        return;
+      }
+
+      const clickedControl = event.target.closest('[data-blog-lang-option]');
+      if (!clickedControl) return;
+      saveLanguage(languageFromControl(clickedControl));
     }, true);
   }
 

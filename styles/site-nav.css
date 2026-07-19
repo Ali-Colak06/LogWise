@@ -35,7 +35,9 @@
   transition:left .44s cubic-bezier(.18,.89,.35,1.15),width .44s ease,background-color .44s linear;
 }
 .lang-switch a,
-.lang-switch a.on{
+.lang-switch a.on,
+.lang-switch button,
+.lang-switch button.on{
   position:relative;
   z-index:2;
   display:grid;
@@ -49,27 +51,35 @@
   font-weight:800;
   line-height:1;
   letter-spacing:.04em;
+  cursor:pointer;
   transition:color .18s ease;
 }
-.lang-switch a:first-of-type{color:var(--bg)}
-.lang-switch a:last-of-type{color:var(--gold)}
+.lang-switch a:first-of-type,
+.lang-switch button:first-of-type{color:var(--bg)}
+.lang-switch a:last-of-type,
+.lang-switch button:last-of-type{color:var(--gold)}
 .lang-switch[data-language="en"],
-.lang-switch:not([data-language]):has(a:last-of-type.on){
+.lang-switch:not([data-language]):has(a:last-of-type.on),
+.lang-switch:not([data-language]):has(button:last-of-type.on){
   border-color:var(--bg);
   background:var(--gold);
   color:var(--bg);
 }
 .lang-switch[data-language="en"]::after,
-.lang-switch:not([data-language]):has(a:last-of-type.on)::after{
+.lang-switch:not([data-language]):has(a:last-of-type.on)::after,
+.lang-switch:not([data-language]):has(button:last-of-type.on)::after{
   left:47px;
   background:var(--bg);
 }
 .lang-switch:active::after{width:52px}
 .lang-switch[data-language="en"]:active::after,
-.lang-switch:not([data-language]):has(a:last-of-type.on):active::after{left:27px}
+.lang-switch:not([data-language]):has(a:last-of-type.on):active::after,
+.lang-switch:not([data-language]):has(button:last-of-type.on):active::after{left:27px}
 .lang-switch:focus-within{outline:3px solid color-mix(in srgb,var(--gold) 34%,transparent);outline-offset:4px}
-.lang-switch a:focus-visible{outline:none}
-.lang-switch.is-transitioning a{pointer-events:none}
+.lang-switch a:focus-visible,
+.lang-switch button:focus-visible{outline:none}
+.lang-switch.is-transitioning a,
+.lang-switch.is-transitioning button{pointer-events:none}
 .lang-switch.is-moving-to-en{animation:lw-switch-track-to-en .44s linear both}
 .lang-switch.is-moving-to-en::after{animation:lw-switch-knob-to-en .44s linear both}
 .lang-switch.is-moving-to-tr{animation:lw-switch-track-to-tr .44s linear both}
@@ -101,7 +111,8 @@
 @media (prefers-reduced-motion:reduce){
   .lang-switch,
   .lang-switch::after,
-  .lang-switch a{transition-duration:.01ms!important}
+  .lang-switch a,
+  .lang-switch button{transition-duration:.01ms!important}
   .lang-switch.is-moving-to-en,
   .lang-switch.is-moving-to-en::after,
   .lang-switch.is-moving-to-tr,
