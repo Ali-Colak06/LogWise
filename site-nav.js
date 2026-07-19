@@ -28,6 +28,7 @@
   };
 
   const STORAGE_KEY = 'gym-log-lang';
+  const LANGUAGE_SWITCH_DURATION = 440;
   const LEGACY_STORAGE_KEY = 'logwise-blog-lang';
 
   function normalizeLanguage(lang) {
@@ -65,12 +66,56 @@
     return normalizeLanguage((declared || control.textContent || '').trim().toLowerCase());
   }
 
+  function prepareLanguageSwitches() {
+    document.querySelectorAll('.lang-switch').forEach(function (languageSwitch) {
+      const selected = languageSwitch.querySelector('a.on, a[aria-current="page"]');
+      const lang = selected ? languageFromControl(selected) : documentLanguage();
+      languageSwitch.setAttribute('data-language', lang || documentLanguage());
+      if (!languageSwitch.getAttribute('role')) languageSwitch.setAttribute('role', 'group');
+      if (!languageSwitch.getAttribute('aria-label')) {
+        languageSwitch.setAttribute('aria-label', documentLanguage() === 'tr' ? 'Dil' : 'Language');
+      }
+    });
+  }
+
+  function canAnimateLanguageSwitch(event, control, targetLang) {
+    if (event.defaultPrevented || event.button !== 0) return false;
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return false;
+    if (control.hasAttribute('download')) return false;
+    const target = control.getAttribute('target');
+    if (target && target !== '_self') return false;
+    if (!control.getAttribute('href')) return false;
+    return targetLang && targetLang !== documentLanguage();
+  }
+
+  function animateLanguageSwitch(languageSwitch, targetLang, targetUrl) {
+    const motionClass = targetLang === 'tr' ? 'is-moving-to-tr' : 'is-moving-to-en';
+    languageSwitch.classList.remove('is-moving-to-tr', 'is-moving-to-en');
+    void languageSwitch.offsetWidth;
+    languageSwitch.setAttribute('data-language', targetLang);
+    languageSwitch.setAttribute('aria-busy', 'true');
+    languageSwitch.classList.add('is-transitioning', motionClass);
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.setTimeout(function () {
+      languageSwitch.classList.remove('is-moving-to-tr', 'is-moving-to-en', 'is-transitioning');
+      languageSwitch.removeAttribute('aria-busy');
+      window.location.assign(targetUrl);
+    }, reduceMotion ? 0 : LANGUAGE_SWITCH_DURATION);
+  }
+
   function bindLanguageControls() {
     document.addEventListener('click', function (event) {
       if (!(event.target instanceof Element)) return;
       const control = event.target.closest('.lang-switch a, [data-blog-lang-option]');
       if (!control) return;
-      saveLanguage(languageFromControl(control));
+      const targetLang = languageFromControl(control);
+      saveLanguage(targetLang);
+
+      const languageSwitch = control.closest('.lang-switch');
+      if (!languageSwitch || !canAnimateLanguageSwitch(event, control, targetLang)) return;
+      event.preventDefault();
+      animateLanguageSwitch(languageSwitch, targetLang, control.href);
     }, true);
   }
 
@@ -215,6 +260,7 @@
   }
 
   function boot() {
+    prepareLanguageSwitches();
     bindLanguageControls();
 
     const currentLang = documentLanguage();

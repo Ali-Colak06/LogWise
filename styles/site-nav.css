@@ -1,6 +1,112 @@
 /* Shared mobile navigation for public landing, tools, Library and Learn pages. */
+/* Shared TR/EN switch (Uiverse brave-rattlesnake-29, adapted for LogWise). */
+.lang-switch{
+  --lw-switch-middle:#7d6525;
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  width:82px;
+  height:38px;
+  flex:0 0 82px;
+  padding:0;
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid var(--gold);
+  border-radius:999px;
+  background:var(--bg);
+  color:var(--gold);
+  font-family:var(--font-mono);
+  font-size:11px;
+  line-height:1;
+  transition:background-color .44s linear,border-color .44s linear,color .44s linear;
+}
+.lang-switch::after{
+  content:"";
+  position:absolute;
+  top:3px;
+  left:3px;
+  z-index:1;
+  width:32px;
+  height:32px;
+  border-radius:999px;
+  background:var(--gold);
+  box-shadow:0 3px 10px rgba(0,0,0,.34);
+  pointer-events:none;
+  transition:left .44s cubic-bezier(.18,.89,.35,1.15),width .44s ease,background-color .44s linear;
+}
+.lang-switch a,
+.lang-switch a.on{
+  position:relative;
+  z-index:2;
+  display:grid;
+  place-items:center;
+  min-width:0;
+  height:100%;
+  padding:0;
+  border:0;
+  background:transparent;
+  font:inherit;
+  font-weight:800;
+  line-height:1;
+  letter-spacing:.04em;
+  transition:color .18s ease;
+}
+.lang-switch a:first-of-type{color:var(--bg)}
+.lang-switch a:last-of-type{color:var(--gold)}
+.lang-switch[data-language="en"],
+.lang-switch:not([data-language]):has(a:last-of-type.on){
+  border-color:var(--bg);
+  background:var(--gold);
+  color:var(--bg);
+}
+.lang-switch[data-language="en"]::after,
+.lang-switch:not([data-language]):has(a:last-of-type.on)::after{
+  left:47px;
+  background:var(--bg);
+}
+.lang-switch:active::after{width:52px}
+.lang-switch[data-language="en"]:active::after,
+.lang-switch:not([data-language]):has(a:last-of-type.on):active::after{left:27px}
+.lang-switch:focus-within{outline:3px solid color-mix(in srgb,var(--gold) 34%,transparent);outline-offset:4px}
+.lang-switch a:focus-visible{outline:none}
+.lang-switch.is-transitioning a{pointer-events:none}
+.lang-switch.is-moving-to-en{animation:lw-switch-track-to-en .44s linear both}
+.lang-switch.is-moving-to-en::after{animation:lw-switch-knob-to-en .44s linear both}
+.lang-switch.is-moving-to-tr{animation:lw-switch-track-to-tr .44s linear both}
+.lang-switch.is-moving-to-tr::after{animation:lw-switch-knob-to-tr .44s linear both}
+@keyframes lw-switch-track-to-en{
+  0%{background:var(--bg)}
+  50%{background:var(--lw-switch-middle)}
+  100%{background:var(--gold)}
+}
+@keyframes lw-switch-knob-to-en{
+  0%{background:var(--gold)}
+  50%{background:var(--lw-switch-middle)}
+  100%{background:var(--bg)}
+}
+@keyframes lw-switch-track-to-tr{
+  0%{background:var(--gold)}
+  50%{background:var(--lw-switch-middle)}
+  100%{background:var(--bg)}
+}
+@keyframes lw-switch-knob-to-tr{
+  0%{background:var(--bg)}
+  50%{background:var(--lw-switch-middle)}
+  100%{background:var(--gold)}
+}
+
 .site-menu-toggle,
 .site-menu-root{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  .lang-switch,
+  .lang-switch::after,
+  .lang-switch a{transition-duration:.01ms!important}
+  .lang-switch.is-moving-to-en,
+  .lang-switch.is-moving-to-en::after,
+  .lang-switch.is-moving-to-tr,
+  .lang-switch.is-moving-to-tr::after{animation:none!important}
+}
 
 @media (max-width:760px){
   body.site-menu-open{overflow:hidden}
