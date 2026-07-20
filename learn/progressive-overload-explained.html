@@ -46,7 +46,7 @@
     </nav>
     <div class="nav-actions">
       <div class="lang-switch blog-lang-switch" role="group" aria-label="Language"><button type="button" data-blog-lang-option="tr" aria-pressed="false" class="" data-target-url="/ogren/progressive-overload-nedir">TR</button><button type="button" data-blog-lang-option="en" aria-pressed="true" class="on" data-target-url="/learn/progressive-overload-explained">EN</button></div>
-      <a href="/app" class="btn btn-primary"><span data-blog-copy="open">OPEN APP</span> →</a>
+      <a href="/app" class="btn btn-primary"><span class="desktop-label" data-blog-copy="open">START TRACKING</span><span class="mobile-label" data-blog-copy="openMobile">OPEN</span> →</a>
     </div>
   </div>
 </header>
@@ -119,7 +119,7 @@
 <script>
 (function(){
   var STORAGE_KEY = 'gym-log-lang';
-  var COPY = {"en":{"home":"Home","tools":"Tools","library":"Library","open":"OPEN APP","blogTitle":"Learn","blogLead":"Practical articles on workout tracking, progressive overload, and strength progress."},"tr":{"home":"Ana Sayfa","tools":"Araçlar","library":"Kütüphane","open":"UYGULAMAYI AÇ","blogTitle":"Öğren","blogLead":"Antrenman takibi, progressive overload ve güç gelişimi üzerine uygulanabilir yazılar."}};
+  var COPY = {"en":{"home":"Home","tools":"Tools","library":"Library","open":"START TRACKING","openMobile":"OPEN","blogTitle":"Learn","blogLead":"Practical articles on workout tracking, progressive overload, and strength progress."},"tr":{"home":"Ana Sayfa","tools":"Araçlar","library":"Kütüphane","open":"KAYDETMEYE BAŞLA","openMobile":"AÇ","blogTitle":"Öğren","blogLead":"Antrenman takibi, progressive overload ve güç gelişimi üzerine uygulanabilir yazılar."}};
 
   function normalize(lang) {
     return lang === 'tr' || lang === 'en' ? lang : '';

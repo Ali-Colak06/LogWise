@@ -273,7 +273,7 @@ const NAV = `
     </nav>
     <div class="nav-actions">
       __LANG_SWITCH__
-      <a href="/app" class="btn btn-primary"><span data-blog-copy="open">__OPEN__</span> →</a>
+      <a href="/app" class="btn btn-primary"><span class="desktop-label" data-blog-copy="open">__OPEN__</span><span class="mobile-label" data-blog-copy="openMobile">__OPEN_MOBILE__</span> →</a>
     </div>
   </div>
 </header>`;
@@ -295,7 +295,8 @@ const STR = {
     home: 'Ana Sayfa',
     tools: 'Araçlar',
     library: 'Kütüphane',
-    open: 'UYGULAMAYI AÇ',
+    open: 'KAYDETMEYE BAŞLA',
+    openMobile: 'AÇ',
     read: 'OKU',
     minRead: 'DK OKUMA',
     back: '← Tüm yazılar',
@@ -309,7 +310,8 @@ const STR = {
     home: 'Home',
     tools: 'Tools',
     library: 'Library',
-    open: 'OPEN APP',
+    open: 'START TRACKING',
+    openMobile: 'OPEN',
     read: 'READ',
     minRead: 'MIN READ',
     back: '← All articles',
@@ -345,7 +347,8 @@ function navFor(lang, alternates) {
     .replace('__LIBRARY__', STR[lang].library)
     .replace('__LIBRARY_HREF__', lang === 'tr' ? '/kutuphane' : '/library')
     .replace('__HOME__', STR[lang].home)
-    .replace('__OPEN__', STR[lang].open);
+    .replace('__OPEN__', STR[lang].open)
+    .replace('__OPEN_MOBILE__', STR[lang].openMobile);
 }
 
 function headBlock({ title, description, url, lang, jsonLd, ogType, published, alternates = [] }) {
@@ -407,8 +410,8 @@ function blogTopicDataScript(groups) {
 
 function blogRuntimeScript() {
   const copy = {
-    en: { home: STR.en.home, tools: STR.en.tools, library: STR.en.library, open: STR.en.open, blogTitle: STR.en.blogTitle, blogLead: STR.en.blogLead },
-    tr: { home: STR.tr.home, tools: STR.tr.tools, library: STR.tr.library, open: STR.tr.open, blogTitle: STR.tr.blogTitle, blogLead: STR.tr.blogLead }
+    en: { home: STR.en.home, tools: STR.en.tools, library: STR.en.library, open: STR.en.open, openMobile: STR.en.openMobile, blogTitle: STR.en.blogTitle, blogLead: STR.en.blogLead },
+    tr: { home: STR.tr.home, tools: STR.tr.tools, library: STR.tr.library, open: STR.tr.open, openMobile: STR.tr.openMobile, blogTitle: STR.tr.blogTitle, blogLead: STR.tr.blogLead }
   };
 
   return `<script>
