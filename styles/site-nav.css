@@ -1,4 +1,4 @@
-/* Shared mobile navigation for public landing, tools, Library and Learn pages. */
+/* Shared public navigation for landing, tools, Library and Learn pages. */
 /* Shared TR/EN switch (Uiverse brave-rattlesnake-29, adapted for LogWise). */
 .lang-switch{
   --lw-switch-middle:#7d6525;
@@ -105,6 +105,52 @@
   100%{background:var(--gold)}
 }
 
+/* Keep translated labels from changing the geometry of the whole header. */
+.nav-actions>.btn-primary{
+  justify-content:center;
+  white-space:nowrap;
+}
+
+@media (min-width:641px){
+  .nav-actions>.btn-primary{width:200px;flex:0 0 200px}
+  .nav-actions>.blog-lang-switch+.btn-primary{width:172px;flex-basis:172px}
+}
+
+@media (min-width:900px){
+  .nav-row{
+    display:grid;
+    grid-template-columns:max-content minmax(0,1fr) max-content;
+  }
+  .nav-row>.brand{justify-self:start}
+  .nav-links{
+    display:grid;
+    grid-auto-flow:column;
+    grid-auto-columns:minmax(0,1fr);
+    justify-self:center;
+    width:min(100%,270px);
+    gap:0;
+  }
+  .nav-links:has(>a:nth-child(4):last-child){width:min(100%,320px)}
+  .nav-links:has(>a:nth-child(5):last-child){width:min(100%,420px)}
+  .nav-links>a{
+    display:grid;
+    place-items:center;
+    min-width:0;
+    white-space:nowrap;
+    text-align:center;
+  }
+  .nav-actions{justify-self:end}
+}
+
+@media (max-width:640px){
+  .nav-actions>.btn-primary:has(.mobile-label){width:76px;flex:0 0 76px}
+  .nav-actions>.blog-lang-switch+.btn-primary{width:172px;flex:0 0 172px}
+}
+
+@media (max-width:500.98px){
+  .nav-actions>.blog-lang-switch+.btn-primary{display:none}
+}
+
 .site-menu-toggle,
 .site-menu-root{display:none}
 
@@ -119,7 +165,7 @@
   .lang-switch.is-moving-to-tr::after{animation:none!important}
 }
 
-@media (max-width:760px){
+@media (max-width:899.98px){
   body.site-menu-open{overflow:hidden}
   .nav-links{display:none}
   .nav-row{gap:8px}

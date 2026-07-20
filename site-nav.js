@@ -284,7 +284,7 @@
       if (event.key === 'Escape' && isOpen) setOpen(false, true);
       trapFocus(event);
     });
-    window.matchMedia('(min-width: 761px)').addEventListener('change', function (event) {
+    window.matchMedia('(min-width: 900px)').addEventListener('change', function (event) {
       if (event.matches && isOpen) setOpen(false, false);
     });
   }
