@@ -55,9 +55,9 @@
   transition:color .18s ease;
 }
 .lang-switch a:first-of-type,
-.lang-switch button:first-of-type{color:var(--bg)}
+.lang-switch button:first-of-type{color:var(--bg);transform:translateX(-2px)}
 .lang-switch a:last-of-type,
-.lang-switch button:last-of-type{color:var(--gold)}
+.lang-switch button:last-of-type{color:var(--gold);transform:translateX(2px)}
 .lang-switch[data-language="en"],
 .lang-switch:not([data-language]):has(a:last-of-type.on),
 .lang-switch:not([data-language]):has(button:last-of-type.on){
