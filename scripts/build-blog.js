@@ -292,9 +292,9 @@ function footerFor(lang) {
 
 const STR = {
   tr: {
-    home: 'ANA SAYFA',
-    tools: 'ARAÇLAR',
-    library: 'KÜTÜPHANE',
+    home: 'Ana Sayfa',
+    tools: 'Araçlar',
+    library: 'Kütüphane',
     open: 'UYGULAMAYI AÇ',
     read: 'OKU',
     minRead: 'DK OKUMA',
@@ -306,7 +306,7 @@ const STR = {
     ctaBtn: "LOGWISE'I AÇ →"
   },
   en: {
-    home: 'HOME',
+    home: 'Home',
     tools: 'Tools',
     library: 'Library',
     open: 'OPEN APP',
