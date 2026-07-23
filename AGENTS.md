@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-07-15 — RPE / RIR Learn içerik kümesi, statik SEO çıktıları ve PWA precache kaydı eklendi; §8 özet güncellendi. -->
+<!-- SON GÜNCELLEME: 2026-07-23 — Antrenman programlama Learn içerik kümesi, statik SEO çıktıları ve PWA precache kaydı eklendi; §8 özet güncellendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -90,7 +90,7 @@ Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-96)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-97)
 ├── .github/workflows/         ← CI otomasyonları
 │   └── codegen-check.yml      ← Generated çıktı drift kontrolü
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
@@ -299,6 +299,7 @@ LogWise/
 - **Tools / Library TR hub yerelleştirmesi** (Bölüm 94): `/tools` ↔ `/araclar` ve `/library` ↔ `/kutuphane` canonical/hreflang çiftleri, TR hub içerikleri, iki dilli üst navigasyon, sitemap alternate kayıtları ve `sw.js` precache entegrasyonu eklendi; alt tool/Library detay sayfaları EN canonical kalır ✅
 - **Site geneli kalıcı dil tercihi** (Bölüm 95): Public sayfalar, Learn/Öğren ve Web uygulaması `gym-log-lang` üzerinde birleştirildi; TR/EN seçimi canonical alternate bulunan tüm sayfalarda otomatik uygulanır, yalnız EN içeriği olan detaylarda tercih korunur ve `sw.js` v55 ile dağıtılır ✅
 - **RPE / RIR Learn içerik kümesi** (Bölüm 96): RPE, RIR ve aralarındaki pratik farkı anlatan üç konu EN/TR Markdown çiftleriyle eklendi; hesaplayıcı mod seçimi, dönüşüm tablosu, iç linkler, sitemap/hreflang çıktıları ve `sw.js` v56 precache entegrasyonu tamamlandı ✅
+- **Antrenman programlama Learn içerik kümesi** (Bölüm 97): Set arası dinlenme, haftalık set hacmi, ısınma setleri, tahmini/gerçek 1RM, deload ve ağırlık artırma konularını anlatan altı EN/TR Markdown çifti eklendi; Learn/Öğren indeksleri, manifest, sitemap/hreflang çıktıları ve `sw.js` v65 precache entegrasyonu tamamlandı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.

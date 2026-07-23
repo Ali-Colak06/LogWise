@@ -4151,6 +4151,43 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 97 — Antrenman Programlama Learn İçerik Kümesi (2026-07-23)
+
+### Amaç
+
+Antrenman programlama ve ilerleme kararlarında sık karşılaşılan altı soruyu; uygulanabilir örnekler, ölçüm sınırları, sağlık/güvenlik ayrımları ve LogWise kayıt akışıyla birlikte iki dilli Learn/Öğren içerik kümesine dönüştürmek.
+
+### Kapsam ve İçerik Kararları
+
+- **Altı iki dilli konu:** Setler arası dinlenme, kas grubu başına haftalık set sayısı, ısınma setlerinin planlanması, tahmini ve test edilmiş 1RM ayrımı, deload haftası ve ağırlık artırma kararları için 12 Markdown varyantı eklendi; her EN/TR çifti ortak `translationKey` ile eşleştirildi.
+- **Bağlama göre programlama:** Dinlenme ve haftalık set hacmi tek bir evrensel sayıya indirgenmedi; hedef, egzersiz, efor, toparlanma ve performans eğilimleri birlikte değerlendirildi.
+- **Ölçüm sınırları:** Estimated 1RM'in bir tahmin ve trend aracı olduğu, test edilmiş 1RM'in ise belirli bir gün ve teknik standardındaki performansı gösterdiği açıklandı; iki ölçüm birbirinin yerine kullanılmadı.
+- **Hazırlık ve yorgunluk yönetimi:** Isınma setleri çalışma setinden ayrıldı; deload sabit takvim zorunluluğu olarak sunulmadı ve tek kötü antrenman birikmiş yorgunluk kanıtı sayılmadı.
+- **İlerleme kararı:** Ağırlık artışı yalnız en iyi sete bağlanmadı; tekrar aralığı, tamamlanan setler, teknik kalite ve RIR birlikte kullanıldı. Küçük yük artışı mümkün değilse tekrar veya teknik ilerleme seçenekleri korundu.
+- **İç bağlantılar:** Yazılar ilgili Learn rehberlerine, `/one-rep-max-calculator`, `/rpe-rir-calculator`, `/workout-volume-calculator`, `/barbell-plate-calculator` ve `/app` rotalarına bağlandı.
+- **Statik üretim ve SEO:** Learn/Öğren indeksleri, `learn/posts.json` ve `sitemap.xml` generator üzerinden yenilendi; yeni sayfalarda canonical ve karşılıklı EN/TR/x-default hreflang kayıtları üretildi.
+- **PWA önbelleği:** 12 yeni makale rotasının clean URL ve `.html` karşılıkları precache listesine eklendi; teslim sürümü `logwise-v65` olarak ayarlandı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `blog-content/{how-long-to-rest-between-sets,setler-arasinda-ne-kadar-dinlenmeli,how-many-sets-per-muscle-per-week,kas-grubu-basina-haftada-kac-set,how-to-plan-warm-up-sets,isinma-setleri-nasil-yapilir,estimated-1rm-vs-tested-1rm,tahmini-1rm-ve-gercek-1rm,what-is-a-deload-week,deload-haftasi-nedir,when-to-increase-weight,agirligi-ne-zaman-artirmalisin}.md` | Altı konunun EN/TR kanonik Markdown kaynakları |
+| `learn/*.html`, `ogren/*.html` | Yeni makale sayfaları ve yenilenen dil indeksleri |
+| `learn/posts.json`, `sitemap.xml` | Yeni konu manifesti, canonical ve hreflang kayıtları |
+| `sw.js` | `logwise-v65` cache sürümü ve yeni makale rotalarının precache kayıtları |
+| `AGENTS.md`, `REFACTOR-GECMISI.md` | Refactor özeti ve teslim kaydı |
+
+### Doğrulama Notları
+
+- `node scripts/build-blog.js` 24 dil varyantını 12 Learn konusu olarak hatasız üretmeli.
+- `node --check scripts/build-blog.js` ve `node --check sw.js` başarılı olmalı; `node scripts/check-codegen.js` drift göstermemeli.
+- `learn/posts.json` JSON olarak, `sitemap.xml` XML olarak parse edilmeli; `git diff --check` temiz olmalı.
+- Altı yeni EN/TR çiftinde canonical, karşılıklı hreflang ve x-default kayıtları bulunmalı; `sw.js` clean URL ve `.html` biçimindeki 24 yeni precache rotasının tamamını içermeli.
+- Deploy sonrasında 12 yeni makale URL'si ile Learn/Öğren indeksleri başarılı HTTP yanıtı vermeli ve v65 service worker canlıda görünmelidir.
+
+---
+
 ## Bölüm 96 — RPE / RIR Learn İçerik Kümesi (2026-07-15)
 
 ### Amaç

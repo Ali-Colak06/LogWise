@@ -1,5 +1,343 @@
 [
   {
+    "slug": "agirligi-ne-zaman-artirmalisin",
+    "title": "Ağırlığı Ne Zaman Artırmalısın?",
+    "description": "Tekrar, tamamlanan set, teknik ve RIR ile ağırlığı ne zaman artıracağına; yükü tekrarlamanın ne zaman daha akıllıca olduğuna karar ver.",
+    "date": "2026-07-19",
+    "lang": "tr",
+    "translationKey": "when-to-increase-weight",
+    "tags": [
+      "progressive overload",
+      "yük artışı",
+      "RIR"
+    ],
+    "featured": false,
+    "readMins": 7,
+    "url": "/ogren/agirligi-ne-zaman-artirmalisin",
+    "alternates": {
+      "en": {
+        "slug": "when-to-increase-weight",
+        "title": "When Should You Increase the Weight?",
+        "url": "/learn/when-to-increase-weight"
+      },
+      "tr": {
+        "slug": "agirligi-ne-zaman-artirmalisin",
+        "title": "Ağırlığı Ne Zaman Artırmalısın?",
+        "url": "/ogren/agirligi-ne-zaman-artirmalisin"
+      }
+    }
+  },
+  {
+    "slug": "deload-haftasi-nedir",
+    "title": "Deload Haftası Nedir ve Ne Zaman Yapılır?",
+    "description": "Deload haftasını, yorgunluk trendlerini, antrenman stresini azaltmayı ve katı takvimlere bağlı kalmadan geri dönüşü öğren.",
+    "date": "2026-07-19",
+    "lang": "tr",
+    "translationKey": "deload-week",
+    "tags": [
+      "deload",
+      "yorgunluk yönetimi",
+      "toparlanma"
+    ],
+    "featured": false,
+    "readMins": 8,
+    "url": "/ogren/deload-haftasi-nedir",
+    "alternates": {
+      "en": {
+        "slug": "what-is-a-deload-week",
+        "title": "What Is a Deload Week and When Do You Need One?",
+        "url": "/learn/what-is-a-deload-week"
+      },
+      "tr": {
+        "slug": "deload-haftasi-nedir",
+        "title": "Deload Haftası Nedir ve Ne Zaman Yapılır?",
+        "url": "/ogren/deload-haftasi-nedir"
+      }
+    }
+  },
+  {
+    "slug": "estimated-1rm-vs-tested-1rm",
+    "title": "Estimated 1RM vs Tested 1RM: What’s the Difference?",
+    "description": "Learn how estimated and tested 1RM differ, how LogWise calculates e1RM, what affects the estimate, and when each measure is useful.",
+    "date": "2026-07-19",
+    "lang": "en",
+    "translationKey": "estimated-vs-tested-1rm",
+    "tags": [
+      "estimated 1RM",
+      "tested 1RM",
+      "strength tracking"
+    ],
+    "featured": false,
+    "readMins": 8,
+    "url": "/learn/estimated-1rm-vs-tested-1rm",
+    "alternates": {
+      "en": {
+        "slug": "estimated-1rm-vs-tested-1rm",
+        "title": "Estimated 1RM vs Tested 1RM: What’s the Difference?",
+        "url": "/learn/estimated-1rm-vs-tested-1rm"
+      },
+      "tr": {
+        "slug": "tahmini-1rm-ve-gercek-1rm",
+        "title": "Tahmini 1RM ile Gerçek 1RM Arasındaki Fark",
+        "url": "/ogren/tahmini-1rm-ve-gercek-1rm"
+      }
+    }
+  },
+  {
+    "slug": "how-long-to-rest-between-sets",
+    "title": "How Long Should You Rest Between Sets?",
+    "description": "Learn how to choose and adjust rest between sets for strength, hypertrophy, endurance, compounds, isolation work, and supersets.",
+    "date": "2026-07-19",
+    "lang": "en",
+    "translationKey": "rest-between-sets",
+    "tags": [
+      "rest intervals",
+      "strength training",
+      "hypertrophy"
+    ],
+    "featured": false,
+    "readMins": 7,
+    "url": "/learn/how-long-to-rest-between-sets",
+    "alternates": {
+      "en": {
+        "slug": "how-long-to-rest-between-sets",
+        "title": "How Long Should You Rest Between Sets?",
+        "url": "/learn/how-long-to-rest-between-sets"
+      },
+      "tr": {
+        "slug": "setler-arasinda-ne-kadar-dinlenmeli",
+        "title": "Setler Arasında Ne Kadar Dinlenmelisin?",
+        "url": "/ogren/setler-arasinda-ne-kadar-dinlenmeli"
+      }
+    }
+  },
+  {
+    "slug": "how-many-sets-per-muscle-per-week",
+    "title": "How Many Sets per Muscle per Week?",
+    "description": "Learn what counts as a hard set, how to count direct and indirect work, and how to choose and adjust weekly sets for each muscle.",
+    "date": "2026-07-19",
+    "lang": "en",
+    "translationKey": "weekly-sets-per-muscle",
+    "tags": [
+      "hypertrophy",
+      "weekly sets",
+      "training volume",
+      "RIR"
+    ],
+    "featured": false,
+    "readMins": 9,
+    "url": "/learn/how-many-sets-per-muscle-per-week",
+    "alternates": {
+      "en": {
+        "slug": "how-many-sets-per-muscle-per-week",
+        "title": "How Many Sets per Muscle per Week?",
+        "url": "/learn/how-many-sets-per-muscle-per-week"
+      },
+      "tr": {
+        "slug": "kas-grubu-basina-haftada-kac-set",
+        "title": "Kas Grubu Başına Haftada Kaç Set Yapılmalı?",
+        "url": "/ogren/kas-grubu-basina-haftada-kac-set"
+      }
+    }
+  },
+  {
+    "slug": "how-to-plan-warm-up-sets",
+    "title": "How to Plan Warm-Up Sets for Lifting",
+    "description": "Learn how to plan general and lift-specific warm-ups, ramp weight without fatigue, and log practical sets for light, moderate, and heavy lifting sessions.",
+    "date": "2026-07-19",
+    "lang": "en",
+    "translationKey": "warm-up-sets",
+    "tags": [
+      "warm-up sets",
+      "strength training",
+      "workout planning"
+    ],
+    "featured": false,
+    "readMins": 8,
+    "url": "/learn/how-to-plan-warm-up-sets",
+    "alternates": {
+      "en": {
+        "slug": "how-to-plan-warm-up-sets",
+        "title": "How to Plan Warm-Up Sets for Lifting",
+        "url": "/learn/how-to-plan-warm-up-sets"
+      },
+      "tr": {
+        "slug": "isinma-setleri-nasil-yapilir",
+        "title": "Isınma Setleri Nasıl Yapılır?",
+        "url": "/ogren/isinma-setleri-nasil-yapilir"
+      }
+    }
+  },
+  {
+    "slug": "isinma-setleri-nasil-yapilir",
+    "title": "Isınma Setleri Nasıl Yapılır?",
+    "description": "Genel ve harekete özel ısınmayı planlamayı, yorulmadan ağırlık artırmayı ve hafif, orta, ağır antrenmanlar için pratik ısınma setlerini kaydetmeyi öğren.",
+    "date": "2026-07-19",
+    "lang": "tr",
+    "translationKey": "warm-up-sets",
+    "tags": [
+      "ısınma setleri",
+      "kuvvet antrenmanı",
+      "antrenman planlama"
+    ],
+    "featured": false,
+    "readMins": 7,
+    "url": "/ogren/isinma-setleri-nasil-yapilir",
+    "alternates": {
+      "en": {
+        "slug": "how-to-plan-warm-up-sets",
+        "title": "How to Plan Warm-Up Sets for Lifting",
+        "url": "/learn/how-to-plan-warm-up-sets"
+      },
+      "tr": {
+        "slug": "isinma-setleri-nasil-yapilir",
+        "title": "Isınma Setleri Nasıl Yapılır?",
+        "url": "/ogren/isinma-setleri-nasil-yapilir"
+      }
+    }
+  },
+  {
+    "slug": "kas-grubu-basina-haftada-kac-set",
+    "title": "Kas Grubu Başına Haftada Kaç Set Yapılmalı?",
+    "description": "Zorlayıcı seti, doğrudan ve dolaylı çalışmayı nasıl sayacağını ve her kas için haftalık seti nasıl seçip ayarlayacağını öğren.",
+    "date": "2026-07-19",
+    "lang": "tr",
+    "translationKey": "weekly-sets-per-muscle",
+    "tags": [
+      "hipertrofi",
+      "haftalık set",
+      "antrenman hacmi",
+      "RIR"
+    ],
+    "featured": false,
+    "readMins": 8,
+    "url": "/ogren/kas-grubu-basina-haftada-kac-set",
+    "alternates": {
+      "en": {
+        "slug": "how-many-sets-per-muscle-per-week",
+        "title": "How Many Sets per Muscle per Week?",
+        "url": "/learn/how-many-sets-per-muscle-per-week"
+      },
+      "tr": {
+        "slug": "kas-grubu-basina-haftada-kac-set",
+        "title": "Kas Grubu Başına Haftada Kaç Set Yapılmalı?",
+        "url": "/ogren/kas-grubu-basina-haftada-kac-set"
+      }
+    }
+  },
+  {
+    "slug": "setler-arasinda-ne-kadar-dinlenmeli",
+    "title": "Setler Arasında Ne Kadar Dinlenmelisin?",
+    "description": "Kuvvet, hipertrofi, dayanıklılık, bileşik ve izolasyon hareketleri ile supersetlerde set arası dinlenmeyi seçip ayarlamayı öğren.",
+    "date": "2026-07-19",
+    "lang": "tr",
+    "translationKey": "rest-between-sets",
+    "tags": [
+      "dinlenme süreleri",
+      "kuvvet antrenmanı",
+      "hipertrofi"
+    ],
+    "featured": false,
+    "readMins": 7,
+    "url": "/ogren/setler-arasinda-ne-kadar-dinlenmeli",
+    "alternates": {
+      "en": {
+        "slug": "how-long-to-rest-between-sets",
+        "title": "How Long Should You Rest Between Sets?",
+        "url": "/learn/how-long-to-rest-between-sets"
+      },
+      "tr": {
+        "slug": "setler-arasinda-ne-kadar-dinlenmeli",
+        "title": "Setler Arasında Ne Kadar Dinlenmelisin?",
+        "url": "/ogren/setler-arasinda-ne-kadar-dinlenmeli"
+      }
+    }
+  },
+  {
+    "slug": "tahmini-1rm-ve-gercek-1rm",
+    "title": "Tahmini 1RM ile Gerçek 1RM Arasındaki Fark",
+    "description": "Tahmini ve test edilmiş 1RM arasındaki farkı, LogWise'ın e1RM hesabını, tahmini etkileyenleri ve her ölçümün ne zaman işe yaradığını öğren.",
+    "date": "2026-07-19",
+    "lang": "tr",
+    "translationKey": "estimated-vs-tested-1rm",
+    "tags": [
+      "tahmini 1RM",
+      "gerçek 1RM",
+      "kuvvet takibi"
+    ],
+    "featured": false,
+    "readMins": 7,
+    "url": "/ogren/tahmini-1rm-ve-gercek-1rm",
+    "alternates": {
+      "en": {
+        "slug": "estimated-1rm-vs-tested-1rm",
+        "title": "Estimated 1RM vs Tested 1RM: What’s the Difference?",
+        "url": "/learn/estimated-1rm-vs-tested-1rm"
+      },
+      "tr": {
+        "slug": "tahmini-1rm-ve-gercek-1rm",
+        "title": "Tahmini 1RM ile Gerçek 1RM Arasındaki Fark",
+        "url": "/ogren/tahmini-1rm-ve-gercek-1rm"
+      }
+    }
+  },
+  {
+    "slug": "what-is-a-deload-week",
+    "title": "What Is a Deload Week and When Do You Need One?",
+    "description": "Learn what a deload week is, how to spot fatigue trends, reduce training stress, and return without relying on rigid schedules.",
+    "date": "2026-07-19",
+    "lang": "en",
+    "translationKey": "deload-week",
+    "tags": [
+      "deload",
+      "fatigue management",
+      "recovery"
+    ],
+    "featured": false,
+    "readMins": 9,
+    "url": "/learn/what-is-a-deload-week",
+    "alternates": {
+      "en": {
+        "slug": "what-is-a-deload-week",
+        "title": "What Is a Deload Week and When Do You Need One?",
+        "url": "/learn/what-is-a-deload-week"
+      },
+      "tr": {
+        "slug": "deload-haftasi-nedir",
+        "title": "Deload Haftası Nedir ve Ne Zaman Yapılır?",
+        "url": "/ogren/deload-haftasi-nedir"
+      }
+    }
+  },
+  {
+    "slug": "when-to-increase-weight",
+    "title": "When Should You Increase the Weight?",
+    "description": "Use reps, completed sets, technique, and RIR to decide when to add weight—and when repeating the load is the smarter progression.",
+    "date": "2026-07-19",
+    "lang": "en",
+    "translationKey": "when-to-increase-weight",
+    "tags": [
+      "progressive overload",
+      "load progression",
+      "RIR"
+    ],
+    "featured": false,
+    "readMins": 8,
+    "url": "/learn/when-to-increase-weight",
+    "alternates": {
+      "en": {
+        "slug": "when-to-increase-weight",
+        "title": "When Should You Increase the Weight?",
+        "url": "/learn/when-to-increase-weight"
+      },
+      "tr": {
+        "slug": "agirligi-ne-zaman-artirmalisin",
+        "title": "Ağırlığı Ne Zaman Artırmalısın?",
+        "url": "/ogren/agirligi-ne-zaman-artirmalisin"
+      }
+    }
+  },
+  {
     "slug": "rir-nedir",
     "title": "RIR Nedir? Kaç Tekrar Yedekte Bırakmalısın?",
     "description": "RIR 0-4 ne demek, kaç tekrar yedekte bırakılmalı ve sürdürülebilir gelişim için set eforu nasıl kaydedilir? Pratik örneklerle öğren.",
