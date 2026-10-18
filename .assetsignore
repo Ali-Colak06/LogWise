@@ -1,4 +1,5 @@
 # Internal monorepo sources and development-only files.
+.wrangler/
 logwise-mobile/
 docs/
 scripts/

@@ -9,6 +9,19 @@ vm.runInNewContext(fs.readFileSync(path.join(__dirname, '../lib/habit-utils.js')
 const U = context.window.LOGWISE_HABIT_UTILS;
 const stats = (days, today) => JSON.parse(JSON.stringify(U.statistics(days, today)));
 
+test('direct habit and dashboard routes resolve the same app resources as /app', () => {
+  const html = fs.readFileSync(path.join(__dirname, '../app.html'), 'utf8');
+  const resources = [...html.matchAll(/<(?:script|link)\b[^>]*\b(?:src|href)="([^"]+)"/g)]
+    .map(match => match[1]);
+  assert.ok(resources.length > 20, 'the actual app runtime resource list is inspected');
+  for (const ref of resources) {
+    const canonical = new URL(ref, 'https://logwise.fit/app').href;
+    for (const route of ['/app/habits', '/app/dashboard']) {
+      assert.equal(new URL(ref, 'https://logwise.fit' + route).href, canonical, `${ref} must load on ${route}`);
+    }
+  }
+});
+
 test('today stays open while yesterday’s streak is preserved', () => {
   assert.deepEqual(stats(['2026-10-16', '2026-10-17'], '2026-10-18'), { current: 2, longest: 2, thisMonth: 2 });
 });
