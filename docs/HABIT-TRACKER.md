@@ -64,7 +64,11 @@ Sekme sitemap'e eklenmez; `/app/habits` için HTTP noindex header'ı ve görün�
    Takvim sekmesine dönünce yalnız antrenmanların, Alışkanlıklar'a dönünce yalnız seçili alışkanlığın görünmesini;
    tarayıcı geri/ileri düğmelerini, mini takvim ay oklarını ve mobil yan menüyü de doğrula.
 
-Bu geliştirme sırasında canlı migration uygulanmadı; izole PostgreSQL testleri canlı Supabase kurulumu yerine geçmez.
+2026-10-18: Kullanıcı migration'ı canlı Web projesi `hfmqywyfnqmpvskkzksv` SQL Editor'ünde
+başarıyla çalıştırdığını bildirdi. Üç tablonun REST uç noktası anonim isteklerde `42501 / permission denied`
+döndürerek tablo varlığı ve anonim erişimin kapalı olması doğrulandı. Önceki farklı proje seçimi düzeltildi;
+Web istemcisinin proje adresi değiştirilmedi. Bu kontrol, izin verilen hesapla canlı CRUD ve diğer
+authenticated hesapla RLS testinin yerine geçmez; bu akışlar kullanıcı oturumuyla ayrıca doğrulanmalıdır.
 Bağlı yönetici oturumu/connection olmadan anon anahtarla schema/RLS kurulamaz.
 Önizlemedeki örnek alışkanlıklar yalnız yerel test sunucusundadır; production sayfasında demo veya yetki atlama modu yoktur.
 
