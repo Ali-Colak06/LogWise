@@ -39,6 +39,7 @@
 <script src="lib/data-schema.js"></script>
 <script src="lib/profile-utils.js"></script>
 <script src="lib/db.js"></script>
+<script src="lib/habits-db.js"></script>
 <script src="components/error-boundary.js"></script>
 <script src="components/brand-mark.js"></script>
 <script src="components/dash-chart.js"></script>
@@ -194,6 +195,15 @@ function App({
   showAuth
 }) {
   const isGuest = !user;
+  const [habitOwnerId, setHabitOwnerId] = useState(null);
+  useEffect(() => {
+    let active = true;
+    setHabitOwnerId(null);
+    if (user?.id) window.LOGWISE_HABITS_DB.hasAccess(user.id)
+      .then(allowed => { if (active && allowed) setHabitOwnerId(user.id); })
+      .catch(() => {}); // Personal feature may not be provisioned; the workout app stays available.
+    return () => { active = false; };
+  }, [user?.id]);
   const L = lang === "tr" ? TR : EN;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -2822,7 +2832,14 @@ function App({
       fontFamily: "inherit",
       transition: "all .15s ease"
     }
-  }, i, " ", l))), React.createElement("div", {
+  }, i, " ", l)), habitOwnerId === user?.id && React.createElement("a", {
+    href: IS_LOCAL_STATIC ? "/habits.html" : "/habits",
+    style: {
+      display: "block", padding: "10px 20px", marginTop: 8, borderRadius: 24,
+      background: "var(--blueL)", color: "var(--blue)", fontSize: 14,
+      fontWeight: 600, textDecoration: "none"
+    }
+  }, "✦ ", L.habits.title)), React.createElement("div", {
     style: {
       borderTop: "1px solid var(--brd)",
       margin: "4px 16px"

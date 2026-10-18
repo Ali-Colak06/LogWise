@@ -3,7 +3,7 @@
 # Legacy index.php -> root
 /index.php    /   301
 
-# Do not add explicit clean-URL rules for /app, /profile, /share, /program, or /tr.
+# Do not add explicit clean-URL rules for /app, /profile, /share, /program, /habits, or /tr.
 # Cloudflare Pages serves matching .html files automatically; explicit .html rewrites can loop.
 
 # App SPA routes

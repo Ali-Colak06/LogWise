@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v65';
+const CACHE_NAME = 'logwise-v66';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -96,6 +96,8 @@ const PRECACHE_URLS = [
   '/kutuphane/programs/push-pull-legs',
   '/app',
   '/app.html',
+  '/habits',
+  '/habits.html',
   '/manifest.json',
   '/favicon.ico',
   '/icon-192.png',
@@ -117,6 +119,8 @@ const PRECACHE_URLS = [
   '/lib/data-schema.js',
   '/lib/profile-utils.js',
   '/lib/db.js',
+  '/lib/habit-utils.js',
+  '/lib/habits-db.js',
   '/lib/exercise-utils.js',
   '/components/error-boundary.js',
   '/components/brand-mark.js',
@@ -124,6 +128,7 @@ const PRECACHE_URLS = [
   '/components/ex-preview-modal.js',
   '/components/auth-screen.js',
   '/components/comment-section.js',
+  '/components/habits-page.js',
   '/data/presets-exercises.js',
   '/data/ex-descriptions.js',
   '/data/ex-preview.js',

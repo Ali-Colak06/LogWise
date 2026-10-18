@@ -298,5 +298,22 @@ window.LOGWISE_TR = {
   commentsHideReplies: "Yanıtları gizle",
   commentsDeleteConfirm: "Bu yorumu silmek istediğine emin misin?",
   commentsLoginRequired: "Yorum yapmak için giriş yapmalısın.",
-  commentsTooLong: "Yorum 500 karakterden uzun olamaz."
+  commentsTooLong: "Yorum 500 karakterden uzun olamaz.",
+  habits: {
+    title: "Alışkanlıklarım", privateLabel: "KİŞİSEL ALAN", heading: "Küçük adımlar,", headingAccent: "görünür birikimler.",
+    intro: "Kendine ayırdığın her gün burada bir iz bırakır.", back: "LogWise'a dön", language: "Dili değiştir", theme: "Temayı değiştir",
+    loading: "Yükleniyor…", loginTitle: "Kişisel alanına giriş yap", loginText: "Devam etmek için LogWise hesabınla giriş yap. Ardından menüden Alışkanlıklarım'ı açabilirsin.",
+    login: "LogWise'a giriş yap", deniedTitle: "Bu alan sana açık değil", deniedText: "Bu kişisel sayfa yalnızca izin verilen hesaba açıktır.",
+    loadError: "Kişisel alan yüklenemedi. Bağlantını kontrol edip yeniden dene.", saveError: "Değişiklik kaydedilemedi. Yeniden dene.", retry: "Yeniden dene",
+    add: "Yeni alışkanlık", edit: "Adını düzenle", delete: "Alışkanlığı sil", choose: "Alışkanlık seç", daily: "Her gün · Kendine verdiğin küçük bir söz",
+    current: "MEVCUT SERİ", thisMonth: "BU AY", longest: "EN UZUN SERİ", dayUnit: "gün", monthHint: "Tamamlanan gün", longestHint: "Şimdiye kadarki en iyi serin",
+    currentHint: "Bugün için hâlâ zamanın var", currentDoneHint: "Bugün de bir adım attın", startHint: "Bir günle başlar",
+    monthMessage: "Bu ay bu alışkanlığı {n} gün yerine getirdin.", zeroMessage: "İlk altın günün seni bekliyor.",
+    today: "Bugün", previous: "Önceki ay", next: "Sonraki ay", done: "Tamamlandı", notDone: "Henüz işaretlenmedi", future: "Gelecek gün", mark: "Tamamlandı olarak işaretle", undo: "İşareti kaldır",
+    calendarHelp: "Tamamladığın günlere dokun. Geçmiş günleri de düzenleyebilirsin.", timezone: "Günler İstanbul saatine göre hesaplanır.",
+    emptyTitle: "Bir alışkanlıkla başla.", emptyText: "Okumak, yürümek, öğrenmek… Her gün tekrarlamak istediğin küçük bir şey seç.",
+    addTitle: "Yeni bir başlangıç", editTitle: "Alışkanlığın adı", name: "Alışkanlık adı", placeholder: "Örn. 20 dakika kitap oku", nameError: "1–80 karakter arasında bir ad gir.",
+    save: "Kaydet", cancel: "Vazgeç", deleteTitle: "Bu alışkanlık silinsin mi?", deleteText: "“{name}” ve tüm tamamlanma kayıtları kalıcı olarak silinecek. Bu işlem geri alınamaz.",
+    saved: "Kaydedildi", removed: "İşaret kaldırıldı", created: "Yeni alışkanlığın hazır.", renamed: "Alışkanlık adı güncellendi.", deleted: "Alışkanlık silindi."
+  }
 };

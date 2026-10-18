@@ -38,3 +38,9 @@
 # HTML sayfaları için cache kapatma
 /*.html
   Cache-Control: no-cache, no-store, must-revalidate
+
+/habits
+  X-Robots-Tag: noindex, nofollow, noarchive
+  Cache-Control: no-cache, no-store, must-revalidate
+/habits.html
+  X-Robots-Tag: noindex, nofollow, noarchive

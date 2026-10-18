@@ -299,5 +299,22 @@ window.LOGWISE_EN = {
   commentsHideReplies: "Hide replies",
   commentsDeleteConfirm: "Are you sure you want to delete this comment?",
   commentsLoginRequired: "You need to log in to comment.",
-  commentsTooLong: "Comment cannot exceed 500 characters."
+  commentsTooLong: "Comment cannot exceed 500 characters.",
+  habits: {
+    title: "My habits", privateLabel: "PERSONAL SPACE", heading: "Small steps,", headingAccent: "visible progress.",
+    intro: "Every day you show up for yourself leaves a mark.", back: "Back to LogWise", language: "Change language", theme: "Change theme",
+    loading: "Loading…", loginTitle: "Sign in to your personal space", loginText: "Sign in with your LogWise account to continue. Then open My habits from the menu.",
+    login: "Sign in to LogWise", deniedTitle: "This space is private", deniedText: "This personal page is only available to the authorized account.",
+    loadError: "Your personal space could not load. Check your connection and try again.", saveError: "Your change could not be saved. Please try again.", retry: "Try again",
+    add: "New habit", edit: "Rename", delete: "Delete habit", choose: "Choose a habit", daily: "Every day · A small promise to yourself",
+    current: "CURRENT STREAK", thisMonth: "THIS MONTH", longest: "LONGEST STREAK", dayUnit: "days", monthHint: "Days completed", longestHint: "Your best streak so far",
+    currentHint: "There is still time today", currentDoneHint: "You showed up today, too", startHint: "It starts with one day",
+    monthMessage: "You have practiced this habit on {n} days this month.", zeroMessage: "Your first golden day is waiting.",
+    today: "Today", previous: "Previous month", next: "Next month", done: "Completed", notDone: "Not marked yet", future: "Future day", mark: "Mark as completed", undo: "Remove completion",
+    calendarHelp: "Tap the days you completed. You can edit past days, too.", timezone: "Days follow Istanbul time.",
+    emptyTitle: "Start with one habit.", emptyText: "Read, walk, learn… Pick one small thing you want to repeat every day.",
+    addTitle: "A fresh start", editTitle: "Name your habit", name: "Habit name", placeholder: "E.g. Read for 20 minutes", nameError: "Enter a name between 1 and 80 characters.",
+    save: "Save", cancel: "Cancel", deleteTitle: "Delete this habit?", deleteText: "“{name}” and all its completion records will be permanently deleted. This cannot be undone.",
+    saved: "Saved", removed: "Completion removed", created: "Your new habit is ready.", renamed: "Habit name updated.", deleted: "Habit deleted."
+  }
 };
