@@ -98,3 +98,11 @@ yanlışlıkla `/app/lib/...` altından istenmez. URL çözümlemesi regresyon t
 Yerel gerçek-dosya HTTP kontrolünde `/app/habits` ve 25 runtime JS/CSS kaynağı başarılı döndü;
 örnek Supabase istemcisi veya veri katmanı kullanılmadı. Canlı auth/RLS doğrulaması ayrı adımdır.
 `.wrangler/` yerel geliştirme çıktısıdır ve `.assetsignore` ile asset yayınından çıkarılır.
+
+Canlı Workers Static Assets kontrolünde eski `/app/* /app.html 200` kuralı doğrudan
+`/app/habits` isteğini `/app` adresine yönlendirerek seçili görünümü kaybediyordu.
+Workers Static Assets `200` rewrite desteklemediği için bu özel rota wildcard'dan önce
+`302 /app?view=habits` kullanır. App'in mevcut query parser'ı görünümü açar ve History API
+ile temiz `/app/habits` adresini korur; sayfa yenileme aynı görünümü tekrar açar.
+Uygulama kabuğu `/app` ve `/app.html` de HTTP noindex taşır; public landing etkilenmez.
+Kaynak: https://developers.cloudflare.com/workers/static-assets/redirects/

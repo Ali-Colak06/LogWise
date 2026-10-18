@@ -7,6 +7,9 @@
 # Cloudflare Pages serves matching .html files automatically; explicit .html rewrites can loop.
 
 # App SPA routes
+# Workers Static Assets does not support 200 rewrites. Preserve the requested
+# habit view through the existing query parser before the legacy wildcard.
+/app/habits   /app?view=habits 302
 /app/*        /app.html       200
 
 # Old blog/guides URLs -> new learn/library information architecture
