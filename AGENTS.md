@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-07-23 — Antrenman programlama Learn içerik kümesi, statik SEO çıktıları ve PWA precache kaydı eklendi; §8 özet güncellendi. -->
+<!-- SON GÜNCELLEME: 2026-10-18 — Hesaba özel alışkanlık takvimi, RLS migration'ı, testler ve v66 PWA kaydı eklendi. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -90,9 +90,9 @@ Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-97)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-98)
 ├── .github/workflows/         ← CI otomasyonları
-│   └── codegen-check.yml      ← Generated çıktı drift kontrolü
+│   └── codegen-check.yml      ← Generated çıktı drift kontrolü + alışkanlık tarih/seri testleri
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── mobile-design-system/  ← Mobil ürün kararları, ekran spesifikasyonları ve prototipler
@@ -101,6 +101,7 @@ LogWise/
 │   ├── YENI-COMPONENT.md
 │   ├── SW-VERSION-BUMP.md
 │   ├── BLOG-YAZISI-EKLEME.md  ← Yeni Learn yazısı ekleme reçetesi
+│   ├── HABIT-TRACKER.md        ← Kişisel alışkanlık alanı mimarisi, test ve canlı kurulum adımları
 │   ├── PROGRAMMATIC-SEO-PROMPT.md ← Programmatic SEO çalışma promptu
 │   ├── EXERCISE-GUIDE-SCHEMA.md ← Ortak web/mobile guide ve medya sözleşmesi
 │   ├── R2-EXERCISE-MEDIA-SETUP.md ← Exercise medya R2 kurulum/yükleme reçetesi
@@ -127,6 +128,8 @@ LogWise/
 │   ├── data-schema.js         ← window.LOGWISE_SCHEMA (init + migrateData)
 │   ├── profile-utils.js       ← window.LOGWISE_PROFILE_UTILS
 │   ├── db.js                  ← window.LOGWISE_DB (Supabase client + profil senkronu)
+│   ├── habit-utils.js         ← window.LOGWISE_HABIT_UTILS (İstanbul gün sınırı, takvim, seri)
+│   ├── habits-db.js           ← window.LOGWISE_HABITS_DB (RLS korumalı kişisel alışkanlık CRUD)
 │   └── exercise-utils.js      ← window.LOGWISE_EX_UTILS (id/name lookup, resolveKey)
 ├── styles/
 │   ├── base.css               ← App paylaşılan CSS (reset, :root, @keyframes)
@@ -138,6 +141,7 @@ LogWise/
 │   ├── dash-chart.js          ← DashChart
 │   ├── ex-preview-modal.js    ← ExPreviewModal
 │   ├── auth-screen.js         ← AuthScreen
+│   ├── habits-page.js         ← HabitsPage (auth gate + tek alışkanlık takvimi)
 │   └── comment-section.js     ← CommentSection (Bölüm 44)
 ├── blog-content/              ← Learn yazıları — Markdown kaynak (TR/EN varyantlı, translationKey frontmatter'lı)
 ├── learn/                     ← Üretilmiş statik EN Learn sayfaları + learn.css (elle) + posts.json
@@ -146,6 +150,8 @@ LogWise/
 ├── scripts/
 │   ├── build-blog.js          ← blog-content/*.md → learn/*.html + ogren/*.html üretici + TR/EN hreflang + landing Learn/Öğren kart enjeksiyonu
 │   ├── check-codegen.js       ← Preset + exercise guide generated çıktı drift kontrollerini tek komutta çalıştırır
+│   ├── test-habit-utils.js    ← Bağımlılıksız tarih/seri davranış testleri (node --test)
+│   ├── test-private-habits.js ← İzole PostgreSQL/PGlite RLS ve CRUD testleri
 │   ├── build-presets-exercises.js ← presets-exercises.json → Web JS + mobil TS generated çıktıları ve --check drift kontrolü
 │   ├── build-ex-guides.js     ← ex-guides.json doğrulama + Web ex-guides.js + mobil generated ex-content.ts üretimi
 │   ├── validate-exercise-media.js ← Yerel MP4 + uzak R2 header/range doğrulaması
@@ -166,6 +172,7 @@ LogWise/
 ├── workout-log-template.html  ← EN statik SEO printable template sayfası
 ├── workout-volume-calculator.html ← EN statik SEO workout volume calculator sayfası
 ├── app.html                   ← Ana uygulama (App + Root monolit)
+├── habits.html                ← Yalnız izin verilen hesap için kişisel alışkanlık takvimi (/habits; noindex)
 ├── profile.html               ← Profil sayfası
 ├── share.html                 ← Paylaşım sayfası
 ├── program.html               ← Program paylaşım sayfası
@@ -301,6 +308,7 @@ LogWise/
 - **RPE / RIR Learn içerik kümesi** (Bölüm 96): RPE, RIR ve aralarındaki pratik farkı anlatan üç konu EN/TR Markdown çiftleriyle eklendi; hesaplayıcı mod seçimi, dönüşüm tablosu, iç linkler, sitemap/hreflang çıktıları ve `sw.js` v56 precache entegrasyonu tamamlandı ✅
 - **Antrenman programlama Learn içerik kümesi** (Bölüm 97): Set arası dinlenme, haftalık set hacmi, ısınma setleri, tahmini/gerçek 1RM, deload ve ağırlık artırma konularını anlatan altı EN/TR Markdown çifti eklendi; Learn/Öğren indeksleri, manifest, sitemap/hreflang çıktıları ve `sw.js` v65 precache entegrasyonu tamamlandı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
+- **Kişisel alışkanlık takvimi** (Bölüm 98): `/habits` altında tek seçili alışkanlık, altın tamamlanma günleri, mevcut/aylık/en uzun seri; `private_habit_access` ile sabit hesap kimliğine bağlı RLS. Migration canlıya ayrıca uygulanır; salt HTML görünürlüğü yetkilendirme sayılmaz.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
 

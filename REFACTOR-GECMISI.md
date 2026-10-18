@@ -4151,6 +4151,28 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 98 — Kişisel Alışkanlık Takvimi (2026-10-18)
+
+- `/habits` altında LogWise'ın ay takvimi dilini kullanan kişisel sayfa eklendi: tek alışkanlık seçimi,
+  altın tamamlanan günler, nötr boş günler, bugün çerçevesi ve gelecek gün kilidi.
+- Günlük alışkanlık ekle/ad değiştir/onaylı sil; mevcut seri, gerçek bu ay toplamı ve tüm zamanların en uzun serisi.
+- İstanbul gün sınırı; bugün boşsa dünkü seriyi koruma, geçmiş gün düzeltmesi ve başarılı sunucu yanıtından sonra işaretleme.
+- `lib/habit-utils.js` saf hesaplar, `lib/habits-db.js` sayfalı geçmiş/CRUD, `components/habits-page.js` auth gate + UI.
+  TR/EN metinler mevcut sözlüklerde, tüm yeni CSS `styles/base.css` içinde. Web JSX/build aracı eklenmedi.
+- `@itisci` public profili salt-okunur API ile doğrulandı; yetki sabit UUID'ye bağlandı. `private_habit_access`
+  istemci tarafından değiştirilemez ve en fazla tek hesap barındırır. İki veri tablosu RLS ile hem hesap kimliğini
+  hem allowlist'i zorlar; bileşik FK sahiplik tutarlılığı, SQL date check gelecek gün kısıtı sağlar.
+- `supabase/migrations/20261018120000_private_habits.sql` ve kurulum snapshot'ı eklendi. Canlıya henüz uygulanmadı.
+  Kurulum sırası ve sınırlar `docs/HABIT-TRACKER.md` içinde.
+- Uygulama yan menüsündeki bağlantı yalnız sunucudan erişimi doğrulanan hesaba gösterilir. Veri erişiminin güvenliği
+  menüye veya istemci koşuluna bağlı değildir. Sayfa noindex; sitemap'e eklenmedi.
+- `sw.js` v66: sayfa/modül precache. `.assetsignore` artık `supabase/` kaynaklarını da deploy dışında tutar.
+- Doğrulama: sekiz tarih/seri testi; izole PostgreSQL/PGlite üzerinde owner CRUD, anon/diğer hesap engeli,
+  sahte sahiplik, allowlist değişikliği engeli, future-date, cascade ve yetki geri alma testleri.
+  Tarih/seri testleri mevcut CI workflow'una eklendi. Tarayıcı testleri gerçek sayfayı yalnız yerel örnek veriyle çalıştırır.
+
+---
+
 ## Bölüm 97 — Antrenman Programlama Learn İçerik Kümesi (2026-07-23)
 
 ### Amaç
