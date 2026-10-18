@@ -8,6 +8,7 @@ logwise-worker/
 AGENTS.md
 REFACTOR-GECMISI.md
 supabase_setup.sql
+supabase/
 r2-exercise-media-cors.json
 wrangler.jsonc
 
