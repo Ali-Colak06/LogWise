@@ -23,6 +23,17 @@ Yerel dosya sunucusunda `/app.html?view=habits`. Yalnızca izin verilen hesaba a
 - Sekme odağına dönüldüğünde kayıtlar yenilenir. Çevrimdışı yazma kuyruğu veya kişisel veri localStorage kopyası yok.
 - Ad değiştirme ve onaylı silme var; silme alışkanlığı ve ona bağlı günleri kalıcı kaldırır.
 
+## Onaylanan veri mimarisi (2026-10-18)
+
+Kullanıcı, alışkanlıkların ayrı tablolarda saklanmasını açıkça onayladı. Mevcut Supabase projesi,
+`window.LOGWISE_DB.sb` istemcisi ve LogWise Auth oturumu kullanılır. `private_habits` alışkanlıkları,
+`private_habit_days` tamamlanan günleri, `private_habit_access` izin verilen hesap kimliğini tutar.
+Web antrenmanlarının `user_data` JSON şeması ve mevcut kayıt akışı korunur.
+
+**Yedekleme sınırı:** Veri Yönetimi'ndeki mevcut JSON dışa/içe aktarma yalnız `user_data` kapsamındadır;
+alışkanlık tablolarını kapsamaz. Ayrı tablo kararı, yedekleme özelliğinin tamamlandığı anlamına gelmez.
+Alışkanlık yedekleme/geri yükleme entegrasyonu ayrıca ele alınmalıdır.
+
 ## Yetkilendirme
 
 `@itisci` public profil API'sinden doğrulanan hesap kimliği:

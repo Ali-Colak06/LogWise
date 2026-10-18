@@ -4153,6 +4153,9 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ## Bölüm 99 — Alışkanlıkların Mevcut App Takvimine Entegrasyonu (2026-10-18)
 
+- Kullanıcı ayrı tablo kararını açıkça onayladı: aynı Supabase projesi/istemcisi/oturumu altında
+  `private_habits`, `private_habit_days`, `private_habit_access`; antrenman `user_data` akışı korunur.
+  Mevcut JSON dışa/içe aktarma alışkanlıkları henüz kapsamaz; bu sınır özellik belgesine kaydedildi.
 - Alışkanlık görünümü `/app/habits` rotasında, diğer görünümlerle aynı yan menü/başlık/tema/navigasyon içinde çalışır.
 - `app.html` içindeki mevcut ay grid'i hem antrenman hem alışkanlık için aynı render bloğudur. Alışkanlık
   görünümünde gün kaynağı, tıklama işlemi ve tamamlanan gün dolgusu değişir; egzersiz pill'leri gösterilmez.
