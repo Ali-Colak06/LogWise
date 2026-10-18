@@ -4151,6 +4151,21 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 99 — Alışkanlıkların Mevcut App Takvimine Entegrasyonu (2026-10-18)
+
+- Alışkanlık görünümü `/app/habits` rotasında, diğer görünümlerle aynı yan menü/başlık/tema/navigasyon içinde çalışır.
+- `app.html` içindeki mevcut ay grid'i hem antrenman hem alışkanlık için aynı render bloğudur. Alışkanlık
+  görünümünde gün kaynağı, tıklama işlemi ve tamamlanan gün dolgusu değişir; egzersiz pill'leri gösterilmez.
+- `HabitTracker`, kompakt seçim/yönetim/seri alanı ve veritabanı işlemlerinden sorumludur; seçili gün snapshot'ını
+  layout effect ile App'e iletir. Ana takvim ile mini takvim bu snapshot'ı kullanır; alışkanlık değiştirilirken
+  önceki alışkanlığın günleri gösterilmez. Aktif program kartı ve antrenman onboarding'i bu sekmede görünmez.
+- Ayrı kişisel sayfa kabuğu kaldırıldı; `habits.html` eski bağlantıları yeni sekmeye yönlendirir. RLS/SQL değişmedi.
+- `/app/habits` noindex header + dinamik meta, TR/EN menü adı, route init/popstate/title ve PWA v67 güncellendi.
+- Doğrulama: tarih/seri testleri, codegen ve inline script kontrolleri; örnek verili gerçek App içinde sekme
+  izolasyonu, gün işaretleme/geri alma, alışkanlık seçimi, mini takvim ay geçişleri ve mobil menü akışı.
+
+---
+
 ## Bölüm 98 — Kişisel Alışkanlık Takvimi (2026-10-18)
 
 - `/habits` altında LogWise'ın ay takvimi dilini kullanan kişisel sayfa eklendi: tek alışkanlık seçimi,

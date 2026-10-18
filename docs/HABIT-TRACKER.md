@@ -1,10 +1,18 @@
 # Kişisel alışkanlık takvimi
 
-2026-10-18 — Web `/habits` (`habits.html`). Yalnızca izin verilen hesaba açık, günlük alışkanlık takvimi.
+2026-10-18 — Web uygulamasının yan menüsündeki **Alışkanlıklar** sekmesi (`/app/habits`).
+Yerel dosya sunucusunda `/app.html?view=habits`. Yalnızca izin verilen hesaba açık, günlük alışkanlık takvimi.
+`habits.html` / `/habits` eski bağlantıları uygulama sekmesine yönlendirir.
 
 ## Davranış
 
 - Birden fazla alışkanlık; takvimde tek seçili alışkanlık. Tümü görünümü yok.
+- `app.html` içindeki mevcut ay takvimi çizimi iki görünüm tarafından aynen paylaşılır: aynı grid,
+  gün başlıkları, hücre çizgileri, bugün dairesi/köşeleri, ay başlığı, yan menü ve mini takvim.
+  Alışkanlık sekmesinde egzersiz pill'leri, dinlenme günü ve aktif program kartı gösterilmez.
+- Takvimin üstünde kompakt alışkanlık seçimi, yönetim düğmeleri ve üç seri/aylık gösterge bulunur.
+  Ayrı sayfa başlığı, hero, kart grubu veya farklı bir takvim kabuğu yoktur.
+- Mini takvim de seçili alışkanlığın tamamlanan günlerini gösterir; ay okları ana takvimle aynı `cMonth` state'ini kullanır.
 - Her gün planlı. Tamamlanan gün altın, boş geçmiş gün nötr, gelecek gün kapalı.
 - Geçmiş kayıtlar düzenlenebilir; alışkanlığın oluşturulduğu tarihten önceki günler de kaydedilebilir.
 - Bugün tamamlandıysa seri bugünden, tamamlanmadıysa dünden geriye sayılır.
@@ -30,7 +38,7 @@ Gelecek tarihler veritabanında da reddedilir.
 
 HTML ve JS herkese indirilebilir statik kabuktur; hiçbir özel alışkanlık bilgisi içermez. Kişisel veriler
 Supabase yanıtlarıyla gelir; service worker Supabase yanıtlarını cache'lemez. URL gizliliği ve noindex erişim kontrolü değildir.
-Sayfa sitemap'e eklenmez; noindex HTML meta ve HTTP header ile verilir.
+Sekme sitemap'e eklenmez; `/app/habits` için HTTP noindex header'ı ve görünüm açıkken dinamik robots meta kullanılır.
 
 ## Canlıya alma sırası
 
@@ -39,9 +47,11 @@ Sayfa sitemap'e eklenmez; noindex HTML meta ve HTTP header ile verilir.
    Aynı migration'ı iki kez çalıştırma. `supabase_setup.sql` aynı yapının yeni kurulum snapshot'ını içerir.
 2. `@itisci` hesabında erişim tablosunun tek kendi satırını döndürdüğünü, başka hesapta boş döndüğünü ve anon
    erişimin reddedildiğini doğrula. Test için gerçek kişisel alışkanlık verisi eklemek gerekmez.
-3. Web değişikliklerini normal Git/Cloudflare akışıyla yayınla. `sw.js` v66, yeni HTML ve runtime modüllerini içerir.
-4. Hesapla `/app` açıldığında yan menüde “Alışkanlıklarım” görünmeli. `/habits` üzerinde ekle, işaretle, yeniden yükle
+3. Web değişikliklerini normal Git/Cloudflare akışıyla yayınla. `sw.js` v67, güncel uygulama ve runtime modüllerini içerir.
+4. Hesapla `/app` açıldığında yan menüde “Alışkanlıklar” görünmeli. `/app/habits` üzerinde ekle, işaretle, yeniden yükle
    ve işareti kaldır akışını kendi test alışkanlığınla doğrula. Oturumsuz veya başka hesap aynı URL'de veri görememeli.
+   Takvim sekmesine dönünce yalnız antrenmanların, Alışkanlıklar'a dönünce yalnız seçili alışkanlığın görünmesini;
+   tarayıcı geri/ileri düğmelerini, mini takvim ay oklarını ve mobil yan menüyü de doğrula.
 
 Bu geliştirme sırasında canlı migration uygulanmadı; izole PostgreSQL testleri canlı Supabase kurulumu yerine geçmez.
 Bağlı yönetici oturumu/connection olmadan anon anahtarla schema/RLS kurulamaz.

@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-10-18 — Hesaba özel alışkanlık takvimi, RLS migration'ı, testler ve v66 PWA kaydı eklendi. -->
+<!-- SON GÜNCELLEME: 2026-10-18 — Alışkanlıklar uygulama yan menüsüne ve mevcut takvim çizimine entegre edildi; PWA v67. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -90,7 +90,7 @@ Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-98)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-99)
 ├── .github/workflows/         ← CI otomasyonları
 │   └── codegen-check.yml      ← Generated çıktı drift kontrolü + alışkanlık tarih/seri testleri
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
@@ -141,7 +141,7 @@ LogWise/
 │   ├── dash-chart.js          ← DashChart
 │   ├── ex-preview-modal.js    ← ExPreviewModal
 │   ├── auth-screen.js         ← AuthScreen
-│   ├── habits-page.js         ← HabitsPage (auth gate + tek alışkanlık takvimi)
+│   ├── habits-page.js         ← HabitTracker (App içi alışkanlık kontrolü + takvim/mini takvim veri köprüsü)
 │   └── comment-section.js     ← CommentSection (Bölüm 44)
 ├── blog-content/              ← Learn yazıları — Markdown kaynak (TR/EN varyantlı, translationKey frontmatter'lı)
 ├── learn/                     ← Üretilmiş statik EN Learn sayfaları + learn.css (elle) + posts.json
@@ -172,7 +172,7 @@ LogWise/
 ├── workout-log-template.html  ← EN statik SEO printable template sayfası
 ├── workout-volume-calculator.html ← EN statik SEO workout volume calculator sayfası
 ├── app.html                   ← Ana uygulama (App + Root monolit)
-├── habits.html                ← Yalnız izin verilen hesap için kişisel alışkanlık takvimi (/habits; noindex)
+├── habits.html                ← /app/habits uygulama sekmesine eski bağlantı yönlendirmesi (noindex)
 ├── profile.html               ← Profil sayfası
 ├── share.html                 ← Paylaşım sayfası
 ├── program.html               ← Program paylaşım sayfası
@@ -309,6 +309,7 @@ LogWise/
 - **Antrenman programlama Learn içerik kümesi** (Bölüm 97): Set arası dinlenme, haftalık set hacmi, ısınma setleri, tahmini/gerçek 1RM, deload ve ağırlık artırma konularını anlatan altı EN/TR Markdown çifti eklendi; Learn/Öğren indeksleri, manifest, sitemap/hreflang çıktıları ve `sw.js` v65 precache entegrasyonu tamamlandı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 - **Kişisel alışkanlık takvimi** (Bölüm 98): `/habits` altında tek seçili alışkanlık, altın tamamlanma günleri, mevcut/aylık/en uzun seri; `private_habit_access` ile sabit hesap kimliğine bağlı RLS. Migration canlıya ayrıca uygulanır; salt HTML görünürlüğü yetkilendirme sayılmaz.
+- **Alışkanlıklar uygulama sekmesi** (Bölüm 99): Yan menüde Alışkanlıklar; `/app/habits` görünümü antrenman takviminin aynı ay grid'ini ve mini takvimini kullanır. Kompakt seçim/seri alanı; ayrı sayfa kabuğu yok. `/habits` eski bağlantısı sekmeye yönlenir; PWA v67.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
 
