@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-10-18 — Alışkanlıklar uygulama yan menüsüne ve mevcut takvim çizimine entegre edildi; PWA v67. -->
+<!-- SON GÜNCELLEME: 2026-10-18 — Alışkanlıklar takvim entegrasyonu, doğrudan iç rota asset yüklemesi ve PWA v68. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -309,7 +309,7 @@ LogWise/
 - **Antrenman programlama Learn içerik kümesi** (Bölüm 97): Set arası dinlenme, haftalık set hacmi, ısınma setleri, tahmini/gerçek 1RM, deload ve ağırlık artırma konularını anlatan altı EN/TR Markdown çifti eklendi; Learn/Öğren indeksleri, manifest, sitemap/hreflang çıktıları ve `sw.js` v65 precache entegrasyonu tamamlandı ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 - **Kişisel alışkanlık takvimi** (Bölüm 98): `/habits` altında tek seçili alışkanlık, altın tamamlanma günleri, mevcut/aylık/en uzun seri; `private_habit_access` ile sabit hesap kimliğine bağlı RLS. Migration canlıya ayrıca uygulanır; salt HTML görünürlüğü yetkilendirme sayılmaz.
-- **Alışkanlıklar uygulama sekmesi** (Bölüm 99): Yan menüde Alışkanlıklar; `/app/habits` görünümü antrenman takviminin aynı ay grid'ini ve mini takvimini kullanır. Kompakt seçim/seri alanı; ayrı sayfa kabuğu yok. `/habits` eski bağlantısı sekmeye yönlenir; PWA v67.
+- **Alışkanlıklar uygulama sekmesi** (Bölüm 99): Yan menüde Alışkanlıklar; `/app/habits` görünümü antrenman takviminin aynı ay grid'ini ve mini takvimini kullanır. Kompakt seçim/seri alanı; ayrı sayfa kabuğu yok. `/habits` eski bağlantısı sekmeye yönlenir. App runtime dosyaları kökten mutlak URL kullanır; doğrudan iç rota yüklemesi testlidir; PWA v68.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
 

@@ -4164,6 +4164,10 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
   önceki alışkanlığın günleri gösterilmez. Aktif program kartı ve antrenman onboarding'i bu sekmede görünmez.
 - Ayrı kişisel sayfa kabuğu kaldırıldı; `habits.html` eski bağlantıları yeni sekmeye yönlendirir. RLS/SQL değişmedi.
 - `/app/habits` noindex header + dinamik meta, TR/EN menü adı, route init/popstate/title ve PWA v67 güncellendi.
+- Canlı yayın hazırlığında App'in 25 yerel JS/CSS referansı kökten mutlak URL'ye geçirildi: doğrudan
+  `/app/habits` ve `/app/dashboard` açılışında göreli yol kırılması engellendi. Regresyon testi eklendi;
+  örnek veri katmanı olmadan gerçek dosyalar/istemci ile HTTP ve oturumsuz tarayıcı akışı doğrulandı.
+  Yerel `.wrangler/` çıktıları asset kapsamından çıkarıldı; teslim cache sürümü v68.
 - Doğrulama: tarih/seri testleri, codegen ve inline script kontrolleri; örnek verili gerçek App içinde sekme
   izolasyonu, gün işaretleme/geri alma, alışkanlık seçimi, mini takvim ay geçişleri ve mobil menü akışı.
 

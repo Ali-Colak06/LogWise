@@ -58,7 +58,7 @@ Sekme sitemap'e eklenmez; `/app/habits` için HTTP noindex header'ı ve görün�
    Aynı migration'ı iki kez çalıştırma. `supabase_setup.sql` aynı yapının yeni kurulum snapshot'ını içerir.
 2. `@itisci` hesabında erişim tablosunun tek kendi satırını döndürdüğünü, başka hesapta boş döndüğünü ve anon
    erişimin reddedildiğini doğrula. Test için gerçek kişisel alışkanlık verisi eklemek gerekmez.
-3. Web değişikliklerini normal Git/Cloudflare akışıyla yayınla. `sw.js` v67, güncel uygulama ve runtime modüllerini içerir.
+3. Web değişikliklerini normal Git/Cloudflare akışıyla yayınla. `sw.js` v68, güncel uygulama ve runtime modüllerini içerir.
 4. Hesapla `/app` açıldığında yan menüde “Alışkanlıklar” görünmeli. `/app/habits` üzerinde ekle, işaretle, yeniden yükle
    ve işareti kaldır akışını kendi test alışkanlığınla doğrula. Oturumsuz veya başka hesap aynı URL'de veri görememeli.
    Takvim sekmesine dönünce yalnız antrenmanların, Alışkanlıklar'a dönünce yalnız seçili alışkanlığın görünmesini;
@@ -85,3 +85,12 @@ node scripts/test-private-habits.js <temp-dir>/node_modules/@electric-sql/pglite
 ```
 
 Tarih/seri testleri CI'de otomatik çalışır. PGlite güvenlik testi manuel kapıdır.
+
+### İç rota yüklemesi
+
+`app.html` içindeki yerel JS/CSS kaynakları `/data/`, `/lib/`, `/components/` ve `/styles/`
+olarak kökten mutlak URL kullanır. `/app/habits` veya `/app/dashboard` doğrudan açıldığında kaynaklar
+yanlışlıkla `/app/lib/...` altından istenmez. URL çözümlemesi regresyon testi tarih/seri test dosyasında yer alır.
+Yerel gerçek-dosya HTTP kontrolünde `/app/habits` ve 25 runtime JS/CSS kaynağı başarılı döndü;
+örnek Supabase istemcisi veya veri katmanı kullanılmadı. Canlı auth/RLS doğrulaması ayrı adımdır.
+`.wrangler/` yerel geliştirme çıktısıdır ve `.assetsignore` ile asset yayınından çıkarılır.
