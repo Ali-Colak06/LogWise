@@ -40,12 +40,14 @@
 <script src="lib/profile-utils.js"></script>
 <script src="lib/db.js"></script>
 <script src="lib/habits-db.js"></script>
+<script src="lib/habit-utils.js"></script>
 <script src="components/error-boundary.js"></script>
 <script src="components/brand-mark.js"></script>
 <script src="components/dash-chart.js"></script>
 <script src="components/ex-preview-modal.js"></script>
 <script src="components/auth-screen.js"></script>
 <script src="components/comment-section.js"></script>
+<script src="components/habits-page.js"></script>
 <script src="data/presets-exercises.js"></script>
 <script src="data/ex-descriptions.js"></script>
 <script src="data/ex-preview.js"></script>
@@ -196,14 +198,18 @@ function App({
 }) {
   const isGuest = !user;
   const [habitOwnerId, setHabitOwnerId] = useState(null);
+  const [habitAccess, setHabitAccess] = useState("checking");
+  const [habitAccessRetry, setHabitAccessRetry] = useState(0);
+  const [habitSnapshot, setHabitSnapshot] = useState(null);
   useEffect(() => {
     let active = true;
     setHabitOwnerId(null);
+    setHabitAccess(user?.id ? "checking" : "login");
     if (user?.id) window.LOGWISE_HABITS_DB.hasAccess(user.id)
-      .then(allowed => { if (active && allowed) setHabitOwnerId(user.id); })
-      .catch(() => {}); // Personal feature may not be provisioned; the workout app stays available.
+      .then(allowed => { if (active) { setHabitAccess(allowed ? "allowed" : "denied"); if (allowed) setHabitOwnerId(user.id); } })
+      .catch(() => { if (active) setHabitAccess("error"); });
     return () => { active = false; };
-  }, [user?.id]);
+  }, [user?.id, habitAccessRetry]);
   const L = lang === "tr" ? TR : EN;
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -211,6 +217,7 @@ function App({
   const [view, setView] = useState(() => {
     const p = window.location.pathname;
     const q = new URLSearchParams(window.location.search);
+    if (p === "/app/habits" || q.get("view") === "habits") return "habits";
     if (p === "/app/dashboard" || p === "/dashboard") return "dashboard";
     if (p === "/app/exercises" || p === "/exercises") return "exercises";
     if (p === "/app/programs"  || p === "/programs")  return "programs";
@@ -631,7 +638,7 @@ function App({
       isPopRef.current = false;
       return;
     }
-    const u = view === "dashboard" ? "/app/dashboard" : view === "exercises" ? "/app/exercises" : view === "programs" ? "/app/programs" : view === "feedback" ? "/app/feedback" : view === "data" ? "/app/data" : view === "social" ? "/app/social" : view === "day" && selDate ? `/app?date=${fmt(selDate)}` : "/app";
+    const u = view === "habits" ? (IS_LOCAL_STATIC ? "/app.html?view=habits" : "/app/habits") : view === "dashboard" ? "/app/dashboard" : view === "exercises" ? "/app/exercises" : view === "programs" ? "/app/programs" : view === "feedback" ? "/app/feedback" : view === "data" ? "/app/data" : view === "social" ? "/app/social" : view === "day" && selDate ? `/app?date=${fmt(selDate)}` : "/app";
     const cur = window.location.pathname + (window.location.search || "");
     if (cur !== u) history.pushState(null, "", u);
   }, [view]);
@@ -648,7 +655,7 @@ function App({
       const p = window.location.pathname;
       const q = new URLSearchParams(window.location.search);
       const d = q.get("date");
-      if (p === "/app/dashboard" || p === "/dashboard") setView("dashboard");else if (p === "/app/exercises" || p === "/exercises") setView("exercises");else if (p === "/app/programs" || p === "/programs") setView("programs");else if (p === "/app/feedback" || p === "/feedback") setView("feedback");else if (p === "/app/data" || p === "/data") setView("data");else if (p === "/app/social" || p === "/social") setView("social");else if (d) {
+      if (p === "/app/habits" || q.get("view") === "habits") setView("habits");else if (p === "/app/dashboard" || p === "/dashboard") setView("dashboard");else if (p === "/app/exercises" || p === "/exercises") setView("exercises");else if (p === "/app/programs" || p === "/programs") setView("programs");else if (p === "/app/feedback" || p === "/feedback") setView("feedback");else if (p === "/app/data" || p === "/data") setView("data");else if (p === "/app/social" || p === "/social") setView("social");else if (d) {
         setSelDate(pD(d));
         setView("day");
       } else setView("calendar");
@@ -705,6 +712,7 @@ function App({
   useEffect(() => {
     const titles = {
       calendar: "Log Wise — Free Workout Tracker",
+      habits: "Log Wise · " + L.habits.tab,
       dashboard: "Log Wise · Panel",
       exercises: "Log Wise · Hareketler",
       programs: "Log Wise · Programlar",
@@ -714,7 +722,12 @@ function App({
       day: selDate ? `LOG WISE · ${selDate.getDate()} ${MO[selDate.getMonth()]} ${selDate.getFullYear()}` : "LOG WISE"
     };
     document.title = titles[view] || "LOG WISE";
-  }, [view, selDate]);
+    let robots = document.querySelector('meta[data-habit-robots]');
+    if (view === "habits") {
+      if (!robots) { robots = document.createElement("meta"); robots.name = "robots"; robots.setAttribute("data-habit-robots", ""); document.head.appendChild(robots); }
+      robots.content = "noindex,nofollow,noarchive";
+    } else if (robots) robots.remove();
+  }, [view, selDate, lang]);
   useEffect(() => {
     const onKey = e => {
       if (e.key !== "Escape") return;
@@ -2209,6 +2222,9 @@ function App({
       }
     }, isCardio ? ` ·${fmtDurationValue(totalDuration)}` : ` ·${sets.length}s`));
   };
+  const habitMode = view === "habits";
+  const habitReady = habitOwnerId === user?.id && habitSnapshot?.userId === user?.id && habitSnapshot?.ready;
+  const habitToday = habitSnapshot?.today || window.LOGWISE_HABIT_UTILS.todayKey();
   const MiniCal = () => {
     const y = cMonth.getFullYear(),
       m = cMonth.getMonth();
@@ -2267,12 +2283,13 @@ function App({
       });
       const dt = new Date(y, m, c);
       const k = fmt(dt);
-      const isT = k === today;
-      const isSel = selDate && k === fmt(selDate);
-      const hasW = getEff(k).length > 0;
+      const isT = k === (habitMode ? habitToday : today);
+      const isSel = !habitMode && selDate && k === fmt(selDate);
+      const hasW = habitMode ? habitReady && habitSnapshot.days.includes(k) : getEff(k).length > 0;
       return React.createElement("div", {
         key: i,
         onClick: () => {
+          if (habitMode) { if (habitReady && k <= habitToday) habitSnapshot.toggle(k); return; }
           setSelDate(dt);
           setView("day");
         },
@@ -2553,21 +2570,21 @@ function App({
     onClick: () => setSidebar(s => !s),
     style: S.ib,
     "aria-label": L.ariaMenu
-  }, React.createElement(IcoMenu, null)), (view === "calendar" || view === "day") && React.createElement(React.Fragment, null, !isMobile && React.createElement("button", {
-    onClick: () => openDayView(new Date(), {
-      direction: "jump",
-      icon: "📍"
-    }),
+  }, React.createElement(IcoMenu, null)), (view === "calendar" || view === "day" || habitMode) && React.createElement(React.Fragment, null, !isMobile && React.createElement("button", {
+    onClick: () => {
+      if (habitMode) { const key = window.LOGWISE_HABIT_UTILS.todayKey(); setCMonth(new Date(Number(key.slice(0,4)), Number(key.slice(5,7)) - 1, 1)); }
+      else openDayView(new Date(), { direction: "jump", icon: "📍" });
+    },
     style: S.tBtn
   }, L.today), React.createElement("button", {
     onClick: () => {
-      if (calMode === "month") setCMonth(new Date(cMonth.getFullYear(), cMonth.getMonth() - 1, 1));else setWOff(w => w - 1);
+      if (habitMode || calMode === "month") setCMonth(new Date(cMonth.getFullYear(), cMonth.getMonth() - 1, 1));else setWOff(w => w - 1);
     },
     style: S.ib,
     "aria-label": L.ariaPrevMonth
   }, React.createElement(IcoL, null)), React.createElement("button", {
     onClick: () => {
-      if (calMode === "month") setCMonth(new Date(cMonth.getFullYear(), cMonth.getMonth() + 1, 1));else setWOff(w => w + 1);
+      if (habitMode || calMode === "month") setCMonth(new Date(cMonth.getFullYear(), cMonth.getMonth() + 1, 1));else setWOff(w => w + 1);
     },
     style: S.ib,
     "aria-label": L.ariaNextMonth
@@ -2582,7 +2599,7 @@ function App({
       whiteSpace: "nowrap",
       minWidth: 0
     }
-  }, view === "day" && selDate ? `${selDate.getDate()} ${L.months[selDate.getMonth()]}${!isMobile ? " " + selDate.getFullYear() : ""}` : calMode === "month" ? `${L.months[cMonth.getMonth()]}${!isMobile ? " " + cMonth.getFullYear() : ` '${String(cMonth.getFullYear()).slice(2)}`}` : `${weekDays[0].getDate()} ${L.months[weekDays[0].getMonth()].slice(0, 3)} – ${weekDays[6].getDate()} ${L.months[weekDays[6].getMonth()].slice(0, 3)}`)), view === "dashboard" && React.createElement("span", {
+  }, view === "day" && selDate ? `${selDate.getDate()} ${L.months[selDate.getMonth()]}${!isMobile ? " " + selDate.getFullYear() : ""}` : habitMode || calMode === "month" ? `${L.months[cMonth.getMonth()]}${!isMobile ? " " + cMonth.getFullYear() : ` '${String(cMonth.getFullYear()).slice(2)}`}` : `${weekDays[0].getDate()} ${L.months[weekDays[0].getMonth()].slice(0, 3)} – ${weekDays[6].getDate()} ${L.months[weekDays[6].getMonth()].slice(0, 3)}`)), view === "dashboard" && React.createElement("span", {
     style: {
       flex: 1,
       fontSize: isMobile ? 15 : 22,
@@ -2633,7 +2650,7 @@ function App({
     value: "month"
   }, L.month), React.createElement("option", {
     value: "week"
-  }, L.week)), !isMobile && React.createElement("button", {
+  }, L.week)), habitMode && React.createElement("span", { style: { ...S.sel, fontSize: isMobile ? 11 : 13, padding: isMobile ? "4px 6px" : "6px 12px" } }, L.month), !isMobile && React.createElement("button", {
     onClick: () => setLang(l => l === "tr" ? "en" : "tr"),
     style: {
       ...S.tBtn,
@@ -2809,7 +2826,7 @@ function App({
     style: {
       padding: "12px 12px 8px"
     }
-  }, [["calendar", "📅", L.calendar], ["dashboard", "📊", L.dashboard], ["exercises", "💪", L.exercises], ["programs", "📋", L.programs], ["social", "👥", L.social], ["data", "📦", L.dataManagement], ["feedback", "💬", L.feedback]].map(([v, i, l]) => React.createElement("button", {
+  }, [["calendar", "📅", L.calendar], ...(habitOwnerId === user?.id ? [["habits", "✦", L.habits.tab]] : []), ["dashboard", "📊", L.dashboard], ["exercises", "💪", L.exercises], ["programs", "📋", L.programs], ["social", "👥", L.social], ["data", "📦", L.dataManagement], ["feedback", "💬", L.feedback]].map(([v, i, l]) => React.createElement("button", {
     key: v,
     onClick: () => {
       setView(v);
@@ -2832,14 +2849,7 @@ function App({
       fontFamily: "inherit",
       transition: "all .15s ease"
     }
-  }, i, " ", l)), habitOwnerId === user?.id && React.createElement("a", {
-    href: IS_LOCAL_STATIC ? "/habits.html" : "/habits",
-    style: {
-      display: "block", padding: "10px 20px", marginTop: 8, borderRadius: 24,
-      background: "var(--blueL)", color: "var(--blue)", fontSize: 14,
-      fontWeight: 600, textDecoration: "none"
-    }
-  }, "✦ ", L.habits.title)), React.createElement("div", {
+  }, i, " ", l))), React.createElement("div", {
     style: {
       borderTop: "1px solid var(--brd)",
       margin: "4px 16px"
@@ -2921,7 +2931,7 @@ function App({
       borderTop: "1px solid var(--brd)",
       margin: "4px 16px"
     }
-  }), React.createElement(MiniCal, null), aProg && (() => {
+  }), React.createElement(MiniCal, null), !habitMode && aProg && (() => {
     const apComp = calcCompliance(data.activeProgram, data.workouts, data.programs, data.programMeta);
     return React.createElement("div", {
       style: {
@@ -3130,7 +3140,7 @@ function App({
       animation: `confetti ${2 + Math.random()}s ease-out forwards`,
       animationDelay: Math.random() * 0.3 + "s"
     }
-  }))), showOnboard && React.createElement("div", {
+  }))), showOnboard && !habitMode && React.createElement("div", {
     style: {
       position: "fixed",
       inset: 0,
@@ -4001,13 +4011,19 @@ function App({
         })));
       }));
     })()));
-  })(), view === "calendar" && React.createElement("div", {
+  })(), (view === "calendar" || habitMode) && React.createElement("div", {
     style: {
       height: "100%",
       display: "flex",
       flexDirection: "column"
     }
-  }, calMode === "month" ? React.createElement(React.Fragment, null, React.createElement("div", {
+  }, habitMode && (habitOwnerId === user?.id ? React.createElement(window.LOGWISE_COMPONENTS.HabitTracker, {
+    user, L: L.habits, onSnapshot: setHabitSnapshot
+  }) : React.createElement("div", { className: "habit-access", role: habitAccess === "error" ? "alert" : "status" },
+    habitAccess === "checking" ? L.habits.loading : habitAccess === "error" ? L.habits.loadError : habitAccess === "login" ? L.habits.loginText : L.habits.deniedText,
+    habitAccess === "error" && React.createElement("button", { className: "habit-button", onClick: () => setHabitAccessRetry(n => n + 1) }, L.habits.retry),
+    habitAccess === "login" && React.createElement("button", { className: "habit-button", onClick: showAuth }, L.habits.login))),
+    (!habitMode || habitOwnerId === user?.id) && (habitMode || calMode === "month") ? React.createElement(React.Fragment, null, React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(7,1fr)",
@@ -4041,31 +4057,48 @@ function App({
       }
     });
     const k = fmt(d);
-    const eff = getEff(k);
-    const isT = k === today;
-    const isSel = selDate && k === fmt(selDate);
-    return React.createElement("div", {
+    const eff = habitMode ? [] : getEff(k);
+    const completed = habitMode && habitReady && habitSnapshot.days.includes(k);
+    const locked = habitMode && (!habitReady || habitSnapshot.busy || k > habitToday);
+    const isT = k === (habitMode ? habitToday : today);
+    const isSel = !habitMode && selDate && k === fmt(selDate);
+    return React.createElement(habitMode ? "button" : "div", {
       key: i,
+      type: habitMode ? "button" : undefined,
+      "data-date": k,
+      "data-calendar-kind": habitMode ? "habit" : "workout",
+      disabled: habitMode ? locked : undefined,
+      "aria-pressed": habitMode ? !!completed : undefined,
+      "aria-current": habitMode && isT ? "date" : undefined,
+      "aria-label": habitMode ? `${d.getDate()} ${L.months[d.getMonth()]} ${d.getFullYear()} · ${completed ? L.habits.undo : k > habitToday ? L.habits.future : L.habits.mark}` : undefined,
       onClick: () => {
+        if (habitMode) { if (!locked) habitSnapshot.toggle(k); return; }
         setSelDate(d);
         setView("day");
       },
       style: {
+        borderTop: habitMode ? 0 : undefined,
+        borderLeft: habitMode ? 0 : undefined,
+        display: habitMode ? "flex" : undefined,
+        flexDirection: habitMode ? "column" : undefined,
+        justifyContent: habitMode ? "flex-start" : undefined,
+        fontFamily: habitMode ? "inherit" : undefined,
+        textAlign: habitMode ? "left" : undefined,
         borderRight: "1px solid var(--brd)",
         borderBottom: "1px solid var(--brd)",
         padding: isMobile ? "6px 5px 10px" : "4px 5px",
-        cursor: "pointer",
+        cursor: locked ? "default" : "pointer",
         overflow: "hidden",
-        background: isSel ? "var(--blueL)" : "var(--bg)",
+        background: completed ? "var(--blue)" : isSel ? "var(--blueL)" : "var(--bg)",
         transition: "background .1s",
         position: "relative",
         boxShadow: isT ? "inset 0 0 14px rgba(240,192,64,.07)" : "none"
       },
       onMouseEnter: e => {
-        if (!isSel && !isT) e.currentTarget.style.background = "var(--bgH)";
+        if (!isSel && !isT && !locked) e.currentTarget.style.background = completed ? "var(--blueH)" : "var(--bgH)";
       },
       onMouseLeave: e => {
-        if (!isSel) e.currentTarget.style.background = "var(--bg)";
+        if (!isSel) e.currentTarget.style.background = completed ? "var(--blue)" : "var(--bg)";
       }
     }, React.createElement("div", {
       style: {
@@ -4083,10 +4116,10 @@ function App({
         alignItems: "center",
         justifyContent: "center",
         fontWeight: isT ? 700 : 400,
-        background: isT ? "var(--blue)" : "transparent",
-        color: isT ? "#fff" : "var(--t2)"
+        background: isT ? completed ? "var(--bg)" : "var(--blue)" : "transparent",
+        color: completed ? isT ? "var(--blue)" : "#171308" : habitMode && k > habitToday ? "var(--t3)" : isT ? "#fff" : "var(--t2)"
       }
-    }, d.getDate())), eff.slice(0, 4).map((w, j) => React.createElement(Pill, {
+    }, d.getDate())), completed && React.createElement("div", { "aria-hidden": true, style: { textAlign: "center", color: "#171308", fontSize: isMobile ? 18 : 24, paddingTop: isMobile ? 2 : 14 } }, "✓"), eff.slice(0, 4).map((w, j) => React.createElement(Pill, {
       key: j,
       eid: w.exerciseId,
       sets: w.sets,
@@ -4097,7 +4130,7 @@ function App({
         color: "var(--t3)",
         paddingLeft: 6
       }
-    }, "+", eff.length - 4, " ", L.more), eff.length === 0 && (aProg?.offDays || []).includes(String(gdow(d))) && React.createElement("div", {
+    }, "+", eff.length - 4, " ", L.more), !habitMode && eff.length === 0 && (aProg?.offDays || []).includes(String(gdow(d))) && React.createElement("div", {
       style: {
         fontSize: 10,
         color: "var(--teal)",
@@ -4112,13 +4145,14 @@ function App({
         inset: 0,
         pointerEvents: "none",
         zIndex: 3,
-        backgroundImage: "linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue)),linear-gradient(var(--blue),var(--blue))",
+        color: completed ? "#171308" : "var(--blue)",
+        backgroundImage: "linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor),linear-gradient(currentColor,currentColor)",
         backgroundSize: "2px 12px,12px 2px,2px 12px,12px 2px,2px 12px,12px 2px,2px 12px,12px 2px",
         backgroundPosition: "0 0,0 0,100% 0,100% 0,0 100%,0 100%,100% 100%,100% 100%",
         backgroundRepeat: "no-repeat"
       }
     }));
-  }))) : React.createElement(React.Fragment, null, React.createElement("div", {
+  }))) : !habitMode && React.createElement(React.Fragment, null, React.createElement("div", {
     style: {
       display: "grid",
       gridTemplateColumns: "repeat(7,1fr)",

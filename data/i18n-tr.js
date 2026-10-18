@@ -300,9 +300,10 @@ window.LOGWISE_TR = {
   commentsLoginRequired: "Yorum yapmak için giriş yapmalısın.",
   commentsTooLong: "Yorum 500 karakterden uzun olamaz.",
   habits: {
+    tab: "Alışkanlıklar",
     title: "Alışkanlıklarım", privateLabel: "KİŞİSEL ALAN", heading: "Küçük adımlar,", headingAccent: "görünür birikimler.",
     intro: "Kendine ayırdığın her gün burada bir iz bırakır.", back: "LogWise'a dön", language: "Dili değiştir", theme: "Temayı değiştir",
-    loading: "Yükleniyor…", loginTitle: "Kişisel alanına giriş yap", loginText: "Devam etmek için LogWise hesabınla giriş yap. Ardından menüden Alışkanlıklarım'ı açabilirsin.",
+    loading: "Yükleniyor…", loginTitle: "Kişisel alanına giriş yap", loginText: "Devam etmek için LogWise hesabınla giriş yap. Ardından menüden Alışkanlıklar sekmesini açabilirsin.",
     login: "LogWise'a giriş yap", deniedTitle: "Bu alan sana açık değil", deniedText: "Bu kişisel sayfa yalnızca izin verilen hesaba açıktır.",
     loadError: "Kişisel alan yüklenemedi. Bağlantını kontrol edip yeniden dene.", saveError: "Değişiklik kaydedilemedi. Yeniden dene.", retry: "Yeniden dene",
     add: "Yeni alışkanlık", edit: "Adını düzenle", delete: "Alışkanlığı sil", choose: "Alışkanlık seç", daily: "Her gün · Kendine verdiğin küçük bir söz",

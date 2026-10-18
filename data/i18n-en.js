@@ -301,9 +301,10 @@ window.LOGWISE_EN = {
   commentsLoginRequired: "You need to log in to comment.",
   commentsTooLong: "Comment cannot exceed 500 characters.",
   habits: {
+    tab: "Habits",
     title: "My habits", privateLabel: "PERSONAL SPACE", heading: "Small steps,", headingAccent: "visible progress.",
     intro: "Every day you show up for yourself leaves a mark.", back: "Back to LogWise", language: "Change language", theme: "Change theme",
-    loading: "Loading…", loginTitle: "Sign in to your personal space", loginText: "Sign in with your LogWise account to continue. Then open My habits from the menu.",
+    loading: "Loading…", loginTitle: "Sign in to your personal space", loginText: "Sign in with your LogWise account to continue. Then open Habits from the menu.",
     login: "Sign in to LogWise", deniedTitle: "This space is private", deniedText: "This personal page is only available to the authorized account.",
     loadError: "Your personal space could not load. Check your connection and try again.", saveError: "Your change could not be saved. Please try again.", retry: "Try again",
     add: "New habit", edit: "Rename", delete: "Delete habit", choose: "Choose a habit", daily: "Every day · A small promise to yourself",

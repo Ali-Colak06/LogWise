@@ -87,97 +87,42 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--blue) !i
 @keyframes countUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 @keyframes shine{0%{background-position:-200% center}100%{background-position:200% center}}
 
-/* ---------- Private habits (habits.html) ---------- */
-body.habits-body{background:var(--bg);color:var(--t1);overflow:auto;height:auto;min-height:100dvh}
-.habits-body #root{height:auto;min-height:100dvh;overflow:visible}
-.habits-shell{max-width:1120px;margin:0 auto;padding:0 40px 24px}
-.habit-header{min-height:88px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid var(--brd)}
-.habit-brand{display:flex;align-items:center;gap:12px;color:var(--t1);text-decoration:none;font-family:var(--font-display);font-weight:700;letter-spacing:1px}
-.habit-header-divider{color:var(--brd2);font-weight:400;margin:0 6px}
-.habit-header-title{font-family:var(--font-body);font-size:13px;color:var(--t2);letter-spacing:0;font-weight:500}
-.habit-header-actions,.habit-month-actions,.habit-selection-actions,.habit-dialog-actions{display:flex;align-items:center;gap:8px}
-.habit-header-actions .habit-button{min-width:40px;padding:8px;font-family:var(--font-mono);font-size:12px}
-.habit-main{padding-top:52px}
-.habit-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:42px}
-.habit-kicker{display:block;font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--blue);margin-bottom:16px;font-weight:500}
-.habit-intro h1{font-family:var(--font-display);font-size:clamp(30px,4.4vw,49px);font-weight:500;line-height:1.12;letter-spacing:-1.8px;margin-bottom:16px}
-.habit-intro h1 span{color:var(--blue)}
-.habit-intro p{color:var(--t2);font-size:14px;line-height:1.6}
-.habit-button{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:40px;padding:9px 15px;border:1px solid var(--brd2);border-radius:8px;background:var(--bg2);color:var(--t1);font:500 12px var(--font-body);text-decoration:none;cursor:pointer;transition:background .15s,border-color .15s}
-.habit-button:hover:not(:disabled){background:var(--bgH);border-color:var(--t2)}
+/* ---------- Habits tab — shares App calendar cells and navigation ---------- */
+.habit-controls{flex-shrink:0;border-bottom:1px solid var(--brd);padding:10px 16px 8px;background:var(--bg)}
+.habit-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.habit-toolbar select{min-width:0;max-width:460px;flex:1;background:var(--bg);color:var(--t1);border:1px solid var(--brd);border-radius:4px;padding:6px 10px;font:500 13px var(--font-body)}
+.habit-toolbar-title{font-size:13px;color:var(--t2)}
+.habit-toolbar-actions,.habit-dialog-actions{display:flex;align-items:center;gap:6px}
+.habit-button{display:inline-flex;justify-content:center;align-items:center;min-height:30px;padding:5px 12px;border:1px solid var(--brd);border-radius:5px;background:var(--bg);color:var(--t2);font:500 11px var(--font-body);cursor:pointer}
+.habit-button:hover:not(:disabled){background:var(--bgH);color:var(--t1)}
 .habit-button:disabled{opacity:.45;cursor:default}
-.habit-primary{background:var(--blue);border-color:var(--blue);color:#171308;font-weight:700;padding:12px 18px}
-.habit-primary:hover:not(:disabled){background:var(--blueH);border-color:var(--blueH)}
-.habit-button:focus-visible,.habit-day:focus-visible,.habit-selection select:focus-visible{outline:2px solid var(--blue);outline-offset:4px;z-index:2}
-.habit-selection{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}
-.habit-selection-main{min-width:0;flex:1}
-.habit-selection select{max-width:100%;width:auto;min-width:180px;border:0;border-bottom:1px solid var(--brd2);border-radius:0;background:var(--bg);color:var(--t1);font:600 22px var(--font-display);padding:6px 26px 7px 0;cursor:pointer;text-overflow:ellipsis}
-.habit-selection option{background:var(--bg2);color:var(--t1);font-size:16px}
-.habit-selection p{font-size:11px;color:var(--t2);margin-top:8px}
-.habit-icon-delete{font-size:20px;min-width:40px;padding:5px;color:var(--t2)}
-.habit-icon-delete:hover:not(:disabled){color:var(--red)}
-.habit-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:28px}
-.habit-stat{background:var(--bg2);border:1px solid var(--brd);border-radius:12px;padding:22px 24px}
-.habit-stat h2{font:500 10px var(--font-mono);letter-spacing:1.3px;color:var(--t2);margin-bottom:16px}
-.habit-stat-value{font:500 40px var(--font-display);line-height:1;letter-spacing:-1px;display:flex;align-items:baseline;gap:9px}
-.habit-stat-value span{font:400 12px var(--font-body);color:var(--t2);letter-spacing:0}
-.habit-stat p{font-size:11px;color:var(--t2);margin-top:13px;line-height:1.5}
-.habit-stat-gold{background:linear-gradient(120deg,var(--blueL),var(--bg2));border-color:var(--blueL2)}
-.habit-stat-gold h2,.habit-stat-gold .habit-stat-value{color:var(--blue)}
-.habit-calendar{border:1px solid var(--brd);border-radius:12px;overflow:hidden;background:var(--bg2)}
-.habit-calendar-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 24px}
-.habit-calendar-toolbar h2{font:500 20px var(--font-display);text-transform:capitalize}
-.habit-arrow{font-size:22px;padding:3px;min-width:36px;min-height:36px}
-.habit-month-actions .habit-button:first-child{min-height:36px;background:transparent}
-.habit-weekdays,.habit-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr))}
-.habit-weekdays{border-top:1px solid var(--brd);border-bottom:1px solid var(--brd)}
-.habit-weekdays div{text-align:center;font:500 10px var(--font-mono);color:var(--t2);padding:12px 0}
-.habit-day{position:relative;min-width:0;min-height:100px;border:0;border-right:1px solid var(--brd);border-bottom:1px solid var(--brd);background:var(--bg);color:var(--t1);padding:12px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;font-family:var(--font-body);transition:background .15s}
-.habit-day:nth-child(7n){border-right:0}
-.habit-day:not(:disabled):hover{background:var(--bgH)}
-.habit-day-number{font-family:var(--font-mono);font-size:12px;display:grid;place-items:center;min-width:24px;min-height:24px}
-.habit-day.is-complete{background:var(--blue);color:#171308}
-.habit-day.is-complete:not(:disabled):hover{background:var(--blueH)}
-.habit-day.is-today{outline:2px solid var(--blue);outline-offset:-3px;z-index:1}
-.habit-day.is-today.is-complete{outline-color:#171308}
-.habit-day-check{font-size:22px;line-height:1;font-weight:600}
-.habit-day-today{font-size:9px;line-height:1;position:absolute;bottom:7px;font-weight:600}
-.habit-day.is-future{color:var(--t3);cursor:default;background:var(--bg2)}
-.habit-day-empty{background:var(--bg2);cursor:default}
-.habit-day:disabled:not(.is-future):not(.is-complete){cursor:default}
-.habit-calendar[aria-busy="true"] .habit-days{opacity:.65}
-.habit-calendar-footer{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 24px;color:var(--t2);font-size:10px;line-height:1.5}
-.habit-legend{display:flex;align-items:center;gap:7px;flex-shrink:0}
-.habit-legend i{width:8px;height:8px;background:var(--blue);border-radius:2px}
-.habit-motivation{text-align:center;color:var(--t2);font-size:12px;margin-top:24px;line-height:1.6}
-.habit-timezone{text-align:center;font:400 9px var(--font-mono);color:var(--t2);margin-top:10px}
-.habit-notice{min-height:24px;text-align:center;font-size:12px;color:var(--blue);margin-top:16px}
-.habit-error{color:var(--red);font-size:12px;line-height:1.6;margin-top:16px}
-.habit-state,.habit-empty,.habit-gate{text-align:center;padding:64px 24px;border:1px solid var(--brd);border-radius:12px;background:var(--bg2)}
-.habit-state .habit-button,.habit-gate .habit-button{margin-top:24px}
-.habit-gate{max-width:640px;margin:48px auto}
-.habit-gate h1{font:500 28px var(--font-display);line-height:1.4}
-.habit-gate p,.habit-empty p{font-size:13px;line-height:1.8;color:var(--t2);max-width:400px;margin:16px auto 24px}
-.habit-empty h2{font:500 28px var(--font-display)}
-.habit-empty-mark{display:grid;place-items:center;width:56px;height:56px;border:1px solid var(--blueL2);border-radius:16px;background:var(--blueL);color:var(--blue);font-size:24px;margin:0 auto 24px}
-.habit-calendar-status{padding:20px 24px;font-size:13px;color:var(--t2)}
-.habit-calendar-status .habit-button{margin-left:12px}
-.habit-dialog{position:fixed;inset:0;margin:auto;width:calc(100% - 32px);max-width:440px;max-height:90dvh;overflow:auto;border:1px solid var(--brd2);border-radius:16px;padding:32px;background:var(--bg2);color:var(--t1);box-shadow:var(--shadow)}
+.habit-primary{background:var(--blue);border-color:var(--blue);color:#171308}
+.habit-primary:hover:not(:disabled){background:var(--blueH);color:#171308}
+.habit-button:focus-visible,[data-calendar-kind="habit"]:focus-visible{outline:2px solid var(--blue);outline-offset:-3px}
+.habit-icon-delete{font-size:18px;padding:2px 9px}
+.habit-summary{display:flex;align-items:center;gap:24px;margin-top:10px;flex-wrap:wrap}
+.habit-summary-item{display:flex;align-items:baseline;gap:6px;font-size:10px;color:var(--t2)}
+.habit-summary-item>span:first-child{font-size:9px;letter-spacing:.4px}
+.habit-summary-item strong{font-size:16px;color:var(--t1);font-weight:600}
+.habit-summary-item:first-child strong{color:var(--blue)}
+.habit-summary-hint{font-size:11px;color:var(--t3);margin-left:auto}
+.habit-inline-state,.habit-access{font-size:12px;line-height:1.6;color:var(--t2);padding:10px 0}
+.habit-access{padding:24px 16px}
+.habit-inline-state .habit-button,.habit-access .habit-button{margin-left:10px}
+.habit-notice:empty{display:none}
+.habit-notice{font-size:11px;color:var(--blue);margin-top:6px}
+.habit-error{font-size:12px;color:var(--red);margin-top:8px;line-height:1.6}
+.habit-dialog{position:fixed;inset:0;margin:auto;width:calc(100% - 32px);max-width:440px;max-height:90dvh;overflow:auto;border:1px solid var(--brd2);border-radius:12px;padding:24px;background:var(--bg2);color:var(--t1);box-shadow:var(--shadow)}
 .habit-dialog::backdrop{background:rgba(0,0,0,.72)}
-.habit-dialog h2{font:500 24px var(--font-display);margin-bottom:24px}
+.habit-dialog h2{font-size:18px;font-weight:500;margin-bottom:20px}
 .habit-dialog p{color:var(--t2);font-size:13px;line-height:1.8;overflow-wrap:anywhere}
 .habit-dialog .habit-error{color:var(--red)}
+.habit-kicker{display:block;font-size:10px;letter-spacing:1px;color:var(--t3);margin-bottom:12px}
 .habit-field{display:flex;flex-direction:column;gap:10px;font-size:12px;color:var(--t2)}
-.habit-field input{width:100%;min-height:46px;border:1px solid var(--brd2);border-radius:8px;padding:12px;background:var(--bg);color:var(--t1);font:400 14px var(--font-body)}
-.habit-dialog-actions{justify-content:flex-end;margin-top:28px}
+.habit-field input{width:100%;min-height:42px;border:1px solid var(--brd2);border-radius:6px;padding:10px;background:var(--bg);color:var(--t1);font:400 14px var(--font-body)}
+.habit-dialog-actions{justify-content:flex-end;margin-top:24px}
+.habit-dialog-actions .habit-button{min-height:36px}
 .habit-danger{background:var(--redL);border-color:var(--red);color:var(--red)}
 @media(max-width:640px){
-  .habits-shell{padding:0 16px 20px}.habit-header{min-height:72px;gap:8px}.habit-brand{gap:8px;font-size:13px}.habit-header-divider{margin:0}.habit-header-title{font-size:11px}.habit-header-actions{gap:4px}.habit-header-actions .habit-button{min-width:34px;min-height:36px}
-  .habit-main{padding-top:32px}.habit-intro{align-items:flex-start;flex-direction:column;gap:20px;margin-bottom:30px}.habit-intro h1{letter-spacing:-1px}.habit-intro p{font-size:12px}
-  .habit-selection{align-items:flex-start;gap:8px}.habit-selection select{font-size:19px;min-width:0;width:100%;padding-right:18px}.habit-selection p{font-size:10px}.habit-selection-actions .habit-button{padding:8px;font-size:10px}.habit-selection-actions .habit-icon-delete{font-size:20px;min-width:32px}
-  .habit-stats{gap:7px;margin-bottom:22px}.habit-stat{padding:16px 10px;border-radius:9px}.habit-stat h2{font-size:8px;letter-spacing:.3px;min-height:20px;margin-bottom:8px}.habit-stat-value{font-size:30px;gap:4px}.habit-stat-value span{font-size:10px}.habit-stat p{font-size:9px;margin-top:10px}
-  .habit-calendar-toolbar{padding:16px 12px}.habit-calendar-toolbar h2{font-size:17px}.habit-month-actions{gap:5px}.habit-month-actions .habit-button:first-child{padding:7px 10px;font-size:10px}
-  .habit-day{min-height:72px;padding:6px 2px;gap:4px}.habit-day-number{font-size:11px}.habit-day-check{font-size:18px}.habit-day-today{font-size:8px;bottom:6px}.habit-calendar-footer{padding:14px 12px;align-items:flex-start;flex-direction:column;gap:9px}.habit-weekdays div{font-size:9px}
-  .habit-dialog{padding:24px}.habit-dialog-actions{flex-wrap:wrap}
+ .habit-controls{padding:10px}.habit-toolbar{flex-wrap:wrap;gap:8px}.habit-toolbar select{flex-basis:100%;max-width:100%}.habit-toolbar-actions{width:100%}.habit-summary{gap:12px;margin-top:10px}.habit-summary-item{gap:4px}.habit-summary-item>span:first-child{font-size:8px}.habit-summary-hint{margin-left:0;width:100%;font-size:10px}.habit-dialog{padding:20px}
 }
-@media(prefers-reduced-motion:reduce){.habits-shell *{transition:none!important;animation:none!important}}
