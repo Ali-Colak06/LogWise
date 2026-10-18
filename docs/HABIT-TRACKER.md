@@ -106,3 +106,12 @@ Workers Static Assets `200` rewrite desteklemediği için bu özel rota wildcard
 ile temiz `/app/habits` adresini korur; sayfa yenileme aynı görünümü tekrar açar.
 Uygulama kabuğu `/app` ve `/app.html` de HTTP noindex taşır; public landing etkilenmez.
 Kaynak: https://developers.cloudflare.com/workers/static-assets/redirects/
+
+### Canlı yayın doğrulaması (2026-10-18)
+
+- Entegrasyon ve yönlendirme düzeltmesi `web/work` üzerinden `master`'a fast-forward ile yayınlandı.
+- Canlı `sw.js` sürümü `logwise-v68`; uygulamanın 25 yerel JS/CSS kaynağı HTTP 200 ve doğru MIME döndürdü.
+- `/app/habits` -> `302 /app?view=habits` -> HTTP 200; iki yanıt da HTTP noindex taşıyor.
+- Canlı tarayıcıda oturumsuz kullanıcı alışkanlık verisi/takvimi yerine giriş ekranını gördü;
+  sayfa yenilendiğinde aynı alışkanlık görünümü korundu.
+- Yetkili hesapla canlı ekle/işaretle/yeniden yükle/geri al testi henüz yapılmadı; kullanıcının oturumu gerekir.

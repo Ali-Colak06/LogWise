@@ -4168,6 +4168,13 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
   `/app/habits` ve `/app/dashboard` açılışında göreli yol kırılması engellendi. Regresyon testi eklendi;
   örnek veri katmanı olmadan gerçek dosyalar/istemci ile HTTP ve oturumsuz tarayıcı akışı doğrulandı.
   Yerel `.wrangler/` çıktıları asset kapsamından çıkarıldı; teslim cache sürümü v68.
+- Canlı kurulum: kullanıcı migration'ı Web Supabase projesinde başarıyla çalıştırdı; üç tablo için anonim
+  REST erişimi `42501` ile reddedildi. `web/work` fast-forward ile `master`'a yayınlandı; canlı SW v68
+  ve 25 runtime JS/CSS kaynağı HTTP 200/doğru MIME ile doğrulandı.
+- Workers Static Assets'in `200` rewrite desteklememesi doğrudan alışkanlık rotasında görünümü
+  kaybettiriyordu; özel `302 /app?view=habits` kuralı mevcut query parser'ını kullanarak bunu düzeltti.
+  `/app` kabuğuna HTTP noindex eklendi. Canlı tarayıcıda doğrudan açılış ve yenileme oturumsuz erişim
+  ekranında kaldı. Yetkili hesapla canlı CRUD testi kullanıcı oturumuyla ayrıca doğrulanmalıdır.
 - Doğrulama: tarih/seri testleri, codegen ve inline script kontrolleri; örnek verili gerçek App içinde sekme
   izolasyonu, gün işaretleme/geri alma, alışkanlık seçimi, mini takvim ay geçişleri ve mobil menü akışı.
 
