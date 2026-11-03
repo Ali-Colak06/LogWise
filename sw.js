@@ -1,4 +1,4 @@
-const CACHE_NAME = 'logwise-v68';
+const CACHE_NAME = 'logwise-v73';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
@@ -102,6 +102,8 @@ const PRECACHE_URLS = [
   '/favicon.ico',
   '/icon-192.png',
   '/icon-512.png',
+  '/icon-maskable-192.png',
+  '/icon-maskable-512.png',
   '/apple-touch-icon.png',
   '/styles/base.css',
   '/styles/landing.css',
@@ -122,10 +124,13 @@ const PRECACHE_URLS = [
   '/lib/habit-utils.js',
   '/lib/habits-db.js',
   '/lib/exercise-utils.js',
+  '/lib/sync.js',
+  '/lib/muscle-utils.js',
   '/components/error-boundary.js',
   '/components/brand-mark.js',
   '/components/dash-chart.js',
   '/components/ex-preview-modal.js',
+  '/components/muscle-map.js',
   '/components/auth-screen.js',
   '/components/comment-section.js',
   '/components/habits-page.js',
@@ -133,12 +138,12 @@ const PRECACHE_URLS = [
   '/data/ex-descriptions.js',
   '/data/ex-preview.js',
   '/data/ex-images.js',
-  '/data/ex-guides.json',
   '/data/ex-guides.js',
+  '/data/ex-meta.js',
   '/data/presets-programs.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js',
   'https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js',
-  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2',
+  'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js',
   'https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js'
 ];
 
@@ -221,6 +226,19 @@ self.addEventListener('activate', (e) => {
   e.waitUntil(
     self.clients.matchAll({ type: 'window' }).then(clients => {
       clients.forEach(client => client.postMessage({ type: 'SW_UPDATED' }));
+    })
+  );
+});
+
+// Dinlenme sayacı bildirimi (Faz 1 / B5): bildirime dokununca açık uygulama sekmesine dön.
+self.addEventListener('notificationclick', (e) => {
+  e.notification.close();
+  e.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then(list => {
+      const target = (e.notification.data && e.notification.data.url) || '/app';
+      const app = list.find(c => new URL(c.url).pathname.startsWith('/app'));
+      if (app) return app.focus().then(c => (target !== '/app' && c && c.navigate ? c.navigate(target) : c));
+      return self.clients.openWindow(target);
     })
   );
 });

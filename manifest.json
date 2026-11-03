@@ -16,10 +16,50 @@
       "src": "/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "start_url": "/app",
   "display": "standalone",
   "background_color": "#0a0a0a",
-  "theme_color": "#f0c040"
+  "theme_color": "#f0c040",
+  "id": "/app",
+  "description": "LogWise — antrenman günlüğü / workout tracker",
+  "shortcuts": [
+    {
+      "name": "Bugünün antrenmanı / Today's workout",
+      "short_name": "Bugün / Today",
+      "url": "/app?view=today",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Panel / Dashboard",
+      "short_name": "Panel",
+      "url": "/app/dashboard",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
 }
