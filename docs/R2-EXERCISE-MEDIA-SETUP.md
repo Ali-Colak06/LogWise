@@ -116,3 +116,16 @@ ffmpeg -i input.mov -vf "scale=-2:720,fps=30" -c:v libx264 -profile:v main -leve
 ```
 
 `ffmpeg` ve `ffprobe` PATH üzerinde bulunmalıdır. Kaynak 720p'den küçükse upscale yapılmaz; dikey kaynaklarda oran korunur.
+
+## Hareket görsellerini GitHub raw'dan R2'ye taşıma (Faz 5 / D6)
+
+`data/ex-images.js` içindeki free-exercise-db görselleri `raw.githubusercontent.com` üzerinden geliyor. Taşımak için:
+
+```text
+node scripts/mirror-ex-images.js download ..\logwise-media-staging
+# klasördeki upload.ps1 (Windows) veya upload.sh ile wrangler r2 object put
+node scripts/mirror-ex-images.js rewrite --dry-run
+node scripts/mirror-ex-images.js rewrite
+```
+
+Anahtarlar `exercises/{slug}/still-{n}-v1.jpg`. `rewrite` yalnız tüm kareleri `https://media.logwise.fit/...` adresinde HEAD ile doğrulanan hareketleri değiştirir; sonra `sw.js` `CACHE_NAME` artırılır. Görsellerin lisansını yüklemeden önce kaynak depoda kontrol et.

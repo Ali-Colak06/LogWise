@@ -23,3 +23,9 @@ jobs:
 
       - name: Habit calendar date and streak tests
         run: node --test scripts/test-habit-utils.js
+
+      - name: Calc and sync safety tests (Faz 1)
+        run: node --test scripts/test-calc.js scripts/test-sync.js
+
+      - name: Muscle map, weekly sets and exercise detail tests (Faz 4)
+        run: node --test scripts/test-muscles.js
