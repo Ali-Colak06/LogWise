@@ -13,7 +13,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="/lib/sync.js"></script>
 <link rel="stylesheet" href="styles/base.css"/>
 <style>
 /* Sayfa-spesifik: program.html gün kartları animasyonları.
@@ -97,20 +98,8 @@ function ProgramApp() {
     if (!user || !programData) return;
     setCopying(true);
     try {
-      const {
-        data: row
-      } = await sb.from("user_data").select("data").eq("user_id", user.id).single();
-      const cur = row && row.data || {
-        exercises: [],
-        workouts: {},
-        programs: {},
-        dailyPrograms: {},
-        measurements: {},
-        dayNotes: {},
-        exerciseNotes: {},
-        programMeta: {},
-        badges: []
-      };
+      // A1: Okuma hatasında hiçbir şey yazılmaz; yazma koşulludur (lib/sync.js).
+      const mres = await window.LOGWISE_SYNC.mutateUserData(sb, user.id, cur => {
       let exs = [...(cur.exercises || [])];
       const allNames = new Set();
       Object.values(programData.days || {}).forEach(arr => (arr || []).forEach(n => allNames.add(n)));
@@ -149,12 +138,23 @@ function ProgramApp() {
           [newPgId]: newProg
         }
       };
-      await sb.from("user_data").upsert({
-        user_id: user.id,
-        data: newData
-      }, {
-        onConflict: "user_id"
-      });
+      return newData;
+      }, () => ({
+        exercises: [],
+        workouts: {},
+        programs: {},
+        dailyPrograms: {},
+        measurements: {},
+        dayNotes: {},
+        exerciseNotes: {},
+        programMeta: {},
+        badges: []
+      }));
+      if (!mres.ok) {
+        console.error("user_data copy error:", mres.error);
+        setToast((lang === "tr" ? "Kopyalanamadı: verilerin şu an okunamadı, hiçbir şey değiştirilmedi. Bağlantını kontrol edip tekrar dene." : "Couldn't copy: your data could not be read right now, nothing was changed. Check your connection and try again."));
+        return;
+      }
       setCopied(true);
       setToast(lang === "tr" ? `✅ "${programData.name}" programı kopyalandı! Programlar sayfasında görebilirsin.` : `✅ Program "${programData.name}" copied! Check your Programs page.`);
     } catch (e) {

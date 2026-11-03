@@ -15,7 +15,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="/lib/sync.js"></script>
+<script src="/data/presets-exercises.js"></script>
+<script src="/lib/exercise-utils.js"></script>
 <script src="data/i18n-tr-profile.js"></script>
 <script src="data/i18n-en-profile.js"></script>
 <script src="data/badges.js"></script>
@@ -78,7 +81,7 @@ const SHARE_PREF_TEXT = {
     helper: "These preferences apply to new shares."
   }
 };
-const { calc1RM, calcStreak } = window.LOGWISE_CALC;
+const { calc1RM, calcStreak, filterWorkouts, setVolume, toPlanSet, programRestDows } = window.LOGWISE_CALC;
 const BADGES = window.LOGWISE_BADGES;
 const getBadgeName = window.LOGWISE_BADGE_LOGIC.getBadgeName;
 const getBadgeCatLabel = window.LOGWISE_BADGE_LOGIC.getBadgeCatLabel;
@@ -314,7 +317,9 @@ function ProfileApp() {
       let maxW = 0,
         maxR = 0,
         best1RM = 0;
-      Object.values(userData.workouts).forEach(dayW => {
+      Object.values(filterWorkouts(userData.workouts, {
+        includeWarmups: false
+      })).forEach(dayW => {
         const f = dayW.find(w => w.exerciseId === ex.id);
         if (f) f.sets.forEach(s => {
           if (s.weight > maxW) {
@@ -628,6 +633,17 @@ function ProfileApp() {
     }
   };
   const logout = async () => {
+    // A2/A3: Uygulamada buluta gidememiş değişiklik varsa önce göndermeyi dene; paylaşılan cihazda
+    // veri kalmasın diye çıkışta kullanıcıya özel yerel kopyayı sil.
+    const SYNC = window.LOGWISE_SYNC;
+    if (user && SYNC) {
+      const rec = SYNC.readLocal(localStorage, user.id);
+      if (rec && rec.dirty) {
+        const w = await SYNC.writeCloud(sb, user.id, rec.data, rec.base);
+        if (w.status !== "ok" && !window.confirm(lang === "tr" ? "Henüz buluta gönderilemeyen değişiklikler var. Çıkış yaparsan bu değişiklikler bu cihazdan silinecek. Yine de çıkılsın mı?" : "Some changes haven't reached the cloud yet. If you sign out, they will be removed from this device. Sign out anyway?")) return;
+      }
+      SYNC.clearLocal(localStorage, user.id);
+    }
     await sb.auth.signOut();
     window.location.href = "/";
   };
@@ -652,20 +668,8 @@ function ProfileApp() {
     if (!user || !viewUserData) return;
     const prog = viewUserData.programs && viewUserData.programs[pid];
     if (!prog) return;
-    const {
-      data: row
-    } = await sb.from("user_data").select("data").eq("user_id", user.id).single();
-    const cur = row && row.data || {
-      exercises: [],
-      workouts: {},
-      programs: {},
-      dailyPrograms: {},
-      measurements: {},
-      dayNotes: {},
-      exerciseNotes: {},
-      programMeta: {},
-      badges: []
-    };
+    // A1: Okuma hatasında hiçbir şey yazılmaz; yazma koşulludur (lib/sync.js).
+      const mres = await window.LOGWISE_SYNC.mutateUserData(sb, user.id, cur => {
     let exs = [...(cur.exercises || [])];
     const viewExs = viewUserData.exercises || [];
     const idMap = {};
@@ -706,12 +710,23 @@ function ProfileApp() {
         [newPgId]: newProg
       }
     };
-    await sb.from("user_data").upsert({
-      user_id: user.id,
-      data: newData
-    }, {
-      onConflict: "user_id"
-    });
+    return newData;
+      }, () => ({
+        exercises: [],
+        workouts: {},
+        programs: {},
+        dailyPrograms: {},
+        measurements: {},
+        dayNotes: {},
+        exerciseNotes: {},
+        programMeta: {},
+        badges: []
+      }));
+      if (!mres.ok) {
+        console.error("user_data copy error:", mres.error);
+        setToast((lang === "tr" ? "Kopyalanamadı: verilerin şu an okunamadı, hiçbir şey değiştirilmedi. Bağlantını kontrol edip tekrar dene." : "Couldn't copy: your data could not be read right now, nothing was changed. Check your connection and try again."));
+        return;
+      }
     setToast(lang === "tr" ? `✅ "${prog.name}" programı kopyalandı!` : `✅ Program "${prog.name}" copied!`);
   };
   const copyWorkoutFromProfile = async (sw, targetDate) => {
@@ -719,59 +734,31 @@ function ProfileApp() {
     const exNames = typeof sw.exercise_names === "string" ? JSON.parse(sw.exercise_names) : sw.exercise_names || [];
     const rawWd = typeof sw.workout_data === "string" ? JSON.parse(sw.workout_data) : sw.workout_data;
     const sharedExs = rawWd && rawWd.exercises ? rawWd.exercises : Array.isArray(rawWd) ? rawWd : [];
-    const {
-      data: row
-    } = await sb.from("user_data").select("data").eq("user_id", user.id).single();
-    const cur = row && row.data || {
-      exercises: [],
-      workouts: {},
-      programs: {},
-      dailyPrograms: {},
-      measurements: {},
-      dayNotes: {},
-      exerciseNotes: {},
-      programMeta: {},
-      badges: []
-    };
-    let exs = [...(cur.exercises || [])];
-    const idMap = {};
-    sharedExs.forEach((se, idx) => {
-      const name = exNames[idx] || "Hareket " + (idx + 1);
-      let match = exs.find(e => e.name.toLowerCase() === name.toLowerCase());
-      if (!match) {
-        match = {
-          id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + String(idx),
-          name,
-          categories: ["Diğer"]
-        };
-        exs.push(match);
+    // A1: Okuma hatasında hiçbir şey yazılmaz; yazma koşulludur (lib/sync.js).
+      const mres = await window.LOGWISE_SYNC.mutateUserData(sb, user.id, cur => window.LOGWISE_SYNC.applySharedWorkout(cur, sharedExs, exNames, targetDate, {
+        // Faz 3 / B12: aynı gün aynı hareket çift kayıt açmaz; hazır harekete bağlanır; setler plan olarak gelir.
+        resolvePreset: name => {
+          const U = window.LOGWISE_EX_UTILS;
+          return U ? U.getExerciseByName(name) || U.getExerciseById(U.resolveKey(name)) : null;
+        },
+        toPlanSet: window.LOGWISE_CALC.toPlanSet,
+        fallbackName: idx => (lang === "tr" ? "Hareket " : "Exercise ") + (idx + 1)
+      }), () => ({
+        exercises: [],
+        workouts: {},
+        programs: {},
+        dailyPrograms: {},
+        measurements: {},
+        dayNotes: {},
+        exerciseNotes: {},
+        programMeta: {},
+        badges: []
+      }));
+      if (!mres.ok) {
+        console.error("user_data copy error:", mres.error);
+        setToast((lang === "tr" ? "Kopyalanamadı: verilerin şu an okunamadı, hiçbir şey değiştirilmedi. Bağlantını kontrol edip tekrar dene." : "Couldn't copy: your data could not be read right now, nothing was changed. Check your connection and try again."));
+        return;
       }
-      idMap[idx] = match.id;
-    });
-    const newEntries = sharedExs.map((se, idx) => ({
-      exerciseId: idMap[idx],
-      sets: (se.sets || []).map(s => ({
-        ...s
-      })),
-      ...(se.supersetGroup ? {
-        supersetGroup: se.supersetGroup
-      } : {})
-    }));
-    const existing = cur.workouts && cur.workouts[targetDate] || [];
-    const newData = {
-      ...cur,
-      exercises: exs,
-      workouts: {
-        ...(cur.workouts || {}),
-        [targetDate]: [...existing, ...newEntries]
-      }
-    };
-    await sb.from("user_data").upsert({
-      user_id: user.id,
-      data: newData
-    }, {
-      onConflict: "user_id"
-    });
     setToast(lang === "tr" ? `✅ ${targetDate} gününe kopyalandı` : `✅ Copied to ${targetDate}`);
   };
   const copyProgramFn = async pid => {
@@ -811,6 +798,7 @@ function ProfileApp() {
         setDeleting(false);
         return;
       }
+      if (window.LOGWISE_SYNC) window.LOGWISE_SYNC.clearLocal(localStorage, user.id);
       await sb.auth.signOut();
       window.location.href = "/";
     } catch (err) {
@@ -2092,14 +2080,18 @@ function ProfileApp() {
   const initials = displayName.charAt(0).toUpperCase();
   const basicStats = (() => {
     if (!userData) return null;
-    const wKeys = Object.keys(userData.workouts || {}).filter(k => (userData.workouts[k] || []).some(w => w.sets && w.sets.length > 0));
+    // Faz 2: yalnız tamamlanmış setler; ısınmalar kullanıcının uygulama ayarına göre.
+    const sw = filterWorkouts(userData.workouts || {}, {
+      includeWarmups: !!(userData.settings && userData.settings.includeWarmups)
+    });
+    const wKeys = Object.keys(sw);
     let totalSets = 0,
       totalVol = 0;
-    Object.values(userData.workouts || {}).forEach(ws => {
+    Object.values(sw).forEach(ws => {
       ws.forEach(w => {
-        if (w.sets) w.sets.forEach(s => {
+        w.sets.forEach(s => {
           totalSets++;
-          totalVol += (s.weight || 0) * (s.reps || 0);
+          totalVol += setVolume(s);
         });
       });
     });
@@ -2107,7 +2099,9 @@ function ProfileApp() {
       totalWorkouts: wKeys.length,
       totalSets,
       totalVol: Math.round(totalVol),
-      streak: calcStreak(userData.workouts || {})
+      streak: calcStreak(sw, {
+        restDows: programRestDows(userData.activeProgram && userData.programs ? userData.programs[userData.activeProgram] : null)
+      })
     };
   })();
   const latestMeasurement = (() => {

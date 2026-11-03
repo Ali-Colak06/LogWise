@@ -8,8 +8,10 @@
 // Props:
 //   chartRef          — React ref, <canvas> elementine bağlanır
 //   chartInstanceRef  — React ref, Chart.js örneğini tutar (destroy için)
-//   chartHist         — [{date, maxW, avgVolPerSet, best1RM}, ...]
-//   mode              — "weight" | "volume" | "onerm"
+//   chartHist         — [{date, maxW, avgVolPerSet, best1RM, vol?, maxReps?}, ...]
+//   height            — opsiyonel piksel yükseklik (varsayılan 260)
+//   unit              — opsiyonel "kg" | "lb" (Faz 5 / C6; veri çağıran tarafta çevrilmiş gelir)
+//   mode              — "weight" | "volume" | "onerm" | "totalvol" | "reps" (Faz 4 / E1)
 //   theme             — "dark" | "light"
 //   L                 — i18n sözlüğü (L.dashWeight, L.dashVolPerSet, L.dashEst1RM)
 //   lang              — "tr" | "en" (şu an kullanılmıyor ama API tutarlılığı için tutuluyor)
@@ -21,7 +23,9 @@
     mode,
     theme,
     L,
-    lang
+    lang,
+    height,
+    unit: unitProp
   }) {
     React.useEffect(() => {
       if (!chartRef.current || !chartHist.length) return;
@@ -35,27 +39,41 @@
         const d = pD(h.date);
         return d.getDate() + "/" + (d.getMonth() + 1);
       });
-      const dataPoints = mode === "weight" ? chartHist.map(h => h.maxW) : mode === "volume" ? chartHist.map(h => h.avgVolPerSet) : chartHist.map(h => h.best1RM);
-      const label = mode === "weight" ? L.dashWeight : mode === "volume" ? L.dashVolPerSet : L.dashEst1RM;
-      const borderColor = mode === "weight" ? "#f0c040" : mode === "volume" ? "#8fbc8f" : "#d7aefb";
-      const bgColor = mode === "weight" ? "rgba(240,192,64,0.1)" : mode === "volume" ? "rgba(143,188,143,0.1)" : "rgba(215,174,251,0.1)";
+      // Faz 4 / E1: "totalvol" (seans toplam hacmi) ve "reps" (en çok tekrar — vücut ağırlığı hareketleri) modları
+      const dataPoints = mode === "bw" ? chartHist.map(h => h.bw) : mode === "weight" ? chartHist.map(h => h.maxW) : mode === "volume" ? chartHist.map(h => h.avgVolPerSet) : mode === "totalvol" ? chartHist.map(h => h.vol) : mode === "reps" ? chartHist.map(h => h.maxReps) : chartHist.map(h => h.best1RM);
+      const label = mode === "bw" ? L.bwDaily : mode === "weight" ? L.dashWeight : mode === "volume" ? L.dashVolPerSet : mode === "totalvol" ? L.dashTotalVolShort : mode === "reps" ? L.dashMaxReps : L.dashEst1RM;
+      const unit = mode === "reps" ? "" : " " + (unitProp || "kg"); // Faz 5 / C6: kg | lb
+      const borderColor = mode === "weight" ? "#f0c040" : mode === "volume" || mode === "totalvol" ? "#8fbc8f" : mode === "reps" ? "#78d9ec" : "#d7aefb";
+      const bgColor = mode === "weight" ? "rgba(240,192,64,0.1)" : mode === "volume" || mode === "totalvol" ? "rgba(143,188,143,0.1)" : mode === "reps" ? "rgba(120,217,236,0.1)" : "rgba(215,174,251,0.1)";
       const gridColor = theme === "dark" ? "rgba(255,255,255,0.06)" : "rgba(0,0,0,0.06)";
       const tickColor = theme === "dark" ? "#888" : "#666";
+      // Faz 5 / E5: "bw" modu — günlük vücut ağırlığı noktaları + 7 günlük ortalama çizgisi
+      const extra = mode === "bw" ? [{
+        label: L.bwAvg7,
+        data: chartHist.map(h => h.avg),
+        borderColor: "#78d9ec",
+        backgroundColor: "transparent",
+        borderWidth: 2.5,
+        pointRadius: 0,
+        tension: 0.35,
+        fill: false
+      }] : [];
       chartInstanceRef.current = new Chart(ctx, {
         type: "line",
         data: {
           labels,
-          datasets: [{
-            label: label + " (kg)",
+          datasets: [...extra, {
+            label: label + (unit ? " (" + unit.trim() + ")" : ""),
             data: dataPoints,
             borderColor,
             backgroundColor: bgColor,
-            borderWidth: 2,
+            borderWidth: mode === "bw" ? 0 : 2,
+            showLine: mode !== "bw",
             pointRadius: 3,
             pointHoverRadius: 6,
             pointBackgroundColor: borderColor,
             tension: 0.3,
-            fill: true
+            fill: mode !== "bw"
           }]
         },
         options: {
@@ -67,7 +85,14 @@
           },
           plugins: {
             legend: {
-              display: false
+              display: mode === "bw",
+              labels: {
+                color: theme === "dark" ? "#aaa" : "#555",
+                boxWidth: 12,
+                font: {
+                  size: 11
+                }
+              }
             },
             tooltip: {
               backgroundColor: theme === "dark" ? "#222" : "#fff",
@@ -77,10 +102,10 @@
               borderWidth: 1,
               cornerRadius: 8,
               padding: 10,
-              displayColors: false,
+              displayColors: mode === "bw",
               callbacks: {
                 label: function (c) {
-                  return label + ": " + c.parsed.y + " kg";
+                  return (c.dataset.label || label).replace(/ \((kg|lb)\)$/, "") + ": " + c.parsed.y + unit;
                 }
               }
             }
@@ -123,12 +148,12 @@
           chartInstanceRef.current = null;
         }
       };
-    }, [chartHist, mode, theme]);
+    }, [chartHist, mode, theme, unitProp]);
     return React.createElement("canvas", {
       ref: chartRef,
       style: {
         width: "100%",
-        height: 260
+        height: height || 260
       }
     });
   }

@@ -13,7 +13,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet"/>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js"></script>
+<script src="/lib/calc.js"></script>
+<script src="/lib/sync.js"></script>
+<script src="/data/presets-exercises.js"></script>
+<script src="/lib/exercise-utils.js"></script>
 <link rel="stylesheet" href="styles/base.css"/>
 <style>
 /* Sayfa-spesifik: share.html egzersiz kartı animasyonları.
@@ -100,7 +104,19 @@ function ShareApp() {
       setLoading(false);
       return;
     }
-    sb.from("shared_workouts").select("*").eq("id", id).single().then(({
+    // Faz 4 / F6: gizli profillerin paylaşımı listelerde görünmez; bağlantı get_shared_workout RPC'siyle açılır.
+    // RPC henüz kurulmamışsa (migration uygulanmadıysa) eski doğrudan sorguya düşülür.
+    const loadShared = async () => {
+      const r = await sb.rpc("get_shared_workout", {
+        p_id: id
+      });
+      if (!r.error) return {
+        data: Array.isArray(r.data) ? r.data[0] || null : r.data,
+        error: null
+      };
+      return sb.from("shared_workouts").select("*").eq("id", id).single();
+    };
+    loadShared().then(({
       data: sw,
       error: e
     }) => {
@@ -125,10 +141,16 @@ function ShareApp() {
       const exNames = typeof workout.exercise_names === "string" ? JSON.parse(workout.exercise_names) : workout.exercise_names || [];
       const workoutPayload = typeof workout.workout_data === "string" ? JSON.parse(workout.workout_data) : workout.workout_data;
       const sharedExs = workoutPayload && workoutPayload.exercises ? workoutPayload.exercises : Array.isArray(workoutPayload) ? workoutPayload : [];
-      const {
-        data: row
-      } = await sb.from("user_data").select("data").eq("user_id", user.id).single();
-      const cur = row && row.data || {
+      // A1: Okuma hatasında hiçbir şey yazılmaz; yazma koşulludur (lib/sync.js).
+      const mres = await window.LOGWISE_SYNC.mutateUserData(sb, user.id, cur => window.LOGWISE_SYNC.applySharedWorkout(cur, sharedExs, exNames, copyDate, {
+        // Faz 3 / B12: aynı gün aynı hareket çift kayıt açmaz; hazır harekete bağlanır; setler plan olarak gelir.
+        resolvePreset: name => {
+          const U = window.LOGWISE_EX_UTILS;
+          return U ? U.getExerciseByName(name) || U.getExerciseById(U.resolveKey(name)) : null;
+        },
+        toPlanSet: window.LOGWISE_CALC.toPlanSet,
+        fallbackName: idx => (lang === "tr" ? "Hareket " : "Exercise ") + (idx + 1)
+      }), () => ({
         exercises: [],
         workouts: {},
         programs: {},
@@ -138,46 +160,12 @@ function ShareApp() {
         exerciseNotes: {},
         programMeta: {},
         badges: []
-      };
-      let exs = [...(cur.exercises || [])];
-      const idMap = {};
-      sharedExs.forEach((se, idx) => {
-        const name = exNames[idx] || "Hareket " + (idx + 1);
-        let match = exs.find(e => e.name.toLowerCase() === name.toLowerCase());
-        if (!match) {
-          match = {
-            id: Date.now().toString(36) + Math.random().toString(36).slice(2, 7) + String(idx),
-            name,
-            categories: ["Diğer"]
-          };
-          exs.push(match);
-        }
-        idMap[idx] = match.id;
-      });
-      const newEntries = sharedExs.map((se, idx) => ({
-        exerciseId: idMap[idx],
-        sets: (se.sets || []).map(s => ({
-          ...s
-        })),
-        ...(se.supersetGroup ? {
-          supersetGroup: se.supersetGroup
-        } : {})
       }));
-      const existing = cur.workouts && cur.workouts[copyDate] || [];
-      const newData = {
-        ...cur,
-        exercises: exs,
-        workouts: {
-          ...(cur.workouts || {}),
-          [copyDate]: [...existing, ...newEntries]
-        }
-      };
-      await sb.from("user_data").upsert({
-        user_id: user.id,
-        data: newData
-      }, {
-        onConflict: "user_id"
-      });
+      if (!mres.ok) {
+        console.error("user_data copy error:", mres.error);
+        setToast((lang === "tr" ? "Kopyalanamadı: verilerin şu an okunamadı, hiçbir şey değiştirilmedi. Bağlantını kontrol edip tekrar dene." : "Couldn't copy: your data could not be read right now, nothing was changed. Check your connection and try again."));
+        return;
+      }
       setToast(lang === "tr" ? `✅ ${copyDate} gününe kopyalandı` : `✅ Copied to ${copyDate}`);
       setCopyModal(false);
       setCopyDate("");
