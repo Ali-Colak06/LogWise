@@ -142,9 +142,14 @@ create policy "profiles_update" on profiles
 create policy "profiles_delete" on profiles
   for delete using (auth.uid() = user_id);
 
--- shared_workouts: herkes okuyabilir, sadece sahibi yazabilir/silebilir
+-- shared_workouts: sahibi + profili public olanlar listelenebilir; gizli profilin tek paylaşımı
+-- get_shared_workout(id) RPC'siyle bağlantıdan açılır. Sadece sahibi yazabilir/silebilir.
+-- (Faz 4 / F6 — supabase/migrations/20261103120000_private_profile_prs_shares.sql)
 create policy "shared_workouts_select" on shared_workouts
-  for select using (true);
+  for select using (
+    auth.uid() = user_id
+    or exists (select 1 from profiles p where p.user_id = shared_workouts.user_id and p.is_public = true)
+  );
 
 create policy "shared_workouts_insert" on shared_workouts
   for insert with check (auth.uid() = user_id);
@@ -152,9 +157,22 @@ create policy "shared_workouts_insert" on shared_workouts
 create policy "shared_workouts_delete" on shared_workouts
   for delete using (auth.uid() = user_id);
 
--- user_prs: herkes okuyabilir (liderlik tablosu), sadece sahibi yazabilir
+-- Paylaşım bağlantısı: kimliği bilinen tek paylaşımı döndürür (gizli profiller dahil; liste yapmaz).
+create or replace function get_shared_workout(p_id text)
+returns setof shared_workouts
+language sql stable security definer set search_path = public
+as $$ select * from public.shared_workouts where id = p_id limit 1 $$;
+revoke all on function get_shared_workout(text) from public;
+grant execute on function get_shared_workout(text) to anon, authenticated;
+create index if not exists shared_workouts_user_idx on shared_workouts (user_id);
+
+-- user_prs: profili public olanların PR'ları herkese açık (liderlik tablosu), sahibi her zaman kendi
+-- satırını görür; sadece sahibi yazabilir. (Faz 4 / F6)
 create policy "user_prs_select" on user_prs
-  for select using (true);
+  for select using (
+    auth.uid() = user_id
+    or exists (select 1 from profiles p where p.user_id = user_prs.user_id and p.is_public = true)
+  );
 
 create policy "user_prs_insert" on user_prs
   for insert with check (auth.uid() = user_id);
