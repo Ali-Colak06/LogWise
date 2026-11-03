@@ -326,9 +326,9 @@ function writeGeneratedOutputs(root, guides) {
 function checkGeneratedOutputs(root, guides) {
   const stale = [];
   for (const output of generatedOutputs(root, guides)) {
-    const current = fs.existsSync(output.path) ? fs.readFileSync(output.path) : null;
-    const expected = Buffer.from(output.source, 'utf8');
-    if (!current || !current.equals(expected)) {
+    // Git checkout satır sonlarını platforma göre dönüştürebilir; içerik aynıysa drift yoktur.
+    const current = fs.existsSync(output.path) ? fs.readFileSync(output.path, 'utf8') : null;
+    if (current === null || current.replace(/\r\n/g, '\n') !== output.source.replace(/\r\n/g, '\n')) {
       stale.push(output.file);
     }
   }

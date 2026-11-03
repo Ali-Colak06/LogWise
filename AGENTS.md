@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-11-03 — Volkan kopyasındaki Faz 1–5 ana repo entegrasyonu, doğrulama ve ayrı canlı kurulum sınırları; PWA v73. -->
+<!-- SON GÜNCELLEME: 2026-11-03 — Faz 1–5 entegrasyonu ve Windows/Linux codegen satır sonu uyumu; PWA v73. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -23,7 +23,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 105 — Faz 1–5 ana repo entegrasyonu).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 106 — codegen satır sonu uyumu).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -90,7 +90,7 @@ Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-105)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-106)
 ├── .github/workflows/         ← CI otomasyonları
 │   └── codegen-check.yml      ← Generated çıktı drift kontrolü + alışkanlık, hesap ve senkron testleri
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
@@ -155,6 +155,7 @@ LogWise/
 ├── scripts/
 │   ├── build-blog.js          ← blog-content/*.md → learn/*.html + ogren/*.html üretici + TR/EN hreflang + landing Learn/Öğren kart enjeksiyonu
 │   ├── check-codegen.js       ← Preset + exercise guide + ex-meta generated çıktı drift kontrollerini tek komutta çalıştırır
+│   ├── test-codegen.js        ← LF/CRLF checkout uyumu ve gerçek generated içerik drift regresyon testleri
 │   ├── test-habit-utils.js    ← Bağımlılıksız tarih/seri davranış testleri (node --test)
 │   ├── test-calc.js           ← lib/calc.js hacim/dinlenme/PR regresyon testleri (node --test)
 │   ├── test-sync.js           ← lib/sync.js veri kaybı korumaları (sahte Supabase ile, node --test)
@@ -328,6 +329,7 @@ LogWise/
 - **Alışkanlıklar uygulama sekmesi** (Bölüm 99): Yan menüde Alışkanlıklar; `/app/habits` görünümü antrenman takviminin aynı ay grid'ini ve mini takvimini kullanır. Kompakt seçim/seri alanı; ayrı sayfa kabuğu yok. `/habits` eski bağlantısı sekmeye yönlenir. App runtime dosyaları kökten mutlak URL kullanır; doğrudan iç rota yüklemesi testlidir; PWA v68.
 
 - **Faz 1–5 ana repo entegrasyonu** (Bölüm 105): Kullanıcının yerelde test ettiği Volkan klasörü `8dea5e9` tabanına aktarıldı; ortak çıktılar generator'lardan üretildi, codegen ve 62 test ile izole profil/alışkanlık RLS testleri doğrulandı. Gizli profil migration'ı ve R2 görsel taşıması ayrı canlı kurulum işleridir.
+- **Codegen satır sonu uyumu** (Bölüm 106): Preset ve guide `--check` kontrolleri LF/CRLF farkını normalize eder; gerçek içerik drift'i hata kalır. Geçici checkout testleri CI'da çalışır.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
 

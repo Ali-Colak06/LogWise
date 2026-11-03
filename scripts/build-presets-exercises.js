@@ -150,9 +150,9 @@ function writeOrCheck(outputs) {
 
   outputs.forEach(({ filePath, content }) => {
     if (CHECK_MODE) {
-      const current = fs.existsSync(filePath) ? fs.readFileSync(filePath) : null;
-      const expected = Buffer.from(content, 'utf8');
-      if (!current || !current.equals(expected)) {
+      // Git checkout satır sonlarını platforma göre dönüştürebilir; içerik aynıysa drift yoktur.
+      const current = fs.existsSync(filePath) ? fs.readFileSync(filePath, 'utf8') : null;
+      if (current === null || current.replace(/\r\n/g, '\n') !== content.replace(/\r\n/g, '\n')) {
         drifted.push(path.relative(ROOT_DIR, filePath).replace(/\\/g, '/'));
       }
       return;

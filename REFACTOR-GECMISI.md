@@ -4151,6 +4151,14 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 106 — Codegen Windows/Linux Satır Sonu Uyumu (2026-11-03)
+
+- GitHub Actions, entegrasyonun ilk gönderiminde generated çıktı drift kontrolünde durdu. Aynı commit'in Git blob'ları geçici bir checkout'a alındığında hata yeniden üretildi: Windows'taki `core.autocrlf=true` çalışma ağacı CRLF, Git blob'u ve Ubuntu checkout'u LF; preset/guide generator'ları ise CRLF üretiyor ve `--check` byte karşılaştırıyordu.
+- `build-presets-exercises.js` ve `build-ex-guides.js` kontrol modunda yalnız CRLF/LF satır sonlarını normalize eder. Çıktı formatı ve uygulama davranışı değişmez; generated dosyalar elle değiştirilmez.
+- Yeni `scripts/test-codegen.js`, bağımlılıksız geçici fixture'larda LF ve CRLF checkout'ların kabul edildiğini, beş generated dosyanın her birindeki gerçek içerik drift'inin reddedildiğini doğrular. CI'a eklendi.
+- Düzeltme sonrası Git blob'larından kurulan aynı geçici checkout'ta `check-codegen` geçti. Codegen, sözdizimi ve beş bağımlılıksız test dosyası birlikte doğrulandı: 65/65 test geçti.
+- Bu düzeltme PWA runtime dosyalarını değiştirmediği için sürüm `logwise-v73` kalır.
+
 ## Bölüm 105 — Faz 1–5 Ana Repo Entegrasyonu (2026-11-03)
 
 ### Kapsam ve Kaynak
