@@ -416,12 +416,12 @@ window.LOGWISE_EX_GUIDES = {
       "poster": null,
       "muscleMap": null,
       "demoLabel": [
-        "Dumbell Press hareket formu gösterimi",
-        "Dumbell Press exercise form demonstration"
+        "Dumbbell Press hareket formu gösterimi",
+        "Dumbbell Press exercise form demonstration"
       ],
       "muscleMapAlt": [
-        "Dumbell Press hareketinde çalışan kasların haritası",
-        "Muscle map for the Dumbell Press exercise"
+        "Dumbbell Press hareketinde çalışan kasların haritası",
+        "Muscle map for the Dumbbell Press exercise"
       ]
     },
     "web": {
@@ -576,12 +576,12 @@ window.LOGWISE_EX_GUIDES = {
       "poster": null,
       "muscleMap": null,
       "demoLabel": [
-        "İncline Dumbell Press hareket formu gösterimi",
-        "Incline Dumbell Press exercise form demonstration"
+        "Incline Dumbbell Press hareket formu gösterimi",
+        "Incline Dumbbell Press exercise form demonstration"
       ],
       "muscleMapAlt": [
-        "İncline Dumbell Press hareketinde çalışan kasların haritası",
-        "Muscle map for the Incline Dumbell Press exercise"
+        "Incline Dumbbell Press hareketinde çalışan kasların haritası",
+        "Muscle map for the Incline Dumbbell Press exercise"
       ]
     },
     "web": {
@@ -891,12 +891,12 @@ window.LOGWISE_EX_GUIDES = {
       "poster": null,
       "muscleMap": null,
       "demoLabel": [
-        "Dumbell Fly hareket formu gösterimi",
-        "Dumbell Fly exercise form demonstration"
+        "Dumbbell Fly hareket formu gösterimi",
+        "Dumbbell Fly exercise form demonstration"
       ],
       "muscleMapAlt": [
-        "Dumbell Fly hareketinde çalışan kasların haritası",
-        "Muscle map for the Dumbell Fly exercise"
+        "Dumbbell Fly hareketinde çalışan kasların haritası",
+        "Muscle map for the Dumbbell Fly exercise"
       ]
     },
     "web": {
@@ -1044,12 +1044,12 @@ window.LOGWISE_EX_GUIDES = {
       "poster": null,
       "muscleMap": null,
       "demoLabel": [
-        "Incline Dumbell Fly hareket formu gösterimi",
-        "Incline Dumbell Fly exercise form demonstration"
+        "Incline Dumbbell Fly hareket formu gösterimi",
+        "Incline Dumbbell Fly exercise form demonstration"
       ],
       "muscleMapAlt": [
-        "Incline Dumbell Fly hareketinde çalışan kasların haritası",
-        "Muscle map for the Incline Dumbell Fly exercise"
+        "Incline Dumbbell Fly hareketinde çalışan kasların haritası",
+        "Muscle map for the Incline Dumbbell Fly exercise"
       ]
     },
     "web": {
@@ -1368,11 +1368,11 @@ window.LOGWISE_EX_GUIDES = {
       "poster": null,
       "muscleMap": null,
       "demoLabel": [
-        "İncline Bench Press hareket formu gösterimi",
+        "Incline Bench Press hareket formu gösterimi",
         "Incline Bench Press exercise form demonstration"
       ],
       "muscleMapAlt": [
-        "İncline Bench Press hareketinde çalışan kasların haritası",
+        "Incline Bench Press hareketinde çalışan kasların haritası",
         "Muscle map for the Incline Bench Press exercise"
       ]
     },
@@ -9249,12 +9249,12 @@ window.LOGWISE_EX_GUIDES = {
       "poster": null,
       "muscleMap": null,
       "demoLabel": [
-        "Incline Dumbell Curl hareket formu gösterimi",
-        "Incline Dumbell Curl exercise form demonstration"
+        "Incline Dumbbell Curl hareket formu gösterimi",
+        "Incline Dumbbell Curl exercise form demonstration"
       ],
       "muscleMapAlt": [
-        "Incline Dumbell Curl hareketinde çalışan kasların haritası",
-        "Muscle map for the Incline Dumbell Curl exercise"
+        "Incline Dumbbell Curl hareketinde çalışan kasların haritası",
+        "Muscle map for the Incline Dumbbell Curl exercise"
       ]
     },
     "web": {
@@ -12436,12 +12436,12 @@ window.LOGWISE_EX_GUIDES = {
       "poster": null,
       "muscleMap": null,
       "demoLabel": [
-        "Dumbell Row hareket formu gösterimi",
-        "Dumbell Row exercise form demonstration"
+        "Dumbbell Row hareket formu gösterimi",
+        "Dumbbell Row exercise form demonstration"
       ],
       "muscleMapAlt": [
-        "Dumbell Row hareketinde çalışan kasların haritası",
-        "Muscle map for the Dumbell Row exercise"
+        "Dumbbell Row hareketinde çalışan kasların haritası",
+        "Muscle map for the Dumbbell Row exercise"
       ]
     },
     "web": {

@@ -19,12 +19,11 @@ window.LOGWISE_PRESET_EXERCISES = [{
   categories: ["Göğüs"]
 }, {
   id: "dumbell-press",
-  name: "Dumbell Press",
+  name: "Dumbbell Press",
   categories: ["Göğüs"]
 }, {
   id: "incline-dumbell-press",
-  name: "İncline Dumbell Press",
-  nameEN: "Incline Dumbell Press",
+  name: "Incline Dumbbell Press",
   categories: ["Göğüs"]
 }, {
   id: "decline-push-up",
@@ -32,11 +31,11 @@ window.LOGWISE_PRESET_EXERCISES = [{
   categories: ["Göğüs", "Omuz", "Triceps"]
 }, {
   id: "dumbell-fly",
-  name: "Dumbell Fly",
+  name: "Dumbbell Fly",
   categories: ["Göğüs"]
 }, {
   id: "incline-dumbell-fly",
-  name: "Incline Dumbell Fly",
+  name: "Incline Dumbbell Fly",
   categories: ["Göğüs"]
 }, {
   id: "bench-press",
@@ -44,8 +43,7 @@ window.LOGWISE_PRESET_EXERCISES = [{
   categories: ["Göğüs"]
 }, {
   id: "incline-bench-press",
-  name: "İncline Bench Press",
-  nameEN: "Incline Bench Press",
+  name: "Incline Bench Press",
   categories: ["Göğüs"]
 }, {
   id: "close-grip-bench-press",
@@ -246,7 +244,7 @@ window.LOGWISE_PRESET_EXERCISES = [{
   categories: ["Biceps", "Bilek"]
 }, {
   id: "incline-dumbell-curl",
-  name: "Incline Dumbell Curl",
+  name: "Incline Dumbbell Curl",
   categories: ["Biceps"]
 }, {
   id: "concentration-curl",
@@ -326,7 +324,7 @@ window.LOGWISE_PRESET_EXERCISES = [{
   categories: ["Sırt", "Karın"]
 }, {
   id: "dumbell-row",
-  name: "Dumbell Row",
+  name: "Dumbbell Row",
   categories: ["Sırt", "Biceps"]
 }, {
   id: "cable-row",

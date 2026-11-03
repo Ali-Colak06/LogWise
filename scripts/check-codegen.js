@@ -15,7 +15,8 @@ const ROOT_DIR = path.resolve(__dirname, '..');
 
 const CHECKS = [
   ['scripts/build-presets-exercises.js', ['--check']],
-  ['scripts/build-ex-guides.js', ['--check']]
+  ['scripts/build-ex-guides.js', ['--check']],
+  ['scripts/build-ex-meta.js', ['--check']]
 ];
 
 for (const [script, args] of CHECKS) {

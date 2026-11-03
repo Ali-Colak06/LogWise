@@ -111,3 +111,7 @@ Kaynak dikeyse veya 720 pikselden küçükse ölçek ayarı kaynak bazında yap�
 7. `node scripts/build-blog.js` ile statik çıktıları yeniden üret.
 
 R2 bucket, CORS, custom domain ve upload komutları için `docs/R2-EXERCISE-MEDIA-SETUP.md` belgesine bak.
+
+## Kas Taksonomisi ve Hareket Meta Verisi (Faz 4)
+
+`muscles.primary/secondary` içindeki anatomik slug'lar `data/ex-meta.json` → `muscles` sözlüğünde bir harita bölgesine (`regions`) bağlanır; `aliases` eş anlamlı adları birleştirir. Ekipman, zorluk ve yük tipi de bu dosyadadır. `scripts/build-ex-meta.js` iki kaynağı birleştirip uygulamanın açılışta yüklediği küçük `data/ex-meta.js`'i üretir; bu yüzden guide'a yeni bir kas adı eklemek `ex-meta.json`'a da kayıt gerektirir (generator aksi halde hata verir). Web uygulaması `data/ex-guides.js`'i artık yalnız önizleme açılınca yükler.

@@ -25,6 +25,8 @@ Bu içerik dosyalarının ortak anahtarı hareketin `id` alanıdır (slug). Heps
 
 `scripts/build-ex-guides.js`, her preset için kanonik guide kaydı bulunmasını zorunlu kılar. Yeni hareketin tam içeriği hazır değilse bile `data/ex-guides.json` içine `publish: false`, `mediaReady: false` ve uygun readiness değerleriyle draft kayıt eklenir. Tam alan sözleşmesi için `docs/EXERCISE-GUIDE-SCHEMA.md` belgesine bak.
 
+**Faz 4 / D1:** `scripts/build-ex-meta.js` her preset için `data/ex-meta.json` → `exercises.<slug>` kaydı ister: `equipment` (barbell, dumbbell, ez-bar, kettlebell, cable, machine, smith, band, bodyweight), `difficulty` (1–3) ve gerekiyorsa `loadType` (`bodyweight` / `assisted`). Guide'daki her kas adı `ex-meta.json` → `muscles` (veya `aliases`) içinde olmalı; yeni bir kas adı kullanıyorsan oraya bölgesiyle ekle. Sonra `node scripts/build-ex-meta.js` ile `data/ex-meta.js`'i üret.
+
 ---
 
 ## Slug (`id`) Üretme Kuralları
@@ -190,6 +192,7 @@ Ekledikten sonra mutlaka:
 - [ ] `node --check data/ex-descriptions.js` ✅
 - [ ] `node --check data/ex-preview.js` ✅
 - [ ] `node scripts/build-ex-guides.js --check` ✅
+- [ ] `data/ex-meta.json` kaydı eklendi; `node scripts/build-ex-meta.js` + `--check` ✅
 - [ ] `node scripts/build-ex-guides.js` ile `data/ex-guides.js` wrapper'ı yenilenmiş
 - [ ] Generated dosyalar (`data/presets-exercises.js`, `logwise-mobile/data/generated/presets-exercises.ts`) elle düzenlenmemiş
 - [ ] JSON obje sırasında virgül hatası yok (özellikle son giriş ve yeni girişin virgülü)

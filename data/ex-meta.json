@@ -1,0 +1,1496 @@
+{
+  "$comment": "Kanonik kas taksonomisi + hareket meta verisi (Faz 4 / D1). Kaslar ex-guides.json içindeki anatomik slug listesinden gelir; burada yalnız harita bölgesine eşlenir. equipment/difficulty/loadType elle düzenlenebilir. Üretilen çıktı: data/ex-meta.js (node scripts/build-ex-meta.js).",
+  "equipment": [
+    "barbell",
+    "dumbbell",
+    "ez-bar",
+    "kettlebell",
+    "cable",
+    "machine",
+    "smith",
+    "band",
+    "bodyweight"
+  ],
+  "loadTypes": [
+    "weighted",
+    "bodyweight",
+    "assisted"
+  ],
+  "regions": {
+    "chest": {
+      "label": [
+        "Göğüs",
+        "Chest"
+      ],
+      "view": "front"
+    },
+    "front-delts": {
+      "label": [
+        "Ön omuz",
+        "Front delts"
+      ],
+      "view": "front"
+    },
+    "side-delts": {
+      "label": [
+        "Yan omuz",
+        "Side delts"
+      ],
+      "view": "both"
+    },
+    "rear-delts": {
+      "label": [
+        "Arka omuz",
+        "Rear delts"
+      ],
+      "view": "back"
+    },
+    "biceps": {
+      "label": [
+        "Biceps",
+        "Biceps"
+      ],
+      "view": "front"
+    },
+    "triceps": {
+      "label": [
+        "Triceps",
+        "Triceps"
+      ],
+      "view": "back"
+    },
+    "forearms": {
+      "label": [
+        "Ön kol",
+        "Forearms"
+      ],
+      "view": "both"
+    },
+    "traps": {
+      "label": [
+        "Trapez",
+        "Traps"
+      ],
+      "view": "both"
+    },
+    "upper-back": {
+      "label": [
+        "Orta sırt",
+        "Upper back"
+      ],
+      "view": "back"
+    },
+    "lats": {
+      "label": [
+        "Kanat (lat)",
+        "Lats"
+      ],
+      "view": "back"
+    },
+    "lower-back": {
+      "label": [
+        "Bel",
+        "Lower back"
+      ],
+      "view": "back"
+    },
+    "abs": {
+      "label": [
+        "Karın",
+        "Abs"
+      ],
+      "view": "front"
+    },
+    "obliques": {
+      "label": [
+        "Yan karın",
+        "Obliques"
+      ],
+      "view": "front"
+    },
+    "glutes": {
+      "label": [
+        "Kalça",
+        "Glutes"
+      ],
+      "view": "back"
+    },
+    "quads": {
+      "label": [
+        "Ön bacak",
+        "Quads"
+      ],
+      "view": "front"
+    },
+    "hamstrings": {
+      "label": [
+        "Arka bacak",
+        "Hamstrings"
+      ],
+      "view": "back"
+    },
+    "adductors": {
+      "label": [
+        "İç bacak",
+        "Adductors"
+      ],
+      "view": "front"
+    },
+    "calves": {
+      "label": [
+        "Kalf",
+        "Calves"
+      ],
+      "view": "both"
+    },
+    "serratus": {
+      "label": [
+        "Serratus",
+        "Serratus"
+      ],
+      "view": "front",
+      "minor": true
+    },
+    "rotator-cuff": {
+      "label": [
+        "Rotator manşet",
+        "Rotator cuff"
+      ],
+      "view": "back",
+      "minor": true
+    },
+    "hip-flexors": {
+      "label": [
+        "Kalça fleksörleri",
+        "Hip flexors"
+      ],
+      "view": "front",
+      "minor": true
+    },
+    "tibialis": {
+      "label": [
+        "Ön kaval",
+        "Tibialis"
+      ],
+      "view": "front",
+      "minor": true
+    }
+  },
+  "muscles": {
+    "pectoralis-major": {
+      "region": "chest",
+      "label": [
+        "Büyük göğüs kası",
+        "Pectoralis major"
+      ]
+    },
+    "pectoralis-major-clavicular-head": {
+      "region": "chest",
+      "label": [
+        "Üst göğüs",
+        "Upper chest"
+      ]
+    },
+    "anterior-deltoid": {
+      "region": "front-delts",
+      "label": [
+        "Ön deltoid",
+        "Anterior deltoid"
+      ]
+    },
+    "lateral-deltoid": {
+      "region": "side-delts",
+      "label": [
+        "Yan deltoid",
+        "Lateral deltoid"
+      ]
+    },
+    "posterior-deltoid": {
+      "region": "rear-delts",
+      "label": [
+        "Arka deltoid",
+        "Posterior deltoid"
+      ]
+    },
+    "triceps-brachii": {
+      "region": "triceps",
+      "label": [
+        "Triceps",
+        "Triceps brachii"
+      ]
+    },
+    "triceps-long-head": {
+      "region": "triceps",
+      "label": [
+        "Triceps uzun baş",
+        "Triceps long head"
+      ]
+    },
+    "anconeus": {
+      "region": "triceps",
+      "label": [
+        "Ankoneus",
+        "Anconeus"
+      ]
+    },
+    "biceps-brachii": {
+      "region": "biceps",
+      "label": [
+        "Biceps",
+        "Biceps brachii"
+      ]
+    },
+    "brachialis": {
+      "region": "biceps",
+      "label": [
+        "Brakiyalis",
+        "Brachialis"
+      ]
+    },
+    "brachioradialis": {
+      "region": "forearms",
+      "label": [
+        "Brakiyoradiyalis",
+        "Brachioradialis"
+      ]
+    },
+    "forearm-flexors": {
+      "region": "forearms",
+      "label": [
+        "Ön kol fleksörleri",
+        "Forearm flexors"
+      ]
+    },
+    "forearm-extensors": {
+      "region": "forearms",
+      "label": [
+        "Ön kol ekstansörleri",
+        "Forearm extensors"
+      ]
+    },
+    "upper-trapezius": {
+      "region": "traps",
+      "label": [
+        "Üst trapez",
+        "Upper trapezius"
+      ]
+    },
+    "levator-scapulae": {
+      "region": "traps",
+      "label": [
+        "Levator skapula",
+        "Levator scapulae"
+      ]
+    },
+    "middle-trapezius": {
+      "region": "upper-back",
+      "label": [
+        "Orta trapez",
+        "Middle trapezius"
+      ]
+    },
+    "lower-trapezius": {
+      "region": "upper-back",
+      "label": [
+        "Alt trapez",
+        "Lower trapezius"
+      ]
+    },
+    "rhomboids": {
+      "region": "upper-back",
+      "label": [
+        "Romboidler",
+        "Rhomboids"
+      ]
+    },
+    "latissimus-dorsi": {
+      "region": "lats",
+      "label": [
+        "Latissimus dorsi",
+        "Latissimus dorsi"
+      ]
+    },
+    "teres-major": {
+      "region": "lats",
+      "label": [
+        "Teres major",
+        "Teres major"
+      ]
+    },
+    "erector-spinae": {
+      "region": "lower-back",
+      "label": [
+        "Omurga dikleştiricileri",
+        "Erector spinae"
+      ]
+    },
+    "quadratus-lumborum": {
+      "region": "lower-back",
+      "label": [
+        "Kuadratus lumborum",
+        "Quadratus lumborum"
+      ]
+    },
+    "infraspinatus": {
+      "region": "rotator-cuff",
+      "label": [
+        "İnfraspinatus",
+        "Infraspinatus"
+      ]
+    },
+    "teres-minor": {
+      "region": "rotator-cuff",
+      "label": [
+        "Teres minor",
+        "Teres minor"
+      ]
+    },
+    "supraspinatus": {
+      "region": "rotator-cuff",
+      "label": [
+        "Supraspinatus",
+        "Supraspinatus"
+      ]
+    },
+    "serratus-anterior": {
+      "region": "serratus",
+      "label": [
+        "Serratus anterior",
+        "Serratus anterior"
+      ]
+    },
+    "rectus-abdominis": {
+      "region": "abs",
+      "label": [
+        "Düz karın kası",
+        "Rectus abdominis"
+      ]
+    },
+    "transversus-abdominis": {
+      "region": "abs",
+      "label": [
+        "Transversus abdominis",
+        "Transversus abdominis"
+      ]
+    },
+    "internal-oblique": {
+      "region": "obliques",
+      "label": [
+        "İç oblik",
+        "Internal oblique"
+      ]
+    },
+    "external-oblique": {
+      "region": "obliques",
+      "label": [
+        "Dış oblik",
+        "External oblique"
+      ]
+    },
+    "gluteus-maximus": {
+      "region": "glutes",
+      "label": [
+        "Büyük kalça kası",
+        "Gluteus maximus"
+      ]
+    },
+    "gluteus-medius": {
+      "region": "glutes",
+      "label": [
+        "Orta kalça kası",
+        "Gluteus medius"
+      ]
+    },
+    "gluteus-minimus": {
+      "region": "glutes",
+      "label": [
+        "Küçük kalça kası",
+        "Gluteus minimus"
+      ]
+    },
+    "tensor-fasciae-latae": {
+      "region": "glutes",
+      "label": [
+        "Tensor fasya lata",
+        "Tensor fasciae latae"
+      ]
+    },
+    "hamstrings": {
+      "region": "hamstrings",
+      "label": [
+        "Hamstring",
+        "Hamstrings"
+      ]
+    },
+    "quadriceps": {
+      "region": "quads",
+      "label": [
+        "Kuadriseps",
+        "Quadriceps"
+      ]
+    },
+    "rectus-femoris": {
+      "region": "quads",
+      "label": [
+        "Rektus femoris",
+        "Rectus femoris"
+      ]
+    },
+    "adductor-magnus": {
+      "region": "adductors",
+      "label": [
+        "Büyük adduktor",
+        "Adductor magnus"
+      ]
+    },
+    "adductor-longus": {
+      "region": "adductors",
+      "label": [
+        "Uzun adduktor",
+        "Adductor longus"
+      ]
+    },
+    "adductor-brevis": {
+      "region": "adductors",
+      "label": [
+        "Kısa adduktor",
+        "Adductor brevis"
+      ]
+    },
+    "gracilis": {
+      "region": "adductors",
+      "label": [
+        "Grasilis",
+        "Gracilis"
+      ]
+    },
+    "pectineus": {
+      "region": "adductors",
+      "label": [
+        "Pektineus",
+        "Pectineus"
+      ]
+    },
+    "iliopsoas": {
+      "region": "hip-flexors",
+      "label": [
+        "İliopsoas",
+        "Iliopsoas"
+      ]
+    },
+    "gastrocnemius": {
+      "region": "calves",
+      "label": [
+        "Gastroknemius",
+        "Gastrocnemius"
+      ]
+    },
+    "soleus": {
+      "region": "calves",
+      "label": [
+        "Soleus",
+        "Soleus"
+      ]
+    },
+    "tibialis-anterior": {
+      "region": "tibialis",
+      "label": [
+        "Tibialis anterior",
+        "Tibialis anterior"
+      ]
+    }
+  },
+  "aliases": {
+    "abdominals": "rectus-abdominis",
+    "spinal-erectors": "erector-spinae"
+  },
+  "categoryRegions": {
+    "Göğüs": [
+      "chest"
+    ],
+    "Omuz": [
+      "front-delts",
+      "side-delts"
+    ],
+    "Triceps": [
+      "triceps"
+    ],
+    "Biceps": [
+      "biceps"
+    ],
+    "Bilek": [
+      "forearms"
+    ],
+    "Sırt": [
+      "lats",
+      "upper-back"
+    ],
+    "Bacak": [
+      "quads",
+      "hamstrings"
+    ],
+    "Kalça": [
+      "glutes"
+    ],
+    "Kalf": [
+      "calves"
+    ],
+    "Trapez": [
+      "traps"
+    ],
+    "Karın": [
+      "abs"
+    ],
+    "Boyun": [
+      "traps"
+    ],
+    "Kardiyo": [],
+    "Diğer": []
+  },
+  "exercises": {
+    "chest-press": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "chest-fly": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "dumbell-press": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "incline-dumbell-press": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "decline-push-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "dumbell-fly": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "incline-dumbell-fly": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "bench-press": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "incline-bench-press": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "close-grip-bench-press": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "cable-crossover": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "pec-deck": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "incline-cable-fly": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "overhead-press": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "shoulder-press": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "machine-shoulder-press": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "arnold-press": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 2
+    },
+    "lateral-raise": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "machine-lateral-raise": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "cable-lateral-raise": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "front-raise": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "cable-front-raise": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "lean-away-lateral-raise": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 2
+    },
+    "y-raise": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 2
+    },
+    "rear-delt-fly": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "reverse-pec-deck": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "cable-rear-delt-fly": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "face-pull": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "upright-row": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "push-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "archer-push-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "pike-push-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "pike-handstand-press-negative": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "wall-handstand-hold": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "diamond-push-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "deficit-push-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "dips": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "dip-machine": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "bench-dips": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "ring-push-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "pseudo-planche-push-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "triceps-pushdown": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "cross-body-triceps-extension": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "jm-press": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 3
+    },
+    "overhead-cable-triceps-extension": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "kickback": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "overhead-triceps-extension": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "skull-crusher": {
+      "equipment": [
+        "ez-bar"
+      ],
+      "difficulty": 2
+    },
+    "biceps-curl": {
+      "equipment": [
+        "dumbbell",
+        "barbell",
+        "ez-bar"
+      ],
+      "difficulty": 1
+    },
+    "spider-curl": {
+      "equipment": [
+        "ez-bar"
+      ],
+      "difficulty": 2
+    },
+    "hammer-curl": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "zottman-curl": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 2
+    },
+    "rope-hammer-curl": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "one-arm-cable-curl": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "drag-curl": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "preacher-curl": {
+      "equipment": [
+        "ez-bar"
+      ],
+      "difficulty": 1
+    },
+    "machine-preacher-curl": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "preacher-hammer-curl": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "incline-dumbell-curl": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "concentration-curl": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "reverse-curl": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 1
+    },
+    "dead-hang": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "active-hang": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "farmer-carry": {
+      "equipment": [
+        "dumbbell",
+        "kettlebell"
+      ],
+      "difficulty": 2
+    },
+    "wrist-extensions": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "wrist-curls": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "lat-pulldown": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "single-arm-lat-pulldown": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "straight-arm-pulldown": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "pull-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "scapular-pull-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "chin-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "chin-up-hold": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "typewriter-pull-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "assisted-pull-up": {
+      "equipment": [
+        "machine",
+        "band"
+      ],
+      "difficulty": 1,
+      "loadType": "assisted"
+    },
+    "australian-pull-up": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "ring-row": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "tuck-front-lever-row": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "dumbell-row": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "cable-row": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "machine-row": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "chest-supported-row": {
+      "equipment": [
+        "dumbbell",
+        "barbell",
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "seal-row": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "meadow-row": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "single-arm-row-machine": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "barbell-row": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "t-bar-row": {
+      "equipment": [
+        "machine",
+        "barbell"
+      ],
+      "difficulty": 1
+    },
+    "pullover": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 2
+    },
+    "deadlift": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "romanian-deadlift": {
+      "equipment": [
+        "barbell",
+        "dumbbell"
+      ],
+      "difficulty": 2
+    },
+    "squat": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "goblet-squat": {
+      "equipment": [
+        "dumbbell",
+        "kettlebell"
+      ],
+      "difficulty": 1
+    },
+    "hack-squat": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 2
+    },
+    "smith-machine-squat": {
+      "equipment": [
+        "smith"
+      ],
+      "difficulty": 1
+    },
+    "leg-press": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "lunge": {
+      "equipment": [
+        "bodyweight",
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "walking-lunge": {
+      "equipment": [
+        "bodyweight",
+        "dumbbell"
+      ],
+      "difficulty": 2
+    },
+    "bulgarian-split-squat": {
+      "equipment": [
+        "bodyweight",
+        "dumbbell"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "cossack-squat": {
+      "equipment": [
+        "bodyweight",
+        "dumbbell",
+        "kettlebell"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "step-up": {
+      "equipment": [
+        "bodyweight",
+        "dumbbell"
+      ],
+      "difficulty": 2
+    },
+    "leg-curl": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "seated-leg-curl": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "sliding-leg-curl": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "nordic-curl": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "leg-adduction-machine": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "leg-extension": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "reverse-nordic": {
+      "equipment": [
+        "bodyweight",
+        "band"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "calf-raise": {
+      "equipment": [
+        "bodyweight",
+        "dumbbell",
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "seated-calf-raise": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "donkey-calf-raise": {
+      "equipment": [
+        "bodyweight",
+        "machine"
+      ],
+      "difficulty": 2
+    },
+    "shrug": {
+      "equipment": [
+        "dumbbell"
+      ],
+      "difficulty": 1
+    },
+    "hip-thrust": {
+      "equipment": [
+        "barbell"
+      ],
+      "difficulty": 2
+    },
+    "single-leg-hip-thrust": {
+      "equipment": [
+        "bodyweight",
+        "dumbbell"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "glute-bridge": {
+      "equipment": [
+        "bodyweight",
+        "band",
+        "barbell"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "glute-kickback": {
+      "equipment": [
+        "bodyweight",
+        "band"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "cable-kickback": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "hip-abduction-machine": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "back-extension": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "arch-hold": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "support-hold": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "ring-support-hold": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "plank": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "hollow-body-hold": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "side-plank": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "crunch": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "reverse-crunch": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "cable-crunch": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 1
+    },
+    "ab-wheel": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "standing-ab-wheel": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "russian-twist": {
+      "equipment": [
+        "bodyweight",
+        "dumbbell"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "cable-woodchopper": {
+      "equipment": [
+        "cable"
+      ],
+      "difficulty": 2
+    },
+    "hanging-leg-raise": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2,
+      "loadType": "bodyweight"
+    },
+    "hanging-knee-raise": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "toes-to-bar": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "dragon-flag": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "l-sit": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 3,
+      "loadType": "bodyweight"
+    },
+    "mountain-climber": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "burpee": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 2
+    },
+    "jumping-jack": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1
+    },
+    "treadmill": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "cycling": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "stair-climber": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "rowing-machine": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    },
+    "superman": {
+      "equipment": [
+        "bodyweight"
+      ],
+      "difficulty": 1,
+      "loadType": "bodyweight"
+    },
+    "moonwalk": {
+      "equipment": [
+        "machine"
+      ],
+      "difficulty": 1
+    }
+  }
+}
