@@ -1,6 +1,6 @@
 # AGENTS.md — LogWise Proje Rehberi (AI Araçları İçin)
 
-<!-- SON GÜNCELLEME: 2026-10-18 — Alışkanlıklar takvim entegrasyonu, doğrudan iç rota asset yüklemesi ve PWA v68. -->
+<!-- SON GÜNCELLEME: 2026-11-03 — Volkan kopyasındaki Faz 1–5 ana repo entegrasyonu, doğrulama ve ayrı canlı kurulum sınırları; PWA v73. -->
 
 Bu dosya, LogWise üzerinde çalışan **her AI aracının (Claude, Codex, ...) seans başında okuması gereken** ortak sözleşmedir. Kurallar bağlayıcıdır; ihlal bir hata değil, proje mimarisini bozan bir karardır.
 
@@ -23,7 +23,7 @@ Her AI seansı başlamadan **önce**:
 
 1. Bu dosyayı (`AGENTS.md`) oku.
 2. `git status` ve `git log --oneline -10` çek — repo'nun son durumunu gör.
-3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 95 — site geneli kalıcı dil tercihi).
+3. Yapılacak iş büyük bir refactor mi? Öyleyse `REFACTOR-GECMISI.md`'deki en son Bölüm'ü oku (şu an Bölüm 105 — Faz 1–5 ana repo entegrasyonu).
 4. Göreve özel bir reçete var mı? `docs/` klasörüne bak:
    - **Yeni hareket ekleme** → `docs/PRESET-EXERCISE-EKLEME.md`
    - **Yeni program ekleme** → `docs/PRESET-PROGRAM-EKLEME.md`
@@ -53,7 +53,7 @@ Her AI seansı başlamadan **önce**:
 - `app.html` / `profile.html` / `share.html` / `program.html` — uygulama ve paylaşım sayfa dosyaları.
 - `logwise-mobile/` — bağımsız Expo alt projesi; kendi `package.json`, TypeScript, Metro/Babel ve React Native bileşen kurallarına sahiptir.
 - `.assetsignore` — repo kökündeki geliştirme/mobil kaynaklarının Cloudflare Web asset deploy'una girmesini engeller.
-- Web/Mobil ortak domain verilerinde kanonik kaynak + generator modeli kullanılır. `presets-exercises` için kaynak `data/presets-exercises.json`; `ex-guides` için kaynak `data/ex-guides.json` dosyasıdır. Generated dosyalar elle değiştirilmez.
+- Web/Mobil ortak domain verilerinde kanonik kaynak + generator modeli kullanılır. `presets-exercises` için kaynak `data/presets-exercises.json`; `ex-guides` için kaynak `data/ex-guides.json`; kas taksonomisi + hareket meta verisi (`ex-meta`) için kaynak `data/ex-meta.json` (+ kas listeleri `ex-guides.json`'dan) dosyasıdır. Generated dosyalar elle değiştirilmez.
 
 ### 3.3 Web PWA / Service Worker
 - **Yeni `data/`, `lib/` veya `components/` dosyası eklediğinde** `sw.js`'de iki değişiklik zorunlu: `CACHE_NAME` bump + `PRECACHE_URLS`'e yeni dosyayı ekle. Detay: `docs/SW-VERSION-BUMP.md`.
@@ -90,9 +90,9 @@ Tek repo, tek `.git` (`C:/Users/colak/Documents/LogWise/.git`). Ajanlar ayrı **
 ```
 LogWise/
 ├── AGENTS.md                  ← Bu dosya — her AI seansının ilk okuyacağı
-├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-99)
+├── REFACTOR-GECMISI.md        ← Refactor tarihsel kaydı (Bölüm 1-105)
 ├── .github/workflows/         ← CI otomasyonları
-│   └── codegen-check.yml      ← Generated çıktı drift kontrolü + alışkanlık tarih/seri testleri
+│   └── codegen-check.yml      ← Generated çıktı drift kontrolü + alışkanlık, hesap ve senkron testleri
 ├── .assetsignore              ← Mobil/iç kaynakları Cloudflare Web asset deploy'undan çıkarır
 ├── docs/                      ← Görev-tipi reçeteler
 │   ├── mobile-design-system/  ← Mobil ürün kararları, ekran spesifikasyonları ve prototipler
@@ -120,17 +120,21 @@ LogWise/
 │   ├── ex-preview.js          ← window.LOGWISE_EX_PREVIEW (slug-anahtarlı gif + uzun desc + tips)
 │   ├── ex-images.js           ← window.LOGWISE_EX_IMAGES (legacy harici görsel fallback'leri)
 │   ├── ex-guides.json         ← Kanonik platform-nötr exercise guide kaynağı
-│   ├── ex-guides.js           ← Üretilmiş window.LOGWISE_EX_GUIDES web wrapper'ı
+│   ├── ex-guides.js           ← Üretilmiş window.LOGWISE_EX_GUIDES web wrapper'ı (Faz 4'ten beri açılışta değil, ilk önizlemede LOGWISE_EX_UTILS.loadGuides() ile yüklenir)
+│   ├── ex-meta.json           ← Kanonik kas bölgeleri, kas sözlüğü/takma adlar, ekipman, zorluk, yük tipi (Faz 4 / D1)
+│   ├── ex-meta.js             ← Üretilmiş window.LOGWISE_EX_META (küçük; açılışta yüklenir)
 │   └── presets-programs.js    ← window.LOGWISE_PRESET_PROGRAMS (4 program, slug referanslı)
 ├── lib/                       ← Saf fonksiyonlar + DB (Aşama 1-2)
-│   ├── calc.js                ← window.LOGWISE_CALC
+│   ├── calc.js                ← window.LOGWISE_CALC (hesap + set durumu + seri/progresyon/plaka: isSetDone, filterWorkouts, calcStreakInfo, progressionHint, platesPerSide, warmupPlan)
 │   ├── badge-logic.js         ← window.LOGWISE_BADGE_LOGIC
 │   ├── data-schema.js         ← window.LOGWISE_SCHEMA (init + migrateData)
 │   ├── profile-utils.js       ← window.LOGWISE_PROFILE_UTILS
 │   ├── db.js                  ← window.LOGWISE_DB (Supabase client + profil senkronu)
+│   ├── sync.js                ← window.LOGWISE_SYNC (user_data koşullu yazma, yerel kopya, çakışma kararı; app/profile/share/program)
 │   ├── habit-utils.js         ← window.LOGWISE_HABIT_UTILS (İstanbul gün sınırı, takvim, seri)
 │   ├── habits-db.js           ← window.LOGWISE_HABITS_DB (RLS korumalı kişisel alışkanlık CRUD)
-│   └── exercise-utils.js      ← window.LOGWISE_EX_UTILS (id/name lookup, resolveKey)
+│   ├── exercise-utils.js      ← window.LOGWISE_EX_UTILS (id/name lookup, resolveKey, loadGuides)
+│   └── muscle-utils.js        ← window.LOGWISE_MUSCLES (bölge çözümü, haftalık kas seti, hedef bandı, haftalık özet, yük tipi)
 ├── styles/
 │   ├── base.css               ← App paylaşılan CSS (reset, :root, @keyframes)
 │   ├── landing.css            ← Statik landing CSS (index.html + tr.html)
@@ -139,7 +143,8 @@ LogWise/
 │   ├── error-boundary.js      ← ErrorBoundary
 │   ├── brand-mark.js          ← BrandMark
 │   ├── dash-chart.js          ← DashChart
-│   ├── ex-preview-modal.js    ← ExPreviewModal
+│   ├── ex-preview-modal.js    ← ExPreviewModal (sekmeler: nasıl/hatalar/ilerleme/kaslar/benzer/geçmiş)
+│   ├── muscle-map.js          ← MuscleMap (ön/arka SVG vücut haritası; kütüphane filtresi, önizleme, ısı haritası)
 │   ├── auth-screen.js         ← AuthScreen
 │   ├── habits-page.js         ← HabitTracker (App içi alışkanlık kontrolü + takvim/mini takvim veri köprüsü)
 │   └── comment-section.js     ← CommentSection (Bölüm 44)
@@ -149,11 +154,17 @@ LogWise/
 ├── library/                   ← Üretilmiş statik Library dizinleri ve alt sayfaları (`/library/exercises`, `/library/programs`, nested sayfalar)
 ├── scripts/
 │   ├── build-blog.js          ← blog-content/*.md → learn/*.html + ogren/*.html üretici + TR/EN hreflang + landing Learn/Öğren kart enjeksiyonu
-│   ├── check-codegen.js       ← Preset + exercise guide generated çıktı drift kontrollerini tek komutta çalıştırır
+│   ├── check-codegen.js       ← Preset + exercise guide + ex-meta generated çıktı drift kontrollerini tek komutta çalıştırır
 │   ├── test-habit-utils.js    ← Bağımlılıksız tarih/seri davranış testleri (node --test)
+│   ├── test-calc.js           ← lib/calc.js hacim/dinlenme/PR regresyon testleri (node --test)
+│   ├── test-sync.js           ← lib/sync.js veri kaybı korumaları (sahte Supabase ile, node --test)
+│   ├── test-muscles.js        ← ex-meta drift + kas seti/hedef/haftalık özet/vücut ağırlığı PR/tekrar rekoru testleri (node --test)
+│   ├── test-private-profile-rls.js ← Gizli profil user_prs/shared_workouts RLS migration testi (izole PGlite)
 │   ├── test-private-habits.js ← İzole PostgreSQL/PGlite RLS ve CRUD testleri
 │   ├── build-presets-exercises.js ← presets-exercises.json → Web JS + mobil TS generated çıktıları ve --check drift kontrolü
 │   ├── build-ex-guides.js     ← ex-guides.json doğrulama + Web ex-guides.js + mobil generated ex-content.ts üretimi
+│   ├── build-ex-meta.js       ← ex-meta.json + ex-guides.json kasları → data/ex-meta.js (doğrulama + --check)
+│   ├── mirror-ex-images.js    ← Hareket görsellerini raw.githubusercontent → media.logwise.fit (R2) taşıma: download / upload komutları / doğrulamalı rewrite
 │   ├── validate-exercise-media.js ← Yerel MP4 + uzak R2 header/range doğrulaması
 │   ├── build-programmatic-seo.js ← data/*.js → library.html + library/exercises.html + library/programs.html + nested Library HTML üretici
 │   └── vendor/marked.min.js   ← Vendored markdown parser (npm install gerekmez)
@@ -307,9 +318,16 @@ LogWise/
 - **Site geneli kalıcı dil tercihi** (Bölüm 95): Public sayfalar, Learn/Öğren ve Web uygulaması `gym-log-lang` üzerinde birleştirildi; TR/EN seçimi canonical alternate bulunan tüm sayfalarda otomatik uygulanır, yalnız EN içeriği olan detaylarda tercih korunur ve `sw.js` v55 ile dağıtılır ✅
 - **RPE / RIR Learn içerik kümesi** (Bölüm 96): RPE, RIR ve aralarındaki pratik farkı anlatan üç konu EN/TR Markdown çiftleriyle eklendi; hesaplayıcı mod seçimi, dönüşüm tablosu, iç linkler, sitemap/hreflang çıktıları ve `sw.js` v56 precache entegrasyonu tamamlandı ✅
 - **Antrenman programlama Learn içerik kümesi** (Bölüm 97): Set arası dinlenme, haftalık set hacmi, ısınma setleri, tahmini/gerçek 1RM, deload ve ağırlık artırma konularını anlatan altı EN/TR Markdown çifti eklendi; Learn/Öğren indeksleri, manifest, sitemap/hreflang çıktıları ve `sw.js` v65 precache entegrasyonu tamamlandı ✅
+- **Faz 1 — veri güvenliği ve salon temel düzeltmeleri** (Bölüm 100): `user_data` yükleme hatası artık boş veriyle devam etmez; buluta yazma `updated_at` koşulludur (sessiz ezme yerine çakışma penceresi); oturumlu kullanıcıya özel yerel kopya `gym-log-local-<uid>` ile çevrimdışı/sekme kapanışı korunur; senkron durum ikonu; profil/paylaşım/program kopyalamaları `LOGWISE_SYNC.mutateUserData` kullanır; SW güncellemesi otomatik yenileme yerine şerit; gün ekranında hazır hareket ekleme + boş durum butonu; kardiyolu hacim NaN düzeltmesi; zaman damgalı dinlenme sayacı (ses/titreşim/±15 sn); supabase-js 2.118.0 sabit; PWA v69 ✅
+- **Faz 2 — salonda hızlı kayıt** (Bölüm 101): Set `done` alanı + `LOGWISE_CALC.isSetDone/doneSets/filterWorkouts` (istatistikler yalnız tamamlanmış setleri sayar; eski kayıtlar geriye uyumlu); plan setleri (`target`) ve ✓ ile doldurma; "Antrenmanı başlat/Bitir" + özet; Wake Lock; hareket bazlı dinlenme (`data.exerciseRest`); türe göre "son seans" eşleşmesi; ✓ anında rekor kontrolü; mobil başlık/⋯ menüsü; kopyalamalar plan olarak (`toPlanSet`); `data.settings.includeWarmups`; misafir verisini hesaba aktarma (`LOGWISE_SYNC.mergeGuestData`); PWA v70 ✅
+- **Faz 3 — program, ilerleme ve motivasyon** (Bölüm 102): `program.targets` (set × tekrar aralığı × dinlenme) + `progressionHint` çift progresyon; `platesPerSide`/`warmupPlan` (halter ısınma + plaka ipucu); `calcStreakInfo` dinlenme-duyarlı seri + en iyi seri, geri alınmayan seri rozetleri ve gerçek rozet tarihleri; gün bazlı kas sıklığı; `LOGWISE_SYNC.applySharedWorkout` (çift kayıtsız paylaşılan kopya); hazır program hedef/offDays/presetId; `user_prs` debounce; ölçüm tarihi; `BroadcastChannel` çoklu sekme eşitleme; precache'ten `ex-guides.json` çıkarıldı; PWA v71 ✅
+- **Faz 4 — MuscleWiki tarzı kas analizi** (Bölüm 103): `data/ex-meta.json` kas taksonomisi (rehberdeki 48 kas adı → 2 takma ad birleşince 46 kas → 22 harita bölgesi, ekipman/zorluk/yük tipi) + `build-ex-meta.js`; `components/muscle-map.js` ön/arka vücut haritası; Hareketler sayfasında kasa göre keşif + ekipman filtresi; panelde haftalık kas seti kartı (birincil 1 / ikincil 0,5, ısınma hariç, kişisel hedef bandı `settings.muscleTargets`) + ısı haritası; takvim üstünde haftalık özet; önizleme sekmeleri ve rehber verisinin geç yüklenmesi; hareket detayı (aralıklı trend, tekrar bazında rekor tablosu); vücut ağırlığı/destekli yük tipi (`exercise.loadType`, rekor = en çok tekrar); gizli profil RLS migration'ı + `get_shared_workout` RPC; PWA v72 ✅
+- **Faz 5 — cila ve kalanlar** (Bölüm 104): üst çubuk araması (hareket → detay, hazır hareket → önizleme, program → düzenleme, gün → tarih etiketi); bildirim `registration.showNotification`; ⋯ menüsünde "Alternatifle değiştir"; günde var olan hareket tekrar seçilince karta set eklenir; Kaslar sekmesinde toparlanma görünümü; PR listesi son kırılan rekora göre + 12+ tekrarlı 1RM "≈"; kilo grafiği (7 günlük ortalama); virgül kabul eden `NumField`, −/+ adım, kg/lb (`settings.unit`, `exercise.unit`; veri kg); "Dumbell/İncline" ad düzeltmesi (id'ler aynı, eski adlar `LEGACY_PRESET_NAMES`), hazır hareket adı o anki dilde; manifest kısayolları + maskable ikon + `?view=today`; `app.html` satır içi `lang === "tr" ?` metinleri `L.i_*` anahtarlarına taşındı; PWA v73 ✅
 - **Aşama 3** (opsiyonel, henüz başlamadı): View extraction — `App` monolit'inden dashboard/history/stats/programs/exercises/settings view'ları ayrı bileşenlere taşınır.
 - **Kişisel alışkanlık takvimi** (Bölüm 98): `/habits` altında tek seçili alışkanlık, altın tamamlanma günleri, mevcut/aylık/en uzun seri; `private_habit_access` ile sabit hesap kimliğine bağlı RLS. Migration canlıya ayrıca uygulanır; salt HTML görünürlüğü yetkilendirme sayılmaz.
 - **Alışkanlıklar uygulama sekmesi** (Bölüm 99): Yan menüde Alışkanlıklar; `/app/habits` görünümü antrenman takviminin aynı ay grid'ini ve mini takvimini kullanır. Kompakt seçim/seri alanı; ayrı sayfa kabuğu yok. `/habits` eski bağlantısı sekmeye yönlenir. App runtime dosyaları kökten mutlak URL kullanır; doğrudan iç rota yüklemesi testlidir; PWA v68.
+
+- **Faz 1–5 ana repo entegrasyonu** (Bölüm 105): Kullanıcının yerelde test ettiği Volkan klasörü `8dea5e9` tabanına aktarıldı; ortak çıktılar generator'lardan üretildi, codegen ve 62 test ile izole profil/alışkanlık RLS testleri doğrulandı. Gizli profil migration'ı ve R2 görsel taşıması ayrı canlı kurulum işleridir.
 
 Detay için `REFACTOR-GECMISI.md`'ye bak.
 

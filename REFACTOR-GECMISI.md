@@ -4151,6 +4151,191 @@ Temel yatay itiş, dikey/yatay çekiş ve tek taraflı alt vücut desenlerini ta
 
 ---
 
+## Bölüm 105 — Faz 1–5 Ana Repo Entegrasyonu (2026-11-03)
+
+### Kapsam ve Kaynak
+
+- Kullanıcının yerelde test edip birleştirilmesini onayladığı `C:/Users/colak/Documents/LogWise-Volkan/LogWise-master` klasöründeki Faz 1–5 paketi ana repoya aktarıldı. Başlangıç noktası `8dea5e9`; aktarım öncesi `origin/master` ve `origin/web/work` aynı commit'teydi.
+- Değişiklikler `codex/integrate-volkan-updates` dalında doğrulanır; tamamı birlikte `web/work` üzerinden `master` dalına fast-forward gönderilir. Diğer ajanın `LogWise/` worktree'sinde işlem yapılmaz.
+- 30 değişen ve 14 yeni dosya kapsanır. Ana repodaki Git'e eklenmemiş `docs/language-toggle-prototype.html` korunur ve bu pakete dahil edilmez. Kaynak klasörde değişiklik yapılmaz.
+- `data/presets-exercises.js`, `data/ex-guides.js`, `data/ex-meta.js` ve mobil preset çıktısı kaynak JSON'lardan ilgili generator'larla yeniden üretilir. Mobil değişiklik yalnız ortak preset adlarının generated çıktısıdır.
+
+### Doğrulama
+
+- `node scripts/check-codegen.js`: preset, guide ve yeni kas meta çıktıları güncel; 145/145 hareket doğrulanır.
+- `node --test scripts/test-habit-utils.js scripts/test-calc.js scripts/test-sync.js scripts/test-muscles.js`: 62/62 test geçti.
+- `scripts/test-private-profile-rls.js` ve `scripts/test-private-habits.js`: geçici PGlite kurulumunda geçti; canlı Supabase'e bağlanılmadı.
+- Değişen/yeni 22 JavaScript dosyasında `node --check`, HTML içindeki 6 inline script'te sözdizimi ve 4 JSON dosyasında parse kontrolü geçti.
+- Headless Chrome'da misafir verisiyle gün görünümü, virgüllü ağırlık girişi, ✓ sonrası yerel kayıt, panelde haftalık kas seti/toparlanma, kas haritasıyla hareket filtresi ve 390 px mobil görünüm doğrulandı; yakalanmamış JavaScript hatası yok. İlk kullanım tanıtımı normal düğmesiyle kapatıldı; Supabase API istekleri engellenerek canlı hesaba yazma yapılmadı.
+- TR/EN anahtarları 542/542; 141 yerel precache URL'si `.html` ve Library alias çözümlemesiyle mevcut; yeni runtime dosyaları precache'te. PWA `logwise-v73`.
+- Değişen mobil generated preset dosyası TypeScript `--noEmit --strict` kontrolünü geçti. Tam `npm run typecheck`, bu worktree'de mobil bağımlılıklar kurulu olmadığı için `tsc` bulunamadığından çalışmadı; bu bir tam mobil doğrulaması değildir.
+
+### Canlı Kurulum Sınırları
+
+- Bu entegrasyon kaynak kodunu GitHub'a gönderir ve mevcut Cloudflare Git bağlantısı web yayınını başlatır; canlıya çıkışın başarısı ayrıca kontrol edilir.
+- `supabase/migrations/20261103120000_private_profile_prs_shares.sql` repoya dahil edilir; canlı veritabanına bu işlemde uygulanmaz. Gizli profil SELECT kısıtlamalarının devreye girmesi bu migration'ın ayrıca uygulanmasına bağlıdır; istemci RPC yokken önceki sorguya dönebilir.
+- `scripts/mirror-ex-images.js` ve reçetesi dahil edilir; R2 indirme/yükleme/rewrite çalıştırılmaz. Mevcut `data/ex-images.js` adresleri korunur.
+
+## Bölüm 104 — Faz 5: Cila ve Kalanlar (2026-11-03)
+
+İnceleme planının Faz 5 maddeleri: B4, B17, B18, C6, C9, C10, D4, D6, E4, E5, F4.
+
+### Kararlar
+
+- **B4 — Arama.** `performSearch`: kütüphanedeki hareketler (görünen adla) → hareket detayı (`setHistId`); kütüphanede olmayan hazır hareketler → önizleme; programlar → Programlar görünümü + `openEditPg` (form dolu açılır); antrenman günleri "20 Ekim 2026" biçiminde, alt satırda hareket adlarıyla, en yeniden eskiye. Tür etiketleri i18n'de. `useCallback` kapanış hatası (bayat `data`) giderildi.
+- **B17 — Bildirim.** `new Notification()` yerine `serviceWorker.getRegistration().showNotification()` (Android Chrome); yoksa eski kurucuya düşer. Bugün tamamlanmış set varsa hatırlatma yok. Bildirime dokununca `/app?view=today` açılır (`sw.js` notificationclick `data.url`). Zamanlanmış hatırlatma push gerektirir; mobil aşamaya bırakıldı.
+- **B18 — i18n.** `app.html` içindeki 63 satır içi `lang === "tr" ? "…" : "…"` metni `L.i_*` anahtarlarına taşındı; şablonlu üç metin (`i_copiedToDate`, `i_keepRecordsOf`, `i_confirmDeletePost`), sekme başlıkları (document.title), "N hareket" sayacı ve günlük program varsayılan adı da. Kalan `lang === "tr"` kullanımları yalnız yerel ayar kodları (`"tr"/"en"` sıralama, `,`/`.` ondalık, `tr-TR` tarih) ve dil düğmesi. TR/EN anahtar sayısı eşit (542/542).
+- **C6 — Sayı girişi ve birim.** Set satırlarında `type="number"` yerine modül düzeyinde `NumField` (`type="text"`, `inputMode="decimal"`): virgüllü "62,5" kabul edilir, odaktayken ham metin korunur. Ağırlık kutusu odaktayken −/+ adım düğmeleri (halter 2,5 kg / 5 lb, dumbbell-kettlebell 1 kg / 5 lb, makine-kablo 5 kg / 10 lb); odak kaybolmasın diye düğmeler `pointerdown` varsayılanını engeller. kg/lb: genel ayar `data.settings.unit` (Veri Yönetimi → Veriler), hareket istisnası `exercise.unit` (düzenleme penceresi). Veri her zaman kg saklanır (lb girişi 3 ondalıkla kg'a çevrilir); set kutuları, ipuçları, son seans çipleri, set etiketleri, rekor listesi/tostları, hareket detayı + grafik, panel grafiği ve toplam hacim, antrenman özeti, ilerleme önerisi (lb'de +5 lb), ısınma planı (lb'de 45 lb bar, 5 lb adım; `warmupPlan(w, bar, step)`) ve plaka ipucu (lb plakalar 45/35/25/10/5/2,5) birime göre. Paylaşım/profil sayfaları, liderlik tablosu ve vücut ölçüleri kg kalır.
+- **C9 — Alternatifle değiştir.** ⋯ menüsünde. Adaylar: rehberdeki `web.related` (rehber geç yüklenir), aynı birincil bölgeye düşen kendi hareketlerin, aynı birincil kasın hazır hareketleri. Seçilince: tamamlanmış set yoksa kart yerinde değişir (süperset grubu korunur, yeni hareketin geçmişinden plan setleri); tamamlanmış set varsa onlar eski harekette kalır ve alternatif hemen altına eklenir; alternatif günde zaten varsa eskinin planlı setleri kalkar.
+- **C10 — Aynı hareket bir günde ikinci kez.** Plandaki `entryId` geçişi yerine daha dar bir çözüm seçildi: seçicide gündeki hareketler artık seçilebilir ("bugünde var · + set") ve seçilince mevcut karta yeni set eklenip karta kaydırılır. Gerekçe: istatistik, PR, rozet, profil/paylaşım ve mobil `app_*` şeması "gün başına hareket başına tek kayıt" varsayıyor (~40 arama noktası); B12'deki çift kayıt sorunu Faz 3'te `applySharedWorkout` ile zaten çözüldü. Gerçek iki ayrı kart istenirse bu madde ayrıca ele alınmalı.
+- **D4 — Toparlanma.** `LOGWISE_MUSCLES.recoveryStatus`: her bölgenin en son tamamlanmış set aldığı gün, aradan geçen gün, o günkü set (birincil 1 / ikincil 0,5). Kaslar sekmesinde "Haftalık setler / Toparlanma" düğmesi; harita ve satırlar 0–1 gün kırmızı, 2 gün sarı, 3+ gün yeşil. Metinde sezgisel olduğu açıkça yazıyor.
+- **D6 — Adlar ve görseller.** Kanonik `presets-exercises.json` ve `ex-guides.json` metinlerinde "Dumbell" → "Dumbbell", "İncline" → "Incline" (id'ler/slug'lar ve URL'ler değişmedi); generator'lar yeniden çalıştırıldı (web + mobil çıktılar). `LOGWISE_EX_UTILS.isDefaultPresetName` + `LEGACY_PRESET_NAMES`: kullanıcı hareketi yeniden adlandırılmamışsa ad, o anki dilde ve düzeltilmiş yazımla hazır listeden gösterilir (`exN`). "Zaten kütüphanede" kontrolleri artık `presetId`/adından çözülen id ile. Görseller: `scripts/mirror-ex-images.js` (96 hareket / 192 kare) indirir, `wrangler r2 object put` komutlarını üretir ve yükleme sonrası her kareyi HEAD ile doğrulayıp yalnız erişilebilir olanları `data/ex-images.js` içinde `media.logwise.fit`'e çevirir. **R2'ye yükleme bu ortamdan yapılamadı (kimlik bilgisi yok); kullanıcı tarafından çalıştırılmalı.**
+- **E4.** `getAllPRs` her harekete `prDate` (ana ölçütün en son yükseldiği gün) ve `est1RMReps` ekler; panel rekor listesi son kırılan rekora göre sıralanır, tarih gösterir, 12+ tekrardan gelen tahmin "≈ … (N tekrardan, kaba tahmin)".
+- **E5.** `LOGWISE_CALC.weightTrend`: gün başına son kilo ölçümü + o gün dahil son 7 takvim günündeki ölçümlerin ortalaması. Ölçüler sekmesinde grafik (noktalar + ortalama çizgisi, `DashChart` "bw" modu) ve 4 haftalık değişim.
+- **F4.** `manifest.json`: `id`, `description`, maskable ikonlar (`icon-maskable-192/512.png`, içerik %80 güvenli alanda), kısayollar "Bugünün antrenmanı" (`/app?view=today`) ve "Panel" (`/app/dashboard`). `app.html` `?view=today` ve `?view=dashboard` rotalarını tanır. `_headers` ve precache yeni ikonları içerir.
+- PWA `logwise-v73`.
+
+### Faz 1–5 çakışma kontrolü
+
+- Faz 1–4'ün tüm tarayıcı senaryoları Faz 5 koduyla yeniden çalıştırıldı ve geçti (senkron/çakışma/çevrimdışı/çıkış, dinlenme sayacı ve SW şeridi, başlat/✓/rekor/bitir/özet, misafir aktarımı, hedef + progresyon, ısınma/plaka, seri, çoklu sekme, kas haritası, haftalık setler, önizleme, detay, yük tipi). Tek değişiklik test tarafında: set kutuları artık `input[type=number]` değil (`NumField`), test seçicisi `input[inputmode=decimal]` oldu.
+- Kesişimler: B16 destekli harekette negatif ağırlık NumField + lb dönüşümüyle çalışıyor (−20 kg); Faz 3 plaka ipucu ve ısınma kg'da aynı sonuç, artık −/+ düğmeleriyle birlikte; Faz 2 ✓ ipucu doldurma ve rekor tostu birim etiketli; C9 değişimi Faz 2 plan setlerini (`makeWorkoutEntry`) ve Faz 3 hedeflerini kullanıyor; E4 sıralaması paneldeki varsayılan grafik hareketini "en son rekor kırılan" yaptı.
+
+### Doğrulama
+
+- `node --test scripts/test-habit-utils.js scripts/test-calc.js scripts/test-sync.js scripts/test-muscles.js` → 62/62.
+- `node scripts/check-codegen.js` → yeşil (preset ve guide çıktıları generator'la yeniden üretildiği için bu kopyadaki eski satır sonu farkı da kapandı).
+- Tarayıcı (sahte Supabase, masaüstü + mobil): B4, B17, C6 (virgül, adım, lb), C9, C10, D4, D6, E4, E5, F4, B18 senaryoları.
+
+## Bölüm 103 — Faz 4: MuscleWiki Tarzı Kas Analizi (2026-11-03)
+
+İnceleme planının Faz 4 maddeleri: D1, D3, D2, D5, E1, E3, B16, F6.
+
+### Kararlar
+
+- **D1 — Kas taksonomisi ayrı kanonik dosyada.** Plan `ex-guides.json`'a alan eklemeyi öneriyordu; bunun yerine `data/ex-meta.json` açıldı, çünkü kas/ekipman verisi uygulama açılışında (haftalık kas seti, harita, halter tespiti) gerekiyor, 902 KB'lık rehber ise yalnız önizlemede. `ex-meta.json`: 22 harita bölgesi (18 izlenen + 4 küçük: serratus, rotator manşet, kalça fleksörleri, ön kaval), 46 kasın bölge eşlemesi ve TR/EN adı, 2 takma ad (`abdominals` → `rectus-abdominis`, `spinal-erectors` → `erector-spinae`), özel hareketler için kategori → bölge eşlemesi ve her hazır hareket için `equipment` (sabit liste: barbell, dumbbell, ez-bar, kettlebell, cable, machine, smith, band, bodyweight), `difficulty` 1–3 ve opsiyonel `loadType`. Kas listeleri tek kaynak olarak `ex-guides.json`'da kalır; `scripts/build-ex-meta.js` ikisini birleştirip `data/ex-meta.js` üretir (her kas sözlükte olmalı, her hazır hareketin kaydı olmalı; `--check` CI'da). Ekipman ilk taslağı rehberdeki serbest metinden türetildi, belirsizler elle düzeltildi; zorluk değerleri sezgisel ve düzenlenebilir. `ex-guides.json` içeriğine dokunulmadı.
+- **D2 — Vücut haritası.** `components/muscle-map.js`: tek SVG, sol yarı çizilip aynalanır, her bölge `data-region` taşıyan bir grup; dokunulabilir ve klavyeyle seçilebilir. Hareketler sayfasında "Kas haritasıyla hareket bul": bölgeyi birincil çalıştıran hazır hareketler, ekipman çipleriyle daraltma, önizleme ve "Kütüphaneme ekle". Panel kartından "Bu kas için hareket bul" ile aynı ekrana gelinir.
+- **D3 — Haftalık kas setleri.** `LOGWISE_MUSCLES.countMuscleSets`: tamamlanmış normal set; birincil bölge 1, ikincil 0,5; ısınma ve kardiyo sayılmaz; bir hareket aynı bölgeyi birden çok kasla çalıştırsa da set başına bir kez. Panelde "Kaslar" sekmesi: hafta kaydırma, hedef bandı (varsayılan 10–20, `data.settings.muscleTargets[bölge] = {min,max}`), ısı haritası (hedef altı turuncu / bantta yeşil / üstü mavi), bölge seçince katkı veren hareketler. Özel hareketler kategoriden bölgeye düşer.
+- **D5 — Önizleme sekmeleri + geç yükleme.** `app.html` artık `ex-guides.js` yerine küçük `ex-meta.js` yükler; `LOGWISE_EX_UTILS.loadGuides()` rehberi ilk önizlemede dinamik `<script>` ile getirir (yüklenene kadar legacy `ex-preview.js` içeriği). Sekmeler: Nasıl yapılır (medya, açıklama, adım adım, ipuçları), Sık hatalar, İlerleme, Kaslar (harita + kas listesi), Benzer (kütüphaneye ekle), Geçmiş (son 5 seans + en iyi set, detaya geçiş). `isBarbellPresetId` artık `ex-meta` ekipmanını kullanır (ilk ekipman halter, dumbbell/EZ alternatifi yok). `ex-guides.js` çevrimdışı için precache'te kalır.
+- **E1 — Hareket detayı.** Geçmiş penceresi detay sayfasına dönüştü: 4 hafta / 3 ay / 1 yıl / tümü aralığı, tahmini 1RM / en yüksek ağırlık / toplam hacim grafiği (vücut ağırlığında en çok tekrar / ek yük), `LOGWISE_CALC.repMaxTable` ile 1/3/5/8/10/12+ tekrarda en iyi ağırlık ve tarihi, oturum listesi. `DashChart` "totalvol" ve "reps" modları ve `height` prop'u kazandı.
+- **E3 — Haftalık özet şeridi** (takvim üstü): antrenman günü (programda planlı gün sayısıyla), normal set, bu hafta kırılan rekor (`LOGWISE_CALC.prEvents`; ilk seans rekor sayılmaz), hedefin en gerisindeki bölge. Hafta başında her bölge doğal olarak hedefin altında olduğundan bu uyarı Cuma'dan itibaren gösterilir; yalnız son 4 haftada çalışılmış bölgeler için. Şeride dokununca panelde Kaslar sekmesi açılır.
+- **B16 — Yük tipi.** `exercise.loadType` ("weighted" | "bodyweight" | "assisted"; yoksa `ex-meta`'dan, o da yoksa ağırlıklı). Hareket düzenleme penceresinde seçim (Otomatik varsayılan). Vücut ağırlığında KG = ek yük (+KG başlığı), destekli harekette KG = destek (−KG; negatif saklanır, `setVolume` negatif ağırlığı 0 sayar). `getAllPRs` bu hareketlerde `maxReps` döndürür; panel PR listesi tekrarı gösterir (ağırlıklı ilk 10'un altına en çok 5 vücut ağırlığı rekoru); ✓ anındaki rekor kontrolü tekrar/ek yük/az destek üzerinden; set etiketleri "12 tekrar", "+10kg × 8", "−20kg × 8". Liderlik tablosu (`user_prs`) hâlâ ağırlık bazlı; 0 kg hareketler oraya gönderilmez.
+- **F6 — Gizli profil.** `supabase/migrations/20261103120000_private_profile_prs_shares.sql`: `user_prs` ve `shared_workouts` SELECT'i = satır sahibi veya profili public olan. Gizli profilin tek paylaşım bağlantısı çalışmaya devam etsin diye `get_shared_workout(p_id)` security definer RPC'si (tek satır, liste yok); `share.html` önce RPC'yi dener, yoksa eski sorguya düşer (migration istemciden önce/sonra uygulanabilir). `supabase_setup.sql` aynı politikalara güncellendi. İstemcide hesaplanan PR'ların sahtelenebilmesi bilinçli kabul edilen risk olarak kaldı. **Canlıya ayrıca uygulanmalı.**
+- PWA `logwise-v72`; precache'e `ex-meta.js`, `muscle-utils.js`, `muscle-map.js` eklendi. Yeni i18n anahtarları TR/EN eşit (451/451).
+
+### Faz 1–4 çakışma kontrolü
+
+- Faz 1 (yükleme hatası, koşullu PATCH, çakışma penceresi, çevrimdışı + yeniden gönderim, sekme kapanışı, çıkış), Faz 2 (başlat/✓/rekor/bitir/özet, ısınma ayarı, plan kopya, temizlik, misafir aktarımı), Faz 3 (hedef + çift progresyon, ısınma/plaka, seri, hazır program, ölçüm tarihi, çoklu sekme) senaryoları Faz 4 koduyla yeniden çalıştırıldı: hepsi geçti, sayfa hatası yok.
+- Özellikle kontrol edilen kesişimler: Faz 3 ısınma/plaka ipucu artık `ex-meta` ekipmanından çalışıyor (bench 20×10…57,5×1, plaka ipucu aynı); önizleme penceresi rehber yüklenmeden de açılıyor; E2 ısınma ayarı açıkken bile haftalık kas seti ısınmayı saymıyor (D3 tanımı); Faz 2 ✓ rekor kontrolü vücut ağırlığı hareketlerinde tekrar bazlı.
+
+### Doğrulama
+
+- `node --test scripts/test-habit-utils.js scripts/test-calc.js scripts/test-sync.js scripts/test-muscles.js` → 57/57.
+- `node scripts/build-ex-meta.js --check` yeşil. (`build-presets-exercises.js` / `build-ex-guides.js` `--check` bu ZIP kopyasında satır sonu (CRLF/LF) farkı yüzünden zaten kırmızıydı; bu fazda o dosyalara dokunulmadı.)
+- `node scripts/test-private-profile-rls.js <pglite>`: eski politikalarla gizli profilin PR/paylaşımı anon'a görünüyor; migration sonrası görünmüyor, sahibi görüyor, RPC bağlantıyla tek paylaşımı döndürüyor, migration iki kez uygulanabiliyor.
+- Tarayıcı (sahte Supabase, masaüstü + mobil): D2/D3/D5/E1/E3/B16 senaryoları + açık tema/İngilizce görünüm.
+
+## Bölüm 102 — Faz 3: Program, İlerleme ve Motivasyon (2026-11-02)
+
+İnceleme planının Faz 3 maddeleri: C4, C5, B6, B7, B11, B12, B14, B15, B19, F3, F5.
+
+### Kararlar
+
+- **C4 — Program hedefleri.** Geriye uyumlu şema: `program.targets[exId] = { sets, repMin, repMax, rest }` (`days` hâlâ id dizisi; hiçbir okuyucu kırılmadı). Program penceresinde seçili her hareket için set × tekrar aralığı ve dinlenme. Gün kartında "🎯 Hedef: 3 × 8–12 · ⏱ 2m30s". Plan setleri hedef set sayısına uyar. Çift progresyon: `LOGWISE_CALC.progressionHint` — geçen seans hedef sayıda normal set en yüksek ağırlıkta ve hepsi `repMax`'a ulaştıysa öneri (`+2,5 kg`, `repMin` tekrar) hem kartta gösterilir hem de plan setlerinin hedefi olur. Dinlenme önceliği: hareket ayarı (`exerciseRest`) > program hedefi > genel.
+- **C5:** `platesPerSide` (25/20/15/10/5/2,5/1,25; bar 20) ve `warmupPlan` (bar ×10, %50 ×5, %70 ×3, %85 ×1; 2,5'e yuvarlı). Halter hareketleri (`ex-guides` ekipmanında "barbell", EZ/dumbbell hariç) için ⋯ menüsünde "Isınma setleri ekle"; ağırlık kutusu odaktayken plaka ipucu ("Her tarafa: 25 + 15 (bar 20 kg)").
+- **B6:** `calcStreakInfo(workouts, { restDows, maxGap })` → `{ current, best }`. Aktif programın dinlenme günleri (`programRestDows`: offDays + boş günler) seriyi bozmaz; programsızken 2 güne kadar ara tolere edilir; bugün boşsa nötr. Rozetler en iyi seriye göre açılır, seri rozetleri geri alınmaz. Panelde mevcut seri, rozet ilerlemesinde en iyi seri. Profil sayfası aynı kuralları kullanır.
+- **B7:** Kas grubu sıklığı gün başına bir kez sayılır.
+- **B11:** Her aktivasyonda `programMeta.activatedAt = bugün`.
+- **B12:** `LOGWISE_SYNC.applySharedWorkout` — paylaşılan antrenman kopyalanınca aynı gün aynı hareket varsa setler o kayda eklenir; isim eşleşmezse hazır harekete (`presetId` + kategoriler) bağlanır; setler plan. app, profile ve share aynı fonksiyonu kullanır (profile/share artık `presets-exercises.js` + `exercise-utils.js` yükler).
+- **B14:** Hazır program eklenirken hareketlere `presetId`, boş günlere `offDays`, hareketlere varsayılan hedefler (bileşik 3×6–10/150 sn, diğerleri 3×10–15/90 sn; `preset.targets` varsa o) ve "Şimdi aktif program yapılsın mı?" onayı. `REST_PRESETS`'e 150 sn eklendi.
+- **B15:** `follows` sorgusu kullanıcı başına bir kez; `user_prs` 10 sn debounce ile ve yalnız değişen satırlar gönderilir.
+- **B19:** Rozetlerin `unlockedAt` değeri eşiğin gerçekten aşıldığı gün (`achievedDates`); program silinince `programMeta` da silinir; ölçüme tarih seçimi; CSV'de tırnak kaçışı; program kartı düzenle/sil butonlarına erişilebilir ad.
+- **F3:** `sw.js` precache'ten `/data/ex-guides.json` çıkarıldı (çalışma zamanında okunmuyor); `logwise-v71`.
+- **F5:** `BroadcastChannel("logwise-app")`: aynı hesapla ikinci sekme açılınca iki sekmede de uyarı şeridi; bir sekme kaydedince diğeri (kirli değilse) güncel veriyi yükler — oturumluda bulut tazelik kontrolüyle, misafirde `gym-log-v3`'ten.
+
+### Faz 1–3 çakışma kontrolü
+
+- Faz 1 (senkron, çakışma, çevrimdışı, sekme kapanışı, çıkış, B1/B2/B3/B5, SW şeridi), Faz 2 (başlat/✓/rekor/hedef/bitir/özet, ısınma ayarı, plan kopya, temizlik, misafir aktarımı) ve Faz 3 senaryoları birlikte yeniden çalıştırıldı: hepsi geçti, sayfa hatası yok.
+- İki oturumlu sekme testi: A sekmesindeki ✓ buluta yazıldı, B sekmesi otomatik güncellendi, B'deki sonraki düzenleme çakışma penceresi açmadan koşullu yazımla kaydedildi (Faz 1 koşullu yazım + Faz 3 F5 birlikte çalışıyor).
+- Davranış notları: seri artık "antrenman günü" sayar (dinlenme bozmaz); seri rozetleri geri alınmaz; dinlenme önceliği hareket > program hedefi > genel.
+
+### Doğrulama
+
+- `node --test scripts/test-habit-utils.js scripts/test-calc.js scripts/test-sync.js` → 45/45.
+
+## Bölüm 101 — Faz 2: Salonda Hızlı Kayıt (2026-11-02)
+
+İnceleme planının Faz 2 maddeleri: C1, C2, C3, C7, C8, B8, B9, B10, B13, E2, A5.
+
+### Kararlar
+
+- **C1 — Set ✓ modeli.** Sete `done` alanı eklendi. `LOGWISE_CALC.isSetDone(s)` = `done === true` ya da (alan yoksa) değer taşıması → eski kayıtlar geriye dönük aynı davranır. Tüm istatistikler (seri, sıklık, PR, uyum, rozetler, panel, profil, leaderboard upsert'ü, CSV, paylaşım) yalnız tamamlanmış setleri sayar (`doneSets`, `filterWorkouts`). ✓ boş alanları önce `target`, yoksa geçen seansın eşleşen setiyle doldurur; tekrar basınca geri alır. Menüde "Tüm setleri tamamla".
+- **Plan setleri:** `{weight:0, reps:0, done:false, target:{weight, reps}}` (kardiyo: `target.duration`). Soluk ipucu = `target` ya da geçen seans. Gün görünümünden çıkarken: değer girilmiş ama ✓'lenmemiş setler tamamlanır (bugün ve geçmiş); geçmiş günlerde boş plan setleri silinir; bugün/gelecekte plan korunur.
+- **C2:** "+ Set Ekle" (normal/süperset) son setin değerlerini `target` olarak taşır; ısınma/drop hedefsiz.
+- **C3:** Program gününde "Antrenmanı başlat (N hareket)" tüm hareketleri geçen seansın set yapısıyla plan olarak ekler ve kronometreyi başlatır. Gün ekranında süre + "Bitir": boş kalan setler için onay, süre `durations[gün]`e (artık seçili güne), özet penceresi (süre, set, hacim, hareket, aynı hareketlerde geçen sefere göre hacim farkı, yeni rekorlar, paylaş).
+- **C7:** Bugünün gününde hareket varken Screen Wake Lock (destek yoksa sessiz).
+- **C8:** `data.exerciseRest[exId]` (sn) — kart altındaki seçiciyle; ✓ sonrası dinlenme bu süreyle başlar. "Otomatik" varsayılan açık ve `gym-rest-auto`da hatırlanır; "+ Set Ekle" artık sayaç başlatmaz.
+- **B8:** `matchPrevSet` — geçen seans ipucu aynı türden aynı sıradaki setle eşleşir.
+- **B9:** Rekor kontrolü yalnız ✓ anında; ısınma ve ilk kayıt hariç; ağırlık veya tahmini 1RM rekoru → konfeti + toast. Yazarken konfeti kaldırıldı.
+- **B10:** Mobil başlık: dar boşluk, gün görünümünde ay okları/Ay-Hafta seçicisi gizli, "2 Kas" kısa tarih. Set türü `#` rozetine dokunarak seçilir (gizli `<select>`); 7 ikon "ℹ + ⋯" menüsüne toplandı; gün görünümü alt boşluğu FAB/misafir şeridi için büyütüldü; sayı alanları `inputMode="decimal"`.
+- **B13:** "Antrenman kopyala" ve paylaşılan antrenmanı kopyalama (app, profile, share) PLAN setleri üretir (`LOGWISE_CALC.toPlanSet`).
+- **E2:** `data.settings.includeWarmups` (varsayılan kapalı) — panelde onay kutusu; panel, rozet, uyum ve özet ısınmaları buna göre sayar; profil istatistikleri de aynı ayarı okur.
+- **A5:** Oturum açılınca cihazda misafir verisi (`gym-log-v3`) varsa "Hesabıma aktar / Şimdi değil" penceresi. `LOGWISE_SYNC.mergeGuestData`: hareketler presetId/isimle eşleşir; aynı gün aynı hareket iki tarafta varsa hesap korunur; programlar/notlar/süreler/ölçümler eksikse eklenir. Başarılı buluta yazımdan sonra misafir anahtarı silinir. "Şimdi değil" kullanıcı başına hatırlanır; Veri Yönetimi'nden sonradan aktarılabilir.
+- **Şema:** `init`/`migrateData` → `exerciseRest: {}`, `settings: {}`.
+- **sw.js:** `logwise-v70` (değişen runtime JS'lerin yeniden indirilmesi için).
+
+### Faz 1 ile çakışma kontrolü
+
+- Faz 1 tarayıcı senaryoları (yükleme hatası, koşullu yazma, çakışma, çevrimdışı, sekme kapanışı, çıkış, B1/B2/B3/B5, SW şeridi) Faz 2 sonrası yeniden çalıştırıldı: hepsi geçti.
+- Bilinçli davranış değişiklikleri: panel toplam hacmi artık varsayılan olarak ısınmaları saymaz (B3 test verisinde 43.8t → 40.8t); "Otomatik" dinlenme set eklemede değil ✓'de başlar; kopyalama akışları (Faz 1'de `mutateUserData`'ya taşınanlar dahil) artık plan seti yazar.
+- `share.html` artık `lib/calc.js` de yükler (`toPlanSet`).
+
+### Doğrulama
+
+- `node --test scripts/test-habit-utils.js scripts/test-calc.js scripts/test-sync.js` → 38/38.
+- Playwright (mobil 390 px + masaüstü): başlat → plan setleri ve ipuçları → ✓ → otomatik dinlenme → elle 70 kg → rekor toast → yeni set hedefi → hareket bazlı dinlenme → menüden tümünü tamamla → bitir (boş set onayı) → özet; panel ısınma onay kutusu; kopyanın plan olarak gelmesi ve istatistiğe girmemesi; geçmiş günde boş set temizliği; misafir verisi aktarımı (sahte Supabase).
+
+## Bölüm 100 — Faz 1: Veri Güvenliği ve Salon Temel Düzeltmeleri (2026-11-02)
+
+İnceleme belgesindeki ("LogWise Web — İnceleme ve Geliştirme Planı") Faz 1 maddeleri: A1, A2, A3, A4, B1, B2, B3, B5, F1, F2.
+
+### Kararlar
+
+- **A1 — Yükleme hatası ≠ satır yok.** `user_data` artık `.maybeSingle()` ile `data, updated_at` okunur. Hata varsa uygulama boş veriyle açılmaz; "Veriler yüklenemedi / Tekrar dene" ekranı gösterilir ve `save`/`debouncedSave` yazmaz (`loadOkRef`). Eskiden hata → `init()` → ilk dokunuşta buluttaki tüm geçmişin üzerine boş blob yazılıyordu.
+- **Koşullu yazma (migration gerekmez).** `LOGWISE_SYNC.writeCloud` satır varsa `UPDATE ... WHERE user_id = uid AND updated_at = <son bilinen>` yapar ve `select("updated_at")` ile yeni temeli okur. 0 satır → ikinci okuma ile çakışma doğrulanır → "Verilerin başka bir yerde değişti" penceresi (buluttakini yükle / bu cihazdakini kaydet / yerel sürümü JSON indir). Satır yoksa `INSERT`; `23505` → çakışma. `user_data_updated_at` trigger'ı olsa da olmasa da çalışır.
+- **A2/A3 — Kullanıcıya özel yerel kopya.** `gym-log-local-<uid>` = `{ data, base:{exists, updatedAt}, dirty, savedAt }`. Her değişiklik (debounce sonunda, sayfa gizlenince/kapanırken senkron) buraya yazılır. Gönderim başarısızsa kirli kalır; `online`, ikona dokunma ve 5→60 sn geri çekilmeli yeniden deneme ile gönderilir. Açılışta `decideInitial` kararı: temiz yerel → bulut; kirli + bulut aynı sürüm → yereli gönder; kirli + bulut değişmiş → çakışma; bulut okunamıyor + yerel var → çevrimdışı mod (yazmalar koşullu olduğu için güvenli).
+- **Eski hata kapandı:** `beforeunload` oturumlu kullanıcının bekleyen verisini misafir anahtarı `gym-log-v3`'e yazıyordu (veri kaybı + paylaşılan cihazda misafir modunda görünme). Artık yalnız misafir `gym-log-v3` kullanır.
+- **Çıkış:** Çıkışta önce gönderim denenir; gönderilemeyen değişiklik varsa onay sorulur; yerel kopya silinir (paylaşılan cihaz gizliliği). `profile.html` çıkışı ve hesap silme de yerel kopyayı temizler.
+- **Tazelik kontrolü:** Sekme görünür olunca (en fazla 15 sn'de bir) ve kirli değişiklik yokken buluttaki `updated_at` kontrol edilir; değişmişse sessizce yeniden yüklenir ("Başka bir yerde yapılan değişiklikler yüklendi").
+- **Diğer yazıcılar:** `profile.html` (program/antrenman kopyala), `share.html`, `program.html` aynı A1 hatasını taşıyordu (okuma hatası → boş şablon → upsert). Hepsi `LOGWISE_SYNC.mutateUserData` kullanır: okuma hatasında hiç yazmaz, koşullu yazar, çakışmada en fazla 2 kez taze veriyle tekrar dener.
+- **Senkron ikonu:** Başlıkta bulut ikonu (kaydedildi / kaydediliyor / çevrimdışı / hata / çakışma), `data-sync-state` özniteliğiyle.
+- **A4:** SW güncellemesi otomatik `location.reload()` yerine `logwise:sw-update` olayı + "Yeni sürüm hazır — Yenile / Sonra" şeridi. İlk kurulumda (önceden controller yokken) şerit gösterilmez.
+- **B1/B2:** Boş gün ekranındaki "Hareket Ekle" artık pencereyi açar. Gün penceresi "Kütüphanen" + kütüphanede olmayan "Hazır Hareketler"i listeler; hazır hareket `presetId` ile kütüphaneye ve güne birlikte eklenir; eşleşme yoksa "“X” adlı yeni hareket oluştur" satırı. Yeni hareketin ilk seti kategoriye göre (kardiyo → süre) üretilir (`emptySetForCats`).
+- **B3:** `LOGWISE_CALC.setVolume` — kardiyo/eksik alan 0; panel toplam hacmi, hareket grafiği, geçmiş penceresi ve `getAllPRs` bunu kullanır (NaNkg düzeldi).
+- **B5:** Dinlenme sayacı bitiş zaman damgası (`restEndsAt`) tutar, kalan süre `restRemaining` ile hesaplanır (arka planda kaymaz), `gym-rest-timer` ile yenilemede devam eder. Bitişte titreşim + kısa bip (AudioContext, başlatma dokunuşunda açılır) + 6 sn "Hazır! Sıradaki set" kutusu; sekme gizliyse ve bildirim izni varsa SW `showNotification` (Android Chrome `new Notification` desteklemez). ±15 sn butonları; `fmtRestShort` ile "1m30s" etiketleri. Seçilen süre `gym-rest-total`'da hatırlanır. `sw.js` `notificationclick` ile uygulamaya döner. Not: ekran tamamen kilitliyken tarayıcı JS'i dondurabilir; uyarı geri dönüldüğünde verilir.
+- **F1:** supabase-js `2.118.0` sabitlendi (`/dist/umd/supabase.js`): app, profile, share, program, reset-password ve `sw.js` precache.
+- **F2:** `scripts/test-calc.js` ve `scripts/test-sync.js` (sahte Supabase istemcisiyle veri kaybı senaryoları) + CI adımı.
+
+### Dosya / Config Değişiklikleri
+
+| Dosya | Değişiklik |
+|---|---|
+| `lib/sync.js` | YENİ — `window.LOGWISE_SYNC` |
+| `lib/calc.js` | `setVolume`, `fmtRestShort`, `restRemaining`; `getAllPRs` hacmi |
+| `app.html` | Senkron katmanı, hata ekranı, çakışma penceresi, senkron ikonu, SW şeridi, gün ekleme penceresi, dinlenme sayacı |
+| `profile.html`, `share.html`, `program.html` | Kopyalama akışları `mutateUserData`; profil çıkışı/hesap silme yerel kopyayı temizler; `lib/sync.js` yüklenir |
+| `reset-password.html` | supabase-js sürüm sabitleme |
+| `data/i18n-tr.js`, `data/i18n-en.js` | Yeni TR/EN anahtarlar (sync*, conflict*, loadError*, rest*, swUpdate*, dayEmpty*, yourLibrary, createExNamed, exAddedToLibrary) |
+| `sw.js` | `logwise-v69`, `/lib/sync.js` precache, sabit supabase URL, `notificationclick` |
+| `scripts/test-calc.js`, `scripts/test-sync.js` | YENİ testler |
+| `.github/workflows/codegen-check.yml` | Test adımı |
+| `AGENTS.md` | Harita + Bölüm 100 özeti |
+
+### Doğrulama Notları
+
+- `node --test scripts/test-habit-utils.js scripts/test-calc.js scripts/test-sync.js` → 29/29.
+- Playwright (yerel sunucu, sahte Supabase): okuma hatasında hata ekranı ve sıfır yazma; normal koşullu PATCH; dış değişiklikte çakışma penceresi ve bulutun ezilmemesi; çevrimdışı yazma → yerel kirli kopya → çevrimdışı açılış → bağlantı dönünce gönderim; değişiklikten hemen sonra sekme kapanınca yerel kopya ve sonraki açılışta gönderim; çıkışta yerel kopya silinmesi; misafir B1/B2/B3/B5 akışları; SW şeridi.
+- `node scripts/check-codegen.js` bu ZIP kopyasında `data/presets-exercises.js` için satır sonu (LF/CRLF) farkı nedeniyle başarısız; Faz 1 bu dosyaya dokunmadı.
+
 ## Bölüm 99 — Alışkanlıkların Mevcut App Takvimine Entegrasyonu (2026-10-18)
 
 - Kullanıcı ayrı tablo kararını açıkça onayladı: aynı Supabase projesi/istemcisi/oturumu altında
